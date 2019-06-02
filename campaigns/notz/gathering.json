@@ -1,0 +1,187 @@
+{
+	"scenarioName": "The Gathering",
+	"setup": [
+		"prologue",
+		"gather_encounter_sets",
+		"setup_locations",
+		"set_aside_cards",
+		"encounter_deck"
+	],
+	"steps": {
+		"prologue": {
+			"type": "story",
+			"text": "You and your partners have been investigating strange events taking place in your home city of Arkham, Massachusetts. Over the past few weeks, several townspeople have mysteriously gone missing. Recently, their corpses turned up in the woods, savaged and half-eaten. The police and newspapers have stated that wild animals are responsible, but you believe there is something else going on. You are gathered together at the lead investigator’s home to discuss these bizarre events."
+		},
+		"gather_encounter_sets": {
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"torch",
+				"rats",
+				"ghouls",
+				"striking_fear",
+				"ancient_evils",
+				"chilling_cold"
+			]
+		},
+		"setup_locations": {
+			"text": "Put the Study location into play. Set each other location aside, out of play. Each investigator begins play in the Study."
+		},
+		"set_aside_cards": {
+			"text": "Set the Ghoul Priest and Lita Chantler cards aside, out of play."
+		},
+		"encounter_deck": {
+			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+		},
+		"house_standing": {
+			"text": "In your Campaign Log, record that <i>your house is still standing</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "Campaign Log",
+					"id": "house_standing",
+					"text": "Your house is still standing.",
+				}
+			]
+		}, 
+		"house_burned": {
+			"text": "In your Campaign Log, record that <i>your house has burned to the ground</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "Campaign Log",
+					"id": "house_burned",
+					"text": "Your house has burned to the ground.",
+				}
+			]
+		},
+		"ghoul_priest_alive": {
+			"text": "In your Campaign Log, record that <i>the Ghoul Priest is still alive</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "Campaign Log",
+					"id": "ghoul_priest_alive",
+					"text": "The Ghoul Priest is still alive.",
+				}
+			]
+		},
+		"lita_finds_others": {
+			"text": "In your Campaign Log, record that <i>Lita was forced to find others to help her cause</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "Campaign Log",
+					"id": "lita_finds_others",
+					"text": "Lita was forced to find others to help her cause.",
+				}
+			]
+		},
+		"earn_lita": {
+			"text": "The lead investigator earns the Lita Chantler card and may include it in his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+					"type": "story_card",
+					"investigator": "lead_investigator",
+					"card": "01117"
+				}
+			]
+		},
+		"lead_investigator_xp": {
+			"text": "The lead investigator earns 1 experience, as he or she refuses to let the night’s events destroy his or her life",
+			"effects": [
+				{
+					"type": "earn_xp",
+					"investogator": "lead_investigator",
+					"value": 1
+				}
+			]
+
+		},
+		"earn_xp": {
+			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display (remember to add eligible locations to the victory display). Each investigator earns 2 bonus experience as he or she gains insight into the hidden world of the Mythos.",
+			"input": {
+				"type": "counter",
+				"text": "Victory Display",
+				"effects": [
+					{
+						"type": "earn_xp",
+						"investigator": "all",
+						"value": 2
+					}
+				]
+			},
+		},
+		"mental_trauma": {
+			"text": "The lead investigator suffers 1 mental trauma from watching his or her home become a smoldering ruin.",
+			"effects": [
+				{
+					"type": "trauma",
+					"investigator": "lead_investigator",
+					"mental": 1
+				}
+			]
+		},
+		"killed": {
+			"text": "Each investigator who has not resigned is killed. If there are not enough investigators to continue the campaign, the campaign is over and the players lose. Otherwise, advance to the next scenario. (Each player whose investigator has been killed must choose a new investigator from the pool of available investigators. Refer to page 13 of the Rules Reference for the full rules on killed investigators.)",
+			"input": {
+				"type": "per_investigator_choice",
+				"choices": [
+					{
+						"title": "Resigned",
+						"effects": [],
+					},
+					{
+						"title": "Killed",
+						"effects": [
+							{
+								"type": "trauma",
+								"killed": true
+							}
+						]
+					}
+				]
+			}
+		},
+		"lead_investigator_killed": {
+			"condition": {
+				"type": "trauma",
+				"investogator": "lead_investigator",
+				"killed": true,
+			},
+			"text": "If the lead investigator was killed, choose an investigator to earn the Lita Chantler card. That investigator may include this card in his or her deck. It does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+					"type": "story_card",
+					"investigator": "choice",
+					"card": "01117"
+				}
+			]
+		}
+	},
+	"resolutions": [
+		{
+			"id": "no_resolution",
+			"title": "If no resolution was reached (each investigator resigned or was defeated)",
+			"text": "You barely manage to escape your house with your lives. The woman from your parlor follows you out the front door, slamming it behind her. “You fools! See what you have done?” She pushes a chair in front of the door, lodging it beneath the doorknob. “We must get out of here. Come with me, and I will tell you what I know. We are the only ones who can stop the threat that lurks beneath from being unleashed throughout the city.” You’re in no state to argue. Nodding, you follow the woman as she runs from your front porch out into the rainy street, toward Rivertown",
+			"steps": ["house_standing", "ghoul_priest_alive", "earn_lita", "earn_xp"]
+		},
+		{
+			"id": "R1",
+			"title": "Resolution 1",
+			"text": "You nod and allow the red-haired woman to set the walls and floor of your house ablaze. The fire spreads quickly, and you run out the front door to avoid being caught in the inferno. From the sidewalk, you watch as everything you own is consumed by the flames. “Come with me,” the woman says. “You must be told of the threat that lurks below. Alone, we are surely doomed…but together, we can stop it.”",
+			"steps": ["house_burned", "earn_lita", "mental_trauma", "earn_xp"]
+		},
+		{
+			"id": "R2",
+			"title": "Resolution 2",
+			"text": "You refuse to follow the overzealous woman’s order and kick her out of your home for fear that she will set it ablaze without your permission. “Fools! You are making a grave mistake!” she warns. “You do not understand the threat that lurks below… the grave danger we are all in!” Still shaken by the night’s events, you decide to hear the woman out. Perhaps she can shed some light on these bizarre events…but she doesn’t seem to trust you very much.",
+			"steps": ["house_standing", "lead_investigator_xp", "earn_xp"]
+		},
+		{
+			"id": "R3",
+			"title": "Resolution 3",
+			"text": "You run to the hallway to try to find a way to escape the house, but the burning-hot barrier still blocks your path. Trapped, the horde of feral creatures that have invaded your home close in, and you have nowhere to run.",
+			"steps": ["lita_finds_others", "house_standing", "ghoul_priest_alive", "killed"]
+		}
+	]
+}

@@ -1,0 +1,252 @@
+{
+	"scenarioName": "The Midnight Masks",
+	"setup": [
+		"lita_condition",
+		"intro_3",
+		"gather_encounter_sets",
+		"gather_cult",
+		"setup_locations",
+		"spawn_cultists",
+		"check_house_burned",
+		"check_house_standing",
+		"encounter_deck",
+		"check_ghoul_priest",
+		"doom_note"
+	],
+	"steps": {
+		"lita_condition": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "Campaign Log",
+				"id": "lita_finds_others",
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "intro_1"
+				},
+				{
+					"condition": false,
+					"step": "intro_2"
+				}
+			]
+		},
+		"intro_1": {
+			"type": "story",
+			"text": "The woman came to you in a panic, raving about monsters emerging from the ground in a home near Rivertown. “I managed to trap them,” she explains, “but there are others. Other pits. Other domains.” Only last week, you would have thought she was a lunatic. Recent events, however, have challenged your preconceptions of normality. You decide to hear her out. She introduces herself as Lita Chantler and lays out a tale that strains the limits of your belief. “The creatures I speak of ,” she claims, “are called ghouls—cruel beings who plague the crypts, caverns, and tunnels beneath the city of Arkham…”"
+		},
+		"intro_2": {
+			"type": "story",
+			"text": "In the wake of the disaster at your home, Lita Chantler, the red-haired woman from your parlor, lays out a tale that—even in light of what you have just witnessed—strains the limits of your belief. “The creatures in your home,” she claims, “are called ghouls—cruel beings who plague the crypts, caverns, and tunnels beneath the city of Arkham…”"
+		},
+		"intro_3": {
+			"type": "story",
+			"text": "“These creatures feed on the corpses of humans, and they are served by a dark cult within Arkham whose members have inexplicably come to worship the ancient master of the ghouls. This cult has been killing innocent people and feeding them to the ghouls, satiating a monstrous hunger. A dark balance was maintained. Until now. Recently,” Lita continues, “one of their lairs, where the corpses were stored, was destroyed. Since then, the ghouls have been more active than usual. I have tracked their movements and tried my best to stop them from running amok throughout the city. But I think there is something worse going on. The cult has been planning something darker, and more ominous, than anything I have yet observed. Indications are that this plan shall come to fruition tonight, shortly after midnight. Beyond that, I cannot fathom what to expect.\n“Many of the cultists,” Lita continues, “will seem like everyday people, despite their foul intentions. Whenever the cult meets, its members don masks shaped like the skulls of various animals to protect their identities from one another. These masks are our mark. Symbols of death and decay. We must unmask the cultists to expose and derail their plans. We have but a few hours. The more cultists we find before midnight, the better.”"
+		},
+		"gather_encounter_sets": {
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"arkham",
+				"chilling_cold",
+				"nightgaunts",
+				"pentagram",
+				"locked_doors",
+			]
+		},
+		"gather_cult": {
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"cultists"
+			],
+			"text": "Set the Cult of Umôrdhoth encounter set aside as a separate “Cultist deck,” and shuffle it. This set is indicated by the following icon:"
+		},
+		"setup_locations": {
+			"text": "Choose one of the two Downtown locations and one of the two Southside locations at random and put them into play. Remove the other versions of Downtown and Southside from the game. Then, put the Northside, Easttown, Rivertown, St. Mary’s Hospital, Graveyard, Miskatonic University, and Your House locations into play."
+		},
+		"spawn_cultists": {
+			"type": "branch",
+			"condition": {
+				"type": "scenario_data",
+				"id": "player_count",
+			},
+			"options": [
+				{
+					"condition": 2,
+					"step": "one_cultist"
+				},
+				{
+					"condition": 2,
+					"step": "two_cultists"
+				},
+				{
+					"condition": 3,
+					"step": "three_cultists"
+				}
+			]
+		},
+		"one_cultist": {
+			"text": "Search the gathered encounter sets for 1 copy of Acolyte and spawn it at Southside."
+		},
+		"two_cultists": {
+			"text": "Search the gathered encounter sets for 2 copies of Acolyte. Spawn 1 at Southside and 1 at Downtown."
+		},
+		"three_cultists": {
+			"text": "Search the gathered encounter sets for 3 copies of Acolyte. Spawn 1 at Southside, 1 at Downtown, and 1 at the Graveyard."
+		},
+		"check_house_burned": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "Campaign Log",
+				"id": "house_burned",
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "remove_house"
+				}
+			]
+		},
+		"check_house_standing": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "Campaign Log",
+				"id": "house_standing",
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "start_at_house"
+				}
+			]
+		},
+		"remove_house": {
+			"text": "Remove Your House from the game. Each investigator begins play at Rivertown."
+		},
+		"start_at_house": {
+			"text": "Each investigator begins play at Your House."
+		},
+		"encounter_deck": {
+			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+		},
+		"check_ghoul_priest": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "Campaign Log",
+				"id": "ghoul_priest_alive",
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "add_ghoul_priest"
+				}
+			]
+		},
+		"add_ghoul_priest": {
+			"text": "Shuffle the Ghoul Priest into the encounter deck."
+		},
+		"doom_note": {
+			"type": "rule_reminder",
+			"text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda"
+		},
+		"cultists_interrogated": {
+			"input": {
+				"type": "card_choice",
+				"query": {
+					"trait": "Cultist",
+					"unique": true,
+				},
+				"choices": [
+					{
+						"title": "In the victory display",
+						"effects": [
+							{
+								"type": "campaign_log",
+								"section": "Cultists We Interrogated"
+							}
+						],
+					},
+					{
+						"title": "In play or in Cultist deck",
+						"effects": [
+							{
+								"type": "campaign_log",
+								"section": "Cultists Who Got Away"
+							}
+						]
+					},
+					{
+						"title": "Not in play",
+						"effects": []
+					}
+				]
+			}
+		},
+		"ghoul_priest_defeated": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "Campaign Log",
+				"id": "ghoul_priest_alive",
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "ask_ghoul_priest_defeated"
+				}
+			]
+		},
+		"ask_ghoul_priest_defeated": {
+			"input": {
+				"type": "choose_one",
+				"choices": [
+					{
+						"title": "Is the Ghoul Priest in the Victory Display?",
+						"effects": [
+							{
+								"type": "campaign_log",
+								"section": "Campaign Log",
+								"id": "ghoul_priest_alive",
+								"cross_out": true
+							}
+						]
+					}
+				]
+			},
+		},
+		"past_midnight": {
+			"text": "In your Campaign Log, record that <i>it is past midnight</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "Campaign Log",
+					"id": "past_midnight",
+					"text": "It is past midnight.",
+				}
+			]
+		}
+	},
+	"resolutions": [
+		{
+			"id": "no_resolution",
+			"title": "If no resolution was reached (each investigator resigned or was defeated)",
+			"text": "Read <b>Resolution 1</b>",
+			"resolution": "R1"
+		},
+		{
+			"id": "R1",
+			"title": "Resolution 1",
+			"text": "You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
+			"steps": ["cultists_interrogated", "ghoul_priest_defeated", "earn_xp"]
+		},
+		{
+			"id": "R2",
+			"title": "Resolution 2",
+			"text": "Twelve bells ring out, signaling midnight. You’re out of time; the cult’s ritual will begin shortly. You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
+			"steps": ["cultists_interrogated", "past_midnight", "ghoul_priest_defeated", "earn_xp"]
+		}
+	]
+}
