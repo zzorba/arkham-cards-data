@@ -1,0 +1,201 @@
+{
+	"scenarioName": "Blood on the Altar",
+	"setup": [
+		"prologue",
+		"gather_encounter_sets",
+		"setup_village_commons",
+		"setup_locations",
+		"gather_sacrifices",		
+		"set_aside_cards",
+		"check_delayed",
+		"encounter_deck",
+		"check_bone_to_pick",
+		"hidden_chamber_note"
+	],
+	"steps": {
+		"prologue": {
+			"type": "story",
+			"text": "When you finally reach Dunwich, you are greeted by Zebulon Whateley and Earl Sawyer, another man from the village who had met with Dr. Armitage during the incident several months ago. “Things ain’t lookin’ too good here,” Earl tells you. “Some folk up and went missin’ a few nights ago. ‘Dem whippoorwills won’ shut up. Dunno what yer doin’ here, but last time you Arkham folk came ‘round it was bad news. Very bad news.” His eyes blink rapidly, and he coughs and looks away.\n“Look, why don’t you rest fer the night an’ look fer whatever it is yer looking fer t’morra,” Zebulon chimes in, putting a wrinkled hand on your shoulder. You begin to protest, but your aching muscles and weary mind won’t allow you to refuse. The elderly man offers to take you in for the night, and drives you to his home at the outskirts of Dunwich village. The town is disheveled and eerie, and you find yourself wishing you hadn’t come here at all. You fall asleep on the ride over and scarcely remember anything else from that night.\nWhen you awaken, you find that Zebulon’s house is abandoned, and there is no sign of the elderly man, or of Mr. Sawyer. Fearing the worst, you head into the village of Dunwich to investigate, hoping to find answers."
+		},
+		"gather_encounter_sets": {
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"blood_on_the_altar",
+				"dunwich",
+				"whippoorwills",
+				"nightgaunts",
+				"ancient_evils"
+			]
+		},
+		"setup_village_commons": {
+			"text": "Put Village Commons into play. Each investigator begins play in the Village Commons."
+		},
+		"setup_locations": {
+			"text": "Remove one of the two copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining locations into play"
+		},
+		"gather_sacrifices": {
+
+		},
+		"set_aside_cards": {
+			"text": "Set the following cards aside, out of play: Silas Bishop, The Hidden Chamber, Key to the Chamber, and Powder of Ibn-Ghazi."
+		},
+		"check_delayed": {
+
+		},
+		"encounter_deck": {
+			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+		},
+		"check_bone_to_pick": {
+
+		},
+		"setup_hidden_cards": {
+			"text": "Take the previously set-aside The Hidden Chamber and Key to the Chamber cards, along with the top 3 cards of the encounter deck. Shuffle them and randomly deal 1 card facedown underneath each location in play except Village Commons."
+		},
+		"hidden_chamber_note": {
+			"type": "rule_reminder",
+			"title": "The Hidden Chamber",
+			"text": "This scenario includes a single-sided location (The Hidden Chamber) which has been dealt facedown underneath a random location. The Hidden Chamber only has a revealed side, and has a <b>Revelation</b> effect that puts it into play when drawn.\nWhen put into play, a single-sided location is put into play with its revealed side faceup, because it has no unrevealed side. Otherwise, it functions as a normal location in every other way."
+		},
+		"ritual_completed": {
+			"text": "In your Campaign Log, record that <i>the ritual was completed</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "ritual_completed",
+					"text": "The ritual was completed.",
+				},
+			]
+		},
+		"killed_silas_bishop": {
+			"text": "In your Campaign Log, record that <i>the investigators put Silas Bishop out of his misery</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "killed_silas_bishop",
+					"text": "The investigators put Silas Bishop out of his misery.",
+				},
+			]
+		},
+		"restored_silas_bishop": {
+			"text": "In your Campaign Log, record that <i>the investigators restored Silas Bishop</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "restored_silas_bishop",
+					"text": "The investigators restored Silas Bishop.",
+				},
+			]
+		},
+		"banished_silas_bishop": {
+			"text": "In your Campaign Log, record that <i>the investigators banished Silas Bishop</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "banished_silas_bishop",
+					"text": "The investigators banished Silas Bishop.",
+				},
+			]
+		},
+		"sacrifice_all": {
+			"text": "If there were any potential sacrifices remaining at the end of the game, place them underneath the agenda deck."
+		},
+		"record_sacrificed": {
+
+		},
+		"lose_necronomicon": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "defeated",
+				"card": "02140"
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "necronomicon_stolen"
+				}
+			]
+		},
+		"necronomicon_stolen": {
+			"text": "In your Campaign Log, record that <i>the Necronomicon was stolen</i>. The Necronomicon <i>(Olaus Wormius Translation)</i> must be removed from the investigator’s deck.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "necronomicon_stolen",
+					"text": "The Necronomicon was stolen.",
+				},
+				{
+					"type": "remove_story_card",
+					"card": "02140"
+				}
+			]
+		}, 
+		"earn_xp": {
+			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+			"input": {
+				"type": "counter",
+				"text": "Victory Display",
+				"effects": [
+					{
+						"type": "earn_xp",
+						"investigator": "all"			
+					}
+				]
+			},
+		},
+		"earn_2_xp": {
+			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as he or she gains insight into the hidden world of the Mythos.",
+			"input": {
+				"type": "counter",
+				"text": "Victory Display",
+				"effects": [
+					{
+						"type": "earn_xp",
+						"investigator": "all",
+						"bonus": 2
+					}
+				]
+			},
+		},
+		"proceed_undimensioned_and_unseen": {
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "value": "undimensioned_and_unseen"
+        },
+      ]
+		}
+	},
+	"resolutions": [
+		{
+			"id": "no_resolution",
+			"title": "If no resolution was reached (each investigator resigned or was defeated)",
+			"text": "The cries of the whippoorwills fade into the distance, and the town of Dunwich is filled with an eerie silence. All that can be heard is the dry whistle of the chill wind and the slow rustling of dead leaves. There is no sign of the missing townsfolk, nor will there be ever again.",
+			"steps": ["ritual_completed", "sacrifice_all", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_undimensioned_and_unseen"]
+		},
+		{
+			"id": "R1",
+			"title": "Resolution 1",
+			"text": "As you land the finishing blow, the creature’s body explodes into hundreds of squirming ropelike appendages, wriggling across the ground and climbing up the walls. You’re so startled that you aren’t fast enough to prevent them from escaping the room. Even so, whatever that creature was, you’re glad it’s now dead.",
+			"steps": ["killed_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_survivors"]
+		},
+		{
+			"id": "R2",
+			"title": "Resolution 2",
+			"text": "With the creature that once was Silas lashing out at you from its chains, you have little time to react. Knowing that the Necronomicon might have a spell or incantation that could subdue Silas, you fend off the abomination long enough to find a passage that can help. With no time to spare, you recite the Latin incantation, and find that the words come effortlessly to your tongue, as though recalled from an earlier memory. The creature’s body begins to shrink and melt away as the incantation builds, its cries terrifying and haunting. In the end, all that is left is the disfigured corpse of a man—Silas Bishop. You find a silver pendant emblazoned with an odd constellation tucked into his shirt. You take it with you, hoping to find a use for it.",
+			"steps": ["restored_silas_bishop", "record_sacrificed", "earn_2_xp", "proceed_survivors"]
+		},
+		{
+			"id": "R3",
+			"title": "Resolution 3",
+			"text": "With the creature that once was Silas lashing out at you from its chains, you have little time to react. Hoping there is something in the chamber you can use to your advantage, you fend off the abomination long enough to find a journal; many of its passages are written in Latin. It appears to be a handwritten excerpt from the Necronomicon, its purpose unknown. With no time to spare, you recite the incantation, stumbling over the words and feeling your throat tighten with each sentence. The creature’s body begins to shrink and melt away as the incantation continues, its cries terrifying and haunting. In the end, all that is left is a pile of wet and sticky ichor, and a rotten stench.",
+			"steps": ["banished_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_survivors"]
+		}
+	]
+}
