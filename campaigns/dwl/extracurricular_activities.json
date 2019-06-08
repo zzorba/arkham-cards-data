@@ -30,7 +30,7 @@
 			"type": "branch",
 			"condition": {
 				"type": "check_scenario",
-				"id": "house_always_wins",
+				"id": "the_house_always_wins",
 			},
 			"options": [
 				{
@@ -109,7 +109,7 @@
 				{
 					"type": "campaign_log",
 					"section": "campaign_log",
-					"id": "lita_finds_others",
+					"id": "warren_rice_rescued",
 					"text": "The investigators rescued Professor Warren Rice.",
 				},
 				{
@@ -160,6 +160,41 @@
 					"values": ["tablet"]
 				}
 			]
+		},
+		"proceed_either": {
+			"type": "branch",
+			"condition": {
+				"type": "check_scenario",
+				"id": "the_house_always_wins",
+			},
+			"options": [
+				{
+					"condition": false,
+					"step": "proceed_house_always_wins"
+				},
+				{
+					"condition": true,
+					"step": "proceed_armitages_fate"
+				}
+			]
+		},
+		"proceed_house_always_wins": {
+			"effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "value": "the_house_always_wins"
+        },
+			]	
+		},
+		"proceed_armitages_fate": {
+			"effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "value": "armitages_fate"
+        },
+			]	
 		}
 	},
 	"resolutions": [
