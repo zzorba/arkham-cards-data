@@ -34,19 +34,51 @@
 			"text": "Remove one of the two copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining locations into play"
 		},
 		"gather_sacrifices": {
-
+			"text": "Check Campaign Log. Gather the cards for each character who “was kidnapped” according to your Campaign Log. Form a facedown pile of “potential sacrifices,” consisting of each of those cards, along with the Zebulon Whateley card and the Earl Sawyer card."
 		},
 		"set_aside_cards": {
 			"text": "Set the following cards aside, out of play: Silas Bishop, The Hidden Chamber, Key to the Chamber, and Powder of Ibn-Ghazi."
 		},
 		"check_delayed": {
-
-		},
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "investigators_delayed"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "add_1_doom"
+        }
+      ]
+    },
+    "add_1_doom": {
+      "text": "Add 1 doom to agenda 1a."
+    },
 		"encounter_deck": {
 			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
 		},
 		"check_bone_to_pick": {
-
+			"type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "bone_to_pick"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "gather_naomis_crew"
+        }
+      ]
+		},
+		"gather_naomis_crew": {
+			"text": "Seeking vengeance, the gang from the Clover Club has followed you to Dunwich. Gather all cards from the Naomi’s Crew encounter set and shuffle them into the encounter deck.",
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"naomis_crew"
+			]		
 		},
 		"setup_hidden_cards": {
 			"text": "Take the previously set-aside The Hidden Chamber and Key to the Chamber cards, along with the top 3 cards of the encounter deck. Shuffle them and randomly deal 1 card facedown underneath each location in play except Village Commons."
@@ -104,7 +136,29 @@
 			"text": "If there were any potential sacrifices remaining at the end of the game, place them underneath the agenda deck."
 		},
 		"record_sacrificed": {
-
+			"input": {
+        "type": "choose_many",
+        "title": " In your Campaign Log, under “Sacrificed to Yog‐Sothoth,” record the names of each unique card that is underneath the agenda deck.",
+        "subtitle": "Each of those cards are removed from all players’ decks and can no longer be included in any players’ decks for the remainder of the campaign.",
+        "choices": [
+          {
+          	"type": "card",
+          	"cardQuery": {
+          		"trait": "Ally",
+          		"is_unique": true,
+          	},
+            "effects": [
+              {
+    						"type": "campaign_log",
+								"section": "sacrificed",
+              },
+              {
+    						"type": "remove_card",
+              }
+            ]
+          }
+        ]
+      },
 		},
 		"lose_necronomicon": {
 			"type": "branch",
@@ -130,7 +184,7 @@
 					"text": "The Necronomicon was stolen.",
 				},
 				{
-					"type": "remove_story_card",
+					"type": "remove_card",
 					"card": "02140"
 				}
 			]
