@@ -3,7 +3,11 @@
 	"interlude": true,
 	"setup": [
 		"prologue",
-		"check_henry_armitage"
+		"check_henry_armitage",
+		"check_warren_rice",
+		"check_francis_morgan",
+		"check_zebulon_whateley",
+		"check_earl_sawyer"
 	],
 	"steps": {
 		"prologue": {
@@ -14,65 +18,267 @@
 			"type": "branch",
 			"condition": {
 				"type": "check_campaign_log",
-				"section": "campaign_log",
-				"id": "unconscious_for_several_hours",
+				"section": "sacrificed",
+				"id": "02040",
 			},
 			"options": [
 				{
-					"condition": true,
-					"step": "fate_1"
-				},
+					"condition": false,
+					"step": "henry_armitage_not_sacrificed"
+				}
+			]
+		},
+		"henry_armitage_not_sacrificed": {
+			"type": "story",
+			"text": "“It is far worse than we had thought,” Dr. Armitage says, pale and trembling. “Wilbur Whateley was only the beginning. There were more, many more in Dunwich, who knew of the ‘Great Old Ones’ and who desired power and knowledge above all else, the Earth be damned. I knew I should have burned that wretch’s journal. But thanks to its contents, I know how we can stop them. We are the only ones who can! Now quickly, help me with this solution—the powder is the key, yes, the powder is the only way...”",
+			"steps": ["henry_armitage_survived", "maybe_earn_henry_armitage", "maybe_earn_powder"]
+		},
+		"henry_armitage_survived": {
+			"text": "In your Campaign Log, record that <i>Dr. Henry Armitage survived The Dunwich Legacy</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "henry_armitage_survived",
+					"text": "Dr. Henry Armitage survived The Dunwich Legacy.",
+				}
+			]
+		},
+		"maybe_earn_henry_armitage": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "any",
+				"card": "02040"
+			},
+			"options": [
+				{
+					"condition": "false",
+					"step": "earn_henry_armitage"
+				}
+			]
+		},
+		"earn_henry_armitage": {
+			"text": "Any one investigator may choose to add Dr. Henry Armitage to his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02040"
+        }
+      ]
+		},
+		"check_warren_rice": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "sacrificed",
+				"id": "02061",
+			},
+			"options": [
 				{
 					"condition": false,
-					"step": "fate_2"
+					"step": "warren_rice_not_sacrificed"
 				}
 			]
 		},
-		"fate_1": {
+		"warren_rice_not_sacrificed": {
 			"type": "story",
-			"text": "You are more than a little rattled by your experiences in the university and the Clover Club. You’re not sure what to make of whoever—or whatever—was after Rice and Morgan. Worried about Dr. Armitage, you swiftly make your way back to his home. When you arrive, you find that the latches of his front door have been busted open, and his living area and study have been ransacked. Dr. Armitage is nowhere to be found. Searching his home, you find a journal the intruders didn’t steal tucked beneath several other documents in the bottom drawer of Armitage’s desk.\nThe journal appears to be written in a strange language you cannot decode, using a script you’ve never seen in your entire life. Fortunately, it seems Dr. Armitage had already gone through the trouble of translating it into English. Apparently, it belongs to one “Wilbur Whateley.” The journal—along with Armitage’s many notes—tells a startling tale, one you would scarcely believe had it not been for your harrowing experiences earlier tonight…",
-			"steps": ["henry_armitage_kidnapped", "bonus_xp"]
+			"text": "Professor Rice adjusts his glasses and studies the documents and arcane manuscripts left in the chamber. “I thought this nightmare was over and done with,” he sighs. “But we have a duty to see this through. We have to stop these creatures, or it won’t be just Dunwich in trouble. The powder mixture Armitage created to see the creatures will be our saving grace,” he explains, and sets off to the task of recreating the powder.",
+			"steps": ["warren_rice_survived", "maybe_earn_warren_rice", "maybe_earn_powder"]
 		},
-		"fate_2": {
-			"type": "story",
-			"text": "When you arrive at Dr. Armitage’s home in Southside, you find him sitting at his desk, pale-faced and sweating with worry. He is grateful to you for searching for his colleagues, but he doesn’t look relieved. With a long pause, he straightens his glasses and explains:\n“I’m afraid I must apologize. There’s something I didn’t mention to you earlier.” Dr. Armitage then spins a tale you would scarcely believe had it not been for your harrowing experiences earlier that night…"
-		},
-		"henry_armitage_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Dr. Henry Armitage was kidnapped</i>.",
+		"warren_rice_survived": {
+			"text": "In your Campaign Log, record that <i>Professor Warren Rice survived The Dunwich Legacy</i>.",
 			"effects": [
 				{
 					"type": "campaign_log",
 					"section": "campaign_log",
-					"id": "henry_armitage_kidnapped",
-					"text": "Dr. Henry Armitage was kidnapped.",
+					"id": "warren_rice_survived",
+					"text": "Professor Warren Rice survived The Dunwich Legacy.",
 				}
 			]
-		}, 
-		"henry_armitage_rescued": {
-			"text": "In your Campaign Log, record that <i>the investigators rescued Dr. Henry Armitage</i>. Any one investigator may choose to add Dr. Francis Morgan to his or her deck. This card does not count toward that investigator’s deck size.",
+		},
+		"maybe_earn_warren_rice": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "any",
+				"card": "02061"
+			},
+			"options": [
+				{
+					"condition": "false",
+					"step": "earn_warren_rice"
+				}
+			]
+		},
+		"earn_warren_rice": {
+			"text": "Any one investigator may choose to add Professor Warren Rice to his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02061"
+        }
+      ]
+		},
+		"check_francis_morgan": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "sacrificed",
+				"id": "02080",
+			},
+			"options": [
+				{
+					"condition": false,
+					"step": "francis_morgan_not_sacrificed"
+				}
+			]
+		},
+		"francis_morgan_not_sacrificed": {
+			"type": "story",
+			"text": "“Thank you for everything you’ve done,” Dr. Morgan says, taking count of your provisions and ammunition. “Last time, we needed some of that strange powder Armitage concocted to even see the beast that terrorized Dunwich. If there’s more of those things out there, we’re going to need that powder. I think I remember how he made it...”",
+			"steps": ["francis_morgan_survived", "maybe_earn_francis_morgan" "maybe_earn_powder"]
+		},
+		"francis_morgan_survived": {
+			"text": "In your Campaign Log, record that <i>Dr. Francis Morgan survived The Dunwich Legacy</i>.",
 			"effects": [
 				{
 					"type": "campaign_log",
 					"section": "campaign_log",
-					"id": "henry_armitage_rescued",
-					"text": "The investigators rescued Dr. Henry Armitage.",
-				},
-				{
-					"type": "story_card",
-					"investigator": "choice",
-					"card": "02040"
+					"id": "francis_morgan_survived",
+					"text": "Dr. Francis Morgan survived The Dunwich Legacy.",
 				}
 			]
 		},
-		"bonus_xp": {
-			"text": "Each investigator earns 2 bonus experience as reading Wilbur’s journal gives them insight into the hidden world of the mythos.",
-			"effects": [
+		"maybe_earn_francis_morgan": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "any",
+				"card": "02080"
+			},
+			"options": [
 				{
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 2
+					"condition": "false",
+					"step": "earn_francis_morgan"
 				}
 			]
+		},
+		"earn_francis_morgan": {
+			"text": "Any one investigator may choose to add Professor Warren Rice to his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02080"
+        }
+      ]
+		},
+		"check_zebulon_whateley": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "sacrificed",
+				"id": "02217",
+			},
+			"options": [
+				{
+					"condition": false,
+					"step": "zebulon_whateley_not_sacrificed"
+				}
+			]
+		},
+		"zebulon_whateley_not_sacrificed": {
+			"type": "story",
+			"text": "“Dunwich’s had its fair share of oddities,” Zebulon explains to you with a quavering voice, “but I ain’t ever seen anything as sick and twisted as this...this...<b>thing</b>.” He gives the creature’s remains one last sickened glance before closing the door to the chamber behind him, shuddering. He locks eyes with you, his expression grim. “Whoever dun this gotta pay. I’ll do all I can to help.”",
+			"steps": ["zebulon_whateley_survived", "earn_zebulon_whateley"]
+		},
+		"zebulon_whateley_survived": {
+			"text": "In your Campaign Log, record that <i>Zebulon Whateley survived The Dunwich Legacy</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "zebulon_whateley_survived",
+					"text": "Zebulon Whateley survived The Dunwich Legacy.",
+				}
+			]
+		},
+		"earn_zebulon_whateley": {
+			"text": "Any one investigator may choose to add Zebulon Whateley to his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02217"
+        }
+      ]
+		},
+		"check_earl_sawyer": {
+			"type": "branch",
+			"condition": {
+				"type": "check_campaign_log",
+				"section": "sacrificed",
+				"id": "02218",
+			},
+			"options": [
+				{
+					"condition": false,
+					"step": "earl_sawyer_not_sacrificed"
+				}
+			]
+		},
+		"earl_sawyer_not_sacrificed": {
+			"type": "story",
+			"text": "“I never could’a made it if it weren’t for you,” Earl says with a stammer, shaking your hand repeatedly. “If ’n there’s anything I can do to repay yeh, just ask away. I ain’t much of a fighter or anythin’, but I’ll do all I can. Jus’...don’t make me look at anythin’ like that beast again, a’right?”",
+			"steps": ["earl_sawyer_survived", "earn_earl_sawyer"]
+		},
+		"earl_sawyer_survived": {
+			"text": "In your Campaign Log, record that <i>Earl Sawyer survived The Dunwich Legacy</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "earl_sawyer_survived",
+					"text": "Earl Sawyer survived The Dunwich Legacy.",
+				}
+			]
+		},
+		"earn_zebulon_whateley": {
+			"text": "Any one investigator may choose to add Earl Sawyer to his or her deck. This card does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02218"
+        }
+      ]
+		},
+		"maybe_earn_powder": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "any",
+				"card": "02219"
+			},
+			"options": [
+				{
+					"condition": "false",
+					"step": "earn_powder"
+				}
+			]
+		},
+		"earn_powder": {
+			"text": "Any one investigator may choose to add the Powder of Ibn‐Ghazi card to his or her deck. It does not count toward that investigator’s deck size.",
+			"effects": [
+				{
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02219"
+        }
+      ]
 		}
 	}
 }
