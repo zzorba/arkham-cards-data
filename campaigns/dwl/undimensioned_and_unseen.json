@@ -1,0 +1,334 @@
+{
+	"scenarioName": "Undimensioned and Unseen",
+	"setup": [
+		"prologue",
+		"warn_or_calm_choice",
+		"gather_encounter_sets",
+		"setup_locations",
+		"check_sacrificed",
+		"set_aside_cards",
+		"play_powder",
+		"add_weakness",
+		"encounter_deck",
+		"random_location_note"
+	],
+	"steps": {
+		"prologue": {
+			"type": "story",
+			"text": "Your search of the village of Dunwich has uncovered a number of documents, journal entries, and esoteric theories. Reading through these materials leaves you exhausted and emotionally drained. Most of the content was written by a single source—a man named Seth Bishop. When you ask around town, you learn that Seth is a citizen of Dunwich. Along with several others, Seth had witnessed firsthand the devastation wrought by the events of “the Dunwich horror,” as Armitage had dubbed the incident. Curiously, since that time, very few people had seen Seth around town, and those who did claimed his eyes had been bloodshot and his face sweaty and pale.\nYou don’t doubt that somebody who has seen what Seth has seen would appear nervous or paranoid. But the more you read of his frantic and unhinged writings, the more you believe he is involved in recent events. His writings speak of having “gathered the remains” and of using arcane methods to “imbue the fathers’ essence” into other creatures, and eventually, into other people. The explanations and diagrams that follow are unfathomably complex and defy understanding.\nBefore you are able to find Seth and confront him, several men and women from the village approach you in a panic. “It’s back!” one of them wails. You recognize him as Curtis Whateley, of the undecayed branch. “Whatever it was that killed them Fryes, it’s back! Up and smashed the Bishops’ home like it were made o’ paper!” Curtis and the other townsfolk are clamoring amongst themselves, raising their voices in a panic."
+		},
+		"warn_or_calm_choice": {
+			"text": "The investigators must decide (choose one):",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "You try to calm down the townsfolk in order to learn more.",
+            "steps": [ "part1", "calmed_townsfolk" ]
+          },
+          {
+            "text": "You try to warn the townsfolk and convince them to evacuate.",
+            "steps": [ "part2", "warned_townsfolk" ]
+          },
+         ]
+      },
+    },
+    "part1": {
+    	"type": "story",
+    	"text": "You aim to calm the townsfolk so they can explain to you what is going on. They inform you that there was a rumbling to the north, and when they went to investigate they found the Bishops’ farmhouse had been torn to shreds. A trail of heavy tracks led into nearby Cold Spring Glen. “You know what to do, right? You Arkham folk stopped that thing last time,” one of the townsfolk says. Curtis shakes his head and bites at his lip.\n“We couldn’t even see that hellish thing until the old professor sprayed that there powder on it,” He says. “To this day,I wish I hadn’t seen it at all...” Something must be done to stop the monster’s rampage. But, if the documents you found are true, there may be more than one such creature on the loose...."
+    },
+    "calmed_townsfolk": {
+			"text": "In your Campaign Log, record that <i>you calmed the townsfolk</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "calmed_townsfolk",
+					"text": "You calmed the townsfolk.",
+				}
+			]
+		}, 
+		"part2": {
+    	"type": "story",
+    	"text": "You warn the townsfolk that they are in grave danger, and urge them to flee Dunwich while they can. Several of them immediately heed your advice, remembering the terrible monstrosity that had previously endangered the town. Curtis drops to his knees in despair, sweating feverishly. “It’s that <b>thing</b> again, ain’t it? It’s come back fer us,” Curtis stutters. “I hope you’ve got some of that powder the old professor had last time. We couldn’t even see the damned thing until he sprayed it. To this day, I wish I hadn’t seen it at all...” Something must be done to stop the monster’s rampage. But, if the documents you found are true, there may be more than one such creature on the loose...."
+    },
+    "warned_townsfolk": {
+			"text": "In your Campaign Log, record that <i>you warned the townsfolk</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "warned_townsfolk",
+					"text": "You warned the townsfolk.",
+				}
+			]
+		}, 
+		"gather_encounter_sets": {
+			"type": "encounter_sets",
+			"encounter_sets": [
+				"undimensioned_and_unseen",
+				"whippoorwills",
+				"beast_thralls",
+				"dunwich",
+				"striking_fear"
+			]
+		},
+		"setup_locations": {
+			"text": "Put one of the two versions of the following locations into play at random: Dunwich Village, Cold Spring Glen, Blasted Heath, Ten‐Acre Meadow, Devil’s Hop Yard, and Whateley Ruins. Remove the other versions of each of those locations from the game. Each investigator begins play in Dunwich Village."
+		},
+		"check_sacrificed": {
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "sacrificed",
+        "id": "num_entries",
+      },
+      "options": [
+        {
+          "condition": 0,
+          "step": "spawn_two_brood",
+        },
+        {
+          "condition": 1,
+          "step": "spawn_two_brood",
+        },
+        {
+          "condition": 2,
+          "step": "spawn_one_remove_one_brood",
+        },
+        {
+          "condition": 3,
+          "step": "spawn_one_remove_two_brood",
+        },
+        {
+          "condition": "any",
+          "step": "spawn_zero_remove_three_brood",
+        }
+      ]
+    },
+    "spawn_two_brood": {
+    	"text": "Put 1 copy of Brood of Yog‐Sothoth into play in Cold Spring Glen, put 1 copy of Brood of Yog‐Sothoth into play in Blasted Heath. Then, set the final 3 copies of Brood of Yog‐Sothoth aside, out of play."
+    },
+    "spawn_one_remove_one_brood": {
+    	"text": "Put 1 copy of Brood of Yog‐Sothoth into play in Cold Spring Glen, and set 3 copies of Brood of Yog‐Sothoth aside, out of play. Then, remove the final copy of Brood of Yog‐Sothoth from the game."
+    },
+    "spawn_one_remove_two_brood": {
+    	"text": "Put 1 copy of Brood of Yog‐Sothoth into play in Cold Spring Glen, and set 2 copies of Brood of Yog‐Sothoth aside, out of play. Then, remove the final 2 copies of Brood of Yog‐Sothoth from the game."
+    },
+    "spawn_zero_remove_three_brood": {
+    	"text": "Set 2 copies of Brood of Yog‐Sothoth aside, out of play. Then, remove the final 3 copies of Brood of Yog‐Sothoth from the game."
+    },
+		"set_aside_cards": {
+			"text": "Set each copy of Esoteric Formula aside, out of play."
+		},
+		"play_powder": {
+			"text": "An investigator with the Powder of Ibn‐Ghazi in his or her deck may search his or her deck for it and put it into play."
+		},
+		"add_weakness": {
+
+		},
+		"encounter_deck": {
+			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+		},
+		"random_location_note": {
+			"type": "rule_reminder",
+			"title": "Choosing a Random Location",
+			"text": "During this scenario, you will often be instructed to choose a random location. This should be done by shuffling together the 6 locations removed from the game during setup (the versions of each location in play not currently being used) and drawing 1 at random."
+		},
+
+
+
+
+
+
+		"investigators_delayed": {
+			"text": "In your Campaign Log, record that <i>the investigators were delayed on their way to Dunwich</i>.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "investigators_delayed",
+					"text": "The investigators were delayed on their way to Dunwich.",
+				},
+			]
+		},
+		"across_space_and_time": {
+			"text": "Each investigator who was defeated has acquired the Across Space and Time weakness and must add 1 copy of it to his or her deck. This card does not count toward that investigator’s deck size",
+			"effects": [
+				{
+					"type": "add_card",
+					"investigator": "defeated",
+					"card": "02178"
+				}
+			]
+		},
+		"bonus_xp": {
+			"text": "Each investigator who was defeated earns 1 bonus experience as his or her experience beyond the gate grants them insight into the cosmos.",
+			"effects": [
+				{
+					"type": "earn_xp",
+					"investigator": "defeated",
+					"bonus": 1			
+				}
+			]
+		},
+		"lose_necronomicon": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "defeated",
+				"card": "02140"
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "necronomicon_stolen"
+				}
+			]
+		},
+		"necronomicon_stolen": {
+			"text": "In your Campaign Log, record that <i>the Necronomicon was stolen</i>. The Necronomicon <i>(Olaus Wormius Translation)</i> must be removed from the investigator’s deck.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "necronomicon_stolen",
+					"text": "The Necronomicon was stolen.",
+				},
+				{
+					"type": "remove_card",
+					"card": "02140"
+				}
+			]
+		}, 
+
+		"lose_henry_armitage": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "defeated",
+				"card": "02040"
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "henry_armitage_kidnapped"
+				}
+			]
+		},
+		"henry_armitage_kidnapped": {
+			"text": "In your Campaign Log, record that <i>Dr. Henry Armitage was kiddnapped</i>. Dr. Henry Armitage must be removed from the investigator’s deck.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "henry_armitage_kidnapped",
+					"text": "Dr. Henry Armitage was kidnapped.",
+				},
+				{
+					"type": "remove_card",
+					"card": "02040"
+				}
+			]
+		}, 
+
+		"lose_francis_morgan": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "defeated",
+				"card": "02080"
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "francis_morgan_kidnapped"
+				}
+			]
+		},
+		"francis_morgan_kidnapped": {
+			"text": "In your Campaign Log, record that <i>Dr. Francis Morgan was kidnapped</i>. Dr. Francis Morgan must be removed from the investigator’s deck.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "francis_morgan_kidnapped",
+					"text": "Dr. Francis Morgan was kidnapped.",
+				},
+				{
+					"type": "remove_card",
+					"card": "02080"
+				}
+			]
+		}, 
+		
+		"lose_warren_rice": {
+			"type": "branch",
+			"condition": {
+				"type": "has_card",
+				"investigator": "defeated",
+				"card": "02061"
+			},
+			"options": [
+				{
+					"condition": true,
+					"step": "warren_rice_kidnapped"
+				}
+			]
+		},
+		"warren_rice_kidnapped": {
+			"text": "In your Campaign Log, record that <i>Professor Warren Rice was kidnapped</i>. Professor Warren Rice must be removed from the investigator’s deck.",
+			"effects": [
+				{
+					"type": "campaign_log",
+					"section": "campaign_log",
+					"id": "warren_rice_kidnapped",
+					"text": "Professor Warren Rice was kidnapped.",
+				},
+				{
+					"type": "remove_card",
+					"card": "02061"
+				}
+			]
+		}, 
+		"earn_xp": {
+			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+			"input": {
+				"type": "counter",
+				"text": "Victory Display",
+				"effects": [
+					{
+						"type": "earn_xp",
+						"investigator": "all"			
+					}
+				]
+			},
+		}
+	},
+	"resolutions": [
+		{
+			"id": "investigator_defeat",
+			"title": "Investigator Defeat",
+			"text": ": Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
+			"steps": ["across_space_and_time", "bonus_xp", "lose_necronomicon", "lose_henry_armitage", "lose_francis_morgan", "lose_warren_rice"]
+		},
+		{
+			"id": "no_resolution",
+			"title": "If no resolution was reached (each investigator was defeated)",
+			"text": "Go to <b>Resolution 2</b>",
+			"resolution": "R2"
+		},
+		{
+			"id": "R1",
+			"title": "Resolution 1",
+			"text": "You breathe a sigh of relief as the gate behind the train collapses harmlessly upon itself. The few passengers who survived the ordeal seem unable to comprehend what just happened. One passenger mentions “a pipe bursting in the rear car,” and that quickly becomes the explanation for the innocent and ignorant, those who either cannot or choose not to delve further into the mystery. You, on the other hand, know better… although in hindsight, you wish you didn’t.",
+			"steps": ["earn_xp"]
+		},
+		{
+			"id": "R2",
+			"title": "Resolution 2",
+			"text": "Rattled, you begin walking alongside the train tracks, making your way towards Dunwich.",
+			"steps": ["investigators_delayed", "earn_xp"]
+		}
+	]
+}
