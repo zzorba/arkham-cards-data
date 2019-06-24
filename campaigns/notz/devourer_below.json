@@ -5,7 +5,7 @@
     "gather_encounter_sets",
     "setup_locations",
     "set_aside_cards",
-    "gather_agents"
+    "gather_agents",
     "check_escaped_cultists",
     "add_elder_thing",
     "check_past_midnight",
@@ -58,15 +58,15 @@
       "options": [
         {
           "condition": 2,
-          "step": "one_cultist"
+          "steps": ["one_cultist"]
         },
         {
           "condition": 2,
-          "step": "two_cultists"
+          "steps": ["two_cultists"]
         },
         {
           "condition": 3,
-          "step": "three_cultists"
+          "steps": ["three_cultists"]
         }
       ]
     },    
@@ -88,7 +88,7 @@
       "condition": {
         "type": "check_campaign_log",
         "section": "cultists_escaped",
-        "id": "num_entries",
+        "id": "$num_entries",
       },
       "options": [
         {
@@ -97,28 +97,28 @@
         },
         {
           "condition": 1,
-          "step": "place_one_doom",
+          "steps": ["place_one_doom"],
         },
         {
           "condition": 2,
-          "step": "place_one_doom",
+          "steps": ["place_one_doom"],
         },
         {
           "condition": 3,
-          "step": "place_two_doom",
+          "steps": ["place_two_doom"],
         },
         {
           "condition": 4,
-          "step": "place_two_doom",
+          "steps": ["place_two_doom"],
         },
         {
           "condition": 5,
-          "step": "place_three_doom",
+          "steps": ["place_three_doom"],
         },
         {
           "condition": 6,
-          "step": "place_three_doom",
-        },
+          "steps": ["place_three_doom"],
+        }
       ]
     },
     {
@@ -154,7 +154,7 @@
       "options": [
         {
           "condition": true,
-          "step": "randomly_discard_2_cards"
+          "steps": ["randomly_discard_2_cards"]
         }
       ]
     },
@@ -173,7 +173,7 @@
       "options": [
         {
           "condition": true,
-          "step": "add_ghoul_priest"
+          "steps": ["add_ghoul_priest"]
         }
       ]
     },
@@ -185,40 +185,6 @@
     	"id": "doom_note",
       "type": "rule_reminder",
       "text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda"
-    },
-    {
-    	"id": "cultists_interrogated",
-      "input": {
-        "type": "card_choice",
-        "query": {
-          "trait": "Cultist",
-          "unique": true,
-        },
-        "choices": [
-          {
-            "title": "In the victory display",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "Cultists We Interrogated"
-              }
-            ],
-          },
-          {
-            "title": "In play or in Cultist deck",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "Cultists Who Got Away"
-              }
-            ]
-          },
-          {
-            "title": "Not in play",
-            "effects": []
-          }
-        ]
-      }
     },
     {
     	"id": "arkham_succumbed",
@@ -362,7 +328,7 @@
           }
         ]
       },
-    }
+    },
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",

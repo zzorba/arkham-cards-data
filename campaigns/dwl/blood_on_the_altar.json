@@ -56,7 +56,7 @@
       "options": [
         {
           "condition": true,
-          "step": "add_1_doom"
+          "steps": ["add_1_doom"]
         }
       ]
     },
@@ -79,7 +79,7 @@
       "options": [
         {
           "condition": true,
-          "step": "gather_naomis_crew"
+          "steps": ["gather_naomis_crew"]
         }
       ]
     },
@@ -151,21 +151,22 @@
     },
     {
       "id": "record_sacrificed",
+      "text": "In your Campaign Log, under “Sacrificed to Yog‐Sothoth,” record the names of each unique card that is underneath the agenda deck.",
+      "subtext": "Each of those cards are removed from all players’ decks and can no longer be included in any players’ decks for the remainder of the campaign.",
       "input": {
-        "type": "choose_many",
-        "title": " In your Campaign Log, under “Sacrificed to Yog‐Sothoth,” record the names of each unique card that is underneath the agenda deck.",
-        "subtitle": "Each of those cards are removed from all players’ decks and can no longer be included in any players’ decks for the remainder of the campaign.",
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "Ally",
+            "is_unique": true,
+          },
+          {
+            "code": ["02080", "02061", "02040", "02217", "02218"]
+          }
+        ],
         "choices": [
           {
-            "type": "card",
-            "cardQuery": [
-              {
-                "trait": "Ally",
-                "is_unique": true,
-              },{
-                "code": ["02080", "02061", "02040", "02217", "02218"]
-              }
-            ],
+            "text": "Under the agenda deck?",
             "effects": [
               {
                 "type": "campaign_log",
@@ -190,7 +191,7 @@
       "options": [
         {
           "condition": true,
-          "step": "necronomicon_stolen"
+          "steps": ["necronomicon_stolen"]
         }
       ]
     },

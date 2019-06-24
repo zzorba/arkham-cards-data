@@ -4,8 +4,9 @@
   "setup": [
     "check_unconscious"
   ],
-  "steps": {
-    "check_unconscious": {
+  "steps": [
+    {
+      "id": "check_unconscious",
       "type": "branch",
       "condition": {
         "type": "check_campaign_log",
@@ -16,25 +17,27 @@
       "options": [
         {
           "condition": true,
-          "step": "fate_1"
+          "steps": ["fate_1"]
         },
         {
           "condition": false,
-          "step": "fate_2"
+          "steps": ["fate_2"]
         }
       ]
     },
-    "fate_1": {
+    {
+      "id": "fate_1",
       "type": "story",
       "text": "You are more than a little rattled by your experiences in the university and the Clover Club. You’re not sure what to make of whoever—or whatever—was after Rice and Morgan. Worried about Dr. Armitage, you swiftly make your way back to his home. When you arrive, you find that the latches of his front door have been busted open, and his living area and study have been ransacked. Dr. Armitage is nowhere to be found. Searching his home, you find a journal the intruders didn’t steal tucked beneath several other documents in the bottom drawer of Armitage’s desk.\nThe journal appears to be written in a strange language you cannot decode, using a script you’ve never seen in your entire life. Fortunately, it seems Dr. Armitage had already gone through the trouble of translating it into English. Apparently, it belongs to one “Wilbur Whateley.” The journal—along with Armitage’s many notes—tells a startling tale, one you would scarcely believe had it not been for your harrowing experiences earlier tonight…",
       "steps": ["henry_armitage_kidnapped", "bonus_xp"]
     },
-    "fate_2": {
+    {
+      "id": "fate_2",
       "type": "story",
       "text": "When you arrive at Dr. Armitage’s home in Southside, you find him sitting at his desk, pale-faced and sweating with worry. He is grateful to you for searching for his colleagues, but he doesn’t look relieved. With a long pause, he straightens his glasses and explains:\n“I’m afraid I must apologize. There’s something I didn’t mention to you earlier.” Dr. Armitage then spins a tale you would scarcely believe had it not been for your harrowing experiences earlier that night…"
     },
-    "henry_armitage_kidnapped": {
-      "text": "In your Campaign Log, record that <i>Dr. Henry Armitage was kidnapped</i>.",
+    {
+      "id": "henry_armitage_kidnapped",
       "effects": [
         {
           "type": "campaign_log",
@@ -44,14 +47,14 @@
         }
       ]
     }, 
-    "henry_armitage_rescued": {
-      "text": "In your Campaign Log, record that <i>the investigators rescued Dr. Henry Armitage</i>. Any one investigator may choose to add Dr. Henry Armitage to his or her deck. This card does not count toward that investigator’s deck size.",
+    {
+      "id": "henry_armitage_rescued",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_log",
           "id": "henry_armitage_rescued",
-          "text": "The investigators rescued Dr. Henry Armitage.",
+          "text": "the investigators rescued Dr. Henry Armitage.",
         },
         {
           "type": "add_card",
@@ -60,7 +63,8 @@
         }
       ]
     },
-    "bonus_xp": {
+    {
+      "id": "bonus_xp",
       "text": "Each investigator earns 2 bonus experience as reading Wilbur’s journal gives them insight into the hidden world of the mythos.",
       "effects": [
         {
@@ -70,5 +74,5 @@
         }
       ]
     }
-  }
+  ]
 }
