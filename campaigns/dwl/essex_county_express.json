@@ -1,279 +1,291 @@
 {
-	"scenarioName": "The Essex County Express",
-	"setup": [
-		"prologue",
-		"gather_encounter_sets",
-		"setup_locations",
-		"reveal_location",		
-		"set_aside_cards",
-		"encounter_deck",
-		"void_note"
-	],
-	"steps": {
-		"prologue": {
-			"type": "story",
-			"text": "Recent events in the Museum have forced you to re-evaluate Armitage’s tale about Dunwich. It cannot be a coincidence—Wilbur Whateley, the Necronomicon, the creature from Dunwich, and the people and creatures who attacked here in Arkham—everything must be connected. You’re certain now where you must head: the lonely and dismal town of Dunwich Village.\nYou consider telling the Massachusetts State Police what you know, but the negative consequences outweigh the potential gain. Given the nature of your story, they would likely write your stories off as an absurd hoax. Worse, they could lock you up. After all, you were present in an illegal speakeasy, and you also trespassed in the museum. Instead, you decide to head to Dunwich yourself, in order to investigate further.\nYou pack everything you think you might need and manage to get some rest for the night. In the morning, you head to the train station in Northside and purchase a last-minute express ticket. Dunwich is several hours by train northwest along the Miskatonic River Valley. There is no train station in Dunwich, but you manage to phone one of Armitage’s acquaintances in the small village: a man by the name of Zebulon Whateley who was present during the events several months ago.\nArmitage’s notes indicate that the Whateley family is spread across many branches, some decadent and unscrupulous, others “undecayed” or otherwise untouched by nefarious and diabolic rites. According to Armitage, Zebulon’s branch of the family lay somewhere between the decayed and undecayed Whateleys, who knew of the traditions of his ancestors, but was not corrupted by them. He agrees to pick you up at the closest station and drive you into town\nAs the train departs from Arkham, you feel the events of the previous night catching up to you, and exhaustion sets in. But before you can safely reach your destination, the train car suddenly rumbles and shakes, startling you out of your reverie. The train loudly skids to a violent halt, and you hear a rattling noise behind you…"
-		},
-		"gather_encounter_sets": {
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"essex_county_express",
-				"the_beyond",
-				"striking_fear",
-				"ancient_evils",
-				"pentagram"
-			]
-		},
-		"setup_locations": {
-			"text": "Put one of the three Engine Car locations into play at random. Remove the other versions of Engine Car from the game. Then, put six of the eight Train Car locations into play at random, in a straight line to the left of the Engine Car. Remove the remaining two Train Car locations from the game."
-		},
-		"reveal_location": {
-			"text": "Reveal the leftmost Train Car. Each investigator begins play in that location. (If that location has a ‘forced’ effect that triggers upon entering that location, ignore it.)"
-		},
-		"set_aside_cards": {
-			"text": "Set all 4 copies of Across Space and Time aside, out of play."
-		},
-		"add_chaos_token": {
-			"type": "branch",
-			"condition": {
-				"type": "check_campaign_data",
-				"setting": "difficulty"
-			},
-			"options": [
-				{
-					"condition": "easy",
-					"effects": [
-						{
-							"type": "add_chaos_token",
-							"values": ["-2"]
-						}
-					]
-				},
-				{
-					"condition": "standard",
-					"effects": [
-						{
-							"type": "add_chaos_token",
-							"values": ["-3"]
-						}
-					]
-				},
-				{
-					"condition": "hard",
-					"effects": [
-						{
-							"type": "add_chaos_token",
-							"values": ["-4"]
-						}
-					]
-				},
-				{
-					"condition": "expert",
-					"effects": [
-						{
-							"type": "add_chaos_token",
-							"values": ["-5"]
-						}
-					]
-				}				
-			]
-		},
-		"encounter_deck": {
-			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
-		},
-		"train_note": {
-			"type": "rule_reminder",
-			"title": "Moving on the Train: “Left” and “Right”",
-			"text": "During this scenario, locations are lined up from left to right, with the Engine Car as the rightmost location. Whenever a card effect refers to “the location to the left,” or “the location to the right,” it refers to the location immediately to your location’s left or right.\nAny card effects that reference a direction (left or right) should be interpreted from the perspective of the diagram on the previous page"
-		},
-		"investigators_delayed": {
-			"text": "In your Campaign Log, record that <i>the investigators were delayed on their way to Dunwich</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "investigators_delayed",
-					"text": "The investigators were delayed on their way to Dunwich.",
-				},
-			]
-		},
-		"across_space_and_time": {
-			"text": "Each investigator who was defeated has acquired the Across Space and Time weakness and must add 1 copy of it to his or her deck. This card does not count toward that investigator’s deck size",
-			"effects": [
-				{
-					"type": "add_card",
-					"investigator": "defeated",
-					"card": "02178"
-				}
-			]
-		},
-		"bonus_xp": {
-			"text": "Each investigator who was defeated earns 1 bonus experience as his or her experience beyond the gate grants them insight into the cosmos.",
-			"effects": [
-				{
-					"type": "earn_xp",
-					"investigator": "defeated",
-					"bonus": 1			
-				}
-			]
-		},
-		"lose_necronomicon": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02140"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "necronomicon_stolen"
-				}
-			]
-		},
-		"necronomicon_stolen": {
-			"text": "In your Campaign Log, record that <i>the Necronomicon was stolen</i>. The Necronomicon <i>(Olaus Wormius Translation)</i> must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "necronomicon_stolen",
-					"text": "The Necronomicon was stolen.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02140"
-				}
-			]
-		}, 
-
-		"lose_henry_armitage": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02040"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "henry_armitage_kidnapped"
-				}
-			]
-		},
-		"henry_armitage_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Dr. Henry Armitage was kiddnapped</i>. Dr. Henry Armitage must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "henry_armitage_kidnapped",
-					"text": "Dr. Henry Armitage was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02040"
-				}
-			]
-		}, 
-
-		"lose_francis_morgan": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02080"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "francis_morgan_kidnapped"
-				}
-			]
-		},
-		"francis_morgan_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Dr. Francis Morgan was kidnapped</i>. Dr. Francis Morgan must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "francis_morgan_kidnapped",
-					"text": "Dr. Francis Morgan was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02080"
-				}
-			]
-		}, 
-		
-		"lose_warren_rice": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02061"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "warren_rice_kidnapped"
-				}
-			]
-		},
-		"warren_rice_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Professor Warren Rice was kidnapped</i>. Professor Warren Rice must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "warren_rice_kidnapped",
-					"text": "Professor Warren Rice was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02061"
-				}
-			]
-		}, 
-		"earn_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all"			
-					}
-				]
-			},
-		}
-	},
-	"resolutions": [
-		{
-			"id": "investigator_defeat",
-			"title": "Investigator Defeat",
-			"text": ": Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
-			"steps": ["across_space_and_time", "bonus_xp", "lose_necronomicon", "lose_henry_armitage", "lose_francis_morgan", "lose_warren_rice"]
-		},
-		{
-			"id": "no_resolution",
-			"title": "If no resolution was reached (each investigator was defeated)",
-			"text": "Go to <b>Resolution 2</b>",
-			"resolution": "R2"
-		},
-		{
-			"id": "R1",
-			"title": "Resolution 1",
-			"text": "You breathe a sigh of relief as the gate behind the train collapses harmlessly upon itself. The few passengers who survived the ordeal seem unable to comprehend what just happened. One passenger mentions “a pipe bursting in the rear car,” and that quickly becomes the explanation for the innocent and ignorant, those who either cannot or choose not to delve further into the mystery. You, on the other hand, know better… although in hindsight, you wish you didn’t.",
-			"steps": ["earn_xp"]
-		},
-		{
-			"id": "R2",
-			"title": "Resolution 2",
-			"text": "Rattled, you begin walking alongside the train tracks, making your way towards Dunwich.",
-			"steps": ["investigators_delayed", "earn_xp"]
-		}
-	]
+  "scenarioName": "The Essex County Express",
+  "setup": [
+    "prologue",
+    "gather_encounter_sets",
+    "setup_locations",
+    "reveal_location",    
+    "set_aside_cards",
+    "encounter_deck",
+    "void_note"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "text": "Recent events in the Museum have forced you to re-evaluate Armitage’s tale about Dunwich. It cannot be a coincidence—Wilbur Whateley, the Necronomicon, the creature from Dunwich, and the people and creatures who attacked here in Arkham—everything must be connected. You’re certain now where you must head: the lonely and dismal town of Dunwich Village.\nYou consider telling the Massachusetts State Police what you know, but the negative consequences outweigh the potential gain. Given the nature of your story, they would likely write your stories off as an absurd hoax. Worse, they could lock you up. After all, you were present in an illegal speakeasy, and you also trespassed in the museum. Instead, you decide to head to Dunwich yourself, in order to investigate further.\nYou pack everything you think you might need and manage to get some rest for the night. In the morning, you head to the train station in Northside and purchase a last-minute express ticket. Dunwich is several hours by train northwest along the Miskatonic River Valley. There is no train station in Dunwich, but you manage to phone one of Armitage’s acquaintances in the small village: a man by the name of Zebulon Whateley who was present during the events several months ago.\nArmitage’s notes indicate that the Whateley family is spread across many branches, some decadent and unscrupulous, others “undecayed” or otherwise untouched by nefarious and diabolic rites. According to Armitage, Zebulon’s branch of the family lay somewhere between the decayed and undecayed Whateleys, who knew of the traditions of his ancestors, but was not corrupted by them. He agrees to pick you up at the closest station and drive you into town\nAs the train departs from Arkham, you feel the events of the previous night catching up to you, and exhaustion sets in. But before you can safely reach your destination, the train car suddenly rumbles and shakes, startling you out of your reverie. The train loudly skids to a violent halt, and you hear a rattling noise behind you…"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "essex_county_express",
+        "the_beyond",
+        "striking_fear",
+        "ancient_evils",
+        "pentagram"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put one of the three Engine Car locations into play at random. Remove the other versions of Engine Car from the game. Then, put six of the eight Train Car locations into play at random, in a straight line to the left of the Engine Car. Remove the remaining two Train Car locations from the game."
+    },
+    {
+      "id": "reveal_location",
+      "text": "Reveal the leftmost Train Car. Each investigator begins play in that location. (If that location has a ‘forced’ effect that triggers upon entering that location, ignore it.)"
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set all 4 copies of Across Space and Time aside, out of play."
+    },
+    {
+      "id": "add_chaos_token",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_data",
+        "setting": "difficulty"
+      },
+      "options": [
+        {
+          "condition": "easy",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "values": ["-2"]
+            }
+          ]
+        },
+        {
+          "condition": "standard",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "values": ["-3"]
+            }
+          ]
+        },
+        {
+          "condition": "hard",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "values": ["-4"]
+            }
+          ]
+        },
+        {
+          "condition": "expert",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "values": ["-5"]
+            }
+          ]
+        }        
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+    },
+    {
+      "id": "train_note",
+      "type": "rule_reminder",
+      "title": "Moving on the Train: “Left” and “Right”",
+      "text": "During this scenario, locations are lined up from left to right, with the Engine Car as the rightmost location. Whenever a card effect refers to “the location to the left,” or “the location to the right,” it refers to the location immediately to your location’s left or right.\nAny card effects that reference a direction (left or right) should be interpreted from the perspective of the diagram on the previous page"
+    },
+    {
+      "id": "investigators_delayed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "investigators_delayed",
+          "text": "the investigators were delayed on their way to Dunwich.",
+        },
+      ]
+    },
+    {
+      "id": "across_space_and_time",
+      "text": "Each investigator who was defeated has acquired the Across Space and Time weakness and must add 1 copy of it to his or her deck. This card does not count toward that investigator’s deck size",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "defeated",
+          "card": "02178"
+        }
+      ]
+    },
+    {
+      "id": "bonus_xp",
+      "text": "Each investigator who was defeated earns 1 bonus experience as his or her experience beyond the gate grants them insight into the cosmos.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "defeated",
+          "bonus": 1      
+        }
+      ]
+    },
+    {
+      "id": "lose_necronomicon",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "defeated",
+        "card": "02140"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "necronomicon_stolen"
+        }
+      ]
+    },
+    {
+      "id": "necronomicon_stolen",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "necronomicon_stolen",
+          "text": "the Necronomicon was stolen.",
+        },
+        {
+          "type": "remove_card",
+          "card": "02140"
+        }
+      ]
+    }, 
+    {
+      "id": "lose_henry_armitage",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "defeated",
+        "card": "02040"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "henry_armitage_kidnapped"
+        }
+      ]
+    },
+    {
+      "id": "henry_armitage_kidnapped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "henry_armitage_kidnapped",
+          "text": "Dr. Henry Armitage was kidnapped.",
+        },
+        {
+          "type": "remove_card",
+          "card": "02040"
+        }
+      ]
+    }, 
+    {
+      "id": "lose_francis_morgan",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "defeated",
+        "card": "02080"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "francis_morgan_kidnapped"
+        }
+      ]
+    },
+    {
+      "id": "francis_morgan_kidnapped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "francis_morgan_kidnapped",
+          "text": "Dr. Francis Morgan was kidnapped.",
+        },
+        {
+          "type": "remove_card",
+          "card": "02080"
+        }
+      ]
+    },    
+    {
+      "id": "lose_warren_rice",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "defeated",
+        "card": "02061"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "warren_rice_kidnapped"
+        }
+      ]
+    },
+    {
+      "id": "warren_rice_kidnapped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "warren_rice_kidnapped",
+          "text": "Professor Warren Rice was kidnapped.",
+        },
+        {
+          "type": "remove_card",
+          "card": "02061"
+        }
+      ]
+    }, 
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      },
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": ": Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
+      "steps": ["across_space_and_time", "bonus_xp", "lose_necronomicon", "lose_henry_armitage", "lose_francis_morgan", "lose_warren_rice"]
+    },
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator was defeated)",
+      "text": "Go to <b>Resolution 2</b>",
+      "resolution": "R2"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You breathe a sigh of relief as the gate behind the train collapses harmlessly upon itself. The few passengers who survived the ordeal seem unable to comprehend what just happened. One passenger mentions “a pipe bursting in the rear car,” and that quickly becomes the explanation for the innocent and ignorant, those who either cannot or choose not to delve further into the mystery. You, on the other hand, know better… although in hindsight, you wish you didn’t.",
+      "steps": ["earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Rattled, you begin walking alongside the train tracks, making your way towards Dunwich.",
+      "steps": ["investigators_delayed", "earn_xp"]
+    }
+  ]
 }

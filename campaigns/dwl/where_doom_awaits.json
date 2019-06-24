@@ -1,25 +1,27 @@
 {
-	"scenarioName": "Where Doom Awaits",
-	"setup": [
-		"prologue",
-		"check_naomi_has_back",
-		"gather_encounter_sets",
-		"setup_locations",
-		"remove_diverging_path",
-		"remove_altered_path",
-		"set_aside_cards",
-		"add_chaos_token",
-		"select_act_2",
-		"check_escaped_brood",
-		"check_killed_silas_bishop",
-		"encounter_deck"
-	],
-	"steps": {
-		"prologue": {
-			"type": "story",
-			"text": "You awaken to the sound of screeching. Fearing the worst, you grab your equipment and head out into the streets of Dunwich. As soon as you step outside, you sense a foulness in the cold night air: an awful, pungent smell that can scarcely be described and a heaviness to the atmosphere that makes it difficult to breathe. The citizens of Dunwich have sealed their doors, and the town feels quiet and lonesome. In the distance, a faint glow emanates from a hilltop above the village. You know of this hill from both your interactions with Zebulon and Armitage’s records. It is called Sentinel Hill. The tales speak of satanic rites being performed there—rites in which great ritual-pyres light up the night sky while the ground rumbles furiously below.\nFlocks of whippoorwills perch on the rooftops of the village around you, watching ominously as you climb inside Zebulon’s old and beat-up truck. As you drive towards Sentinel Hill, more screeching fills the sky with an awful pitch that is painful to your ears. Everything you have read about and experienced in Dunwich has led to this. If the foul ritual Seth seeks to perform has anything to do with what Armitage and his colleagues prevented several months back, it involves the favor of an ancient creature — <b>Yog‐Sothoth</b>. Failing to stop this ritual may spell doom...not only Dunwich, but for the entire world."
-		},
-		"check_naomi_has_back": {
+  "scenarioName": "Where Doom Awaits",
+  "setup": [
+    "prologue",
+    "check_naomi_has_back",
+    "gather_encounter_sets",
+    "setup_locations",
+    "remove_diverging_path",
+    "remove_altered_path",
+    "set_aside_cards",
+    "add_chaos_token",
+    "select_act_2",
+    "check_escaped_brood",
+    "check_killed_silas_bishop",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "text": "You awaken to the sound of screeching. Fearing the worst, you grab your equipment and head out into the streets of Dunwich. As soon as you step outside, you sense a foulness in the cold night air: an awful, pungent smell that can scarcely be described and a heaviness to the atmosphere that makes it difficult to breathe. The citizens of Dunwich have sealed their doors, and the town feels quiet and lonesome. In the distance, a faint glow emanates from a hilltop above the village. You know of this hill from both your interactions with Zebulon and Armitage’s records. It is called Sentinel Hill. The tales speak of satanic rites being performed there—rites in which great ritual-pyres light up the night sky while the ground rumbles furiously below.\nFlocks of whippoorwills perch on the rooftops of the village around you, watching ominously as you climb inside Zebulon’s old and beat-up truck. As you drive towards Sentinel Hill, more screeching fills the sky with an awful pitch that is painful to your ears. Everything you have read about and experienced in Dunwich has led to this. If the foul ritual Seth seeks to perform has anything to do with what Armitage and his colleagues prevented several months back, it involves the favor of an ancient creature — <b>Yog‐Sothoth</b>. Failing to stop this ritual may spell doom...not only Dunwich, but for the entire world."
+    },
+    {
+      "id": "check_naomi_has_back",
       "type": "branch",
       "condition": {
         "type": "check_campaign_log",
@@ -33,11 +35,14 @@
         }
       ]
     },
-		"part1": {
-			"text": "The path leading up Sentinel Hill is narrow and too torn up for Zebulon’s truck, so you park at the base of the hill and prepare to make the rest of the trip on foot. Just then, you notice that you are not alone. Several men and women emerge from the woods behind you, brandishing firearms and lining you up in their sights. You raise your hands and brace for the worst. “Wait,” one of them says, raising his hand to the others. “I recognize you from the Clover Club.” He grins toothily and lowers his weapon. “Naomi sends her regards.”\nCurious, you ask what the gangsters are doing here. “Ms. O’Bannion had us investigate the attack on her fiancé’s club,” he explains. “Turns out there were some men in Arkham behind the whole thing. Some Bishop fellow and his lackeys. We tailed them all the way to this dump.” Before he can explain further, the all-too-familiar ratta‐tat of a tommy gun echoes across the hill. “That’ll be Vinny. Come on, boys!” He beckons to the others to follow and runs up the hill. Shaking your head, you do the same. These mobsters don’t know what they’re getting into."
-		}, 
-		"gain_clues": {
-    	 "type": "branch",
+    {
+      "id": "part1",
+      "type": "story",
+      "text": "The path leading up Sentinel Hill is narrow and too torn up for Zebulon’s truck, so you park at the base of the hill and prepare to make the rest of the trip on foot. Just then, you notice that you are not alone. Several men and women emerge from the woods behind you, brandishing firearms and lining you up in their sights. You raise your hands and brace for the worst. “Wait,” one of them says, raising his hand to the others. “I recognize you from the Clover Club.” He grins toothily and lowers his weapon. “Naomi sends her regards.”\nCurious, you ask what the gangsters are doing here. “Ms. O’Bannion had us investigate the attack on her fiancé’s club,” he explains. “Turns out there were some men in Arkham behind the whole thing. Some Bishop fellow and his lackeys. We tailed them all the way to this dump.” Before he can explain further, the all-too-familiar ratta‐tat of a tommy gun echoes across the hill. “That’ll be Vinny. Come on, boys!” He beckons to the others to follow and runs up the hill. Shaking your head, you do the same. These mobsters don’t know what they’re getting into."
+    }, 
+    {
+      "id": "gain_clues",
+       "type": "branch",
       "condition": {
         "type": "scenario_data",
         "id": "player_count",
@@ -61,37 +66,45 @@
         }
       ]
     },
-    "one_clue": {
-    	"text": "The lead investigator gains a clue from the token bank",
+    {
+      "id": "one_clue",
+      "text": "The lead investigator gains a clue from the token bank",
     },
-    "two_clues": {
-    	"text": "The lead investigator gains 2 clues from the token bank",
+    {
+      "id": "two_clues",
+      "text": "The lead investigator gains 2 clues from the token bank",
     },
-		"gather_encounter_sets": {
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"where_doom_awaits",
-				"beast_thralls",
-				"sorcery",
-				"bishops_thralls",
-				"striking_fear",
-				"ancient_evils",
-				"chilling_cold"
-			]
-		},
-		"setup_locations": {
-			"text": "Put Base of the Hill, Ascending Path, and Sentinel Peak into play. Each investigator begins play at Base of the Hill."
-		},
-		"remove_diverging_path": {
-			"text": "Remove 1 copy of Diverging Path from the game, at random. Set the other 3 copies of Diverging Path aside, out of play."
-		},
-		"remove_altered_path": {
-			"text": "Remove 1 copy of Altered Path from the game, at random. Set the other 3 copies of Altered Path aside, out of play."
-		},
-		"set_aside_cards": {
-			"text": "Set Seth Bishop aside, out of play."
-		},
-		"add_chaos_token": {
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "where_doom_awaits",
+        "beast_thralls",
+        "sorcery",
+        "bishops_thralls",
+        "striking_fear",
+        "ancient_evils",
+        "chilling_cold"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Base of the Hill, Ascending Path, and Sentinel Peak into play. Each investigator begins play at Base of the Hill."
+    },
+    {
+      "id": "remove_diverging_path",
+      "text": "Remove 1 copy of Diverging Path from the game, at random. Set the other 3 copies of Diverging Path aside, out of play."
+    },
+    {
+      "id": "remove_altered_path",
+      "text": "Remove 1 copy of Altered Path from the game, at random. Set the other 3 copies of Altered Path aside, out of play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set Seth Bishop aside, out of play."
+    },
+    {
+      "id": "add_chaos_token",
       "type": "branch",
       "condition": {
         "type": "check_campaign_data",
@@ -136,179 +149,178 @@
         }
       ]
     },
-    "select_act_2": {
-    	"text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game.",
-    	"type": "branch",
-    	"condition": {
-    		"type": "check_campaign_log",
-    		"section": "campaign_log",
-    		"id": "restored_silas_bishop"
-    	},
-    	"options": [
-    		{
-    			"condition": true,
-    			"step": "act_2_v1"
-    		},
-    		{
-    			"condition": "false",
-    			"step": "check_necronomicon"
-    		}
-    	]
-    },
-    "act_2_v1": {
-    	"text": "Use Act 2—Ascending the Hill (v. I). Remove each other version of Act 2 from the game."
-    },
-    "act_2_v2": {
-    	"text": "Use Act 2—Ascending the Hill (v. II). Remove each other version of Act 2 from the game."
-    },
-    "act_2_v3": {
-    	"text": "Use Act 2—Ascending the Hill (v. III). Remove each other version of Act 2 from the game."
-    },
-    "check_necronomicon": {
-			"type": "branch",
-    	"condition": {
-    		"type": "check_campaign_log",
-    		"section": "campaign_log",
-    		"id": "failed_to_recover_necronomicon"
-    	},
-    	"options": [
-    		{
-    			"condition": true,
-    			"step": "act_2_v2"
-    		},
-    		{
-    			"condition": "false",
-    			"step": "check_necronomicon_lost"
-    		}
-    	]
-    },
-    "check_necronomicon_lost": {
-			"type": "branch",
-    	"condition": {
-    		"type": "check_campaign_log",
-    		"section": "campaign_log",
-    		"id": "necronomicon_stolen"
-    	},
-    	"options": [
-    		{
-    			"condition": true,
-    			"step": "act_2_v2"
-    		},
-    		{
-    			"condition": "false",
-    			"step": "act_2_v3"
-    		}
-    	]
-    },
-    "check_escaped_brood": {
-			"type": "branch",
-    	"condition": {
-    		"type": "check_campaign_log",
-    		"section": "campaign_log",
-    		"id": "brood_escaped"
-    	},
-    	"options": [
-    		{
-    			"condition": 1,
-    			"step": "add_1_doom"
-    		},
-    		{
-    			"condition": 2,
-    			"step": "add_2_doom"
-    		},
-    		{
-    			"condition": 3,
-    			"step": "add_3_doom"
-    		},
-    		{
-    			"condition": 4,
-    			"step": "add_4_doom"
-    		},
-    		{
-    			"condition": 5,
-    			"step": "add_5_doom"
-    		}
-    	]
-    },
-    "add_1_doom": {
-    	"text": "Add 1 doom to agenda 1a."
-    },
-    "add_2_doom": {
-    	"text": "Add 2 doom to agenda 1a."
-    },
-    "add_2_doom": {
-    	"text": "Add 2 doom to agenda 1a."
-    },
-    "add_2_doom": {
-    	"text": "Add 2 doom to agenda 1a."
-    },
-    "add_2_doom": {
-    	"text": "Add 2 doom to agenda 1a."
-    },
-    "check_killed_silas_bishop": {
-  		"type": "branch",
-    	"condition": {
-    		"type": "check_campaign_log",
-    		"section": "campaign_log",
-    		"id": "killed_silas_bishop"
-    	},
-    	"options": [
-    		{
-    			"condition": true,
-    			"step": "killed_silas_bishop"
-    		}
-    	]
-    },
-    "killed_silas_bishop": {
-    	"text": "The remnants of the creature's body have mutated and grown at Sentinel Hill. Put 1 “Conglomeration of Spheres” enemy from the <i>Hideous Abominations</i> encounter set into play at Ascending Path. Shuffle the rest of that set into the encounter deck.",
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"hideous_abominations"
-			]   
-	  },
-		"encounter_deck": {
-			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
-		},
-
-
-		"brood_escaped": {
-			"text": "In your Campaign Log, record that X brood escaped into the wild. X is the total number of Brood of Yog‐Sothoth still in play or set aside.",
-			"input": {
-        "type": "counter",
-        "text": "Brood of Yog-Sothoth in play or set aside",
-        "effects": [
-          {
-            "type": "campaign_log",
-            "section": "campaign_log",
-            "id": "brood_escaped",
-            "text": "#X# brood escaped into the wild."
-          }
-        ]
+    {
+      "id": "select_act_2",
+      "text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game.",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "restored_silas_bishop"
       },
-		},
-		"entered_the_gate": {
-			"text": "In your Campaign Log, record that <i>the investigators entered the gate</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "entered_the_gate",
-					"text": "The investigators entered the gate.",
-				},
-			]
-		},
-		"yog_sothoth_escaped": {
-			"text": "In your Campaign Log, record that <i>Yog-Sothoth tore apart the barrier between worlds, and became one with all reality</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "yog_sothoth_escaped",
-					"text": "Yog-Sothoth tore apart the barrier between worlds, and became one with all reality.",
-				},
-			]
-		},
-    "all_insane": {
+      "options": [
+        {
+          "condition": true,
+          "step": "act_2_v1"
+        },
+        {
+          "condition": "false",
+          "step": "check_necronomicon"
+        }
+      ]
+    },
+    {
+      "id": "act_2_v1",
+      "text": "Use Act 2—Ascending the Hill (v. I). Remove each other version of Act 2 from the game."
+    },
+    {
+      "id": "act_2_v2",
+      "text": "Use Act 2—Ascending the Hill (v. II). Remove each other version of Act 2 from the game."
+    },
+    {
+      "id": "act_2_v3",
+      "text": "Use Act 2—Ascending the Hill (v. III). Remove each other version of Act 2 from the game."
+    },
+    {
+      "id": "check_necronomicon",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "failed_to_recover_necronomicon"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "act_2_v2"
+        },
+        {
+          "condition": "false",
+          "step": "check_necronomicon_lost"
+        }
+      ]
+    },
+    {
+      "id": "check_necronomicon_lost",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "necronomicon_stolen"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "act_2_v2"
+        },
+        {
+          "condition": "false",
+          "step": "act_2_v3"
+        }
+      ]
+    },
+    {
+      "id": "check_escaped_brood",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "brood_escaped"
+      },
+      "options": [
+        {
+          "condition": 1,
+          "step": "add_1_doom"
+        },
+        {
+          "condition": 2,
+          "step": "add_2_doom"
+        },
+        {
+          "condition": 3,
+          "step": "add_3_doom"
+        },
+        {
+          "condition": 4,
+          "step": "add_4_doom"
+        },
+        {
+          "condition": 5,
+          "step": "add_5_doom"
+        }
+      ]
+    },
+    {
+      "id": "add_1_doom",
+      "text": "Add 1 doom to agenda 1a."
+    },
+    {
+      "id": "add_2_doom",
+      "text": "Add 2 doom to agenda 1a."
+    },
+    {
+      "id": "add_2_doom",
+      "text": "Add 2 doom to agenda 1a."
+    },
+    {
+      "id": "add_2_doom",
+      "text": "Add 2 doom to agenda 1a."
+    },
+    {
+      "id": "add_2_doom",
+      "text": "Add 2 doom to agenda 1a."
+    },
+    {
+      "id": "check_killed_silas_bishop",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "killed_silas_bishop"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "killed_silas_bishop"
+        }
+      ]
+    },
+    {
+      "id": "killed_silas_bishop",
+      "text": "The remnants of the creature's body have mutated and grown at Sentinel Hill. Put 1 “Conglomeration of Spheres” enemy from the <i>Hideous Abominations</i> encounter set into play at Ascending Path. Shuffle the rest of that set into the encounter deck.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "hideous_abominations"
+      ]   
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+    },   
+    {
+      "id": "entered_the_gate",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "entered_the_gate",
+          "text": "the investigators entered the gate.",
+        },
+      ]
+    },
+    {
+      "id": "yog_sothoth_escaped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "yog_sothoth_escaped",
+          "text": "Yog-Sothoth tore apart the barrier between worlds, and became one with all reality.",
+        },
+      ]
+    },
+    {
+      "id": "all_insane",
       "text": "Each surviving is driven <b>insane</b>.",
       "effects": [
         {
@@ -318,7 +330,8 @@
         }
       ]
     },
-    "lose_campaign": {
+    {
+      "id": "lose_campaign",
       "text": "The investigators lose the campaign.",
       "effects": [
         {
@@ -328,38 +341,39 @@
         },
       ]
     },
-		"earn_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all"			
-					}
-				]
-			},
-		}
-	},
-	"resolutions": [
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      },
+    }
+  ],
+  "resolutions": [
     {
       "id": "no_resolution",
       "title": "If no resolution was reached (each investigator resigned or was defeated)",
       "text": "Read <b>Resolution 2</b>",
       "resolution": "R2"
     },
-		{
-			"id": "R1",
-			"title": "Resolution 1",
-			"text": "The poorly bound tome appears to be the written records of Old Whateley, the man who taught Wilbur the ancient secrets of sorcery. You find a passage describing a place outside of time and space, where worlds converge and Yog-Sothoth dwells. Only by reaching this nexus at the edge of reality can you unmake the tear that has split open the world. Feeling as if you may be going to your doom, you muster a final ounce of courage and step into the gate.",
-			"steps": ["entered_the_gate", "earn_xp"]
-		},
-		{
-			"id": "R2",
-			"title": "Resolution 2",
-			"text": "The sorcerers from Dunwich, seeking arcane power from beyond this realm, have accomplished what Wilbur and Old Whateley could not. Through blood sacrifice and indescribable experiments, the dark power the sorcerers sought is now within their reach. However, they will never get the chance to truly wield this power. In beseeching Wilbur’s father for knowledge, they have drawn the creature forth from its extradimensional realm. Yog-Sothoth emerges from the open rift above Sentinel Hill, blotting out the sky and enveloping the world. Now it has come to Earth, and it rules where humanity once tread.",
-			"steps": ["yog_sothoth_escaped", "all_insane", "lose_campaign"]
-		}
-	]
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The poorly bound tome appears to be the written records of Old Whateley, the man who taught Wilbur the ancient secrets of sorcery. You find a passage describing a place outside of time and space, where worlds converge and Yog-Sothoth dwells. Only by reaching this nexus at the edge of reality can you unmake the tear that has split open the world. Feeling as if you may be going to your doom, you muster a final ounce of courage and step into the gate.",
+      "steps": ["entered_the_gate", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The sorcerers from Dunwich, seeking arcane power from beyond this realm, have accomplished what Wilbur and Old Whateley could not. Through blood sacrifice and indescribable experiments, the dark power the sorcerers sought is now within their reach. However, they will never get the chance to truly wield this power. In beseeching Wilbur’s father for knowledge, they have drawn the creature forth from its extradimensional realm. Yog-Sothoth emerges from the open rift above Sentinel Hill, blotting out the sky and enveloping the world. Now it has come to Earth, and it rules where humanity once tread.",
+      "steps": ["yog_sothoth_escaped", "all_insane", "lose_campaign"]
+    }
+  ]
 }

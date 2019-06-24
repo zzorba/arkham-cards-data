@@ -1,232 +1,244 @@
 {
-	"scenarioName": "Extracurricular Activities",
-	"setup": [
-		"prologue",
-		"gather_encounter_sets",
-		"faculty_offices",
-		"set_aside_cards",
-		"setup_locations",
-		"encounter_deck"
-	],
-	"steps": {
-		"prologue": {
-			"type": "story",
-			"text": "Dr. Armitage is worried his colleague, Professor Warren Rice, might be in trouble, so he has asked for your help in finding his friend. He seems unreasonably nervous about his colleague’s disappearance considering Professor Rice has only been “missing” for a matter of hours…"
-		},
-		"gather_encounter_sets": {
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"extracurricular_activity",
-				"sorcery",
-				"the_beyond",
-				"bishops_thralls",
-				"whippoorwills",
-				"ancient_evils",
-				"locked_doors",
-				"agents_of_yog"
-			]
-		},
-		"faculty_offices": {
-			"type": "branch",
-			"condition": {
-				"type": "check_scenario",
-				"id": "the_house_always_wins",
-			},
-			"options": [
-				{
-					"condition": false,
-					"step": "faculty_office_night_is_young"
-				},
-				{
-					"condition": true,
-					"step": "faculty_office_hour_is_late"
-				}
-			]
-		},
-		"faculty_office_night_is_young": {
-			"text": "Set Faculty Offices <i>(The Night is Still Young)</i> aside, out of play. Remove Faculty Offices <i>(The Hour is Late)</i> from the game"
-		},
-		"faculty_office_hour_is_late": {
-			"text": "Set Faculty Offices <i>(The Hour is Late)</i> aside, out of play. Remove Faculty Offices <i>(The Night is Still Young)</i> from the game"
-		},
-		"setup_locations": {
-			"text": "Put the Miskatonic Quad, Orne Library, Humanities Building, Student Union, Science Building, and Administration Building locations into play. Each investigator begins play at the Miskatonic Quad."
-		},
-		"set_aside_cards": {
-			"text": "Set the following cards aside, out of play: “Jazz” Mulligan, Alchemical Concoction, The Experiment, Professor Warren Rice, Dormitories, and Alchemy Labs."
-		},
-		"encounter_deck": {
-			"text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
-		},
-
-		"warren_rice_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Professor Warren Rice was kidnapped</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "warren_rice_kidnapped",
-					"text": "Professor Warren Rice was kidnapped.",
-				}
-			]
-		}, 
-		"students_rescued": {
-			"text": "In your Campaign Log, record that <i>the students were rescued</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "students_rescued",
-					"text": "The students were rescued.",
-				}
-			]
-		},
-		"experiment_defeated": {
-			"text": "In your Campaign Log, record that <i>the Experiment was defeated</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "experiment_defeated",
-					"text": "The Experiment was defeated.",
-				}
-			]
-		},
-		"unconscious_for_several_hours": {
-			"text": "In your Campaign Log, record that <i>the investigators were unconscious for several hours</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "unconscious_for_several_hours",
-					"text": "The investigators were unconscious for several hours.",
-				}
-			]
-		},
-		"warren_rice_rescued": {
-			"text": "In your Campaign Log, record that <i>the investigators rescued Professor Warren Rice</i>. Any one investigator may choose to add Professor Warren Rice to his or her deck. This card does not count toward that investigator’s deck size.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "warren_rice_rescued",
-					"text": "The investigators rescued Professor Warren Rice.",
-				},
-				{
-					"type": "add_card",
-					"investigator": "choice",
-					"card": "02061"
-				}
-			]
-		},
-		"earn_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all"			
-					}
-				]
-			},
-		},
-		"earn_1_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 experience as he or she reflects on the night’s events.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all",
-						"bonus": 1						
-					}
-				]
-			},
-		},
-		"failed_to_save_students": {
-			"text": "In your Campaign Log, record that <i>the investigators failed to save the students</i>. You are haunted by guilt. Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "failed_to_save_students",
-					"text": "The investigators failed to save the students.",
-				},
-				{
-					"type": "add_chaos_token",
-					"values": ["tablet"]
-				}
-			]
-		},
-		"proceed_either": {
-			"type": "branch",
-			"condition": {
-				"type": "check_scenario",
-				"id": "the_house_always_wins",
-			},
-			"options": [
-				{
-					"condition": false,
-					"step": "proceed_house_always_wins"
-				},
-				{
-					"condition": true,
-					"step": "proceed_armitages_fate"
-				}
-			]
-		},
-		"proceed_house_always_wins": {
-			"effects": [
+  "scenarioName": "Extracurricular Activities",
+  "setup": [
+    "prologue",
+    "gather_encounter_sets",
+    "faculty_offices",
+    "set_aside_cards",
+    "setup_locations",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "text": "Dr. Armitage is worried his colleague, Professor Warren Rice, might be in trouble, so he has asked for your help in finding his friend. He seems unreasonably nervous about his colleague’s disappearance considering Professor Rice has only been “missing” for a matter of hours…"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "extracurricular_activity",
+        "sorcery",
+        "the_beyond",
+        "bishops_thralls",
+        "whippoorwills",
+        "ancient_evils",
+        "locked_doors",
+        "agents_of_yog"
+      ]
+    },
+    {
+      "id": "faculty_offices",
+      "type": "branch",
+      "condition": {
+        "type": "check_scenario",
+        "id": "the_house_always_wins",
+      },
+      "options": [
+        {
+          "condition": false,
+          "step": "faculty_office_night_is_young"
+        },
+        {
+          "condition": true,
+          "step": "faculty_office_hour_is_late"
+        }
+      ]
+    },
+    {
+      "id": "faculty_office_night_is_young",
+      "text": "Set Faculty Offices <i>(The Night is Still Young)</i> aside, out of play. Remove Faculty Offices <i>(The Hour is Late)</i> from the game"
+    },
+    {
+      "id": "faculty_office_hour_is_late",
+      "text": "Set Faculty Offices <i>(The Hour is Late)</i> aside, out of play. Remove Faculty Offices <i>(The Night is Still Young)</i> from the game"
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Miskatonic Quad, Orne Library, Humanities Building, Student Union, Science Building, and Administration Building locations into play. Each investigator begins play at the Miskatonic Quad."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: “Jazz” Mulligan, Alchemical Concoction, The Experiment, Professor Warren Rice, Dormitories, and Alchemy Labs."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+    },
+    {
+      "id": "warren_rice_kidnapped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "warren_rice_kidnapped",
+          "text": "Professor Warren Rice was kidnapped.",
+        }
+      ]
+    }, 
+    {
+      "id": "students_rescued",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "students_rescued",
+          "text": "the students were rescued.",
+        }
+      ]
+    },
+    {
+      "id":  "experiment_defeated",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "experiment_defeated",
+          "text": "the Experiment was defeated.",
+        }
+      ]
+    },
+    {
+      "id": "unconscious_for_several_hours",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "unconscious_for_several_hours",
+          "text": "the investigators were unconscious for several hours.",
+        }
+      ]
+    },
+    {
+      "id": "warren_rice_rescued",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "warren_rice_rescued",
+          "text": "the investigators rescued Professor Warren Rice.",
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02061"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      },
+    },
+    {
+      "id": "earn_1_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 experience as he or she reflects on the night’s events.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 1            
+          }
+        ]
+      },
+    },
+    {
+      "id": "failed_to_save_students",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "failed_to_save_students",
+          "text": "the investigators failed to save the students.",
+        },
+        {
+          "type": "add_chaos_token",
+          "values": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "proceed_either",
+      "type": "branch",
+      "condition": {
+        "type": "check_scenario",
+        "id": "the_house_always_wins",
+      },
+      "options": [
+        {
+          "condition": false,
+          "step": "proceed_house_always_wins"
+        },
+        {
+          "condition": true,
+          "step": "proceed_armitages_fate"
+        }
+      ]
+    },
+    {
+      "id": "proceed_house_always_wins",
+      "effects": [
         {
           "type": "campaign_data",
           "setting": "next_scenario",
           "value": "the_house_always_wins"
         },
-			]	
-		},
-		"proceed_armitages_fate": {
-			"effects": [
+      ]  
+    },
+    {
+      "id": "proceed_armitages_fate",
+      "effects": [
         {
           "type": "campaign_data",
           "setting": "next_scenario",
           "value": "armitages_fate"
         },
-			]	
-		}
-	},
-	"resolutions": [
-		{
-			"id": "no_resolution",
-			"title": "If no resolution was reached (each investigator resigned or was defeated)",
-			"text": "As you flee from the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside and many were mauled or killed in the attack.",
-			"steps": ["warren_rice_kidnapped", "failed_to_save_students", "earn_1_xp", "proceed_either"]
-		},
-		{
-			"id": "R1",
-			"title": "Resolution 1",
-			"text": "You find Professor Rice bound and gagged in the closet of his office. When you free him, he informs you that the strange men and women wandering around the campus had been stalking him for hours. They cornered him in his office and tied him up, although for what purpose, Rice isn’t sure. You inform him that Dr. Armitage sent you, and Rice looks relieved, although he suspects that Dr. Morgan might be in danger as well. Because the strangers on campus seem to have been targeting Professor Rice, you decide that the best course of action is to escort him away from the campus as quickly as possible. As you leave the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
-			"steps": ["warren_rice_rescued", "failed_to_save_students", "earn_xp", "proceed_house_always_wins"]
-		},
-		{
-			"id": "R2",
-			"title": "Resolution 2",
-			"text": "You pull each of the dormitory’s fire alarms and usher the students out of the building’s north exit, hoping to make your way off campus. Many of the students are confused and exhausted, but you believe an attempt to explain the situation will do more harm than good. Minutes later, a terrible screech echoes across the campus, piercing and shrill. You tell the students to wait and head back to the dormitories to investigate. Oddly, you find no trace of the strange creature—a prospect that worries you more than it relieves you. You hurry to the faculty offices to find Professor Rice, but there is no sign of him anywhere",
-			"steps": ["warren_rice_kidnapped", "students_rescued", "earn_xp", "proceed_either"]
-		},
-		{
-			"id": "R3",
-			"title": "Resolution 3",
-			"text": "After defeating the strange and terrifying creature from the Department of Alchemy, you rush to the faculty offices to find Professor Rice. By the time you get to his office, there is no sign of him anywhere.",
-			"steps": ["warren_rice_kidnapped", "experiment_defeated", "earn_xp", "proceed_either"]
-		},
-		{
-			"id": "R4",
-			"title": "Resolution 4",
-			"text": "You awaken hours later, exhausted and injured. You’re not sure what you saw, but the sight of it filled your mind with terror. From other survivors, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
-			"steps": ["unconscious_for_several_hours", "warren_rice_kidnapped", "earn_1_xp", "failed_to_save_students", "proceed_either"]
-		}
-	]
+      ]  
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "text": "As you flee from the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside and many were mauled or killed in the attack.",
+      "steps": ["warren_rice_kidnapped", "failed_to_save_students", "earn_1_xp", "proceed_either"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You find Professor Rice bound and gagged in the closet of his office. When you free him, he informs you that the strange men and women wandering around the campus had been stalking him for hours. They cornered him in his office and tied him up, although for what purpose, Rice isn’t sure. You inform him that Dr. Armitage sent you, and Rice looks relieved, although he suspects that Dr. Morgan might be in danger as well. Because the strangers on campus seem to have been targeting Professor Rice, you decide that the best course of action is to escort him away from the campus as quickly as possible. As you leave the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
+      "steps": ["warren_rice_rescued", "failed_to_save_students", "earn_xp", "proceed_house_always_wins"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You pull each of the dormitory’s fire alarms and usher the students out of the building’s north exit, hoping to make your way off campus. Many of the students are confused and exhausted, but you believe an attempt to explain the situation will do more harm than good. Minutes later, a terrible screech echoes across the campus, piercing and shrill. You tell the students to wait and head back to the dormitories to investigate. Oddly, you find no trace of the strange creature—a prospect that worries you more than it relieves you. You hurry to the faculty offices to find Professor Rice, but there is no sign of him anywhere",
+      "steps": ["warren_rice_kidnapped", "students_rescued", "earn_xp", "proceed_either"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "After defeating the strange and terrifying creature from the Department of Alchemy, you rush to the faculty offices to find Professor Rice. By the time you get to his office, there is no sign of him anywhere.",
+      "steps": ["warren_rice_kidnapped", "experiment_defeated", "earn_xp", "proceed_either"]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You awaken hours later, exhausted and injured. You’re not sure what you saw, but the sight of it filled your mind with terror. From other survivors, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
+      "steps": ["unconscious_for_several_hours", "warren_rice_kidnapped", "earn_1_xp", "failed_to_save_students", "proceed_either"]
+    }
+  ]
 }

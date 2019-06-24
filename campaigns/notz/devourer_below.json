@@ -1,392 +1,422 @@
 {
-	"scenarioName": "The Devourer Below",
-	"setup": [
-		"intro",
-		"gather_encounter_sets",
-		"setup_locations",
-		"set_aside_cards",
-		"gather_agents"
-		"check_escaped_cultists",
-		"add_elder_thing",
-		"check_past_midnight",
-		"check_ghoul_priest"
-	],
-	"steps": {		
-		"intro": {
-			"type": "story",
-			"text": "After a frantic nighttime search throughout Arkham, you have tracked down and questioned several members of the cult. Your findings are disturbing: they claim to worship a being known as Umôrdhoth, a monstrous entity from another realm.\nYou are able to confirm much of Lita’s story: the cult is agitated over the destruction of a ghoul lair. However, a surprising detail also turns up: the one who invaded the lair and set this night’s events in motion was none other than Lita Chantler herself! You are not sure why this important detail was omitted from Lita’s story—did she tell you only as much as was necessary to draw you into her conflict? But in another light, she seems to be fighting to protect the city of Arkham from a terrible menace.\nThe final piece of the puzzle was found written in a journal possessed by one of the cultists. It describes a dark ritual to be performed deep within the woods south of Arkham, this very night. According to the journal, the ritual’s completion will open a gate and bring forth the cult’s dark master into this world. “If the cult is not stopped,” Lita warns, “there is a possibility that Umôrdhoth’s vengeance will consume all in its path.” Frightened but determined to stop the ritual, you head into the woods…"
-		},
-		"gather_encounter_sets": {
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"tentacles",
-				"ancient_evils",
-				"striking_fear",
-				"ghouls",
-				"pentagram",
-			]
-		},
-		"gather_agents": {
-			"type": "encounter_sets",
-			"encounter_sets": [
-				"agents_of_yog",
-				"agents_of_shub",
-				"agents_of_cthulhu",
-				"agents_of_hastur"
-			],
-			"text": "Randomly choose one of following 4 encounter sets:",
-			"subtext": "Without looking at the chosen encounter set, shuffle it and the remainder of the encounter cards together to form the encounter deck. Remove the other 3 encounter sets from the game."
-		},
-		"setup_locations": {
-			"text": "Put the Main Path location into play. Shuffle the 6 copies of Arkham Woods, choose 4 of them at random, and put them into play without looking at their revealed sides. Remove the other 2 from the game. Each investigator begins play at the Main Path."
-		},
-		"set_aside_cards": {
-			"text": "Set the Ritual Site and Umôrdhoth cards aside, out of play."
-		},
-		"spawn_cultists": {
-			"type": "branch",
-			"condition": {
-				"type": "scenario_data",
-				"id": "player_count",
-			},
-			"options": [
-				{
-					"condition": 2,
-					"step": "one_cultist"
-				},
-				{
-					"condition": 2,
-					"step": "two_cultists"
-				},
-				{
-					"condition": 3,
-					"step": "three_cultists"
-				}
-			]
-		},
-		"one_cultist": {
-			"text": "Search the gathered encounter sets for 1 copy of Acolyte and spawn it at Southside."
-		},
-		"two_cultists": {
-			"text": "Search the gathered encounter sets for 2 copies of Acolyte. Spawn 1 at Southside and 1 at Downtown."
-		},
-		"three_cultists": {
-			"text": "Search the gathered encounter sets for 3 copies of Acolyte. Spawn 1 at Southside, 1 at Downtown, and 1 at the Graveyard."
-		},
-		"check_escaped_cultists": {
-			"type": "branch",
-			"condition": {
-				"type": "check_campaign_log",
-				"section": "cultists_escaped",
-				"id": "num_entries",
-			},
-			"options": [
-				{
-					"condition": 0,
-					"effects": [],
-				},
-				{
-					"condition": 1,
-					"step": "place_one_doom",
-				},
-				{
-					"condition": 2,
-					"step": "place_one_doom",
-				},
-				{
-					"condition": 3,
-					"step": "place_two_doom",
-				},
-				{
-					"condition": 4,
-					"step": "place_two_doom",
-				},
-				{
-					"condition": 5,
-					"step": "place_three_doom",
-				},
-				{
-					"condition": 6,
-					"step": "place_three_doom",
-				},
-			]
-		},
-		"place_one_doom": {
-			"text": "Place 1 doom on Agenda 1a."
-		},
-		"place_two_doom": {
-			"text": "Place 2 doom on Agenda 1a."
-		},
-		"place_three_doom": {
-			"text": "Place 3 doom on Agenda 1a."
-		},
-		"add_elder_thing": {
-			"text": "Add 1 [elder_thing] chaos token to the chaos bag for the remainder of the campaign.",
-			"effects": [
-				{
-					"type": "add_chaos_token",
-					"values": ["elder_thing"]
-				}
-			]
-		},
-		"check_past_midnight": {
-			"type": "branch",
-			"condition": {
-				"type": "check_campaign_log",
-				"section": "campaign_log",
-				"id": "past_midnight"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "randomly_discard_2_cards"
-				}
-			]
-		},
-		"randomly_discard_2_cards": {
-			"text": "Each player discards 2 random cards from his or her starting hand."
-		},
-		"check_ghoul_priest": {
-			"type": "branch",
-			"condition": {
-				"type": "check_campaign_log",
-				"section": "campaign_log",
-				"id": "ghoul_priest_alive",
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "add_ghoul_priest"
-				}
-			]
-		},
-		"add_ghoul_priest": {
-			"text": "Shuffle the Ghoul Priest into the encounter deck."
-		},
-		"doom_note": {
-			"type": "rule_reminder",
-			"text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda"
-		},
-		"cultists_interrogated": {
-			"input": {
-				"type": "card_choice",
-				"query": {
-					"trait": "Cultist",
-					"unique": true,
-				},
-				"choices": [
-					{
-						"title": "In the victory display",
-						"effects": [
-							{
-								"type": "campaign_log",
-								"section": "Cultists We Interrogated"
-							}
-						],
-					},
-					{
-						"title": "In play or in Cultist deck",
-						"effects": [
-							{
-								"type": "campaign_log",
-								"section": "Cultists Who Got Away"
-							}
-						]
-					},
-					{
-						"title": "Not in play",
-						"effects": []
-					}
-				]
-			}
-		},
-		"arkham_succumbed": {
-			"text": "In your Campaign Log, record that <i>Arkham succumbed to Umôrdhoth’s terrible vengeance</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "arkham_succumbed",
-					"text": "Arkham succumbed to Umôrdhoth’s terrible vengeance.",
-				}
-			]
-		},
-		"killed": {
-			"text": "Each surviving investigator is <b>killed</b>.",
-			"effects": [
-				{
-					"type": "trauma",
-					"investigator": "all",
-					"killed": true
-				}
-			]
-		},
-		"lose": {
-			"text": "The investigators lose.",
-			"effects": [
-				{	
-					"type": "campaign_data",
-					"setting": "result",
-					"value": "lose"
-				},
-			]
-		},
-		"ritual_broken": {
-			"text": "In your Campaign Log, record that <i>the ritual to summon Umôrdhoth was broken</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "ritual_broken",
-					"text": "The ritual to summon Umôrdhoth was broken.",
-				}
-			]
-		},
-		"umordhoth_repelled": {
-			"text": "In your Campaign Log, record that <i>the investigators repelled Umôrdhoth</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "umordhoth_repelled",
-					"text": "The investigators repelled Umôrdhoth.",
-				}
-			]
-		},
-		"lita_sacrificed": {
-			"text": "In your Campaign Log, record that <i>he investigators sacrificed Lita Chantler to Umôrdhoth</i>.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "lita_sacrificed",
-					"text": "The investigators sacrificed Lita Chantler to Umôrdhoth.",
-				}
-			]
-		},
-		"ritual_trauma": {
-			"text": "Each investigator suffers 2 mental trauma, as he or she never fully recovers from his or her ordeal.",
-			"effects": [
-				{
-					"type": "trauma",
-					"investigator": "all",
-					"mental": 2
-				}
-			]
-		},
-		"fight_trauma": {
-			"text": "Each investigator suffers 2 physical and 2 mental trauma, as the fight against Umôrdhoth has taken its toll on his or her body and mind.",
-			"effects": [
-				{
-					"type": "trauma",
-					"investigator": "all",
-					"mental": 2,
-					"physical": 2
-				}
-			]
-		},
-		"lita_trauma": {
-			"text": "Each investigator suffers 2 physical and 2 mental trauma, as the mere sight of Umôrdhoth has taken its toll on his or her body and mind.",
-			"effects": [
-				{
-					"type": "trauma",
-					"investigator": "all",
-					"mental": 2,
-					"physical": 2
-				}
-			]
-		},
-		"madness_weakness": {
-			"text": "The guilt over sacrificing Lita forever haunts your memory. Each investigator must search the collection for a random [[Madness]] weakness and add it to his or her deck.",
-			"effects": [
-				{
-					"type": "add_card",
-					"investigator": "all",
-					"card": "01000",
-					"weakness_traits": ["Madness"]
-				}
-			]
-		},
-		"earn_5_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as he or she has saved Arkham from a terrible fate.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all",
-						"bonus": 5
-					}
-				]
-			},
-		},
-		"earn_10_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 10 bonus experience, as he or she has triumphed in battle against a truly terrible foe.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all",
-						"bonus": 10
-					}
-				]
-			},
-		},
-
-		"earn_xp": {
-			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
-			"input": {
-				"type": "counter",
-				"text": "Victory Display",
-				"effects": [
-					{
-						"type": "earn_xp",
-						"investigator": "all"
-					}
-				]
-			},
-		},
-		"win": {
-			"text": "The investigators win!",
-			"effects": [
-				{	
-					"type": "campaign_data",
-					"setting": "result",
-					"value": "win"
-				},
-			]
-		},
-		"survived": {
-			"text": "The investigators have survived, but their actions weigh heavily on their consciences"
-		}
-	},
-	"resolutions": [
-		{
-			"id": "no_resolution",
-			"title": "If no resolution was reached (each investigator resigned or was defeated)",
-			"text": "Too frightened to face her fate, Lita flees into the night. She realizes that she has failed and Umôrdhoth’s vengeance will pursue her wherever she goes. The creature’s tendrils spread throughout the city of Arkham, searching for her. It lurks in the darkness of every corner, tugging at the seams of reality. But Lita is nowhere to be found, so the creature dwells in the shadows to this day, searching… killing.",
-			"steps": ["arkham_succumbed", "killed", "lose"]
-		},
-		{
-			"id": "R1",
-			"title": "Resolution 1",
-			"text": "You have managed to prevent the cult from summoning its master. Although you’re unsure what would have happened had the cult succeeded, you’re relieved that—at least for the time being—Arkham is safe. You capture as many cultists as you can find, but very few townspeople believe your tale. Perhaps it was all in your head, after all.",
-			"steps": ["ritual_broken", "ritual_trauma", "earn_5_xp", "win"]
-		},
-		{
-			"id": "R2",
-			"title": "Resolution 2",
-			"text": "Through force of arms and strength of will, you are somehow able to harm Umôrdhoth enough to send it reeling back to the dimension from which it emerged. Warmth and light return to the woods as the void-like mass is sucked in upon itself, vanishing in an instant. You aren’t sure if a being such as this can be killed, but for the time being it seems to have retreated. As their master vanishes, the ghouls nearby climb into the open pit below, fleeing with terrible cries and shrieks. You have stopped an evil plot, but the fight has taken its toll on your body and mind. Worse, you can’t help but feel insignificant in the face of the world’s mysteries. What other terrors exist in the deep, dark corners of reality?",
-			"steps": ["umordhoth_repelled", "fight_trauma", "earn_10_xp", "win"]
-		},
-		{
-			"id": "R3",
-			"title": "Resolution 3",
-			"text": "In the face of this horror, you don’t believe there is anything you can do to stop it. You have but one hope if you are to survive. You turn on Lita and throw her at the terrible monstrosity, watching in dread as its swirling void-like mass consumes her. She cries out in torment as the life is sucked from her body. “Umôrdhoth…Umôrdhoth…” the cultists chant. Lita Chantler vanishes without a trace. For a moment, you fear that the creature will now turn on you, but you hear one of the cultists say, “Umôrdhoth is a just god who claims only the guilty and the dead. Go, and you shall be spared.” The swirling mass vanishes, and warmth and light return to the woods. The cultists slink away, leaving you alive. Lita’s last moments are forever etched upon your memory.",
-			"steps": ["lita_sacrificed", "lita_trauma", "madness_weakness", "earn_xp", "survived"]
-		},
-	]
+  "scenarioName": "The Devourer Below",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "set_aside_cards",
+    "gather_agents"
+    "check_escaped_cultists",
+    "add_elder_thing",
+    "check_past_midnight",
+    "check_ghoul_priest"
+  ],
+  "steps": [  
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "After a frantic nighttime search throughout Arkham, you have tracked down and questioned several members of the cult. Your findings are disturbing: they claim to worship a being known as Umôrdhoth, a monstrous entity from another realm.\nYou are able to confirm much of Lita’s story: the cult is agitated over the destruction of a ghoul lair. However, a surprising detail also turns up: the one who invaded the lair and set this night’s events in motion was none other than Lita Chantler herself! You are not sure why this important detail was omitted from Lita’s story—did she tell you only as much as was necessary to draw you into her conflict? But in another light, she seems to be fighting to protect the city of Arkham from a terrible menace.\nThe final piece of the puzzle was found written in a journal possessed by one of the cultists. It describes a dark ritual to be performed deep within the woods south of Arkham, this very night. According to the journal, the ritual’s completion will open a gate and bring forth the cult’s dark master into this world. “If the cult is not stopped,” Lita warns, “there is a possibility that Umôrdhoth’s vengeance will consume all in its path.” Frightened but determined to stop the ritual, you head into the woods…"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "tentacles",
+        "ancient_evils",
+        "striking_fear",
+        "ghouls",
+        "pentagram",
+      ]
+    },
+    {
+      "id": "gather_agents",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "agents_of_yog",
+        "agents_of_shub",
+        "agents_of_cthulhu",
+        "agents_of_hastur"
+      ],
+      "text": "Randomly choose one of following 4 encounter sets:",
+      "subtext": "Without looking at the chosen encounter set, shuffle it and the remainder of the encounter cards together to form the encounter deck. Remove the other 3 encounter sets from the game."
+    },
+    {
+    	"id": "setup_locations",
+      "text": "Put the Main Path location into play. Shuffle the 6 copies of Arkham Woods, choose 4 of them at random, and put them into play without looking at their revealed sides. Remove the other 2 from the game. Each investigator begins play at the Main Path."
+    },
+    {
+    	"id": "set_aside_cards",
+      "text": "Set the Ritual Site and Umôrdhoth cards aside, out of play."
+    },    
+    {
+    	"id": "spawn_cultists",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "id": "player_count",
+      },
+      "options": [
+        {
+          "condition": 2,
+          "step": "one_cultist"
+        },
+        {
+          "condition": 2,
+          "step": "two_cultists"
+        },
+        {
+          "condition": 3,
+          "step": "three_cultists"
+        }
+      ]
+    },    
+    {
+    	"id": "one_cultist",
+      "text": "Search the gathered encounter sets for 1 copy of Acolyte and spawn it at Southside."
+    },    
+    {
+    	"id": "two_cultists",
+      "text": "Search the gathered encounter sets for 2 copies of Acolyte. Spawn 1 at Southside and 1 at Downtown."
+    },
+    {
+    	"id": "three_cultists",
+      "text": "Search the gathered encounter sets for 3 copies of Acolyte. Spawn 1 at Southside, 1 at Downtown, and 1 at the Graveyard."
+    },
+    {
+    	"id": "check_escaped_cultists",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "cultists_escaped",
+        "id": "num_entries",
+      },
+      "options": [
+        {
+          "condition": 0,
+          "effects": [],
+        },
+        {
+          "condition": 1,
+          "step": "place_one_doom",
+        },
+        {
+          "condition": 2,
+          "step": "place_one_doom",
+        },
+        {
+          "condition": 3,
+          "step": "place_two_doom",
+        },
+        {
+          "condition": 4,
+          "step": "place_two_doom",
+        },
+        {
+          "condition": 5,
+          "step": "place_three_doom",
+        },
+        {
+          "condition": 6,
+          "step": "place_three_doom",
+        },
+      ]
+    },
+    {
+    	"id": "place_one_doom",
+      "text": "Place 1 doom on Agenda 1a."
+    },
+    {
+    	"id": "place_two_doom",
+      "text": "Place 2 doom on Agenda 1a."
+    },
+    {
+    	"id": "place_three_doom",
+      "text": "Place 3 doom on Agenda 1a."
+    },
+    {
+    	"id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] chaos token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "values": ["elder_thing"]
+        }
+      ]
+    },
+    {
+    	"id": "check_past_midnight",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "past_midnight"
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "randomly_discard_2_cards"
+        }
+      ]
+    },
+    {
+    	"id": "randomly_discard_2_cards",
+      "text": "Each player discards 2 random cards from his or her starting hand."
+    },
+    {
+    	"id": "check_ghoul_priest",
+      "type": "branch",
+      "condition": {
+        "type": "check_campaign_log",
+        "section": "campaign_log",
+        "id": "ghoul_priest_alive",
+      },
+      "options": [
+        {
+          "condition": true,
+          "step": "add_ghoul_priest"
+        }
+      ]
+    },
+    {
+    	"id": "add_ghoul_priest",
+      "text": "Shuffle the Ghoul Priest into the encounter deck."
+    },
+    {
+    	"id": "doom_note",
+      "type": "rule_reminder",
+      "text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda"
+    },
+    {
+    	"id": "cultists_interrogated",
+      "input": {
+        "type": "card_choice",
+        "query": {
+          "trait": "Cultist",
+          "unique": true,
+        },
+        "choices": [
+          {
+            "title": "In the victory display",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "Cultists We Interrogated"
+              }
+            ],
+          },
+          {
+            "title": "In play or in Cultist deck",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "Cultists Who Got Away"
+              }
+            ]
+          },
+          {
+            "title": "Not in play",
+            "effects": []
+          }
+        ]
+      }
+    },
+    {
+    	"id": "arkham_succumbed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "arkham_succumbed",
+          "text": "Arkham succumbed to Umôrdhoth’s terrible vengeance.",
+        }
+      ]
+    },
+    {
+    	"id": "killed",
+      "text": "Each surviving investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+    	"id": "lose",
+      "text": "The investigators lose.",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        },
+      ]
+    },
+    {
+    	"id": "ritual_broken",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "ritual_broken",
+          "text": "the ritual to summon Umôrdhoth was broken.",
+        }
+      ]
+    },
+    {
+    	"id": "umordhoth_repelled",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "umordhoth_repelled",
+          "text": "the investigators repelled Umôrdhoth.",
+        }
+      ]
+    },
+    {
+    	"id": "lita_sacrificed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "lita_sacrificed",
+          "text": "the investigators sacrificed Lita Chantler to Umôrdhoth.",
+        }
+      ]
+    },
+    {
+    	"id": "ritual_trauma",
+      "text": "Each investigator suffers 2 mental trauma, as he or she never fully recovers from his or her ordeal.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 2
+        }
+      ]
+    },    
+    {
+    	"id": "fight_trauma",
+      "text": "Each investigator suffers 2 physical and 2 mental trauma, as the fight against Umôrdhoth has taken its toll on his or her body and mind.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 2,
+          "physical": 2
+        }
+      ]
+    },
+    {
+    	"id": "lita_trauma",
+      "text": "Each investigator suffers 2 physical and 2 mental trauma, as the mere sight of Umôrdhoth has taken its toll on his or her body and mind.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 2,
+          "physical": 2
+        }
+      ]
+    },
+    {
+    	"id": "madness_weakness",
+      "text": "The guilt over sacrificing Lita forever haunts your memory. Each investigator must search the collection for a random [[Madness]] weakness and add it to his or her deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "01000",
+          "weakness_traits": ["Madness"]
+        }
+      ]
+    },
+    {
+    	"id": "earn_5_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as he or she has saved Arkham from a terrible fate.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      },
+    },
+    {
+    	"id": "earn_10_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 10 bonus experience, as he or she has triumphed in battle against a truly terrible foe.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 10
+          }
+        ]
+      },
+    }
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      },
+    },
+    {
+      "id": "win",
+      "text": "The investigators win!",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        },
+      ]
+    },
+    {
+      "id": "survived",
+      "text": "The investigators have survived, but their actions weigh heavily on their consciences"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "text": "Too frightened to face her fate, Lita flees into the night. She realizes that she has failed and Umôrdhoth’s vengeance will pursue her wherever she goes. The creature’s tendrils spread throughout the city of Arkham, searching for her. It lurks in the darkness of every corner, tugging at the seams of reality. But Lita is nowhere to be found, so the creature dwells in the shadows to this day, searching… killing.",
+      "steps": ["arkham_succumbed", "killed", "lose"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You have managed to prevent the cult from summoning its master. Although you’re unsure what would have happened had the cult succeeded, you’re relieved that—at least for the time being—Arkham is safe. You capture as many cultists as you can find, but very few townspeople believe your tale. Perhaps it was all in your head, after all.",
+      "steps": ["ritual_broken", "ritual_trauma", "earn_5_xp", "win"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Through force of arms and strength of will, you are somehow able to harm Umôrdhoth enough to send it reeling back to the dimension from which it emerged. Warmth and light return to the woods as the void-like mass is sucked in upon itself, vanishing in an instant. You aren’t sure if a being such as this can be killed, but for the time being it seems to have retreated. As their master vanishes, the ghouls nearby climb into the open pit below, fleeing with terrible cries and shrieks. You have stopped an evil plot, but the fight has taken its toll on your body and mind. Worse, you can’t help but feel insignificant in the face of the world’s mysteries. What other terrors exist in the deep, dark corners of reality?",
+      "steps": ["umordhoth_repelled", "fight_trauma", "earn_10_xp", "win"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "In the face of this horror, you don’t believe there is anything you can do to stop it. You have but one hope if you are to survive. You turn on Lita and throw her at the terrible monstrosity, watching in dread as its swirling void-like mass consumes her. She cries out in torment as the life is sucked from her body. “Umôrdhoth…Umôrdhoth…” the cultists chant. Lita Chantler vanishes without a trace. For a moment, you fear that the creature will now turn on you, but you hear one of the cultists say, “Umôrdhoth is a just god who claims only the guilty and the dead. Go, and you shall be spared.” The swirling mass vanishes, and warmth and light return to the woods. The cultists slink away, leaving you alive. Lita’s last moments are forever etched upon your memory.",
+      "steps": ["lita_sacrificed", "lita_trauma", "madness_weakness", "earn_xp", "survived"]
+    },
+  ]
 }
