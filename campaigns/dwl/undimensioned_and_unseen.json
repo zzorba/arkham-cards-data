@@ -136,161 +136,41 @@
 			"text": "During this scenario, you will often be instructed to choose a random location. This should be done by shuffling together the 6 locations removed from the game during setup (the versions of each location in play not currently being used) and drawing 1 at random."
 		},
 
-
-
-
-
-
-		"investigators_delayed": {
-			"text": "In your Campaign Log, record that <i>the investigators were delayed on their way to Dunwich</i>.",
+		"brood_escaped": {
+			"text": "In your Campaign Log, record that X brood escaped into the wild. X is the total number of Brood of Yog‐Sothoth still in play or set aside.",
+			"input": {
+        "type": "counter",
+        "text": "Brood of Yog-Sothoth in play or set aside",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_log",
+            "id": "brood_escaped",
+            "text": "#X# brood escaped into the wild."
+          }
+        ]
+      },
+		},
+		"no_brood_escaped": {
+			"text": "In your Campaign Log, record that <i>no brood escaped into the wild</i>.",
 			"effects": [
 				{
 					"type": "campaign_log",
 					"section": "campaign_log",
-					"id": "investigators_delayed",
-					"text": "The investigators were delayed on their way to Dunwich.",
+					"id": "no_brood_escaped",
+					"text": "No brood escaped into the wild.",
 				},
-			]
-		},
-		"across_space_and_time": {
-			"text": "Each investigator who was defeated has acquired the Across Space and Time weakness and must add 1 copy of it to his or her deck. This card does not count toward that investigator’s deck size",
-			"effects": [
-				{
-					"type": "add_card",
-					"investigator": "defeated",
-					"card": "02178"
-				}
-			]
-		},
-		"bonus_xp": {
-			"text": "Each investigator who was defeated earns 1 bonus experience as his or her experience beyond the gate grants them insight into the cosmos.",
-			"effects": [
-				{
-					"type": "earn_xp",
-					"investigator": "defeated",
-					"bonus": 1			
-				}
-			]
-		},
-		"lose_necronomicon": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02140"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "necronomicon_stolen"
-				}
 			]
 		},
 		"necronomicon_stolen": {
-			"text": "In your Campaign Log, record that <i>the Necronomicon was stolen</i>. The Necronomicon <i>(Olaus Wormius Translation)</i> must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "necronomicon_stolen",
-					"text": "The Necronomicon was stolen.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02140"
-				}
-			]
-		}, 
-
-		"lose_henry_armitage": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02040"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "henry_armitage_kidnapped"
-				}
-			]
-		},
-		"henry_armitage_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Dr. Henry Armitage was kiddnapped</i>. Dr. Henry Armitage must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "henry_armitage_kidnapped",
-					"text": "Dr. Henry Armitage was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02040"
-				}
-			]
-		}, 
-
-		"lose_francis_morgan": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02080"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "francis_morgan_kidnapped"
-				}
-			]
-		},
-		"francis_morgan_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Dr. Francis Morgan was kidnapped</i>. Dr. Francis Morgan must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "francis_morgan_kidnapped",
-					"text": "Dr. Francis Morgan was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02080"
-				}
-			]
-		}, 
-		
-		"lose_warren_rice": {
-			"type": "branch",
-			"condition": {
-				"type": "has_card",
-				"investigator": "defeated",
-				"card": "02061"
-			},
-			"options": [
-				{
-					"condition": true,
-					"step": "warren_rice_kidnapped"
-				}
-			]
-		},
-		"warren_rice_kidnapped": {
-			"text": "In your Campaign Log, record that <i>Professor Warren Rice was kidnapped</i>. Professor Warren Rice must be removed from the investigator’s deck.",
-			"effects": [
-				{
-					"type": "campaign_log",
-					"section": "campaign_log",
-					"id": "warren_rice_kidnapped",
-					"text": "Professor Warren Rice was kidnapped.",
-				},
-				{
-					"type": "remove_card",
-					"card": "02061"
-				}
-			]
-		}, 
+      "text": "If an investigator’s deck contains the Powder of Ibn‐ Ghazi card, remove it from that investigator’s deck.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "02219"
+        }
+      ]
+    },
 		"earn_xp": {
 			"text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
 			"input": {
@@ -306,29 +186,23 @@
 		}
 	},
 	"resolutions": [
-		{
-			"id": "investigator_defeat",
-			"title": "Investigator Defeat",
-			"text": ": Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
-			"steps": ["across_space_and_time", "bonus_xp", "lose_necronomicon", "lose_henry_armitage", "lose_francis_morgan", "lose_warren_rice"]
-		},
-		{
-			"id": "no_resolution",
-			"title": "If no resolution was reached (each investigator was defeated)",
-			"text": "Go to <b>Resolution 2</b>",
-			"resolution": "R2"
-		},
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "text": "Read <b>Resolution 1</b>",
+      "resolution": "R1"
+    },
 		{
 			"id": "R1",
 			"title": "Resolution 1",
-			"text": "You breathe a sigh of relief as the gate behind the train collapses harmlessly upon itself. The few passengers who survived the ordeal seem unable to comprehend what just happened. One passenger mentions “a pipe bursting in the rear car,” and that quickly becomes the explanation for the innocent and ignorant, those who either cannot or choose not to delve further into the mystery. You, on the other hand, know better… although in hindsight, you wish you didn’t.",
-			"steps": ["earn_xp"]
+			"text": "You did all you could to stop the rampaging monsters, but there were more of them than you realized and you weren’t able to slay them all. Exhausted and terrified, you retreat to Zebulon’s home and hope to survive the night.",
+			"steps": ["brood_escaped", "remove_powder", "earn_xp"]
 		},
 		{
 			"id": "R2",
 			"title": "Resolution 2",
-			"text": "Rattled, you begin walking alongside the train tracks, making your way towards Dunwich.",
-			"steps": ["investigators_delayed", "earn_xp"]
+			"text": "After slaying what seems to be the last of the rampaging monsters you retreat to Zebulon’s home, exhausted and rattled by your experience.",
+			"steps": ["no_brood_escaped", "remove_powder", "earn_xp"]
 		}
 	]
 }
