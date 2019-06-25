@@ -32,9 +32,35 @@
           "items": {
             "$ref": "#effect"
           }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["text", "effects"]
+      "required": ["text"]
+    },
+    "investigatorChoiceInput": {
+      "$id": "#investigatorChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#choice"
+          }
+        }
+      },
+      "required": ["type", "choices"],
+      "additionalProperties": false
     },
     "cardChoiceInput": {
       "$id": "#cardChoiceInput",
@@ -120,6 +146,9 @@
           "$ref": "#cardChoiceInput"
         },
         {
+          "$ref": "#investigatorChoiceInput"
+        },
+        {
           "$ref": "#chooseInput"
         },
         {
@@ -160,8 +189,9 @@
         "investigator": {
           "$ref": "#investigator"
         },
-        "killed": {
-          "type": "boolean"
+        "id": {
+          "type": "string",
+          "enum": ["killed"]
         }
       },
       "required": [
@@ -324,8 +354,11 @@
             "$ref": "#effect"
           }
         },
-        "step": {
-          "type": "string"
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -345,6 +378,9 @@
           "enum": [
             "branch"
           ]
+        },
+        "text": {
+          "type": "string"
         },
         "condition": {
           "$ref": "#condition"
@@ -602,8 +638,7 @@
         }
       },
       "required": [
-        "type",
-        "investigator"
+        "type"
       ],
       "additionalProperties": false
     }, 
