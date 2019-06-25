@@ -1,0 +1,217 @@
+{
+  "scenarioName": "The Last King",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "setup_bystanders",
+    "set_aside_cards",
+    "setup_sickening_reality",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "If anyone has the answers to the questions that burn in your mind, it’s the cast and crew of The King in Yellow. With no other leads to pursue, you put on your best clothes and head to 1452 Atlantic Avenue, where a woman named Constance Dumaine is hosting an event in celebration of the play’s one-night engagement in Arkham."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_last_king",
+        "hasturs_gift",
+        "decay",
+        "stranger",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all 6 locations into play (Foyer, Courtyard, Living Room, Ballroom, Dining Room, and Gallery). Each investigator begins play in the Foyer."
+    },  
+    {
+      "id": "setup_bystanders",
+      "text": " Shuffle the 5 Bystander assets (Constance Dumaine, Jordan Perry, Ishimaru Haruko, Sebastien Moreau, and Ashleigh Clarke) and randomly place one in each location except for the Foyer. Place 1 clue on each of these assets, plus 1 additional clue per investigator.",
+      "bullets": [
+        {
+          "text": "<i>Note: These cards are double-sided and have story cards on their other side. For the best experience, do not look at the other side unless an effect instructs you to do so.</i>"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the Dianne Devine enemy aside, out of play."
+    },
+    {
+      "id": "setup_sickening_reality",
+      "text": "Place the 5 “Sickening Reality” story cards underneath the scenario reference card.",
+      "bullets": [
+        {
+          "text": "<i>Note: These cards are double-sided and have encounter cards on their other side. For the best experience, do not look at the other side unless an effect instructs you to do so.</i>"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      },
+    },
+    {
+      "id": "earn_clue_xp",
+      "text": "For every 2 clues that were on the act deck when the game ended, choose an investigator to earn 1 additional experience point. Experience from this reward must be divided as evenly among the investigators as possible.",
+      "input": {
+        "type": "investigator_counter",
+        "text": "XP from Clues",
+        "effects": [
+          {
+            "type": "earn_xp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resigned",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "id": "any_resigned"
+      },
+      "options": [
+        {
+          "condition": true,
+          "resolution": "R1",
+        }, 
+        {
+          "condition": false,
+          "resolution": "R2"
+        }
+      ]
+    },
+    {
+      "id": "vips_interviewed",
+      "input": {
+        "type": "card_choice",
+        "query": {
+          "code": [
+            "03076a",
+            "03077",
+            "03078",
+            "03079",
+            "03080"
+          ]
+        },
+        "choices": [
+          {
+            "text": "Interviewed",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "vips_interviewed"
+              }
+            ],
+          }
+        ]
+      }
+    },
+    {
+      "id": "vips_slain",
+      "input": {
+        "type": "card_choice",
+        "query": {
+          "code": [
+            "03065b",
+            "03066b",
+            "03067b",
+            "03068b",
+            "03069b"
+          ]
+        },
+        "choices": [
+          {
+            "text": "In the Victory Display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "vips_slain"
+              }
+            ],
+          }
+        ]
+      }
+    },
+    {
+      "id": "proceed_lunacys_reward",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "value": "lunacys_reward"
+        },
+      ]
+    },
+    {
+      "id": "adjust_chaos_tokens",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 1 [cultist] token, 1 [tablet] token, and 1 [elder_thing] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "values": [
+            "cultist", 
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "values": [
+            "cultist",
+            "tablet",
+            "elder_thing"
+          ]
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No Resolution",
+      "steps": ["check_resigned"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The brisk autumn air embraces you as you exit the manor. There is no doubt in your mind that the cast and crew of The King in Yellow have become affected by madness. Perhaps it’s getting to you, as well. You feel an encroaching darkness, a presence in your mind not unlike the gaze of the Stranger. Startled, you peer about the front yard for the first time since escaping the manor. The scene is...different. The front windows are not smashed as they were when you first approached. The trail of blood you had noticed on the porch has been wiped clean, and instead of the disturbingly warped music you had heard upon entering, the soothing tones of slow jazz drift out from the courtyard.",
+      "steps": ["vips_interviewed", "vips_slain", "earn_xp", "earn_clue_xp", "proceed_lunacys_reward"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "“Excuse me, but it’s very late,” you hear a server say as he gently taps you on your shoulder. You realize that you are sitting on a couch in the manor’s living room, and that you have been asleep for some time. The party appears to be winding down. No music fills the halls, the food is all but gone, and only a few guests remain. “Perhaps you would like for me to get your coat?” the server asks with a trained smile. You wobble as you rise to your feet, leaning against the couch’s armrest. Your head pounds with a dizzying intensity, and your vision is spotted. You insist that you are fine, and begin walking toward the foyer.\nYou no longer see any of the guests you were searching for earlier, not even the hostess, Mrs. Dumaine. All traces of the madness and horror you’ve experienced are gone. Even the oddities you witnessed upon entering the manor have vanished—the signs of struggle, the broken windows, the blood trail on the porch... Every piece of evidence has been erased. But you still remember the night’s events, and in your memory you will find your answers.",
+      "steps": ["vips_interviewed", "vips_slain", "earn_xp", "earn_clue_xp", "adjust_chaos_tokens"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Several days later, you find yourself reminiscing about the party you attended at 1452 Atlantic Avenue. What a roaring good time you had! And yet, your memory is hazy. You can’t help but feel you are forgetting something important. Something about the play you’d watched earlier that night—The King in Yellow. That nagging sensation pursues you in every waking moment. Try as you might to recall the night’s events in full, there remains a gaping hole in your memory. As you strain to remember, your concern grows, almost to the point of obsession. Deciding that you absolutely must know what occurred that night, you head toward the manor of the Historical Society in Southside. Perhaps there you can learn more about <i>The King in Yellow</i> play...",
+      "steps": ["vips_interviewed", "vips_slain", "earn_xp", "earn_clue_xp", "adjust_chaos_tokens"]
+    }
+  ]
+}

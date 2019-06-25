@@ -1,0 +1,209 @@
+{
+  "scenarioName": "Lunacy's Reward",
+  "interlude": true,
+  "setup": [
+    "house_choice"
+  ],
+
+  "steps": [
+    {
+      "id": "house_choice",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Things seem to have calmed down. Perhaps we should go back inside and investigate further.",
+            "resolution": "reward_1"
+          },
+          {
+            "text": "I don’t trust this place one bit. Let’s block the door and get the hell out of here!",
+            "resolution": "reward_2"
+          },
+          {
+            "text": "If these people are allowed to live, these horrors will only repeat themselves. We have to put an end to this. We have to <i>kill them.</i>",
+            "resolution": "reward_3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "why_go_back",
+      "text": "Why would you go back inside?"
+    },
+    {
+      "id": "door_wont_stop_them",
+      "text": "That door isn't going to stop them."
+    },
+    {
+      "id": "did_what_had_to_be_done",
+      "text": "You did what had to be done... Right?"
+    },
+    {
+      "id": "fled_dinner_party",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "fled_dinner_party",
+          "text": "you fled the dinner party.",
+        }
+      ]
+    },
+    {
+      "id": "intruded_on_secret_meeting",
+      "text": "Mark one <b>Doubt</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "intruded_on_secret_meeting",
+          "text": "you intruded on a secret meeting.",
+        },
+        {
+          "type": "campaign_log",
+          "section": "doubt",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "slayed_the_monsters",
+      "text": "Mark one <b>Conviction</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_log",
+          "id": "slayed_the_monsters",
+          "text": "you slayed the monsters at the dinner party.",
+        },
+        {
+          "type": "campaign_log",
+          "section": "conviction",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "add_elder_things",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [elder_thing] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "values": [
+            "cultist", 
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "values": [
+            "elder_thing",
+            "elder_thing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_tablets",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [tablet] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "values": [
+            "cultist", 
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "values": [
+            "tablet",
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_cultists",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [cultist] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "values": [
+            "cultist", 
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "values": [
+            "cultist",
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "slay_vips",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "vips_slain",
+          "card": "03065b"
+        },
+        {
+          "type": "campaign_log",
+          "section": "vips_slain",
+          "card": "03066b"
+        },
+        {
+          "type": "campaign_log",
+          "section": "vips_slain",
+          "card": "03067b"
+        },
+        {
+          "type": "campaign_log",
+          "section": "vips_slain",
+          "card": "03068b"
+        },
+        {
+          "type": "campaign_log",
+          "section": "vips_slain",
+          "card": "03069b"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "reward_1",
+      "title": "Lunacy's Reward 1",
+      "text": "The change in the atmosphere has you curious. What if it was all a trick of your mind? What if the hauntings that follow The King in Yellow are but transitory? The answers to all of your questions might lie inside. Cautiously, you open the front door to the manor once again. Reassuring jazz and the clamor of casual conversation grow louder as you step inside. The enticing smell of roasted pork wafts through the air. As you suspected, the signs of struggle and oddities you noticed before have vanished without explanation. Then, as you turn the corner into the dining room, you find the Stranger speaking with another man—tall, mustached, wearing a fine black suit, and holding a silver-handled cane. The Stranger turns to you, his gaze drills through your mind, and your vision swims with agony. Before you realize it, you are running as fast as you can, toppling through the front doorway in a haze of pain and disorientation. Without time to catch your breath, you race to your vehicle and speed away, hands trembling upon the steering wheel.",
+      "steps": ["why_go_back", "intruded_on_secret_meeting", "add_elder_things"]      
+    },
+    {
+      "id": "reward_2",
+      "title": "Lunacy's Reward 2",
+      "text": "You can’t trust your senses. This is all a trick, an attempt to lure you back inside. You’re no safer now than you were before. Swallowing your fear, you set to work barricading the front door of the manor using several of the heavy stone benches lining the cobblestone path in the front yard. You hope it’s enough, but you aren’t willing to stick around to find out. As soon as you’re done, you head back to your vehicle and drive toward Southside, where you hope to find answers.",
+      "steps": ["door_wont_stop_them", "fled_dinner_party", "add_tablets"]
+    },
+    {
+      "id": "reward_3",
+      "title": "Lunacy's Reward 3",
+      "text": "You dare not risk stepping back inside that madhouse. But you can’t let the monstrosities run amok, either. You root through the open garage for a few supplies, finding an old hose, an empty gasoline canister, and some matches. Knowing what you must do, you first siphon some gas from Mrs. Dumaine’s Oakland 6-54A. You spread the gasoline across the front porch, inside the garage, and around the manor’s outer walls. From there, all it takes is several matches to start the blaze. You watch from the front yard as the manor is eventually consumed by the flames. The sounds of crackling fire and snapping wood and the screeching of dying horrors fills the street. Satisfied, you head back to your vehicle and tear off toward Southside, full of grim determination.",
+      "steps": ["did_what_had_to_be_done", "slayed_the_monsters", "slay_vips", "add_cultists"]
+    }
+  ]
+}

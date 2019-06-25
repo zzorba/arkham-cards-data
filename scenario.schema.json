@@ -116,6 +116,29 @@
       "required": ["type", "choices"],
       "additionalProperties": false
     },
+    "investigatorCounterInput": {
+      "$id": "#counterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_counter"
+          ]
+        },
+        "text": {
+          "type": "string",
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#effect"
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
     "counterInput": {
       "$id": "#counterInput",
       "type": "object",
@@ -214,7 +237,9 @@
         "id": {
           "type": "string",
           "enum": [
-            "player_count"
+            "player_count",
+            "investigator",
+            "any_resigned"
           ]
         }
       },
@@ -519,14 +544,15 @@
       ],
       "additionalProperties": false
     }, 
-    "addChaosTokenEffect": {
-      "$id": "#addChaosTokenEffect",
+    "addRemoveChaosTokenEffect": {
+      "$id": "#addRemoveChaosTokenEffect",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
           "enum": [
-            "add_chaos_token"
+            "add_chaos_token",
+            "remove_chaos_token"
           ]
         },
         "values": {
@@ -552,7 +578,7 @@
               "autofail"
             ]
           }
-        },
+        }
       },
       "required": [
         "type",
@@ -574,6 +600,12 @@
           "type": "string"
         },
         "id": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        },
+        "card": {
           "type": "string"
         },
         "text": {
@@ -651,7 +683,7 @@
         { "$ref": "#traumaEffect" },
         { "$ref": "#campaignLogEffect" },
         { "$ref": "#campaignDataEffect" },
-        { "$ref": "#addChaosTokenEffect" },
+        { "$ref": "#addRemoveChaosTokenEffect" },
       ]
     },
     "resolution": {
