@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/input.schema.json",
+  "definitions": {
+    "investigatorChoiceInput": {
+      "$id": "#investigatorChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/choice"
+          }
+        }
+      },
+      "required": ["type", "choices"],
+      "additionalProperties": false
+    },
+    "cardChoiceInput": {
+      "$id": "#cardChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "card_choice"
+          ]
+        },
+        "query": {
+          "oneOf": [
+            {
+              "$ref": "types.schema.json#/definitions/cardQuery"            
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "types.schema.json#/definitions/cardQuery"
+              }
+            }
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/choice"
+          }
+        }
+      },
+      "required": ["type", "query", "choices"],
+      "additionalProperties": false
+    },
+    "chooseInput": {
+      "$id": "#chooseInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "choose_one",
+            "choose_many"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/choice"
+          }
+        }
+      },
+      "required": ["type", "choices"],
+      "additionalProperties": false
+    },
+    "investigatorCounterInput": {
+      "$id": "#investigatorCounterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_counter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
+    "counterInput": {
+      "$id": "#counterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "counter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
+    "investigatorCounterInput": {
+      "$id": "#investigatorCounterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_counter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
+    "input": {
+      "$id": "#input",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/cardChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/chooseInput"
+        },
+        {
+          "$ref": "#/definitions/counterInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorCounterInput"
+        }
+      ]
+    }
+  }
+}

@@ -65,11 +65,14 @@
       "id": "select_act_2",
       "type": "branch",
       "condition": {
-        "condition": {
-          "type": "sum_campaign_log",
-          "sectionA": "doubt",
-          "sectionB": "conviction"
-        }
+        "type": "campaign_log_math",
+        "opA": {
+          "section": "doubt"
+        },
+        "opB": {
+          "section": "conviction"
+        },
+        "operation": "sum"
       },
       "options": [
         {
@@ -106,9 +109,14 @@
       "id": "compare_conviction_and_doubt",
       "type": "branch",
       "condition": {
-        "type": "compare_campaign_log",
-        "sectionA": "doubt",
-        "sectionB": "conviction"
+        "type": "campaign_log_math",
+        "opA": {
+          "section": "doubt"
+        },
+        "opB": {
+          "section": "conviction"
+        },
+        "operation": "compare"
       },
       "options": [
         {
@@ -433,10 +441,16 @@
     },
     {
       "id": "no_resolution_check_conviction_and_doubt",
+      "type": "branch",
       "condition": {
-        "type": "compare_campaign_log",
-        "sectionA": "doubt",
-        "sectionB": "conviction"
+        "type": "campaign_log_math",
+        "opA": {
+          "section": "doubt"
+        },
+        "opB": {
+          "section": "conviction"
+        },
+        "operation": "compare"
       },
       "options": [
         {
@@ -455,6 +469,7 @@
     },
     {
       "id": "proceed_epilogue",
+      "type": "branch",
       "condition": {
         "type": "check_campaign_log",
         "section": "campaign_log",
@@ -467,7 +482,7 @@
         },
         {
           "condition": "any",
-          "steps": "epilogue"
+          "steps": ["epilogue"]
         }
       ]
     },

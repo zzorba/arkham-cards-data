@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/condition.schema.json",
+  "definitions": {    
+    "traumaCondition": {
+      "$id": "#traumaCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "trauma"
+          ]
+        },          
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "id": {
+          "type": "string",
+          "enum": ["killed"]
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataCondition": {
+      "$id": "#scenarioDataCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "enum": [
+            "player_count",
+            "investigator",
+            "any_resigned"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataCondition": {
+      "$id": "#campaignDataCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "difficulty"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "setting"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioCondition": {
+      "$id": "#scenarioCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_scenario"
+          ]
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "cardCondition": {
+      "$id": "#cardCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "has_card"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+
+        },
+        "card": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "card"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogCondition": {
+      "$id": "#campaignLogCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_campaign_log"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section"
+      ],
+      "additionalProperties": false
+    },
+    "operand": {
+      "$id": "#operand",
+      "type": "object",
+      "properties": {
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "section"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogMath": {
+      "$id": "#campaignLogMath",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_math"
+          ]
+        },
+        "opA": {
+          "$ref": "#/definitions/operand"
+        },
+        "opB": {
+          "$ref": "#/definitions/operand"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["compare", "sum"]
+        }
+      },
+      "required": [
+        "type",
+        "opA",
+        "opB",
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "condition": {
+      "$id": "#condition",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/campaignLogCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogMath"
+        },
+        {
+          "$ref": "#/definitions/cardCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignDataCondition"
+        },
+        {
+          "$ref": "#/definitions/scenarioDataCondition"
+        },
+        {
+          "$ref": "#/definitions/traumaCondition"
+        },
+        {
+          "$ref": "#/definitions/scenarioCondition"
+        }
+      ]
+    }
+  }
+}

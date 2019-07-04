@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/types.schema.json", 
+  "definitions": {    
+    "investigator": {
+      "$id": "#investigator",
+      "type": "string",
+      "enum": [
+        "lead_investigator", 
+        "all", 
+        "any", 
+        "choice", 
+        "defeated",
+        "inputValue"
+      ]
+    },
+    "cardQuery": {
+      "$id": "#cardQuery",
+      "type": "object",
+      "properties": {
+        "trait": {
+          "type": "string"
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "choice": {
+      "$id": "#choice",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["text"]
+    }
+  }
+}

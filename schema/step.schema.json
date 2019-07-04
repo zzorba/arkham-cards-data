@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/step.schema.json",
+  "definitions": {    
+    "inputStep": {
+      "$id": "#inputStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "input": {
+          "$ref": "input.schema.json#/definitions/input"
+        }
+      },
+      "required": ["id", "input"],
+      "additionalProperties": false
+    },
+    "branchStep": {
+      "$id": "#branchStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "branch"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/condition"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/option"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "condition",
+        "options"
+      ],
+      "additionalProperties": false
+    },     
+    "encounterSetsStep": {
+      "$id": "#encounterSetsStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "encounter_sets"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "encounter_sets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "encounter_sets"
+      ],
+      "additionalProperties": false
+    },  
+
+    "genericStep": {
+      "$id": "#genericStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "story",
+            "rule_reminder"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["text"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "step": {
+      "$id": "#step",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/branchStep"
+        },
+        {
+          "$ref": "#/definitions/inputStep"
+        },
+        {
+          "$ref": "#/definitions/encounterSetsStep"
+        },
+        {
+          "$ref": "#/definitions/genericStep"
+        }
+      ]
+    }
+  }
+}

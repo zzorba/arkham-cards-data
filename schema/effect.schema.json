@@ -1,0 +1,232 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/effect.schema.json",
+  "definitions": {
+    "earnXpEffect": {
+      "$id": "#earnXpEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "earn_xp"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "bonus": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "investigator"        
+      ],
+      "additionalProperties": false
+    },
+    "addCardEffect": {
+      "$id": "#addCardEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "add_card"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "card": {
+          "type": "string"
+        },
+        "weakness_traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "card"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataEffect": {
+      "$id": "#campaignDataEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "result",
+            "next_scenario",
+            "choose_investigators"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "value"
+      ],
+      "additionalProperties": false
+    }, 
+    "addRemoveChaosTokenEffect": {
+      "$id": "#addRemoveChaosTokenEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "add_chaos_token",
+            "remove_chaos_token"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "+1",
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "-7",
+              "-8",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "elder_sign",
+              "autofail"
+            ]
+          }
+        }
+      },
+      "required": [
+        "type",
+        "values"
+      ],
+      "additionalProperties": false
+    }, 
+    "campaignLogEffect": {
+      "$id": "#campaignLogEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        },
+        "card": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "cross_out": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "section"
+      ],
+      "additionalProperties": false
+    },     
+    "removeCardEffect": {
+      "$id": "#removeCardEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "remove_card"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+
+        },
+        "card": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }, 
+    "traumaEffect": {
+      "$id": "#traumaEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "trauma"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+
+        },
+        "mental": {
+          "type": "number"
+        },
+        "physical": {
+          "type": "number"
+        },
+        "killed": {
+          "type": "boolean"
+        },
+        "insane": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "effect": {
+      "$id": "#effect",
+      "oneOf": [
+        { "$ref": "#/definitions/earnXpEffect" },
+        { "$ref": "#/definitions/addCardEffect" },
+        { "$ref": "#/definitions/removeCardEffect" },
+        { "$ref": "#/definitions/traumaEffect" },
+        { "$ref": "#/definitions/campaignLogEffect" },
+        { "$ref": "#/definitions/campaignDataEffect" },
+        { "$ref": "#/definitions/addRemoveChaosTokenEffect" }
+      ]
+    }
+  }
+}

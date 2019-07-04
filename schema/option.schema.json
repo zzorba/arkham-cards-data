@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$id": "schema/option.schema.json", 
+  "definitions": {    
+    "effectsOption": {
+      "$id": "#effectOption",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+
+          }
+        }
+      },
+      "required": [
+        "condition",
+        "effects"
+      ],
+      "additionalProperties": false
+    },
+    "stepsOption": {
+      "$id": "#stepsOption",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "condition",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
+    "resolutionOption": {
+      "$id": "#resolutionOption",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "resolution": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "condition",
+        "resolution"
+      ],
+      "additionalProperties": false
+    },
+    "option": {
+      "$id": "#option",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/effectsOption"
+        },
+        {
+          "$ref": "#/definitions/stepsOption"
+        },
+        {
+          "$ref": "#/definitions/resolutionOption"
+        }
+      ]
+    }
+  }
+}
