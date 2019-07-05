@@ -18,17 +18,17 @@
       "id": "lita_condition",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "lita_finds_others"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["intro_1"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["intro_2"]
         }
       ]
@@ -76,19 +76,19 @@
       "type": "branch",
       "condition": {
         "type": "scenario_data",
-        "id": "player_count"
+        "scenario_data": "player_count"
       },
       "options": [
         {
-          "condition": 2,
+          "numCondition": 2,
           "steps": ["one_cultist"]
         },
         {
-          "condition": 3,
+          "numCondition": 3,
           "steps": ["two_cultists"]
         },
         {
-          "condition": 4,
+          "numCondition": 4,
           "steps": ["three_cultists"]
         }
       ]
@@ -109,13 +109,13 @@
       "id": "check_house_burned",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "house_burned"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["remove_house"]
         }
       ]
@@ -124,13 +124,13 @@
       "id": "check_house_standing",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "house_standing"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["start_at_house"]
         }
       ]
@@ -151,13 +151,13 @@
       "id": "check_ghoul_priest",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "ghoul_priest_alive"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["add_ghoul_priest"]
         }
       ]
@@ -173,12 +173,15 @@
     },
     {
       "id": "cultists_interrogated",
+      "type": "input",
       "input": {
         "type": "card_choice",
-        "query": {
-          "trait": "Cultist",
-          "unique": true
-        },
+        "query": [
+          {
+            "trait": "Cultist",
+            "unique": true
+          }
+        ],
         "choices": [
           {
             "text": "In the victory display",
@@ -209,19 +212,20 @@
       "id": "ghoul_priest_defeated",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "ghoul_priest_alive"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["ask_ghoul_priest_defeated"]
         }
       ]
     },
     {
       "id": "ask_ghoul_priest_defeated",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -230,7 +234,7 @@
             "effects": [
               {
                 "type": "campaign_log",
-                "section": "campaign_log",
+                "section": "campaign_notes",
                 "id": "ghoul_priest_alive",
                 "cross_out": true
               }
@@ -244,7 +248,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "past_midnight",
           "text": "it is past midnight."
         }
@@ -253,6 +257,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",

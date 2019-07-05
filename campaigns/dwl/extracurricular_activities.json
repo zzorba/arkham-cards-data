@@ -32,16 +32,17 @@
       "id": "faculty_offices",
       "type": "branch",
       "condition": {
-        "type": "check_scenario",
-        "id": "the_house_always_wins"
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "the_house_always_wins"
       },
       "options": [
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["faculty_office_night_is_young"]
         },
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["faculty_office_hour_is_late"]
         }
       ]
@@ -71,7 +72,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "warren_rice_kidnapped",
           "text": "Professor Warren Rice was kidnapped."
         }
@@ -82,7 +83,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "students_rescued",
           "text": "the students were rescued."
         }
@@ -93,7 +94,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "experiment_defeated",
           "text": "the Experiment was defeated."
         }
@@ -104,7 +105,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "unconscious_for_several_hours",
           "text": "the investigators were unconscious for several hours."
         }
@@ -115,7 +116,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "warren_rice_rescued",
           "text": "the investigators rescued Professor Warren Rice."
         },
@@ -129,6 +130,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -143,6 +145,7 @@
     {
       "id": "earn_1_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 experience as he or she reflects on the night’s events.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -160,13 +163,13 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "failed_to_save_students",
           "text": "the investigators failed to save the students."
         },
         {
           "type": "add_chaos_token",
-          "values": ["tablet"]
+          "tokens": ["tablet"]
         }
       ]
     },
@@ -174,16 +177,17 @@
       "id": "proceed_either",
       "type": "branch",
       "condition": {
-        "type": "check_scenario",
-        "id": "the_house_always_wins"
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "the_house_always_wins"
       },
       "options": [
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["proceed_house_always_wins"]
         },
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["proceed_armitages_fate"]
         }
       ]
@@ -194,7 +198,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "the_house_always_wins"
+          "scenario": "the_house_always_wins"
         }
       ]
     },
@@ -204,7 +208,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "armitages_fate"
+          "scenario": "armitages_fate"
         }
       ]  
     }

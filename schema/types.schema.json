@@ -11,7 +11,7 @@
         "any", 
         "choice", 
         "defeated",
-        "inputValue"
+        "input_value"
       ]
     },
     "cardQuery": {
@@ -30,20 +30,18 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
-    "choice": {
-      "$id": "#choice",
+    "stepsChoice": {
+      "$id": "#stepsChoice",
       "type": "object",
       "properties": {
         "text": {
           "type": "string"
         },
-        "effects": {
-          "type": "array",
-          "items": {
-            "$ref": "effect.schema.json#/definitions/effect"
-          }
+        "description": {
+          "type": "string"
         },
         "steps": {
           "type": "array",
@@ -52,7 +50,59 @@
           }
         }
       },
-      "required": ["text"]
+      "required": ["text", "steps"],
+      "additionalProperties": false
+    },
+    "effectsChoice": {
+      "$id": "#effectsChoice",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": ["text", "effects"],
+      "additionalProperties": false
+    },
+    "resolutionChoice": {
+      "$id": "#resolutionChoice",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": "string"
+        }
+      },
+      "required": ["text", "resolution"],
+      "additionalProperties": false
+    },
+    "choice": {
+      "$id": "#step",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/stepsChoice"
+        },
+        {
+          "$ref": "#/definitions/effectsChoice"
+        },
+        {
+          "$ref": "#/definitions/resolutionChoice"
+        }
+      ]
     }
   }
 }

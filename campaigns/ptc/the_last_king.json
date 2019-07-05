@@ -59,6 +59,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -73,13 +74,14 @@
     {
       "id": "earn_clue_xp",
       "text": "For every 2 clues that were on the act deck when the game ended, choose an investigator to earn 1 additional experience point. Experience from this reward must be divided as evenly among the investigators as possible.",
+      "type": "input",
       "input": {
         "type": "investigator_counter",
         "text": "XP from Clues",
         "effects": [
           {
             "type": "earn_xp",
-            "investigator": "inputValue"
+            "investigator": "input_value"
           }
         ]
       }
@@ -89,32 +91,35 @@
       "type": "branch",
       "condition": {
         "type": "scenario_data",
-        "id": "any_resigned"
+        "scenario_data": "any_resigned"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "resolution": "R1"
         }, 
         {
-          "condition": false,
+          "boolCondition": false,
           "resolution": "R2"
         }
       ]
     },
     {
       "id": "vips_interviewed",
+      "type": "input",
       "input": {
         "type": "card_choice",
-        "query": {
-          "code": [
-            "03076a",
-            "03077",
-            "03078",
-            "03079",
-            "03080"
-          ]
-        },
+        "query": [
+          {
+            "code": [
+              "03076a",
+              "03077",
+              "03078",
+              "03079",
+              "03080"
+            ]
+          }
+        ],
         "choices": [
           {
             "text": "Interviewed",
@@ -130,17 +135,20 @@
     },
     {
       "id": "vips_slain",
+      "type": "input",
       "input": {
         "type": "card_choice",
-        "query": {
-          "code": [
-            "03065b",
-            "03066b",
-            "03067b",
-            "03068b",
-            "03069b"
-          ]
-        },
+        "query": [
+          {
+            "code": [
+              "03065b",
+              "03066b",
+              "03067b",
+              "03068b",
+              "03069b"
+            ]
+          }
+        ],
         "choices": [
           {
             "text": "In the Victory Display?",
@@ -160,7 +168,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "lunacys_reward"
+          "scenario": "lunacys_reward"
         }
       ]
     },
@@ -170,7 +178,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -181,7 +189,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "tablet",
             "elder_thing"

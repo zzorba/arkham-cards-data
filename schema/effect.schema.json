@@ -55,7 +55,7 @@
       ],
       "additionalProperties": false
     },
-    "campaignDataEffect": {
+    "campaignDataResultEffect": {
       "$id": "#campaignDataEffect",
       "type": "object",
       "properties": {
@@ -69,12 +69,14 @@
           "type": "string",
           "enum": [
             "result",
-            "next_scenario",
-            "choose_investigators"
           ]
         },
         "value": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "win",
+            "lose"
+          ]
         }
       },
       "required": [
@@ -83,7 +85,57 @@
         "value"
       ],
       "additionalProperties": false
-    }, 
+    },
+    "campaignDataNextScenarioEffect": {
+      "$id": "#campaignDataEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "next_scenario",
+          ]
+        },
+        "scenario": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "scenario"
+      ],
+      "additionalProperties": false
+    },  
+    "campaignDataChooseInvestigatorsEffect": {
+      "$id": "#campaignDataEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "choose_investigators",
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "setting"
+      ],
+      "additionalProperties": false
+    },  
     "addRemoveChaosTokenEffect": {
       "$id": "#addRemoveChaosTokenEffect",
       "type": "object",
@@ -95,7 +147,7 @@
             "remove_chaos_token"
           ]
         },
-        "values": {
+        "tokens": {
           "type": "array",
           "items": {
             "type": "string",
@@ -122,7 +174,7 @@
       },
       "required": [
         "type",
-        "values"
+        "tokens"
       ],
       "additionalProperties": false
     }, 
@@ -224,7 +276,9 @@
         { "$ref": "#/definitions/removeCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
-        { "$ref": "#/definitions/campaignDataEffect" },
+        { "$ref": "#/definitions/campaignDataResultEffect" },
+        { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
+        { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" }
       ]
     }

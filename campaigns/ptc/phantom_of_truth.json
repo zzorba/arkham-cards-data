@@ -22,17 +22,17 @@
       "id": "check_king_claimed_victims",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "king_claimed_victims"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["intro_1"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["intro_2"]
         }
       ]
@@ -68,28 +68,28 @@
       "id": "dream_8_test",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
+        "type": "campaign_log",
         "section": "chasing_the_stranger"       
       },
       "options": [
         {
-          "condition": 0,
+          "numCondition": 0,
           "steps": ["dream_9"]
         },
         {
-          "condition": 1,
+          "numCondition": 1,
           "steps": ["dream_9"]
         },
         {
-          "condition": 2,
+          "numCondition": 2,
           "steps": ["dream_9"]
         },
         {
-          "condition": 3,
+          "numCondition": 3,
           "steps": ["dream_9"]
         },
         {
-          "condition": "any",
+          "default": true,
           "steps": ["dream_10", "dream_10_choice"]
         }
       ]
@@ -131,17 +131,17 @@
       "id": "dream_2_test",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "king_claimed_victims"        
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["dream_8", "dream_8_test"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["check_secret_meeting"]
         }
       ]
@@ -150,17 +150,17 @@
       "id": "check_secret_meeting",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "intruded_on_secret_meeting"        
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["dream_3", "dream_6", "dream_6_test"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["check_slayed_monsters"]
         }
       ]
@@ -169,17 +169,17 @@
       "id": "check_slayed_monsters",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "slayed_the_monsters"        
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["dream_4", "dream_6", "dream_6_test"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["dream_6", "dream_6_test"]
         }
       ]
@@ -212,6 +212,7 @@
     },
     {
       "id": "dream_10_choice",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -257,17 +258,17 @@
       "id": "dream_6_test",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "police_are_suspicious"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["dream_7", "earn_paranoia", "dream_8", "dream_8_test"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["dream_8", "dream_8_test"]
         }
       ]
@@ -281,13 +282,13 @@
       "id": "check_jordan_perry",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
+        "type": "campaign_log",
         "section": "vips_interviewed",
         "id": "03077"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["jordan_information", "gain_resources"]
         }
       ]
@@ -398,7 +399,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "did_not_escape_gaze",
           "text": "you did not escape the gaze of the phantom."
         }
@@ -409,7 +410,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "found_nigels_home",
           "text": "you found Nigel's home."
         }
@@ -420,7 +421,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "found_nigel_engram",
           "text": "you found Nigel Engram."
         }
@@ -431,7 +432,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "unable_to_find_nigel",
           "text": "you were unable to find Nigel."
         }
@@ -440,6 +441,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -453,6 +455,7 @@
     },
     {
       "id": "ask_jordan_perry",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -475,7 +478,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -486,7 +489,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "tablet",
             "tablet"
           ]
@@ -499,7 +502,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -510,7 +513,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist"
           ]
@@ -523,7 +526,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -534,7 +537,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "elder_thing",
             "elder_thing"
           ]

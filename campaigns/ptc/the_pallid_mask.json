@@ -17,17 +17,17 @@
       "id": "check_did_not_escape_gaze",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "did_not_escape_gaze"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["intro_1", "awoke_inside_catacombs"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["intro_2", "entered_catacombs"]
         }
       ]
@@ -47,7 +47,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "entered_catacombs",
           "text": "you entered the catacombs on your own."
         }
@@ -58,7 +58,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "awoke_inside_catacombs",
           "text": "you awoke inside the catacombs."
         }
@@ -68,13 +68,13 @@
       "id": "check_ishimaru_haruko",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
+        "type": "campaign_log",
         "section": "vips_interviewed",
         "id": "03078"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["harukos_information", "opened_a_secret_passageway"]
         }
       ]
@@ -106,17 +106,17 @@
       "id": "check_catacomb_entry",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "awoke_inside_catacombs"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["start_random_location"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["start_gate_to_hell"]
         }
       ]
@@ -164,7 +164,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "know_site_of_gate",
           "text": "you know the site of the gate."
         }
@@ -176,7 +176,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "know_site_of_gate",
           "text": "you know the site of the gate."
         },
@@ -190,6 +190,7 @@
     {
       "id": "read_act_2_choice",
       "text": "Each investigator must choose whether or not to read Act II of The King in Yellow. At least one investigator must read Act II. In your Campaign Log, record the names of each investigator who chose to read Act II. Each investigator who read Act II searches the collection for a random basic [[Madness]] or [[Pact]] weakness, and adds it to his or her deck (does not count toward deck size). Each investigator who read Act II earns 2 additional experience as they gain insight into the machinations of the Tattered King.",
+      "type": "input",
       "input": {
         "type": "investigator_choice",
         "choices": [
@@ -198,19 +199,19 @@
             "effects": [
               {
                 "type": "campaign_log",
-                "section": "campaign_log",
+                "section": "campaign_notes",
                 "id": "read_act_2",
                 "text": "#name# read Act 2 of The King in Yellow."
               },
               {
                 "type": "add_card",
                 "card": "01000",
-                "investigator": "inputValue",
+                "investigator": "input_value",
                 "weakness_traits": ["Madness", "Pact"]
               },
               {
                 "type": "earn_xp",
-                "investigator": "inputValue",
+                "investigator": "input_value",
                 "bonus": 2
               }
             ]
@@ -221,6 +222,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -234,6 +236,7 @@
     },
     {
       "id": "ask_ishimaru_haruko",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -256,7 +259,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -267,7 +270,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "tablet",
             "tablet"
           ]
@@ -280,7 +283,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -291,7 +294,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "elder_thing",
             "elder_thing"
           ]
@@ -304,7 +307,7 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist", 
             "cultist",
             "tablet",
@@ -315,7 +318,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist"
           ]

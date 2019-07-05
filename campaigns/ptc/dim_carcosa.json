@@ -24,17 +24,17 @@
       "id": "check_path_below",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "opened_path_below"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["intro_1"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["intro_2"]
         }
       ]
@@ -76,31 +76,31 @@
       },
       "options": [
         {
-          "condition": "0",
+          "numCondition": 0,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "1",
+          "numCondition": 1,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "2",
+          "numCondition": 2,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "3",
+          "numCondition": 3,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "4",
+          "numCondition": 4,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "5",
+          "numCondition": 5,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": "any",
+          "default": true,
           "steps": ["compare_conviction_and_doubt"]
         }
       ] 
@@ -120,15 +120,15 @@
       },
       "options": [
         {
-          "condition": "-1",
+          "numCondition": -1,
           "steps": ["act_2_v3"]
         },
         {
-          "condition": "0",
+          "numCondition": 0,
           "steps": ["act_2_choice"]
         },
         {
-          "condition": "1",
+          "numCondition": 1,
           "steps": ["act_2_v2"]
         }
       ] 
@@ -161,17 +161,17 @@
       "id": "choose_starting_location",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "opened_path_below"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["start_at_shores"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["start_at_spires"]
         }
       ]
@@ -196,48 +196,48 @@
       "id": "add_doom",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
+        "type": "campaign_log",
         "section": "chasing_the_stranger"
       },
       "options": [
         {
-          "condition": 0,
+          "numCondition": 0,
           "steps": ["add_3_doom"]
         },
         {
-          "condition": 1,
+          "numCondition": 1,
           "steps": ["add_3_doom"]
         },
         {
-          "condition": 2,
+          "numCondition": 2,
           "steps": ["add_3_doom"]
         },        
         {
-          "condition": 3,
+          "numCondition": 3,
           "steps": ["add_2_doom"]
         },
         {
-          "condition": 4,
+          "numCondition": 4,
           "steps": ["add_2_doom"]
         },
         {
-          "condition": 5,
+          "numCondition": 5,
           "steps": ["add_2_doom"]
         },
         {
-          "condition": 6,
+          "numCondition": 6,
           "steps": ["add_1_doom"]
         },
         {
-          "condition": 7,
+          "numCondition": 7,
           "steps": ["add_1_doom"]
         },
         {
-          "condition": 8,
+          "numCondition": 8,
           "steps": ["add_1_doom"]
         },
         {
-          "condition": "any",
+          "default": true,
           "steps": ["add_no_doom"]
         }
       ]
@@ -282,7 +282,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "prevented_hasturs_escape",
           "text": "the investigators prevented Hastur from escaping his prison."
         }
@@ -291,6 +291,7 @@
     {
       "id": "record_possessed_investigators",
       "text": " In your Campaign Log, record the names of each investigator who ended the game with at least 1 copy of the Possession treachery in his or her hand.",
+      "type": "input",
       "input": {
         "type": "investigator_choice",
         "choices": [
@@ -303,7 +304,7 @@
             "effects": [
               {
                 "type": "campaign_log",
-                "section": "campaign_log",
+                "section": "campaign_notes",
                 "id": "possessed",
                 "text": "#name# was possessed."
               }
@@ -349,6 +350,7 @@
     {
       "id": "earn_xp_triumph",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as he or she has truimphed over his or her own self—the most dangerous of foes.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -364,6 +366,7 @@
     {
       "id": "earn_xp_truth",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as he or she has learned the truth behind <i>The King in Yellow</i>.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -385,7 +388,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "carcosa_merged",
           "text": "the realm of Carcosa merged with our own, and Hastur rules over them both."
         }
@@ -400,7 +403,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "hastur_has_you",
           "text": "Hastur has you in his grasp."
         }
@@ -454,15 +457,15 @@
       },
       "options": [
         {
-          "condition": "-1",
+          "numCondition": -1,
           "resolution": "R4"
         },
         {
-          "condition": "0",
+          "numCondition": 0,
           "resolution": "R4"
         },
         {
-          "condition": "1",
+          "numCondition": 1,
           "resolution": "R5"
         }
       ] 
@@ -471,17 +474,17 @@
       "id": "proceed_epilogue",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "possessed"
       },
       "options": [
         {
-          "condition": 0,
+          "numCondition": 0,
           "steps": []
         },
         {
-          "condition": "any",
+          "default": true,
           "steps": ["epilogue"]
         }
       ]
@@ -492,7 +495,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "epilogue"
+          "scenario": "epilogue"
         }
       ]
     }

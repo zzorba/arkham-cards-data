@@ -16,16 +16,16 @@
       "id": "check_followers_of_sign_found_way",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "followers_of_sign_found_way"
       },
       "options": [{
-          "condition": true,
+          "boolCondition": true,
           "steps": ["intro_1"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["intro_2"]
         }
       ]
@@ -49,12 +49,12 @@
       "id": "check_constance_dumaine",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
+        "type": "campaign_log",
         "section": "vips_interviewed",
         "id": "03076a"
       },
       "options": [{
-        "condition": true,
+        "boolCondition": true,
         "steps": ["constance_information", "gain_courage"]
       }]
     },
@@ -95,35 +95,35 @@
       "id": "add_chaos_token",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_data",
-        "setting": "difficulty"
+        "type": "campaign_data",
+        "campaign_data": "difficulty"
       },
       "options": [{
           "condition": "easy",
           "effects": [{
             "type": "add_chaos_token",
-            "values": ["-2"]
+            "tokens": ["-2"]
           }]
         },
         {
           "condition": "standard",
           "effects": [{
             "type": "add_chaos_token",
-            "values": ["-3"]
+            "tokens": ["-3"]
           }]
         },
         {
           "condition": "hard",
           "effects": [{
             "type": "add_chaos_token",
-            "values": ["-4"]
+            "tokens": ["-4"]
           }]
         },
         {
           "condition": "expert",
           "effects": [{
             "type": "add_chaos_token",
-            "values": ["-5"]
+            "tokens": ["-5"]
           }]
         }
       ]
@@ -133,16 +133,16 @@
       "text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game.",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "took_onyx_clasp"
       },
       "options": [{
-          "condition": true,
+          "boolCondition": true,
           "steps": ["act_2_v1"]
         },
         {
-          "condition": false,
+          "boolCondition": false,
           "steps": ["act_2_v2"]
         }
       ]
@@ -173,20 +173,19 @@
       "text": "If there are not enough investigators to continue the campaign, the campaign is over and the players lose. Otherwise, the campaign continues. (Each player whose investigator has been driven insane must choose a new investigator from the pool of available investigators.)",
       "effects": [{
         "type": "campaign_data",
-        "setting": "choose_investigators",
-        "value": "choose_new"
+        "setting": "choose_investigators"
       }]
     },
     {
       "id": "check_took_onyx_clasp",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "took_onyx_clasp"
       },
       "options": [{
-        "condition": true,
+        "boolCondition": true,
         "steps": ["take_onyx_clasp"]
       }]
     },
@@ -203,7 +202,7 @@
       "id": "attacked_as_you_escaped_arkham",
       "effects": [{
         "type": "campaign_log",
-        "section": "campaign_log",
+        "section": "campaign_notes",
         "id": "attacked_as_you_escaped_arkham",
         "text": "the investigators were attacked as they escaped the Asylum."
       }]
@@ -220,6 +219,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -231,6 +231,7 @@
     },
     {
       "id": "ask_constance_dumaine",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [{
@@ -248,7 +249,7 @@
       "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [tablet] tokens to the chaos bag.",
       "effects": [{
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist",
             "tablet",
@@ -259,7 +260,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "tablet",
             "tablet"
           ]
@@ -271,7 +272,7 @@
       "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [cultist] tokens to the chaos bag.",
       "effects": [{
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist",
             "tablet",
@@ -282,7 +283,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist"
           ]
@@ -293,7 +294,7 @@
       "id": "escaped_the_asylum",
       "effects": [{
         "type": "campaign_log",
-        "section": "campaign_log",
+        "section": "campaign_notes",
         "id": "escaped_the_asylum",
         "text": "the investigators escaped the Asylum."
       }]
@@ -302,7 +303,7 @@
       "id": "king_claimed_victims",
       "effects": [{
         "type": "campaign_log",
-        "section": "campaign_log",
+        "section": "campaign_notes",
         "id": "king_claimed_victims",
         "text": "the King claimed its victims."
       }]
@@ -312,7 +313,7 @@
       "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [elder_thing] tokens to the chaos bag.",
       "effects": [{
           "type": "remove_chaos_token",
-          "values": [
+          "tokens": [
             "cultist",
             "cultist",
             "tablet",
@@ -323,7 +324,7 @@
         },
         {
           "type": "add_chaos_token",
-          "values": [
+          "tokens": [
             "elder_thing",
             "elder_thing"
           ]
@@ -335,7 +336,7 @@
       "effects": [{
         "type": "campaign_data",
         "setting": "next_scenario",
-        "value": "lost_soul"
+        "scenario": "lost_soul"
       }]
     }
   ],

@@ -15,7 +15,7 @@
         "investigator": {
           "$ref": "types.schema.json#/definitions/investigator"
         },
-        "id": {
+        "trauma": {
           "type": "string",
           "enum": ["killed"]
         }
@@ -23,7 +23,7 @@
       "required": [
         "type",
         "investigator",
-        "id"
+        "trauma"
       ],
       "additionalProperties": false
     },
@@ -37,7 +37,7 @@
             "scenario_data"
           ]
         },
-        "id": {
+        "scenario_data": {
           "type": "string",
           "enum": [
             "player_count",
@@ -48,7 +48,7 @@
       },
       "required": [
         "type",
-        "id"
+        "scenario_data"
       ],
       "additionalProperties": false
     },
@@ -59,39 +59,23 @@
         "type": {
           "type": "string",
           "enum": [
-            "check_campaign_data"
+            "campaign_data"
           ]
         },
-        "setting": {
+        "campaign_data": {
           "type": "string",
           "enum": [
-            "difficulty"
-          ]
-        }
-      },
-      "required": [
-        "type",
-        "setting"
-      ],
-      "additionalProperties": false
-    },
-    "scenarioCondition": {
-      "$id": "#scenarioCondition",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "check_scenario"
+            "difficulty",
+            "scenario_completed"
           ]
         },
-        "id": {
+        "scenario": {
           "type": "string"
         }
       },
       "required": [
         "type",
-        "id"
+        "campaign_data"
       ],
       "additionalProperties": false
     },
@@ -126,7 +110,7 @@
         "type": {
           "type": "string",
           "enum": [
-            "check_campaign_log"
+            "campaign_log"
           ]
         },
         "section": {
@@ -142,8 +126,8 @@
       ],
       "additionalProperties": false
     },
-    "operand": {
-      "$id": "#operand",
+    "campaignLogOperand": {
+      "$id": "#campaignLogOperand",
       "type": "object",
       "properties": {
         "section": {
@@ -169,10 +153,10 @@
           ]
         },
         "opA": {
-          "$ref": "#/definitions/operand"
+          "$ref": "#/definitions/campaignLogOperand"
         },
         "opB": {
-          "$ref": "#/definitions/operand"
+          "$ref": "#/definitions/campaignLogOperand"
         },
         "operation": {
           "type": "string",
@@ -207,9 +191,6 @@
         },
         {
           "$ref": "#/definitions/traumaCondition"
-        },
-        {
-          "$ref": "#/definitions/scenarioCondition"
         }
       ]
     }

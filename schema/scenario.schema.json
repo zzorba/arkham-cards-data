@@ -1,0 +1,426 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "schema/scenario.schema.json",
+  "definitions": {
+    "cardQuery": {
+      "$id": "#cardQuery",
+      "type": "object",
+      "properties": {
+        "trait": {
+          "type": "string"
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "choice": {
+      "$id": "#choice",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "schema/effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["text"]
+    },
+    "investigatorChoiceInput": {
+      "$id": "#investigatorChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#choice"
+          }
+        }
+      },
+      "required": ["type", "choices"],
+      "additionalProperties": false
+    },
+    "cardChoiceInput": {
+      "$id": "#cardChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "card_choice"
+          ]
+        },
+        "query": {
+          "oneOf": [
+            {
+              "$ref": "#cardQuery"            
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#cardQuery"
+              }
+            }
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#choice"
+          }
+        }
+      },
+      "required": ["type", "query", "choices"],
+      "additionalProperties": false
+    },
+    "chooseInput": {
+      "$id": "#chooseInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "choose_one",
+            "choose_many"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#choice"
+          }
+        }
+      },
+      "required": ["type", "choices"],
+      "additionalProperties": false
+    },
+    "investigatorCounterInput": {
+      "$id": "#investigatorCounterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_counter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "schema/effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
+    "counterInput": {
+      "$id": "#counterInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "counter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "schema/effect.schema.json#/definitions/effect"
+
+          }
+        }
+      },
+      "required": ["type", "text", "effects"],
+      "additionalProperties": false
+    },
+    "input": {
+      "$id": "#input",
+      "oneOf": [
+        {
+          "$ref": "#cardChoiceInput"
+        },
+        {
+          "$ref": "#investigatorChoiceInput"
+        },
+        {
+          "$ref": "#chooseInput"
+        },
+        {
+          "$ref": "#counterInput"
+        }
+      ]
+    },
+    "inputStep": {
+      "$id": "#inputStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "input": {
+          "$ref": "#input"
+        }
+      },
+      "required": ["id", "input"],
+      "additionalProperties": false
+    },   
+    "option": {
+      "$id": "#option",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "schema/effect.schema.json#/definitions/effect"
+
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "condition"
+      ],
+      "additionalProperties": false
+    },
+    "branchStep": {
+      "$id": "#branchStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "branch"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "schema/condition.schema.json#/definitions/condition"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#option"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "condition",
+        "options"
+      ],
+      "additionalProperties": false
+    },     
+    "encounterSetsStep": {
+      "$id": "#encounterSetsStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "encounter_sets"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "subtext": {
+          "type": "string"
+        },
+        "encounter_sets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "encounter_sets"
+      ],
+      "additionalProperties": false
+    },    
+    "resolution": {
+      "$id": "#resolution",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "genericStep": {
+      "$id": "#genericStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "story",
+            "rule_reminder"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "schema/effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["text"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "properties": {
+    "scenarioName": {
+      "type": "string"
+    },
+    "setup": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resolutions": {
+      "type": "array",
+      "items": {
+        "$ref": "#resolution"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#branchStep"
+          },
+          {
+            "$ref": "#inputStep"
+          },
+          {
+            "$ref": "#encounterSetsStep"
+          },
+          {
+            "$ref": "#genericStep"
+          }
+        ]
+      }
+    },
+    "interlude": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "scenarioName",
+    "setup",
+    "steps"
+  ],
+  "additionalProperties": false
+}

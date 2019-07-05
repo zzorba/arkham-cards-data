@@ -49,13 +49,13 @@
       "id": "check_delayed",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "investigators_delayed"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["add_1_doom"]
         }
       ]
@@ -72,13 +72,13 @@
       "id": "check_bone_to_pick",
       "type": "branch",
       "condition": {
-        "type": "check_campaign_log",
-        "section": "campaign_log",
+        "type": "campaign_log",
+        "section": "campaign_notes",
         "id": "bone_to_pick"
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["gather_naomis_crew"]
         }
       ]
@@ -106,7 +106,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "ritual_completed",
           "text": "the ritual was completed."
         }
@@ -117,7 +117,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "killed_silas_bishop",
           "text": "the investigators put Silas Bishop out of his misery."
         }
@@ -128,7 +128,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "restored_silas_bishop",
           "text": "the investigators restored Silas Bishop."
         }
@@ -139,7 +139,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "banished_silas_bishop",
           "text": "the investigators banished Silas Bishop."
         }
@@ -153,12 +153,13 @@
       "id": "record_sacrificed",
       "text": "In your Campaign Log, under “Sacrificed to Yog‐Sothoth,” record the names of each unique card that is underneath the agenda deck.",
       "subtext": "Each of those cards are removed from all players’ decks and can no longer be included in any players’ decks for the remainder of the campaign.",
+      "type": "input",
       "input": {
         "type": "card_choice",
         "query": [
           {
             "trait": "Ally",
-            "is_unique": true
+            "unique": true
           },
           {
             "code": ["02080", "02061", "02040", "02217", "02218"]
@@ -190,7 +191,7 @@
       },
       "options": [
         {
-          "condition": true,
+          "boolCondition": true,
           "steps": ["necronomicon_stolen"]
         }
       ]
@@ -200,7 +201,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "campaign_log",
+          "section": "campaign_notes",
           "id": "necronomicon_stolen",
           "text": "the Necronomicon was stolen."
         },
@@ -213,6 +214,7 @@
     {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -227,6 +229,7 @@
     {
       "id": "earn_2_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as he or she gains insight into the hidden world of the Mythos.",
+      "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory Display",
@@ -245,7 +248,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "undimensioned_and_unseen"
+          "scenario": "undimensioned_and_unseen"
         }
       ]
     },
@@ -255,7 +258,7 @@
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "value": "survivors"
+          "scenario": "survivors"
         }
       ]
     }
