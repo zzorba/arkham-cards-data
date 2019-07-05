@@ -38,6 +38,62 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
             console.log(`SCHEMA Error(${file})\n${ajv.errors.map(e => `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(e.params)}\n${JSON.stringify(e.data)}`).join('\n\n')}\n\n\n\n`);
             process.exit();
           }
+          const steps = {};
+          let error = false;
+          json.steps.map(step => {
+            if (steps[step.id]) {
+              console.log(`DUPLICATE_STEP (${file}) - ${step.id}`);
+              error = true;
+            }
+            steps[step.id] = true;
+          });
+          if (json.setup) {
+            json.setup.map(step => {
+              if (!steps[step]) {
+                console.log(`MISSING_STEP (${file}) - ${step}`);
+                error = true;
+              }
+            });
+          }
+          if (json.steps) {
+            json.steps.map(step => {
+              if (step.steps) {
+                step.steps.map(step => {
+                  if (!steps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  }
+                });
+              }
+              if (step.options) {
+                step.options.map(option => {
+                  if (option.steps) {
+                    option.steps.map(step => {
+                      if (!steps[step]) {
+                        console.log(`MISSING_STEP (${file}) - ${step}`);
+                        error = true;
+                      }       
+                    });
+                  }
+                });
+              }
+            });
+          }
+          if (json.resolutions) {
+            json.resolutions.map(resolution => {
+              if (resolution.steps) {
+                resolution.steps.map(step => {
+                  if (!steps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  }
+                });
+              }
+            });
+          }
+          if (error) {
+            process.exit();
+          }
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
         }
