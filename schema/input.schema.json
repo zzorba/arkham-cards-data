@@ -22,6 +22,77 @@
       "required": ["type", "choices"],
       "additionalProperties": false
     },
+    "suppliesInput": {
+      "$id": "#suppliesInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "supplies"
+          ]
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "supplies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "number"
+              },
+              "multiple": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "name", "description", "cost"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["type", "points", "supplies"],
+      "additionalProperties": false
+    },
+    "useSuppliesInput": {
+      "$id": "#useSuppliesInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "use_supplies"
+          ]
+        },
+        "supply": {
+          "type": "string"
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/option"
+          }
+        }
+      },
+      "required": ["type", "supply", "investigator", "choices"],
+      "additionalProperties": false
+    },
     "cardChoiceInput": {
       "$id": "#cardChoiceInput",
       "type": "object",
@@ -145,6 +216,12 @@
       "oneOf": [
         {
           "$ref": "#/definitions/cardChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/suppliesInput"
+        },
+        {
+          "$ref": "#/definitions/useSuppliesInput"
         },
         {
           "$ref": "#/definitions/investigatorChoiceInput"

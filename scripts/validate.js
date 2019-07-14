@@ -47,21 +47,40 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
             }
             steps[step.id] = true;
           });
+          const unusedSteps = { ...steps };
           if (json.setup) {
             json.setup.map(step => {
               if (!steps[step]) {
                 console.log(`MISSING_STEP (${file}) - ${step}`);
                 error = true;
+              } else {
+                delete unusedSteps[step];
               }
             });
           }
           if (json.steps) {
             json.steps.map(step => {
+              if (step.input && step.input.choices) {
+                step.input.choices.map(choice => {
+                  if (choice.steps) {
+                    choice.steps.map(step => {
+                      if (!steps[step]) {
+                        console.log(`MISSING_STEP (${file}) - ${step}`);
+                        error = true;
+                      } else {
+                        delete unusedSteps[step];
+                      }
+                    });
+                  }
+                });
+              }
               if (step.steps) {
                 step.steps.map(step => {
                   if (!steps[step]) {
                     console.log(`MISSING_STEP (${file}) - ${step}`);
                     error = true;
+                  } else {
+                    delete unusedSteps[step];
                   }
                 });
               }
@@ -72,13 +91,15 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
                       if (!steps[step]) {
                         console.log(`MISSING_STEP (${file}) - ${step}`);
                         error = true;
-                      }       
+                      } else {
+                        delete unusedSteps[step];
+                      }
                     });
                   }
                 });
               }
             });
-          }
+          }          
           if (json.resolutions) {
             json.resolutions.map(resolution => {
               if (resolution.steps) {
@@ -86,10 +107,15 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
                   if (!steps[step]) {
                     console.log(`MISSING_STEP (${file}) - ${step}`);
                     error = true;
+                  } else {
+                    delete unusedSteps[step];
                   }
                 });
               }
             });
+          }
+          if (Object.keys(unusedSteps).length > 0) {
+            console.log(`UNUSED STEPS (${file} - ${Object.keys(unusedSteps).join(', ')}`)
           }
           if (error) {
             process.exit();

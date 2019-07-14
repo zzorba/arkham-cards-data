@@ -10,6 +10,7 @@
     "check_delayed",
     "encounter_deck",
     "check_bone_to_pick",
+    "setup_hidden_cards",
     "hidden_chamber_note"
   ],
   "steps": [
@@ -212,21 +213,6 @@
       ]
     },
     {
-      "id": "earn_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Victory Display",
-        "effects": [
-          {
-            "type": "earn_xp",
-            "investigator": "all"
-          }
-        ]
-      }
-    },
-    {
       "id": "earn_2_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as he or she gains insight into the hidden world of the Mythos.",
       "type": "input",
@@ -261,6 +247,38 @@
           "scenario": "survivors"
         }
       ]
+    },
+    {
+      "id": "check_henry_armitage",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02040"
+      },
+      "options": [
+        {
+          "boolCondition": false,
+          "steps": ["henry_armitage_not_sacrificed"]
+        }
+      ]
+    },
+    {
+      "id": "henry_armitage_not_sacrificed",
+      "type": "story",
+      "text": "“It is far worse than we had thought,” Dr. Armitage says, pale and trembling. “Wilbur Whateley was only the beginning. There were more, many more in Dunwich, who knew of the ‘Great Old Ones’ and who desired power and knowledge above all else, the Earth be damned. I knew I should have burned that wretch’s journal. But thanks to its contents, I know how we can stop them. We are the only ones who can! Now quickly, help me with this solution—the powder is the key, yes, the powder is the only way...”",
+      "steps": ["henry_armitage_survived"]
+    },
+    {
+      "id": "henry_armitage_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "henry_armitage_survived",
+          "text": "Dr. Henry Armitage survived The Dunwich Legacy."
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -268,7 +286,7 @@
       "id": "no_resolution",
       "title": "If no resolution was reached (each investigator resigned or was defeated)",
       "text": "The cries of the whippoorwills fade into the distance, and the town of Dunwich is filled with an eerie silence. All that can be heard is the dry whistle of the chill wind and the slow rustling of dead leaves. There is no sign of the missing townsfolk, nor will there be ever again.",
-      "steps": ["ritual_completed", "sacrifice_all", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_undimensioned_and_unseen"]
+      "steps": ["ritual_completed", "sacrifice_all", "record_sacrificed", "check_henry_armitage", "lose_necronomicon", "earn_2_xp", "proceed_undimensioned_and_unseen"]
     },
     {
       "id": "R1",
