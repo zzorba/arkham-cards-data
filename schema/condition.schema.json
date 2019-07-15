@@ -66,8 +66,7 @@
         "campaign_data": {
           "type": "string",
           "enum": [
-            "difficulty",
-            "scenario_completed"
+            "difficulty"
           ]
         },
         "scenario": {
@@ -77,6 +76,60 @@
       "required": [
         "type",
         "campaign_data"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataScenarioCondition": {
+      "$id": "#campaignDataScenarioCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "scenario_completed"
+          ]
+        },
+        "scenario": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "scenario"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataChaosBagCondition": {
+      "$id": "#campaignDataChaosBagCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "chaos_bag"
+          ]
+        },
+        "token": {
+          "$ref": "types.schema.json#/definitions/chaosToken"
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "token"
       ],
       "additionalProperties": false
     },
@@ -189,6 +242,12 @@
         },
         {
           "$ref": "#/definitions/campaignDataCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignDataScenarioCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignDataChaosBagCondition"
         },
         {
           "$ref": "#/definitions/scenarioDataCondition"

@@ -55,6 +55,30 @@
       ],
       "additionalProperties": false
     },
+    "replaceCardEffect": {
+      "$id": "#addCardEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "replace_card"
+          ]
+        },
+        "old_card": {
+          "type": "string"
+        },
+        "new_card": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "old_card",
+        "new_card"
+      ],
+      "additionalProperties": false
+    },
     "campaignDataResultEffect": {
       "$id": "#campaignDataEffect",
       "type": "object",
@@ -150,25 +174,7 @@
         "tokens": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": [
-              "+1",
-              "0",
-              "-1",
-              "-2",
-              "-3",
-              "-4",
-              "-5",
-              "-6",
-              "-7",
-              "-8",
-              "skull",
-              "cultist",
-              "tablet",
-              "elder_thing",
-              "elder_sign",
-              "autofail"
-            ]
+            "$ref": "types.schema.json#/definitions/chaosToken"
           }
         }
       },
@@ -225,7 +231,6 @@
         },
         "investigator": {
           "$ref": "types.schema.json#/definitions/investigator"
-
         },
         "card": {
           "type": "string"
@@ -277,6 +282,7 @@
         { "$ref": "#/definitions/earnXpEffect" },
         { "$ref": "#/definitions/addCardEffect" },
         { "$ref": "#/definitions/removeCardEffect" },
+        { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignDataResultEffect" },

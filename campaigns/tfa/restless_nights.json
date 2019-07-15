@@ -7,7 +7,7 @@
     "eat_provisions",
     "choose_lookout",
     "use_medicine",
-    "poison_spreads"
+    "check_poison_spreads"
   ],
   "steps": [
     {
@@ -154,7 +154,29 @@
       }
     },
     {
+      "id": "check_poison_spreads",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04102"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["poison_spreads", "physical_trauma"]
+        }
+      ]
+    },
+    {
       "id": "poison_spreads",
+      "type": "story",
+      "title": "The Poison Spreads",
+      "text": "As the days went by, the poison continued to spread through my body. By the second night, my skin was drenched in sweat. I started having difficutly breathing, and I began every morning by retching up most of the previous night’s dinner."
+    },
+    {
+      "id": "physical_trauma", 
+      "text": "You suffer 1 physical trauma",
       "type": "branch",
       "condition": {
         "type": "has_card",

@@ -1,0 +1,296 @@
+{
+  "scenarioName": "The Jungle Beckons",
+  "interlude": true,
+  "setup": [
+    "intro",
+    "use_gasoline",
+    "check_map",
+    "eat_provisions",
+    "use_medicine",
+    "check_poison_spreads",
+    "find_stone_carvings",
+    "check_canteen",
+    "check_faith_restored"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Once more, you venture south, leaving the safety of civilization behind. There is no time to waste. The path to the Nexus lies on familiar ground, not far from the previous expedition’s trail. Using the leather-bound journal as your guide, you retrace the expedition’s journey. Soon, you are deep within the jungle, surrounded on all sides by hazards—some natural, others bizarre..."
+    },
+    {
+      "id": "use_gasoline",
+      "text": "Check your supplies. Any one investigator must cross off one gasoline from his or her supplies. If no gasoline was crossed off, read <b>Out of Gas</b>.",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "supply": "gasoline",
+        "investigator": "choice",
+        "choices": [
+          {
+            "boolCondition": false,
+            "steps": ["out_of_gas", "no_mulligan"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "out_of_gas",
+      "title": "Out of Gas",
+      "type": "story",
+      "text": "Unfortunately, a dozen or so miles north of the edge of the rainforest, your car ran out of gas. Since you are pressed for time, you decided to walk the rest of the way instead of returning to refuel. Traveling by foot set you back several hours, but soon enough you reached the jungle once more."
+    },
+    {
+      "id": "no_mulligan",
+      "text": "When drawing opening hands during this scenario, investigators cannot take a mulligan."
+    },
+    {
+      "id": "check_map",
+      "text": "Check your supplies. If any investigator has a map, he or she reads <b>A Path Discovered</b>.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "map"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["path_discovered", "mapped_way_forward"]
+        }
+      ]
+    },
+    {
+      "id": "path_discovered",
+      "type": "story",
+      "title": "A Path Discovered",
+      "text": "Thanks to your map, which has been marked from the previous expedition, you are able to clear a path through the rainforest without getting lost, and you reach your destination on your own terms."
+    },
+    {
+      "id": "mapped_way_forward",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "mapped_way_forward",
+          "text": "the investigators mapped out the way forward."
+        }
+      ]
+    },
+    {
+      "id": "eat_provisions",
+      "text": "Check your supplies. The investigators, as a group, must cross off one provisions per investigator from their supplies. For each provisions they cannot cross off, choose an investigator to read Low on Rations.",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "supply": "provisions",
+        "investigator": "all",
+        "choices": [
+          {
+            "boolCondition": false,
+            "steps": ["low_on_rations", "fewer_resources"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "low_on_rations",
+      "type": "story",
+      "title": "Low on Rations",
+      "text": "Traversing the jungle to find the path to the Nexus took longer than you anticipated, and in your haste you have not been able to hunt or forage for more food. Hunger clouds your mind and drills a painful hole in your stomach."
+    },
+    {
+      "id": "fewer_resources",
+      "text": "You begin the next scenario with 3 fewer resources."
+    },
+    {
+      "id": "use_medicine",
+      "text": "Check your supplies. Each investigator with medicine may cross it off from their supplies to choose and remove a Poisoned weakness from any investigator’s deck. Each investigator who still has a Poisoned weakness in his or her deck reads <b>The Poison Spreads</b>.",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "supply": "medicine",
+        "investigator": "any",
+        "choices": [
+          {
+            "boolCondition": true,
+            "effects": [{
+              "type": "remove_card",
+              "investigator": "any",
+              "card": "04102"
+            }]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_poison_spreads",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04102"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["poison_spreads", "physical_trauma"]
+        }
+      ]
+    },
+    {
+      "id": "poison_spreads",
+      "type": "story",
+      "title": "The Poison Spreads",
+      "text": "The poison continues to work its way through your body, wreacking havoc on your internal organs. A terrible fever burns through you, growing stronger with each passing day. You can hardly keep down your food. Your body feels as though it has been drained of all of its strength."
+    },
+    {
+      "id": "physical_trauma",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04102"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "trauma",
+              "physical": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "find_stone_carvings",
+      "type": "story",
+      "text": "As you trudge through the lush jungle and pass a series of familiar overgrown temple ruins, your keen eye spots a pattern along the stone wall of the structure. Upon closer examination, you find that vines and caked dirt has hidden an elaborate carving of hieroglyphs."
+    },
+    {
+      "id": "check_canteen",
+      "type": "branch",
+      "text": "Check your supplies. If any investigator has a canteen, he or she reads <b>Patterns in the Stone</b>. Otherwise, read <b>Secrets in the Stone</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "canteen"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["patterns_in_the_stone", "start_with_clue"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["secrets_in_the_stone", "no_ill_effects"]
+        }
+      ]
+    },
+    {
+      "id": "patterns_in_the_stone",
+      "type": "story",
+      "title": "Patterns in the Stone",
+      "text": "You take out your canteen and splash water on the stone walls, washing off the dirt and making the stiff vines easier to manipulate. The pattern of glyphs is clearly visible now, and although its meaning is still a mystery, the repetition of six glyphs in particular hints at a specific instruction..."
+    },
+    {
+      "id": "start_with_clue",
+      "text": "Each investigator who has a canteen begins the next scenario with 1 clue <i>(from the token bank)</i>."
+    },
+    {
+      "id": "secrets_in_the_stone",
+      "type": "story",
+      "title": "Secrets in the Stone",
+      "text": "Try as you might, you are unable to clear off the dirt and vines with only your bare hands. You have no choice but to leave this mystery behind."
+    },
+    {
+      "id": "no_ill_effects",
+      "text": "You suffer no ill effects."
+    },    
+    {
+      "id": "check_faith_restored",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "cultist"
+      },
+      "options": [
+        {
+          "numCondition": 2,
+          "steps": ["check_forged_bond_with_ichtaca"]
+        },
+        {
+          "numCondition": 3,
+          "steps": ["check_forged_bond_with_ichtaca"]
+        },
+        {
+          "numCondition": 4,
+          "steps": ["check_forged_bond_with_ichtaca"]
+        }
+      ]
+    },
+    {
+      "id": "check_forged_bond_with_ichtaca",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "forged_bond_with_ichtaca"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["check_ichtaca_has_confidence"]
+        }
+      ]
+    },
+    {
+      "id": "check_ichtaca_has_confidence",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "ichtaca_has_confidence"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["faith_restored", "ichtacas_faith_restored", "add_cultist_token"]
+        }
+      ]
+    },
+    {
+      "id": "faith_restored",
+      "title": "Faith Restored",
+      "type": "story",
+      "text": "On the eve of your second night within the jungle, you and your companions sit in front of a dim campfire, keeping warm and trying to remain relaxed despite the task ahead of you. Ichtaca approaches the campfire and sits across from you. Her eyes are cast to the ground, and her shoulders sag with a burdensome weight. “I feel that I must apologize to you,” she admits, peering into the flickering fire. “You have proven yourselves to be both wise and formidable, and I have done nothing but command you and endanger you at every turn.” There is a long, peaceful pause between you. “Perhaps there is hope for humanity after all,” she says under her breath as she meets your gaze. Does she speak for you? Or for herself, as well?\nIchtaca rises to her feet after some time. “I trust you to take the first watch. Be on the lookout for serpents. They are surely on the lookout for us.” Your camp is quiet for the remainder of the night, but for the soothing crackling of the campfire and the choir of chirping insects whose singing fills the night air."
+    },
+    {
+      "id": "ichtacas_faith_restored",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ichtacas_faith_restored",
+          "text": "Ichtaca’s faith is restored"
+        }
+      ]
+    },
+    {
+      "id": "add_cultist_token",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    }
+
+
+  ]
+}
