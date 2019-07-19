@@ -1,0 +1,335 @@
+{
+  "scenarioName": "The Darkness",
+  "interlude": true,
+  "setup": [
+    "check_fell_into_depths",
+    "check_found_missing_relic",
+    "find_brazier",
+    "check_torches",
+    "time_passes",
+    "provisions_and_medicine_gone"
+  ],
+  "steps": [
+    {
+      "id": "check_fell_into_depths",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "fell_into_depths"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["darkness_1", "darkness_2"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_nexus_is_near"]
+        }
+      ]
+    },
+    {
+      "id": "check_nexus_is_near",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "nexus_is_near"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["darkness_2"]
+        }
+      ]
+    },
+    {
+      "id": "darkness_1",
+      "type": "story",
+      "text": "You stir awake, lying facedown on the cold, hard stone of the cavern. You are bruised and battered but, somehow, alive. It takes several minutes before you regain enough of your strength to stand. You are absolutely and hopelessly lost within the impossibly vast caverns, enveloped by pitch-black darkness. Have you survived all this way only to perish here, lost to all humanity?"
+    },
+    {
+      "id": "darkness_2",
+      "type": "story",
+      "text": "The grim, blood-red caverns and resentful cities of Yoth hold no candle to the terrifying depths that lie below them. You are in the deepest level of this subterranean realm now: the caverns Ichtaca referred to as “N’kai.” Nothing could have prepared you for the impervious murk that surrounds you on all sides, an inky darkness that none of your light sources can penetrate. You grope around in the darkness until you feel the jagged wall of the cavern and begin to follow it aimlessly, desperately hoping to find the way forward. A grim realization dawns on you: Even should you complete your task, you will surely never find a way back to the surface. The overwhelming darkness of the cavern fills you with a dread you have never before experienced. You cannot see your hands as you grope about in the darkness, nor can you tell if you are in a narrow tunnel or a vast open space. The ground beside you could extend for miles or abruptly become a bottomless cavern, and you would not be able to tell the difference unless you stepped there. Hours pass as you stumble in the dark, slowly, carefully, nervously. Every step could be your last."
+    },
+    {
+      "id": "check_found_missing_relic",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "found_missing_relic"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["arcane_thrumming", "check_investigators_recovered_relic"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_relic_is_missing"]
+        }
+      ]
+    },
+    {
+      "id": "check_relic_is_missing",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["growing_concern", "add_chaos_token"]
+        }
+      ]
+    },
+    {
+      "id": "arcane_thrumming",
+      "type": "story",
+      "title": "Arcane Thrumming",
+      "text": "Worried that your fall may have damaged the Eztli relic, you pull it out of your pack and examine it. Oddly, the device seems completely undamaged. It vibrates with a growing intensity, humming louder now than ever before."
+    },
+    {
+      "id": "check_investigators_recovered_relic",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "investigators_recovered_relic"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["check_forging_own_path"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["no_ill_effects"]
+        }
+      ]
+    },
+    {
+      "id": "no_ill_effects",
+      "text": "You suffer no ill effects."
+    },   
+    {
+      "id": "check_investigators_recovered_relic",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "forging_own_path"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["final_dawning", "swap_relic"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["no_ill_effects"]
+        }
+      ]
+    },
+    {
+      "id": "final_dawning",
+      "type": "story",
+      "title": "Final Dawning",
+      "text": "Without Alejandro or Ichtaca to distract you, you find yourself studying the relic intently. Both of your “guides” have only fed you lies. They hid the relic’s true nature from you, manipulating you in an attempt to bring the relic to this very place. After your experience with the Great Race of Yith, you think you understand why. The technology behind the device’s design is far beyond what any human could accomplish, but quite possible for the Yithians. You even recognize some elements of the relic’s construction from the technology in Pnakotus. Somehow, it ended up in the hands of the Eztli, who defended it with care from all manner of creatures. Creatures that predate humanity. Creatures who wished to use it to turn back time. And now that the relic is in your possession, only you can stop this from occurring."
+    },
+    {
+      "id": "swap_relic",
+      "text": "The investigator with Relic of Ages in his or her deck swaps it with the new version of Relic of Ages included in this Mythos Pack: Relic of Ages (<i>Repossess the Past</i>).",
+      "effects": [
+        {
+          "type": "replace_card",
+          "old_card": "04191",
+          "new_card": "04303"
+        }
+      ]
+    },
+    {
+      "id": "growing_concern",
+      "type": "story",
+      "title": "Growing Concern",
+      "text": "As you rise to your feet, the ground rumbles and growls. Something deep below you is moving. Shifting. Mutating."
+    },
+    {
+      "id": "add_chaos_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty"
+      },
+      "options": [
+        {
+          "condition": "easy",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "tokens": ["-3"]
+            }
+          ]
+        },
+        {
+          "condition": "standard",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "tokens": ["-4"]
+            }
+          ]
+        },
+        {
+          "condition": "hard",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "tokens": ["-5"]
+            }
+          ]
+        },
+        {
+          "condition": "expert",
+          "effects": [
+            {
+              "type": "add_chaos_token",
+              "tokens": ["-6"]
+            }
+          ]
+        }        
+      ]
+    },
+    {
+      "id": "find_brazier",
+      "type": "story",
+      "text": "After hours of slow progress, you eventually stumble into a brazier, filled with marble cubes."
+    },
+    {
+      "id": "check_torches",
+      "type": "branch",
+      "text": "Check your supplies. If any investigator has torches, he or she reads <b>Torchlight</b>. Otherwise, read <b>The Abyss</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "torches"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["torchlight", "braziers_are_lit", "check_map"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["the_abyss", "braziers_remain_unlit"]
+        }
+      ]
+    },
+    {
+      "id": "torchlight",
+      "type": "story",
+      "title": "Torchlight",
+      "text": "Though the light from your torches is snuffed by the overpowering darkness of this realm, you decide to try to light the brazier with the flames. To your surprise, after you hold the torch against the strange cubes for several moments, the brazier erupts in a fury of blue and silver flames, consuming your torch and almost melting your hand to the bone. Though the light from the brilliant flame only reaches a few yards around you, more braziers light up in the distance, their flames guiding your path forward. At least, you hope..."
+    },
+    {
+      "id": "braziers_are_lit",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "braziers_are_lit",
+          "text": "the braziers are lit."
+        }
+      ]
+    },
+    {
+      "id": "the_abyss",
+      "type": "story",
+      "title": "The Abyss",
+      "text": "The odd material inside does not seem to accept any source of fire you use to try to light it. Your hope is snuffed out along with the light around you. Miserable, you prepare to endure the darkness ahead."
+    },
+    {
+      "id": "braziers_remain_unlit",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "braziers_remain_unlit",
+          "text": "the braziers remain unlit."
+        }
+      ]
+    },
+
+    {
+      "id": "check_map",
+      "type": "branch",
+      "text": "Check your supplies. If any investigator has a map, he or she reads <b>Reading Signs</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "map"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["reading_signs", "extra_map_xp"]
+        }
+      ]
+    },
+    {
+      "id": "reading_signs",
+      "type": "story",
+      "title": "Reading Signs",
+      "text": "As you traverse the caverns, something catches your attention: streams of cold, gentle water that drip down the walls of the cavern. Curious, you unfold the previous expedition’s map and sit by one of the lit braziers, mentally retracing your steps. If your calculations are correct, you have traveled much farther south than you could have possibly guessed. Could it be these caverns extend all the way to the coastline? Do the caverns never end?"
+    },
+    {
+      "id": "extra_map_xp",
+      "type": "branch",
+      "text": "Each investigator with a map earns 2 additional experience as he or she gains insight into the caverns that dwell beneath the surface of the Earth.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "map"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "input_value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time_passes",
+      "type": "story",
+      "text": "You have no sense of how much time passes in the cold, terrible abyss of N’kai."
+    },
+    {
+      "id": "provisions_and_medicine_gone",
+      "text": "Cross off all provisions and medicine the investigators have remaining in their supplies.",
+      "effect": [
+        {
+          "type": "campaign_log",
+          "section": "supplies",
+          "id": "provisions",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies",
+          "id": "medicine",
+          "cross_out": true
+        }
+      ]
+    }
+  ]
+}
