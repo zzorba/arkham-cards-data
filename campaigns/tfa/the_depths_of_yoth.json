@@ -1,0 +1,712 @@
+{
+  "scenarioName": "The Depths of Yoth",
+  "setup": [
+    "intro_1",
+    "check_forging_own_path",
+    "gather_encounter_sets",
+    "check_yigs_fury",
+    "set_aside_locations",
+    "maybe_setup_harbinger",
+    "set_aside_yig",
+    "create_exploration_deck",
+    "setup_depth",
+    "set_aside_relic",
+    "set_aside_poison",
+    "encounter_deck",
+    "depth_level_rule",
+    "pursuit_rule"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "everal hours after you wake, your laborious descent pays dividends. The red glow emanating from the bottom of the steps grows brighter with each step. The stone floor finally levels off, and the choking tunnel walls open to reveal a labyrinthine network of immense, far-reaching caverns. Littered throughout the caverns are the ruins of a vast city, the likes of which you have never seen. The elaborate stone architecture has been worn away by ages of abandonment, but you sense that there is a history here that runs deeper than you can even fathom. When you turn around to question Ichtaca, you notice a faint yellow glow in her eyes, her pupils narrowed and contracted. “Yoth...the last refuge of Valusia...” she quietly intones.\nJust then, a terrifying roar echoes throughout the cavern. The walls and floor shake with tremendous force, and the red glow that permeates the area brightens. A flood of hisses emerges from the tunnels all around you. Ichtaca walks to the edge of a nearby precipice and looks out over the vast depths. “He is here. I feel his presence. The Father of the Serpents...<b>Yig</b>.”"
+    },
+    {
+      "id": "check_forging_own_path",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "forging_own_path"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_2", "ichtaca_set_against_forging_own_path"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_ichtacas_faith"]
+        }
+      ]
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You realize now that Ichtaca has her own agenda. Alejandro, as well—both have been using you for their own ends, keeping you from the truth. You raise a weapon and demand answers from her, catching her by surprise. “Yig demands the relic be brought to the Nexus,” she responds anxiously. Her eyes glow brightly, and her skin starts to scale over. Your eyes narrow, and you move to corner her against the edge of the precipice, so she cannot escape. “The relic cannot be trusted to the hands of Brotherhood: this much is true...For it is Valusia that shall be restored to glory. Yig has called, and I must answer.” Before you can react, she throws herself off the edge and into the depths below.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cooperated_with_yithians",
+          "text": "the investigators cooperated with the Yithians."
+        }
+      ]
+    },
+    {
+      "id": "ichtaca_set_against_forging_own_path",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ichtaca_set_against",
+          "text": "Ichtaca is set against you."
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "check_ichtacas_faith",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "ichtacas_faith_restored"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_3"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["intro_4", "ichtaca_set_against", "maybe_lose_ichtaca", "check_relic_missing"]
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You approach Ichtaca and rest a hand on her shoulder. Your companion takes a deep breath and turns to face you. Her eyes are cast downward in shame, and they have returned to their normal color. “I...I’m sorry. I have brought you to your ruin. He called out to me, long ago, told me of my heritage, of my people. I did his bidding willingly.”\nShe clenches her fists, her gaze meeting yours. “But now I realize I was wrong. Humanity deserves its time on Earth. You may have inherited it from far more powerful forces, but it is humanity’s time, not theirs.” You don’t completely understand what she is saying, but you understand the implication. Whatever Ichtaca truly is, she is on your side. A calm silence lingers between you, an unspoken bond that joins you as one. “We must get to the Nexus and prevent the serpents from recovering the relic,” she explains after a few moments, breaking the silence. You nod in agreement."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You hesitate, unsure what to do next. What are Ichtaca’s true motives? Why has she led you here? Before you have the chance to react, she draws her bow and aims an arrow at your heart. “Thank you for aiding me this far,” Ichtaca says curtly, “but the time has come for us to part ways. Yig has called, and I must answer.” Her yellow eyes narrow and shine brightly."
+    },
+    {
+      "id": "ichtaca_set_against",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ichtaca_set_against",
+          "text": "Ichtaca is set against you."
+        }
+      ]
+    },
+    {
+      "id": "maybe_lose_ichtaca",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04147"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["lose_ichtaca"]
+        }
+      ]
+    },
+    {
+      "id": "lose_ichtaca",
+      "text": "Remove Ichtaca from all investigator’s deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "04147",
+          "investigator": "any"
+        }
+      ]
+    },
+    {
+      "id": "check_relic_missing",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_5"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_found_missing_relic"]
+        }
+      ]
+    },
+    {
+      "id": "check_found_missing_relic",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "found_missing_relic"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_6", "check_pocketknife"]
+        }
+      ]
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "“You must leave this place at once. This is not humanity’s battle. It is ours. We cannot let you or the Brotherhood foil our plans. Not now, not when we are so close.” Her hand wavers for a moment, and her eyes flicker again. You can tell that something is tearing at her, weighing on her mind. Finally, she speaks again. “Go now. Before I change my mind. And if you wish to live, do not follow. I will not give you a second chance.” Ichtaca swiftly departs, eyes trained on you until she leaves your sight. Despite her warning, you feel that you have no choice but to follow. If you don’t, who will protect humanity?"
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "Now drop your weapons.” The betrayal stings your chest, and you are gripped with anger and despair. Thoughts of escape flash across your mind, but you have seen her skill with a bow—with her steady aim, you would be dead before you took two steps. You have no choice but to comply. Your weapons clatter to the ground, one at a time. “Good. Now the relic: hand it to me.” Grimacing, you take a few steps forward and offer the relic to Ichtaca."
+    },
+    {
+      "id": "check_pocketknife",
+      "type": "branch",
+      "text": "Check your supplies. If any investigator has a pocketknife, that investigator reads <b>Intro 7</b>. Otherwise, read <b>Intro 8</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "pocketknife"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_7"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["intro_8", "lost_relic", "maybe_remove_relic"]
+        }
+      ]
+    },
+    {
+      "id": "intro_7",
+      "type": "story",
+      "text": "As Ichtaca reaches out to grab the relic, you pull out your concealed pocketknife and quickly attack, catching her by surprise. The blade cuts deeply across her forearm. Blood sprays across your chest, and she staggers with pain, gripping her arm. Her heel clips a rock near the edge of the precipice, and she tumbles over the side of the ledge, her scream growing distant as she falls. You barely have time to recover from the shock of what just happened, as another colossal roar fills the cavern, and the ground shakes. You gather your belongings and continue your descent."
+    },
+    {
+      "id": "intro_8",
+      "type": "story",
+      "text": "Ichtaca grabs the relic. You can see the skin on the back of her hand growing hard and scaly. You take a few steps back, knuckles white with anger. “Go now. Before I change my mind,” she says. “And if you wish to live, do not follow. I will not give you a second chance.” Ichtaca swiftly departs, eyes trained on you until she leaves your sight. Despite her warning, you feel that you have no choice but to follow. If you don’t, who will protect humanity?"
+    },
+    {
+      "id": "lost_relic",
+      "text": "In your Campaign Log, cross off <i>the investigators found the missing relic</i> and record <i>the relic is missing</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_missing_relic",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "relic_is_missing",
+          "text": "the relic is missing."
+        }
+      ]
+    },
+    {
+      "id": "maybe_remove_relic",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04191"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["remove_relic"]
+        }
+      ]
+    },
+    {
+      "id": "remove_relic",
+      "text": "Remove The Relic of Ages from all investigator’s decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "04191",
+          "investigator": "any"
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_depths_of_yoth",
+        "agents_of_yig",
+        "venom",
+        "expedition",
+        "ruins",
+        "poison"
+      ]
+    },
+    {
+      "id": "check_yigs_fury",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "yigs_fury"
+      },
+      "options": [
+        {
+          "numCondition": 0,
+          "steps": ["fury_0"]
+        },
+        {
+          "numCondition": 1,
+          "steps": ["fury_1_to_5"]
+        },
+        {
+          "numCondition": 2,
+          "steps": ["fury_1_to_5"]
+        },
+        {
+          "numCondition": 3,
+          "steps": ["fury_1_to_5"]
+        },
+        {
+          "numCondition": 4,
+          "steps": ["fury_1_to_5"]
+        },
+        {
+          "numCondition": 5,
+          "steps": ["fury_1_to_5"]
+        },
+        {
+          "numCondition": 6,
+          "steps": ["fury_6_to_10"]
+        },
+        {
+          "numCondition": 7,
+          "steps": ["fury_6_to_10"]
+        },
+        {
+          "numCondition": 8,
+          "steps": ["fury_6_to_10"]
+        },
+        {
+          "numCondition": 9,
+          "steps": ["fury_6_to_10"]
+        },
+        {
+          "numCondition": 10,
+          "steps": ["fury_6_to_10"]
+        },
+        {
+          "numCondition": 11,
+          "steps": ["fury_11_to_14"]
+        },
+        {
+          "numCondition": 12,
+          "steps": ["fury_11_to_14"]
+        },
+        {
+          "numCondition": 13,
+          "steps": ["fury_11_to_14"]
+        },
+        {
+          "numCondition": 14,
+          "steps": ["fury_11_to_14"]
+        },
+        {
+          "numCondition": 15,
+          "steps": ["fury_15_to_17"]
+        },
+        {
+          "numCondition": 16,
+          "steps": ["fury_15_to_17"]
+        },
+        {
+          "numCondition": 17,
+          "steps": ["fury_15_to_17"]
+        },
+        {
+          "numCondition": 18,
+          "steps": ["fury_18_to_20"]
+        },
+        {
+          "numCondition": 19,
+          "steps": ["fury_18_to_20"]
+        },
+        {
+          "numCondition": 20,
+          "steps": ["fury_18_to_20"]
+        },
+        {
+          "default": true,
+          "steps": ["fury_21"]
+        }
+      ]
+    },
+    {
+      "id": "fury_0",
+      "text": "Because Yig's Fury is 0, search the gathered encounter cards for Yig and each copy of Pit Warden. Remove those cards from the game."
+    },
+    {
+      "id": "fury_1_to_5",
+      "text": "Because Yig's Fury is 1-5, no changes are made."
+    },
+    {
+      "id": "fury_6_to_10",
+      "text": "Because Yig's Fury is 6-10, remove agenda 1a from the game. The game begins at agenda 2a."
+    },
+    {
+      "id": "fury_11_to_14",
+      "text": "Because Yig's Fury is 11-14, remove agendas 1a and 2a from the game. The game begins at agenda 3a."
+    },
+    {
+      "id": "fury_15_to_17",
+      "text": "Because Yig's Fury is 15-17, remove agendas 1a, 2a, and 3a from the game. The game begins at agenda 4a."
+    },
+    {
+      "id": "fury_18_to_20",
+      "text": "Because Yig's Fury is 18-20, remove agendas 1a, 2a, 3a, and 4a from the game. The game begins at agenda 5a."
+    },
+    {
+      "id": "fury_21",
+      "text": "Because Yig's Fury is 21 or higher, remove agendas 1a, 2a, 3a, 4a, and 5a from the game. The game begins at agenda 6a."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set each of the 10 single-sided locations aside, out of play. Draw one of those locations at random other than Steps of Yoth, and put it into play. Each investigator begins play at the randomly chosen location."
+    },
+    {
+      "id": "maybe_setup_harbinger",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "harbinger_alive"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["setup_harbinger"]
+        }
+      ]
+    },
+    {
+      "id": "setup_harbinger",
+      "text": "Search the collection for the Harbinger of Valusia and set it aside. Place damage on it equal to the amount of damage recorded in parentheses in your Campaign Log.",
+      "bullets": [
+        {
+          "text": "If it is agenda 5a or 6a, move that the set-aside Harbinger of Valusia enemy to the pursuit area. (See “Pursuit,” below.)"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_yig",
+      "text": "Set the Yig enemy aside, out of play.",
+      "bullets": [
+        {
+          "text": "If it is agenda 6a, move that the set-aside Yig enemy to the pursuit area."
+        }
+      ]
+    },
+    {
+      "id": "create_exploration_deck",
+      "text": "Create the exploration deck. This is done by taking the set-aside Steps of Yoth and 4 of the remaining single-sided locations and shuffling them together."
+    },
+    {
+      "id": "setup_depth",
+      "text": "Place 1 resource token on the scenario reference card, under “Current Depth.” For the remainder of the scenario, the number of resources under “Current Depth” indicates the current depth level. (See “Depth Level,” below.)"
+    },
+    {
+      "id": "set_aside_relic",
+      "text": "Set the Relic of Ages (<i>Repossess the Past</i>) aside, out of play."
+    },    
+    {
+      "id": "set_aside_poison",
+      "text": "Set aside each Poisoned weakness that is not already in an investigator’s deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "depth_level_rule",
+      "type": "rule_reminder",
+      "title": "Depth Level",
+      "text": "Throughout this scenario, the number of resources under “Current Depth” on the scenario reference card indicates the current depth level. As the investigators journey deeper into Yoth by completing act 1, resources are added to the current depth level, and play continues until the investigators reach a certain depth level, or are defeated. Deeper levels of Yoth are deadlier, but the deeper the level the investigators are able to reach, the better the resolution of this scenario will be.\nThe current depth level has no game effect on its own; however, some encounter card effects may change or become stronger depending on the current depth level."
+    },
+    {
+      "id": "pursuit_rule",
+      "type": "rule_reminder",
+      "title": "Pursuit",
+      "text": "Some cards in this scenario reference an area called the “pursuit area.” The pursuit area is an out-of-play area next to the act and agenda deck which enemies can enter and leave via card effects. Generally speaking, enemies in play will move to the pursuit area whenever the investigators reach the next depth level. <b>Although the pursuit area is out of play, whenever an enemy moves to the pursuit area, it keeps all tokens and attachments.</b>\nEnemies in the pursuit area are considered to be “in pursuit.” Enemies that are in pursuit are considered to be out of play, and cannot be affected by player cards or investigator actions. However, enemies that are in pursuit can re-enter play by a variety of card abilities."
+    },
+    {
+      "id": "fell_into_depths",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fell_into_depths",
+          "text": "the investigators fell into the depths."
+        }
+      ]
+    },
+    {
+      "id": "record_final_depth",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "What was the depth level when scenario ended?",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "final_depth",
+            "text": "#X# depth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_final_depth",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "final_depth"
+      },
+      "options": [
+        {
+          "numCondition": 1,
+          "steps": ["depth_1_fall"]
+        },
+        {
+          "numCondition": 2,
+          "steps": ["depth_2_fall", "check_all_killed"]
+        },
+        {
+          "numCondition": 3,
+          "steps": ["depth_3_fall", "check_all_killed"]
+        },
+        {
+          "numCondition": 4,
+          "steps": ["depth_4_fall"]
+        }
+      ]
+    },
+    {
+      "id": "depth_1_fall",
+      "text": "Because the current depth level is 1, the fall is fatal, and the darkness of N’kai devours the shattered corpses. Each investigator is <b>killed</b>. The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "trauma",
+          "killed": true,
+          "investigator": "all"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "depth_2_fall",
+      "text": "Because the current depth level is 2, each investigator suffers 2 physical trauma and searches the collection for a random basic Injury weakness, adding it to his or her deck.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 2,
+          "investigator": "all"
+        },
+        {
+          "type": "add_card",
+          "card": "01000",
+          "investigator": "all",
+          "weakness_traits": ["Injury"]
+        }
+      ]
+    },
+    {
+      "id": "check_all_killed",
+      "type": "branch",
+      "condition": {
+        "type": "trauma",
+        "trauma": "killed",
+        "investigator": "all"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["lose"]
+        }
+      ]
+    },
+    {
+      "id": "lose",
+      "text": "Because all investigators have been killed by the fall trauma, the investigators <b>lose</b> the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "depth_3_fall",
+      "text": "Because the current depth level is 3, each investigator suffers 1 physical trauma.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "depth_4_fall",
+      "text": "Because the current depth level is 4, you suffer no ill effects."
+    },
+    {
+      "id": "check_harbinger",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Harbinger did not enter play.",
+            "steps": []
+          },
+          {
+            "text": "Harbinger is in the victory display.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "harbinger_alive",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "text": "Haringer is still in play or set aside.",
+            "steps": ["record_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_harbinger",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Damage on Harbinger of Valusia",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "harbinger_alive",
+            "text": "the Harbinger is still alive."
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_yigs_fury",
+      "type": "input",
+      "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log.",
+      "input": {
+        "type": "counter",
+        "text": "Vengeance points in the victory display",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "yigs_fury"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_depth_xp",
+      "text": "Each investigator earns additional experience equal to the current depth level.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Current Depth Level",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      }
+    },
+    {
+      "id": "nexus_is_near",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "nexus_is_near",
+          "text": "the nexus is near."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "resolution": "R1"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "After hours and hours of travel, you’ve only just scratched the surface of this boundless subterranean world. Humanity could spend centuries mapping out these tunnels and never complete the task. No matter how quickly you plumb the depths, the serpents chasing you are hot on your tail. You are intruders in their home, and they know these hellish tunnels better than you. With your wounds slowing you down and panic seeping into every one of your decisions, your death at the hands of these creatures is inevitable. Despair worms its way into your mind. When the serpents inevitably catch up to you, you are crossing one of the cavern’s many long bridges of stone that span a wide, dark chasm. Serpent creatures on both sides of the chasm flank you, spear tips corralling you against the precarious edge of the bridge. A small hunk of stone cracks at your heel and detaches, falling into the inky void below. You do not hear it strike the floor of the chasm. There is no hope to escape or flee this time—you have no choice but to accept your fate. The spear tips press you closer to the edge. You close your eyes and fall.",
+      "steps": ["fell_into_depths", "record_final_depth", "check_final_depth", "check_harbinger", "record_yigs_fury", "earn_xp", "earn_depth_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Somehow, despite the odds stacked against you, you’ve reached your destination. The telltale red glow that has enveloped you since you entered Yoth recedes, replaced with an unpierceable inky darkness. The Nexus must be close... You can feel it.",
+      "steps": ["nexus_is_near", "check_harbinger", "record_yigs_fury", "earn_xp", "earn_depth_xp"]
+    }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+  "scenarioName": "Those Held Captive",
+  "interlude": true,
+  "setup": [
+    "check_process_backfired",
+    "check_process_backfired_spectacularly",
+    "check_mind_recovered",
+    "find_stone_gate",
+    "check_chalk",
+    "eat_provisions",
+    "use_medicine",
+    "check_poison_spreads",
+    "stop_and_rest",
+    "check_blanket"
+  ],
+  "steps": [
+    {
+      "id": "check_process_backfired",
+      "type": "branch",
+      "text": "Check Campaign Log. If <i>the process backfired</i>, each investigator reveals a random chaos token from the chaos bag. Consult the list below to see what side effects result from your mishap.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "process_backfired"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["reveal_tokens"]
+        }
+      ]
+    },
+    {
+      "id": "check_process_backfired_spectacularly",
+      "type": "branch",
+      "text": "Check Campaign Log. If <i>the process backfired spectacularly</i>, each investigator reveals two random chaos token from the chaos bag, choosing the token that is lower on the list to resolve, and ignoring the other. Consult the list below to see what side effects result from your mishap.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "process_backfired_spectacularly"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["reveal_tokens"]
+        }
+      ]
+    },
+    {
+      "id": "reveal_tokens",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "choices": [
+          {
+            "text": "[elder_sign] or +1 token.",
+            "description": "Suffer no ill efects.",
+            "effects": []
+          },
+          {
+            "text": "[skull] token or any number other than +1",
+            "description": "Gain the Out of Body Experience weakness, and must add it to his or her deck.",
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "04264",
+                "investigator": "input_value"
+              }
+            ] 
+          },
+          {
+            "text": "[cultist], [tablet], [elder_thing], or [auto_fail] token",
+            "description": "You must use the Body of a Yithian investigator card as his or her investigator card for the remainder of the campaign. He or she also gains the Out of Body Experience weakness, and must add it to his or her deck.",
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "04264",
+                "investigator": "input_value"
+              },
+              {
+                "type": "add_card",
+                "card": "04244",
+                "investigator": "input_value"                
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_mind_recovered",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet"
+      },
+      "options": [
+        {
+          "numCondition": 0,
+          "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
+        },
+        {
+          "numCondition": 1,
+          "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
+        },
+        {
+          "numCondition": 2,
+          "steps": ["check_mind_recovered_rescued_alejandro"]
+        },
+        {
+          "numCondition": 3,
+          "steps": ["check_mind_recovered_rescued_alejandro"]
+        },
+        {
+          "numCondition": 4,
+          "steps": ["check_mind_recovered_rescued_alejandro"]
+        }
+      ]
+    },
+    {
+      "id": "check_mind_recovered_rescued_alejandro",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "rescued_alejandro"
+      },
+      "options": [
+        {
+          "boolCondition": false,
+          "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
+        },
+        {
+          "boolCondition": true,
+          "steps": ["check_mind_recovered_had_custodian"]
+        }
+      ]
+    },
+    {
+      "id": "check_mind_recovered_had_custodian",
+      "type": "input",
+      "text": "Was the Custodian was under an investigator’s control when the previous scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Yes",
+            "steps": ["mind_recovered", "alejandro_remembers_everything"]
+          },
+          {
+            "text": "No",
+            "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
+          }
+        ] 
+      }
+    },
+    {
+      "id": "mind_recovered",
+      "type": "story",
+      "title": "A Mind Recovered",
+      "text": "You turn your attention to your surroundings. Though the creatures that ambushed you are nowhere to be found, Alejandro lies on the ground nearby, stirring into consciousness. To your surprise, he appears just as confused as you are. At first, it seems as though he recalls nothing of the previous expedition or the Eztli relic, but then his eyes suddenly spark with recognition. He grips your shoulder tightly and gazes at you as though for the first time in years. “I do remember! We shared one mind for some time, the creature and I. It wished to find the Eztli relic, though for what purpose, I do not know.” He slumps backward against the stone wall, recovering from the sudden influx of memories. “You believed me at every turn, even when the creature had control. You saved me from that abysmal place and brought me back to humanity. For this, I cannot begin to repay you.” He shakes your hand vigorously, filled with a sudden and intense resolve. “We will right all of this, you and I. Then, we will tell the world what we have seen.”"
+    },
+    {
+      "id": "alejandro_remembers_everything",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "alejandro_remembers_everything",
+          "text": "Alejandro remembers everything."
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "forever_lost",
+      "type": "story",
+      "title": "Forever Lost",
+      "text": "You turn your attention to your surroundings. Both Alejandro and the creatures that ambushed you are nowhere to be found. You wonder how long Alejandro was in league with them, and why. Perhaps you will never know. However, you suspect this is not the last you will see of him."
+    },
+    {
+      "id": "alejandro_set_against",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "alejandro_set_against",
+          "text": "Alejandro is set against you."
+        }
+      ]
+    },
+    {
+      "id": "maybe_lose_alejandro",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04326"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["lose_alejandro"]
+        }
+      ]
+    },
+    {
+      "id": "lose_alejandro",
+      "text": "Remove Alejandro Vela from all investigator’s deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "04326",
+          "investigator": "any"
+        }
+      ]
+    },
+    {
+      "id": "find_stone_gate",
+      "type": "story",
+      "text": "The narrow steps on the other side of the stone doorway seem almost endless. Though a dim red glow emanates from deeper within the cavern, no matter how many steps you traverse, the glow does not brighten. It almost seems to grow more distant with each step, mocking your tenacity. After a short while, you come to a small ledge where a stone gate bars your passage deeper into the cavern. The gate bears a familiar carved pattern, faded from age and disrepair, and seeping with an oddly discolored purulence."
+    },
+    {
+      "id": "check_chalk",
+      "type": "branch",
+      "text": "Check your supplies. If any investigator has chalk, he or she reads <b>The Way is Open</b>. Otherwise, read <b>The Way is Shut</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "chalk"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["the_way_is_open", "no_ill_effects"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["the_way_is_shut", "no_mulligan"]
+        }
+      ]
+    },
+    {
+      "id": "the_way_is_open",
+      "type": "story",
+      "title": "The Way is Open",
+      "text": "The situation sparks your memory, and you consult the expedition journal. The pattern is similar to one found in the Eztli ruins. Using your chalk and the drawings in your journal as a reference, you restore the glyph in its entirety, and the grooves glow brightly once more. The stone gate lifts on its own, and you are able to continue onward."
+    },
+    {
+      "id": "no_ill_effects",
+      "text": "You suffer no ill effects."
+    }, 
+    {
+      "id": "the_way_is_shut",
+      "type": "story",
+      "title": "The Way is Shut",
+      "text": "You are unsure how to proceed. After debating the merits of each of your options, you decide that brute force may be the only solution. It takes all of your strength to lift the stone, and you open the way forward for each of you one at a time. It is no simple task, and your body aches tremendously from the effort."
+    },
+    {
+      "id": "no_mulligan",
+      "text": "When drawing opening hands during the next scenario, investigators cannot take a mulligan.."
+    },
+    {
+      "id": "eat_provisions",
+      "text": "Check your supplies. The investigators, as a group, must cross off one provisions per investigator from their supplies. For each provisions they cannot cross off, choose an investigator to read <b>Low on Rations</b>.",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "supply": "provisions",
+        "investigator": "all",
+        "choices": [
+          {
+            "boolCondition": false,
+            "steps": ["low_on_rations", "fewer_resources"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "low_on_rations",
+      "type": "story",
+      "title": "Low on Rations",
+      "text": "Hours later, you are almost too weary to go on. Every inch of your body aches with intense pain. There is nothing in this desolate cavern to eat but the occasional wild mushroom, and although temptation gnaws at your insides, you cannot tell which are toxic and which are healthy..."
+    },
+    {
+      "id": "fewer_resources",
+      "text": "You begin the next scenario with 3 fewer resources."
+    },
+    {
+      "id": "use_medicine",
+      "text": "Check your supplies. Each investigator with medicine may cross it off from their supplies to choose and remove a Poisoned weakness from any investigator’s deck. Each investigator who still has a Poisoned weakness in his or her deck reads <b>The Poison Spreads</b>.",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "supply": "medicine",
+        "investigator": "any",
+        "choices": [
+          {
+            "boolCondition": true,
+            "effects": [{
+              "type": "remove_card",
+              "investigator": "any",
+              "card": "04102"
+            }]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_poison_spreads",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04102"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["poison_spreads", "physical_trauma"]
+        }
+      ]
+    },
+    {
+      "id": "poison_spreads",
+      "type": "story",
+      "title": "The Poison Spreads",
+      "text": "The poison has spread to nearly every part of your body. Your skin pales, and you are covered in cold feverish sweat. Simply rising to your feet requires a tremendous effort, and you get no rest at night despite your exhaustion. It won’t be long now before the poison claims your life."
+    },
+    {
+      "id": "physical_trauma", 
+      "text": "You suffer 1 physical trauma",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04102"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "trauma",
+              "physical": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stop_and_rest",
+      "type": "story",
+      "text": "After descending hundreds and hundreds of steps, you decide to stop and rest. Though your watch tells you that night has fallen, the lack of natural sky is starting to affect your internal clock. With no flat ledge in sight, each member of your party claims one of the many narrow steps to sleep on."
+    },
+    {
+      "id": "check_blanket",
+      "type": "branch",
+      "text": "Check your supplies. Each investigator with a blanket reads <b>Restful Sleep</b>. The rest read <b>Tossing and Turning</b>.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies",
+        "id": "blanket"
+      },
+      "options": [
+        {
+          "boolCondition": false,
+          "steps": ["tossing_and_turning"]
+        },
+        {
+          "boolCondition": true,
+          "steps": ["restless_sleep", "no_ill_effects"]
+        }
+      ]
+    },
+    {
+      "id": "tossing_and_turning",
+      "type": "story",
+      "title": "Tossing and Turning",
+      "text": "Sleep does not come easily for you. Barely any layers protect you from the bitter cold of the underground cavern, and you lie shivering for hours before exhaustion finally claims you. You awaken every hour or so as the shifting of your body almost causes you to tumble off your stone perch. When “morning” comes, you are even more weary than you were the previous night.",
+      "effects": [
+        {
+          "type": "trauma",
+          "mental_or_physical": 1
+        }
+      ]
+    },
+    {
+      "id": "restless_sleep",
+      "type": "story",
+      "text": "Though you long for a proper bed, at least your blanket protects you from the frigid chill that permeates the cavern. When “morning” arrives, your body longs for more sleep, but you know you must press onward and reach the Nexus as fast as you can..."
+    }
+  ]
+}
