@@ -1,0 +1,406 @@
+{
+  "scenarioName": "Shattered Aeons",
+  "setup": [
+    "check_braziers_are_lit",
+    "check_found_missing_relic",
+    "gather_encounter_sets",
+    "check_chaos_bag_tokens",
+    "setup_nexus",
+    "set_aside_enemies",
+    "set_aside_cards",
+    "create_exploration_deck",
+    "add_vengeance_cards",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "check_braziers_are_lit",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "braziers_are_lit"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_1", "intro_3"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_braziers_remain_unlit"]
+        }
+      ]
+    },
+    {
+      "id": "check_braziers_remain_unlit",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "braziers_remain_unlit"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_2", "two_fewer_cards", "intro_3"]
+        }
+      ]
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The silver-blue flames that have guided you through these passages are the only vestige of hope you have remaining. One by one, the braziers lead you onward. Someone or something placed these devices here. The technology is not unlike what you have seen in the caverns of K’n-yan, or in the Eztli ruins where the relic was first found. However, it seems whoever ventured this deep below the crust of the Earth must have turned and fled, for the final brazier has been toppled and broken, and you see no more of them ahead. Thankfully, you do not need to travel in the darkness for very long. Within minutes, you come upon a huge stone doorway: no doubt the entrance to the Nexus."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Since you possess no light to guide you, you have spent every waking moment with part of your body pressed against the cavern wall, using the cold stone to navigate without losing course. As you travel, your fingers find warm, smooth grooves along the wall: the same dormant technology that existed in the Eztli ruins. You are clearly not the first to enter this abyssal place. However, whoever came here before you must have fled before their work was done, since the channels did not light to guide your way or glare with anger as you approached. Hours pass as you make your way gradually in the dark, until finally you come upon a huge stone doorway: no doubt the entrance to the Nexus."
+    },
+    {
+      "id": "two_fewer_cards",
+      "text": "Each investigator begins this scenario with 2 fewer cards in his or her opening hand."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Your hand traces over the lines carved in the doorway. An inscription. A warning to turn back, for to open this passage is to invite doom. It is too dark to recognize the language, but you know it is not one spoken by humanity in this day and age. You have no idea how you can understand the engraving. Perhaps some last remnant of memory from your time in Pnakotus, lost city of the Yithians. Or perhaps you are truly mad, discerning meaning from natural indentations in the stone wall. After all, it has been almost a week since you have seen natural light."
+    },
+    {
+      "id": "check_found_missing_relic",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "found_missing_relic"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_4"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_relic_is_missing"]
+        }
+      ]
+    },
+    {
+      "id": "check_relic_is_missing",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_5"]
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "The stone doorway is sealed shut when you arrive, but as soon as you approach, the artifact begins to shake and hum loudly. Grooves along the door flicker alight with a shimmering glow, and suddenly the door shifts open of its own accord. You grip the artifact tightly and enter."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "The stone doorway is already open when you arrive. Grooves along the door are lit with a shimmering glow. The Brotherhood must already be here. You have arrived with only moments to spare."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "shattered_aeons",
+        "pnakotic_brotherhood",
+        "flux",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "check_chaos_bag_tokens",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "cultist"
+        },
+        "opB": {          
+          "type": "chaos_bag",
+          "token": "tablet"
+        },
+        "operation": "compare"
+      },
+      "options": [
+        {
+          "numCondition": -1,
+          "steps": ["more_tablets"]
+        },
+        {
+          "numCondition": 0,
+          "steps": ["equal_tablets_and_cultists"]
+        },
+        {
+          "numCondition": 1,
+          "steps": ["more_cultists"]
+        }
+      ] 
+    },    
+    {
+      "id": "more_tablets",
+      "type": "encounter_sets",
+      "text": "Because there are more [tablet] tokens in the chaos bag than [cultist] tokens",
+      "encounter_sets": [
+        "pentagram"
+      ]
+    },
+    {
+      "id": "more_cultists",
+      "type": "encounter_sets",
+      "text": "Because there are more [cultist] tokens in the chaos bag than [tablet] tokens",
+      "encounter_sets": [
+        "agents_of_yig"
+      ]
+    },
+    {
+      "id": "equal_tablets_and_cultists",
+      "type": "encounter_sets",
+      "text": "Because there is an equal number of [cultist] and [tablet] tokens in the chaos bag",
+      "encounter_sets": [
+        "pentagram",
+        "agents_of_yig"
+      ]
+    },
+    {
+      "id": "setup_nexus",
+      "text": "Put the Nexus of N’kai into play. Each investigator begins play in the Nexus of N’kai."
+    },
+    {
+      "id": "set_aside_enemies",
+      "text": "Set the 2 enemy cards depicted here aside, out of play: Ichtaca (Scion of Yig) and Alejandro Vela (Or, Is He?).",
+      "bullets": [
+        {
+          "text": "<i>Note: These cards are double-sided and have story cards on their other side. For the best experience, do not look at the other side unless an effect instructs you to do so.</i>"
+        }
+      ]
+    },    
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Formless Spawn, Relic of Ages (Unleash the Timestream), A Pocket in Time, Act 4a—“Paradise Lost”, Act 4a—“Timelock”, and the 6 single- sided [[Shattered]] locations."
+    },
+    {
+      "id": "create_exploration_deck",
+      "text": "Create the exploration deck. This is done by taking the 3 remaining single-sided locations and shuffling them together, along with 1 copy each of the following encounter cards: Wracked by Time, Between Worlds, and Ancient Evils."
+    },
+    {
+      "id": "add_vengeance_cards",
+      "text": "Check Campaign Log. For every 10 tally marks under “Yig’s Fury,” place the top card of the lead investigator’s deck in the victory display, facedown. For the remainder of the scenario, treat each of those cards as if it has Vengeance 1."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "lose",
+      "text": "Because all investigators have been killed by the fall trauma, the investigators <b>lose</b> the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "mended_tear_in_time",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "mended_tear_in_time",
+          "text": "the investigators mended the tear in time."
+        }
+      ]
+    },
+    {
+      "id": "investigators_saved_serpents",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "investigators_saved_serpents",
+          "text": "the investigators saved the civilization of the Serpents."
+        }
+      ]
+    },
+    {
+      "id": "investigators_saved_yithians",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "investigators_saved_yithians",
+          "text": "the investigators saved the civilization of the Yithians."
+        }
+      ]
+    },
+    {
+      "id": "fabric_of_time_unwoven",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fabric_of_time_unwoven",
+          "text": "the fabric of time is unwoven."
+        }
+      ]
+    },
+    {
+      "id": "turned_back_time",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "turned_back_time",
+          "text": "the investigarors turned back time."
+        }
+      ]
+    },
+    {
+      "id": "proceed_epilogue",
+      "text": "Proceed to <b>Epilogue</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "epilogue"
+        }
+      ]
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven insane.",
+      "effects": [
+        {
+          "type": "trauma",
+          "insane": true,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "win",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "win_but",
+      "text": "The Earth is saved, and the investigators win the campaign...",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "cannot_transfer_characters",
+      "text": "...But the investigators have reshaped the world, existing in another time altogether. These investigators cannot be transferred to a different campaign. (You must start fresh.)"
+    },
+    {
+      "id": "two_physical_and_mental_trauma",
+      "text": "Each investigator suffers 2 physical trauma and 2 mental trauma, as he or she never fully recovers from the expedition into N’kai.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 2,
+          "mental": 2,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "attached_locations_to_victory_display",
+      "text": "Each location attached to the Relic of Ages with Victory X is added to the victory display."
+    },
+    {
+      "id": "earn_xp_plus_5",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as he or she has mended the shattered timeline and saved the Earth from catastrophe.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5    
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "resolution": "R4"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "<fancy>Thursday, December 17th, 1925</fancy>]\nIt is difficult for me to convey my unabridged thoughts on the events that occurred during the summer of 1925. Of course, I gave my full account to Harlan—who I suspect is the only person willing to vouch for my story—but I have not sat down to record it on paper until now. Perhaps I would rather these events had been a figment of my imagination.\nIn truth, I have no idea how we made it out of the caverns beneath the jungle alive. Simply reaching the abyssal place was a hellish ordeal. My memory of our return trip is muddled and disarrayed. We scrambled in the dark for what seemed like ages. We were out of food, out of supplies, out of hope—but somehow, we found a way out.\nOur reward for preventing calamity was scorn and ridicule. No upstanding paper or university would publish our findings, and of course we possessed no proof of our expedition save for our scars and nightmares. I wish I could say that my memory of these events has faded with each passing day, but I will never forget the alien city we explored in our conical bodies, the serpents that pursued us in red-litten Yoth, the formless abomination that lived in the depths of the Earth...\nPerhaps that is why I fear making a written account of our findings—because these memories will crystallize and become etched in my mind, forever damning me to a life of terror and dismay. Still, the world needs to know what we saw. What we did.",
+      "steps": ["mended_tear_in_time", "two_physical_and_mental_trauma", "attached_locations_to_victory_display", "earn_xp_plus_5", "win"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Transposed to a different time, Valusia and the children of Yig live on. Preserved by the new timeline you have created, you and the Serpent People are safe from the events that caused their homeland’s destruction long ago, in another time. All of your past transgressions against serpent-kind are forgiven, and you are given the chance to live in the paradise-kingdom of Valusia, remade in Yig’s image. Although you may have turned your back on humanity, you take comfort in the fact that the Earth has been saved from complete ruin. Due to your actions, you are valued and respected among the Serpents and in the eyes of your new Father. Your new life is cozy and full of wonders you could never have predicted. And yet, from time to time, you look out into the wilds beyond Valusia and wonder if there is something else you could have done...",
+      "steps": ["investigators_saved_serpents", "win_but", "cannot_transfer_characters"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Transposed to a different time, Pnakotus and the Great Race of Yith live on. Preserved by the new timeline you have created, you and the Yithians are safe from the extraterrestrials who ended their kind long ago, in another time. You are brought into the city and given freedoms other captive minds never received. Although at first, you long for your former life, the emotion fades the more time you spend in this strange new Earth. You roam the world on titan airships and delve into the collective knowledge of the Yithians, accumulated in their vast archives from centuries of research. Your studies unveil secrets that no other human will ever know. You experience technological advances that humanity would weep to discover. And you prepare for an accursed future that may still yet come to pass..",
+      "steps": ["investigators_saved_yithians", "win_but", "cannot_transfer_characters"]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Reality as you know it will never be the same, but perhaps this is not the end of the world. After all, time is just one dimension: a dimension humanity barely understands. We experience time, but we cannot see it. We can measure it, but we cannot alter it. So what if the fourth dimension has split into hundreds of thousands of planes of existence? Our feeble human minds cannot comprehend the outcome, but the universe still survives, its ever-expanding boundaries no longer limited by the confines of time.",
+      "steps": ["fabric_of_time_unwoven", "all_insane", "lose"]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "All of this was set into motion when the Eztli ruins were first intruded upon. Ichtaca’s original warning was her last vestige of humanity speaking to you. She wanted you and the other explorers to turn back, but curiosity and greed got the better of you. Until that day, balance had been kept. Alejandro sought the relic for his own devices. Ichtaca heard the call of her master and obeyed. However, humanity is the true cause of this chaos. You know now what you must do. You know now how you can save everyone.",
+      "steps": ["turned_back_time", "attached_locations_to_victory_display", "earn_xp", "proceed_epilogue"]
+    }
+  ]
+}

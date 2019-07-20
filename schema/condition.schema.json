@@ -187,6 +187,12 @@
       "$id": "#campaignLogOperand",
       "type": "object",
       "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log"
+          ]
+        },
         "section": {
           "type": "string"
         },
@@ -195,25 +201,57 @@
         }
       },
       "required": [
+        "type",
         "section"
       ],
       "additionalProperties": false
     },
-    "campaignLogMath": {
-      "$id": "#campaignLogMath",
+    "chaosBagOperand": {
+      "$id": "#chaosBagOperand",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
           "enum": [
-            "campaign_log_math"
+            "chaos_bag"
+          ]
+        },
+        "token": {
+          "$ref": "types.schema.json#/definitions/chaosToken"
+        }
+      },
+      "required": [
+        "type",
+        "token"
+      ],
+      "additionalProperties": false
+    },
+    "operand": {
+      "$id": "#operand",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/campaignLogOperand"
+        },
+        {
+          "$ref": "#/definitions/chaosBagOperand"
+        }
+      ]
+    },
+    "math": {
+      "$id": "#math",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "math"
           ]
         },
         "opA": {
-          "$ref": "#/definitions/campaignLogOperand"
+          "$ref": "#/definitions/operand"
         },
         "opB": {
-          "$ref": "#/definitions/campaignLogOperand"
+          "$ref": "#/definitions/operand"
         },
         "operation": {
           "type": "string",
@@ -235,7 +273,7 @@
           "$ref": "#/definitions/campaignLogCondition"
         },
         {
-          "$ref": "#/definitions/campaignLogMath"
+          "$ref": "#/definitions/math"
         },
         {
           "$ref": "#/definitions/cardCondition"
