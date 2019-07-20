@@ -1,0 +1,41 @@
+{
+  "scenarioName": "Epilogue",
+  "interlude": true,
+  "setup": [
+    "check_turned_back_time"
+  ],
+  "steps": [
+    {
+      "id": "check_turned_back_time",
+      "type": "branch",
+      "text": "Check Campaign Log.\nRead the following only if the investigators turned back time.",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "turned_back_time"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["turned_back_time", "proceed_secret_scenario"]
+        }
+      ]
+    },
+    {
+      "id": "turned_back_time",
+      "type": "story",
+      "text": "There is only one way to stop all of this from ever happening. Before you arrived and set all of these events into motion, the Eztli ruins were asleep, and the relic was relatively safe in its prison of obscurity. Had it not been for Alejandro’s desire to find it, it might have remained undiscovered for centuries. With your new understanding of the relic’s capabilities, you can return to the past and set things right. You can seal it away forever and prevent your past selves from having ever found it... even if it costs you your own life."
+    },
+    {
+      "id": "proceed_secret_scenario",
+      "text": "Proceed to Scenario IX: Turn Back Time.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "turn_back_time"
+        }
+      ]
+    }
+  ]
+}

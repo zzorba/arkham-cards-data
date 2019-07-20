@@ -1,0 +1,215 @@
+{
+  "scenarioName": "Turn Back Time",
+  "setup": [
+    "check_wait_for_additional_supplies",
+    "gather_encounter_sets",
+    "build_act_deck",
+    "remove_relic_from_deck",
+    "remove_relic",
+    "setup_locations",
+    "create_explore_deck",
+    "set_aside_cards",
+    "add_elder_thing_token",
+    "set_aside_poison",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "check_wait_for_additional_supplies",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "wait_for_additional_supplies"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_1", "cross_off_entries"]
+        },
+        {
+          "boolCondition": false,
+          "steps": ["check_cleared_path_to_temple"]
+        }
+      ]
+    },
+    {
+      "id": "check_cleared_path_to_temple",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cleared_path_to_temple"
+      },
+      "options": [
+        {
+          "boolCondition": true,
+          "steps": ["intro_2", "cross_off_entries"]
+        }
+      ]
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You stand in front of the main temple of the Eztli, sweat pouring down your skin due to the hot, damp jungle air. Stunned, you examine your surroundings. José and Maria stand next to you, gaping in wonder at the temple’s sophisticated architecture. Their packs are bulging with the extra supplies they were able to acquire from Alejandro’s contacts in Mexico City. Alejandro himself stands at the rear of the group, grinning.\nYour consciousness has been snapped so far back that your mind aches from the force of it. Your body shudders, and you struggle to resist collapsing out of exhaustion. Though you have altered fate, your true task still remains ahead of you. As the rest of the expedition sets up camp and prepares to explore the ruins, you sneak off to fulfill your purpose, leaving Alejandro and the rest of your group behind. They wouldn’t understand. They haven’t seen what you have seen."
+    },
+    {
+      "id": "cross_off_entries",
+      "text": "In your Campaign Log, cross off all entries after the first three entries.\nThe crossed-off entries have been undone by your actions."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You stand near the main temple of the Eztli, sweat pouring down your skin due to the hot, damp jungle air. Stunned, you examine your surroundings. Several tents are set up in the clearing in front of the temple. José stands guard along the border of your camp, and you can see Maria packing equipment and provisions into her backpack, getting ready for her journey to the northern edge of the jungle, as you had instructed. Alejandro sits on a log in the center of the camp, decrypting the inscription he found near the temple’s entryway.\nYour consciousness has been snapped so far back that your mind aches from the force of it. Your body shudders, and you struggle to resist collapsing out of exhaustion. Though you have altered fate, your true task still remains ahead of you. As the rest of the expedition prepares to explore the ruins, you sneak off to fulfill your purpose, leaving Alejandro and the rest of your group behind. They wouldn’t understand. They haven’t seen what you have seen."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "turn_back_time",
+        "eztli",
+        "agents_of_yig",
+        "venom",
+        "flux",
+        "traps",
+        "ruins",
+        "poison",
+        "chilling_cold"
+      ]
+    },
+    {
+      "id": "build_act_deck",
+      "type": "encounter_sets",
+      "encounter_sets": ["turn_back_time"],
+      "text": "When building the act deck, use the three new act cards provided in the <i>Turn Back Time</i> encounter set instead of the original act deck from <i>The Doom of Eztli</i>."
+    },
+    {
+      "id": "remove_relic_from_deck",
+      "text": "Remove the Relic of Ages (<i>Repossess the Past</i>) from its owner’s deck and set it aside, out of play.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "04303"
+        }]
+    },
+    {
+      "id": "remove_relic",
+      "text": "Remove the Relic of Ages (<i>...A Device, of Some Sort</i>) from the game."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Entryway into play. Each investigator begins play at the Entryway."
+    },
+    {
+      "id": "create_explore_deck",
+      "text": "Create the exploration deck. This is done by taking the five single-sided [[Ancient]] locations and shuffling them together, along with one copy each of the following treachery cards: Ill Omen, Deep Dark, Final Mistake, Entombed, and Crypt Chill."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the Harbinger of Valusia enemy and the Chamber of Time location aside, out of play."
+    },
+    {
+      "id": "add_elder_thing_token",
+      "text": "Add 1 [elder_thing] token to the chaos bag, for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "set_aside_poison",
+      "text": "Set aside each Poisoned weakness that is not already in an investigator’s deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "insane": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {  
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"      
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "fabric_of_time_unwoven",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fabric_of_time_unwoven",
+          "text": "the fabric of time is unwoven."
+        }
+      ]
+    },
+    {
+      "id": "sealed_relic_of_ages_forever",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "sealed_relic_of_ages_forever",
+          "text": "the investigators sealed the Relic of Ages forever."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "text": "With your failure, the paradox of clashing timelines catches up to you. Despite all you have done, the events of the future cannot be unmade. You will always find the relic. You will always fail to preserve it. And the Nexus will always falter.\nReality as you know it will never be the same, but perhaps this is not the end of the world. After all, time is just one dimension: a dimension humanity barely understands. We experience time, but we cannot see it. We can measure it, but we cannot alter it. So what if the fourth dimension has split into hundreds of thousands of planes of existence? Our feeble human minds cannot comprehend the outcome, but the universe still survives, its ever-expanding boundaries no longer limited by the confines of time.",
+      "steps": ["fabric_of_time_unwoven", "all_insane", "lose_campaign"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "<fancy>Thursday, December 17th, 1925</fancy>\nNo one else has ever learned of the events that truly occurred during the summer of 1925, and no one ever will, for I intend to keep this journal locked in my safe-deposit box once I have finished writing in it. I seek only to preserve my own record of these events, for I do not wish the passage of time to erase them completely. After all, these are not my memories, but the memories of my other self: the self who ventured through time and space to save humanity.\nIt is difficult to explain how we did what we did. After all that happened—Ichtaca, Alejandro, the city of the Yithians, Yoth—it turns out the true doom of humanity had occurred much, much earlier: when we first left to find the Eztli. We brought all of these events upon ourselves. In order to prevent this calamity, we had to seal the relic away forever. I remember these events as though I myself had experienced them, though for me, the expedition had gone much differently. We reached the central chamber of the Eztli ruins, but it was sealed shut, and nothing—not even the TNT that José had brought from the trucks—could breach the entrance. Although we returned to Arkham with proof that the Eztli existed, no other expedition would ever find them or their ruins again. My other self perished in those ruins—but I remember. Somehow, I remember everything.",
+      "steps": ["sealed_relic_of_ages_forever", "earn_xp", "win_campaign"]
+    }
+  ]
+}
