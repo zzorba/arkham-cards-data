@@ -13,30 +13,101 @@
   ],
   "scenarios": [
     "prologue",
+    "extracurricular_activities",
+    "the_house_always_wins",
+    "armitages_fate",
+    "the_miskatonic_museum",
+    "essex_county_express",
+    "blood_on_the_altar",
+    "survivors",
+    "undimensioned_and_unseen",
+    "where_doom_awaits",
+    "lost_in_time_and_space",
+    "epilogue"
   ],
-  "chaos_bags": {
-    "easy": [
-      "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "auto_fail", "elder_sign"
-    ],
-    "standard": [
-      "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "auto_fail", "elder_sign"
-    ],
-    "hard": [
-      "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "auto_fail", "elder_sign"
-    ],
-    "expert": [
-      "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "-8", "skull", "skull", "cultist", "auto_fail", "elder_sign"
-    ]
-  },
   "setup": [
     "prologue",
     "difficulty_choice"
   ],
   "steps": {
-    "prologue": {
+    {
+      "id": "prologue",
       "type": "story",
       "title": "Their hand is at your throats, yet ye see Them not...",
       "text": "“I’m going to burn his accursed diary, and if you men are wise you’ll dynamite that altar-stone up there, and pull down all the rings of standing stones on the other hills. Things like that brought down the beings those Whateleys were so fond of...”\n–H. P. Lovecraft, “The Dunwich Horror”"
     },
-  }  
+    {
+      "id": "difficulty_choice",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Easy <i>(I want to experience the story)</i>",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "text": "Standard <i>(I want a challenge)</i>",
+            "description": "+1, 0, 0, -1, -1, -1, -2, -2, -3, -4, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "text": "Hard <i>(I want a true nightmare)</i>",
+            "description": "0, 0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "text": "Expert <i>(I want Arkham Horror)</i>",
+            "description": "0, -1, -1, -2, -2, -3, -3, -4, -4, -5, -6, -8, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "-8", "skull", "skull", "cultist", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
 }

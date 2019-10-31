@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "schema/logEntry.schema.json",
+  "definitions": {
+    "cardChoice": {
+      "$id": "#cardChoice",
+      "title": "CardChoice",
+      "type": "object",
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["cards"],
+      "additionalProperties": false
+    },
+    "suppliesChoice": {
+      "$id": "#suppliesChoice",
+      "title": "SuppliesChoice",
+      "type": "object",
+      "properties": {
+        "supplies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "investigator": {
+                "type": "string"
+              },
+              "supplies": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["investigator", "supplies"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["supplies"],
+      "additionalProperties": false
+    },
+    "selectChoice": {
+      "$id": "#selectChoice",
+      "title": "SelectChoice",
+      "type": "object",
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["choices"],
+      "additionalProperties": false
+    },
+    "investigatorCounterChoice": {
+      "$id": "#investigatorCounterChoice",
+      "title": "InvestigatorCounterChoice",
+      "type": "object",
+      "properties": {
+        "counts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "investigator": {
+                "type": "string"
+              },
+              "count": {
+                "type": "number"
+              }
+            },
+            "required": ["investigator", "supplies"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["counts"],
+      "additionalProperties": false
+    },
+    "counterChoice": {
+      "$id": "#counterChoice",
+      "title": "CounterChoice",
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": ["count"],
+      "additionalProperties": false
+    },
+    "investigatorsChoice": {
+      "$id": "#investigatorsChoice",
+      "title": "InvestigatorChoice",
+      "type": "object",
+      "properties": {
+        "investigators": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "investigator": {
+                "type": "string"
+              },
+              "deck": {
+                "type": "string"
+              }
+            },
+            "required": ["investigator"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["count"],
+      "additionalProperties": false
+    },
+    "choice": {
+      "$id": "#choice",
+      "title": "Choice",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/cardChoice"
+        },
+        {
+          "$ref": "#/definitions/suppliesChoice"
+        },
+        {
+          "$ref": "#/definitions/selectChoice"
+        },
+        {
+          "$ref": "#/definitions/investigatorCounterChoice"
+        },
+        {
+          "$ref": "#/definitions/counterChoice"
+        },
+        {
+          "$ref": "#/definitions/investigatorsChoice"
+        }
+      ]
+    },
+    "logEntry": {
+      "$id": "#logEntry",
+      "title": "LogEntry",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "choice": {
+          "$ref": "#/definitions/choice"
+        }
+      },
+      "required": ["id"],
+      "additionalProperties": false
+    }
+  }
+}

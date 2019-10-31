@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "schema/effect.schema.json",
   "definitions": {
     "earnXpEffect": {
@@ -22,7 +22,7 @@
       },
       "required": [
         "type",
-        "investigator"        
+        "investigator"
       ],
       "additionalProperties": false
     },
@@ -83,7 +83,7 @@
       "additionalProperties": false
     },
     "campaignDataResultEffect": {
-      "$id": "#campaignDataResultEffect",     
+      "$id": "#campaignDataResultEffect",
       "title": "CampaignDataResultEffect",
       "type": "object",
       "properties": {
@@ -104,6 +104,40 @@
           "enum": [
             "win",
             "lose"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataDifficultyEffect": {
+      "$id": "#campaignDataDifficultyEffect",
+      "title": "CampaignDataDifficultyEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "difficulty"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "enum": [
+            "easy",
+            "standard",
+            "hard",
+            "expert"
           ]
         }
       },
@@ -141,7 +175,7 @@
         "scenario"
       ],
       "additionalProperties": false
-    },  
+    },
     "campaignDataChooseInvestigatorsEffect": {
       "$id": "#campaignDataChooseInvestigatorsEffect",
       "title": "CampaignDataChooseInvestigatorsEffect",
@@ -165,7 +199,7 @@
         "setting"
       ],
       "additionalProperties": false
-    },  
+    },
     "addRemoveChaosTokenEffect": {
       "$id": "#addRemoveChaosTokenEffect",
       "title": "AddRemoveChaosTokenEffect",
@@ -190,7 +224,7 @@
         "tokens"
       ],
       "additionalProperties": false
-    }, 
+    },
     "campaignLogEffect": {
       "$id": "#campaignLogEffect",
       "title": "CampaignLogEffect",
@@ -226,7 +260,7 @@
         "section"
       ],
       "additionalProperties": false
-    },     
+    },
     "removeCardEffect": {
       "$id": "#removeCardEffect",
       "title": "RemoveCardEffect",
@@ -249,7 +283,7 @@
         "type"
       ],
       "additionalProperties": false
-    }, 
+    },
     "traumaEffect": {
       "$id": "#traumaEffect",
       "title": "TraumaEffect",
@@ -287,7 +321,7 @@
       "additionalProperties": false
     },
     "effect": {
-      "$id": "#effect",  
+      "$id": "#effect",
       "title": "Effect",
       "oneOf": [
         { "$ref": "#/definitions/earnXpEffect" },
@@ -297,6 +331,7 @@
         { "$ref": "#/definitions/traumaEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignDataResultEffect" },
+        { "$ref": "#/definitions/campaignDataDifficultyEffect" },
         { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
         { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" }

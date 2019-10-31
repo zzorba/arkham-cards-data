@@ -14,7 +14,7 @@ const getFilePaths = (folderPath) => {
   return [...filePaths, ...dirFiles];
 };
 
-const scenarioSchema = fs.readFileSync('scenario.schema.json').toString();
+const scenarioSchema = fs.readFileSync('schema/scenario.schema.json').toString();
 $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
   if (err) {
     console.error(err);

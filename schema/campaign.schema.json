@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "schema/campaign.schema.json",
+  "definitions": {
+    "campaign": {
+      "$id": "#campaign",
+      "title": "Campaign",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "campaign_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "title"],
+            "additionalProperties": "false"
+          }
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "setup": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "step.schema.json#/definitions/step"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "campaign_log",
+        "setup",
+        "steps"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

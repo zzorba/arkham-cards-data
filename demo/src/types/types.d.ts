@@ -43,6 +43,7 @@ export type Effect =
   | TraumaEffect
   | CampaignLogEffect
   | CampaignDataResultEffect
+  | CampaignDataDifficultyEffect
   | CampaignDataNextScnearioEffect
   | CampaignDataChooseInvestigatorsEffect
   | AddRemoveChaosTokenEffect;
@@ -55,20 +56,30 @@ export type Input =
   | CounterInput
   | InvestigatorCounterInput;
 export type Choice = StepsChoice | EffectsChoice | ResolutionChoice;
+export type Choice1 =
+  | CardChoice
+  | SuppliesChoice
+  | SelectChoice
+  | InvestigatorCounterChoice
+  | CounterChoice
+  | InvestigatorChoice;
 
-export interface ScenarioSchema {
-  scenarioName: string;
-  setup: string[];
-  resolutions?: Resolution[];
-  steps: Step[];
-  interlude?: boolean;
+export interface Schema {
+  campaign: Campaign;
+  log: Log;
+  scenario: Scenario;
 }
-export interface Resolution {
+export interface Campaign {
   id: string;
-  title: string;
-  text?: string;
-  resolution?: string;
-  steps?: string[];
+  name: string;
+  campaign_log: {
+    id: string;
+    title: string;
+    [k: string]: any;
+  }[];
+  scenarios?: string[];
+  setup: string[];
+  steps: Step[];
 }
 export interface BranchStep {
   id: string;
@@ -177,6 +188,11 @@ export interface CampaignDataResultEffect {
   type: "campaign_data";
   setting: "result";
   value: "win" | "lose";
+}
+export interface CampaignDataDifficultyEffect {
+  type: "campaign_data";
+  setting: "difficulty";
+  value: "easy" | "standard" | "hard" | "expert";
 }
 export interface CampaignDataNextScnearioEffect {
   type: "campaign_data";
@@ -290,4 +306,54 @@ export interface GenericStep {
   bullets?: {
     text: string;
   }[];
+}
+export interface Log {
+  campaignName: string;
+  campaignCode: string;
+  log: LogEntry[];
+}
+export interface LogEntry {
+  id: string;
+  choice?: Choice1;
+}
+export interface CardChoice {
+  cards: string[];
+}
+export interface SuppliesChoice {
+  supplies: {
+    investigator: string;
+    supplies: string[];
+  }[];
+}
+export interface SelectChoice {
+  choices: string[];
+}
+export interface InvestigatorCounterChoice {
+  counts: {
+    investigator: string;
+    count?: number;
+  }[];
+}
+export interface CounterChoice {
+  count: number;
+}
+export interface InvestigatorChoice {
+  investigators?: {
+    investigator: string;
+    deck?: string;
+  }[];
+}
+export interface Scenario {
+  scenarioName: string;
+  setup: string[];
+  resolutions?: Resolution[];
+  steps: Step[];
+  interlude?: boolean;
+}
+export interface Resolution {
+  id: string;
+  title: string;
+  text?: string;
+  resolution?: string;
+  steps?: string[];
 }
