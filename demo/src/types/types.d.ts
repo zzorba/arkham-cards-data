@@ -5,6 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type Schema = Campaign | Log | Scenario;
 export type Step = BranchStep | InputStep | EncounterSetsStep | GenericStep;
 export type Condition =
   | CampaignLogCondition
@@ -64,11 +65,6 @@ export type Choice1 =
   | CounterChoice
   | InvestigatorChoice;
 
-export interface Schema {
-  campaign: Campaign;
-  log: Log;
-  scenario: Scenario;
-}
 export interface Campaign {
   id: string;
   name: string;
