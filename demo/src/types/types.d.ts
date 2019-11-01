@@ -5,7 +5,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Schema = Campaign | Log | Scenario;
+export type Schema = FullCampaign | Log;
 export type Step = BranchStep | InputStep | EncounterSetsStep | GenericStep;
 export type Condition =
   | CampaignLogCondition
@@ -65,15 +65,18 @@ export type Choice1 =
   | CounterChoice
   | InvestigatorChoice;
 
+export interface FullCampaign {
+  campaign: Campaign;
+  scenarios: Scenario[];
+}
 export interface Campaign {
   id: string;
   name: string;
   campaign_log: {
     id: string;
     title: string;
-    [k: string]: any;
   }[];
-  scenarios?: string[];
+  scenarios: string[];
   setup: string[];
   steps: Step[];
 }
@@ -303,6 +306,21 @@ export interface GenericStep {
     text: string;
   }[];
 }
+export interface Scenario {
+  id: string;
+  scenarioName: string;
+  setup: string[];
+  resolutions?: Resolution[];
+  steps: Step[];
+  interlude?: boolean;
+}
+export interface Resolution {
+  id: string;
+  title: string;
+  text?: string;
+  resolution?: string;
+  steps?: string[];
+}
 export interface Log {
   campaignName: string;
   campaignCode: string;
@@ -338,18 +356,4 @@ export interface InvestigatorChoice {
     investigator: string;
     deck?: string;
   }[];
-}
-export interface Scenario {
-  scenarioName: string;
-  setup: string[];
-  resolutions?: Resolution[];
-  steps: Step[];
-  interlude?: boolean;
-}
-export interface Resolution {
-  id: string;
-  title: string;
-  text?: string;
-  resolution?: string;
-  steps?: string[];
 }
