@@ -1,7 +1,7 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#", 
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "schema/step.schema.json",
-  "definitions": {    
+  "definitions": {
     "inputStep": {
       "$id": "#inputStep",
       "title": "InputStep",
@@ -63,7 +63,7 @@
         "options"
       ],
       "additionalProperties": false
-    },     
+    },
     "encounterSetsStep": {
       "$id": "#encounterSetsStep",
       "title": "EncounterSetsStep",
@@ -98,9 +98,9 @@
       ],
       "additionalProperties": false
     },
-    "genericStep": {
-      "$id": "#genericStep",
-      "title": "GenericStep",
+    "ruleReminderStep": {
+      "$id": "#ruleReminderStep",
+      "title": "RuleReminderStep",
       "type": "object",
       "properties": {
         "id": {
@@ -109,7 +109,6 @@
         "type": {
           "type": "string",
           "enum": [
-            "story",
             "rule_reminder"
           ]
         },
@@ -118,6 +117,31 @@
         },
         "title": {
           "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "storyStep": {
+     "$id": "#storyStep",
+      "title": "StoryStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "story"
+          ]
+        },
+        "text": {
+          "type": "string"
         },
         "effects": {
           "type": "array",
@@ -125,10 +149,48 @@
             "$ref": "effect.schema.json#/definitions/effect"
           }
         },
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["text"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    "genericStep": {
+      "$id": "#genericStep",
+      "title": "GenericStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
         "steps": {
           "type": "array",
           "items": {
             "type": "string"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
           }
         },
         "bullets": {
@@ -165,8 +227,16 @@
         },
         {
           "$ref": "#/definitions/genericStep"
+        },
+        {
+          "$ref": "#/definitions/ruleReminderStep"
+        },
+        {
+          "$ref": "#/definitions/storyStep"
         }
-      ]
+      ],
+      "required": [],
+      "additionalProperties": false
     }
   }
 }

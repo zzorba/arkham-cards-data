@@ -6,7 +6,7 @@
  */
 
 export type Schema = AllCampaigns | Log;
-export type Step = BranchStep | InputStep | EncounterSetsStep | GenericStep;
+export type Step = BranchStep | InputStep | EncounterSetsStep | GenericStep | RuleReminderStep | StoryStep;
 export type Condition =
   | CampaignLogCondition
   | Math
@@ -45,7 +45,7 @@ export type Effect =
   | CampaignLogEffect
   | CampaignDataResultEffect
   | CampaignDataDifficultyEffect
-  | CampaignDataNextScnearioEffect
+  | CampaignDataNextScenarioEffect
   | CampaignDataChooseInvestigatorsEffect
   | AddRemoveChaosTokenEffect;
 export type Input =
@@ -156,6 +156,7 @@ export interface AddCardEffect {
   investigator: InvestigatorSelector;
   card: string;
   weakness_traits?: string[];
+  ignore_deck_limit?: boolean;
 }
 export interface RemoveCardEffect {
   type: "remove_card";
@@ -195,7 +196,7 @@ export interface CampaignDataDifficultyEffect {
   setting: "difficulty";
   value: "easy" | "standard" | "hard" | "expert";
 }
-export interface CampaignDataNextScnearioEffect {
+export interface CampaignDataNextScenarioEffect {
   type: "campaign_data";
   setting: "next_scenario";
   scenario: string;
@@ -299,11 +300,24 @@ export interface EncounterSetsStep {
 }
 export interface GenericStep {
   id: string;
-  type?: "story" | "rule_reminder";
   text?: string;
-  title?: string;
-  effects?: Effect[];
   steps?: string[];
+  effects?: Effect[];
+  bullets?: {
+    text: string;
+  }[];
+}
+export interface RuleReminderStep {
+  id: string;
+  type: "rule_reminder";
+  text: string;
+  title?: string;
+}
+export interface StoryStep {
+  id: string;
+  type: "story";
+  text: string;
+  effects?: Effect[];
   bullets?: {
     text: string;
   }[];

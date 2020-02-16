@@ -1,5 +1,6 @@
 import React from 'react';
 import { forEach, map } from 'lodash';
+import { Link } from 'react-router-dom'
 
 import { FullCampaign, Scenario } from '../types';
 import ScenarioListItem from './ScenarioListItem';
@@ -24,7 +25,9 @@ export default class Campaign extends React.Component<Props> {
     });
     return (
       <div>
-        <h4>{campaign.name}</h4>
+        <Link to={`/campaign/${campaign.id}`}>
+          <h4>{campaign.name}</h4>
+        </Link>
         <ul>
           { map(campaign.scenarios, scenarioId => {
             const scenario = scenarioMap[scenarioId];
@@ -34,6 +37,7 @@ export default class Campaign extends React.Component<Props> {
             return (
               <ScenarioListItem
                 key={scenarioId}
+                campaignId={campaign.id}
                 scenario={scenario}
               />
             );

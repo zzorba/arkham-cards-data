@@ -112,7 +112,7 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
     // including referenced files, combined into a single object
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, 'scenario');
-    const QUIET = true;
+    const QUIET = false;
     getFilePaths('../campaigns').sort().map(file => {
       if (!file.endsWith('.schema.json') && !file.endsWith('campaign.json') && file.endsWith('.json')) {
         const data = fs.readFileSync(file, 'utf-8').toString();
