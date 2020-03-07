@@ -34,7 +34,7 @@ export type ChaosToken =
   | "tablet"
   | "elder_thing"
   | "elder_sign"
-  | "autofail";
+  | "auto_fail";
 export type Option = EffectOption | StepsOption | ResolutionOption;
 export type Effect =
   | EarnXpEffect
@@ -145,6 +145,8 @@ export interface EffectOption {
   condition?: string;
   default?: boolean;
   effects: Effect[];
+  steps?: null;
+  resolution?: null;
 }
 export interface EarnXpEffect {
   type: "earn_xp";
@@ -215,6 +217,8 @@ export interface StepsOption {
   condition?: string;
   default?: boolean;
   steps: string[];
+  effects?: null;
+  resolution?: null;
 }
 export interface ResolutionOption {
   boolCondition?: boolean;
@@ -222,6 +226,8 @@ export interface ResolutionOption {
   condition?: string;
   default?: boolean;
   resolution: string;
+  effects?: null;
+  steps?: null;
 }
 export interface InputStep {
   id: string;
