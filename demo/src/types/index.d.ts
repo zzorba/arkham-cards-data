@@ -300,6 +300,7 @@ export interface EncounterSetsStep {
 }
 export interface GenericStep {
   id: string;
+  type?: null;
   text?: string;
   steps?: string[];
   effects?: Effect[];
