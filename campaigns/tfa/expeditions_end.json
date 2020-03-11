@@ -1,5 +1,5 @@
 {
-  "id": "expeditions_end",
+  "id": "tfa_interlude2",
   "scenarioName": "Expeditions End",
   "interlude": true,
   "setup": [
@@ -54,11 +54,11 @@
         "choices": [
           {
             "text": "It belongs in a museum. Alejandro and the museum staff will be able to study it and learn more about its purpose.",
-            "steps": ["ee_2", "ee_4"]
+            "steps": ["ee_2", "maybe_earn_alejandro", "add_tablet", "ee_4"]
           },
           {
             "text": "It is too dangerous to be on display. We should keep it hidden and safe until we know more about it.",
-            "steps": ["ee_3", "ee_4"]
+            "steps": ["ee_3", "remove_alejandro", "ee_4"]
           }
         ]
       }
@@ -79,12 +79,38 @@
           "section": "campaign_notes",
           "id": "earned_alejandros_trust",
           "text": "the investigators have earned Alejandro’s trust."
-        },
+        }
+      ]
+    },
+    {
+      "id": "maybe_earn_alejandro",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "04051"
+      },
+      "options": [
+        {
+          "boolCondition": false,
+          "steps": ["earn_alejandro"]
+        }
+      ]
+    },
+    {
+      "id": "earn_alejandro",
+      "text": "Any one investigator may choose to add Alejandro Vela to his or her deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
         {
           "type": "add_card",
           "card": "04051",
           "investigator": "choice"
-        },
+        }
+      ]
+    },
+    {
+      "id": "add_tablet",
+      "effects": [
         {
           "type": "add_chaos_token",
           "tokens": ["tablet"]
@@ -107,7 +133,13 @@
           "section": "campaign_notes",
           "id": "alejandro_on_his_own",
           "text": "Alejandro is continuing his research on his own."
-        },
+        }
+      ]
+    },
+    {
+      "id": "remove_alejandro",
+      "text": "If Alejandro Vela is currently in an investigator’s deck, remove him from that investigator’s deck.",
+      "effects": [
         {
           "type": "remove_card",
           "card": "04051"
