@@ -287,6 +287,7 @@ export interface UseSuppliesInput {
 }
 export interface InvestigatorChoiceInput {
   type: "investigator_choice";
+  investigator: InvestigatorSelector;
   choices: Choice[];
 }
 export interface ChooseInput {
