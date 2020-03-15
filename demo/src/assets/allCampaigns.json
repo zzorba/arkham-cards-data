@@ -3334,7 +3334,7 @@
     },
     {
       "id": "earn_lita",
-      "text": "The lead investigator earns the Lita Chantler card and may include it in his or her deck. This card does not count toward that investigator’s deck size.",
+      "text": "The lead investigator earns the Lita Chantler card and may include it in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
           "type": "add_card",
@@ -3345,7 +3345,7 @@
     },
     {
       "id": "lead_investigator_xp",
-      "text": "The lead investigator earns 1 experience, as he or she refuses to let the night’s events destroy his or her life",
+      "text": "The lead investigator earns 1 experience, as he or she refuses to let the night’s events destroy their life",
       "effects": [
         {
           "type": "earn_xp",
@@ -3372,7 +3372,7 @@
     },
     {
       "id": "mental_trauma",
-      "text": "The lead investigator suffers 1 mental trauma from watching his or her home become a smoldering ruin.",
+      "text": "The lead investigator suffers 1 mental trauma from watching their home become a smoldering ruin.",
       "effects": [
         {
           "type": "trauma",
@@ -3384,25 +3384,13 @@
     {
       "id": "killed",
       "text": "Each investigator who has not resigned is killed. If there are not enough investigators to continue the campaign, the campaign is over and the players lose. Otherwise, advance to the next scenario. (Each player whose investigator has been killed must choose a new investigator from the pool of available investigators. Refer to page 13 of the Rules Reference for the full rules on killed investigators.)",
-      "type": "input",
-      "input": {
-        "type": "investigator_choice",
-        "choices": [
-          {
-            "text": "Resigned",
-            "effects": []
-          },
-          {
-            "text": "Killed",
-            "effects": [
-              {
-                "type": "trauma",
-                "killed": true
-              }
-            ]
-          }
-        ]
-      }
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "not_resigned",
+          "killed": true
+        }
+      ]
     },
     {
       "id": "check_lead_investigator_killed",
@@ -3419,7 +3407,7 @@
     },
     {
       "id": "lead_investigator_killed",
-      "text": "Because the lead investigator was killed, choose an investigator to earn the Lita Chantler card. That investigator may include this card in his or her deck. It does not count toward that investigator’s deck size.",
+      "text": "Because the lead investigator was killed, choose an investigator to earn the Lita Chantler card. That investigator may include this card in their deck. It does not count toward that investigator’s deck size.",
       "effects": [
         {
           "type": "add_card",
@@ -3796,7 +3784,7 @@
     "echoes_of_the_past",
     "the_unspeakable_oath",
     "ptc_interlude2",
-    "phantom_of_truth",
+    "a_phantom_of_truth",
     "the_pallid_mask",
     "black_stars_rise",
     "dim_carcosa",
@@ -5731,7 +5719,7 @@
 }
 ,
 {
-  "id": "phantom_of_truth",
+  "id": "a_phantom_of_truth",
   "scenarioName": "A Phantom of Truth",
   "setup": [
     "check_king_claimed_victims",
@@ -6719,7 +6707,7 @@
     },
     {
       "id": "set_aside_pallid_mask",
-      "text": "The bearer of The Man in the Pallid Mask weakness searches his or her deck for it and sets it aside, out of play."
+      "text": "The bearer of The Man in the Pallid Mask weakness searches their deck for it and sets it aside, out of play."
     },
     {
       "id": "encounter_deck",
@@ -6761,11 +6749,16 @@
     },
     {
       "id": "read_act_2_choice",
-      "text": "Each investigator must choose whether or not to read Act II of The King in Yellow. At least one investigator must read Act II. In your Campaign Log, record the names of each investigator who chose to read Act II. Each investigator who read Act II searches the collection for a random basic [[Madness]] or [[Pact]] weakness, and adds it to his or her deck (does not count toward deck size). Each investigator who read Act II earns 2 additional experience as they gain insight into the machinations of the Tattered King.",
+      "text": "Each investigator must choose whether or not to read Act II of The King in Yellow. At least one investigator must read Act II.\nIn your Campaign Log, record the names of each investigator who chose to read Act II. Each investigator who read Act II searches the collection for a random basic [[Madness]] or [[Pact]] weakness, and adds it to their deck (does not count toward deck size). Each investigator who read Act II earns 2 additional experience as they gain insight into the machinations of the Tattered King.",
       "type": "input",
       "input": {
         "type": "investigator_choice",
+        "investigator": "all",
         "choices": [
+          {
+            "text": "Do not read",
+            "effects": []
+          },
           {
             "text": "Read Act II",
             "effects": [
