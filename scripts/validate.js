@@ -16,7 +16,7 @@ const getFilePaths = (folderPath) => {
 function validate(validator, file, json, schemaName) {
   const valid = validator.validate(schemaName, json);
   if (!valid) {
-    console.log(`SCHEMA Error(${file})\n${ajv.errors.map(e => `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(e.params)}\n${JSON.stringify(e.data)}`).join('\n\n')}\n\n\n\n`);
+    console.log(`SCHEMA Error(${file})\n${validator.errors.map(e => `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(e.params)}\n${JSON.stringify(e.data)}`).join('\n\n')}\n\n\n\n`);
     process.exit();
   }
   const steps = {};
@@ -65,8 +65,8 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
-      if (step.options) {
-        step.options.map(option => {
+      if (step.condition && step.condition.options) {
+        step.condition.options.map(option => {
           if (option.steps) {
             option.steps.map(step => {
               if (!steps[step]) {
@@ -103,7 +103,7 @@ function validate(validator, file, json, schemaName) {
   }
 }
 
-const scenarioSchema = fs.readFileSync('./scenario.schema.json').toString();
+const scenarioSchema = fs.readFileSync('./schema/scenario.schema.json').toString();
 $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
   if (err) {
     console.error(err);
@@ -113,7 +113,7 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, 'scenario');
     const QUIET = false;
-    getFilePaths('../campaigns').sort().map(file => {
+    getFilePaths('./campaigns').sort().map(file => {
       if (!file.endsWith('.schema.json') && !file.endsWith('campaign.json') && file.endsWith('.json')) {
         const data = fs.readFileSync(file, 'utf-8').toString();
         if (!QUIET) {
@@ -130,7 +130,7 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
   }
 });
 
-const campaignSchema = fs.readFileSync('./campaign.schema.json').toString();
+const campaignSchema = fs.readFileSync('./schema/campaign.schema.json').toString();
 $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
   if (err) {
     console.error(err);
@@ -140,7 +140,7 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, 'campaign');
     const QUIET = true;
-    getFilePaths('../campaigns').sort().map(file => {
+    getFilePaths('./campaigns').sort().map(file => {
       if (file.endsWith('campaign.json')) {
         const data = fs.readFileSync(file, 'utf-8').toString();
         if (!QUIET) {
@@ -156,3 +156,13 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
     });
   }
 });
+
+const schema = fs.readFileSync('./schema/schema.json').toString();
+$RefParser.dereference(jsonlint.parse(schema), (err, schema) => {
+  if (err) {
+    console.log(err);
+  } else {
+   fs.writeFile('./build/compiledSchema.json', JSON.stringify(schema));
+  }
+});
+

@@ -27,17 +27,17 @@
         "type": "choose_one",
         "choices": [
           {
-            "text": "Let’s consult with Ichtaca.",
+            "flavor": "Let’s consult with Ichtaca.",
             "description": "Choose this option only if Ichtaca is in an investigator’s deck.",
             "steps": ["intro_2", "start_with_ichtaca"]
           },
           {
-            "text": "Let’s consult with Alejandro.",
+            "flavor": "Let’s consult with Alejandro.",
             "description": "Choose this option only if Alejandro is in an investigator’s deck.",
             "steps": ["intro_3", "start_with_alejandro"]
           },
           {
-            "text": "Let’s consult the expedition journal.",
+            "flavor": "Let’s consult the expedition journal.",
             "description": "Choose this option only if the Expedition Journal is in an investigator’s deck.",
             "steps": ["intro_4", "start_with_expedition_journal"]
           },
@@ -82,14 +82,14 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "paths_known"
-      },
-      "options": [
-        {
-          "numCondition": 6,
-          "resolution": "R1"
-        }
-      ]
+        "id": "paths_known",
+        "options": [
+          {
+            "numCondition": 6,
+            "resolution": "R1"
+          }
+        ]
+      }
     },
     {
       "id": "gather_encounter_sets",
@@ -125,18 +125,18 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "mapped_way_forward"
-      },
-      "options": [
-        {
-          "boolCondition": false,
-          "steps": ["choose_ruins"]
-        },
-        {
-          "boolCondition": true,
-          "steps": ["choose_ruins_and_start_in_play"]
-        }
-      ]
+        "id": "mapped_way_forward",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["choose_ruins"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["choose_ruins_and_start_in_play"]
+          }
+        ]
+      }
     },
     {
       "id": "choose_ruins",
@@ -156,6 +156,7 @@
     },
     {
       "id": "record_paths_known",
+      "text": "If there are more pillar tokens on the Mouth of K’nyan than there were when the scenario began, in your Campaign Log, cross out how many paths are known to you. Then, record that X paths are known to you. X is the number of pillar tokens on the Mouth of K’n-yan.",
       "type": "input",
       "input": {
         "type": "counter",
@@ -165,7 +166,7 @@
             "type": "campaign_log",
             "section": "campaign_notes",
             "id": "paths_known",
-            "text": "#X# paths are known"
+            "text": "#X# paths are known to you."
           }
         ]
       }

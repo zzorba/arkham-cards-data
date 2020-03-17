@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/schema#",
   "$id": "schema/step.schema.json",
   "definitions": {
     "inputStep": {
@@ -48,19 +48,12 @@
         },
         "condition": {
           "$ref": "condition.schema.json#/definitions/condition"
-        },
-        "options": {
-          "type": "array",
-          "items": {
-            "$ref": "option.schema.json#/definitions/option"
-          }
         }
       },
       "required": [
         "id",
         "type",
-        "condition",
-        "options"
+        "condition"
       ],
       "additionalProperties": false
     },
@@ -117,6 +110,22 @@
         },
         "title": {
           "type": "string"
+        },
+        "bullets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["text"],
+            "additionalProperties": false
+          }
+        },
+        "example": {
+          "type": "string"
         }
       },
       "required": [
@@ -139,6 +148,9 @@
           "enum": [
             "story"
           ]
+        },
+        "title": {
+          "type": "string"
         },
         "text": {
           "type": "string"
@@ -180,6 +192,9 @@
         },
         "type": {
           "type": "null"
+        },
+        "title": {
+          "type": "string",
         },
         "text": {
           "type": "string"
@@ -237,9 +252,7 @@
         {
           "$ref": "#/definitions/storyStep"
         }
-      ],
-      "required": [],
-      "additionalProperties": false
+      ]
     }
   }
 }

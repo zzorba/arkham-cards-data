@@ -17,18 +17,18 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "wait_for_additional_supplies"
-      },
-      "options": [
-        {
-          "boolCondition": true,
-          "steps": ["intro_1"]
-        },
-        {
-          "boolCondition": false,
-          "steps": ["check_cleared_path_to_temple"]
-        }
-      ]
+        "id": "wait_for_additional_supplies",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_cleared_path_to_temple"]
+          }
+        ]
+      }
     },
     {
       "id": "check_cleared_path_to_temple",
@@ -36,14 +36,14 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "cleared_path_to_temple"
-      },
-      "options": [
-        {
-          "boolCondition": true,
-          "steps": ["intro_2"]
-        }
-      ]
+        "id": "cleared_path_to_temple",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          }
+        ]
+      }
     },
     {
       "id": "intro_1",
@@ -95,30 +95,30 @@
       "type": "branch",
       "condition": {
         "type": "campaign_log",
-        "section": "yigs_fury"
-      },
-      "options": [
-        {
-          "numCondition": 0,
-          "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
-        },
-        {
-          "numCondition": 1,
-          "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
-        },
-        {
-          "numCondition": 2,
-          "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
-        },
-        {
-          "numCondition": 3,
-          "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
-        },
-        {
-          "default": true,
-          "steps": ["yigs_fury_bad", "check_no_resolution_fury_bad"]
-        }
-      ]
+        "section": "yigs_fury",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+          },
+          {
+            "default": true,
+            "steps": ["yigs_fury_bad", "check_no_resolution_fury_bad"]
+          }
+        ]
+      }
     },
     {
       "id": "yigs_fury_bad",
@@ -137,14 +137,14 @@
       "type": "branch",
       "condition": {
         "type": "scenario_data",
-        "scenario_data": "resolution"
-      },
-      "options": [
-        {
-          "condition": "no_resolution",
-          "resolution": "R2"
-        }
-      ]
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "no_resolution",
+            "resolution": "R2"
+          }
+        ]
+      }
     },
     {
       "id": "yigs_fury_okay",
@@ -163,14 +163,14 @@
       "type": "branch",
       "condition": {
         "type": "scenario_data",
-        "scenario_data": "resolution"
-      },
-      "options": [
-        {
-          "condition": "no_resolution",
-          "resolution": "R3"
-        }
-      ]
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "no_resolution",
+            "resolution": "R3"
+          }
+        ]
+      }
     },
     {
       "id": "choose_to_continue",
@@ -180,11 +180,11 @@
         "type": "choose_one",
         "choices": [
           {
-            "text": "“We can’t stop now—we have to go back inside!”",
+            "flavor": "“We can’t stop now—we have to go back inside!”",
             "resolution": "R4"
           },
           {
-            "text": "“It’s too dangerous. This place must be destroyed.”",
+            "flavor": "“It’s too dangerous. This place must be destroyed.”",
             "resolution": "R5"
           }
         ]
@@ -221,6 +221,7 @@
     },
     {
       "id": "record_harbinger",
+      "text": "Record in your Campaign Log that <i>the Harbinger is still alive</i>. Next to this, in parentheses, record how much damage is on the Harbinger of Valusia.",
       "type": "input",
       "input": {
         "type": "counter",
@@ -230,7 +231,7 @@
             "type": "campaign_log",
             "section": "campaign_notes",
             "id": "harbinger_alive",
-            "text": "the Harbinger is still alive."
+            "text": "the Harbinger is still alive (#X# damage)."
           }
         ]
       }

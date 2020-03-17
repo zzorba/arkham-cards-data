@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/schema#",
   "$id": "schema/types.schema.json",
   "definitions": {
     "investigator": {
@@ -70,6 +70,9 @@
         "text": {
           "type": "string"
         },
+        "flavor": {
+          "type": "string"
+        },
         "description": {
           "type": "string"
         },
@@ -86,7 +89,7 @@
           "type": "null"
         }
       },
-      "required": ["text", "steps"],
+      "required": ["steps"],
       "additionalProperties": false
     },
     "effectsChoice": {
@@ -94,6 +97,9 @@
       "title": "EffectsChoice",
       "type": "object",
       "properties": {
+        "flavor": {
+          "type": "string"
+        },
         "text": {
           "type": "string"
         },
@@ -113,7 +119,7 @@
           "type": "null"
         }
       },
-      "required": ["text", "effects"],
+      "required": ["effects"],
       "additionalProperties": false
     },
     "resolutionChoice": {
@@ -122,6 +128,9 @@
       "type": "object",
       "properties": {
         "text": {
+          "type": "string"
+        },
+        "flavor": {
           "type": "string"
         },
         "description": {
@@ -137,11 +146,11 @@
           "type": "null"
         }
       },
-      "required": ["text", "resolution"],
+      "required": ["resolution"],
       "additionalProperties": false
     },
     "choice": {
-      "$id": "#step",
+      "$id": "#choice",
       "title": "Choice",
       "oneOf": [
         {
@@ -154,6 +163,30 @@
           "$ref": "#/definitions/resolutionChoice"
         }
       ]
+    },
+    "supply": {
+      "$id": "#supply",
+      "title": "Supply",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "number"
+        },
+        "multiple": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "name", "description", "cost"],
+      "additionalProperties": false
     }
   }
 }

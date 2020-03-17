@@ -2,5 +2,4 @@
 
 set -e
 
-cd schema
-npx json2ts schema.json -o ../demo/src/types/index.d.ts -declareExternallyReferenced
+npx json2ts schema/schema.json -o ./demo/src/types/index.d.ts -declareExternallyReferenced
