@@ -225,13 +225,13 @@ export interface CampaignDataScenarioCondition {
   type: "campaign_data";
   campaign_data: "scenario_completed";
   scenario: string;
-  options: Option[];
+  options: StepsOption[];
 }
 export interface CampaignDataChaosBagCondition {
   type: "campaign_data";
   campaign_data: "chaos_bag";
   token: ChaosToken;
-  options: Option[];
+  options: StepsOption[];
 }
 export interface ScenarioDataCondition {
   type: "scenario_data";
@@ -242,7 +242,7 @@ export interface TraumaCondition {
   type: "trauma";
   investigator: InvestigatorSelector;
   trauma: "killed";
-  options: Option[];
+  options: StepsOption[];
 }
 export interface InputStep {
   id: string;
@@ -264,7 +264,7 @@ export interface CardQuery {
 }
 export interface EffectsChoice {
   flavor?: string;
-  text?: string;
+  text: string;
   description?: string;
   effects: Effect[];
   steps?: null;
@@ -291,6 +291,7 @@ export interface UseSuppliesInput {
 export interface InvestigatorChoiceInput {
   type: "investigator_choice";
   investigator: InvestigatorSelector;
+  detailed?: boolean;
   choices: EffectsChoice[];
 }
 export interface ChooseInput {

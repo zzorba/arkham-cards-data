@@ -4,7 +4,6 @@
   "interlude": true,
   "setup": [
     "check_process_backfired",
-    "check_process_backfired_spectacularly",
     "check_mind_recovered",
     "find_stone_gate",
     "check_chalk",
@@ -18,7 +17,7 @@
     {
       "id": "check_process_backfired",
       "type": "branch",
-      "text": "Check Campaign Log. If <i>the process backfired</i>, each investigator reveals a random chaos token from the chaos bag. Consult the list below to see what side effects result from your mishap.",
+      "text": "Check Campaign Log. If <i>the process backfired</i>...",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -26,7 +25,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["reveal_tokens"]
+            "steps": ["reveal_one_token"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_process_backfired_spectacularly"]
           }
         ]
       }
@@ -34,7 +37,7 @@
     {
       "id": "check_process_backfired_spectacularly",
       "type": "branch",
-      "text": "Check Campaign Log. If <i>the process backfired spectacularly</i>, each investigator reveals two random chaos token from the chaos bag, choosing the token that is lower on the list to resolve, and ignoring the other. Consult the list below to see what side effects result from your mishap.",
+      "text": "Check Campaign Log. If <i>the process backfired spectacularly</i>...",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -42,17 +45,63 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["reveal_tokens"]
+            "steps": ["reveal_two_tokens"]
           }
         ]
       }
     },
     {
-      "id": "reveal_tokens",
+      "id": "reveal_one_token",
       "type": "input",
+      "text": "Each investigator reveals a random chaos token from the chaos bag. Consult the list below to see what side effects result from your mishap.",
       "input": {
         "type": "investigator_choice",
         "investigator": "all",
+        "detailed": true,
+        "choices": [
+          {
+            "text": "[elder_sign] or +1 token.",
+            "description": "Suffer no ill efects.",
+            "effects": []
+          },
+          {
+            "text": "[skull] token or any number other than +1",
+            "description": "Gain the Out of Body Experience weakness, and must add it to their deck.",
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "04264",
+                "investigator": "input_value"
+              }
+            ]
+          },
+          {
+            "text": "[cultist], [tablet], [elder_thing], or [auto_fail] token",
+            "description": "You must use the Body of a Yithian investigator card as their investigator card for the remainder of the campaign. He or she also gains the Out of Body Experience weakness, and must add it to their deck.",
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "04264",
+                "investigator": "input_value"
+              },
+              {
+                "type": "add_card",
+                "card": "04244",
+                "investigator": "input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "reveal_two_tokens",
+      "type": "input",
+      "text": "Each investigator reveals two random chaos token from the chaos bag, choosing the token that is lower on the list to resolve, and ignoring the other. Consult the list below to see what side effects result from your mishap.",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "detailed": true,
         "choices": [
           {
             "text": "[elder_sign] or +1 token.",
