@@ -36,6 +36,7 @@ export type Effect =
   | CampaignDataDifficultyEffect
   | CampaignDataNextScenarioEffect
   | CampaignDataChooseInvestigatorsEffect
+  | ScenarioDataEffect
   | AddRemoveChaosTokenEffect;
 export type ChaosToken =
   | "+1"
@@ -121,6 +122,7 @@ export interface AddCardEffect {
   type: "add_card";
   investigator: InvestigatorSelector;
   card: string;
+  required?: boolean;
   weakness_traits?: string[];
   ignore_deck_limit?: boolean;
 }
@@ -170,6 +172,12 @@ export interface CampaignDataNextScenarioEffect {
 export interface CampaignDataChooseInvestigatorsEffect {
   type: "campaign_data";
   setting: "choose_investigators";
+}
+export interface ScenarioDataEffect {
+  type: "scenario_data";
+  setting: "investigator_status" | "lead_investigator";
+  investigator: InvestigatorSelector;
+  investigator_status?: "alive" | "resigned" | "physical" | "mental" | "eliminated";
 }
 export interface AddRemoveChaosTokenEffect {
   type: "add_chaos_token" | "remove_chaos_token";
@@ -240,7 +248,7 @@ export interface ScenarioDataCondition {
 }
 export interface TraumaCondition {
   type: "trauma";
-  investigator: InvestigatorSelector;
+  investigator: "lead_investigator" | "all";
   trauma: "killed";
   options: StepsOption[];
 }
@@ -329,6 +337,7 @@ export interface EncounterSetsStep {
   type: "encounter_sets";
   text?: string;
   subtext?: string;
+  aside?: boolean;
   encounter_sets: string[];
 }
 export interface GenericStep {

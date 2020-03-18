@@ -1,0 +1,234 @@
+{
+  "id": "the_price_of_progress",
+  "interlude": true,
+  "scenarioName": "The Price of Progress",
+  "setup": [
+    "check_silver_twilight_investigator",
+    "progress_3",
+    "check_josef_meiger"
+  ],
+  "steps": [
+    {
+      "id": "check_silver_twilight_investigator",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          {
+            "condition": "Silver Twilight",
+            "steps": ["progress_1"]
+          },
+          {
+            "default": true,
+            "steps": ["progress_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_1",
+      "type": "story",
+      "text": "“Ah, it’s you. I did not expect you to be here, though perhaps I should have,” Mr. Sanford says with a hint of surprise in his voice. “I regret that you had to be involved in this unfortunate affair. I did not plan for you to be a part of any of this.” You narrow your eyes. You suspect fortune had nothing to do with it. You ask him what will happen to those still trapped inside. “Human progress requires sacrifice,” he recites stoically. “It is lamentable when that sacrifice is in blood, but the price in lamentation does not outweigh the yield of our labor.”"
+    },
+    {
+      "id": "progress_2",
+      "type": "story",
+      "text": "“I regret that we must meet under such... unfortunate circumstances,” Mr. Sanford says offhandedly. You narrow your eyes. You suspect fortune had nothing to do with it. You ask him what will happen to those still trapped inside. “Human progress requires sacrifice,” he recites stoically. “It is lamentable when that sacrifice is in blood, but the price in lamentation does not outweigh the yield of our labor.”"
+    },
+    {
+      "id": "progress_3",
+      "type": "story",
+      "text": "You didn’t come here to listen to Mr. Sanford proselytize about sacrifice. You came here for answers. You demand an explanation, but the elderly man cuts you off with a scowl. “Yes, yes. You speak of the incident last week. That was the creature’s first manifestation, and the arrival of the dark mist, which you encountered inside.” He glances at the front door to the manor and clears his throat. “The Lodge was not involved in the disappearances that occurred that night,” he explains after a short pause. “But we couldn’t exactly go to the police and tell them a creature made of mist kidnapped four people in Mr. Meiger’s household, could we? So, we had to take matters into our own hands. We suspected that creature was drawn to the crowd, so we recreated the incident in order to understand what happened—to discern its motives.” The decision to host another event at Mr. Meiger’s estate so soon after the disappearances makes sense to you now. As much as you hate to admit it, there is some logic to the plan the Lodge put into action, although you don’t particularly like being used as bait. Who knows how many innocent bystanders were put in mortal danger? Even if the goal was noble, was it worth the sacrifice?\n“I hope you understand that our organization only seeks the betterment of humankind. There are harsh truths that lie beyond our five senses,” Mr. Sanford says, his expression grim. “If we are to survive and prosper, we must adapt. We must learn. We must understand. That is what our order seeks to achieve—a greater understanding of the world around us. A worthy pursuit, don’t you agree?”"
+    },
+    {
+      "id": "check_josef_meiger",
+      "type": "input",
+      "text": "Where is Josef Meiger?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Victory display",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "Beneath the Entry Hall",
+            "steps": ["progress_5", "rescued_josef", "bonus_xp", "choose_lodge"]
+          },
+          {
+            "text": "Neither",
+            "steps": ["check_silver_twilight"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_silver_twilight",
+      "type": "input",
+      "text": "Compare the number of [[Silver Twilight]] enemies in the victory display and beneath the Entry Hall:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "More in the victory display",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "Equal number in each",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "More beneath the Entry Hall",
+            "steps": ["progress_6", "josef_is_alive", "choose_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_4",
+      "type": "story",
+      "text": "Before you can reply, one of Sanford’s men emerges from the house behind you. He sheathes a long silver blade as he addresses Mr. Sanford. “There is no sign of Josef inside, sir.” The man eyes you suspiciously, keeping his hand on the hilt of his sword. His posture reminds you of that of a knight, stoic and rigidly disciplined. “I see,” Sanford replies. He closes his eyes and takes a deep breath before continuing. “A great loss for our order, but one we anticipated. Gather the Lodge’s belongings from inside the estate, and I will deal with the consequences.” The knight nods and heads back inside. Carl’s cold blue eyes turn back toward you. “As for you, I would ask you to leave this place at once. You have done enough harm as it is.” Before you can protest, he commands the other men nearby to escort you off the premises, and you have little choice but to comply."
+    },
+    {
+      "id": "progress_4_effects",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "josef_disappeared_into_the_mist",
+          "text": "Josef disappeared into the mist."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "enemies_of_the_lodge",
+          "text": "the investigators are enemies of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "progress_5",
+      "type": "story",
+      "text": "You consider Mr. Sanford’s words carefully. You believe that he is telling the truth, but you’re not sure if the ends justify his means. Before you can reply, Josef steps forward. “I believe our new comrades understand the value of working together,” he says politely, standing at your side. “They could have escaped on their own, but they stayed behind to make sure members of the Lodge were safe. Surely we are of the same mind.”\n “Courage is not the same as sacrifice, Josef,” Carl Sanford intones patiently. “Do they have the will to do what is truly right for all of humanity?” The elderly man turns his attention back to you, his cold eyes glinting in the moonlight. He approaches calmly, extending his hand. “Regardless, you have experienced firsthand the danger that we all face. Join us, and we can face it together. With our knowledge combined, we can protect Arkham from this threat.”"
+    },
+    {
+      "id": "rescued_josef",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "rescued_josef",
+          "text": "the investigators rescued Josef"
+        }
+      ]
+    },
+    {
+      "id": "bonus_xp",
+      "text": "Each investigator earns 2 bonus experience, as he or she gains insight into the inner workings of the Silver Twilight Lodge.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "choose_lodge",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "flavor": "“I refuse to be a part of this.”",
+            "steps": ["progress_7", "enemies_of_the_lodge"]
+          },
+          {
+            "text": "“I agree.”",
+            "steps": ["progress_8", "members_of_the_lodge", "add_cultist_token"]
+          },
+          {
+            "text": "“I agree.” (You are lying.)",
+            "steps": ["progress_9", "members_of_the_lodge", "add_cultist_token", "deceiving_the_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_6",
+      "type": "story",
+      "text": "You consider Mr. Sanford’s words carefully. You believe that he is telling the truth, but you’re not sure if the ends justify his means. Before you can reply, Josef Meiger emerges from the house behind you, flanked by two guards wearing expensive suits. One wields a long silver blade as he stands guard. The other observes the situation vigilantly, keeping one hand on the grip of a revolver holstered at his side. Josef recognizes you and addresses you curtly. “You have been poking your head where you don’t belong,” he threatens, narrowing his dark eyes.\n“Stay your tongue, Josef,” Sanford interjects. He approaches calmly, extending his hand toward you. “You have experienced firsthand the danger that we all face. Join us, and we can face it together. With our knowledge combined, we can protect Arkham from this threat.”"
+    },
+    {
+      "id": "josef_is_alive",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "josef_is_alive",
+          "text": "Josef is alive and well."
+        }
+      ]
+    },
+    {
+      "id": "progress_7",
+      "type": "story",
+      "text": "Mr. Sanford scowls, returning his hand to his side and narrowing his gaze. “I see. I cannot say I am not disappointed. I thought you would be insightful enough to see the value in working together. But I realize now that my confidence was misplaced.” He sighs and gazes past you, toward Josef ’s manor. “Very well. The Lodge will handle this problem on our own. Return to your state of ignorance. But I warn you: do not get in our way. I am not an enemy you want to have.” Before you can protest, Sanford commands the other men nearby to escort you off the premises, and you have little choice but to comply."
+    },
+    {
+      "id": "enemies_of_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "enemies_of_the_lodge",
+          "text": "the investigators are enemies of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "progress_8",
+      "type": "story",
+      "text": "You shake Mr. Sanford’s hand. His grip is cold, but strong. The other members of the Lodge seem to relax around you. “We will do great works together, my friends,” says Sanford. “Great works indeed.”"
+    },
+    {
+      "id": "members_of_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "members_of_the_lodge",
+          "text": "the investigators are members of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "add_cultist_token",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "progress_9",
+      "type": "story",
+      "text": "You shake Mr. Sanford’s hand. His grip is cold, but strong. The other members of the Lodge seem to relax around you. “We will do great works together, my friends,” says Sanford. “Great works indeed.” But out of the corner of your eye, you see one of the Lodge’s enforcers gripping his weapon a little tighter"
+    },
+    {
+      "id": "deceiving_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "deceiving_the_lodge",
+          "text": "the investigators are deceiving the Lodge."
+        }
+      ]
+    }
+  ]
+}

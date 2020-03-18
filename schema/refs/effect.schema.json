@@ -43,6 +43,9 @@
         "card": {
           "type": "string"
         },
+        "required": {
+          "type": "boolean"
+        },
         "weakness_traits": {
           "type": "array",
           "items": {
@@ -151,6 +154,46 @@
       ],
       "additionalProperties": false
     },
+    "scenarioDataEffect": {
+      "$id": "#scenarioDataEffect",
+      "title": "ScenarioDataEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "investigator_status",
+            "lead_investigator"
+          ]
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "investigator_status": {
+          "type": "string",
+          "enum": [
+            "alive",
+            "resigned",
+            "physical",
+            "mental",
+            "eliminated"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator"
+      ],
+      "additionalProperties": false
+    },
+
     "campaignDataNextScenarioEffect": {
       "$id": "#campaignDataNextScenarioEffect",
       "title": "CampaignDataNextScenarioEffect",
@@ -338,6 +381,7 @@
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
         { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
         { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" },
+        { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" }
       ]
     }

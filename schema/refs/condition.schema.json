@@ -14,7 +14,8 @@
           ]
         },
         "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
+          "type": "string",
+          "enum": ["lead_investigator", "all"]
         },
         "trauma": {
           "type": "string",
@@ -169,6 +170,44 @@
         "type",
         "campaign_data",
         "token",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataInvestigatorCondition": {
+      "$id": "#campaignDataInvestigatorCondition",
+      "title": "CampaignDataInvestigatorCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "investigator"
+          ]
+        },
+        "investigator_data": {
+          "type": "string",
+          "enum": [
+            "trait"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stepsOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "investigator_data",
         "options"
       ],
       "additionalProperties": false
@@ -354,6 +393,9 @@
         },
         {
           "$ref": "#/definitions/campaignDataChaosBagCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignDataInvestigatorCondition"
         },
         {
           "$ref": "#/definitions/scenarioDataCondition"
