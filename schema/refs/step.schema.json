@@ -197,7 +197,7 @@
           "type": "null"
         },
         "title": {
-          "type": "string",
+          "type": "string"
         },
         "text": {
           "type": "string"
@@ -233,6 +233,41 @@
       ],
       "additionalProperties": false
     },
+    "locationSetupStep": {
+      "$id": "#locationSetupStep",
+      "title": "LocationSetupStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "location_setup"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "locations"
+      ],
+      "additionalProperties": false
+    },
     "step": {
       "$id": "#step",
       "title": "Step",
@@ -254,6 +289,9 @@
         },
         {
           "$ref": "#/definitions/storyStep"
+        },
+        {
+          "$ref": "#/definitions/locationSetupStep"
         }
       ]
     }
