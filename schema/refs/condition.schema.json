@@ -279,6 +279,40 @@
       ],
       "additionalProperties": false
     },
+    "campaignLogCountCondition": {
+      "$id": "#campaignLogCountCondition",
+      "title": "CampaignLogCountCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_count"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigator": {
+          "$ref": "types.schema.json#/definitions/investigator"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/option"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "campaignLogOperand": {
       "$id": "#campaignLogOperand",
       "title": "CampaignLogOperand",
@@ -379,6 +413,9 @@
       "oneOf": [
         {
           "$ref": "#/definitions/campaignLogCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogCountCondition"
         },
         {
           "$ref": "#/definitions/math"
