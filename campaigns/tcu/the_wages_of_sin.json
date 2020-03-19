@@ -1,0 +1,189 @@
+{
+  "id": "the_wages_of_sin",
+  "scenarioName": "The Wages of Sin",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_watcher",
+    "setup_locations",
+    "set_aside_spectral_web",
+    "shuffle_heretics",
+    "create_encounter_decks",
+    "spectral_encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Ever since your encounter with the ghost in the Witch House, you have been forced to reconsider everything you know about life and death. Keziah Mason died over two hundred years ago, but her spirit remains in the spectral mist—the same mist you encountered in Josef Meiger’s manor. One question lingers in your mind as you consider the events that have transpired: Does Keziah’s spirit linger because of the mist, or is the mist caused by her presence? Which is the disease, and which the symptom?\nThe more you delve into Arkham’s history of witchcraft and persecution, the more restless you become. Night after night, you are assaulted by terrible dreams—dreams of death and decay, of guilt and sin. There is an evil that dwells in this city, an evil that has long remained hidden in the darkness of Arkham’s past. What’s worse, your inquiry has reached an impasse. You believe that if you can find the coven of witches you saw in the woods that fateful night, you might be able to learn more about Keziah Mason or of this unspoken evil.\nAs you go through your morning routine, your eyes drift across one of the smaller headlines of today’s newspaper: “Ghost Sightings on Hangman’s Hill? Residents of Uptown claim to have seen human shapes in the thick fog emanating from Hangman’s Brook…” It couldn’t be a coincidence, could it?\nThen the realization dawns on you—if it is witches you seek, the only place you can be certain to find them is six feet underground, in the place where professed witches were executed all those years ago. Searching for specters in a graveyard may not be your safest bet, but you’re not sure one can stay safe in this city anymore."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_wages_of_sin",
+        "anettes_coven",
+        "city_of_sins",
+        "inexorable_fate",
+        "realm_of_death",
+        "trapped_spirits"
+      ]
+    },
+    {
+      "id": "set_aside_watcher",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "the_watcher"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Randomly choose one of the two The Gallows locations, one of the two Heretics’ Graves locations, one of the two Chapel Attic locations, and one of the two Chapel Crypt locations, and put them into play. Remove the other versions of The Gallows, Heretics’ Graves, Chapel Attic, and Chapel Crypt from the game. Then, put Haunted Fields, Abandoned Chapel, and Hangman’s Brook into play.",
+      "bullets": [
+        {
+          "text": "These locations have revealed versions on both sides. One side has the [[Spectral]] trait, and one side does not. When putting these locations into play, use the revealed sides without the [[Spectral]] trait."
+        },
+        {
+          "text": "Each investigator begins play in Hangman’s Brook."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_spectral_web",
+      "text": "Set the four Spectral Web assets aside, out of play"
+    },
+    {
+      "id": "shuffle_heretics",
+      "text": "Shuffle the six Heretic enemies and set aside four of them, at random. Remove the other two copies from the game. These cards are double-sided and have story cards on their reverse side. For the best experience, do not look at the story cards on their other side."
+    },
+    {
+      "id": "create_encounter_decks",
+      "text": "This scenario utilizes two separate encounter decks.",
+      "bullets": [
+        {
+          "text": "Separate each of the remaining cards with the [[Spectral]] trait and shuffle them together to build the spectral encounter deck <i>(see “The Spectral Encounter Deck,” below)</i>."
+        },
+        {
+          "text": "Shuffle each of the remaining non-Spectral cards together to build the standard encounter deck."
+        }
+      ]
+    },
+    {
+      "id": "spectral_encounter_deck",
+      "type": "rule_reminder",
+      "title": "The Spectral Encounter Deck",
+      "text": "During the setup of this scenario, two encounter decks are constructed: a “standard” encounter deck and a “spectral” encounter deck. Generally speaking, whenever an investigator would interact with the encounter deck, that investigator should use the standard encounter deck.\nHowever, at a certain point during this scenario, locations may flip over to their Spectral side. While an investigator is at a location with the Spectral trait, that investigator should use the spectral encounter deck instead of the standard encounter deck for all purposes, unless otherwise noted. This includes drawing cards from the encounter deck, as well as searching, looking at, revealing, or otherwise interacting with the encounter deck (or encounter discard pile) in any way. This also includes abilities that trigger when the encounter deck runs out of cards. If an effect specifically refers to the standard encounter deck or spectral encounter deck, it interacts with the specified deck regardless of the investigator’s location.\nEach of the two encounter decks have their own discard pile. Whenever a card with the Spectral trait would be discarded, it is placed in the discard pile for the spectral encounter deck. All other encounter cards are discarded to the discard pile for the standard scenario does not “reveal” the new location.</i>"
+    },
+    {
+      "id": "record_heretics_released",
+      "type": "input",
+      "text": "In your Campaign Log, record <i>X heretics were unleashed unto Arkham</i>. X is the number of Heretic enemies in play. (If it is act 1, instead record <i>4 heretics were unleashed unto Arkham</i>.)",
+      "input": {
+        "type": "counter",
+        "text": "How many Heretic enemies in play?",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "heretics_released",
+            "text": "#X# heretics were unleashed unto Arkham."
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_earned_wisp",
+      "text": "If 3 or fewer <i>heretics were unleashed unto Arkham</i>...",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "heretics_released",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 4,
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "survived_the_watchers_embrace",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "survived_the_watchers_embrace",
+          "text": "the investigators survived the watcher’s embrace."
+        }
+      ]
+    },
+    {
+      "id": "record_wisp_of_spectral_mist",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "wisp_of_spectral_mist",
+          "text": "Wisp of Spectral Mist"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No Resolution (each investigator resigned)",
+      "resolution": "R1"
+    },
+    {
+      "id": "no_resolution_defeated",
+      "title": "No Resolution (each investigator defeated)",
+      "resolution": "R2"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Rays of faded sunlight stream through the haze, and the unnatural mist finally recedes. As it does, Hangman’s Hill returns to its original state. No other spiteful ghosts emerge to haunt you, and the witches who summoned them have retreated into the shadows once more. You hope that you have done enough to prevent the rest of Arkham to succumbing to this horror.",
+      "steps": ["record_heretics_released", "check_earned_wisp", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Resigned to your fate, you fall to your knees. The mist parts. Time slows to a crawl as the watcher emerges. Its spectral form glides along the ground, approaching with the slow surety of a ticking clock. You close your eyes, unwilling to look upon your killer. Your fingers dig into your palm, and you brace yourself.\nThe moment passes.\nWhen you open your eyes again, the creature is gone, along with the spectral mist.\n…Have you been spared?",
+      "steps": ["survived_the_watchers_embrace", "record_heretics_released", "check_earned_wisp", "earn_xp"]
+    }
+  ]
+}

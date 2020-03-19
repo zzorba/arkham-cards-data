@@ -1,0 +1,875 @@
+{
+  "id": "union_and_disillusion",
+  "scenarioName": "Union and Disillusion",
+  "setup": [
+    "intro_1",
+    "point_of_no_return",
+    "gather_encounter_sets",
+    "set_aside_encounter_sets",
+    "setup_locations",
+    "check_sided_with_the_coven_braziers",
+    "set_aside_cards",
+    "set_aside_bosses",
+    "check_gavriella",
+    "check_penny",
+    "check_jerome",
+    "check_valentino",
+    "select_act_3_4",
+    "check_heretics_released",
+    "encounter_deck",
+    "circle_braziers",
+    "wait_resolve_story_cards"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The Unvisited Isle lies in the midst of the Miskatonic River, in between two of the bridges that span the river and connect the Downtown and Rivertown neighborhoods of Arkham. Overgrown with vines, thorns, and unnatural underbrush, the island is home to no residents and very few fauna. Rows of mysterious stone pillars stand sentry throughout the island, rising high above the treetops. Though many theories abound, none know for sure what purpose these stone pillars serve, or who built them. Very few dare to venture onto the shores of the enigmatic island, and those who do return with strange tales: bonfires in the woods at the darkest hours of night—stone altars with deep carvings impossible to translate—empty woods devoid of life, save for the stark-black ravens and whippoorwills who perch on the tree branches and watch trespassers with eager eyes. Unfortunately for you, the stakes are too high for you to heed these many warnings.\nThe streets of Arkham are emptier and quieter than you have ever seen them before. A familiar grey mist has enveloped the town. The haze grows denser and thicker the closer you get to the river. You move with haste, not wanting to encounter any others on your way to the site of the ritual, whether they be living or dead. You find several rowboats moored by the docks and climb aboard one of them. With the waters unnaturally still and barely any current carrying the boat, rowing toward the island should be a simple endeavor. Even so, the dense fog makes it difficult for you to get your bearings. Soon, you are completely enclosed by the grey mist, unable to see the banks of the river or the coast of the island. Shapes emerge from the fog. Ripples appear on the surface of the water. The gaze of the watcher is upon you.\nJust then, a pillar of spectral energy ascends into the sky, clear as day even through the haze. The shapes all turn their attention to this beacon, and you sense the watcher’s gaze slipping from your soul. The rite has begun. You row faster, using the light to guide you. It is time to decide once and for all why you have come—are you here to aid the Silver Twilight Lodge? Or to disrupt them?"
+    },
+    {
+      "id": "point_of_no_return",
+      "type": "input",
+      "text": "This is a point of no return—you will not get the chance to change your mind later. The investigators must decide (choose one):",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "flavor": "“We have to help complete the Lodge’s ritual.”",
+            "text": "Completing the ritual should bind the Spectral Watcher and prevent it from doing any more harm.",
+            "steps": ["sided_with_the_lodge"]
+          },
+          {
+            "flavor": "“We have to stop the Lodge’s ritual.”",
+            "text": "Disrupting the ritual should release the Spectral Watcher’s tether to the mortal realm.",
+            "steps": ["sided_with_the_coven"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sided_with_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "sided_with_the_lodge",
+          "text": "the investigators sided with the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "sided_with_the_coven",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "sided_with_the_coven",
+          "text": "the investigators sided with the coven."
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "union_and_disillusion",
+        "inexorable_fate",
+        "realm_of_death",
+        "spectral_predators",
+        "ancient_evils",
+        "chilling_cold"
+      ]
+    },
+    {
+      "id": "set_aside_encounter_sets",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "anettes_coven",
+        "silver_twilight_lodge",
+        "the_watcher"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Miskatonic River and Forbidding Shore into play. Each investigator begins play at the Miskatonic River. Then, shuffle the 6 Unvisited Isle locations and choose 2 at random to put into play. Set the rest aside, out of play. "
+    },
+    {
+      "id": "check_sided_with_the_coven_braziers",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "sided_with_the_coven",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["light_braziers"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "light_braziers",
+      "text": "Because <i>the investigators sided with the coven</i>, the braziers at Forbidding Shore and both Unvisited Isle locations are already lit. Place a resource token on each of these locations to signify this. <i>(See “Circle / Braziers”)</i>"
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set The Geist-Trap location and the Watcher’s Gaze treachery aside, out of play."
+    },
+    {
+      "id": "set_aside_bosses",
+      "text": "Search the collection for Anette Mason (The Circle Undone #57) and Josef Meiger (The Circle Undone #85) and set them aside, out of play."
+    },
+    {
+      "id": "check_gavriella",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05046",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_gavriella"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_gavriella"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_gavriella",
+      "text": "Set the Gavriella Mizrah story asset aside, and place the Gavriella’s Fate story card beneath the scenario reference card."
+    },
+    {
+      "id": "remove_gavriella",
+      "text": "Remove the Gavriella Mizrah story asset and the Gavriella’s Fate story card from the game."
+    },
+    {
+      "id": "check_jerome",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05047",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_jerome"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_jerome"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_jerome",
+      "text": "Set the Jerome Davids story asset aside, and place the Jerome’s Fate story card beneath the scenario reference card."
+    },
+    {
+      "id": "remove_jerome",
+      "text": "Remove the Jerome Davids story asset and the Jerome’s Fate story card from the game."
+    },
+    {
+      "id": "check_penny",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_penny"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_penny"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_penny",
+      "text": "Set the Penny White story asset aside, and place the Penny’s Fate story card beneath the scenario reference card."
+    },
+    {
+      "id": "remove_penny",
+      "text": "Remove the Penny White story asset and the Penny’s Fate story card from the game."
+    },
+    {
+      "id": "check_valentino",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05049",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_valentino"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_valentino"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_valentino",
+      "text": "Set the Valentino Rivas story asset aside, and place the Valentino’s Fate story card beneath the scenario reference card."
+    },
+    {
+      "id": "remove_valentino",
+      "text": "Remove the Valentino Rivas story asset and the Valentino’s Fate story card from the game."
+    },
+    {
+      "id": "select_act_3_4",
+      "text": "Depending on the following circumstances, a different version of Acts 3 and 4 should be used in this scenario. Each other version of Act 3 or 4 is removed from the game.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "sided_with_the_lodge",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["act_3_v1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_sided_with_the_coven"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sided_with_the_coven",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "sided_with_the_coven",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["check_deceiving_the_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_deceiving_the_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "deceiving_the_lodge",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["check_inducted_into_the_inner_circle"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_hid_knowledge_of_the_coven_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_inducted_into_the_inner_circle",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "inducted_into_the_inner_circle",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["act_3_v2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_hid_knowledge_of_the_coven_0"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_hid_knowledge_of_the_coven_1",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "hid_knowledge_of_the_coven",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["act_3_v3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_kept_mementos_hidden"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_hid_knowledge_of_the_coven_0",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "hid_knowledge_of_the_coven",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["check_kept_mementos_hidden"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["act_3_v4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_kept_mementos_hidden",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "kept_mementos_hidden",
+        "options": [{
+            "boolCondition": true,
+            "steps": ["act_3_v3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["act_3_v4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "act_3_v1",
+      "text": "Because <i>the investigators sided with the Lodge</i>, use Act 3—“Beyond the Mist (v. I)” and Act 4—“The Binding Rite.”"
+    },
+    {
+      "id": "act_3_v2",
+      "text": "Because <i>the investigators sided with the coven</i>, <i>the investigators are deceiving the Lodge</i>, and <i>the investigators were inducted into the Inner Circle</i>, use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
+    },
+    {
+      "id": "act_3_v3",
+      "text": "Because <i>the investigators sided with the coven</i>, and at least two of the following is true: <i>the investigators are deceiving the Lodge</i>, <i>the investigators hid their knowledge of the coven</i>, or <i>the investigators kept their mementos hidden</i>, use Act 3—“Beyond the Mist (v. III)” and Act 4—“The Broken Rite.”"
+    },
+    {
+      "id": "act_3_v4",
+      "text": "Because <i>the investigators sided with the coven</i>, use Act 3—“Beyond the Mist (v. IV)” and Act 4—“The Broken Rite.”"
+    },
+    {
+      "id": "check_heretics_released",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "heretics_released",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["add_0_doom"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["add_1_doom"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["add_2_doom"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["add_3_doom"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["add_4_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_0_doom",
+      "text": "Because <i>0 heretics were unleashed unto Arkham</i>, no changes are made."
+    },
+    {
+      "id": "add_1_doom",
+      "text": "Because <i>1 heretic was unleashed unto Arkham</i>, place 1 doom on agenda 1a."
+    },
+    {
+      "id": "add_2_doom",
+      "text": "Because <i>2 heretic were unleashed unto Arkham</i>, place 2 doom on agenda 1a."
+    },
+    {
+      "id": "add_3_doom",
+      "text": "Because <i>3 heretic were unleashed unto Arkham</i>, place 3 doom on agenda 1a."
+    },
+    {
+      "id": "add_4_doom",
+      "text": "Because <i>4 heretic were unleashed unto Arkham</i>, place 4 doom on agenda 1a."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "circle_braziers",
+      "type": "rule_reminder",
+      "title": "Circle / Braziers",
+      "text": "Throughout this scenario, you will find locations with braziers on them, which can be lit or unlit using the ability with the [[Circle]] action designator on that location. A [[Circle]] ability is always used to either light or unlight the brazier on that location, and serves no other function. Lighting braziers is an important step in completing the ritual set up by the Silver Twilight Lodge. Whether you want braziers lit or unlit depends on whether you plan on aiding the Lodge or thwarting them.",
+      "bullets": [
+        {
+          "text": "Skill tests on [[Circle]] actions often require an investigator to test multiple skills at once (such as “Test [combat]+[intellect]”). Such a test is considered to be a test of both skill types. Cards with either skill icon may be committed to the test, and both icons are considered matching skill icons."
+        },
+        {
+          "text": "If the brazier on a location is lit, place a resource token on that location to signify that the brazier on that location has been lit."
+        },
+        {
+          "text": "If the brazier on a location is unlit, remove the resource token from that location, to signify that the brazier on that location is no longer lit."
+        },
+        {
+          "text": "If a [[Circle]] action is unsuccessful, nothing happens."
+        },
+        {
+          "text": "A lit brazier on a location has no game effect on its own, although other card effects may reference whether or not the brazier on your location is lit."
+        },
+        {
+          "text": "A brazier only has two states: lit or unlit. Lighting the brazier on a location with an already lit brazier has no effect, as does unlighting a brazier on a location with no lit brazier."
+        }
+      ]
+    },
+    {
+      "id": "wait_resolve_story_cards",
+      "type": "input",
+      "text": "When instructed to resolve the story cards during the scenario...",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Resolve the story cards",
+            "steps": ["resolve_story_cards"]
+          },
+          {
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolve_story_cards",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "code": [
+              "05046",
+              "05047",
+              "05048",
+              "05049"
+            ]
+          }
+        ],
+        "choices": [
+          {
+            "text": "No new entry",
+            "effects": []
+          },
+          {
+            "text": "Alive",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "inputValue",
+                "id": "alive",
+                "text": "#name# is alive."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_if_sanford_is_good",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "flavor": "“Yes.”",
+            "description": "You may choose this option only if <i>the investigators were inducted into the Inner Circle</i>, and cannot choose this option <i>if the investigators are deceiving the Lodge</i>.",
+            "resolution": "R2"
+          },
+          {
+            "flavor": "No.”",
+            "resolution": "R3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "true_work_of_silver_twilight_lodge_has_begun",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "true_work_of_silver_twilight_lodge_has_begun",
+          "text": "the true work of the Silver Twilight Lodge has begun."
+        }
+      ]
+    },
+    {
+      "id": "silver_twilight_wins_campaign",
+      "text": "The Silver Twilight Lodge wins the campaign. (Investigators who are truly loyal to the Lodge win the campaign.)",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "carl_sanford_possesses_the_secrets_of_the_universe",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "carl_sanford_possesses_the_secrets_of_the_universe",
+          "text": "Carl Sanford possesses the secrets of the universe."
+        }
+      ]
+    },
+    {
+      "id": "anette_mason_is_possessed_by_evil",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "anette_mason_is_possessed_by_evil",
+          "text": "Anette Mason is possessed by evil."
+        }
+      ]
+    },
+    {
+      "id": "compare_columns",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "witches_spell_cast",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["josef_disappeared_1"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["josef_disappeared_0"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "josef_disappeared_0",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "josef_disappeared_into_the_mist",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["2_or_more_heretics_released_1"]
+          },
+          {
+            "boolCondition": false,
+            "resolution": "R6"
+          }
+        ]
+      }
+    },
+    {
+      "id": "josef_disappeared_1",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "josef_disappeared_into_the_mist",
+        "options": [
+          {
+            "boolCondition": true,
+            "resolution": "R7"
+          },
+          {
+            "boolCondition": false,
+            "steps": ["2_or_more_heretics_released_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "2_or_more_heretics_released_1",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "heretics_released",
+        "options": [
+          {
+            "numCondition": 0,
+            "resolution": "R6"
+          },
+          {
+            "numCondition": 1,
+            "resolution": "R6"
+          },
+          {
+            "default": true,
+            "resolution": "R7"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_puzzle_box",
+      "text": "If an investigator’s deck contains the Puzzle Box card, remove it from that investigator’s deck.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "05228"
+        }
+      ]
+    },
+    {
+      "id": "check_gavriella_alive",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05046",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_gavriella"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05046",
+                "id": "dead",
+                "text": "Gavriella is dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jerome_alive",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05047",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_jerome"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05047",
+                "id": "dead",
+                "text": "Jerome is dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_penny_alive",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_penny"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05048",
+                "id": "dead",
+                "text": "Penny is dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_valentino_alive",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05049",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_valentino"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05049",
+                "id": "dead",
+                "text": "Valentino is dead."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_gavriella",
+      "text": "Any one investigator may choose to add the Gavriella Mizrah asset to his or her deck. She does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "05258"
+        }
+      ]
+    },
+    {
+      "id": "earn_jerome",
+      "text": "Any one investigator may choose to add the Jerome Davids asset to his or her deck. He does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "05259"
+        }
+      ]
+    },
+    {
+      "id": "earn_penny",
+      "text": "Any one investigator may choose to add the Penny White asset to his or her deck. She does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "05260"
+        }
+      ]
+    },
+    {
+      "id": "earn_valentino",
+      "text": "Any one investigator may choose to add the Valentino Rivas asset to his or her deck. He does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "05261"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached (each investigator resigned or was defeated)",
+      "text": "You barely remember sprinting back to shore and getting in your rowboat. It is as though you were possessed—by a fit of madness or by a spirit bent only on survival, you cannot say. You are shaken to your senses by the powerful gale which sweeps across the river, almost capsizing your boat. The spectral pillar marking the site of the Lodge’s ritual suddenly bursts outward. Dozens of specters and phantasmal shapes fly across the treetops and glide across the water. You will never forget their shrieks, like hundreds of deathcries sounding at once.",
+      "resolution": "R5"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The revenant thrashes and writhes in torment, unable to escape with its connection to the spectral realm torn away. Carl Sanford steps forward, opens a thick leather tome, and the ghost’s memories—along with the remainder of its form—are unceremoniously pulled into its pages.\n“What have you done?!” Anette yells. Several members of her coven surround her. They are embattled, but you have no doubt they would lay down their life to protect their high priestess from harm.\n“What have I done? Why, I have cheated the Devil,” Sanford responds with a sinister grin. You notice the words of his tome are now glowing with a spectral radiance. “Keziah signed the Black Book of Azathoth in order to learn the secrets of the universe. A fatal error, in my estimation, for it put her in the clutches of one far more powerful than she.” He begins to read from the pages as he explains further. “She paid the price, but I shall reap the harvest.”\nAnette clenches her jaw and turns toward you. “You cannot even begin to fathom the secrets this monster now possesses. Do you truly believe he will use this power for good?” She asks.",
+      "steps": ["choose_if_sanford_is_good"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You stand tall and declare your loyalty proudly. The other members of the Order nod in affirmation. Carl Sanford will lead mankind to an era of peace, and protect them from the threats of the cosmos. It may take time for society to adjust, but humanity can only survive if these secrets are in the hands of the Order. The witches retreat into the woods, and you are left alone with your brothers and sisters of the Inner Circle. You gather around your leader, and as he reads from the New Creed of the Silver Twilight Order, he informs you of his plans: of the higher beings of the cosmos, of humanity’s ascension, of the Great Old Ones, of life and death, of Azathoth and the End of Everything. Step by step, the Order plots the future of the Earth, and you will become instrumental in the new world order.",
+      "steps": ["true_work_of_silver_twilight_lodge_has_begun", "silver_twilight_wins_campaign"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Anette is right. Sanford tricked you. This is what he was after all along. Perhaps he considers this “protecting humanity,” but the truth is that he has endangered the lives of others over and over again in order to serve his own greed and lust for power. You shake your head.\n“A pity,” Mr. Sanford complains, “I thought you were smarter than this.” You take several steps back, retreating to where the witches are gathered. Sanford turns to the other members of his Order and points to you. “Kill them,” he commands.\n“Erynn, give us cover!” Anette barks to the red-haired witch next to her. The witch nods in response and waves a wooden rod in front of her, creating a cloud of mist that masks your presence. “We have to get out of here. Go!” Anette yells.\nYour escape is a blur. Robed members of the Silver Twilight cult chase you relentlessly throughout the forsaken woods. You are only barely able to make it back to the shore before they catch up to you. You motion for Anette and the others to join you, but she shakes her head. “We’ll meet again soon.” The edges of the witches’ cloaks bleed into the night sky, and with a swirl of darkness, they vanish one by one.",
+      "steps": ["carl_sanford_possesses_the_secrets_of_the_universe"],
+      "resolution": "R8"
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Anette approaches, confronting the remnant’s ethereal shell. “Sister! We are the ones who have called you here from the great beyond.” The shattered revenant turns its attention to Anette, and the rest of her coven watch in anticipation.\n “What are you doing, you fool? This spirit is no mere witch!” Carl Sanford yells out. But it is too late. Anette ignores Mr. Sanford, continuing to speak with the spectral presence. “For years we have suffered injustice after injustice. Share with me your secrets, sister. Together, as one mind, body, and soul, we can begin anew.”\n The ghost reaches out to her with a long, skeletal arm. Anette’s sisters gasp as their high priestess steps forward and kneels before the being, offering herself. With a sudden rush of energy, the phantom soul is drawn inside Anette. She collapses to the ground, reeling from the spiritual impact. Her body writhes in torment, but none of the other witches step forward to help, instead watching with equal parts terror and fascination. Finally, Anette rises to her feet, her eyes aglow with mystical power. When she speaks, it is not her voice. “Sisters. Rejoice, for I am reborn,” Keziah says.\n Carl Sanford taps you with his cane. You were so transfixed by the events occurring in front of you that you hadn’t noticed the Lodge members slinking toward the edges of the clearing. One of the Lodge’s inner circle raises a revolver and attempts to fire, but the high priestess simply glares at him, and his arm withers and rots before your eyes. His gun clatters to the ground and he makes one final croak before he is nothing but a decayed husk on the ground. “We must leave this place at once,” Sanford says stoically. “This being possesses power over life and death itself. It will not suffer our presence any longer.”\nAnette—no, Keziah—turns her attention to you, and her eyes brighten. “You look familiar, child. Come, come. Do not be afraid. You have nothing to fear from me.” She grins wickedly. Her voice is like knives driving into your soul. You hate to admit it, but Sanford is right. You turn and flee with the rest of the Lodge, hoping you are fast enough to escape the witch’s magic. \nYour escape is a blur. Witches and spirits chase you relentlessly throughout the forsaken woods. You are only barely able to make it back to the shore before they catch up to you. Other members of the Lodge are perhaps not so fortunate. Having scattered in many directions, you’re not sure how many of them escaped, and you don’t see Carl Sanford anywhere, though you suspect he had a plan for this outcome.",
+      "steps": ["anette_mason_is_possessed_by_evil"],
+      "resolution": "R8"
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "steps": ["compare_columns"]
+    },
+    {
+      "id": "R6",
+      "title": "Resolution 6",
+      "text": "When you come to your senses, the wind has subsided and the dark mist has vanished. With the ritual concluded, the island seems to have returned to normal—but was the ritual successful, or did it fail? You make your way to the center of the island to find out what happened. As you arrive, you find Anette and her coven heavily wounded, and the Lodge stands victorious. Carl Sanford holds a thick leather tome in his hands, its pages glowing with arcane power. “What have you done?!” Anette yells. Several members of her coven surround her. They are embattled, but you have no doubt they would lay down their life to protect their high priestess from harm.\n “What have I done? Why, I have cheated the Devil,” Sanford responds with a sinister grin. You notice the words of his tome are now glowing with a spectral radiance. “Keziah signed the Black Book of Azathoth in order to learn the secrets of the universe. A fatal error, in my estimation, for it put her in the clutches of one far more powerful than she.” He begins to read from the pages as he explains further. “She paid the price, but I shall reap the harvest.”\n Anette clenches her jaw and turns toward you. “Listen to me. You cannot even begin to fathom the secrets this monster now possesses. You must stop him, no matter the cost.”\nYou hold your tongue, but in the back of your mind, you suspect Anette is right. Sanford has tricked you. This is what he was after all along. Perhaps he considers this “protecting humanity,” but the truth is that he has endangered the lives of others over and over again in order to serve his own greed and lust for power. However, before you can confront Sanford, he turns to the other members of his Order and points to you. “This one is no longer useful,” he explains. “Kill them all.”\n “Erynn, give us cover!” Anette barks to the red-haired witch next to her. The witch nods in response and waves a wooden rod in front of her, creating a cloud of mist that masks your presence. “We have to get out of here. Go!” Anette yells.\n Your escape is a blur. Robed members of the Silver Twilight cult chase you relentlessly throughout the forsaken woods. You are only barely able to make it back to the shore before they catch up to you. You motion for Anette and the others to join you, but she shakes her head. “We’ll meet again soon.” The edges of the witches’ cloaks bleed into the night sky, and with a swirl of darkness, they vanish one by one.",
+      "steps": ["carl_sanford_possesses_the_secrets_of_the_universe"],
+      "resolution": "R8"
+    },
+    {
+      "id": "R7",
+      "title": "Resolution 7",
+      "text": "When you come to your senses, the wind has subsided and the dark mist has vanished. With the ritual concluded, the island seems to have returned to normal—but was the ritual successful, or did it fail? You make your way to the center of the island to find out what happened. As you arrive, you find Carl Sanford and the other members of his Order heavily wounded, and Anette and her coven stand victorious. Anette stands at the center of the clearing, her eyes aglow with mystical power. When she speaks, it is not her voice. “Sisters. Rejoice, for I am reborn,” Keziah says.\n Carl Sanford taps you with his cane. You were so transfixed by the events occurring in front of you that you hadn’t noticed the Lodge members slinking toward the edges of the clearing. One of the Lodge’s inner circle raises a revolver and attempts to fire, but the high priestess simply glares at him, and his arm withers and rots before your eyes. His gun clatters to the ground and he makes one final croak before he is nothing but a decayed husk on the ground. “We must leave this place at once,” Sanford says stoically. “This being possesses power over life and death itself. It will not suffer our presence any longer.”\n Anette—no, Keziah—turns her attention to you, and her eyes brighten. “You look familiar, child. Come, come. Do not be afraid. You have nothing to fear from me.” She grins wickedly. Her voice is like knives driving into your soul. You hate to admit it, but Sanford is right. You turn and flee with the rest of the Lodge, hoping you are fast enough to escape the witch’s magic.\n Your escape is a blur. Witches and spirits chase you relentlessly throughout the forsaken woods. You are only barely able to make it back to the shore before they catch up to you. Other members of the Lodge are perhaps not so fortunate. Having scattered in many directions, you’re not sure how many of them escaped, and you don’t see Carl Sanford anywhere, though you suspect he had a plan for this outcome.",
+      "steps": ["anette_mason_is_possessed_by_evil"],
+      "resolution": "R8"
+    },
+    {
+      "id": "R8",
+      "title": "Resolution 8",
+      "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
+      "steps": ["remove_puzzle_box", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp"]
+    }
+  ]
+}

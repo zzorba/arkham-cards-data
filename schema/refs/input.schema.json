@@ -110,16 +110,15 @@
       "required": ["type", "query", "choices"],
       "additionalProperties": false
     },
-    "chooseInput": {
-      "$id": "#chooseInput",
-      "title": "ChooseInput",
+    "chooseOneInput": {
+      "$id": "#chooseOneInput",
+      "title": "ChooseOneInput",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
           "enum": [
-            "choose_one",
-            "choose_many"
+            "choose_one"
           ]
         },
         "choices": {
@@ -130,6 +129,33 @@
         }
       },
       "required": ["type", "choices"],
+      "additionalProperties": false
+    },
+    "chooseManyInput": {
+      "$id": "#chooseManyInput",
+      "title": "ChooseManyInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "choose_many"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/choice"
+          }
+        },
+        "count": {
+          "type": "integer"
+        },
+        "progressive": {
+          "type": "boolean"
+        }
+      },
+      "required": ["type", "choices", "count"],
       "additionalProperties": false
     },
     "investigatorCounterInput": {
@@ -198,7 +224,10 @@
           "$ref": "#/definitions/investigatorChoiceInput"
         },
         {
-          "$ref": "#/definitions/chooseInput"
+          "$ref": "#/definitions/chooseOneInput"
+        },
+        {
+          "$ref": "#/definitions/chooseManyInput"
         },
         {
           "$ref": "#/definitions/counterInput"

@@ -3362,7 +3362,7 @@
     },
     {
       "id": "killed",
-      "text": "Each investigator who has not resigned is killed. If there are not enough investigators to continue the campaign, the campaign is over and the players lose. Otherwise, advance to the next scenario. (Each player whose investigator has been killed must choose a new investigator from the pool of available investigators. Refer to page 13 of the Rules Reference for the full rules on killed investigators.)",
+      "text": "Each investigator who has not resigned is <b>killed</b>. If there are not enough investigators to continue the campaign, the campaign is over and the players lose. Otherwise, advance to the next scenario. (Each player whose investigator has been killed must choose a new investigator from the pool of available investigators. Refer to page 13 of the Rules Reference for the full rules on killed investigators.)",
       "effects": [
         {
           "type": "trauma",
@@ -7318,6 +7318,7 @@
     "prologue",
     "the_witching_hour",
     "at_deaths_doorstep",
+    "a_record_of_those_lost",
     "the_price_of_progress",
     "the_secret_name",
     "the_wages_of_sin",
@@ -7416,19 +7417,213 @@
 }
 , "scenarios": [
 {
+  "id": "a_record_of_those_lost",
+  "interlude": true,
+  "scenarioName": "A Record of Those Lost",
+  "setup": [
+    "check_gavriella_fate",
+    "check_jerome_fate",
+    "check_penny_fate",
+    "check_valentino_fate",
+    "advance_act_1b"
+  ],
+  "steps": [
+    {
+      "id": "check_gavriella_fate",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05046",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_gavriella_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jerome_fate",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05047",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_jerome_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_penny_fate",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_penny_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_valentino_fate",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05049",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_valentino_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_gavriella_clues",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Are there no clues on the Entry Hall?",
+            "steps": ["gavriella_fate", "on_gavriellas_trail"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gavriella_fate",
+      "type": "story",
+      "text": "The entry hall to the manor is beautifully decorated, but you find it odd that the grand staircase’s wooden balustrade has been recently repaired and, by the looks of it, hastily so. While nobody is looking, you follow the handrail up and down the stairs until you spot what you are looking for: several splinters of wood, perhaps dislodged by a bullet. You ascend the staircase once more and position yourself where one would need to be standing in order to fire such a shot. After a moment of observation, a faint glimmer near one of the decorative ferns on the second floor catches your eye. There, you find proof: a bullet casing from a .45 handgun. A gun was indeed fired in the entry hall of the manor—but if that is true, how did nobody hear the shots?"
+    },
+    {
+      "id": "on_gavriellas_trail",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "05046",
+          "id": "on_gavriellas_trail",
+          "text": "the investigators are on Gavriella’s trail."
+        }
+      ]
+    },
+    {
+      "id": "check_jerome_clues",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Are there no clues on the Office?",
+            "steps": ["jerome_fate", "on_jeromes_trail"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "jerome_fate",
+      "type": "story",
+      "text": "Josef Meiger’s personal office is pretty tidy for somebody whose personal secretary just went missing. Perhaps he’s just a fastidious person...or perhaps he’s been scrubbing evidence of some wrongdoing. You find nothing of note in any of Josef’s files, but after some perusing, you realize there is one place you haven’t checked: the trash. Rooting through the garbage bin yields fruit. Near the bottom is a small pocket journal belonging to Jerome Davids, probably tossed there carelessly by the cleaning staff. You turn to the last page. There, Jerome had recorded a list of names, perhaps transcribed from Josef ’s records. You don’t know what it means yet, but it must be important."
+    },
+    {
+      "id": "on_jeromes_trail",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "05047",
+          "id": "on_jeromes_trail",
+          "text": "the investigators are on Jerome’s trail."
+        }
+      ]
+    },
+    {
+      "id": "check_penny_clues",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Are there no clues on the Balcony?",
+            "steps": ["penny_fate", "on_pennys_trail"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "penny_fate",
+      "type": "story",
+      "text": "The balcony outside Josef Meiger’s bedroom overlooks the rainy streets and somber spires of French Hill. According to eyewitnesses, Penny was last seen entering Josef ’s bedroom, presumably to tidy it up, or perhaps to look for one of his personal belongings. The cigarette butt on the floor of the balcony tells a different story. Penny came here for a break, and judging from how busy the rest of the staff is, it was probably a much-needed one. If she had been in any danger, could she have climbed or jumped down from the balcony? You peer over the edge. It’s possible, but unlikely. A fall from here could break a leg, or worse. She likely would have retreated back into the manor, where she could have called for help...only, nobody saw her exit from the bedroom. Something doesn’t add up. You tuck the cigarette butt into your coat pocket, hoping it’s actually a lead and not a wild goose chase."
+    },
+    {
+      "id": "on_pennys_trail",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "05048",
+          "id": "on_pennys_trail",
+          "text": "the investigators are on Penny's trail."
+        }
+      ]
+    },
+    {
+      "id": "check_valentino_clues",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Are there no clues on the Billiards Room?",
+            "steps": ["valentino_fate", "on_valentinos_trail"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "valentino_fate",
+      "type": "story",
+      "text": "Tracing Valentino’s steps isn’t difficult. As the guest of honor (and life of the party, from what you hear) there was always a crowd around him. This makes the story that he “vanished when they weren’t looking” all the more unbelievable. In the billiards room, where Valentino was last seen, you corner Adam Gensler, the man he was playing billiards with just before his disappearance. “Look, I already told the cops and the reporters what I saw,” he explains, fidgeting and tapping his toes repeatedly. “Tino and I were playing billiards, I looked away, next thing I know he’s gone,” he insists angrily, returning to his billiards game. “Now where is that damned one ball?” he mutters. It might be nothing, but it looks like Valentino wasn’t the only thing to go missing that night."
+    },
+    {
+      "id": "on_valentinos_trail",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "05049",
+          "id": "on_valentinos_trail",
+          "text": "the investigators are on Valentino's trail."
+        }
+      ]
+    },
+    {
+      "id": "advance_act_1b",
+      "text": "<b>Advance to act 1b.</b>"
+    }
+  ]
+},
+{
   "id": "at_deaths_doorstep",
   "scenarioName": "At Deaths Doorstep",
   "setup": [
     "intro_article",
     "intro",
-    "choose_fate",
-    "intro_4",
     "gather_encounter_sets",
-    "gather_agents",
-    "setup_locations",
+    "gather_set_aside",
     "set_aside_cards",
+    "set_aside_josef",
+    "setup_locations",
+    "check_gavriella_clues",
+    "check_jerome_clues",
+    "check_penny_clues",
+    "check_valentino_clues",
+    "remove_pieces_of_evidence",
     "encounter_deck",
-    "lost_and_separated"
+    "replacing_locations"
   ],
   "steps": [
     {
@@ -7454,42 +7649,116 @@
       "text": "When gathering The Devourer Below encounter set, only gather the 6 Arkham Woods locations. Do not gather any of the other cards from that encounter set."
     },
     {
-      "id": "gather_agents",
+      "id": "gather_set_aside",
       "type": "encounter_sets",
       "aside": true,
       "encounter_sets": [
-        "agents_of_azathoth",
-        "agents_of_shub"
-      ]
-    },
-    {
-      "id": "setup_locations",
-      "text": "Put 5 Witch‐Haunted Woods locations into play as follows:",
-      "bullets": [
-        {
-          "text": "In player order, each investigator puts 1 random Witch‐ Haunted Woods location into play <i>in front of him or her</i>, until there are exactly 5 Witch‐Haunted Woods locations in play (see “Lost and Separated,” below). <i>For example: In a 1-player game, there should be 5 Witch-Haunted Woods in front of that investigator. In a 2-player game, there should be 3 Witch-Haunted Woods in front of the lead investigator and 2 Witch-Haunted Woods in front of the other investigator. In a 3-player game, there should be 2 Witch-Haunted Woods in front of the lead investigator, 2 Witch-Haunted Woods in front of the next investigator, and 1 Witch-Haunted Woods in front of the final investigator. In a 4-player game, there should be 2 Witch-Haunted Woods in front of the lead investigator, and 1 Witch-Haunted Woods in front of each other investigator.</i>"
-        },
-        {
-          "text": "Remove each other Witch‐Haunted Woods from the game."
-        },
-        {
-          "text": "Each investigator begins play at one of the locations in front of him or her, chosen at random."
-        }
+        "realm_of_death",
+        "the_watcher"
       ]
     },
     {
       "id": "set_aside_cards",
-      "text": "Set the following cards aside, out of play: each of the Arkham Woods locations and Anette Mason."
+      "text": "Set the seven [[Spectral]] locations aside, out of play."
+    },
+    {
+      "id": "set_aside_josef",
+      "text": "Set the Josef Meiger enemy aside, out of play.",
+      "bullets": [
+        {
+          "text": "<i>Note: This card is double-sided and has a story card on its other side. For the best experience, do not look at the other side unless an effect instructs you to do so.</i>"
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each of the seven non-[[Spectral]] locations into play (Entry Hall, Victorian Halls, Trophy Room, Billiards Room, Master Bedroom, Balcony, and Office). Each investigator begins play in the Entry Hall."
+    },
+    {
+      "id": "check_gavriella_clues",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05046",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gavriella_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jerome_clues",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05047",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["jerome_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_penny_clues",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["penny_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_valentino_clues",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05049",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["valentino_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gavriella_clues",
+      "text": "Place 6 clues on the Entry Hall"
+    },
+    {
+      "id": "jerome_clues",
+      "text": "Place 6 clues on the Office"
+    },
+    {
+      "id": "valentino_clues",
+      "text": "Place 6 clues on the Billiards Room"
+    },
+    {
+      "id": "penny_clues",
+      "text": "Place 6 clues on the Balcony"
+    },
+    {
+      "id": "remove_pieces_of_evidence",
+      "text": "As evenly as possible, remove a total number of clues from the above locations equal to the number of <i>pieces of evidence that were left behind</i> in your Campaign Log"
     },
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
     },
     {
-      "id": "lost_and_separated",
+      "id": "replacing_locations",
       "type": "rule_reminder",
-      "title": "Lost and Separated",
-      "text": "During this scenario, the investigators begin play separated and cut off from one another. This is represented by locations entering play “in front of ” each investigator (placed just above their play area).\nAct 1a—“Lost in the Woods” has the text: “Locations in front of you are connected to one another.” This text means that regardless of location/connection symbols, the locations in front of you are considered to be connected to one another, and enemies and investigators may move between them. Locations remain connected to one another via their location/connection symbols, as well.\nHowever, Lost in the Woods also has the text: “You cannot enter locations in front of other investigators.” This means that you cannot move to a location in front of another investigator, even if the two locations are connected or if you are moving via a card effect. Note that this restriction does not apply to enemies, who are free to move between connected locations regardless of which investigator those locations are in front of."
+      "title": "Replacing Locations",
+      "text": "Throughout this scenario, you may be instructed to swap set-aside locations with existing ones. When a location is swapped with one that is already in play, it takes its place. All tokens, attachments, investigators, enemies, and other cards at the former location are considered to now be at the new location (attached cards remain attached, for example). No game element is considered to have moved during such a swap."
     },
     {
       "id": "check_final_act",
@@ -7500,7 +7769,7 @@
         "choices": [
           {
             "text": "Act 1",
-            "resolution": "R3"
+            "resolution": "R2"
           },
           {
             "text": "Act 2",
@@ -7508,57 +7777,46 @@
           },
           {
             "text": "Act 3",
-            "resolution": "R3"
-          },
-          {
-            "text": "Act 4",
-            "resolution": "R4"
+            "resolution": "R1"
           }
         ]
       }
     },
     {
-      "id": "witches_spell_broken",
+      "id": "investigators_escaped_the_spectral_realm",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "witches_spell_broken",
-          "text": "the witches' spell was broken."
+          "id": "investigators_escaped_the_spectral_realm",
+          "text": "the investigators escaped the spectral realm."
         }
       ]
     },
     {
-      "id": "witches_spell_cast",
+      "id": "learned_nothing_of_the_lodges_schemes",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "witches_spell_cast",
-          "text": "the witches' spell was cast."
+          "id": "learned_nothing_of_the_lodges_schemes",
+          "text": "the investigators learned nothing of the Lodge’s schemes."
+        },
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "a_record_of_those_lost"
         }
       ]
     },
     {
-      "id": "mementos_flute_and_ritual_components",
-      "text": "Each investigator earns 1 bonus experience, as he or she gains insight into Arkham’s mysterious past.",
+      "id": "never_seen_again",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "mementos",
-          "id": "mesmerizing_flute",
-          "text": "Mesmerizing Flute"
-        },
-        {
-          "type": "campaign_log",
-          "section": "mementos",
-          "id": "ritual_components",
-          "text": "Ritual Components"
-        },
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 1
+          "section": "campaign_notes",
+          "id": "never_seen_again",
+          "text": "the investigators are never seen or heard from again."
         }
       ]
     },
@@ -7578,66 +7836,26 @@
       }
     },
     {
-      "id": "mementos_flute_and_scrap_of_torn_shadow",
-      "text": "Each investigator earns 1 bonus experience, as he or she gains insight into Arkham’s mysterious past.",
+      "id": "kill_not_resigned",
+      "text": "Each investigator who has not resigned is <b>killed</b>. If there are not enough investigators in the pool of available investigators to continue the campaign, the campaign is over, and the players lose. Each player whose investigator has been killed must choose a new investigator from the pool of available investigators.",
       "effects": [
         {
-          "type": "campaign_log",
-          "section": "mementos",
-          "id": "mesmerizing_flute",
-          "text": "Mesmerizing Flute"
-        },
-        {
-          "type": "campaign_log",
-          "section": "mementos",
-          "id": "scrap_of_torn_shadow",
-          "text": "Scrap of Torn Shadow"
-        },
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 1
+          "type": "trauma",
+          "investigator": "not_resigned",
+          "killed": true
         }
       ]
     },
     {
-      "id": "mementos_check_act",
-      "type": "input",
-      "text": "Check the act deck",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "text": "It was act 1 or 2 when the scenario ended",
-            "steps": ["no_record"]
-          },
-          {
-            "text": "It was act 3 when the scenario ended",
-            "steps": ["mementos_flute"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "mementos_flute",
-      "text": "Each investigator earns 1 bonus experience, as he or she gains insight into Arkham’s mysterious past.",
+      "id": "skip_price_of_progress",
+      "text": "Skip <b>Interlude II: The Price of Progress</b>, and proceed directly to <b>Scenario III: The Secret Name</b>.",
       "effects": [
         {
-          "type": "campaign_log",
-          "section": "mementos",
-          "id": "mesmerizing_flute",
-          "text": "Mesmerizing Flute"
-        },
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 1
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "the_price_of_progress"
         }
       ]
-    },
-    {
-      "id": "no_record",
-      "text": "No record is made."
     }
   ],
   "resolutions": [
@@ -7649,30 +7867,344 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "Despite her wounds, the leader of the coven rises to her feet. More of the hooded figures emerge from the tree line, eager to defend their leader. “Interloper!” one calls you, pulling off her hood and pointing a gnarled wooden rod in your direction. Her bright-red hair glows in the firelight, embers dancing about her extended hand. “They’re the ones from before, High Priestess: the ones who interfered with our great work.”\nThe “High Priestess” holds up a single hand, and a hush falls over the other witches. “As always, I admire your perseverance, sister. But I do not believe these are the ones you speak of,” she replies to the red-haired accuser. You lower your weapons as several of the hooded figures approach and surround their leader. They begin chanting in a soft tone as they examine her wounds. The red-haired witch crosses her arms and watches you with a hard glare, her gaze never straying far from you. “I am Anette,” says the leader of the coven, “and these are my sisters. Tell me: Who are you, and why are you here?”\nYou explain how you awoke in the woods, how you were attacked by terrible creatures, and how you came to the center of this circle in order to break the spell surrounding the woods. Anette’s eyes narrow as she hears your story. “That is impossible. The circle was closed. None could enter the woods while we were completing our spell.” She grits her teeth. “You must go at once. This is not your place.”\n“But, High Priestess!—” the red-haired witch exclaims, only to be interrupted by Anette’s gaze. The two lock eyes, a battle of wills that quickly proves Anette victorious.\n“Stand down, Erynn,” Anette says with a firm, motherly tone, as though admonishing a child. She turns her attention back to you as the witch named Erynn lowers her head in defeat. “Go. You’ve broken the spell, just as you desired. You can leave the woods now. But I give you one final warning: cross us again, and we will not be so merciful.”\nYou begin to protest, but before you are able to utter a single word, a dark gale snuffs out the fire at the center of the clearing. Shadows from beyond the tree line suddenly twist and coil into the clearing, tugging at the edges of the witches’ cloaks. One by one, the shadows twist and pull each of the witches into the darkness beyond. In moments, they are gone. You are left with only the soft glow of moonlight to guide you home.",
-      "steps": ["witches_spell_broken", "mementos_flute_and_ritual_components", "earn_xp"]
+      "text": "As soon as you emerge onto the patio, you are surrounded by grim men in trench coats. Several of them reach into their coat pockets: a warning not to do anything too hasty. Before any threats can be fulfilled, the silence is broken by an icy voice. “Now gentlemen, there is no need for that.” The men withdraw to reveal an elderly man you recognize as Carl Sanford, the president of the Silver Twilight Lodge. Despite the dangerous situation, his expression is almost too casual. The complete lack of fear in his posture and his actions suggests a confidence backed by substantial power. His bodyguards take several steps back, allowing you to speak with Mr. Sanford in private.",
+      "steps": ["investigators_escaped_the_spectral_realm", "earn_xp"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "With the spell broken, the hooded figures turn their attention to you. More of them emerge from the tree line, eager to take vengeance upon you for destroying their plans. “Interloper!” one of them calls you, pulling off her hood and pointing a gnarled wooden rod in your direction. Her bright-red hair glows in the firelight, embers dancing about her extended hand. “You will not escape this time!” she cries, prepared to strike you down.\n“Stop!” the leader of the coven yells in a commanding voice, holding up her hand. The red-haired accuser stops in her tracks, and there is a sudden stillness in the clearing around the circle.\n“But High Priestess,” the witch persists, “they’re the ones from before. The ones who interfered with our great work.”\nThe High Priestess places a hand on the red-haired witch’s shoulder. “As always, I admire your perseverance, sister. But I do not believe these are the ones you speak of,” she replies.\nThe red-haired witch lowers her rod as the High Priestess approaches you, her arms crossed. She watches you with a hard glare, her gaze never straying far from you. “I am Anette, and these are my sisters,” she says. “Tell me: who are you, and why are you here?”\nYou explain how you awoke in the woods, how you were attacked by terrible creatures, and how you came to the center of this circle in order to break the spell surrounding the woods. Anette’s eyes narrow as she hears your story. “That is impossible. The circle was closed. None could enter the woods while we were completing our spell.” She grits her teeth. “You must go at once. This is not your place.”\n“But, High Priestess!—” the red-haired witch exclaims, only to be interrupted by Anette’s gaze. The two lock eyes, a battle of wills that quickly proves Anette victorious.\n“Stand down, Erynn,” Anette says with a firm, motherly tone, as though admonishing a child. She turns her attention back to you as the witch named Erynn lowers her head in defeat. “Go. You’ve broken the spell, just as you desired. You can leave the woods now. But I give you one final warning: cross us again, and we will not be so merciful.”\nYou begin to protest, but before you are able to utter a single word, a dark gale snuffs out the fire at the center of the clearing. Shadows from beyond the tree line suddenly twist and coil into the clearing, tugging at the edges of the witches’ cloaks. One by one, the shadows twist and pull each of the witches into the darkness beyond. In moments, they are gone. You are left with only the soft glow of moonlight to guide you home.",
-      "steps": ["witches_spell_broken", "mementos_flute_and_scrap_of_torn_shadow", "earn_xp"]
+      "text": "You head out of the manor and are embraced by the brisk evening air. Your investigation has left you exhausted and strangely paranoid. Something about that event felt peculiar to you, though you aren’t sure why. Although the guests seemed oblivious, you noticed that the staff was sweaty and jittery, and the Lodge members seemed tense as well. More than once, you noticed their gaze drawn to you, watching your every move. If you didn’t know any better, you’d think the Silver Twilight Lodge was having you tailed for some reason. Regardless, you weren’t able to find much information about the four disappearances, and you doubt you ever will. Perhaps it was nothing, after all.",
+      "steps": ["learned_nothing_of_the_lodges_schemes", "earn_xp", "skip_price_of_progress"]
     },
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "You collapse to the ground in exhaustion, your head swimming with otherworldly voices and the high- pitched piping of a hundred discordant flutes. Your entire body rattles with the sensation. Blood trickles from your ears, and tears well in your eyes. You try to crawl to safety, but it is to no avail. The piping only grows in volume, the discordant cacophony shattering your eardrums and turning your thoughts to sludge. Eventually, after what feels like hours, weariness claims your consciousness.\nWhen you next awaken, it is by the side of Hangman’s Brook, where a small child is shaking you vigorously by the shoulders. “Get back here; don’t touch them!” the child’s mother calls to the boy, and he recoils from you. Considering the state you’re in, you wouldn’t be surprised if she thought you some kind of rummy. You brush some of the caked dirt off of your coat and rise begrudgingly to your feet, wandering toward Uptown.",
-      "steps": ["witches_spell_cast", "mementos_check_act", "earn_xp"]
-    },
-    {
-      "id": "R4",
-      "title": "Resolution 4",
-      "text": "You collapse to the ground in exhaustion, your head swimming with otherworldly voices and the high-pitched piping of a hundred discordant flutes. The sensation fades as the circle’s leader approaches, her powerful form looming over you. “We cannot allow the spell to fail. Take them to the edge of the woods and make sure we are not interrupted,” she commands several of the other hooded women. They grab you by the arms and hoist you up, dragging you away from the central clearing. You try to resist, but your limbs are numb and sluggish, and the cacophony of sound and sensations assaulting your mind has turned your thoughts to sludge. Eventually, after what feels like hours, you are hurled to the ground, and weariness claims your consciousness.\nWhen you next awaken, it is by the side of Hangman’s Brook, where a small child is shaking you vigorously by the shoulders. “Get back here; don’t touch them!” the child’s mother calls to the boy, and he recoils from you. Considering the state you’re in, you wouldn’t be surprised if she thought you some kind of rummy. You brush some of the caked dirt off of your coat and rise begrudgingly to your feet, wandering toward Uptown.",
-      "steps": ["witches_spell_cast", "mementos_flute", "earn_xp"]
+      "text": "You flee toward the manor’s entry hall, but the wall of spectral mist still blocks your way. Emerging from the mist are several ghostly faces and arms, writhing and screaming in torment. You turn and are confronted by the empty visage of the hooded Watcher. Before you even realize your doom, the creature’s ethereal body is swirling and swooping through the air as though composed of mist itself. The creature reconstitutes before you, and its charred hand grips your throat, holding you aloft with tremendous strength. You kick and dig your nails into the creature’s hand, struggling with the ferocity of a cornered animal, but it is no use. The last thing you see is the red glare of the thing’s eyes as it drills into your mind.",
+      "steps": ["never_seen_again", "earn_xp", "kill_not_resigned", "skip_price_of_progress"]
     }
   ]
 }
 ,
+{
+  "id": "for_the_greater_good",
+  "scenarioName": "For the Greater Good",
+  "setup": [
+    "intro_1",
+    "check_members_of_the_lodge",
+    "gather_encounter_sets",
+    "check_members_of_the_lodge_setup",
+    "setup_locations",
+    "set_aside_cards",
+    "set_aside_keys",
+    "encounter_deck",
+    "keys"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "Ever since your brush with death at Hangman’s Hill, the situation in Arkham has only worsened. In the days since, there have been more reports of “ghost sightings” and even several more disappearances. A thin layer of grey mist lingers over the streets at all hours, day and night. As soon as the sun begins to set each evening, doors are shut and locked. Without truly realizing why, very few people dare venture out at night. Some businesses have even closed their doors to customers during the day, citing “poor weather.” Things are getting out of hand."
+    },
+    {
+      "id": "check_members_of_the_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "members_of_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "check_deceiving"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_enemies_of_the_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_enemies_of_the_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "enemies_of_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_learned_nothing_of_the_lodges_schemes"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_learned_nothing_of_the_lodges_schemes",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "learned_nothing_of_the_lodges_schemes",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_never_seen_again"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_never_seen_again",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "never_seen_again",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "The creature that appeared at the Lodge’s charity gala is clearly not bound to Josef Meiger’s manor, which means the horrors you’ve experienced could be just the start of something much worse. It is time to report your findings to the Silver Twilight Lodge. Perhaps they can help interpret the knowledge you’ve gathered, and inform you as to what your next step should be. With their help, you may be able to save Arkham…"
+    },
+    {
+      "id": "check_deceiving",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "deceiving_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["deceiving_sidebar"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "deceiving_sidebar",
+      "type": "story",
+      "text": "…though you suspect the Lodge has other interests. The Lodge clearly knows more about what is happening than they care to admit. There is a sinister purpose that lurks beneath the surface of the Lodge, and you intend to discover what that purpose is."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The creature that appeared at the Lodge’s charity gala is clearly not bound to Josef Meiger’s manor, which means the horrors you’ve experienced could be just the start of something much worse. You’re not sure why just yet, but you know the Silver Twilight Lodge is connected to the creature in some way. Perhaps it’s time to pay the Lodge a visit—with or without their permission."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You can’t help but wonder if you missed something important in the home of Josef Meiger. The four disappearances that occurred at the Lodge’s charity gala could not have been a coincidence. If those victims encountered a creature like the one you saw at the graveyard, the horrors you’ve experienced could be just the start of something much worse. You’re not sure why just yet, but you are sure that the Silver Twilight Lodge is connected to these events in some way. Perhaps it’s time to pay the Lodge a visit—with or without their permission."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "Too many disappearances have occurred at Josef Meiger’s estate for it to be a coincidence: first, the four victims at the charity gala, then the ones who attended the benefit dinner one week later. If they encountered a creature like the one you saw at the graveyard, the horrors you’ve experienced could be just the start of something much worse. You’re not sure why just yet, but you are sure that the Silver Twilight Lodge is connected to these events in some way. Perhaps it’s time to pay the Lodge a visit—with or without their permission."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "for_the_greater_good",
+        "city_of_sins",
+        "silver_twilight_lodge",
+        "ancient_evils",
+        "dark_cult",
+        "locked_doors"
+      ]
+    },
+    {
+      "id": "check_members_of_the_lodge_setup",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "members_of_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["lodge_setup"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["not_lodge_setup"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lodge_setup",
+      "text": "Because you are <i>members of the lodge</i>",
+      "bullets": [
+        {
+          "text": "When constructing the act deck, use Act 1a—“Warm Welcome” and remove Act 1a—“Infiltrating the Lodge” from the game."
+        },
+        {
+          "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the <i>(We’ve Been Expecting You)</i> subtitle into play. Remove the other versions of those locations from the game"
+        },
+        {
+          "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Acolyte, 1 copy of Wizard of the Order, 2 copies of Knight of the Inner Circle, and 1 copy of Cell Keeper."
+        }
+      ]
+    },
+    {
+      "id": "not_lodge_setup",
+      "text": "Because you are NOT <i>members of the lodge</i>",
+      "bullets": [
+        {
+          "text": "When constructing the act deck, use Act 1a—“Infiltrating the Lodge” and remove Act 1a—“Warm Welcome” from the game."
+        },
+        {
+          "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the (Members Only) subtitle into play. Remove the other versions of those locations from the game."
+        },
+        {
+          "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Lodge Neophyte, 1 copy of Keeper of Secrets, 2 copies of Knight of the Outer Void, and 1 copy of Lodge Jailor."
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Lodge Catacombs and the Lounge into play. Each investigator begins play at the Lodge Gates. Set each other remaining location aside, out of play (Library, Vault, Inner Sanctum, and the 2 Sanctum Doorway locations)."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: the Puzzle Box asset, the Summoned Beast enemy, the August Lindquist asset, and the double‑sided Nathan Wick enemy."
+    },
+    {
+      "id": "set_aside_keys",
+      "text": "Set 1 [skull] token, 1 [cultist] token, 1 [tablet] token, and 1 [elder_thing] token aside, out of play. These tokens should be taken from your collection, not from your chaos bag. These tokens are keys. <i>(See “Keys” section below)</i>"
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "keys",
+      "type": "rule_reminder",
+      "title": "Keys",
+      "text": "The setup of this scenario instructs the players to set aside 1 [skull] token, 1 [cultist] token, 1 [tablet] token, and 1 [elder_thing] token, as keys. These keys are never placed in the chaos bag and do not act as traditional chaos tokens. Instead, they represent keys which investigators can recover and use throughout the scenario.\nKeys can enter play via several different card effects, and are usually placed on an enemy, location, or story asset. Keys can be acquired in one of three ways:",
+      "bullets": [
+        {
+          "text": "If a location with a key on it has no clues, an investigator can take control of its key as a [fast] ability."
+        },
+        {
+          "text": "If an enemy with a key on it leaves play, the investigator who caused that enemy to leave play must take control of its key. (If the enemy leaves play through some other means, place its key on its location.)"
+        },
+        {
+          "text": "Some card effects may allow investigators to take control of keys in other ways."
+        }
+      ],
+      "example": "When an investigator takes control of a key, he or she places that key on his or her investigator card. If an investigator who controls 1 or more keys is eliminated, place each of those keys on his or her location. As an [action] ability, an investigator may give any number of his or her keys to another investigator at the same location."
+    },
+    {
+      "id": "guardian_of_the_trap_emerged",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "guardian_of_the_trap_emerged",
+          "text": "the guardian of the trap emerged."
+        }
+      ]
+    },
+    {
+      "id": "discovered_how_to_open_the_puzzle_box",
+      "text": "In your Campaign Log, record <i>the investigators discovered how to open the puzzle box</i>. Any one investigator may choose to add the Puzzle Box story asset to his or her deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "discovered_how_to_open_the_puzzle_box",
+          "text": "the investigators discovered how to open the puzzle box.."
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "05228"
+        }
+      ]
+    },
+    {
+      "id": "skip_inner_circle",
+      "text": "Skip <b>Interlude III: The Inner Circle</b>, and proceed directly to <b>Scenario VI: Union and Disillusion</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "the_inner_circle"
+        }
+      ]
+    },
+    {
+      "id": "guardian_of_the_trap_defeated",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "guardian_of_the_trap_defeated",
+          "text": "the guardian of the trap emerged and was defeated."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached (each investigator resigned or was defeated)",
+      "text": "You manage to escape the building and flee on foot. As you run, you can hear a thunderous rumble coming from the manor. Several others burst through the front door behind you, too preoccupied to notice you. One yells to her companions: “Get out and gather at the Unvisited Isle! We have to perform the binding rite with or without the device!”\n“What about the guardian?” A man at the gates asks.\n“It’s no use,” she replies. “Just go!”\nThat is when the screaming begins. A spray of blood splatters against the basement window. Those who escaped immediately panic and flee.\nYou don’t stop or look back. You run until the building has faded behind the dense, grey mist, until you can no longer hear the screams of those still inside, until your legs can barely move.\nIs this the kind of “sacrifice” the Silver Twilight Lodge believes in making? And if so, what does this mean for the “binding rite” they seek to complete at the Unvisited Isle?",
+      "steps": ["guardian_of_the_trap_emerged", "earn_xp", "skip_inner_circle"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Every fiber of your being is stretched as the box pulls you in. However, before it can accomplish its task, the lid is suddenly slammed shut by an elderly hand. You reel backward and collapse as the pulling force ceases. When your senses finally return to you, Carl Sanford is standing over you, unflappable as ever. “I see you managed to open the device without defeating its guardian. How fortunate,” he declares. He examines the box closely, removing the key and the coin from the container and recognizing them instantly. “I had a feeling you would be a valuable asset to the Lodge, but it seems I underestimated your resourcefulness. Perhaps it is time that you learn the truth behind our organization. I have a feeling you are destined for great things.” Unexpectedly, Mr. Sanford hands the puzzle box back to you, along with the components that unlocked it. “Come with me. There is much to discuss.”",
+      "steps": ["discovered_how_to_open_the_puzzle_box", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Every fiber of your being is stretched as the box pulls you in. However, before it can accomplish its task, you manage to reach out and slam the lid shut. You shudder uncontrollably as your senses slowly return to you. This box is more dangerous than you could have imagined. In the hands of the Lodge, it could have been a powerful weapon, though you’re not sure what they intended to do with it. Just then, you hear several Lodge members approaching. You quickly shift one of the room’s bookcases aside and hide behind it before they enter the room. “You’re sure you heard something in here? I don’t see anybody,” one of them says.\n“Hm…” the other pauses, presumably inspecting the room for signs of intruders. “Must have been nothing.”\n“It’s all right. We’re all a bit on edge since the trap box went missing. Come, we don’t want to be late for the ceremony. Tonight is an important night.” Their footfalls become softer as they depart. The man’s words linger in your thoughts momentarily. What did he mean by tonight being an important night? This could be just as important as the puzzle box they had been attempting to open. You quietly follow the two men as they head deep into the tunnels beneath the Lodge. You struggle to keep up with them while trying to keep your footsteps silent on the stone floor of the passageway. Finally, they enter a large door with the familiar three arrows of Silver Twilight emblazoned along its surface. Ritualistic chanting fills the hall from the other side. You approach softly, placing your ear against the door to listen in.\n“Brothers and sisters,” an elderly voice announces, “thank you for coming to this hallowed gathering. The time we have long waited for approaches.” You recognize the man’s voice – it is Carl Sanford, president of the Silver Twilight Lodge. “For many decades, the Order of the Silver Twilight has pursued knowledge that can elevate humanity. We have defended against threats to our very existence. We have sacrificed everything for this sacred cause. Now, one of these threats terrorizes our city, and once again we must do what has to be done in order to protect it.” The crowd responds with solemn approval. “Tonight, we will complete the ritual we began many nights ago at the center of the Unvisited Isle. Tonight, we will finally bind the revenant and learn what it knows. We must not allow the secrets of AZATHOTH to be lost to those who would do humanity harm.”\nThe cult replies with a monotone hymn, and you take this opportunity to flee the Lodge before you are discovered. The conspiracy you have unveiled leaves you with even more questions. If the revenant Mr. Sanford speaks of is what you think it is, binding it will surely protect Arkham, as he claims. But what knowledge do they seek to learn from it?…and what in the hell is an “AZATHOTH?”",
+      "steps": ["discovered_how_to_open_the_puzzle_box", "earn_xp", "skip_inner_circle"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The beast that had emerged from the box was a vicious guardian, slaughtering anyone in its path. Somehow you were able to slay the creature, but the consequences were dire. Many Lodge members were gruesomely killed by the creature’s rampage before you were able to put it down. Worse, the device it emerged from was destroyed beyond recognition. You’re not sure whether it broke as a result of the beast’s emergence or as a result of its death, but either way, it is a regretful outcome. “This didn’t work as planned,” one of the robed members of the Order states matter-of-factly as you examine the crushed puzzle box.\n“That’s a hell of an understatement,” another adds. She places a hand on your shoulder and gently pulls you away from the remains of the device. “Come on, that’s a lost cause,” she says.\nHer partner ignores your presence and stoically addresses her. “We’ll have to get to the Unvisited Isle and complete the binding rite without the trap.” She nods and takes one last look at you before the remaining Lodge members flee the building. Is this the kind of “sacrifice” the Silver Twilight Lodge believes in making? And if so, what does this mean for the “binding rite” they seek to complete at the Unvisited Isle?",
+      "steps": ["guardian_of_the_trap_defeated", "earn_xp", "skip_inner_circle"]
+    }
+  ]
+},
 {
   "id": "prologue",
   "scenarioName": "Prologue",
@@ -7926,6 +8458,1139 @@
       "title": "No resolution was reached, because each investigator was defeated",
       "text": "“Mr. Sanford, thank you so much for coming. I know you are a busy man. Your presence at tonight’s meeting is very much appreciated.” Josef shakes Carl Sanford’s hand firmly as he speaks. Sanford merely nods. “I know you’ve only just arrived, but I have some...private matters to discuss with you, if that is all right,” Josef continues, his narrow eyes shifting back and forth between the men flanking Mr. Sanford.\n“Very well.” The elderly man nods to his two enforcers, who step aside to give him privacy. He cradles his hands behind his back, his stature impressive for his age. His discerning eyes fall on Josef. “What is the matter?”\nJosef leans closer. “It’s here, sir. It’s here in this very house.”\nThere is a quiet pause between the two men, and then Carl Sanford smiles.",
       "steps": ["no_experience", "pieces_of_evidence", "return_player_cards", "choose_investigators"]
+    }
+  ]
+}
+,
+{
+  "id": "the_inner_circle",
+  "interlude": true,
+  "scenarioName": "The Inner Circle",
+  "setup": [
+    "ic_1",
+    "choose_to_share_info"
+  ],
+  "steps": [
+    {
+      "id": "ic_1",
+      "type": "story",
+      "text": "You have been brought deep into the inner sanctum, where only the highest-ranking members of the Lodge are allowed. Mr. Sanford explains that the Order of the Silver Twilight is far older and more important than the public-facing Silver Twilight Lodge, and that their knowledge extends into the realm of the arcane and the obscure. “For many decades, the Order of the Silver Twilight has pursued knowledge that can elevate humanity. We have defended against threats to our very existence. We have sacrificed everything for this sacred cause. Now, one of these threats terrorizes our city, and we are the only ones who can stop it. You know the creature I speak of.” You nod in affirmation.\n“Here is what we know: it was the witches who brought this abomination upon Arkham. We tried to stop their ritual, but unfortunately, we were unsuccessful in binding it. Now it is loose, and we must finish what we started before the witches are able to do the same. But first, I understand you may have some information for us, as well. Please, hand over what you have found. It is important that we collaborate in order to understand this situation.”"
+    },
+    {
+      "id": "choose_to_share_info",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Give Mr. Sanford everything you have found.",
+            "steps": ["ic_2", "lose_all_mementos", "check_rescued_josef"]
+          },
+          {
+            "text": "Tell him you have nothing to show. (You are lying.)",
+            "steps": ["ic_3", "kept_mementos_hidden"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ic_2",
+      "type": "story",
+      "text": "You show Mr. Sanford the evidence you’ve collected. “Hm… Yes, I see. It is as I suspected,” he murmurs as he inspects the trinkets."
+    },
+    {
+      "id": "lose_all_mementos",
+      "text": "Cross off each memento listed under “Mementos Discovered” in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "ghoul_priest_alive",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "gilmans_journal",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "keziahs_formulae",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "worn_crucific",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "wisp_of_spectral_mist",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "mesmerizing_flute",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "ritual_components",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "mesmerizing_flute",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "scrap_of_torn_shadow",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "mesmerizing_flute",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "check_rescued_josef",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "rescued_josef",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_told_lodge_about_coven"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ic_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_told_lodge_about_coven",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "told_lodge_about_coven",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ic_4", "check_survived_the_watchers_embrace"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ic_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ic_3",
+      "type": "story",
+      "text": "You don’t trust Carl Sanford with these pieces of evidence. Who knows what he intends to do with them? In the hands of the president of the Silver Twilight Lodge, any one of these items could be a deadly instrument. You lie, informing him that your investigation has so far proven fruitless. He clenches his jaw and glares at you for a moment, his cold blue eyes staring daggers into yours. “That is disappointing to hear. But perhaps it is my fault; I should not have imposed such a heavy burden on a neophyte to the Order.”\nMr. Sanford rises to his feet, and the other members of the Order follow suit. He addresses the other members of the Inner Circle: “All right. We have no more time to spare. The ritual must be completed at once. We shall use the same site as before—the central pillar of the Unvisited Isle, where the barrier between this world and the next is thinnest. It is likely that the anomaly will pursue us there, so act with caution.” Then he turns back to you. “We will require your assistance as well, of course. The device you hold is the key to binding the revenant. You must use it properly when the time comes. Do you understand?” You nod in affirmation. Taking a deep breath to steel your nerves, you prepare for the journey to the Unvisited Isle—a journey toward death itself."
+    },
+    {
+      "id": "progress_3",
+      "type": "story",
+      "text": "You didn’t come here to listen to Mr. Sanford proselytize about sacrifice. You came here for answers. You demand an explanation, but the elderly man cuts you off with a scowl. “Yes, yes. You speak of the incident last week. That was the creature’s first manifestation, and the arrival of the dark mist, which you encountered inside.” He glances at the front door to the manor and clears his throat. “The Lodge was not involved in the disappearances that occurred that night,” he explains after a short pause. “But we couldn’t exactly go to the police and tell them a creature made of mist kidnapped four people in Mr. Meiger’s household, could we? So, we had to take matters into our own hands. We suspected that creature was drawn to the crowd, so we recreated the incident in order to understand what happened—to discern its motives.” The decision to host another event at Mr. Meiger’s estate so soon after the disappearances makes sense to you now. As much as you hate to admit it, there is some logic to the plan the Lodge put into action, although you don’t particularly like being used as bait. Who knows how many innocent bystanders were put in mortal danger? Even if the goal was noble, was it worth the sacrifice?\n“I hope you understand that our organization only seeks the betterment of humankind. There are harsh truths that lie beyond our five senses,” Mr. Sanford says, his expression grim. “If we are to survive and prosper, we must adapt. We must learn. We must understand. That is what our order seeks to achieve—a greater understanding of the world around us. A worthy pursuit, don’t you agree?”"
+    },
+    {
+      "id": "kept_mementos_hidden",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "kept_mementos_hidden",
+          "text": "the investigators kept their mementos hidden."
+        }
+      ]
+    },
+    {
+      "id": "ic_4",
+      "type": "story",
+      "text": "Carl Sanford grins and rises to his feet. “You have proven yourself a loyal asset to our Order. I believe it is time that you ascended to our Inner Circle.” You approach and kneel before Mr. Sanford. He spreads his arms wide and declares, “I hereby appoint to you the rank of Knight of the Inner Circle. Arise once more, knight, and stand tall. You are now one of the elite guardians of humanity, keepers of the truth, and stewards of the Silver Twilight Order.” Another member of the Order offers you a folded blue robe, and you don it solemnly. “Now, I am sure you have many questions for me. We do not have a lot of time to dawdle, but you deserve answers. What do you wish to know?”"
+    },
+    {
+      "id": "check_survived_the_watchers_embrace",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "survived_the_watchers_embrace",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_all_questions", "ic_6", "inducted_into_the_inner_circle"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_most_questions", "ic_6", "inducted_into_the_inner_circle"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_all_questions",
+      "text": "You may ask up to three questions of Carl Sanford before his patience wears thin.",
+      "type": "input",
+      "input": {
+        "type": "choose_many",
+        "progressive": true,
+        "count": 3,
+        "choices": [
+          {
+            "flavor": "“What is the creature?”",
+            "steps": ["answer_1"]
+          },
+          {
+            "flavor": "“What do you want with the creature?”",
+            "steps": ["answer_2"]
+          },
+          {
+            "flavor": "“What do the witches want with the creature?”",
+            "steps": ["answer_3"]
+          },
+          {
+            "flavor": "“Did you know about the creature before the charity gala?”",
+            "steps": ["answer_4"]
+          },
+          {
+            "flavor": "“Where are the four missing people from the charity gala?”",
+            "steps": ["answer_5"]
+          },
+          {
+            "text": "You may ask this question because <i>the investigators survived the watcher's embrace</i>",
+            "flavor": "“…Why are you looking at me like that?”",
+            "steps": ["answer_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_most_questions",
+      "text": "You may ask up to three questions of Carl Sanford before his patience wears thin.",
+      "type": "input",
+      "input": {
+        "type": "choose_many",
+        "progressive": true,
+        "count": 3,
+        "choices": [
+          {
+            "flavor": "“What is the creature?”",
+            "steps": ["answer_1"]
+          },
+          {
+            "flavor": "“What do you want with the creature?”",
+            "steps": ["answer_2"]
+          },
+          {
+            "flavor": "“What do the witches want with the creature?”",
+            "steps": ["answer_3"]
+          },
+          {
+            "flavor": "“Did you know about the creature before the charity gala?”",
+            "steps": ["answer_4"]
+          },
+          {
+            "flavor": "“Where are the four missing people from the charity gala?”",
+            "steps": ["answer_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "answer_1",
+      "type": "story",
+      "text": "“It is a powerful remnant, left behind from one who perished long ago. The witches could only have summoned it if they had a strong connection to the soul it once belonged to,” Mr. Sanford explains. “It could only be one person: Keziah Mason herself.”"
+    },
+    {
+      "id": "answer_2",
+      "type": "story",
+      "text": "“First and foremost, we need to bind it to prevent it from doing further harm. That is of paramount importance. Once it is bound, we may be able to learn the secrets it possesses without endangering ourselves or others.”"
+    },
+    {
+      "id": "answer_3",
+      "type": "story",
+      "text": "“I am sure they wish to learn its secrets, and draw from its power,” he theorizes, stroking his beard. “Perhaps allow one of their own to become possessed by the spirit, and hence gain power over life and death itself.”"
+    },
+    {
+      "id": "answer_4",
+      "type": "story",
+      "text": "“In truth, yes,” Mr. Sanford admits. “But we did not know it would come to us. After interceding in the witch’s summoning rite, we investigated the spectral mist that was left behind for several days. We likely drew too much attention to ourselves, and it was drawn to our presence. Not necessarily a bad thing, in the end.”"
+    },
+    {
+      "id": "answer_5",
+      "type": "story",
+      "text": "“God only knows,” Mr. Sanford replies with a sigh. “Taken by the revenant, perhaps. Or swallowed by the mist.” He considers this for a while, then adds, “I suspect that if they are still alive, they cannot be far from the revenant. For better or for worse, the anomaly seems localized around it."
+    },
+    {
+      "id": "answer_6",
+      "type": "story",
+      "text": "Mr. Sanford clears his throat. “I… It is nothing,” he lies."
+    },
+    {
+      "id": "ic_5",
+      "type": "story",
+      "text": "Carl Sanford gives the trinkets and strange components to another member of the Inner Circle, who retrieves them with care and brings them upstairs. “Thank you for your assistance in this matter. We are stronger together than apart; don’t you agree?”\nMr. Sanford rises to his feet, and the other members of the Order follow suit. He addresses the other members of the Inner Circle: “All right. We have no more time to spare. The ritual must be completed at once. We shall use the same site as before—the central pillar of the Unvisited Isle, where the barrier between this world and the next is thinnest. It is likely that the anomaly will pursue us there, so act with caution.” Then he turns back to you. “We will require your assistance as well, of course. The device you hold is the key to binding the revenant. You must use it properly when the time comes. Do you understand?” You nod in affirmation. Taking a deep breath to steel your nerves, you prepare for the journey to the Unvisited Isle—a journey toward death itself."
+    },
+    {
+      "id": "ic_6",
+      "type": "story",
+      "text": "Mr. Sanford rises to his feet, and the other members of the Order follow suit. He addresses the members of the Inner Circle, yourself included: “All right. We have no more time to spare. The ritual must be completed at once. We shall use the same site as before—the central pillar of the Unvisited Isle, where the barrier between this world and the next is thinnest. It is likely that the anomaly will pursue us there, so act with caution.” Then he turns directly to you and adds, “The device you hold is the key to binding the revenant. I trust you to use it properly when the time comes.” You and the other members of the circle nod in affirmation. Taking a deep breath to steel your nerves, you prepare for the journey to the Unvisited Isle—a journey toward death itself."
+    },
+    {
+      "id": "inducted_into_the_inner_circle",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "inducted_into_the_inner_circle",
+          "text": "the investigators were inducted into the Inner Circle."
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "the_price_of_progress",
+  "interlude": true,
+  "scenarioName": "The Price of Progress",
+  "setup": [
+    "check_silver_twilight_investigator",
+    "progress_3",
+    "check_josef_meiger"
+  ],
+  "steps": [
+    {
+      "id": "check_silver_twilight_investigator",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          {
+            "condition": "Silver Twilight",
+            "steps": ["progress_1"]
+          },
+          {
+            "default": true,
+            "steps": ["progress_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_1",
+      "type": "story",
+      "text": "“Ah, it’s you. I did not expect you to be here, though perhaps I should have,” Mr. Sanford says with a hint of surprise in his voice. “I regret that you had to be involved in this unfortunate affair. I did not plan for you to be a part of any of this.” You narrow your eyes. You suspect fortune had nothing to do with it. You ask him what will happen to those still trapped inside. “Human progress requires sacrifice,” he recites stoically. “It is lamentable when that sacrifice is in blood, but the price in lamentation does not outweigh the yield of our labor.”"
+    },
+    {
+      "id": "progress_2",
+      "type": "story",
+      "text": "“I regret that we must meet under such... unfortunate circumstances,” Mr. Sanford says offhandedly. You narrow your eyes. You suspect fortune had nothing to do with it. You ask him what will happen to those still trapped inside. “Human progress requires sacrifice,” he recites stoically. “It is lamentable when that sacrifice is in blood, but the price in lamentation does not outweigh the yield of our labor.”"
+    },
+    {
+      "id": "progress_3",
+      "type": "story",
+      "text": "You didn’t come here to listen to Mr. Sanford proselytize about sacrifice. You came here for answers. You demand an explanation, but the elderly man cuts you off with a scowl. “Yes, yes. You speak of the incident last week. That was the creature’s first manifestation, and the arrival of the dark mist, which you encountered inside.” He glances at the front door to the manor and clears his throat. “The Lodge was not involved in the disappearances that occurred that night,” he explains after a short pause. “But we couldn’t exactly go to the police and tell them a creature made of mist kidnapped four people in Mr. Meiger’s household, could we? So, we had to take matters into our own hands. We suspected that creature was drawn to the crowd, so we recreated the incident in order to understand what happened—to discern its motives.” The decision to host another event at Mr. Meiger’s estate so soon after the disappearances makes sense to you now. As much as you hate to admit it, there is some logic to the plan the Lodge put into action, although you don’t particularly like being used as bait. Who knows how many innocent bystanders were put in mortal danger? Even if the goal was noble, was it worth the sacrifice?\n“I hope you understand that our organization only seeks the betterment of humankind. There are harsh truths that lie beyond our five senses,” Mr. Sanford says, his expression grim. “If we are to survive and prosper, we must adapt. We must learn. We must understand. That is what our order seeks to achieve—a greater understanding of the world around us. A worthy pursuit, don’t you agree?”"
+    },
+    {
+      "id": "check_josef_meiger",
+      "type": "input",
+      "text": "Where is Josef Meiger?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Victory display",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "Beneath the Entry Hall",
+            "steps": ["progress_5", "rescued_josef", "bonus_xp", "choose_lodge"]
+          },
+          {
+            "text": "Neither",
+            "steps": ["check_silver_twilight"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_silver_twilight",
+      "type": "input",
+      "text": "Compare the number of [[Silver Twilight]] enemies in the victory display and beneath the Entry Hall:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "More in the victory display",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "Equal number in each",
+            "steps": ["progress_4", "progress_4_effects"]
+          },
+          {
+            "text": "More beneath the Entry Hall",
+            "steps": ["progress_6", "josef_is_alive", "choose_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_4",
+      "type": "story",
+      "text": "Before you can reply, one of Sanford’s men emerges from the house behind you. He sheathes a long silver blade as he addresses Mr. Sanford. “There is no sign of Josef inside, sir.” The man eyes you suspiciously, keeping his hand on the hilt of his sword. His posture reminds you of that of a knight, stoic and rigidly disciplined. “I see,” Sanford replies. He closes his eyes and takes a deep breath before continuing. “A great loss for our order, but one we anticipated. Gather the Lodge’s belongings from inside the estate, and I will deal with the consequences.” The knight nods and heads back inside. Carl’s cold blue eyes turn back toward you. “As for you, I would ask you to leave this place at once. You have done enough harm as it is.” Before you can protest, he commands the other men nearby to escort you off the premises, and you have little choice but to comply."
+    },
+    {
+      "id": "progress_4_effects",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "josef_disappeared_into_the_mist",
+          "text": "Josef disappeared into the mist."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "enemies_of_the_lodge",
+          "text": "the investigators are enemies of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "progress_5",
+      "type": "story",
+      "text": "You consider Mr. Sanford’s words carefully. You believe that he is telling the truth, but you’re not sure if the ends justify his means. Before you can reply, Josef steps forward. “I believe our new comrades understand the value of working together,” he says politely, standing at your side. “They could have escaped on their own, but they stayed behind to make sure members of the Lodge were safe. Surely we are of the same mind.”\n “Courage is not the same as sacrifice, Josef,” Carl Sanford intones patiently. “Do they have the will to do what is truly right for all of humanity?” The elderly man turns his attention back to you, his cold eyes glinting in the moonlight. He approaches calmly, extending his hand. “Regardless, you have experienced firsthand the danger that we all face. Join us, and we can face it together. With our knowledge combined, we can protect Arkham from this threat.”"
+    },
+    {
+      "id": "rescued_josef",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "rescued_josef",
+          "text": "the investigators rescued Josef"
+        }
+      ]
+    },
+    {
+      "id": "bonus_xp",
+      "text": "Each investigator earns 2 bonus experience, as he or she gains insight into the inner workings of the Silver Twilight Lodge.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "choose_lodge",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "flavor": "“I refuse to be a part of this.”",
+            "steps": ["progress_7", "enemies_of_the_lodge"]
+          },
+          {
+            "text": "“I agree.”",
+            "steps": ["progress_8", "members_of_the_lodge", "add_cultist_token"]
+          },
+          {
+            "text": "“I agree.” (You are lying.)",
+            "steps": ["progress_9", "members_of_the_lodge", "add_cultist_token", "deceiving_the_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "progress_6",
+      "type": "story",
+      "text": "You consider Mr. Sanford’s words carefully. You believe that he is telling the truth, but you’re not sure if the ends justify his means. Before you can reply, Josef Meiger emerges from the house behind you, flanked by two guards wearing expensive suits. One wields a long silver blade as he stands guard. The other observes the situation vigilantly, keeping one hand on the grip of a revolver holstered at his side. Josef recognizes you and addresses you curtly. “You have been poking your head where you don’t belong,” he threatens, narrowing his dark eyes.\n“Stay your tongue, Josef,” Sanford interjects. He approaches calmly, extending his hand toward you. “You have experienced firsthand the danger that we all face. Join us, and we can face it together. With our knowledge combined, we can protect Arkham from this threat.”"
+    },
+    {
+      "id": "josef_is_alive",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "josef_is_alive",
+          "text": "Josef is alive and well."
+        }
+      ]
+    },
+    {
+      "id": "progress_7",
+      "type": "story",
+      "text": "Mr. Sanford scowls, returning his hand to his side and narrowing his gaze. “I see. I cannot say I am not disappointed. I thought you would be insightful enough to see the value in working together. But I realize now that my confidence was misplaced.” He sighs and gazes past you, toward Josef ’s manor. “Very well. The Lodge will handle this problem on our own. Return to your state of ignorance. But I warn you: do not get in our way. I am not an enemy you want to have.” Before you can protest, Sanford commands the other men nearby to escort you off the premises, and you have little choice but to comply."
+    },
+    {
+      "id": "enemies_of_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "enemies_of_the_lodge",
+          "text": "the investigators are enemies of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "progress_8",
+      "type": "story",
+      "text": "You shake Mr. Sanford’s hand. His grip is cold, but strong. The other members of the Lodge seem to relax around you. “We will do great works together, my friends,” says Sanford. “Great works indeed.”"
+    },
+    {
+      "id": "members_of_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "members_of_the_lodge",
+          "text": "the investigators are members of the Lodge."
+        }
+      ]
+    },
+    {
+      "id": "add_cultist_token",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "progress_9",
+      "type": "story",
+      "text": "You shake Mr. Sanford’s hand. His grip is cold, but strong. The other members of the Lodge seem to relax around you. “We will do great works together, my friends,” says Sanford. “Great works indeed.” But out of the corner of your eye, you see one of the Lodge’s enforcers gripping his weapon a little tighter"
+    },
+    {
+      "id": "deceiving_the_lodge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "deceiving_the_lodge",
+          "text": "the investigators are deceiving the Lodge."
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "the_witching_hour",
+  "scenarioName": "The Witching Hour",
+  "setup": [
+    "check_members_of_the_lodge",
+    "gather_encounter_sets",
+    "setup_locations",
+    "create_unknown_place_deck",
+    "set_aside_cards",
+    "encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "check_members_of_the_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "members_of_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1", "choose_tell_lodge_about_witches"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_enemies_of_the_lodge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_enemies_of_the_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "enemies_of_the_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_learned_nothing_of_the_lodges_schemes"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_learned_nothing_of_the_lodges_schemes",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "learned_nothing_of_the_lodges_schemes",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_never_seen_again"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_never_seen_again",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "never_seen_again",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The upstairs study of the Silver Twilight Lodge is cozy, if a little cramped. The floor is covered in a plush carpet, and several comfortable sofas and small round tables fill the warmly lit room. Portraits of world-weary Lodge members line the walls around you. Carl Sanford, president of the Lodge, sits across from you, idly swirling a glass of Merlot in his wrinkled hand.\n“The Silver Twilight Lodge pursues knowledge that can help us elevate our understanding of the universe,” Mr. Sanford explains, pausing to take a sip from his wine. “The creature you encountered in Josef Meiger’s estate—its appearance is not the only peculiar happening in Arkham as of late. Tell me: have you experienced anything else recently that might be connected to these events?”"
+    },
+    {
+      "id": "choose_tell_lodge_about_witches",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Tell the Lodge of the witches in the woods.",
+            "steps": ["intro_2", "told_lodge_about_coven", "add_cultist_token"]
+          },
+          {
+            "text": "Tell him you know of no possible connection. (You are lying.)",
+            "steps": ["intro_3", "check_mystic_investigator", "intro_3_continued", "hid_their_knowledge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You tell Mr. Sanford about your experience last week—waking up in the middle of the woods, the strange mist that weaved throughout the trees, the witches and their spell. He leans forward and listens intently as you explain the night’s strange events, your memories still somewhat of a haze. You conclude your story, and the elderly man considers your words. “Interesting,” he says at last. “I know of this coven. They are led by a witch named Anette Mason. Their magic is no trivial thing. They have passed down arcane secrets that can manipulate the energies of the universe. It is dangerous knowledge they possess—knowledge I believe they derived from a powerful witch who fled from Salem over two hundred years ago. Does the name ‘Keziah’ mean anything to you?”\nYou nod. Everyone in Arkham has at least some passing knowledge of the witch whose ghost supposedly haunts the old condemned “Witch House” in French Hill. Most believe her to be a work of fiction; a tall tale meant to scare young children away from the decrepit house. Mr. Sanford’s steely gaze and humorless tone makes it clear to you that this is not the case. “Perhaps this Anette is a true descendant of Keziah, or perhaps she is simply using her name. In any event, I believe these events are connected. To that end, I have a task for you, on behalf of the Silver Twilight Lodge.” Carl Sanford rises to his feet, using his cane more for show than for balance. You rise as well, ready to perform whatever duties are necessary to get to the bottom of this mystery.\n“We need as much information about this coven as we can obtain. If there is any place that will have these answers, it is the house where Keziah herself lived all those years ago.” You nod in agreement—there are too many questions you need answered. What spell were the witches casting that night in the woods? What is their motive? And what is their connection to the creature that kidnapped those four unfortunate souls? You shake Mr. Sanford’s hand and depart for the Witch House."
+    },
+    {
+      "id": "told_lodge_about_coven",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "told_lodge_about_coven",
+          "text": "the investigators told the Lodge about the coven."
+        }
+      ]
+    },
+    {
+      "id": "add_cultist_token",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You shake your head. You’re not sure if the events that took place in the woods are connected, or if they even really happened—some part of you still believes it was all a strange dream. Mr. Sanford examines you with a cold, piercing glare. You get the feeling that he is looking directly through you. “Very well,” he says. “Out of curiosity, does the name ‘Keziah Mason’ mean anything to you?”\nYou nod. Everyone in Arkham has at least some passing knowledge of the witch whose ghost supposedly haunts the old condemned “Witch House” in French Hill. Most believe her to be a work of fiction; a tall tale meant to scare young children away from the decrepit house. Mr. Sanford’s steely gaze and humorless tone makes it clear to you that this is not the case. He motions to an old, worn tome which lies on the table in front of you, open to a page filled with strange inscriptions and arcane glyphs. “I believe the creature you encountered in Josef ’s manor is tied to Keziah and the secret knowledge she possessed. See for yourself.” You pick up the tome and examine the markings on the page closely."
+    },
+    {
+      "id": "check_mystic_investigator",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "faction",
+        "options": [
+          {
+            "condition": "Mystic",
+            "steps": ["read_mystic_text"]
+          },
+          {
+            "default": true,
+            "steps": ["read_gibberish"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "read_mystic_text",
+      "type": "story",
+      "text": "The markings on the tome form the basis for some kind of spell or ritual. It involves calling out to the dead – beseeching them for power, for secrets, or perhaps for aid. But who was beseeching whom, and for what purpose?"
+    },
+    {
+      "id": "read_gibberish",
+      "text": "It all looks like gibberish to you."
+    },
+    {
+      "id": "intro_3_continued",
+      "type": "story",
+      "text": "“To this end, I have a task for you, on behalf of the Silver Twilight Lodge.” Carl Sanford rises to his feet, using his cane more for show than for balance. You rise as well, ready to perform whatever duties are necessary to get to the bottom of this mystery.\n“We need as much information about this creature as we can obtain. If there is any place that will have these answers, it is the house where Keziah herself lived all those years ago.” You nod in agreement—there are too many questions you need answered. Perhaps this is connected to the spell the witches were casting that night in the woods, after all. If so, what is their motive? And what does this have to do with the creature that kidnapped those four unfortunate souls? You nod to Mr. Sanford and depart for the Witch House."
+    },
+    {
+      "id": "hid_their_knowledge",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "hid_their_knowledge",
+          "text": "the investigators hid their knowledge of the coven."
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "After your confrontation with the president of the Silver Twilight Lodge, you travel to the manor of the Arkham Historical Society in Southside. You are positive that the events you experienced in the woods last week have something to do with the creature that kidnapped those four unfortunate souls. It’s just a hunch—a feeling that crawls along the back of your neck, imploring you to look away—but you’re sure that everything is connected. You’re just not sure how.\nAs you enter, one of the Historical Society’s many researchers greets you and asks if she can help in any way. You give a cursory description of the information you’re looking for; just enough that she can direct you where to look, but vague enough to leave your motives at the door. “I don’t know why you are researching such morbid affairs, but the records you are looking for should be in the library on the third floor,” the researcher says.\nYou thank her and head to the third floor, where you begin to study the history of witchcraft in Arkham. In the late 17th century, Arkham was one of the New England towns caught up in the hysteria of witch trials. Accusations of witchcraft spread like wildfire, and many of the accused were executed by hanging or burning, guilty and innocent alike. But there was one witch whose infamy rose above the rest, and whose mystical power was never in question: Keziah Mason.\nYou recognize the name as the ghost who supposedly haunts the old Witch House in French Hill. You had always thought her to be a work of fiction; a tall tale meant to scare young children away from the condemned house. But the Historical Society’s records indicate that Keziah was a real person: a powerful witch who had fled from Salem over two hundred years ago.\nYou are no stranger to real witchcraft. If Keziah Mason has anything to do with the coven you encountered in the woods, you must discover that connection. You leave the manor and head toward French Hill, where the Witch House awaits…"
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "Your lead regarding the Silver Twilight Lodge’s charity gala turned out to be a bust, but Anna Kaslow’s reading still plays out over and over in your mind. You cannot help but feel as though you are missing a piece of this puzzle—something you can use to avoid the dire fate the tarot reader described. Turning your attention back to the coven of witches you encountered in the woods last week, you travel to the manor of the Arkham Historical Society in Southside. Perhaps there is some piece of information you have overlooked that will shed light on their identity, or their motives.\nAs you enter, one of the Historical Society’s many researchers greets you and asks if she can help in any way. You give a cursory description of the information you’re looking for; just enough that she can direct you where to look, but vague enough to leave your motives at the door. “I don’t know why you are researching such morbid affairs, but the records you are looking for should be in the library on the third floor,” the researcher says.\nYou thank her and head to the third floor, where you begin to study the history of witchcraft in Arkham. In the late 17th century, Arkham was one of the New England towns caught up in the hysteria of witch trials. Accusations of witchcraft spread like wildfire, and many of the accused were executed by hanging or burning, guilty and innocent alike. But there was one witch whose infamy rose above the rest, and whose mystical power was never in question: Keziah Mason.\nYou recognize the name as the ghost who supposedly haunts the old Witch House in French Hill. You had always thought her to be a work of fiction; a tall tale meant to scare young children away from the condemned house. But the Historical Society’s records indicate that Keziah was a real person: a powerful witch who had fled from Salem over two hundred years ago.\nYou are no stranger to real witchcraft. If Keziah Mason has anything to do with the coven you encountered in the woods, you must discover that connection. You leave the manor and head toward French Hill, where the Witch House awaits…"
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "You pin the newspaper article up on your wall along with the rest of the evidence you’ve found. Whatever is happening in Josef Meiger’s manor, it’s getting out of hand. First, there were the four disappearances on the twenty-second, at the Silver Twilight Lodge’s annual charity gala. Now more have gone missing after a second event at the same estate. Is the Lodge somehow involved? Why else would they move this dinner to Mr. Meiger’s estate?\nThat’s not the only headline, either. Strange sightings have been occuring throughout the city: ghostly figures, an ashen mist, and a hunched, cloaked figure whose identity is hotly debated by the community. The name on the tips of everybody’s tongues is Keziah Mason—the ghost who supposedly haunts the old Witch House in French Hill. You had always thought her to be a work of fiction; a tall tale meant to scare young children away from the condemned house. But with all of the disappearances and odd sightings occuring throughout town, you’re not so sure. Perhaps there is something to this old ghost story, after all."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_secret_name",
+        "city_of_sins",
+        "inexorable_fate",
+        "realm_of_death",
+        "witchcraft",
+        "rats"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Moldy Halls, Walter Gilman’s Room, and the three Decrepit Door locations into play. Each investigator begins play in the Moldy Halls. "
+    },
+    {
+      "id": "create_unknown_place_deck",
+      "text": "Set the seven “Unknown Places” locations aside as a separate “Unknown Places Deck.” To do this, perform the following:",
+      "bullets": [
+        {
+          "text": "Shuffle the Unknown Places with Witch House Ruins on its revealed side and three other random Unknown Places locations together to form the bottom four cards of the Unknown Places Deck, unrevealed side faceup."
+        },
+        {
+          "text": "Then, place the other three Unknown Places locations on top, in a random order. All seven cards of the Unknown Places deck should be showing only the unrevealed side, so the players do not know which of the Unknown Places is the Witch House Ruins."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Nahab, Site of the Sacrifice, Keziah’s Room, The Black Book, both copies of Strange Geometry, and both copies of Ghostly Presence."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_brown_jenkin_xp",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Was Brown Jenkin defeated at least once?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_nahab_xp",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Was Nahab defeated at least once?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_deck",
+      "type": "input",
+      "text": "What act was in play when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Act 1",
+            "steps": []
+          },
+          {
+            "text": "Act 2",
+            "steps": ["record_gilmans_journal", "choose_black_book"]
+          },
+          {
+            "text": "Act 3",
+            "steps": ["record_gilmans_journal", "record_keziahs_formulae", "choose_black_book"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_gilmans_journal",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "gilmans_journal",
+          "text": "Gilman's Journal"
+        }
+      ]
+    },
+    {
+      "id": "record_keziahs_formulae",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "keziahs_formulae",
+          "text": "Keziah's Formulae"
+        }
+      ]
+    },
+    {
+      "id": "record_worn_crucifix",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "worn_crucific",
+          "text": "Worn Crucifix"
+        }
+      ]
+    },
+    {
+      "id": "choose_black_book",
+      "text": "Additionally, any one investigator may choose to add The Black Book story asset to his or her deck. This card does not count toward that investigator’s deck size. If an investigator chooses to include The Black Book in his or her deck, add 1 [skull] token to the haos bag for the remainder of the campaign.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "text": "Keep the Black Book?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05150"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["skull"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_bonus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as they gain insight into Arkham’s mysterious past",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "If no resolution was reached (each investigator resigned or was defeated)",
+      "text": "Flashes of vision spark your memory as you are dragged along the dirty wooden floor. A foul ceremony—the house—Nahab—a rhythmic chant—the spiraling black vortex—a dark revelry—the Primal Chaos—a child’s cries—a writhing tunnel inside your chest.",
+      "resolution": "R1"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You awaken in the muddy lawn at the base of some crooked wooden steps, the front door of the Witch House looming above you. Every fiber of your being is filled with regret. You know you have failed to prevent something awful, though you are not sure exactly what. The evidence of your eyes and ears suggests what you saw inside the Witch House was not concurrent with here and now. Regardless, you’ve learned several things about Keziah Mason, the witch who once inhabited this old and forsaken house. With your spirit diminished and your body aching, this information will have to suffice. You dare not venture back into this infernal house",
+      "steps": ["earn_xp", "check_brown_jenkin_xp", "check_nahab_xp", "check_act_deck"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "When you come to, you are lying on the wooden floor of Walter Gilman’s room. The trappings of Keziah’s foul practices are nowhere to be found, nor is the fanged, bearded rat – Keziah’s “ familiar,” as you now understand. Just as you are about to rise to your feet, you spot something glinting in a corner of the room. Crawling underneath Gilman’s bed, you reach out and grab the trinket. It is a worn nickel crucifix, similar to the ones you saw in the loomfixer’s room. You shove it into your pocket before leaving the troubling room and its strange angles behind. You’ve learned as much as you care to uncover about Keziah Mason, the witch who once inhabited this old and forsaken house. As you step out into the chilly November air, you turn and take one last look at the decrepit Witch House. You fear that though you may never enter this place again, in your thoughts and your dreams, you will never truly leave it behind.",
+      "steps": ["earn_xp_bonus_2", "record_gilmans_journal", "record_keziahs_formulae", "record_worn_crucifix", "choose_black_book"]
+    }
+  ]
+},
+{
+  "id": "the_wages_of_sin",
+  "scenarioName": "The Wages of Sin",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_watcher",
+    "setup_locations",
+    "set_aside_spectral_web",
+    "shuffle_heretics",
+    "create_encounter_decks",
+    "spectral_encounter_deck"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Ever since your encounter with the ghost in the Witch House, you have been forced to reconsider everything you know about life and death. Keziah Mason died over two hundred years ago, but her spirit remains in the spectral mist—the same mist you encountered in Josef Meiger’s manor. One question lingers in your mind as you consider the events that have transpired: Does Keziah’s spirit linger because of the mist, or is the mist caused by her presence? Which is the disease, and which the symptom?\nThe more you delve into Arkham’s history of witchcraft and persecution, the more restless you become. Night after night, you are assaulted by terrible dreams—dreams of death and decay, of guilt and sin. There is an evil that dwells in this city, an evil that has long remained hidden in the darkness of Arkham’s past. What’s worse, your inquiry has reached an impasse. You believe that if you can find the coven of witches you saw in the woods that fateful night, you might be able to learn more about Keziah Mason or of this unspoken evil.\nAs you go through your morning routine, your eyes drift across one of the smaller headlines of today’s newspaper: “Ghost Sightings on Hangman’s Hill? Residents of Uptown claim to have seen human shapes in the thick fog emanating from Hangman’s Brook…” It couldn’t be a coincidence, could it?\nThen the realization dawns on you—if it is witches you seek, the only place you can be certain to find them is six feet underground, in the place where professed witches were executed all those years ago. Searching for specters in a graveyard may not be your safest bet, but you’re not sure one can stay safe in this city anymore."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_wages_of_sin",
+        "anettes_coven",
+        "city_of_sins",
+        "inexorable_fate",
+        "realm_of_death",
+        "trapped_spirits"
+      ]
+    },
+    {
+      "id": "set_aside_watcher",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "the_watcher"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Randomly choose one of the two The Gallows locations, one of the two Heretics’ Graves locations, one of the two Chapel Attic locations, and one of the two Chapel Crypt locations, and put them into play. Remove the other versions of The Gallows, Heretics’ Graves, Chapel Attic, and Chapel Crypt from the game. Then, put Haunted Fields, Abandoned Chapel, and Hangman’s Brook into play.",
+      "bullets": [
+        {
+          "text": "These locations have revealed versions on both sides. One side has the [[Spectral]] trait, and one side does not. When putting these locations into play, use the revealed sides without the [[Spectral]] trait."
+        },
+        {
+          "text": "Each investigator begins play in Hangman’s Brook."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_spectral_web",
+      "text": "Set the four Spectral Web assets aside, out of play"
+    },
+    {
+      "id": "shuffle_heretics",
+      "text": "Shuffle the six Heretic enemies and set aside four of them, at random. Remove the other two copies from the game. These cards are double-sided and have story cards on their reverse side. For the best experience, do not look at the story cards on their other side."
+    },
+    {
+      "id": "create_encounter_decks",
+      "text": "This scenario utilizes two separate encounter decks.",
+      "bullets": [
+        {
+          "text": "Separate each of the remaining cards with the [[Spectral]] trait and shuffle them together to build the spectral encounter deck <i>(see “The Spectral Encounter Deck,” below)</i>."
+        },
+        {
+          "text": "Shuffle each of the remaining non-Spectral cards together to build the standard encounter deck."
+        }
+      ]
+    },
+    {
+      "id": "spectral_encounter_deck",
+      "type": "rule_reminder",
+      "title": "The Spectral Encounter Deck",
+      "text": "During the setup of this scenario, two encounter decks are constructed: a “standard” encounter deck and a “spectral” encounter deck. Generally speaking, whenever an investigator would interact with the encounter deck, that investigator should use the standard encounter deck.\nHowever, at a certain point during this scenario, locations may flip over to their Spectral side. While an investigator is at a location with the Spectral trait, that investigator should use the spectral encounter deck instead of the standard encounter deck for all purposes, unless otherwise noted. This includes drawing cards from the encounter deck, as well as searching, looking at, revealing, or otherwise interacting with the encounter deck (or encounter discard pile) in any way. This also includes abilities that trigger when the encounter deck runs out of cards. If an effect specifically refers to the standard encounter deck or spectral encounter deck, it interacts with the specified deck regardless of the investigator’s location.\nEach of the two encounter decks have their own discard pile. Whenever a card with the Spectral trait would be discarded, it is placed in the discard pile for the spectral encounter deck. All other encounter cards are discarded to the discard pile for the standard scenario does not “reveal” the new location.</i>"
+    },
+    {
+      "id": "record_heretics_released",
+      "type": "input",
+      "text": "In your Campaign Log, record <i>X heretics were unleashed unto Arkham</i>. X is the number of Heretic enemies in play. (If it is act 1, instead record <i>4 heretics were unleashed unto Arkham</i>.)",
+      "input": {
+        "type": "counter",
+        "text": "How many Heretic enemies in play?",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "heretics_released",
+            "text": "#X# heretics were unleashed unto Arkham."
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_earned_wisp",
+      "text": "If 3 or fewer <i>heretics were unleashed unto Arkham</i>...",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "heretics_released",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["record_wisp_of_spectral_mist"]
+          },
+          {
+            "numCondition": 4,
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "survived_the_watchers_embrace",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "survived_the_watchers_embrace",
+          "text": "the investigators survived the watcher’s embrace."
+        }
+      ]
+    },
+    {
+      "id": "record_wisp_of_spectral_mist",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "wisp_of_spectral_mist",
+          "text": "Wisp of Spectral Mist"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory Display",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No Resolution (each investigator resigned)",
+      "resolution": "R1"
+    },
+    {
+      "id": "no_resolution_defeated",
+      "title": "No Resolution (each investigator defeated)",
+      "resolution": "R2"
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Rays of faded sunlight stream through the haze, and the unnatural mist finally recedes. As it does, Hangman’s Hill returns to its original state. No other spiteful ghosts emerge to haunt you, and the witches who summoned them have retreated into the shadows once more. You hope that you have done enough to prevent the rest of Arkham to succumbing to this horror.",
+      "steps": ["record_heretics_released", "check_earned_wisp", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Resigned to your fate, you fall to your knees. The mist parts. Time slows to a crawl as the watcher emerges. Its spectral form glides along the ground, approaching with the slow surety of a ticking clock. You close your eyes, unwilling to look upon your killer. Your fingers dig into your palm, and you brace yourself.\nThe moment passes.\nWhen you open your eyes again, the creature is gone, along with the spectral mist.\n…Have you been spared?",
+      "steps": ["survived_the_watchers_embrace", "record_heretics_released", "check_earned_wisp", "earn_xp"]
     }
   ]
 }
