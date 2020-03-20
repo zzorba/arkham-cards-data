@@ -298,7 +298,7 @@ export interface TraumaCondition {
 }
 export interface CheckSuppliesCondition {
   type: "check_supplies";
-  investigator: "choice";
+  investigator: "any" | "all" | "choice";
   id: string;
   options: BoolOption[];
 }
@@ -355,7 +355,7 @@ export interface InvestigatorChoiceInput {
 }
 export interface EffectsChoice {
   flavor?: string;
-  text?: string;
+  text: string;
   description?: string;
   effects: Effect[];
   steps?: null;
