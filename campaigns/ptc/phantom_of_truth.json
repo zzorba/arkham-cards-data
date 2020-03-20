@@ -51,7 +51,10 @@
     {
       "id": "dream_4",
       "type": "story",
-      "text": "Smoke and embers float upwards into the starless night sky. The screams of burning creatures fill you with a horrid sense of accomplishment. They almost sound human, you consider. But you know that isn’t true.",
+      "text": "Smoke and embers float upwards into the starless night sky. The screams of burning creatures fill you with a horrid sense of accomplishment. They almost sound human, you consider. But you know that isn’t true."
+    },
+    {
+      "id": "one_mental_trauma",
       "effects": [
         {
           "type": "trauma",
@@ -71,6 +74,7 @@
       "condition": {
         "type": "campaign_log_count",
         "section": "chasing_the_stranger",
+        "id": "$count",
         "options": [
           {
             "numCondition": 0,
@@ -87,12 +91,12 @@
           {
             "numCondition": 3,
             "steps": ["dream_9"]
-          },
-          {
-            "default": true,
-            "steps": ["dream_10", "dream_10_choice"]
           }
-        ]
+        ],
+        "defaultOption": {
+          "default": true,
+          "steps": ["dream_10", "dream_10_choice"]
+        }
       }
     },
     {
@@ -114,7 +118,11 @@
     {
       "id": "dream_12",
       "type": "story",
-      "text": "You peer up at the stained glass, curious. What is the shape of the shadow along the window? What is the meaning behind this strange design?",
+      "text": "You peer up at the stained glass, curious. What is the shape of the shadow along the window? What is the meaning behind this strange design?"
+    },
+    {
+      "id": "mark_one_doubt",
+      "text": "Mark one <b>Doubt</b> in your Campaign Log.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -176,7 +184,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["dream_4", "dream_6", "dream_6_test"]
+            "steps": ["dream_4", "one_mental_trauma", "dream_6", "dream_6_test"]
           },
           {
             "boolCondition": false,
@@ -220,11 +228,11 @@
         "choices": [
           {
             "flavor": "“How could any of this be beautiful to you?”",
-            "steps": ["dream_11"]
+            "steps": ["dream_11", "mark_one_conviction"]
           },
           {
             "flavor": "“What exactly am I looking at?”",
-            "steps": ["dream_12"]
+            "steps": ["dream_12", "mark_one_doubt"]
           }
         ]
       }
@@ -232,7 +240,11 @@
     {
       "id": "dream_11",
       "type": "story",
-      "text": "You avoid looking at the stained glass. If this vile man considers it to be beautiful, it is probably some trap meant to ensnare your mind. You clench your fist until your knuckles are white and step forward to confront the Stranger.",
+      "text": "You avoid looking at the stained glass. If this vile man considers it to be beautiful, it is probably some trap meant to ensnare your mind. You clench your fist until your knuckles are white and step forward to confront the Stranger."
+    },
+    {
+      "id": "mark_one_conviction",
+      "text": "Mark one <b>Conviction</b> in your Campaign Log.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -333,18 +345,22 @@
         "operation": "compare",
         "options": [
           {
-            "condition": "-1",
+            "numCondition": -1,
             "steps": ["gather_doubt", "act_1_v1"]
           },
           {
-            "condition": "0",
+            "numCondition": 0,
             "steps": ["gather_doubt", "act_1_v1"]
           },
           {
-            "condition": "1",
+            "numCondition": 1,
             "steps": ["gather_conviction", "act_1_v2"]
           }
-        ]
+        ],
+        "defaultOption": {
+          "default": true,
+          "steps": []
+        }
       }
     },
     {
@@ -433,7 +449,7 @@
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Victory Display",
+        "text": "Victory display:",
         "effects": [
           {
             "type": "earn_xp",
@@ -449,7 +465,7 @@
         "type": "choose_one",
         "choices": [
           {
-            "text": "Is Jordan Perry Dumaine <i>(An Imposing Presence)</i> in the Victory Display?",
+            "text": "Is Jordan Perry Dumaine <i>(An Imposing Presence)</i> in the victory display?",
             "effects": [
               {
                 "type": "campaign_log",

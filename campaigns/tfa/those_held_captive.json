@@ -71,7 +71,7 @@
               {
                 "type": "add_card",
                 "card": "04264",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               }
             ]
           },
@@ -82,12 +82,12 @@
               {
                 "type": "add_card",
                 "card": "04264",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               },
               {
                 "type": "add_card",
                 "card": "04244",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               }
             ]
           }
@@ -115,7 +115,7 @@
               {
                 "type": "add_card",
                 "card": "04264",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               }
             ]
           },
@@ -126,12 +126,12 @@
               {
                 "type": "add_card",
                 "card": "04264",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               },
               {
                 "type": "add_card",
                 "card": "04244",
-                "investigator": "input_value"
+                "investigator": "$input_value"
               }
             ]
           }
@@ -214,7 +214,7 @@
     },
     {
       "id": "alejandro_remembers_everything",
-      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "text": "In your Campaign Log, record that <i>Alejandro remembers everything</i>. Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "campaign_log",
@@ -372,7 +372,14 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["poison_spreads", "physical_trauma"]
+            "steps": ["poison_spreads", "one_physical_trauma"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": 1
+              }
+            ]
           }
         ]
       }
@@ -384,25 +391,8 @@
       "text": "The poison has spread to nearly every part of your body. Your skin pales, and you are covered in cold feverish sweat. Simply rising to your feet requires a tremendous effort, and you get no rest at night despite your exhaustion. It won’t be long now before the poison claims your life."
     },
     {
-      "id": "physical_trauma",
-      "text": "You suffer 1 physical trauma",
-      "type": "branch",
-      "condition": {
-        "type": "has_card",
-        "investigator": "any",
-        "card": "04102",
-        "options": [
-          {
-            "boolCondition": true,
-            "effects": [
-              {
-                "type": "trauma",
-                "physical": 1
-              }
-            ]
-          }
-        ]
-      }
+      "id": "one_physical_trauma",
+      "text": "You suffer 1 physical trauma"
     },
     {
       "id": "stop_and_rest",
@@ -420,7 +410,14 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["tossing_and_turning"]
+            "steps": ["tossing_and_turning"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental_or_physical": 1
+              }
+            ]
           },
           {
             "boolCondition": true,
@@ -433,13 +430,7 @@
       "id": "tossing_and_turning",
       "type": "story",
       "title": "Tossing and Turning",
-      "text": "Sleep does not come easily for you. Barely any layers protect you from the bitter cold of the underground cavern, and you lie shivering for hours before exhaustion finally claims you. You awaken every hour or so as the shifting of your body almost causes you to tumble off your stone perch. When “morning” comes, you are even more weary than you were the previous night.",
-      "effects": [
-        {
-          "type": "trauma",
-          "mental_or_physical": 1
-        }
-      ]
+      "text": "Sleep does not come easily for you. Barely any layers protect you from the bitter cold of the underground cavern, and you lie shivering for hours before exhaustion finally claims you. You awaken every hour or so as the shifting of your body almost causes you to tumble off your stone perch. When “morning” comes, you are even more weary than you were the previous night."
     },
     {
       "id": "restless_sleep",

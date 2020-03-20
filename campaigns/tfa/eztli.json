@@ -89,41 +89,76 @@
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
-
     {
       "id": "check_yigs_fury",
       "type": "branch",
       "condition": {
         "type": "campaign_log_count",
         "section": "yigs_fury",
+        "id": "$count",
         "options": [
           {
             "numCondition": 0,
-            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+            "steps": ["yigs_fury_okay", "mark_3_yigs_fury"]
           },
           {
             "numCondition": 1,
-            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+            "steps": ["yigs_fury_okay", "mark_3_yigs_fury"]
           },
           {
             "numCondition": 2,
-            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+            "steps": ["yigs_fury_okay", "mark_3_yigs_fury"]
           },
           {
             "numCondition": 3,
-            "steps": ["yigs_fury_okay", "check_no_resolution_fury_okay"]
+            "steps": ["yigs_fury_okay", "mark_3_yigs_fury"]
+          }
+        ],
+        "defaultOption": {
+          "default": true,
+          "steps": ["yigs_fury_bad", "defeated_investigators_killed"]
+        }
+      }
+    },
+    {
+      "id": "check_yigs_fury_no_resolution",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "yigs_fury",
+        "id": "$count",
+        "options": [
+          {
+            "numCondition": 0,
+            "resolution": "R3"
           },
           {
-            "default": true,
-            "steps": ["yigs_fury_bad", "check_no_resolution_fury_bad"]
+            "numCondition": 1,
+            "resolution": "R3"
+          },
+          {
+            "numCondition": 2,
+            "resolution": "R3"
+           },
+          {
+            "numCondition": 3,
+            "resolution": "R3"
           }
-        ]
+        ],
+        "defaultOption": {
+          "default": true,
+          "resolution": "R2"
+        }
       }
     },
     {
       "id": "yigs_fury_bad",
       "type": "story",
-      "text": "The creatures are upon you before you have time to react. You scream in agony as you are skewered by razor-sharp spears.",
+      "text": "The creatures are upon you before you have time to react. You scream in agony as you are skewered by razor-sharp spears."
+    },
+    {
+      "id": "defeated_investigators_killed",
+      "text": "Each investigator who was defeated is <b>killed</b>. (If there are not enough investigators to continue the campaign, the campaign is over and the players lose.)",
       "effects": [
         {
           "type": "trauma",
@@ -133,23 +168,13 @@
       ]
     },
     {
-      "id": "check_no_resolution_fury_bad",
-      "type": "branch",
-      "condition": {
-        "type": "scenario_data",
-        "scenario_data": "resolution",
-        "options": [
-          {
-            "condition": "no_resolution",
-            "resolution": "R2"
-          }
-        ]
-      }
-    },
-    {
       "id": "yigs_fury_okay",
       "type": "story",
-      "text": "Suddenly, a distant voice hisses to the others, and the serpents tentatively retreat into the darkness. You run for your life, not taking any chances.",
+      "text": "Suddenly, a distant voice hisses to the others, and the serpents tentatively retreat into the darkness. You run for your life, not taking any chances."
+    },
+    {
+      "id": "mark_3_yigs_fury",
+      "text": "Record three tally marks under “Yig’s Fury.”",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -157,20 +182,6 @@
           "add_count": 3
         }
       ]
-    },
-    {
-      "id": "check_no_resolution_fury_okay",
-      "type": "branch",
-      "condition": {
-        "type": "scenario_data",
-        "scenario_data": "resolution",
-        "options": [
-          {
-            "condition": "no_resolution",
-            "resolution": "R3"
-          }
-        ]
-      }
     },
     {
       "id": "choose_to_continue",
@@ -226,7 +237,7 @@
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Damage on Harbinger of Valusia",
+        "text": "Damage on Harbinger of Valusia:",
         "effects": [
           {
             "type": "campaign_log",
@@ -243,7 +254,7 @@
       "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log.",
       "input": {
         "type": "counter",
-        "text": "Vengeance points in the victory display",
+        "text": "Vengeance points in the victory display:",
         "effects": [
           {
             "type": "campaign_log_count",
@@ -258,7 +269,7 @@
       "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log. Record an additional ten tally marks, as you have angered Yig with your foolish actions.",
       "input": {
         "type": "counter",
-        "text": "Vengeance points in the victory display",
+        "text": "Vengeance points in the victory display:",
         "effects": [
           {
             "type": "campaign_log_count",
@@ -285,7 +296,7 @@
       "effects": [
         {
           "type": "campaign_data",
-          "setting": "next_scenario",
+          "setting": "replay_scenario",
           "scenario": "eztli"
         }
       ]
@@ -308,7 +319,7 @@
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Victory Display",
+        "text": "Victory display:",
         "effects": [
           {
             "type": "earn_xp",
@@ -326,7 +337,12 @@
       "steps": ["check_yigs_fury"]
     },
     {
-      "id": "no_resolution",
+      "id": "no_resolution_defeated",
+      "title": "If no resolution was reached because each investigator was defeated",
+      "steps": ["check_yigs_fury_no_resolution"]
+    },
+    {
+      "id": "no_resolution_resigned",
       "title": "If no resolution was reached because each investigator resigned before act 3",
       "resolution": "R3"
     },

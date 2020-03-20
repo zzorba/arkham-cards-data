@@ -51,9 +51,7 @@
           "type": "string",
           "enum": [
             "player_count",
-            "investigator",
-            "any_resigned",
-            "resolution"
+            "investigator"
           ]
         },
         "options": {
@@ -86,9 +84,6 @@
           "enum": [
             "difficulty"
           ]
-        },
-        "scenario": {
-          "type": "string"
         },
         "options": {
           "type": "array",
@@ -225,8 +220,11 @@
           ]
         },
         "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
-
+          "type": "string",
+          "enum": [
+            "defeated",
+            "any"
+          ]
         },
         "card": {
           "type": "string"
@@ -241,6 +239,68 @@
       "required": [
         "type",
         "card",
+        "investigator",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogSectionExistsCondition": {
+      "$id": "#campaignLogSectionExistsCondition",
+      "title": "CampaignLogSectionExistsCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_section_exists"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "checkSuppliesCondition": {
+      "$id": "#checkSuppliesCondition",
+      "title": "CheckSuppliesCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_supplies"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": ["choice"]
+        },
+        "id": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "id",
         "options"
       ],
       "additionalProperties": false
@@ -262,19 +322,17 @@
         "id": {
           "type": "string"
         },
-        "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
-        },
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
       "required": [
         "type",
         "section",
+        "id",
         "options"
       ],
       "additionalProperties": false
@@ -296,20 +354,22 @@
         "id": {
           "type": "string"
         },
-        "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
-        },
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/numOption"
           }
+        },
+        "defaultOption": {
+          "$ref": "option.schema.json#/definitions/defaultOption"
         }
       },
       "required": [
         "type",
         "section",
-        "options"
+        "id",
+        "options",
+        "defaultOption"
       ],
       "additionalProperties": false
     },
@@ -394,8 +454,11 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/numOption"
           }
+        },
+        "defaultOption": {
+          "$ref": "option.schema.json#/definitions/defaultOption"
         }
       },
       "required": [
@@ -403,7 +466,8 @@
         "opA",
         "opB",
         "operation",
-        "options"
+        "options",
+        "defaultOption"
       ],
       "additionalProperties": false
     },
@@ -430,6 +494,9 @@
           "$ref": "#/definitions/campaignDataScenarioCondition"
         },
         {
+          "$ref": "#/definitions/campaignLogSectionExistsCondition"
+        },
+        {
           "$ref": "#/definitions/campaignDataChaosBagCondition"
         },
         {
@@ -440,6 +507,9 @@
         },
         {
           "$ref": "#/definitions/traumaCondition"
+        },
+        {
+          "$ref": "#/definitions/checkSuppliesCondition"
         }
       ]
     }

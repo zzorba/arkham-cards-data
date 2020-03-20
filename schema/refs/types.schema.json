@@ -13,7 +13,7 @@
         "choice",
         "defeated",
         "not_resigned",
-        "input_value"
+        "$input_value"
       ]
     },
     "chaosToken": {
@@ -122,6 +122,43 @@
       "required": ["effects"],
       "additionalProperties": false
     },
+    "simpleEffectsChoice": {
+      "$id": "#simpleEffectsChoice",
+      "title": "SimpleEffectsChoice",
+      "type": "object",
+      "properties": {
+        "flavor": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "effect.schema.json#/definitions/campaignLogEffect"
+              },
+              {
+                "$ref": "effect.schema.json#/definitions/removeCardEffect"
+              }
+            ]
+          }
+        },
+        "steps": {
+          "type": "null"
+        },
+        "resolution": {
+          "type": "null"
+        }
+      },
+      "required": ["effects"],
+      "additionalProperties": false
+    },
     "resolutionChoice": {
       "$id": "#resolutionChoice",
       "title": "ResolutionChoice",
@@ -187,6 +224,16 @@
       },
       "required": ["id", "name", "description", "cost"],
       "additionalProperties": false
+    },
+    "bulletType": {
+      "$id": "#bulletType",
+      "title": "BulletType",
+      "type": "string",
+      "enum": [
+        "none",
+        "small"
+      ]
     }
+
   }
 }

@@ -3,7 +3,7 @@
   "scenarioName": "Restless Nights",
   "interlude": true,
   "setup": [
-    "prologue",
+    "prompt",
     "check_blanket",
     "eat_provisions",
     "choose_lookout",
@@ -12,9 +12,8 @@
   ],
   "steps": [
     {
-      "id": "prologue",
-      "type": "story",
-      "text": "Inside the chamber that contained the terrible beast, you find the missing townsfolk and the others from Arkham; they are bound and shackled. You also find several documents that suggest the creature you found isn’t the only one of its kind in Dunwich. You free the creature’s victims from their bonds, and they offer you their thanks. You begin to plan your next move."
+      "id": "prompt",
+      "text": "In order, read each of the following sections:"
     },
     {
       "id": "check_blanket",
@@ -27,7 +26,14 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["tossing_and_turning"]
+            "steps": ["tossing_and_turning", "choice_of_trauma"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental_or_physical": 1
+              }
+            ]
           },
           {
             "boolCondition": true,
@@ -40,13 +46,11 @@
       "id": "tossing_and_turning",
       "type": "story",
       "title": "Tossing and Turning",
-      "text": "Those nights in the jungle, I barely slept. A strange fog rolled through the camp each night, plunging the area in an intense and peculiar cold. My bedroll offered some protection against the elements, but we hadn’t been prepared for this unnatural weather. Flies and mosquitoes buzzed in my ears every time I began to drift off. Even when I finally slept, I would soon be startled awake by the crawling of an insect or lizard across my face. I wager I’ll get very little sleep on this journey...",
-      "effects": [
-        {
-          "type": "trauma",
-          "mental_or_physical": 1
-        }
-      ]
+      "text": "Those nights in the jungle, I barely slept. A strange fog rolled through the camp each night, plunging the area in an intense and peculiar cold. My bedroll offered some protection against the elements, but we hadn’t been prepared for this unnatural weather. Flies and mosquitoes buzzed in my ears every time I began to drift off. Even when I finally slept, I would soon be startled awake by the crawling of an insect or lizard across my face. I wager I’ll get very little sleep on this journey..."
+    },
+    {
+      "id": "choice_of_trauma",
+      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>."
     },
     {
       "id": "restless_sleep",
@@ -88,18 +92,31 @@
       "text": "The lead investigator must choose one investigator to be the group’s lookout. Then, that investigator checks their supplies. If he or she has binoculars, he or she reads <b>Shapes in the Trees</b>. Otherwise, he or she reads <b>Eyes in the Dark</b>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "supplies",
+        "type": "check_supplies",
         "id": "binoculars",
         "investigator": "choice",
         "options": [
           {
             "boolCondition": false,
-            "steps": ["eyes_in_the_dark"]
+            "steps": ["eyes_in_the_dark", "one_mental_trauma"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1
+              }
+            ]
           },
           {
             "boolCondition": true,
-            "steps": ["shapes_in_the_tress", "bonus_xp"]
+            "steps": ["shapes_in_the_tress", "bonus_xp"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 2
+              }
+            ]
           }
         ]
       }
@@ -108,14 +125,11 @@
       "id": "eyes_in_the_dark",
       "type": "story",
       "title": "Eyes in the Dark",
-      "text": "Each night, I was watched. I didn’t just feel watched: I saw the eyes peering out from the inky darkness that surrounded our camp. They knew we were there. The yellow eyes watched me, alert, my weapons drawn, ready to defend the camp if the need arose. Our eyes met, and a darkness seized my heart.",
-      "effects": [
-        {
-          "type": "trauma",
-          "investigator": "input_value",
-          "mental": 1
-        }
-      ]
+      "text": "Each night, I was watched. I didn’t just feel watched: I saw the eyes peering out from the inky darkness that surrounded our camp. They knew we were there. The yellow eyes watched me, alert, my weapons drawn, ready to defend the camp if the need arose. Our eyes met, and a darkness seized my heart."
+    },
+    {
+      "id": "one_mental_trauma",
+      "text": "You suffer 1 mental trauma"
     },
     {
       "id": "shapes_in_the_tress",
@@ -125,14 +139,7 @@
     },
     {
       "id": "bonus_xp",
-      "text": "You earn 2 additional experience as you gain further insight into the motivations of the Eztli.",
-      "effects": [
-        {
-          "type": "earn_xp",
-          "investigator": "input_value",
-          "bonus": 2
-        }
-      ]
+      "text": "You earn 2 additional experience as you gain further insight into the motivations of the Eztli."
     },
     {
       "id": "use_medicine",
@@ -189,6 +196,7 @@
             "effects": [
               {
                 "type": "trauma",
+                "investigator": "$input_value",
                 "physical": 1
               }
             ]

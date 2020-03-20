@@ -61,7 +61,10 @@
           }
         },
         "effects": {
-          "type": "null"
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         },
         "resolution": {
           "type": "null"
@@ -117,6 +120,57 @@
         {
           "$ref": "#/definitions/resolutionOption"
         }
+      ]
+    },
+    "boolOption": {
+      "$id": "#boolOption",
+      "title": "BoolOption",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/effectOption"
+        },
+        {
+          "$ref": "#/definitions/stepsOption"
+        },
+        {
+          "$ref": "#/definitions/resolutionOption"
+        }
+      ],
+      "required": [
+        "boolCondition"
+      ]
+    },
+    "numOption": {
+      "$id": "#numOption",
+      "title": "NumOption",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/effectOption"
+        },
+        {
+          "$ref": "#/definitions/stepsOption"
+        },
+        {
+          "$ref": "#/definitions/resolutionOption"
+        }
+      ],
+      "required": [
+        "numCondition"
+      ]
+    },
+    "defaultOption": {
+      "$id": "#defaultOption",
+      "title": "DefaultOption",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/stepsOption"
+        },
+        {
+          "$ref": "#/definitions/resolutionOption"
+        }
+      ],
+      "required": [
+        "default"
       ]
     }
   }
