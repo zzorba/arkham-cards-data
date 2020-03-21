@@ -39,11 +39,33 @@
         "auto_fail"
       ]
     },
-    "cardQuery": {
-      "$id": "#cardQuery",
-      "title": "CardQuery",
+    "cardCodeList": {
+      "$id": "#cardCodeList",
+      "title": "CardCodeList",
       "type": "object",
       "properties": {
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    },
+    "cardSearchQuery": {
+      "$id": "#cardSearchQuery",
+      "title": "CardSearchQuery",
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "scenario",
+            "deck"
+          ]
+        },
         "trait": {
           "type": "string"
         },
@@ -54,13 +76,23 @@
           "type": "boolean"
         },
         "code": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "type": "null"
         }
       },
+      "required": ["source"],
       "additionalProperties": false
+    },
+    "cardQuery": {
+      "$id": "#cardQuery",
+      "title": "CardQuery",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/cardSearchQuery"
+        },
+        {
+          "$ref": "#/definitions/cardCodeList"
+        }
+      ]
     },
     "stepsChoice": {
       "$id": "#stepsChoice",
@@ -156,7 +188,7 @@
           "type": "null"
         }
       },
-      "required": ["effects"],
+      "required": ["text", "effects"],
       "additionalProperties": false
     },
     "resolutionChoice": {
