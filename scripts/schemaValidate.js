@@ -171,12 +171,3 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
   }
 });
 
-const schema = fs.readFileSync('./schema/schema.json').toString();
-$RefParser.dereference(jsonlint.parse(schema), (err, schema) => {
-  if (err) {
-    console.log(err);
-  } else {
-   fs.writeFile('./build/compiledSchema.json', JSON.stringify(schema));
-  }
-});
-
