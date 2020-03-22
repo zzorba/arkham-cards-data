@@ -278,6 +278,7 @@
     },
     {
       "id": "check_chalk",
+      "text": "Check your supplies to see if any investigator has chalk.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -400,6 +401,7 @@
     },
     {
       "id": "check_blanket",
+      "text": "Check your supplies. Each investigator with a blanket reads <b>Restful Sleep</b>. The rest read <b>Tossing and Turning</b>.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -407,19 +409,14 @@
         "id": "blanket",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["tossing_and_turning"],
-            "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental_or_physical": 1
-              }
-            ]
+            "boolCondition": true,
+            "condition": "Restful Sleep",
+            "steps": ["restful_sleep", "no_ill_effects"]
           },
           {
-            "boolCondition": true,
-            "steps": ["restless_sleep", "no_ill_effects"]
+            "boolCondition": false,
+            "condition": "Tossing and Turning",
+            "steps": ["tossing_and_turning", "choice_of_trauma"]
           }
         ]
       }
@@ -431,9 +428,21 @@
       "text": "Sleep does not come easily for you. Barely any layers protect you from the bitter cold of the underground cavern, and you lie shivering for hours before exhaustion finally claims you. You awaken every hour or so as the shifting of your body almost causes you to tumble off your stone perch. When “morning” comes, you are even more weary than you were the previous night."
     },
     {
-      "id": "restless_sleep",
+      "id": "restful_sleep",
+      "title": "Restful Sleep",
       "type": "story",
       "text": "Though you long for a proper bed, at least your blanket protects you from the frigid chill that permeates the cavern. When “morning” arrives, your body longs for more sleep, but you know you must press onward and reach the Nexus as fast as you can..."
+    },
+    {
+      "id": "choice_of_trauma",
+      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "$input_value",
+          "mental_or_physical": 1
+        }
+      ]
     }
   ]
 }

@@ -13802,7 +13802,7 @@
     },
     {
       "id": "check_map",
-      "text": "Check your supplies. If any investigator has a map, he or she reads <b>A Path Discovered</b>.",
+      "text": "Check your supplies to see if any investigator has a map.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -13919,7 +13919,7 @@
     {
       "id": "check_canteen",
       "type": "branch",
-      "text": "Check your supplies. If any investigator has a canteen, he or she reads <b>Patterns in the Stone</b>. Otherwise, read <b>Secrets in the Stone</b>.",
+      "text": "Check your supplies to see if any investigator has a canteen.",
       "condition": {
         "type": "check_supplies",
         "investigator": "any",
@@ -14169,19 +14169,14 @@
         "id": "blanket",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["tossing_and_turning", "choice_of_trauma"],
-            "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental_or_physical": 1
-              }
-            ]
+            "boolCondition": true,
+            "condition": "Restful Sleep",
+            "steps": ["restful_sleep", "no_ill_effects"]
           },
           {
-            "boolCondition": true,
-            "steps": ["restless_sleep", "no_ill_effects"]
+            "boolCondition": false,
+            "condition": "Tossing and Turning",
+            "steps": ["tossing_and_turning", "choice_of_trauma"]
           }
         ]
       }
@@ -14194,10 +14189,18 @@
     },
     {
       "id": "choice_of_trauma",
-      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>."
+      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "$input_value",
+          "mental_or_physical": 1
+        }
+      ]
     },
     {
-      "id": "restless_sleep",
+      "id": "restful_sleep",
+      "title": "Restful Sleep",
       "type": "story",
       "text": "Mercifully, I was able to sleep through each night. However, while my body rested, my mind was plagued by nightmares. A cavern like a gaping maw, bathed in dim red light...the walls slithering with the glimmering scales of a hundred vipers...it might have been better had I not slept at all."
     },
@@ -15834,7 +15837,7 @@
     {
       "id": "check_torches",
       "type": "branch",
-      "text": "Check your supplies. If any investigator has torches, he or she reads <b>Torchlight</b>. Otherwise, read <b>The Abyss</b>.",
+      "text": "Check your supplies to see if any investigator has torches.",
       "condition": {
         "type": "check_supplies",
         "investigator": "any",
@@ -15889,7 +15892,7 @@
     {
       "id": "check_map",
       "type": "branch",
-      "text": "Check your supplies. If any investigator has a map, he or she reads <b>Reading Signs</b>.",
+      "text": "Check your supplies to see if any investigator has a map.",
       "condition": {
         "type": "check_supplies",
         "investigator": "any",
@@ -16117,6 +16120,7 @@
     },
     {
       "id": "check_pocketknife",
+      "text": "Check your supplies to see if any investigator has a pocketknife.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -16932,6 +16936,7 @@
     },
     {
       "id": "check_chalk",
+      "text": "Check your supplies to see if any investigator has chalk.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -17054,6 +17059,7 @@
     },
     {
       "id": "check_blanket",
+      "text": "Check your supplies. Each investigator with a blanket reads <b>Restful Sleep</b>. The rest read <b>Tossing and Turning</b>.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -17061,19 +17067,14 @@
         "id": "blanket",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["tossing_and_turning"],
-            "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental_or_physical": 1
-              }
-            ]
+            "boolCondition": true,
+            "condition": "Restful Sleep",
+            "steps": ["restful_sleep", "no_ill_effects"]
           },
           {
-            "boolCondition": true,
-            "steps": ["restless_sleep", "no_ill_effects"]
+            "boolCondition": false,
+            "condition": "Tossing and Turning",
+            "steps": ["tossing_and_turning", "choice_of_trauma"]
           }
         ]
       }
@@ -17085,9 +17086,21 @@
       "text": "Sleep does not come easily for you. Barely any layers protect you from the bitter cold of the underground cavern, and you lie shivering for hours before exhaustion finally claims you. You awaken every hour or so as the shifting of your body almost causes you to tumble off your stone perch. When “morning” comes, you are even more weary than you were the previous night."
     },
     {
-      "id": "restless_sleep",
+      "id": "restful_sleep",
+      "title": "Restful Sleep",
       "type": "story",
       "text": "Though you long for a proper bed, at least your blanket protects you from the frigid chill that permeates the cavern. When “morning” arrives, your body longs for more sleep, but you know you must press onward and reach the Nexus as fast as you can..."
+    },
+    {
+      "id": "choice_of_trauma",
+      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "$input_value",
+          "mental_or_physical": 1
+        }
+      ]
     }
   ]
 }

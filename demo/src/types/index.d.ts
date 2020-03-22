@@ -18,7 +18,7 @@ export type Step =
 export type Condition =
   | CampaignLogCondition
   | CampaignLogCountCondition
-  | Math
+  | MathCondition
   | CardCondition
   | CampaignDataCondition
   | CampaignDataScenarioCondition
@@ -236,7 +236,7 @@ export interface CampaignLogCountCondition {
   max?: number;
   defaultOption: DefaultOption;
 }
-export interface Math {
+export interface MathCondition {
   type: "math";
   opA: Operand;
   opB: Operand;

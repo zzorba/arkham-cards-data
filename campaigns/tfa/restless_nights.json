@@ -25,19 +25,14 @@
         "id": "blanket",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["tossing_and_turning", "choice_of_trauma"],
-            "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental_or_physical": 1
-              }
-            ]
+            "boolCondition": true,
+            "condition": "Restful Sleep",
+            "steps": ["restful_sleep", "no_ill_effects"]
           },
           {
-            "boolCondition": true,
-            "steps": ["restless_sleep", "no_ill_effects"]
+            "boolCondition": false,
+            "condition": "Tossing and Turning",
+            "steps": ["tossing_and_turning", "choice_of_trauma"]
           }
         ]
       }
@@ -50,10 +45,18 @@
     },
     {
       "id": "choice_of_trauma",
-      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>."
+      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "$input_value",
+          "mental_or_physical": 1
+        }
+      ]
     },
     {
-      "id": "restless_sleep",
+      "id": "restful_sleep",
+      "title": "Restful Sleep",
       "type": "story",
       "text": "Mercifully, I was able to sleep through each night. However, while my body rested, my mind was plagued by nightmares. A cavern like a gaping maw, bathed in dim red light...the walls slithering with the glimmering scales of a hundred vipers...it might have been better had I not slept at all."
     },
