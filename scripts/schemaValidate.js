@@ -67,6 +67,20 @@ function validate(validator, file, json, schemaName) {
       }
       if (step.condition && step.condition.options) {
         step.condition.options.map(option => {
+          if (option.effects) {
+            option.effects.map(effect => {
+              if (effect.type === 'story_step') {
+                effect.steps.map(step => {
+                  if (!steps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
           if (option.steps) {
             option.steps.map(step => {
               if (!steps[step]) {

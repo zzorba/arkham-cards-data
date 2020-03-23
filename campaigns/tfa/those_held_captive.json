@@ -372,8 +372,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["poison_spreads", "one_physical_trauma"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["poison_spreads"]
+              },
               {
                 "type": "trauma",
                 "investigator": "$input_value",
@@ -389,10 +392,6 @@
       "type": "story",
       "title": "The Poison Spreads",
       "text": "The poison has spread to nearly every part of your body. Your skin pales, and you are covered in cold feverish sweat. Simply rising to your feet requires a tremendous effort, and you get no rest at night despite your exhaustion. It won’t be long now before the poison claims your life."
-    },
-    {
-      "id": "one_physical_trauma",
-      "text": "You suffer 1 physical trauma"
     },
     {
       "id": "stop_and_rest",
@@ -416,7 +415,17 @@
           {
             "boolCondition": false,
             "condition": "Tossing and Turning",
-            "steps": ["tossing_and_turning", "choice_of_trauma"]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["tossing_and_turning"]
+              },
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental_or_physical": 1
+              }
+            ]
           }
         ]
       }
@@ -432,17 +441,6 @@
       "title": "Restful Sleep",
       "type": "story",
       "text": "Though you long for a proper bed, at least your blanket protects you from the frigid chill that permeates the cavern. When “morning” arrives, your body longs for more sleep, but you know you must press onward and reach the Nexus as fast as you can..."
-    },
-    {
-      "id": "choice_of_trauma",
-      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
-      "effects": [
-        {
-          "type": "trauma",
-          "investigator": "$input_value",
-          "mental_or_physical": 1
-        }
-      ]
     }
   ]
 }

@@ -13889,8 +13889,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["poison_spreads", "one_physical_trauma"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["poison_spreads"]
+              },
               {
                 "type": "trauma",
                 "investigator": "$input_value",
@@ -13906,10 +13909,6 @@
       "type": "story",
       "title": "The Poison Spreads",
       "text": "The poison continues to work its way through your body, wreacking havoc on your internal organs. A terrible fever burns through you, growing stronger with each passing day. You can hardly keep down your food. Your body feels as though it has been drained of all of its strength."
-    },
-    {
-      "id": "one_physical_trauma",
-      "text": "You suffer 1 physical trauma"
     },
     {
       "id": "find_stone_carvings",
@@ -14245,8 +14244,11 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["eyes_in_the_dark", "one_mental_trauma"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["eyes_in_the_dark"]
+              },
               {
                 "type": "trauma",
                 "investigator": "$input_value",
@@ -14256,8 +14258,11 @@
           },
           {
             "boolCondition": true,
-            "steps": ["shapes_in_the_tress", "bonus_xp"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["shapes_in_the_tress", "bonus_binoculars_xp"]
+              },
               {
                 "type": "earn_xp",
                 "investigator": "$input_value",
@@ -14275,17 +14280,13 @@
       "text": "Each night, I was watched. I didn’t just feel watched: I saw the eyes peering out from the inky darkness that surrounded our camp. They knew we were there. The yellow eyes watched me, alert, my weapons drawn, ready to defend the camp if the need arose. Our eyes met, and a darkness seized my heart."
     },
     {
-      "id": "one_mental_trauma",
-      "text": "You suffer 1 mental trauma"
-    },
-    {
       "id": "shapes_in_the_tress",
       "type": "story",
       "title": "Shapes in the Trees",
       "text": "Most of the nights passed without incident, but on this night, I was startled by the rustling of tree branches along the southern border of our camp’s clearing. Despite the darkness, I was able to use my binoculars to see shapes moving in the trees. The shapes appeared human, but...why? Why do they only watch us from afar? What is their purpose?"
     },
     {
-      "id": "bonus_xp",
+      "id": "bonus_binoculars_xp",
       "text": "You earn 2 additional experience as you gain further insight into the motivations of the Eztli."
     },
     {
@@ -15900,8 +15901,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["reading_signs"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["reading_signs"]
+              },
               {
                 "type": "earn_xp",
                 "investigator": "$input_value"
@@ -17030,8 +17034,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["poison_spreads", "one_physical_trauma"],
             "effects": [
+              {
+                "type": "story_step",
+                "steps": ["poison_spreads"]
+              },
               {
                 "type": "trauma",
                 "investigator": "$input_value",
@@ -17047,10 +17054,6 @@
       "type": "story",
       "title": "The Poison Spreads",
       "text": "The poison has spread to nearly every part of your body. Your skin pales, and you are covered in cold feverish sweat. Simply rising to your feet requires a tremendous effort, and you get no rest at night despite your exhaustion. It won’t be long now before the poison claims your life."
-    },
-    {
-      "id": "one_physical_trauma",
-      "text": "You suffer 1 physical trauma"
     },
     {
       "id": "stop_and_rest",
@@ -17074,7 +17077,17 @@
           {
             "boolCondition": false,
             "condition": "Tossing and Turning",
-            "steps": ["tossing_and_turning", "choice_of_trauma"]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["tossing_and_turning"]
+              },
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental_or_physical": 1
+              }
+            ]
           }
         ]
       }
@@ -17090,17 +17103,6 @@
       "title": "Restful Sleep",
       "type": "story",
       "text": "Though you long for a proper bed, at least your blanket protects you from the frigid chill that permeates the cavern. When “morning” arrives, your body longs for more sleep, but you know you must press onward and reach the Nexus as fast as you can..."
-    },
-    {
-      "id": "choice_of_trauma",
-      "text": "You suffer 1 physical or mental trauma <i>(your choice)</i>.",
-      "effects": [
-        {
-          "type": "trauma",
-          "investigator": "$input_value",
-          "mental_or_physical": 1
-        }
-      ]
     }
   ]
 }

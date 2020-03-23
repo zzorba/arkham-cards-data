@@ -2,6 +2,30 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/effect.schema.json",
   "definitions": {
+    "storyStepEffect": {
+      "$id": "#storyStepEffect",
+      "title": "StoryStepEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "story_step"
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
     "earnXpEffect": {
       "$id": "#earnXpEffect",
       "title": "EarnXpEffect",
@@ -415,6 +439,7 @@
       "$id": "#effect",
       "title": "Effect",
       "oneOf": [
+        { "$ref": "#/definitions/storyStepEffect" },
         { "$ref": "#/definitions/earnXpEffect" },
         { "$ref": "#/definitions/addCardEffect" },
         { "$ref": "#/definitions/removeCardEffect" },

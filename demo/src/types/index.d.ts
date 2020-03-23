@@ -30,6 +30,7 @@ export type Condition =
   | CheckSuppliesCondition;
 export type BoolOption = EffectOption | StepsOption | ResolutionOption;
 export type Effect =
+  | StoryStepEffect
   | EarnXpEffect
   | AddCardEffect
   | RemoveCardEffect
@@ -131,6 +132,10 @@ export interface EffectOption {
   steps?: null;
   resolution?: null;
 }
+export interface StoryStepEffect {
+  type: "story_step";
+  steps: string[];
+}
 export interface EarnXpEffect {
   type: "earn_xp";
   investigator: InvestigatorSelector;
@@ -216,7 +221,7 @@ export interface StepsOption {
   condition?: string;
   default?: boolean;
   steps: string[];
-  effects?: Effect[];
+  effects?: null;
   resolution?: null;
 }
 export interface ResolutionOption {
