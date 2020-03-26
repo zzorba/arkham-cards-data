@@ -314,25 +314,26 @@
         "id": {
           "type": "string"
         },
-        "set_count": {
-          "type": "number"
+        "operation": {
+          "type": "string",
+          "enum": [
+            "set_input",
+            "set",
+            "add_input",
+            "add"
+          ]
         },
-        "setInput": {
-          "type": "boolean"
-        },
-        "add_count": {
+        "value": {
           "type": "number"
         },
         "text": {
           "type": "string"
-        },
-        "cross_out": {
-          "type": "boolean"
         }
       },
       "required": [
         "type",
-        "section"
+        "section",
+        "operation"
       ],
       "additionalProperties": false
     },
@@ -353,11 +354,47 @@
         "id": {
           "type": "string"
         },
-        "card": {
+        "text": {
+          "type": "string"
+        },
+        "cross_out": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+
+    "campaignLogCardsEffect": {
+      "$id": "#campaignLogCardsEffect",
+      "title": "CampaignLogCardsEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_cards"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
           "type": "string"
         },
         "text": {
           "type": "string"
+        },
+        "cards": {
+          "type": "string",
+          "enum": [
+            "$lead_investigator",
+            "$input_value"
+          ]
         },
         "cross_out": {
           "type": "boolean"
@@ -381,14 +418,19 @@
           ]
         },
         "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
+          "type": "string",
+          "enum": [
+            "choice",
+            "$input_value"
+          ]
         },
         "card": {
           "type": "string"
         }
       },
       "required": [
-        "type"
+        "type",
+        "card"
       ],
       "additionalProperties": false
     },
@@ -446,6 +488,7 @@
         { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
+        { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },
         { "$ref": "#/definitions/campaignDataResultEffect" },
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
