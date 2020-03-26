@@ -112,6 +112,16 @@
       ],
       "additionalProperties": false
     },
+    "campaignDataEffect": {
+      "$id": "#campaignDataEffect",
+      "title": "CampaignDataEffect",
+      "oneOf": [
+        { "$ref": "#/definitions/campaignDataResultEffect" },
+        { "$ref": "#/definitions/campaignDataDifficultyEffect" },
+        { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
+        { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" }
+      ]
+    },
     "campaignDataResultEffect": {
       "$id": "#campaignDataResultEffect",
       "title": "CampaignDataResultEffect",
@@ -162,13 +172,7 @@
           ]
         },
         "value": {
-          "type": "string",
-          "enum": [
-            "easy",
-            "standard",
-            "hard",
-            "expert"
-          ]
+          "$ref": "types.schema.json#/definitions/difficulty"
         }
       },
       "required": [
@@ -178,46 +182,6 @@
       ],
       "additionalProperties": false
     },
-    "scenarioDataEffect": {
-      "$id": "#scenarioDataEffect",
-      "title": "ScenarioDataEffect",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "scenario_data"
-          ]
-        },
-        "setting": {
-          "type": "string",
-          "enum": [
-            "investigator_status",
-            "lead_investigator"
-          ]
-        },
-        "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
-        },
-        "investigator_status": {
-          "type": "string",
-          "enum": [
-            "alive",
-            "resigned",
-            "physical",
-            "mental",
-            "eliminated"
-          ]
-        }
-      },
-      "required": [
-        "type",
-        "setting",
-        "investigator"
-      ],
-      "additionalProperties": false
-    },
-
     "campaignDataNextScenarioEffect": {
       "$id": "#campaignDataNextScenarioEffect",
       "title": "CampaignDataNextScenarioEffect",
@@ -269,6 +233,110 @@
       "required": [
         "type",
         "setting"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataEffect": {
+      "$id": "#scenarioDataEffect",
+      "title": "ScenarioDataEffect",
+      "oneOf": [
+        { "$ref": "#/definitions/scenarioDataLeadInvestigatorEffect" },
+        { "$ref": "#/definitions/scenarioDataInvestigatorStatusEffect" },
+        { "$ref": "#/definitions/scenarioDataStatusEffect" }
+      ]
+    },
+    "scenarioDataInvestigatorStatusEffect": {
+      "$id": "#scenarioDataInvestigatorStatusEffect",
+      "title": "ScenarioDataInvestigatorStatusEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "investigator_status"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "$input_value"
+          ]
+        },
+        "investigator_status": {
+          "$ref": "types.schema.json#/definitions/investigatorStatus"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator",
+        "investigator_status"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataStatusEffect": {
+      "$id": "#scenarioDataStatusEffect",
+      "title": "scenarioDataStatusEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "scenario_status"
+          ]
+        },
+        "status": {
+          "$ref": "types.schema.json#/definitions/scenarioStatus"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator",
+        "investigator_status"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataLeadInvestigatorEffect": {
+      "$id": "#scenarioDataLeadInvestigatorEffect",
+      "title": "ScenarioDataLeadInvestigatorEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "lead_investigator"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "$input_value"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator"
       ],
       "additionalProperties": false
     },
@@ -490,10 +558,7 @@
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },
-        { "$ref": "#/definitions/campaignDataResultEffect" },
-        { "$ref": "#/definitions/campaignDataDifficultyEffect" },
-        { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
-        { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" },
+        { "$ref": "#/definitions/campaignDataEffect" },
         { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" }
       ]
