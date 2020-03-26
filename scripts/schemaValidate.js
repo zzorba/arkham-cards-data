@@ -20,6 +20,9 @@ function validate(validator, file, json, schemaName) {
     process.exit();
   }
   const steps = {};
+  if (!json.interlude && json.scenarioName) {
+    steps['$choose_resolution'] = true;
+  }
   let error = false;
   json.steps.map(step => {
     if (steps[step.id]) {

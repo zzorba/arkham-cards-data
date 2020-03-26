@@ -16,6 +16,9 @@
             "input"
           ]
         },
+        "title": {
+          "type": "string"
+        },
         "text": {
           "type": "string"
         },
@@ -233,6 +236,37 @@
       ],
       "additionalProperties": false
     },
+    "resolutionStep": {
+      "$id": "#resolutionStep",
+      "title": "ResolutionStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "resolution"
+          ]
+        },
+        "resolution": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/scenarioDataStatusEffect"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "resolution"
+      ],
+      "additionalProperties": false
+    },
     "locationSetupStep": {
       "$id": "#locationSetupStep",
       "title": "LocationSetupStep",
@@ -283,6 +317,9 @@
         },
         {
           "$ref": "#/definitions/genericStep"
+        },
+        {
+          "$ref": "#/definitions/resolutionStep"
         },
         {
           "$ref": "#/definitions/ruleReminderStep"

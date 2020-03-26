@@ -4,15 +4,7 @@
   "setup": [
     "intro_1",
     "choose_who_to_consult",
-    "check_paths_known",
-    "gather_encounter_sets",
-    "setup_locations",
-    "setup_paths",
-    "check_replay",
-    "create_exploration_deck",
-    "check_mapped_way_forward",
-    "set_aside_poisoned",
-    "encounter_deck"
+    "check_paths_known"
   ],
   "steps": [
     {
@@ -87,14 +79,37 @@
         "options": [
           {
             "numCondition": 6,
-            "resolution": "R1"
+            "steps": ["resolution_1"]
           }
         ],
         "defaultOption": {
           "default": true,
-          "steps": []
+          "steps": [
+            "gather_encounter_sets",
+            "setup_locations",
+            "setup_paths",
+            "check_replay",
+            "create_exploration_deck",
+            "check_mapped_way_forward",
+            "set_aside_poisoned",
+            "encounter_deck",
+            "$choose_resolution"
+          ]
         }
       }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "resolution",
+          "resolution": "resolution_1"
+        }
+      ]
     },
     {
       "id": "gather_encounter_sets",
