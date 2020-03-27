@@ -302,12 +302,47 @@
       ],
       "additionalProperties": false
     },
+    "effectsStep": {
+      "$id": "#effectsStep",
+      "title": "EffectsStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "effects"
+          ]
+        },
+        "effectsWithInput": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effectsWithInput"
+          }
+        },
+        "stepText": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "effectsWithInput",
+        "stepText"
+      ],
+      "additionalProperties": false
+    },
     "step": {
       "$id": "#step",
       "title": "Step",
       "oneOf": [
         {
           "$ref": "#/definitions/branchStep"
+        },
+        {
+          "$ref": "#/definitions/effectsStep"
         },
         {
           "$ref": "#/definitions/inputStep"
