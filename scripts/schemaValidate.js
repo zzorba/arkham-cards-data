@@ -34,7 +34,7 @@ function validate(validator, file, json, schemaName) {
   const unusedSteps = { ...steps };
   if (json.setup) {
     json.setup.map(step => {
-      if (!steps[step]) {
+      if (!steps[step] && step !== '$proceed') {
         console.log(`MISSING_STEP (${file}) - ${step}`);
         error = true;
       } else {
@@ -48,7 +48,7 @@ function validate(validator, file, json, schemaName) {
         step.input.choices.map(choice => {
           if (choice.steps) {
             choice.steps.map(step => {
-              if (!steps[step]) {
+              if (!steps[step] && step !== '$proceed') {
                 console.log(`MISSING_STEP (${file}) - ${step}`);
                 error = true;
               } else {
@@ -60,7 +60,7 @@ function validate(validator, file, json, schemaName) {
       }
       if (step.steps) {
         step.steps.map(step => {
-          if (!steps[step]) {
+          if (!steps[step] && step !== '$proceed') {
             console.log(`MISSING_STEP (${file}) - ${step}`);
             error = true;
           } else {
@@ -74,7 +74,7 @@ function validate(validator, file, json, schemaName) {
             option.effects.map(effect => {
               if (effect.type === 'story_step') {
                 effect.steps.map(step => {
-                  if (!steps[step]) {
+                  if (!steps[step] && step !== '$proceed') {
                     console.log(`MISSING_STEP (${file}) - ${step}`);
                     error = true;
                   } else {
@@ -86,7 +86,7 @@ function validate(validator, file, json, schemaName) {
           }
           if (option.steps) {
             option.steps.map(step => {
-              if (!steps[step]) {
+              if (!steps[step] && step !== '$proceed') {
                 console.log(`MISSING_STEP (${file}) - ${step}`);
                 error = true;
               } else {
@@ -100,7 +100,7 @@ function validate(validator, file, json, schemaName) {
         const option = step.condition.defaultOption;
         if (option.steps) {
           option.steps.map(step => {
-            if (!steps[step]) {
+            if (!steps[step] && step !== '$proceed') {
               console.log(`MISSING_STEP (${file}) - ${step}`);
               error = true;
             } else {
@@ -116,7 +116,7 @@ function validate(validator, file, json, schemaName) {
     json.resolutions.map(resolution => {
       if (resolution.steps) {
         resolution.steps.map(step => {
-          if (!steps[step]) {
+          if (!steps[step] && step !== '$proceed') {
             console.log(`MISSING_STEP (${file}) - ${step}`);
             error = true;
           } else {
