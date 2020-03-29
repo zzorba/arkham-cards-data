@@ -11,6 +11,7 @@
     "setup_locations",
     "add_chaos_token",
     "select_act_2",
+    "select_act_2_onyx_clasp",
     "encounter_deck",
     "$choose_resolution"
   ],
@@ -132,8 +133,12 @@
     },
     {
       "id": "select_act_2",
-      "text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game.",
+      "text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game."
+    },
+    {
+      "id": "select_act_2_onyx_clasp",
       "type": "branch",
+      "bullet_type": "small",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -151,10 +156,12 @@
     },
     {
       "id": "act_2_v1",
+      "bullet_type": "small",
       "text": "Use Act 2—”The Really Bad Ones” (v. I)."
     },
     {
       "id": "act_2_v2",
+      "bullet_type": "small",
       "text": "Use Act 2—”The Really Bad Ones” (v. II)."
     },
     {
@@ -238,13 +245,21 @@
         "type": "choose_one",
         "choices": [{
           "text": "Is Constance Dumaine <i>(A Little Too Sociable)</i> in the victory display?",
-          "effects": [{
-            "type": "campaign_log",
-            "section": "vips_slain",
-            "id": "03065b"
-          }]
+          "steps": ["kill_constance"]
         }]
       }
+    },
+    {
+      "id": "kill_constance",
+      "bullet_type": "small",
+      "text": "In your Campaign Log, under \"VIPS Slain\", record <i>Constance Dumaine</i>",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03065b"
+        }
+      ]
     },
     {
       "id": "add_tablets",

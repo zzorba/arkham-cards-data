@@ -3,32 +3,23 @@
   "scenarioName": "Epilogue",
   "interlude": true,
   "setup": [
-    "possessed_warning",
     "check_epilogue"
   ],
   "steps": [
     {
-      "id": "possessed_warning",
-      "text": "Check Campaign Log. If at least one investigator was possessed, <b>only those investigators</b> read this epilogue. Do not read it out loud unless all investigators were possessed."
-    },
-    {
       "id": "check_epilogue",
+      "text": "Check Campaign Log. If at least one investigator was possessed, <b>only those investigators</b> read this epilogue. Do not read it out loud unless all investigators were possessed.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log_count",
-        "section": "campaign_notes",
+        "type": "campaign_log",
+        "section": "hidden",
         "id": "possessed",
-        "max": 4,
         "options": [
           {
-            "numCondition": 0,
-            "steps": []
+            "boolCondition": true,
+            "steps": ["possessed"]
           }
-        ],
-        "defaultOption": {
-          "default": true,
-          "steps": ["possessed"]
-        }
+        ]
       }
     },
     {

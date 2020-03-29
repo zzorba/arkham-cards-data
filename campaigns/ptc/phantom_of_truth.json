@@ -322,7 +322,7 @@
       "id": "gather_encounter_sets",
       "type": "encounter_sets",
       "encounter_sets": [
-        "phantom_of_truth",
+        "a_phantom_of_truth",
         "evil_portents",
         "byakhee",
         "stranger",
@@ -348,15 +348,15 @@
         "options": [
           {
             "numCondition": -1,
-            "steps": ["gather_doubt", "act_1_v1"]
+            "steps": ["more_or_equal_doubt", "gather_doubt", "act_1_v1"]
           },
           {
             "numCondition": 0,
-            "steps": ["gather_doubt", "act_1_v1"]
+            "steps": ["more_or_equal_doubt", "gather_doubt", "act_1_v1"]
           },
           {
             "numCondition": 1,
-            "steps": ["gather_conviction", "act_1_v2"]
+            "steps": ["more_conviction", "gather_conviction", "act_1_v2"]
           }
         ],
         "defaultOption": {
@@ -366,19 +366,31 @@
       }
     },
     {
+      "id": "more_or_equal_doubt",
+      "text": "Because you have more (or equal) <b>Doubt</b> than <b>Conviction</b>:"
+    },
+    {
+      "id": "more_conviction",
+      "text": "Because you have more <b>Conviction</b> than <b>Doubt</b>:"
+    },
+    {
       "id": "gather_doubt",
+      "bullet_type": "small",
       "text": "Search the gathered encounter sets for both copies of Twin Suns and all 3 copies of Hunting Shadow, and remove them from the game."
     },
     {
       "id": "gather_conviction",
+      "bullet_type": "small",
       "text": "Search the gathered encounter sets for both copies of Black Stars Rise and both copies of False Lead, and remove them from the game."
     },
     {
       "id": "act_1_v1",
+      "bullet_type": "small",
       "text": "During this scenario, use Act 1—The Parisian Conspiracy (v. I). The other version of Act 1 is removed from the game."
     },
     {
       "id": "act_1_v2",
+      "bullet_type": "small",
       "text": "During this scenario, use Act 1—The Parisian Conspiracy (v. II). The other version of Act 1 is removed from the game."
     },
     {
@@ -467,17 +479,23 @@
         "type": "choose_one",
         "choices": [
           {
-            "text": "Is Jordan Perry Dumaine <i>(An Imposing Presence)</i> in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "vips_slain",
-                "id": "03066b"
-              }
-            ]
+            "text": "Is Jordan Perry <i>(An Imposing Presence)</i> in the victory display?",
+            "steps": ["kill_jordan"]
           }
         ]
       }
+    },
+    {
+      "id": "kill_jordan",
+      "bullet_type": "small",
+      "text": "In your Campaign Log, under \"VIPS Slain\", record <i>Jordan Perry</i>",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03066b"
+        }
+      ]
     },
     {
       "id": "add_tablets",
@@ -562,7 +580,7 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "You can only assume this house belongs to Nigel Engram, the director of The King in Yellow. At last, you have finally found your quarry...and yet, it is little relief to your straining sanity. You feel like a dog being led by a leash, your fate decided by a cruel master who has long kept you in the dark. You push these gloomy thoughts to the back of your mind and knock on Mr. Engram’s door. There is no response but a flock of magpies that scatter from the rooftop at the sudden noise. You try the doorknob, hoping you won’t have to resort to more forceful measures. To your surprise, you find the door unlocked.\nInside, Nigel’s home is a mess of notes, old books, and strange diagrams. Covering the coffee table in his living room is an old, faded map, bearing many fold creases and tattered edges. It looks to be an incomplete map of the catacombs beneath Paris, or at least a section of it. The food in his pantry is old and rotten. There is no sign of anyone having lived here for years, and yet the ink upon the living room walls is wet and fresh. Over and over, across nearly every inch of the wallpaper, it reads:\n<fancy>He is already here.</fancy>\n",
+      "text": "You can only assume this house belongs to Nigel Engram, the director of The King in Yellow. At last, you have finally found your quarry...and yet, it is little relief to your straining sanity. You feel like a dog being led by a leash, your fate decided by a cruel master who has long kept you in the dark. You push these gloomy thoughts to the back of your mind and knock on Mr. Engram’s door. There is no response but a flock of magpies that scatter from the rooftop at the sudden noise. You try the doorknob, hoping you won’t have to resort to more forceful measures. To your surprise, you find the door unlocked.\nInside, Nigel’s home is a mess of notes, old books, and strange diagrams. Covering the coffee table in his living room is an old, faded map, bearing many fold creases and tattered edges. It looks to be an incomplete map of the catacombs beneath Paris, or at least a section of it. The food in his pantry is old and rotten. There is no sign of anyone having lived here for years, and yet the ink upon the living room walls is wet and fresh. Over and over, across nearly every inch of the wallpaper, it reads:\n<center><fancy>He is already here.</fancy></center>\n",
       "steps": ["found_nigels_home", "add_cultists", "ask_jordan_perry", "earn_xp"]
     },
     {

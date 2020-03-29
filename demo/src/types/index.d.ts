@@ -119,7 +119,7 @@ export interface Campaign {
   campaign_log: {
     id: string;
     title: string;
-    type?: "count" | "supplies";
+    type?: "count" | "supplies" | "hidden";
   }[];
   scenarios: string[];
   setup: string[];
@@ -130,7 +130,7 @@ export interface BranchStep {
   type: "branch";
   text?: string;
   condition: Condition;
-  bullet_type?: null;
+  bullet_type?: BulletType;
 }
 export interface CampaignLogCondition {
   type: "campaign_log";
@@ -252,6 +252,7 @@ export interface StepsOption {
   condition?: string;
   default?: boolean;
   steps: string[];
+  reason?: string;
   effects?: null;
 }
 export interface CampaignLogCountCondition {
@@ -327,6 +328,7 @@ export interface TraumaCondition {
 export interface CheckSuppliesCondition {
   type: "check_supplies";
   investigator: "any" | "all" | "choice";
+  section: string;
   id: string;
   options: BoolOption[];
 }
@@ -388,7 +390,8 @@ export interface Supply {
 }
 export interface UseSuppliesInput {
   type: "use_supplies";
-  supply: string;
+  section: string;
+  id: string;
   investigator: "all" | "any" | "choice";
   choices: Option[];
 }
