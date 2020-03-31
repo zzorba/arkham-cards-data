@@ -198,7 +198,7 @@
         "nightgaunts",
         "pentagram"
       ],
-      "text": "When gathering <i>The Midnight Masks</i> encounter set, only gather the 5 treachery cards (2x False Lead and 3x Hunting Shadow) and the following locations: Northside, Downtown (First Bank of Arkham), Easttown, Miskatonic University, and Rivertown. Do not gather the rest of the locations or the act, agenda, and scenario reference cards from that set."
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the 5 treachery cards (2x False Lead and 3x Hunting Shadow) and the following locations: Northside, Downtown (First Bank of Arkham), Easttown, Miskatonic University, and Rivertown. Do not gather the rest of the locations or the act, agenda, and scenario reference cards from that set."
     },
     {
       "id": "set_aside_alejandro_and_relic",
@@ -240,10 +240,12 @@
     },
     {
       "id": "act_ab_harlan_in_trouble",
-      "text": "Because <i>the investigators gave custody of the relic to Harlan Earnstone</i>, remove the following act cards from the “a/b” deck, instead: The Relic Is Missing!, both copies of At the Exhibit, and one of the two copies of Harlan’s Curse, at random."
+      "bullet_type": "small",
+      "text": "Because <i>the investigators gave custody of the relic to Harlan Earnstone</i>, remove the following act cards from the “a/b” deck: The Relic Is Missing!, both copies of At the Exhibit, and one of the two copies of Harlan’s Curse, at random."
     },
     {
       "id": "act_ab_relic_is_missing",
+      "bullet_type": "small",
       "text": "Because <i>Alejandro recovered the Relic of Ages</i> or <i>the investigators gave custody of the relic to Alejandro</i>, remove the following act cards from the “a/b” deck: Harlan Is in Danger!, both copies of Harlan’s Curse, and one of the two copies of At the Exhibit, at random."
     },
     {
@@ -255,16 +257,24 @@
         "choices": [
           {
             "text": "If you wish to go to the police to inform them about Alejandro’s disappearance",
-            "description": "Remove the following act cards from the “c/d” deck: Search for Alejandro, both copies of Friends in High Places, and one of the two copies of At the Station, at random.",
-            "effects": []
+            "steps": ["go_to_police"]
           },
           {
             "text": "If you wish to look for Alejandro on your own",
-            "description": "Remove the following act cards from the “c/d” deck, instead: Missing Persons, both copies of At the Station, and one of the two copies of Friends in High Places, at random.",
-            "effects": []
+            "steps": ["search_for_alejandro_alone"]
           }
         ]
       }
+    },
+    {
+      "id": "go_to_police",
+      "bullet_type": "small",
+      "text": "Remove the following act cards from the “c/d” deck: Search for Alejandro, both copies of Friends in High Places, and one of the two copies of At the Station, at random."
+    },
+    {
+      "id": "search_for_alejandro_alone",
+      "bullet_type": "small",
+      "text": "Remove the following act cards from the “c/d” deck: Missing Persons, both copies of At the Station, and one of the two copies of Friends in High Places, at random."
     },
     {
       "id": "setup_act_ef",
@@ -275,16 +285,24 @@
         "choices": [
           {
             "text": "If “you listened to Ichtaca’s tale”",
-            "description": "If you wish to go to the police to inform them about Alejandro’s disappearance, remove the following act cards from the “c/d” deck: Search for Alejandro, both copies of Friends in High Places, and one of the two copies of At the Station, at random.",
-            "effects": []
+            "steps": ["act_listened_to_ichtaca"]
           },
           {
             "text": "If “Ichtaca left without you”",
-            "description": "Remove the following act cards from the “e/f” deck, instead: The Guardian’s Inquiry, both copies of Strange Relics, and one of the two copies of The Cave of Darkness, at random.",
-            "effects": []
+            "steps": ["act_ichtaca_left_without_you"]
           }
         ]
       }
+    },
+    {
+      "id": "act_listened_to_ichtaca",
+      "bullet_type": "small",
+      "text": "Remove the following act cards from the “e/f ” deck: Trial of the Huntress, both copies of The Cave of Darkness, and one of the two copies of Strange Relics, at random."
+    },
+    {
+      "id": "act_ichtaca_left_without_you",
+      "bullet_type": "small",
+      "text": "Remove the following act cards from the “e/f” deck: The Guardian’s Inquiry, both copies of Strange Relics, and one of the two copies of The Cave of Darkness, at random."
     },
     {
       "id": "encounter_deck",
@@ -294,6 +312,7 @@
     {
       "id": "check_act_ab",
       "type": "input",
+      "text": "Which of the following is true?",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -310,7 +329,7 @@
     },
     {
       "id": "maybe_earn_relic_of_ages",
-      "text": "If the Relic of Ages is not already part of an investigator’s deck...",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -326,6 +345,7 @@
     },
     {
       "id": "earn_relic_of_ages",
+      "bullet_type": "small",
       "text": "Any one investigator must choose to include it in their deck. This card does not count toward that investigator’s deck size. For the remainder of the campaign, anytime the owner of the Relic of Ages leaves the campaign for any reason, choose another investigator and add it to that investigator’s deck.",
       "effects": [
         {
@@ -338,9 +358,10 @@
     {
       "id": "maybe_remove_relic_of_ages",
       "type": "branch",
+      "bullet_type": "small",
       "condition": {
         "type": "has_card",
-        "investigator": "defeated",
+        "investigator": "any",
         "card": "04061",
         "options": [
           {
@@ -352,6 +373,7 @@
     },
     {
       "id": "remove_relic_of_ages",
+      "bullet_type": "small",
       "text": "Remove The Relic of Ages from that investigator’s deck for the remainder of the campaign.",
       "effects": [
         {
@@ -363,6 +385,7 @@
     {
       "id": "maybe_earn_alejandro",
       "type": "branch",
+      "bullet_type": "small",
       "condition": {
         "type": "has_card",
         "investigator": "any",
@@ -378,6 +401,7 @@
     {
       "id": "check_forging_own_path_earn_alejandro",
       "type": "branch",
+      "bullet_type": "small",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -396,6 +420,7 @@
     },
     {
       "id": "earn_alejandro",
+      "bullet_type": "small",
       "text": "Any one investigator may choose to include him in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
@@ -407,6 +432,7 @@
     },
     {
       "id": "earn_alejandro_xp",
+      "bullet_type": "small",
       "text": "Because you are <i>forging your own path</i>, instead of earning Alejandro Vela you earn 2 bonus XP.",
       "effects": [
         {
@@ -418,10 +444,11 @@
     },
     {
       "id": "maybe_remove_alejandro",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "investigator": "defeated",
+        "investigator": "any",
         "card": "04051",
         "options": [
           {
@@ -433,6 +460,7 @@
     },
     {
       "id": "remove_alejandro",
+      "bullet_type": "small",
       "text": "Remove Alejandro Vela from the investigator’s deck for the remainder of the campaign.",
       "effects": [
         {
@@ -443,6 +471,7 @@
     },
     {
       "id": "check_act_cd",
+      "text": "Which of the following is true?",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -460,6 +489,7 @@
     },
     {
       "id": "check_act_ef",
+      "text": "Which of the following is true?",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -478,6 +508,7 @@
     {
       "id": "maybe_earn_ichtaca",
       "type": "branch",
+      "bullet_type": "small",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -496,6 +527,7 @@
     },
     {
       "id": "earn_ichtaca",
+      "bullet_type": "small",
       "text": "Any one investigator may choose to include Ichtaca <i>(The Forgotten Guardian)</i> in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
@@ -507,6 +539,7 @@
     },
     {
       "id": "earn_ichtaca_xp",
+      "bullet_type": "small",
       "text": "Because you are <i>forging your own path</i>, instead of earning Ichtaca <i>(The Forgotten Guardian)</i> you earn 2 bonus XP.",
       "effects": [
         {
@@ -549,6 +582,7 @@
       "input": {
         "type": "counter",
         "text": "Completed act 1 Cards:",
+        "max": 3,
         "effects": [
           {
             "type": "earn_xp",
@@ -559,6 +593,7 @@
     },
     {
       "id": "found_missing_relic",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -570,6 +605,7 @@
     },
     {
       "id": "relic_is_missing",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -581,6 +617,7 @@
     },
     {
       "id": "rescued_alejandro",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -592,6 +629,7 @@
     },
     {
       "id": "alejandro_is_missing",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -603,6 +641,7 @@
     },
     {
       "id": "forged_bond_with_ichtaca",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -614,6 +653,7 @@
     },
     {
       "id": "ichtaca_in_the_dark",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -639,7 +679,8 @@
       "type": "input",
       "input": {
         "type": "investigator_choice",
-        "investigator": "choice",
+        "investigator": "all",
+        "source": "scenario",
         "choices": [
           {
             "text": "Remove Poison Weakness",
@@ -666,7 +707,8 @@
       "type": "input",
       "input": {
         "type": "investigator_choice",
-        "investigator": "choice",
+        "investigator": "all",
+        "source": "scenario",
         "choices": [
           {
             "text": "Remove Physical Trauma",

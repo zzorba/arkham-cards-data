@@ -118,8 +118,7 @@
       "oneOf": [
         { "$ref": "#/definitions/campaignDataResultEffect" },
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
-        { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
-        { "$ref": "#/definitions/campaignDataChooseInvestigatorsEffect" }
+        { "$ref": "#/definitions/campaignDataNextScenarioEffect" }
       ]
     },
     "campaignDataResultEffect": {
@@ -212,35 +211,11 @@
       ],
       "additionalProperties": false
     },
-    "campaignDataChooseInvestigatorsEffect": {
-      "$id": "#campaignDataChooseInvestigatorsEffect",
-      "title": "CampaignDataChooseInvestigatorsEffect",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "campaign_data"
-          ]
-        },
-        "setting": {
-          "type": "string",
-          "enum": [
-            "choose_investigators"
-          ]
-        }
-      },
-      "required": [
-        "type",
-        "setting"
-      ],
-      "additionalProperties": false
-    },
     "scenarioDataEffect": {
       "$id": "#scenarioDataEffect",
       "title": "ScenarioDataEffect",
       "oneOf": [
-        { "$ref": "#/definitions/scenarioDataLeadInvestigatorEffect" },
+        { "$ref": "#/definitions/scenarioDataInvestigatorEffect" },
         { "$ref": "#/definitions/scenarioDataInvestigatorStatusEffect" },
         { "$ref": "#/definitions/scenarioDataStatusEffect" }
       ]
@@ -311,9 +286,9 @@
       ],
       "additionalProperties": false
     },
-    "scenarioDataLeadInvestigatorEffect": {
-      "$id": "#scenarioDataLeadInvestigatorEffect",
-      "title": "ScenarioDataLeadInvestigatorEffect",
+    "scenarioDataInvestigatorEffect": {
+      "$id": "#scenarioDataInvestigatorEffect",
+      "title": "ScenarioDataInvestigatorEffect",
       "type": "object",
       "properties": {
         "type": {
@@ -325,7 +300,8 @@
         "setting": {
           "type": "string",
           "enum": [
-            "lead_investigator"
+            "lead_investigator",
+            "playing_scenario"
           ]
         },
         "investigator": {
@@ -585,8 +561,11 @@
             "type": "string"
           }
         },
-        "counterInput": {
-          "type": "integer"
+        "numberInput": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
         }
       },
       "required": [

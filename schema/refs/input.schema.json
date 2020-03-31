@@ -2,6 +2,21 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/input.schema.json",
   "definitions": {
+    "scenarioInvestigatorsInput": {
+      "$id": "#scenarioInvestigatorsInput",
+      "title": "ScenarioInvestigatorsInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_investigators"
+          ]
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
     "investigatorChoiceInput": {
       "$id": "#investigatorChoiceInput",
       "title": "InvestigatorChoiceInput",
@@ -12,6 +27,19 @@
           "enum": [
             "investigator_choice"
           ]
+        },
+        "defaultChoice": {
+          "type": "number"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "campaign",
+            "scenario"
+          ]
+        },
+        "investigatorCondition": {
+          "$ref": "condition.schema.json#/definitions/cardCondition"
         },
         "investigator": {
           "type": "string",
@@ -31,7 +59,7 @@
           }
         }
       },
-      "required": ["type", "choices", "investigator"],
+      "required": ["type", "choices", "investigator", "source"],
       "additionalProperties": false
     },
     "suppliesInput": {
@@ -64,9 +92,9 @@
       "required": ["type", "points", "supplies", "section"],
       "additionalProperties": false
     },
-    "useSuppliesInput": {
-      "$id": "#useSuppliesInput",
-      "title": "UseSuppliesInput",
+    "useSuppliesAllInput": {
+      "$id": "#useSuppliesAllInput",
+      "title": "UseSuppliesAllInput",
       "type": "object",
       "properties": {
         "type": {
@@ -84,9 +112,7 @@
         "investigator": {
           "type": "string",
           "enum": [
-            "all",
-            "any",
-            "choice"
+            "all"
           ]
         },
         "choices": {
@@ -98,6 +124,65 @@
       },
       "required": ["type", "section", "id", "investigator", "choices"],
       "additionalProperties": false
+    },
+    "useSuppliesChoiceInput": {
+      "$id": "#useSuppliesChoiceInput",
+      "title": "UseSuppliesChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "use_supplies"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "choice"
+          ]
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/option"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id",
+        "investigator",
+        "choices",
+        "min",
+        "max"
+      ],
+      "additionalProperties": false
+    },
+    "useSuppliesInput": {
+      "$id": "#useSuppliesInput",
+      "title": "UseSuppliesInput",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/useSuppliesChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/useSuppliesAllInput"
+        }
+      ]
     },
     "cardChoiceInput": {
       "$id": "#cardChoiceInput",
@@ -218,6 +303,9 @@
         "text": {
           "type": "string"
         },
+        "max": {
+          "type": "number"
+        },
         "effects": {
           "type": "array",
           "items": {
@@ -256,6 +344,9 @@
         },
         {
           "$ref": "#/definitions/investigatorCounterInput"
+        },
+        {
+          "$ref": "#/definitions/scenarioInvestigatorsInput"
         }
       ]
     }

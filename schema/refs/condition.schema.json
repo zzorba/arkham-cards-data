@@ -51,6 +51,7 @@
           "type": "string",
           "enum": [
             "player_count",
+            "resolution",
             "investigator",
             "investigator_status"
           ]
@@ -237,7 +238,8 @@
           "type": "string",
           "enum": [
             "defeated",
-            "any"
+            "any",
+            "each"
           ]
         },
         "card": {
@@ -305,6 +307,9 @@
           "type": "string"
         },
         "id": {
+          "type": "string"
+        },
+        "prompt": {
           "type": "string"
         },
         "options": {
@@ -436,6 +441,27 @@
       ],
       "additionalProperties": false
     },
+    "constantOperand": {
+      "$id": "#constantOperand",
+      "title": "ConstantOperand",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "constant"
+          ]
+        },
+        "value": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
     "operand": {
       "$id": "#operand",
       "title": "Operand",
@@ -445,12 +471,15 @@
         },
         {
           "$ref": "#/definitions/chaosBagOperand"
+        },
+        {
+          "$ref": "#/definitions/constantOperand"
         }
       ]
     },
-    "mathCondition": {
-      "$id": "#mathCondition",
-      "title": "MathCondition",
+    "mathCompareCondition": {
+      "$id": "#mathCompareCondition",
+      "title": "MathCompareCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -467,7 +496,44 @@
         },
         "operation": {
           "type": "string",
-          "enum": ["compare", "sum"]
+          "enum": ["compare"]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/numOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "opA",
+        "opB",
+        "operation",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "mathSumCondition": {
+      "$id": "#mathSumCondition",
+      "title": "MathSumCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "math"
+          ]
+        },
+        "opA": {
+          "$ref": "#/definitions/operand"
+        },
+        "opB": {
+          "$ref": "#/definitions/operand"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["sum"]
         },
         "options": {
           "type": "array",
@@ -488,6 +554,18 @@
         "defaultOption"
       ],
       "additionalProperties": false
+    },
+    "mathCondition": {
+      "$id": "#mathCondition",
+      "title": "MathCondition",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/mathCompareCondition"
+        },
+        {
+          "$ref": "#/definitions/mathSumCondition"
+        }
+      ]
     },
     "condition": {
       "$id": "#condition",

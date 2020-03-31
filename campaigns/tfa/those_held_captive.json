@@ -57,6 +57,7 @@
       "input": {
         "type": "investigator_choice",
         "investigator": "all",
+        "source": "scenario",
         "detailed": true,
         "choices": [
           {
@@ -101,6 +102,7 @@
       "input": {
         "type": "investigator_choice",
         "investigator": "all",
+        "source": "scenario",
         "detailed": true,
         "choices": [
           {
@@ -287,10 +289,12 @@
         "options": [
           {
             "boolCondition": true,
+            "condition": "The Way is Open",
             "steps": ["the_way_is_open", "no_ill_effects"]
           },
           {
             "boolCondition": false,
+            "condition": "The Way is Shut",
             "steps": ["the_way_is_shut", "no_mulligan"]
           }
         ]
@@ -341,6 +345,7 @@
     },
     {
       "id": "fewer_resources",
+      "bullet_type": "right",
       "text": "You begin the next scenario with 3 fewer resources."
     },
     {
@@ -351,7 +356,9 @@
         "type": "use_supplies",
         "section": "supplies",
         "id": "medicine",
-        "investigator": "any",
+        "investigator": "choice",
+        "min": 0,
+        "max": 4,
         "choices": [
           {
             "boolCondition": true,
@@ -369,11 +376,12 @@
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "investigator": "any",
+        "investigator": "each",
         "card": "04102",
         "options": [
           {
             "boolCondition": true,
+            "condition": "The Poison Spreads",
             "effects": [
               {
                 "type": "story_step",
@@ -402,7 +410,7 @@
     },
     {
       "id": "check_blanket",
-      "text": "Check your supplies. Each investigator with a blanket reads <b>Restful Sleep</b>. The rest read <b>Tossing and Turning</b>.",
+      "text": "Check your supplies to see which investigators have a blanket.",
       "type": "branch",
       "condition": {
         "type": "check_supplies",
@@ -413,7 +421,12 @@
           {
             "boolCondition": true,
             "condition": "Restful Sleep",
-            "steps": ["restful_sleep", "no_ill_effects"]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["restful_sleep", "no_ill_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,

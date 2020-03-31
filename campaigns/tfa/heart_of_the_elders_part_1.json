@@ -249,6 +249,28 @@
     {
       "id": "proceed_scenario_2",
       "text": "Investigators may not spend experience or alter their decks in between Scenarios V-A and V-B. Proceed immediately to <b>Scenario V-B: Heart of the Elders, Part 2</b>."
+    },
+    {
+      "id": "check_investigators_poisoned",
+      "text": "Which investigators gained the Poisoned weakness during this scenario?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "text": "Poisoned",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -256,13 +278,13 @@
       "id": "no_resolution",
       "title": "No resolution was reached\n(each investigator resigned or was defeated)",
       "text": "The hazards of the jungle are too dangerous for you to continue exploring. If you remain any longer, these odd pillars will mark your grave. You decide to flee for now, returning to a familiar clearing several miles away where you can recuperate. You know that you must eventually return to the pillars and figure out the pattern that will open the way forward...but for now, at least you are safe.",
-      "steps": ["record_paths_known", "replay_scenario"]
+      "steps": ["record_paths_known", "check_investigators_poisoned", "replay_scenario"]
     },
     {
       "id": "R1",
       "title": "Resolution 1",
       "text": "Swallowing your fear, you enter the cavern...",
-      "steps": ["record_jungle_watches", "earn_xp", "proceed_scenario_2"]
+      "steps": ["record_jungle_watches", "earn_xp", "check_investigators_poisoned", "proceed_scenario_2"]
     }
   ]
 }
