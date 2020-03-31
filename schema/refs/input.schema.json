@@ -17,6 +17,84 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "investigatorChoiceWithSuppliesInput": {
+      "$id": "#investigatorChoiceWithSuppliesInput",
+      "title": "InvestigatorChoiceWithSuppliesInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice_supplies"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "choice"
+          ]
+        },
+        "positiveChoice": {
+          "$ref": "types.schema.json#/definitions/effectsChoice"
+        },
+        "negativeChoice": {
+          "$ref": "types.schema.json#/definitions/effectsChoice"
+        }
+
+      },
+      "required": [
+        "type",
+        "section",
+        "id",
+        "prompt",
+        "positiveChoice",
+        "negativeChoice"
+      ],
+      "additionalProperties": false
+    },
+    "conditionalEffectsChoice": {
+      "$id": "#conditionalEffectsChoice",
+      "title": "ConditionalEffectsChoice",
+      "type": "object",
+      "properties": {
+        "flavor": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/cardCondition"
+            }
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "null"
+        }
+      },
+      "required": ["effects", "text"],
+      "additionalProperties": false
+    },
     "investigatorChoiceInput": {
       "$id": "#investigatorChoiceInput",
       "title": "InvestigatorChoiceInput",
@@ -28,18 +106,12 @@
             "investigator_choice"
           ]
         },
-        "defaultChoice": {
-          "type": "number"
-        },
         "source": {
           "type": "string",
           "enum": [
             "campaign",
             "scenario"
           ]
-        },
-        "investigatorCondition": {
-          "$ref": "condition.schema.json#/definitions/cardCondition"
         },
         "investigator": {
           "type": "string",
@@ -55,7 +127,7 @@
         "choices": {
           "type": "array",
           "items": {
-            "$ref": "types.schema.json#/definitions/effectsChoice"
+            "$ref": "#/definitions/conditionalEffectsChoice"
           }
         }
       },
@@ -344,6 +416,9 @@
         },
         {
           "$ref": "#/definitions/investigatorCounterInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorChoiceWithSuppliesInput"
         },
         {
           "$ref": "#/definitions/scenarioInvestigatorsInput"

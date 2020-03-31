@@ -44,19 +44,35 @@ function validate(validator, file, json, schemaName) {
   }
   if (json.steps) {
     json.steps.map(step => {
-      if (step.input && step.input.choices) {
-        step.input.choices.map(choice => {
-          if (choice.steps) {
-            choice.steps.map(step => {
-              if (!steps[step] && step !== '$proceed') {
-                console.log(`MISSING_STEP (${file}) - ${step}`);
-                error = true;
-              } else {
-                delete unusedSteps[step];
-              }
-            });
-          }
-        });
+      if (step.input) {
+        if (step.input.choices) {
+          step.input.choices.map(choice => {
+            if (choice.steps) {
+              choice.steps.map(step => {
+                if (!steps[step] && step !== '$proceed') {
+                  console.log(`MISSING_STEP (${file}) - ${step}`);
+                  error = true;
+                } else {
+                  delete unusedSteps[step];
+                }
+              });
+            }
+          });
+        }
+        if (step.input.type === 'investigator_choice_supplies') {
+          [...step.input.positiveChoice.effects, ...step.input.negativeChoice.effects].map(effect => {
+            if (effect.type === 'story_step' && effect.steps.length) {
+              effect.steps.map(step => {
+                if (!steps[step] && step !== '$proceed') {
+                  console.log(`MISSING_STEP (${file}) - ${step}`);
+                  error = true;
+                } else {
+                  delete unusedSteps[step];
+                }
+              });
+            }
+          });
+        }
       }
       if (step.steps) {
         step.steps.map(step => {
