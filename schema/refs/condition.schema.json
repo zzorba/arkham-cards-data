@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/condition.schema.json",
   "definitions": {
-    "traumaCondition": {
-      "$id": "#traumaCondition",
-      "title": "TraumaCondition",
+    "killedTraumaCondition": {
+      "$id": "#killedTraumaCondition",
+      "title": "KilledTraumaCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -19,7 +19,9 @@
         },
         "trauma": {
           "type": "string",
-          "enum": ["killed"]
+          "enum": [
+            "killed"
+          ]
         },
         "options": {
           "type": "array",
@@ -35,6 +37,53 @@
         "options"
       ],
       "additionalProperties": false
+    },
+    "basicTraumaCondition": {
+      "$id": "#basicTraumaCondition",
+      "title": "BasicTraumaCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "trauma"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "each"
+          ]
+        },
+        "trauma": {
+          "type": "string",
+          "enum": [
+            "physical",
+            "mental"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stepsOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "trauma",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "traumaCondition": {
+      "$id": "#traumaCondition",
+      "title": "TraumaCondition",
+      "oneOf": [
+        { "$ref": "#/definitions/killedTraumaCondition" },
+        { "$ref": "#/definitions/basicTraumaCondition" }
+      ]
     },
     "scenarioDataCondition": {
       "$id": "#scenarioDataCondition",
@@ -223,9 +272,9 @@
       ],
       "additionalProperties": false
     },
-    "cardCondition": {
-      "$id": "#cardCondition",
-      "title": "CardCondition",
+    "investigatorCardCondition": {
+      "$id": "#investigatorCardCondition",
+      "title": "InvestigatorCardCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -237,8 +286,6 @@
         "investigator": {
           "type": "string",
           "enum": [
-            "defeated",
-            "any",
             "each"
           ]
         },
@@ -259,6 +306,50 @@
         "options"
       ],
       "additionalProperties": false
+    },
+    "binaryCardCondition": {
+      "$id": "#binaryCardCondition",
+      "title": "BinaryCardCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "has_card"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "defeated",
+            "any"
+          ]
+        },
+        "card": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/option"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "card",
+        "investigator",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "cardCondition": {
+      "$id": "#cardCondition",
+      "title": "CardCondition",
+      "oneOf": [
+        { "$ref": "#/definitions/investigatorCardCondition" },
+        { "$ref": "#/definitions/binaryCardCondition" }
+      ]
     },
     "campaignLogSectionExistsCondition": {
       "$id": "#campaignLogSectionExistsCondition",
@@ -291,6 +382,14 @@
     "checkSuppliesCondition": {
       "$id": "#checkSuppliesCondition",
       "title": "CheckSuppliesCondition",
+      "oneOf": [
+        { "$ref": "#/definitions/checkSuppliesAllCondition" },
+        { "$ref": "#/definitions/checkSuppliesAnyCondition" }
+      ]
+    },
+    "checkSuppliesAllCondition": {
+      "$id": "#checkSuppliesAllCondition",
+      "title": "CheckSuppliesAllCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -302,8 +401,49 @@
         "investigator": {
           "type": "string",
           "enum": [
-            "any",
             "all"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "section",
+        "id",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "checkSuppliesAnyCondition": {
+      "$id": "#checkSuppliesAnyCondition",
+      "title": "CheckSuppliesAnyCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_supplies"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "any"
           ]
         },
         "section": {
@@ -415,6 +555,9 @@
         },
         "section": {
           "type": "string"
+        },
+        "id": {
+          "type": "string"
         }
       },
       "required": [
@@ -479,6 +622,43 @@
           "$ref": "#/definitions/constantOperand"
         }
       ]
+    },
+    "mathEqualsCondition": {
+      "$id": "#mathEqualsCondition",
+      "title": "MathEqualsCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "math"
+          ]
+        },
+        "opA": {
+          "$ref": "#/definitions/operand"
+        },
+        "opB": {
+          "$ref": "#/definitions/operand"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["equals"]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "opA",
+        "opB",
+        "operation",
+        "options"
+      ],
+      "additionalProperties": false
     },
     "mathCompareCondition": {
       "$id": "#mathCompareCondition",
@@ -567,6 +747,9 @@
         },
         {
           "$ref": "#/definitions/mathSumCondition"
+        },
+        {
+          "$ref": "#/definitions/mathEqualsCondition"
         }
       ]
     },
@@ -596,7 +779,7 @@
           "$ref": "#/definitions/scenarioDataCondition"
         },
         {
-          "$ref": "#/definitions/traumaCondition"
+          "$ref": "#/definitions/killedTraumaCondition"
         },
         {
           "$ref": "#/definitions/checkSuppliesCondition"

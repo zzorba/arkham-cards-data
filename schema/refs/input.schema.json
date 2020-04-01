@@ -61,40 +61,6 @@
       ],
       "additionalProperties": false
     },
-    "conditionalEffectsChoice": {
-      "$id": "#conditionalEffectsChoice",
-      "title": "ConditionalEffectsChoice",
-      "type": "object",
-      "properties": {
-        "flavor": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "condition": {
-          "oneOf": [
-            {
-              "$ref": "condition.schema.json#/definitions/cardCondition"
-            }
-          ]
-        },
-        "effects": {
-          "type": "array",
-          "items": {
-            "$ref": "effect.schema.json#/definitions/effect"
-          }
-        },
-        "steps": {
-          "type": "null"
-        }
-      },
-      "required": ["effects", "text"],
-      "additionalProperties": false
-    },
     "investigatorChoiceInput": {
       "$id": "#investigatorChoiceInput",
       "title": "InvestigatorChoiceInput",
@@ -127,7 +93,7 @@
         "choices": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/conditionalEffectsChoice"
+            "$ref": "types.schema.json#/definitions/conditionalEffectsChoice"
           }
         }
       },
@@ -267,6 +233,9 @@
             "card_choice"
           ]
         },
+        "include_counts": {
+          "type": "boolean"
+        },
         "query": {
           "type": "array",
           "items": {
@@ -303,7 +272,7 @@
         "choices": {
           "type": "array",
           "items": {
-            "$ref": "types.schema.json#/definitions/choice"
+            "$ref": "types.schema.json#/definitions/conditionalChoice"
           }
         }
       },
@@ -374,6 +343,12 @@
         },
         "text": {
           "type": "string"
+        },
+        "confirm_text": {
+          "type": "string"
+        },
+        "min": {
+          "type": "number"
         },
         "max": {
           "type": "number"

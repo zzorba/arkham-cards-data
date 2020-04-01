@@ -157,6 +157,42 @@
       "required": ["steps"],
       "additionalProperties": false
     },
+    "conditionalStepsChoice": {
+      "$id": "#conditionalStepsChoice",
+      "title": "ConditionalStepsChoice",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "flavor": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/cardCondition"
+            }, {
+              "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
+            }
+          ]
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effects": {
+          "type": "null"
+        }
+      },
+      "required": ["steps"],
+      "additionalProperties": false
+    },
     "effectsChoice": {
       "$id": "#effectsChoice",
       "title": "EffectsChoice",
@@ -221,6 +257,42 @@
       "required": ["text", "effects"],
       "additionalProperties": false
     },
+    "conditionalEffectsChoice": {
+      "$id": "#conditionalEffectsChoice",
+      "title": "ConditionalEffectsChoice",
+      "type": "object",
+      "properties": {
+        "flavor": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/cardCondition"
+            }, {
+              "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
+            }
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "null"
+        }
+      },
+      "required": ["effects", "text"],
+      "additionalProperties": false
+    },
     "choice": {
       "$id": "#choice",
       "title": "Choice",
@@ -230,6 +302,18 @@
         },
         {
           "$ref": "#/definitions/effectsChoice"
+        }
+      ]
+    },
+    "conditionalChoice": {
+      "$id": "#conditionalChoice",
+      "title": "ConditionalChoice",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/conditionalStepsChoice"
+        },
+        {
+          "$ref": "#/definitions/conditionalEffectsChoice"
         }
       ]
     },

@@ -51,6 +51,7 @@
     },
     {
       "id": "no_ill_effects",
+      "bullet_type": "right",
       "text": "You suffer no ill effects."
     },
     {
@@ -75,6 +76,7 @@
     },
     {
       "id": "two_fewer_cards",
+      "bullet_type": "right",
       "text": "Each investigator begins this scenario with 2 fewer cards in their opening hand."
     },
     {
@@ -103,6 +105,7 @@
     },
     {
       "id": "replace_relic_of_ages",
+      "bullet_type": "right",
       "text": "The investigator with Relic of Ages <i>(...A Device, of Some Sort)</i> in their deck swaps it with the new version of Relic of Ages included in this Mythos Pack: Relic of Ages <i>(Forestalling the Future)</i>.",
       "effects": [
         {
@@ -134,6 +137,7 @@
     },
     {
       "id": "remove_relic_of_ages_from_game",
+      "bullet_type": "right",
       "text": "Remove Relic of Ages <i>(Forestalling the Future)</i> from the game."
     },
     {
@@ -162,6 +166,7 @@
     },
     {
       "id": "two_extra_resources",
+      "bullet_type": "right",
       "text": "Each investigator begins this scenario with 2 additional resources."
     },
     {
@@ -245,15 +250,15 @@
           },
           {
             "numCondition": 2,
-            "steps": ["brotherhood_and_dark_cult"]
+            "steps": ["cultist_token_choice", "brotherhood_and_dark_cult"]
           },
           {
             "numCondition": 3,
-            "steps": ["brotherhood_and_dark_cult"]
+            "steps": ["cultist_token_choice", "brotherhood_and_dark_cult"]
           },
           {
             "numCondition": 4,
-            "steps": ["brotherhood_and_dark_cult"]
+            "steps": ["cultist_token_choice", "brotherhood_and_dark_cult"]
           }
         ]
       }
@@ -268,49 +273,61 @@
         "options": [
           {
             "numCondition": 0,
-            "steps": ["brotherhood_and_guardians"]
+            "steps": ["both_tokens_choice", "brotherhood_and_guardians"]
           },
           {
             "numCondition": 1,
-            "steps": ["brotherhood_and_guardians"]
+            "steps": ["both_tokens_choice", "brotherhood_and_guardians"]
           },
           {
             "numCondition": 2,
-            "steps": ["yigs_venom_and_guadians"]
+            "steps": ["tablet_token_choice", "yigs_venom_and_guadians"]
           },
           {
             "numCondition": 3,
-            "steps": ["yigs_venom_and_guadians"]
+            "steps": ["tablet_token_choice", "yigs_venom_and_guadians"]
           },
           {
             "numCondition": 4,
-            "steps": ["yigs_venom_and_guadians"]
+            "steps": ["tablet_token_choice", "yigs_venom_and_guadians"]
           }
         ]
       }
     },
     {
+      "id": "cultist_token_choice",
+      "text": "Because there are 2 or more [cultist] tokens in the chaos bag:"
+    },
+    {
       "id": "brotherhood_and_dark_cult",
+      "bullet_type": "small",
       "type": "encounter_sets",
-      "text": "Because there are 2 or more [cultist] tokens in the chaos bag:",
       "encounter_sets": [
         "pnakotic_brotherhood",
         "pentagram"
       ]
     },
     {
+      "id": "tablet_token_choice",
+      "text": "Because there are 2 or more [tablet] tokens in the chaos bag:"
+    },
+    {
       "id": "yigs_venom_and_guadians",
+      "bullet_type": "small",
       "type": "encounter_sets",
-      "text": "Because there are 2 or more [tablet] tokens in the chaos bag:",
       "encounter_sets": [
         "yigs_venom",
         "guardians_of_time"
       ]
     },
     {
+      "id": "both_tokens_choice",
+      "text": "Because there are fewer than 2 [cultist] and fewer than 2 [tablet] tokens in the chaos bag:"
+    },
+    {
       "id": "brotherhood_and_guardians",
+      "bullet_type": "small",
       "type": "encounter_sets",
-      "text": "Because there are fewer than 2 [cultist] and fewer than 2 [tablet] tokens:",
       "encounter_sets": [
         "pnakotic_brotherhood",
         "guardians_of_time"
@@ -352,18 +369,24 @@
     },
     {
       "id": "record_x_paths_known",
-      "text": "In your Campaign Log, record that X paths are known to you. X is the number of Tenochtitlán locations in the victory display.",
+      "text": "In your Campaign Log, record that <i>X paths are known to you</i>. X is the number of Tenochtitlán locations in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "[[Tenochtitlán]] locations are in the victory display:",
+        "text": "[[Tenochtitlán]] locations in victory display:",
+        "max": 6,
         "effects": [
           {
             "type": "campaign_log_count",
             "section": "campaign_notes",
             "id": "paths_known",
             "operation": "set_input",
-            "text": "#X# paths are known"
+            "text": "#X# paths are known to you"
+          },
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": "$input_value"
           }
         ]
       }
@@ -372,35 +395,37 @@
       "id": "check_if_ichtaca_has_confidence",
       "type": "branch",
       "condition": {
-        "type": "campaign_log_count",
-        "section": "campaign_notes",
-        "id": "paths_known",
-        "max": 6,
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "paths_known"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 3
+        },
+        "operation": "compare",
         "options": [
           {
-            "numCondition": 3,
+            "numCondition": -1,
+            "steps": []
+          },
+          {
+            "numCondition": 0,
             "steps": ["ichtaca_has_confidence"]
           },
           {
-            "numCondition": 4,
-            "steps": ["ichtaca_has_confidence"]
-          },
-          {
-            "numCondition": 5,
-            "steps": ["ichtaca_has_confidence"]
-          },
-          {
-            "numCondition": 6,
+            "numCondition": 1,
             "steps": ["ichtaca_has_confidence"]
           }
-        ],
-        "defaultOption": {
-          "steps": []
-        }
+        ]
       }
     },
     {
       "id": "ichtaca_has_confidence",
+      "bullet_type": "small",
+      "text": "Because at least <i>3 paths are known to you</i>, record that <i>Ichtaca has confidence in you.</i>",
       "effects": [
         {
           "type": "campaign_log",
@@ -413,6 +438,7 @@
     {
       "id": "check_harbinger",
       "type": "input",
+      "text": "Which of the following is true?",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -477,6 +503,7 @@
       "type": "input",
       "input": {
         "type": "counter",
+        "confirm_text": "Each investigator earns 1 additional experience for each [[Tenochtitlán]] location in the victory display.",
         "text": "Victory display:",
         "effects": [
           {
@@ -497,6 +524,17 @@
         "choices": [
           {
             "text": "Poisoned",
+            "condition": {
+              "type": "has_card",
+              "card": "04102",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
             "effects": [
               {
                 "type": "add_card",

@@ -20,17 +20,41 @@
         "choices": [
           {
             "flavor": "Let’s consult with Ichtaca.",
-            "description": "Choose this option only if Ichtaca is in an investigator’s deck.",
+            "condition": {
+              "type": "has_card",
+              "card": "04147",
+              "investigator": "any",
+              "options": [{
+                "boolCondition": true,
+                "effects": []
+              }]
+            },
             "steps": ["intro_2", "start_with_ichtaca"]
           },
           {
             "flavor": "Let’s consult with Alejandro.",
-            "description": "Choose this option only if Alejandro is in an investigator’s deck.",
+            "condition": {
+              "type": "has_card",
+              "card": "04051",
+              "investigator": "any",
+              "options": [{
+                "boolCondition": true,
+                "effects": []
+              }]
+            },
             "steps": ["intro_3", "start_with_alejandro"]
           },
           {
             "flavor": "Let’s consult the expedition journal.",
-            "description": "Choose this option only if the Expedition Journal is in an investigator’s deck.",
+            "condition": {
+              "type": "has_card",
+              "card": "04148",
+              "investigator": "any",
+              "options": [{
+                "boolCondition": true,
+                "effects": []
+              }]
+            },
             "steps": ["intro_4", "start_with_expedition_journal"]
           },
           {
@@ -72,29 +96,37 @@
       "text": "If 6 paths are known to you, skip this scenario and proceed immediately to <b>Resolution 1</b>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log_count",
-        "section": "campaign_notes",
-        "id": "paths_known",
-        "max": 6,
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "paths_known"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 6
+        },
+        "operation": "equals",
         "options": [
           {
-            "numCondition": 6,
+            "boolCondition": true,
             "steps": ["resolution_1", "$proceed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gather_encounter_sets",
+              "setup_locations",
+              "setup_paths",
+              "check_replay",
+              "create_exploration_deck",
+              "check_mapped_way_forward",
+              "set_aside_poisoned",
+              "encounter_deck",
+              "$choose_resolution"
+            ]
           }
-        ],
-        "defaultOption": {
-          "steps": [
-            "gather_encounter_sets",
-            "setup_locations",
-            "setup_paths",
-            "check_replay",
-            "create_exploration_deck",
-            "check_mapped_way_forward",
-            "set_aside_poisoned",
-            "encounter_deck",
-            "$choose_resolution"
-          ]
-        }
+        ]
       }
     },
     {
@@ -163,7 +195,8 @@
     },
     {
       "id": "choose_ruins_and_start_in_play",
-      "text": "Randomly choose one of the following 3 [[Ruins]] locations: Overgrown Ruins, Temple of the Fang, and Stone Altar. Because <i>the investigators mapped out the way forward</i>, put this location into play. Remove the other 2 from the game."
+      "bullet_type": "small",
+      "text": "Randomly choose one of the following 3 [[Ruins]] locations: Overgrown Ruins, Temple of the Fang, and Stone Altar. Put this location into play. Remove the other 2 from the game."
     },
     {
       "id": "set_aside_poisoned",
@@ -179,7 +212,8 @@
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Pillar tokens are on the Mouth of K'n-yan:",
+        "text": "Pillar tokens on the Mouth of K'n-yan:",
+        "max": 6,
         "effects": [
           {
             "type": "campaign_log_count",
@@ -203,11 +237,35 @@
       ]
     },
     {
+      "id": "check_paths_known_jungle_watches",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "paths_known"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 6
+        },
+        "operation": "equals",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["record_jungle_watches"]
+          }
+        ]
+      }
+    },
+    {
       "id": "record_jungle_watches",
       "text": "In your Campaign Log, record that <i>the jungle watches</i>. Next to this, in parentheses, record the names of each card with Vengeance X in the victory display. Do not record any tally marks under “Yig’s Fury.”",
       "type": "input",
       "input": {
         "type": "card_choice",
+        "include_counts": true,
         "query": [
           {
             "vengeance": true,
@@ -223,7 +281,7 @@
                 "section": "campaign_notes",
                 "id": "jungle_watches",
                 "cards": "$input_value",
-                "text": "the jungle watches (#name#)."
+                "text": "the jungle watches (#name# x#X#)."
               }
             ]
           }
@@ -260,6 +318,17 @@
         "choices": [
           {
             "text": "Poisoned",
+            "condition": {
+              "type": "has_card",
+              "card": "04102",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
             "effects": [
               {
                 "type": "add_card",
@@ -283,7 +352,7 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "Swallowing your fear, you enter the cavern...",
-      "steps": ["record_jungle_watches", "earn_xp", "check_investigators_poisoned", "proceed_scenario_2"]
+      "steps": ["check_paths_known_jungle_watches", "earn_xp", "check_investigators_poisoned", "proceed_scenario_2"]
     }
   ]
 }

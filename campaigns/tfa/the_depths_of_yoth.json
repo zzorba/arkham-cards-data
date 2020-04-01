@@ -121,6 +121,7 @@
     },
     {
       "id": "lose_ichtaca",
+      "bullet_type": "small",
       "text": "Remove Ichtaca from all investigator’s deck for the remainder of the campaign.",
       "effects": [
         {
@@ -262,6 +263,7 @@
     {
       "id": "check_yigs_fury",
       "type": "branch",
+      "text": "Check Campaign Log to see how many marks are under 'Yig's Fury'",
       "condition": {
         "type": "campaign_log_count",
         "section": "yigs_fury",
@@ -359,30 +361,37 @@
     },
     {
       "id": "fury_0",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 0, search the gathered encounter cards for Yig and each copy of Pit Warden. Remove those cards from the game."
     },
     {
       "id": "fury_1_to_5",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 1-5, no changes are made."
     },
     {
       "id": "fury_6_to_10",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 6-10, remove agenda 1a from the game. The game begins at agenda 2a."
     },
     {
       "id": "fury_11_to_14",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 11-14, remove agendas 1a and 2a from the game. The game begins at agenda 3a."
     },
     {
       "id": "fury_15_to_17",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 15-17, remove agendas 1a, 2a, and 3a from the game. The game begins at agenda 4a."
     },
     {
       "id": "fury_18_to_20",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 18-20, remove agendas 1a, 2a, 3a, and 4a from the game. The game begins at agenda 5a."
     },
     {
       "id": "fury_21",
+      "bullet_type": "small",
       "text": "Because Yig's Fury is 21 or higher, remove agendas 1a, 2a, 3a, 4a, and 5a from the game. The game begins at agenda 6a."
     },
     {
@@ -391,6 +400,7 @@
     },
     {
       "id": "maybe_setup_harbinger",
+      "text": "Check Campaign Notes. If <i>the Harbinger is still alive.</i>",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -406,6 +416,7 @@
     },
     {
       "id": "setup_harbinger",
+      "bullet_type": "small",
       "text": "Search the collection for the Harbinger of Valusia and set it aside. Place damage on it equal to the amount of damage recorded in parentheses in your Campaign Log.",
       "bullets": [
         {
@@ -543,6 +554,11 @@
           "card": "01000",
           "investigator": "all",
           "weakness_traits": ["Injury"]
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
         }
       ]
     },
@@ -580,15 +596,28 @@
           "type": "trauma",
           "physical": 1,
           "investigator": "all"
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 3
         }
       ]
     },
     {
       "id": "depth_4_fall",
-      "text": "Because the current depth level is 4, you suffer no ill effects."
+      "text": "Because the current depth level is 4, you suffer no ill effects.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 4
+        }
+      ]
     },
     {
       "id": "check_harbinger",
+      "text": "Which of the following is true?",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -655,6 +684,7 @@
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns additional experience equal to the current depth level.",
         "effects": [
           {
             "type": "earn_xp",
@@ -664,16 +694,18 @@
       }
     },
     {
-      "id": "earn_depth_xp",
-      "text": "Each investigator earns additional experience equal to the current depth level.",
+      "id": "earn_xp_full_depth",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Depth level when the scenario ended:",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns additional experience equal to the current depth level.",
         "effects": [
           {
             "type": "earn_xp",
-            "investigator": "all"
+            "investigator": "all",
+            "bonus": 5
           }
         ]
       }
@@ -705,6 +737,17 @@
         "choices": [
           {
             "text": "Poisoned",
+            "condition": {
+              "type": "has_card",
+              "card": "04102",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
             "effects": [
               {
                 "type": "add_card",
@@ -727,13 +770,13 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "After hours and hours of travel, you’ve only just scratched the surface of this boundless subterranean world. Humanity could spend centuries mapping out these tunnels and never complete the task. No matter how quickly you plumb the depths, the serpents chasing you are hot on your tail. You are intruders in their home, and they know these hellish tunnels better than you. With your wounds slowing you down and panic seeping into every one of your decisions, your death at the hands of these creatures is inevitable. Despair worms its way into your mind. When the serpents inevitably catch up to you, you are crossing one of the cavern’s many long bridges of stone that span a wide, dark chasm. Serpent creatures on both sides of the chasm flank you, spear tips corralling you against the precarious edge of the bridge. A small hunk of stone cracks at your heel and detaches, falling into the inky void below. You do not hear it strike the floor of the chasm. There is no hope to escape or flee this time—you have no choice but to accept your fate. The spear tips press you closer to the edge. You close your eyes and fall.",
-      "steps": ["fell_into_depths", "record_final_depth", "check_final_depth", "check_harbinger", "record_yigs_fury", "earn_xp", "earn_depth_xp", "check_investigators_poisoned"]
+      "steps": ["fell_into_depths", "record_final_depth", "check_final_depth", "check_harbinger", "record_yigs_fury", "earn_xp", "check_investigators_poisoned"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "Somehow, despite the odds stacked against you, you’ve reached your destination. The telltale red glow that has enveloped you since you entered Yoth recedes, replaced with an unpierceable inky darkness. The Nexus must be close... You can feel it.",
-      "steps": ["nexus_is_near", "check_harbinger", "record_yigs_fury", "earn_xp", "earn_depth_xp", "check_investigators_poisoned"]
+      "steps": ["nexus_is_near", "check_harbinger", "record_yigs_fury", "earn_xp_full_depth", "check_investigators_poisoned"]
     }
   ]
 }
