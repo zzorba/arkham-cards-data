@@ -26,6 +26,23 @@
       ],
       "additionalProperties": false
     },
+    "upgradeDecksEffect": {
+      "$id": "#upgradeDecksEffect",
+      "title": "UpgradeDecksEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "upgrade_decks"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
     "earnXpEffect": {
       "$id": "#earnXpEffect",
       "title": "EarnXpEffect",
@@ -38,13 +55,16 @@
           ]
         },
         "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
+          "type": "string",
+          "enum": [
+            "all",
+            "defeated",
+            "$input_value",
+            "lead_investigator"
+          ]
         },
         "bonus": {
-          "oneOf": [
-            { "type": "number" },
-            { "type": "string", "enum": ["$input_value"] }
-          ]
+          "type": "number"
         }
       },
       "required": [
@@ -544,7 +564,8 @@
         { "$ref": "#/definitions/campaignLogCountEffect" },
         { "$ref": "#/definitions/campaignDataEffect" },
         { "$ref": "#/definitions/scenarioDataEffect" },
-        { "$ref": "#/definitions/addRemoveChaosTokenEffect" }
+        { "$ref": "#/definitions/addRemoveChaosTokenEffect" },
+        { "$ref": "#/definitions/upgradeDecksEffect" }
       ]
     },
     "effectsWithInput": {

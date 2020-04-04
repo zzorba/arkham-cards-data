@@ -40,7 +40,8 @@ export type Effect =
   | CampaignLogCountEffect
   | CampaignDataEffect
   | ScenarioDataEffect
-  | AddRemoveChaosTokenEffect;
+  | AddRemoveChaosTokenEffect
+  | UpgradeDecksEffect;
 export type InvestigatorSelector =
   | "lead_investigator"
   | "all"
@@ -91,6 +92,7 @@ export type CampaignDataCondition =
 export type CheckSuppliesCondition = CheckSuppliesAllCondition | CheckSuppliesAnyCondition;
 export type BulletType = "none" | "small" | "right";
 export type Input =
+  | UpgradeDecksInput
   | CardChoiceInput
   | SuppliesInput
   | UseSuppliesInput
@@ -157,8 +159,8 @@ export interface StoryStepEffect {
 }
 export interface EarnXpEffect {
   type: "earn_xp";
-  investigator: InvestigatorSelector;
-  bonus?: number | "$input_value";
+  investigator: "all" | "defeated" | "$input_value" | "lead_investigator";
+  bonus?: number;
 }
 export interface AddCardEffect {
   type: "add_card";
@@ -246,6 +248,9 @@ export interface ScenarioDataStatusEffect {
 export interface AddRemoveChaosTokenEffect {
   type: "add_chaos_token" | "remove_chaos_token";
   tokens: ChaosToken[];
+}
+export interface UpgradeDecksEffect {
+  type: "upgrade_decks";
 }
 export interface StepsOption {
   boolCondition?: boolean;
@@ -386,6 +391,9 @@ export interface InputStep {
   text?: string;
   input: Input;
   bullet_type?: BulletType;
+}
+export interface UpgradeDecksInput {
+  type: "upgrade_decks";
 }
 export interface CardChoiceInput {
   type: "card_choice";

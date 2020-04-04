@@ -152,10 +152,12 @@
     },
     {
       "id": "remove_house",
+      "bullet_type": "small",
       "text": "Remove Your House from the game. Each investigator begins play at Rivertown."
     },
     {
       "id": "start_at_house",
+      "bullet_type": "small",
       "text": "Each investigator begins play at Your House."
     },
     {
@@ -179,6 +181,7 @@
     },
     {
       "id": "add_ghoul_priest",
+      "bullet_type": "small",
       "text": "Shuffle the Ghoul Priest into the encounter deck."
     },
     {
@@ -287,17 +290,22 @@
         "choices": [
           {
             "text": "Is the Ghoul Priest in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "ghoul_priest_alive",
-                "cross_out": true
-              }
-            ]
+            "steps": ["cross_out_ghoul_priest_alive"]
           }
         ]
       }
+    },
+    {
+      "id": "cross_out_ghoul_priest_alive",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ghoul_priest_alive",
+          "cross_out": true
+        }
+      ]
     },
     {
       "id": "past_midnight",
@@ -348,13 +356,13 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
-      "steps": ["cultists_interrogated_r1", "ghoul_priest_defeated", "earn_xp"]
+      "steps": ["cultists_interrogated_r1", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "Twelve bells ring out, signaling midnight. You’re out of time; the cult’s ritual will begin shortly. You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
-      "steps": ["cultists_interrogated_r2", "past_midnight", "ghoul_priest_defeated", "earn_xp"]
+      "steps": ["cultists_interrogated_r2", "past_midnight", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
     }
   ]
 }
