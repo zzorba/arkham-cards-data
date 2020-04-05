@@ -73,6 +73,38 @@
       ],
       "additionalProperties": false
     },
+    "addWeaknessEffect": {
+      "$id": "#addWeaknessEffect",
+      "title": "AddWeaknessEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "add_weakness"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "all",
+            "$input_value"
+          ]
+        },
+        "weakness_traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "weakness_traits"
+      ],
+      "additionalProperties": false
+    },
     "addCardEffect": {
       "$id": "#addCardEffect",
       "title": "AddCardEffect",
@@ -92,12 +124,6 @@
         },
         "required": {
           "type": "boolean"
-        },
-        "weakness_traits": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "ignore_deck_limit": {
           "type": "boolean"
@@ -556,6 +582,7 @@
         { "$ref": "#/definitions/storyStepEffect" },
         { "$ref": "#/definitions/earnXpEffect" },
         { "$ref": "#/definitions/addCardEffect" },
+        { "$ref": "#/definitions/addWeaknessEffect" },
         { "$ref": "#/definitions/removeCardEffect" },
         { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
