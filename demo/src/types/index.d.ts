@@ -345,6 +345,7 @@ export interface CampaignDataInvestigatorCondition {
 }
 export interface CampaignLogSectionExistsCondition {
   type: "campaign_log_section_exists";
+  hidden?: boolean;
   section: string;
   options: BoolOption[];
 }
