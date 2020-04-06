@@ -1,6 +1,6 @@
 {
   "id": "the_inner_circle",
-  "interlude": true,
+  "type": "interlude",
   "scenarioName": "The Inner Circle",
   "setup": [
     "ic_1",
@@ -87,30 +87,35 @@
     },
     {
       "id": "check_rescued_josef",
+      "text": "Check Campaign Log. <i>If the investigators rescued Josef</i> and <i>the investigators told the Lodge about the coven</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "rescued_josef",
-        "options": [
+        "type": "multi",
+        "count": 2,
+        "conditions": [
           {
-            "boolCondition": true,
-            "steps": ["check_told_lodge_about_coven"]
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "rescued_josef",
+            "options": [
+              {
+                "boolCondition": true,
+                "steps": []
+              }
+            ]
           },
           {
-            "boolCondition": false,
-            "steps": ["ic_5"]
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "told_lodge_about_coven",
+            "options": [
+              {
+                "boolCondition": true,
+                "steps": []
+              }
+            ]
           }
-        ]
-      }
-    },
-    {
-      "id": "check_told_lodge_about_coven",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "told_lodge_about_coven",
+        ],
         "options": [
           {
             "boolCondition": true,
@@ -147,6 +152,7 @@
     {
       "id": "check_survived_the_watchers_embrace",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -154,14 +160,19 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_all_questions", "ic_6", "inducted_into_the_inner_circle"]
+            "steps": ["ask_questions_intro", "ask_all_questions", "ic_6", "inducted_into_the_inner_circle"]
           },
           {
             "boolCondition": false,
-            "steps": ["ask_most_questions", "ic_6", "inducted_into_the_inner_circle"]
+            "steps": ["ask_questions_intro", "ask_most_questions", "ic_6", "inducted_into_the_inner_circle"]
           }
         ]
       }
+    },
+    {
+      "id": "ask_questions_intro",
+      "text": "You may ask up to three questions of Carl Sanford before his patience wears thin.",
+      "bullet_type": "none"
     },
     {
       "id": "ask_all_questions",
@@ -169,8 +180,9 @@
       "type": "input",
       "input": {
         "type": "choose_many",
-        "progressive": true,
-        "count": 3,
+        "min": 0,
+        "max": 3,
+        "continue_prompt": "Finished asking questions.",
         "choices": [
           {
             "flavor": "“What is the creature?”",
@@ -206,8 +218,9 @@
       "type": "input",
       "input": {
         "type": "choose_many",
-        "progressive": true,
-        "count": 3,
+        "min": 0,
+        "max": 3,
+        "continue_prompt": "Finished asking questions.",
         "choices": [
           {
             "flavor": "“What is the creature?”",

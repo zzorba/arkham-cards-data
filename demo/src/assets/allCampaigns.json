@@ -125,7 +125,7 @@
 {
   "id": "armitages_fate",
   "scenarioName": "Armitage's Fate",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "check_unconscious",
     "$upgrade_decks"
@@ -531,7 +531,7 @@
 {
   "id": "dwl_epilogue",
   "scenarioName": "Epilogue",
-  "interlude": true,
+  "type": "epilogue",
   "setup": [
     "check_calmed_townsfolk"
   ],
@@ -1296,7 +1296,7 @@
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
-          "scenario": "epilogue"
+          "scenario": "dwl_epilogue"
         }
       ]
     },
@@ -1437,7 +1437,7 @@
 {
   "id": "dwl_prologue",
   "scenarioName": "Prologue",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "intro",
     "scenario_choice"
@@ -1488,7 +1488,7 @@
 {
   "id": "dwl_interlude2",
   "scenarioName": "The Survivors",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "prologue",
     "check_henry_armitage",
@@ -5211,13 +5211,13 @@
       "effects": [
         {
           "type": "campaign_data",
-          "setting": "result",
-          "value": "lose"
+          "setting": "skip_scenario",
+          "scenario": "ptc_epilogue"
         },
         {
           "type": "campaign_data",
-          "setting": "skip_scenario",
-          "scenario": "epilogue"
+          "setting": "result",
+          "value": "lose"
         }
       ]
     },
@@ -5727,7 +5727,7 @@
 {
   "id": "ptc_epilogue",
   "scenarioName": "Epilogue",
-  "interlude": true,
+  "type": "epilogue",
   "setup": [
     "check_epilogue"
   ],
@@ -5759,7 +5759,7 @@
 {
   "id": "ptc_interlude2",
   "scenarioName": "Lunacy's Reward",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "daniel_choice",
     "warning_choice",
@@ -5912,7 +5912,7 @@
 {
   "id": "ptc_interlude1",
   "scenarioName": "Lunacy's Reward",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "house_choice",
     "$upgrade_decks"
@@ -6737,7 +6737,7 @@
 {
   "id": "ptc_prologue",
   "scenarioName": "Prologue",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "intro",
     "check_lola_hayes",
@@ -9076,21 +9076,21 @@
     {
       "id": "act_1_locations",
       "type": "location_setup",
-      "title": "Act 1 Locations",
+      "title": "Location Placement for Setup / Act 1",
       "locations": [
         ["player_back", "player_back", "05339_back"],
-        ["05332", "player_back", "player_back"],
+        ["05332_back", "player_back", "player_back"],
         ["player_back", "player_back", "05339_back"]
       ]
     },
     {
       "id": "act_2_locations",
       "type": "location_setup",
-      "title": "Act 2 Locations",
+      "title": "Location Placement for Act 2",
       "locations": [
         ["blank", "05339_back", "blank"],
         ["player_back", "player_back", "player_back"],
-        ["05333_front", "player_back", "05339_back"],
+        ["05333", "player_back", "05339_back"],
         ["player_back", "player_back", "player_back"],
         ["blank", "05339_back", "blank"]
       ]
@@ -9098,11 +9098,11 @@
     {
       "id": "act_3_locations",
       "type": "location_setup",
-      "title": "Act 3 Locations",
+      "title": "Location Placement for Act 3",
       "locations": [
         ["blank", "05339_back", "blank", "blank"],
         ["player_back", "player_back", "player_back", "05339_back"],
-        ["05140_front", "player_back", "player_back", "blank"],
+        ["05140", "player_back", "player_back", "blank"],
         ["player_back", "player_back", "player_back", "05339_back"],
         ["blank", "05339_back", "blank", "blank"]
       ]
@@ -9142,13 +9142,13 @@
       "effects": [
         {
           "type": "campaign_data",
-          "setting": "result",
-          "value": "lose"
+          "setting": "skip_scenario",
+          "scenario": "tcu_epilogue"
         },
         {
           "type": "campaign_data",
-          "setting": "skip_scenario",
-          "scenario": "epilogue"
+          "setting": "result",
+          "value": "lose"
         }
       ]
     },
@@ -9361,7 +9361,7 @@
 {
   "id": "disappearance_at_the_twilight_estate",
   "scenarioName": "Prologue: Disappearance at the Twilight Estate",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "pre_intro",
     "choose_neutral_investigators",
@@ -9706,7 +9706,7 @@
 {
   "id": "tcu_epilogue",
   "scenarioName": "Epilogue",
-  "interlude": true,
+  "type": "epilogue",
   "setup": [
     "check_anette_arrested",
     "check_assumed_control_of_the_silver_twilight_lodge",
@@ -9720,7 +9720,7 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "anette_arreseted",
+        "id": "arrested_anette",
         "options": [
           {
             "boolCondition": true,
@@ -10653,7 +10653,7 @@
 },
 {
   "id": "the_inner_circle",
-  "interlude": true,
+  "type": "interlude",
   "scenarioName": "The Inner Circle",
   "setup": [
     "ic_1",
@@ -10740,30 +10740,35 @@
     },
     {
       "id": "check_rescued_josef",
+      "text": "Check Campaign Log. <i>If the investigators rescued Josef</i> and <i>the investigators told the Lodge about the coven</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "rescued_josef",
-        "options": [
+        "type": "multi",
+        "count": 2,
+        "conditions": [
           {
-            "boolCondition": true,
-            "steps": ["check_told_lodge_about_coven"]
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "rescued_josef",
+            "options": [
+              {
+                "boolCondition": true,
+                "steps": []
+              }
+            ]
           },
           {
-            "boolCondition": false,
-            "steps": ["ic_5"]
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "told_lodge_about_coven",
+            "options": [
+              {
+                "boolCondition": true,
+                "steps": []
+              }
+            ]
           }
-        ]
-      }
-    },
-    {
-      "id": "check_told_lodge_about_coven",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "told_lodge_about_coven",
+        ],
         "options": [
           {
             "boolCondition": true,
@@ -10800,6 +10805,7 @@
     {
       "id": "check_survived_the_watchers_embrace",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -10807,14 +10813,19 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_all_questions", "ic_6", "inducted_into_the_inner_circle"]
+            "steps": ["ask_questions_intro", "ask_all_questions", "ic_6", "inducted_into_the_inner_circle"]
           },
           {
             "boolCondition": false,
-            "steps": ["ask_most_questions", "ic_6", "inducted_into_the_inner_circle"]
+            "steps": ["ask_questions_intro", "ask_most_questions", "ic_6", "inducted_into_the_inner_circle"]
           }
         ]
       }
+    },
+    {
+      "id": "ask_questions_intro",
+      "text": "You may ask up to three questions of Carl Sanford before his patience wears thin.",
+      "bullet_type": "none"
     },
     {
       "id": "ask_all_questions",
@@ -10822,8 +10833,9 @@
       "type": "input",
       "input": {
         "type": "choose_many",
-        "progressive": true,
-        "count": 3,
+        "min": 0,
+        "max": 3,
+        "continue_prompt": "Finished asking questions.",
         "choices": [
           {
             "flavor": "“What is the creature?”",
@@ -10859,8 +10871,9 @@
       "type": "input",
       "input": {
         "type": "choose_many",
-        "progressive": true,
-        "count": 3,
+        "min": 0,
+        "max": 3,
+        "continue_prompt": "Finished asking questions.",
         "choices": [
           {
             "flavor": "“What is the creature?”",
@@ -10940,7 +10953,7 @@
 },
 {
   "id": "the_price_of_progress",
-  "interlude": true,
+  "type": "interlude",
   "scenarioName": "The Price of Progress",
   "setup": [
     "check_silver_twilight_investigator",
@@ -12240,7 +12253,7 @@
 ,
 {
   "id": "twist_of_fate",
-  "interlude": true,
+  "type": "interlude",
   "scenarioName": "Twist of Fate",
   "setup": [
     "tof_1",
@@ -13120,6 +13133,11 @@
       "effects": [
         {
           "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "tcu_epilogue"
+        },
+        {
+          "type": "campaign_data",
           "setting": "result",
           "value": "win"
         }
@@ -13360,6 +13378,21 @@
       "text": "Check the “Missing Persons” section of your Campaign Log."
     },
     {
+      "id": "check_gavriella_in_game",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05046",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_gavriella_alive"]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_gavriella_alive",
       "bullet_type": "small",
       "text": "<i>If Gavriella Mizrah is alive</i>, any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Gavriella Mizrah’s profile, record <i>Gavriella Mizrah is dead</i>.",
@@ -13389,6 +13422,21 @@
                 "text": "Gavriella Mizrah is dead."
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jerome_in_game",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05047",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_jerome_alive"]
           }
         ]
       }
@@ -13428,6 +13476,21 @@
       }
     },
     {
+      "id": "check_penny_in_game",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05049",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_penny_alive"]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_penny_alive",
       "bullet_type": "small",
       "text": "<i>If Penny White is alive</i>, any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Penny White’s profile, record <i>Penny White is dead</i>.",
@@ -13457,6 +13520,21 @@
                 "text": "Penny White is dead."
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_valentino_in_game",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05048",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_valentino_alive"]
           }
         ]
       }
@@ -13554,7 +13632,7 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
+      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_in_game", "check_jerome_in_game", "check_penny_in_game", "check_valentino_in_game", "earn_xp", "$upgrade_decks"]
     }
   ]
 }]}
@@ -13745,7 +13823,7 @@
 {
   "id": "tfa_epilogue",
   "scenarioName": "Epilogue",
-  "interlude": true,
+  "type": "epilogue",
   "setup": [
     "check_turned_back_time"
   ],
@@ -13802,7 +13880,7 @@
 {
   "id": "tfa_interlude2",
   "scenarioName": "Expeditions End",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "check_investigators_recovered_relic",
     "$upgrade_decks"
@@ -15051,7 +15129,7 @@
 {
   "id": "tfa_interlude3",
   "scenarioName": "The Jungle Beckons",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "intro",
     "use_gasoline",
@@ -15359,7 +15437,7 @@
 {
   "id": "tfa_prologue",
   "scenarioName": "Prologue",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "intro",
     "$choose_investigators",
@@ -15462,7 +15540,7 @@
 {
   "id": "tfa_interlude1",
   "scenarioName": "Restless Nights",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "prompt",
     "check_blanket",
@@ -15970,7 +16048,7 @@
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
-          "scenario": "epilogue"
+          "scenario": "tfa_epilogue"
         }
       ]
     },
@@ -15998,7 +16076,11 @@
     },
     {
       "id": "win_but",
-      "text": "The Earth is saved, and the investigators win the campaign...",
+      "text": "The Earth is saved, and the investigators win the campaign..."
+    },
+    {
+      "id": "cannot_transfer_characters",
+      "text": "...But the investigators have reshaped the world, existing in another time altogether. These investigators cannot be transferred to a different campaign. (You must start fresh.)",
       "effects": [
         {
           "type": "campaign_data",
@@ -16006,10 +16088,6 @@
           "value": "win"
         }
       ]
-    },
-    {
-      "id": "cannot_transfer_characters",
-      "text": "...But the investigators have reshaped the world, existing in another time altogether. These investigators cannot be transferred to a different campaign. (You must start fresh.)"
     },
     {
       "id": "two_physical_and_mental_trauma",
@@ -16080,25 +16158,25 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "<right><fancy>Thursday, December 17th, 1925</fancy></right>\nIt is difficult for me to convey my unabridged thoughts on the events that occurred during the summer of 1925. Of course, I gave my full account to Harlan—who I suspect is the only person willing to vouch for my story—but I have not sat down to record it on paper until now. Perhaps I would rather these events had been a figment of my imagination.\nIn truth, I have no idea how we made it out of the caverns beneath the jungle alive. Simply reaching the abyssal place was a hellish ordeal. My memory of our return trip is muddled and disarrayed. We scrambled in the dark for what seemed like ages. We were out of food, out of supplies, out of hope—but somehow, we found a way out.\nOur reward for preventing calamity was scorn and ridicule. No upstanding paper or university would publish our findings, and of course we possessed no proof of our expedition save for our scars and nightmares. I wish I could say that my memory of these events has faded with each passing day, but I will never forget the alien city we explored in our conical bodies, the serpents that pursued us in red-litten Yoth, the formless abomination that lived in the depths of the Earth...\nPerhaps that is why I fear making a written account of our findings—because these memories will crystallize and become etched in my mind, forever damning me to a life of terror and dismay. Still, the world needs to know what we saw. What we did.",
-      "steps": ["mended_tear_in_time", "two_physical_and_mental_trauma", "attached_locations_to_victory_display", "earn_xp_plus_5", "$upgrade_decks", "win", "skip_epilogue"]
+      "steps": ["mended_tear_in_time", "two_physical_and_mental_trauma", "attached_locations_to_victory_display", "earn_xp_plus_5", "$upgrade_decks", "skip_epilogue", "win"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "Transposed to a different time, Valusia and the children of Yig live on. Preserved by the new timeline you have created, you and the Serpent People are safe from the events that caused their homeland’s destruction long ago, in another time. All of your past transgressions against serpent-kind are forgiven, and you are given the chance to live in the paradise-kingdom of Valusia, remade in Yig’s image. Although you may have turned your back on humanity, you take comfort in the fact that the Earth has been saved from complete ruin. Due to your actions, you are valued and respected among the Serpents and in the eyes of your new Father. Your new life is cozy and full of wonders you could never have predicted. And yet, from time to time, you look out into the wilds beyond Valusia and wonder if there is something else you could have done...",
-      "steps": ["investigators_saved_serpents", "win_but", "cannot_transfer_characters", "skip_epilogue"]
+      "steps": ["investigators_saved_serpents", "skip_epilogue", "win_but", "cannot_transfer_characters"]
     },
     {
       "id": "R3",
       "title": "Resolution 3",
       "text": "Transposed to a different time, Pnakotus and the Great Race of Yith live on. Preserved by the new timeline you have created, you and the Yithians are safe from the extraterrestrials who ended their kind long ago, in another time. You are brought into the city and given freedoms other captive minds never received. Although at first, you long for your former life, the emotion fades the more time you spend in this strange new Earth. You roam the world on titan airships and delve into the collective knowledge of the Yithians, accumulated in their vast archives from centuries of research. Your studies unveil secrets that no other human will ever know. You experience technological advances that humanity would weep to discover. And you prepare for an accursed future that may still yet come to pass..",
-      "steps": ["investigators_saved_yithians", "win_but", "cannot_transfer_characters", "skip_epilogue"]
+      "steps": ["investigators_saved_yithians", "skip_epilogue", "win_but", "cannot_transfer_characters"]
     },
     {
       "id": "R4",
       "title": "Resolution 4",
       "text": "Reality as you know it will never be the same, but perhaps this is not the end of the world. After all, time is just one dimension: a dimension humanity barely understands. We experience time, but we cannot see it. We can measure it, but we cannot alter it. So what if the fourth dimension has split into hundreds of thousands of planes of existence? Our feeble human minds cannot comprehend the outcome, but the universe still survives, its ever-expanding boundaries no longer limited by the confines of time.",
-      "steps": ["fabric_of_time_unwoven", "all_insane", "lose", "skip_epilogue"]
+      "steps": ["fabric_of_time_unwoven", "all_insane", "skip_epilogue", "lose"]
     },
     {
       "id": "R5",
@@ -17054,7 +17132,7 @@
 {
   "id": "tfa_interlude5",
   "scenarioName": "The Darkness",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "check_fell_into_depths",
     "check_found_missing_relic",
@@ -18179,7 +18257,7 @@
 {
   "id": "tfa_interlude4",
   "scenarioName": "Those Held Captive",
-  "interlude": true,
+  "type": "interlude",
   "setup": [
     "check_process_backfired",
     "check_mind_recovered",

@@ -502,8 +502,9 @@ export interface ConditionalStepsChoice {
 export interface ChooseManyInput {
   type: "choose_many";
   choices: Choice[];
-  count: number;
-  progressive?: boolean;
+  min?: number;
+  max: number;
+  continue_prompt: string;
 }
 export interface StepsChoice {
   text?: string;
@@ -609,7 +610,7 @@ export interface Scenario {
   setup: string[];
   resolutions?: Resolution[];
   steps: Step[];
-  interlude?: boolean;
+  type?: "interlude" | "epilogue";
 }
 export interface Resolution {
   id: string;

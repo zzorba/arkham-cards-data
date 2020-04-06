@@ -577,6 +577,11 @@
       "effects": [
         {
           "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "tcu_epilogue"
+        },
+        {
+          "type": "campaign_data",
           "setting": "result",
           "value": "win"
         }
@@ -817,6 +822,21 @@
       "text": "Check the “Missing Persons” section of your Campaign Log."
     },
     {
+      "id": "check_gavriella_in_game",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05046",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_gavriella_alive"]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_gavriella_alive",
       "bullet_type": "small",
       "text": "<i>If Gavriella Mizrah is alive</i>, any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Gavriella Mizrah’s profile, record <i>Gavriella Mizrah is dead</i>.",
@@ -846,6 +866,21 @@
                 "text": "Gavriella Mizrah is dead."
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jerome_in_game",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05047",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_jerome_alive"]
           }
         ]
       }
@@ -885,6 +920,21 @@
       }
     },
     {
+      "id": "check_penny_in_game",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05049",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_penny_alive"]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_penny_alive",
       "bullet_type": "small",
       "text": "<i>If Penny White is alive</i>, any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Penny White’s profile, record <i>Penny White is dead</i>.",
@@ -914,6 +964,21 @@
                 "text": "Penny White is dead."
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_valentino_in_game",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "05048",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_valentino_alive"]
           }
         ]
       }
@@ -1011,7 +1076,7 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
+      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_in_game", "check_jerome_in_game", "check_penny_in_game", "check_valentino_in_game", "earn_xp", "$upgrade_decks"]
     }
   ]
 }
