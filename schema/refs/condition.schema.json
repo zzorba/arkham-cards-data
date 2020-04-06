@@ -2,6 +2,41 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/condition.schema.json",
   "definitions": {
+    "multiCondition": {
+      "$id": "#multiCondition",
+      "title": "MultiCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "multi"
+          ]
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campaignLogCondition"
+          }
+        },
+        "count": {
+          "type": "integer"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "conditions",
+        "count",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "killedTraumaCondition": {
       "$id": "#killedTraumaCondition",
       "title": "KilledTraumaCondition",
@@ -101,7 +136,6 @@
           "enum": [
             "player_count",
             "resolution",
-            "investigator",
             "investigator_status"
           ]
         },
@@ -254,14 +288,18 @@
           "type": "string",
           "enum": [
             "trait",
-            "faction"
+            "faction",
+            "code"
           ]
         },
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/stepsOption"
+            "$ref": "option.schema.json#/definitions/stringOption"
           }
+        },
+        "defaultOption": {
+          "$ref": "option.schema.json#/definitions/option"
         }
       },
       "required": [
@@ -361,9 +399,6 @@
           "enum": [
             "campaign_log_section_exists"
           ]
-        },
-        "hidden": {
-          "type": "boolean"
         },
         "section": {
           "type": "string"
@@ -760,6 +795,9 @@
       "$id": "#condition",
       "title": "Condition",
       "oneOf": [
+        {
+          "$ref": "#/definitions/multiCondition"
+        },
         {
           "$ref": "#/definitions/campaignLogCondition"
         },

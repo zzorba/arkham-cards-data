@@ -19,13 +19,21 @@
         "options": [
           {
             "condition": "Silver Twilight",
-            "steps": ["progress_1"]
-          },
-          {
-            "steps": ["progress_2"]
+            "steps": ["is_silver_twilight", "progress_1"]
           }
-        ]
+        ],
+        "defaultOption": {
+          "steps": ["no_silver_twilight", "progress_2"]
+        }
       }
+    },
+    {
+      "id": "is_silver_twilight",
+      "text": "Because at least one investigator has the [[Silver Twilight]] trait:"
+    },
+    {
+      "id": "no_silver_twilight",
+      "text": "Because no investigators have the [[Silver Twilight]] trait:"
     },
     {
       "id": "progress_1",
@@ -51,7 +59,7 @@
         "choices": [
           {
             "id": "victory_display",
-            "text": "Victory display:",
+            "text": "Victory display",
             "steps": ["progress_4", "progress_4_effects"]
           },
           {
@@ -155,12 +163,12 @@
           {
             "id": "agree",
             "text": "“I agree.”",
-            "steps": ["progress_8", "members_of_the_lodge", "add_cultist_token"]
+            "steps": ["progress_8", "members_of_the_lodge"]
           },
           {
             "id": "lie",
             "text": "“I agree.” (You are lying.)",
-            "steps": ["progress_9", "members_of_the_lodge", "add_cultist_token", "deceiving_the_lodge"]
+            "steps": ["progress_9", "members_of_the_lodge", "deceiving_the_lodge"]
           }
         ]
       }
@@ -204,19 +212,14 @@
     },
     {
       "id": "members_of_the_lodge",
+      "text": "In your Campaign Log, record that <i>the investigators are members of the Lodge.</i> Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
           "id": "members_of_the_lodge",
           "text": "the investigators are members of the Lodge."
-        }
-      ]
-    },
-    {
-      "id": "add_cultist_token",
-      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
-      "effects": [
+        },
         {
           "type": "add_chaos_token",
           "tokens": ["cultist"]

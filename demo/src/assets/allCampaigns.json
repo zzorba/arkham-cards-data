@@ -1890,15 +1890,21 @@
           {
             "id": "cheat",
             "text": "Did any player “cheat”?",
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["elder_thing"]
-              }
-            ]
+            "steps": ["add_elder_thing"]
           }
         ]
       }
+    },
+    {
+      "id": "add_elder_thing",
+      "bullet_type": "small",
+      "text": "Add 1 [elder_thing] chaos token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
     },
     {
       "id": "physical_trauma",
@@ -3925,22 +3931,17 @@
           {
             "id": "ghoul_priest_killed",
             "text": "Is the Ghoul Priest in the victory display?",
-            "steps": ["cross_out_ghoul_priest_alive"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "ghoul_priest_alive",
+                "cross_out": true
+              }
+            ]
           }
         ]
       }
-    },
-    {
-      "id": "cross_out_ghoul_priest_alive",
-      "bullet_type": "small",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "ghoul_priest_alive",
-          "cross_out": true
-        }
-      ]
     },
     {
       "id": "past_midnight",
@@ -8332,6 +8333,11 @@
       "id": "$input_value",
       "type": "hidden",
       "title": "Hidden"
+    },
+    {
+      "id": "hidden",
+      "type": "hidden",
+      "title": "Hidden"
     }
   ],
   "scenarios": [
@@ -8518,9 +8524,9 @@
     {
       "id": "check_gavriella_clues",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05046",
         "options": [
           {
@@ -8533,9 +8539,9 @@
     {
       "id": "check_jerome_clues",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05047",
         "options": [
           {
@@ -8548,9 +8554,9 @@
     {
       "id": "check_penny_clues",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05049",
         "options": [
           {
@@ -8563,9 +8569,9 @@
     {
       "id": "check_valentino_clues",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05048",
         "options": [
           {
@@ -8638,6 +8644,7 @@
     {
       "id": "check_gavriella_fate",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05046",
@@ -8652,6 +8659,7 @@
     {
       "id": "check_jerome_fate",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05047",
@@ -8666,6 +8674,7 @@
     {
       "id": "check_penny_fate",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05049",
@@ -8680,6 +8689,7 @@
     {
       "id": "check_valentino_fate",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05048",
@@ -9016,7 +9026,7 @@
         "agents_of_azathoth",
         "inexorable_fate",
         "ancient_evils",
-        "dark_cult"
+        "pentagram"
       ]
     },
     {
@@ -9443,9 +9453,9 @@
     {
       "id": "check_gavriella_intro",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05046",
         "options": [
           {
@@ -9464,9 +9474,9 @@
     {
       "id": "check_jerome_intro",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05047",
         "options": [
           {
@@ -9485,9 +9495,9 @@
     {
       "id": "check_penny_intro",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05049",
         "options": [
           {
@@ -9506,9 +9516,9 @@
     {
       "id": "check_valentino_intro",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "hidden": true,
         "section": "05048",
         "options": [
           {
@@ -9939,7 +9949,7 @@
         "city_of_sins",
         "silver_twilight_lodge",
         "ancient_evils",
-        "dark_cult",
+        "pentagram",
         "locked_doors"
       ]
     },
@@ -9953,44 +9963,44 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["lodge_setup"]
+            "steps": ["lodge_setup_1", "lodge_setup_2", "lodge_setup_3"]
           },
           {
             "boolCondition": false,
-            "steps": ["not_lodge_setup"]
+            "steps": ["not_lodge_setup_1", "not_lodge_setup_2", "not_lodge_setup_3"]
           }
         ]
       }
     },
     {
-      "id": "lodge_setup",
-      "text": "Because you are <i>members of the lodge</i>",
-      "bullets": [
-        {
-          "text": "When constructing the act deck, use Act 1a—“Warm Welcome” and remove Act 1a—“Infiltrating the Lodge” from the game."
-        },
-        {
-          "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the <i>(We’ve Been Expecting You)</i> subtitle into play. Remove the other versions of those locations from the game"
-        },
-        {
-          "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Acolyte, 1 copy of Wizard of the Order, 2 copies of Knight of the Inner Circle, and 1 copy of Cell Keeper."
-        }
-      ]
+      "id": "lodge_setup_1",
+      "bullet_type": "small",
+      "text": "When constructing the act deck, use Act 1a—“Warm Welcome” and remove Act 1a—“Infiltrating the Lodge” from the game."
     },
     {
-      "id": "not_lodge_setup",
-      "text": "Because you are NOT <i>members of the lodge</i>",
-      "bullets": [
-        {
-          "text": "When constructing the act deck, use Act 1a—“Infiltrating the Lodge” and remove Act 1a—“Warm Welcome” from the game."
-        },
-        {
-          "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the (Members Only) subtitle into play. Remove the other versions of those locations from the game."
-        },
-        {
-          "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Lodge Neophyte, 1 copy of Keeper of Secrets, 2 copies of Knight of the Outer Void, and 1 copy of Lodge Jailor."
-        }
-      ]
+      "id": "lodge_setup_2",
+      "bullet_type": "small",
+      "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the <i>(We’ve Been Expecting You)</i> subtitle into play. Remove the other versions of those locations from the game"
+    },
+    {
+      "id": "lodge_setup_3",
+      "bullet_type": "small",
+      "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Acolyte, 1 copy of Wizard of the Order, 2 copies of Knight of the Inner Circle, and 1 copy of Cell Keeper."
+    },
+    {
+      "id": "not_lodge_setup_1",
+      "bullet_type": "small",
+      "text": "When constructing the act deck, use Act 1a—“Infiltrating the Lodge” and remove Act 1a—“Warm Welcome” from the game."
+    },
+    {
+      "id": "not_lodge_setup_2",
+      "bullet_type": "small",
+      "text": "Put the versions of Lodge Gates, Lobby, and Lodge Cellar with the (Members Only) subtitle into play. Remove the other versions of those locations from the game."
+    },
+    {
+      "id": "not_lodge_setup_3",
+      "bullet_type": "small",
+      "text": "Search the gathered encounter sets for the following cards, and remove them from the game: 3 copies of Lodge Neophyte, 1 copy of Keeper of Secrets, 2 copies of Knight of the Outer Void, and 1 copy of Lodge Jailor."
     },
     {
       "id": "setup_locations",
@@ -10233,24 +10243,29 @@
     },
     {
       "id": "gather_anette_cards",
+      "bullet_type": "small",
       "type": "encounter_sets",
       "aside": true,
       "encounter_sets": [
         "music_of_the_damned",
         "anettes_coven",
-        "city_of_sins"
+        "city_of_sins",
+        "witchcraft"
       ]
     },
     {
       "id": "use_act1_v1",
+      "bullet_type": "small",
       "text": "When constructing the act deck, use Act 1a—“Dark Knowledge (v. I)” and Act 2a—“Beyond the Grave.”"
     },
     {
       "id": "use_anette_locations",
+      "bullet_type": "small",
       "text": "Put Hangman’s Hill <i>(Where It All Ends)</i> and Silver Twilight Lodge <i>(Shrouded in Mystery)</i> into play."
     },
     {
       "id": "gather_carl_cards",
+      "bullet_type": "small",
       "type": "encounter_sets",
       "aside": true,
       "encounter_sets": [
@@ -10263,10 +10278,12 @@
     },
     {
       "id": "use_act1_v2",
+      "bullet_type": "small",
       "text": "When constructing the act deck, use Act 1a—“Dark Knowledge (v. II)” and Act 2a—“New World Order.”"
     },
     {
       "id": "use_carl_locations",
+      "bullet_type": "small",
       "text": "Put Silver Twilight Lodge <i>(Where It All Ends)</i> and Hangman’s Hill <i>(Shrouded in Mystery)</i> into play."
     },
     {
@@ -10329,7 +10346,7 @@
           "text": "Once an incursion is resolved at a location, breaches from other incursions cannot be placed on that location for the remainder of that phase."
         }
       ],
-      "example": "<i>For example: A breach is about to be placed on Rivertown, which has 3 breaches on it. Instead, an <b>incursion</b> is resolved at Rivertown. First, all of the breaches on Rivertown are removed. Then, 1 doom is placed on Rivertown. Finally, 1 breach is placed on each of the locations connected to Rivertown. This may cause another incursion at one of those locations."
+      "example": "<i>For example: A breach is about to be placed on Rivertown, which has 3 breaches on it. Instead, an <b>incursion</b> is resolved at Rivertown. First, all of the breaches on Rivertown are removed. Then, 1 doom is placed on Rivertown. Finally, 1 breach is placed on each of the locations connected to Rivertown. This may cause another incursion at one of those locations.</i>"
     },
     {
       "id": "choose_anettes_fate",
@@ -10365,6 +10382,25 @@
             "id": "under_arrest",
             "text": "<i>“You are under arrest.”</i>",
             "description": "You may only choose this option if at least one of the investigators has the [[Detective]], [[Police]], or [[Agency]] trait.",
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "investigator",
+              "investigator_data": "trait",
+              "options": [
+                {
+                  "condition": "Detective",
+                  "steps": []
+                },
+                {
+                  "condition": "Police",
+                  "steps": []
+                },
+                {
+                  "condition": "Agency",
+                  "steps": []
+                }
+              ]
+            },
             "effects": [
               {
                 "type": "campaign_log",
@@ -10378,6 +10414,25 @@
             "id": "learn_spells",
             "text": "<i>“Then teach me how to be stronger.”</i>",
             "description": "You may only choose this option if at least one of the investigators has the [[Sorcerer]], [[Miskatonic]], or [[Scholar]] trait.",
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "investigator",
+              "investigator_data": "trait",
+              "options": [
+                {
+                  "condition": "Sorcerer",
+                  "steps": []
+                },
+                {
+                  "condition": "Miskatonic",
+                  "steps": []
+                },
+                {
+                  "condition": "Scholar",
+                  "steps": []
+                }
+              ]
+            },
             "effects": [
               {
                 "type": "campaign_log",
@@ -10431,7 +10486,26 @@
                 "id": "arrested_sanford",
                 "text": "the investigators arrested Sanford."
               }
-            ]
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "investigator",
+              "investigator_data": "trait",
+              "options": [
+                {
+                  "condition": "Detective",
+                  "steps": []
+                },
+                {
+                  "condition": "Police",
+                  "steps": []
+                },
+                {
+                  "condition": "Agency",
+                  "steps": []
+                }
+              ]
+            }
           },
           {
             "id": "seize_control",
@@ -10444,7 +10518,26 @@
                 "id": "assumed_control_of_the_silver_twilight_lodge",
                 "text": "the investigators assumed control of the Silver Twilight Lodge."
               }
-            ]
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "investigator",
+              "investigator_data": "trait",
+              "options": [
+                {
+                  "condition": "Sorcerer",
+                  "steps": []
+                },
+                {
+                  "condition": "Silver Twilight",
+                  "steps": []
+                },
+                {
+                  "condition": "Cultist",
+                  "steps": []
+                }
+              ]
+            }
           }
         ]
       }
@@ -10866,13 +10959,21 @@
         "options": [
           {
             "condition": "Silver Twilight",
-            "steps": ["progress_1"]
-          },
-          {
-            "steps": ["progress_2"]
+            "steps": ["is_silver_twilight", "progress_1"]
           }
-        ]
+        ],
+        "defaultOption": {
+          "steps": ["no_silver_twilight", "progress_2"]
+        }
       }
+    },
+    {
+      "id": "is_silver_twilight",
+      "text": "Because at least one investigator has the [[Silver Twilight]] trait:"
+    },
+    {
+      "id": "no_silver_twilight",
+      "text": "Because no investigators have the [[Silver Twilight]] trait:"
     },
     {
       "id": "progress_1",
@@ -10898,7 +10999,7 @@
         "choices": [
           {
             "id": "victory_display",
-            "text": "Victory display:",
+            "text": "Victory display",
             "steps": ["progress_4", "progress_4_effects"]
           },
           {
@@ -11002,12 +11103,12 @@
           {
             "id": "agree",
             "text": "“I agree.”",
-            "steps": ["progress_8", "members_of_the_lodge", "add_cultist_token"]
+            "steps": ["progress_8", "members_of_the_lodge"]
           },
           {
             "id": "lie",
             "text": "“I agree.” (You are lying.)",
-            "steps": ["progress_9", "members_of_the_lodge", "add_cultist_token", "deceiving_the_lodge"]
+            "steps": ["progress_9", "members_of_the_lodge", "deceiving_the_lodge"]
           }
         ]
       }
@@ -11051,19 +11152,14 @@
     },
     {
       "id": "members_of_the_lodge",
+      "text": "In your Campaign Log, record that <i>the investigators are members of the Lodge.</i> Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
           "id": "members_of_the_lodge",
           "text": "the investigators are members of the Lodge."
-        }
-      ]
-    },
-    {
-      "id": "add_cultist_token",
-      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
-      "effects": [
+        },
         {
           "type": "add_chaos_token",
           "tokens": ["cultist"]
@@ -11192,7 +11288,7 @@
           {
             "id": "lie",
             "text": "Tell him you know of no possible connection. (You are lying.)",
-            "steps": ["intro_3", "check_mystic_investigator", "intro_3_continued", "hid_their_knowledge"]
+            "steps": ["intro_3", "check_mystic_investigator", "intro_3_continued", "hid_knowledge_of_coven"]
           }
         ]
       }
@@ -11237,14 +11333,22 @@
         "investigator_data": "faction",
         "options": [
           {
-            "condition": "Mystic",
-            "steps": ["read_mystic_text"]
-          },
-          {
-            "steps": ["read_gibberish"]
+            "condition": "mystic",
+            "steps": ["has_mystic", "read_mystic_text"]
           }
-        ]
+        ],
+        "defaultOption": {
+          "steps": ["no_mystic", "read_gibberish"]
+        }
       }
+    },
+    {
+      "id": "has_mystic",
+      "text": "Because at least one investigator is a Mystic ([mystic]):"
+    },
+    {
+      "id": "no_mystic",
+      "text": "Because no investigator is a Mystic ([mystic]):"
     },
     {
       "id": "read_mystic_text",
@@ -11253,6 +11357,7 @@
     },
     {
       "id": "read_gibberish",
+      "type": "story",
       "text": "It all looks like gibberish to you."
     },
     {
@@ -11261,12 +11366,12 @@
       "text": "“To this end, I have a task for you, on behalf of the Silver Twilight Lodge.” Carl Sanford rises to his feet, using his cane more for show than for balance. You rise as well, ready to perform whatever duties are necessary to get to the bottom of this mystery.\n“We need as much information about this creature as we can obtain. If there is any place that will have these answers, it is the house where Keziah herself lived all those years ago.” You nod in agreement—there are too many questions you need answered. Perhaps this is connected to the spell the witches were casting that night in the woods, after all. If so, what is their motive? And what does this have to do with the creature that kidnapped those four unfortunate souls? You nod to Mr. Sanford and depart for the Witch House."
     },
     {
-      "id": "hid_their_knowledge",
+      "id": "hid_knowledge_of_coven",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "hid_their_knowledge",
+          "id": "hid_knowledge_of_coven",
           "text": "the investigators hid their knowledge of the coven."
         }
       ]
@@ -11346,16 +11451,22 @@
           {
             "id": "brown_jenkin_defeated",
             "text": "Was Brown Jenkin defeated at least once?",
-            "effects": [
-              {
-                "type": "earn_xp",
-                "investigator": "all",
-                "bonus": 1
-              }
-            ]
+            "steps": ["brown_jenkin_xp"]
           }
         ]
       }
+    },
+    {
+      "id": "brown_jenkin_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
     },
     {
       "id": "check_nahab_xp",
@@ -11366,21 +11477,27 @@
           {
             "id": "nehab_defeated",
             "text": "Was Nahab defeated at least once?",
-            "effects": [
-              {
-                "type": "earn_xp",
-                "investigator": "all",
-                "bonus": 1
-              }
-            ]
+            "steps": ["nahab_xp"]
           }
         ]
       }
     },
     {
+      "id": "nahab_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
       "id": "check_act_deck",
       "type": "input",
-      "text": "What act was in play when the scenario ended?",
+      "text": "Check the act deck. What act was in play when the scenario ended?",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -11392,18 +11509,19 @@
           {
             "id": "act_2",
             "text": "Act 2",
-            "steps": ["record_gilmans_journal", "choose_black_book"]
+            "steps": ["record_gilmans_journal", "choose_black_book_small_prompt", "choose_black_book_small"]
           },
           {
             "id": "act_3",
             "text": "Act 3",
-            "steps": ["record_gilmans_journal", "record_keziahs_formulae", "choose_black_book"]
+            "steps": ["record_gilmans_journal", "choose_black_book_small_prompt", "record_keziahs_formulae", "choose_black_book_small"]
           }
         ]
       }
     },
     {
       "id": "record_gilmans_journal",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -11415,6 +11533,7 @@
     },
     {
       "id": "record_keziahs_formulae",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -11425,8 +11544,21 @@
       ]
     },
     {
-      "id": "record_worn_crucifix",
+      "id": "all_mementos",
+      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Gilman’s Journal</i>, <i>Keziah’s Formulae</i>, and <i>Worn Crucifix</i>.",
       "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "gilmans_journal",
+          "text": "Gilman's Journal"
+        },
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "keziahs_formulae",
+          "text": "Keziah's Formulae"
+        },
         {
           "type": "campaign_log",
           "section": "mementos",
@@ -11436,8 +11568,13 @@
       ]
     },
     {
-      "id": "choose_black_book",
-      "text": "Additionally, any one investigator may choose to add The Black Book story asset to their deck. This card does not count toward that investigator’s deck size. If an investigator chooses to include The Black Book in their deck, add 1 [skull] token to the haos bag for the remainder of the campaign.",
+      "id": "choose_black_book_small_prompt",
+      "bullet_type": "small",
+      "text": "Additionally, any one investigator may choose to add The Black Book story asset to their deck. This card does not count toward that investigator’s deck size. If an investigator chooses to include The Black Book in their deck, add 1 [skull] token to the haos bag for the remainder of the campaign."
+    },
+    {
+      "id": "choose_black_book_small",
+      "bullet_type": "small",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -11447,13 +11584,41 @@
             "text": "Keep the Black Book?",
             "effects": [
               {
-                "type": "add_card",
-                "investigator": "choice",
-                "card": "05150"
+                "type": "add_chaos_token",
+                "tokens": ["skull"]
               },
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "05150"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_black_book_prompt",
+      "text": "Additionally, any one investigator may choose to add The Black Book story asset to their deck. This card does not count toward that investigator’s deck size. If an investigator chooses to include The Black Book in their deck, add 1 [skull] token to the haos bag for the remainder of the campaign."
+    },
+    {
+      "id": "choose_black_book",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "keep_book",
+            "text": "Keep the Black Book?",
+            "effects": [
               {
                 "type": "add_chaos_token",
                 "tokens": ["skull"]
+              },
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "05150"
               }
             ]
           }
@@ -11505,7 +11670,7 @@
       "id": "R2",
       "title": "Resolution 2",
       "text": "When you come to, you are lying on the wooden floor of Walter Gilman’s room. The trappings of Keziah’s foul practices are nowhere to be found, nor is the fanged, bearded rat – Keziah’s “ familiar,” as you now understand. Just as you are about to rise to your feet, you spot something glinting in a corner of the room. Crawling underneath Gilman’s bed, you reach out and grab the trinket. It is a worn nickel crucifix, similar to the ones you saw in the loomfixer’s room. You shove it into your pocket before leaving the troubling room and its strange angles behind. You’ve learned as much as you care to uncover about Keziah Mason, the witch who once inhabited this old and forsaken house. As you step out into the chilly November air, you turn and take one last look at the decrepit Witch House. You fear that though you may never enter this place again, in your thoughts and your dreams, you will never truly leave it behind.",
-      "steps": ["earn_xp_bonus_2", "record_gilmans_journal", "record_keziahs_formulae", "record_worn_crucifix", "choose_black_book", "$upgrade_decks"]
+      "steps": ["earn_xp_bonus_2", "all_mementos", "choose_black_book_prompt", "choose_black_book", "$upgrade_decks"]
     }
   ]
 },
@@ -11585,7 +11750,7 @@
       "id": "spectral_encounter_deck",
       "type": "rule_reminder",
       "title": "The Spectral Encounter Deck",
-      "text": "During the setup of this scenario, two encounter decks are constructed: a “standard” encounter deck and a “spectral” encounter deck. Generally speaking, whenever an investigator would interact with the encounter deck, that investigator should use the standard encounter deck.\nHowever, at a certain point during this scenario, locations may flip over to their Spectral side. While an investigator is at a location with the Spectral trait, that investigator should use the spectral encounter deck instead of the standard encounter deck for all purposes, unless otherwise noted. This includes drawing cards from the encounter deck, as well as searching, looking at, revealing, or otherwise interacting with the encounter deck (or encounter discard pile) in any way. This also includes abilities that trigger when the encounter deck runs out of cards. If an effect specifically refers to the standard encounter deck or spectral encounter deck, it interacts with the specified deck regardless of the investigator’s location.\nEach of the two encounter decks have their own discard pile. Whenever a card with the Spectral trait would be discarded, it is placed in the discard pile for the spectral encounter deck. All other encounter cards are discarded to the discard pile for the standard scenario does not “reveal” the new location.</i>"
+      "text": "During the setup of this scenario, two encounter decks are constructed: a “standard” encounter deck and a “spectral” encounter deck. Generally speaking, whenever an investigator would interact with the encounter deck, that investigator should use the standard encounter deck.\nHowever, at a certain point during this scenario, locations may flip over to their [[Spectral]] side. While an investigator is at a location with the [[Spectral]] trait, that investigator should use the spectral encounter deck instead of the standard encounter deck for all purposes, unless otherwise noted. This includes drawing cards from the encounter deck, as well as searching, looking at, revealing, or otherwise interacting with the encounter deck (or encounter discard pile) in any way. This also includes abilities that trigger when the encounter deck runs out of cards. If an effect specifically refers to the standard encounter deck or spectral encounter deck, it interacts with the specified deck regardless of the investigator’s location.\nEach of the two encounter decks have their own discard pile. Whenever a card with the [[Spectral]] trait would be discarded, it is placed in the discard pile for the spectral encounter deck. All other encounter cards are discarded to the discard pile for the standard scenario does not “reveal” the new location.\n<i>Note: Flipping a location over from one side to another during this scenario does not “reveal” the new location.</i>"
     },
     {
       "id": "record_heretics_released",
@@ -11638,6 +11803,7 @@
     },
     {
       "id": "record_wisp_of_spectral_mist",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -12096,13 +12262,14 @@
     },
     {
       "id": "path_winds_before_you",
+      "bullet_type": "none",
       "text": "In your Campaign Log, record <i>the path winds before you</i>. Next to this, record a number of tally marks based on the conditions below:",
       "effects": [
         {
           "type": "campaign_log_count",
           "section": "campaign_notes",
           "id": "path_winds_before_you",
-          "text": "the path winds before you: #num#",
+          "text": "the path winds before you: #X#",
           "operation": "set",
           "value": 0
         }
@@ -12125,6 +12292,7 @@
     },
     {
       "id": "know_what_you_have_to_do",
+      "bullet_type": "small",
       "text": "You know what you have to do. Record 1 tally mark.",
       "effects": [
         {
@@ -12178,6 +12346,7 @@
     },
     {
       "id": "assitance_tally_marks",
+      "bullet_type": "small",
       "text": "Record 2 tally marks.",
       "effects": [
         {
@@ -12191,6 +12360,7 @@
     },
     {
       "id": "add_chaos_token",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_data",
@@ -12235,8 +12405,6 @@
         ]
       }
     },
-
-
     {
       "id": "check_mementos",
       "type": "branch",
@@ -12277,10 +12445,12 @@
     },
     {
       "id": "two_or_fewer_mementos",
+      "bullet_type": "small",
       "text": "You are woefully unprepared for this journey. (Nothing happens.)"
     },
     {
       "id": "three_to_five_mementos",
+      "bullet_type": "small",
       "text": "From the evidence you have uncovered, you understand the path you must take a little better. But there is still much you do not know. Record 1 tally mark.",
       "effects": [
         {
@@ -12294,6 +12464,7 @@
     },
     {
       "id": "six_or_more_mementos",
+      "bullet_type": "small",
       "text": "Your journey is laid bare before you. Record 2 tally marks.",
       "effects": [
         {
@@ -12322,6 +12493,7 @@
     },
     {
       "id": "have_black_book",
+      "bullet_type": "small",
       "text": "It contains knowledge of the land beyond ordered time and space. Record 1 tally mark.",
       "effects": [
         {
@@ -12350,6 +12522,7 @@
     },
     {
       "id": "doom_draws_ever_closer",
+      "bullet_type": "small",
       "text": "Azathoth’s maw begins to open. Record 2 tally marks.",
       "effects": [
         {
@@ -12380,11 +12553,13 @@
     "check_sided_with_the_coven_braziers",
     "set_aside_cards",
     "set_aside_bosses",
+    "check_missing_persons",
     "check_gavriella",
     "check_penny",
     "check_jerome",
     "check_valentino",
     "select_act_3_4",
+    "check_sided_with_lodge",
     "check_heretics_released",
     "encounter_deck",
     "circle_braziers",
@@ -12484,7 +12659,8 @@
     },
     {
       "id": "light_braziers",
-      "text": "Because <i>the investigators sided with the coven</i>, the braziers at Forbidding Shore and both Unvisited Isle locations are already lit. Place a resource token on each of these locations to signify this. <i>(See “Circle / Braziers”)</i>"
+      "bullet_type": "small",
+      "text": "The braziers at Forbidding Shore and both Unvisited Isle locations are already lit. Place a resource token on each of these locations to signify this. <i>(See “Circle / Braziers”)</i>"
     },
     {
       "id": "set_aside_cards",
@@ -12495,8 +12671,13 @@
       "text": "Search the collection for Anette Mason (The Circle Undone #57) and Josef Meiger (The Circle Undone #85) and set them aside, out of play."
     },
     {
+      "id": "check_missing_persons",
+      "text": "Check the “Missing Persons” section of the Campaign Log. Based on which characters are crossed off and which are not, perform the following:"
+    },
+    {
       "id": "check_gavriella",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05046",
@@ -12514,15 +12695,18 @@
     },
     {
       "id": "set_aside_gavriella",
+      "bullet_type": "small",
       "text": "Set the Gavriella Mizrah story asset aside, and place the Gavriella’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_gavriella",
+      "bullet_type": "small",
       "text": "Remove the Gavriella Mizrah story asset and the Gavriella’s Fate story card from the game."
     },
     {
       "id": "check_jerome",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05047",
@@ -12540,18 +12724,21 @@
     },
     {
       "id": "set_aside_jerome",
+      "bullet_type": "small",
       "text": "Set the Jerome Davids story asset aside, and place the Jerome’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_jerome",
+      "bullet_type": "small",
       "text": "Remove the Jerome Davids story asset and the Jerome’s Fate story card from the game."
     },
     {
       "id": "check_penny",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "section": "05048",
+        "section": "05049",
         "options": [
           {
             "boolCondition": true,
@@ -12566,18 +12753,21 @@
     },
     {
       "id": "set_aside_penny",
+      "bullet_type": "small",
       "text": "Set the Penny White story asset aside, and place the Penny’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_penny",
+      "bullet_type": "small",
       "text": "Remove the Penny White story asset and the Penny’s Fate story card from the game."
     },
     {
       "id": "check_valentino",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "section": "05049",
+        "section": "05048",
         "options": [
           {
             "boolCondition": true,
@@ -12592,15 +12782,21 @@
     },
     {
       "id": "set_aside_valentino",
+      "bullet_type": "small",
       "text": "Set the Valentino Rivas story asset aside, and place the Valentino’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_valentino",
+      "bullet_type": "small",
       "text": "Remove the Valentino Rivas story asset and the Valentino’s Fate story card from the game."
     },
     {
       "id": "select_act_3_4",
-      "text": "Depending on the following circumstances, a different version of Acts 3 and 4 should be used in this scenario. Each other version of Act 3 or 4 is removed from the game.",
+      "text": "Depending on the following circumstances, a different version of Acts 3 and 4 should be used in this scenario. Each other version of Act 3 or 4 is removed from the game."
+    },
+    {
+      "id": "check_sided_with_lodge",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -12612,13 +12808,97 @@
           },
           {
             "boolCondition": false,
-            "steps": ["check_sided_with_the_coven"]
+            "steps": ["check_sided_with_the_coven_and_inner_circle"]
           }
         ]
       }
     },
     {
+      "id": "check_sided_with_the_coven_and_inner_circle",
+      "text": "<i>If the investigators sided with the coven</i>, <i>the investigators are deceiving the Lodge</i>, and <i>the investigators were inducted into the Inner Circle.</i>",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "deceiving_the_lodge",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "inducted_into_the_inner_circle",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          }
+        ],
+        "options": [{
+          "boolCondition": true,
+          "steps": ["act_3_v2"]
+        }, {
+          "boolCondition": false,
+          "steps": ["check_sided_with_the_coven_and_deceiving"]
+        }]
+      }
+    },
+    {
+      "id": "check_sided_with_the_coven_and_deceiving",
+      "text": "If the above is not true, <i>the investigators sided with the coven</i>, and at least two of the following is true: <i>the investigators are deceiving the Lodge</i>, <i>the investigators hid their knowledge of the coven</i>, or <i>the investigators kept their mementos hidden.</i>",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "deceiving_the_lodge",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "hid_knowledge_of_coven",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "kept_mementos_hidden",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          }
+        ],
+        "options": [{
+          "boolCondition": true,
+          "steps": ["act_3_v3"]
+        }, {
+          "boolCondition": false,
+          "steps": ["check_sided_with_the_coven"]
+        }]
+      }
+    },
+    {
       "id": "check_sided_with_the_coven",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -12626,96 +12906,6 @@
         "id": "sided_with_the_coven",
         "options": [{
             "boolCondition": true,
-            "steps": ["check_deceiving_the_lodge"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_deceiving_the_lodge",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "deceiving_the_lodge",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["check_inducted_into_the_inner_circle"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_hid_knowledge_of_the_coven_1"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_inducted_into_the_inner_circle",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "inducted_into_the_inner_circle",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v2"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_hid_knowledge_of_the_coven_0"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_hid_knowledge_of_the_coven_1",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "hid_knowledge_of_the_coven",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v3"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_kept_mementos_hidden"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_hid_knowledge_of_the_coven_0",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "hid_knowledge_of_the_coven",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["check_kept_mementos_hidden"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["act_3_v4"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_kept_mementos_hidden",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "kept_mementos_hidden",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v3"]
-          },
-          {
-            "boolCondition": false,
             "steps": ["act_3_v4"]
           }
         ]
@@ -12723,19 +12913,23 @@
     },
     {
       "id": "act_3_v1",
-      "text": "Because <i>the investigators sided with the Lodge</i>, use Act 3—“Beyond the Mist (v. I)” and Act 4—“The Binding Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. I)” and Act 4—“The Binding Rite.”"
     },
     {
       "id": "act_3_v2",
-      "text": "Because <i>the investigators sided with the coven</i>, <i>the investigators are deceiving the Lodge</i>, and <i>the investigators were inducted into the Inner Circle</i>, use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "act_3_v3",
-      "text": "Because <i>the investigators sided with the coven</i>, and at least two of the following is true: <i>the investigators are deceiving the Lodge</i>, <i>the investigators hid their knowledge of the coven</i>, or <i>the investigators kept their mementos hidden</i>, use Act 3—“Beyond the Mist (v. III)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. III)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "act_3_v4",
-      "text": "Because <i>the investigators sided with the coven</i>, use Act 3—“Beyond the Mist (v. IV)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. IV)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "check_heretics_released",
@@ -12770,23 +12964,28 @@
     },
     {
       "id": "add_0_doom",
-      "text": "Because <i>0 heretics were unleashed unto Arkham</i>, no changes are made."
+      "bullet_type": "small",
+      "text": "No changes are made."
     },
     {
       "id": "add_1_doom",
-      "text": "Because <i>1 heretic was unleashed unto Arkham</i>, place 1 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 1 doom on agenda 1a."
     },
     {
       "id": "add_2_doom",
-      "text": "Because <i>2 heretic were unleashed unto Arkham</i>, place 2 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 2 doom on agenda 1a."
     },
     {
       "id": "add_3_doom",
-      "text": "Because <i>3 heretic were unleashed unto Arkham</i>, place 3 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 3 doom on agenda 1a."
     },
     {
       "id": "add_4_doom",
-      "text": "Because <i>4 heretic were unleashed unto Arkham</i>, place 4 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 4 doom on agenda 1a."
     },
     {
       "id": "encounter_deck",
@@ -12949,8 +13148,13 @@
       ]
     },
     {
+      "id": "compare_columns_explanation",
+      "text": "Check Campaign Log. Compare the following two bullets to see which has the most true statements."
+    },
+    {
       "id": "compare_columns",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -12958,18 +13162,19 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["josef_disappeared_1"]
+            "steps": ["josef_disappeared_L0R1"]
           },
           {
-            "boolCondition": true,
-            "steps": ["josef_disappeared_0"]
+            "boolCondition": false,
+            "steps": ["josef_disappeared_L1R0"]
           }
         ]
       }
     },
     {
-      "id": "josef_disappeared_0",
+      "id": "josef_disappeared_L1R0",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -12977,14 +13182,69 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["2_or_more_heretics_released_1"]
+            "steps": ["2_or_more_heretics_released"]
           },
           {
             "boolCondition": false,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
+    },
+    {
+      "id": "left_result",
+      "bullet_type": "small",
+      "text": "<i>The witches’ spell was broken.</i>\n<i>The investigators rescued Josef</i> / <i>Josef is alive and well.</i>\n<i>1 or fewer heretics were unleashed unto Arkham.</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "left_column",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "right_result",
+      "bullet_type": "small",
+      "text": "<i>The witches’ spell was cast.</i>\n<i>Josef disappeared into the mist.</i>\n<i>2 or more heretics were unleashed unto Arkham.</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "right_column",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["right_has_more", "resolution_7"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["left_has_more", "resolution_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "left_has_more",
+      "bullet_type": "none",
+      "text": "Because the first bullet has more true statements, proceed to <b>Resolution 6</b>"
+    },
+    {
+      "id": "right_has_more",
+      "bullet_type": "none",
+      "text": "Because the second bullet has more true statements, proceed to <b>Resolution 7</b>"
     },
     {
       "id": "resolution_5",
@@ -13002,8 +13262,9 @@
       "resolution": "R7"
     },
     {
-      "id": "josef_disappeared_1",
+      "id": "josef_disappeared_L0R1",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -13011,17 +13272,25 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["resolution_7"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "right_column",
+                "text": "dummy"
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["2_or_more_heretics_released_1"]
+            "steps": ["2_or_more_heretics_released"]
           }
         ]
       }
     },
     {
-      "id": "2_or_more_heretics_released_1",
+      "id": "2_or_more_heretics_released",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log_count",
@@ -13031,15 +13300,33 @@
         "options": [
           {
             "numCondition": 0,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column"
+              }
+            ]
           },
           {
             "numCondition": 1,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column"
+              }
+            ]
           }
         ],
         "defaultOption": {
-          "steps": ["resolution_7"]
+          "effects": [
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "right_column"
+            }
+          ]
         }
       }
     },
@@ -13069,7 +13356,13 @@
       ]
     },
     {
+      "id": "check_missing_persons_alive",
+      "text": "Check the “Missing Persons” section of your Campaign Log."
+    },
+    {
       "id": "check_gavriella_alive",
+      "bullet_type": "small",
+      "text": "<i>If Gavriella Mizrah is alive</i>, any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Gavriella Mizrah’s profile, record <i>Gavriella Mizrah is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -13078,7 +13371,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_gavriella"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05258"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -13087,7 +13386,7 @@
                 "type": "campaign_log",
                 "section": "05046",
                 "id": "dead",
-                "text": "Gavriella is dead."
+                "text": "Gavriella Mizrah is dead."
               }
             ]
           }
@@ -13096,6 +13395,8 @@
     },
     {
       "id": "check_jerome_alive",
+      "bullet_type": "small",
+      "text": "<i>If Jerome Davids is alive</i>, any one investigator may choose to add the Jerome Davids asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Jerome Davids’s profile, record <i>Jerome Davids is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -13104,7 +13405,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_jerome"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05259"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -13113,7 +13420,7 @@
                 "type": "campaign_log",
                 "section": "05047",
                 "id": "dead",
-                "text": "Jerome is dead."
+                "text": "Jerome Davids is dead."
               }
             ]
           }
@@ -13122,32 +13429,8 @@
     },
     {
       "id": "check_penny_alive",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "05048",
-        "id": "alive",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["earn_penny"]
-          },
-          {
-            "boolCondition": false,
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "05048",
-                "id": "dead",
-                "text": "Penny is dead."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_valentino_alive",
+      "bullet_type": "small",
+      "text": "<i>If Penny White is alive</i>, any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Penny White’s profile, record <i>Penny White is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -13156,7 +13439,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_valentino"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05260"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -13165,7 +13454,7 @@
                 "type": "campaign_log",
                 "section": "05049",
                 "id": "dead",
-                "text": "Valentino is dead."
+                "text": "Penny White is dead."
               }
             ]
           }
@@ -13173,48 +13462,38 @@
       }
     },
     {
-      "id": "earn_gavriella",
-      "text": "Any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05258"
-        }
-      ]
-    },
-    {
-      "id": "earn_jerome",
-      "text": "Any one investigator may choose to add the Jerome Davids asset to their deck. He does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05259"
-        }
-      ]
-    },
-    {
-      "id": "earn_penny",
-      "text": "Any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05260"
-        }
-      ]
-    },
-    {
-      "id": "earn_valentino",
-      "text": "Any one investigator may choose to add the Valentino Rivas asset to their deck. He does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05261"
-        }
-      ]
+      "id": "check_valentino_alive",
+      "bullet_type": "small",
+      "text": "<i>If Valentino Rivas is alive</i>, any one investigator may choose to add the Valentino Rivas asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Valentino Rivas’s profile, record <i>Valentino Rivas</i> is dead.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05261"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05048",
+                "id": "dead",
+                "text": "Valentino Rivas is dead."
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -13257,7 +13536,7 @@
     {
       "id": "R5",
       "title": "Resolution 5",
-      "steps": ["compare_columns"]
+      "steps": ["compare_columns_explanation", "compare_columns", "left_result", "right_result"]
     },
     {
       "id": "R6",
@@ -13275,7 +13554,7 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
+      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
     }
   ]
 }]}

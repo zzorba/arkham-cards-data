@@ -10,11 +10,13 @@
     "check_sided_with_the_coven_braziers",
     "set_aside_cards",
     "set_aside_bosses",
+    "check_missing_persons",
     "check_gavriella",
     "check_penny",
     "check_jerome",
     "check_valentino",
     "select_act_3_4",
+    "check_sided_with_lodge",
     "check_heretics_released",
     "encounter_deck",
     "circle_braziers",
@@ -114,7 +116,8 @@
     },
     {
       "id": "light_braziers",
-      "text": "Because <i>the investigators sided with the coven</i>, the braziers at Forbidding Shore and both Unvisited Isle locations are already lit. Place a resource token on each of these locations to signify this. <i>(See “Circle / Braziers”)</i>"
+      "bullet_type": "small",
+      "text": "The braziers at Forbidding Shore and both Unvisited Isle locations are already lit. Place a resource token on each of these locations to signify this. <i>(See “Circle / Braziers”)</i>"
     },
     {
       "id": "set_aside_cards",
@@ -125,8 +128,13 @@
       "text": "Search the collection for Anette Mason (The Circle Undone #57) and Josef Meiger (The Circle Undone #85) and set them aside, out of play."
     },
     {
+      "id": "check_missing_persons",
+      "text": "Check the “Missing Persons” section of the Campaign Log. Based on which characters are crossed off and which are not, perform the following:"
+    },
+    {
       "id": "check_gavriella",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05046",
@@ -144,15 +152,18 @@
     },
     {
       "id": "set_aside_gavriella",
+      "bullet_type": "small",
       "text": "Set the Gavriella Mizrah story asset aside, and place the Gavriella’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_gavriella",
+      "bullet_type": "small",
       "text": "Remove the Gavriella Mizrah story asset and the Gavriella’s Fate story card from the game."
     },
     {
       "id": "check_jerome",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
         "section": "05047",
@@ -170,18 +181,21 @@
     },
     {
       "id": "set_aside_jerome",
+      "bullet_type": "small",
       "text": "Set the Jerome Davids story asset aside, and place the Jerome’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_jerome",
+      "bullet_type": "small",
       "text": "Remove the Jerome Davids story asset and the Jerome’s Fate story card from the game."
     },
     {
       "id": "check_penny",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "section": "05048",
+        "section": "05049",
         "options": [
           {
             "boolCondition": true,
@@ -196,18 +210,21 @@
     },
     {
       "id": "set_aside_penny",
+      "bullet_type": "small",
       "text": "Set the Penny White story asset aside, and place the Penny’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_penny",
+      "bullet_type": "small",
       "text": "Remove the Penny White story asset and the Penny’s Fate story card from the game."
     },
     {
       "id": "check_valentino",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_section_exists",
-        "section": "05049",
+        "section": "05048",
         "options": [
           {
             "boolCondition": true,
@@ -222,15 +239,21 @@
     },
     {
       "id": "set_aside_valentino",
+      "bullet_type": "small",
       "text": "Set the Valentino Rivas story asset aside, and place the Valentino’s Fate story card beneath the scenario reference card."
     },
     {
       "id": "remove_valentino",
+      "bullet_type": "small",
       "text": "Remove the Valentino Rivas story asset and the Valentino’s Fate story card from the game."
     },
     {
       "id": "select_act_3_4",
-      "text": "Depending on the following circumstances, a different version of Acts 3 and 4 should be used in this scenario. Each other version of Act 3 or 4 is removed from the game.",
+      "text": "Depending on the following circumstances, a different version of Acts 3 and 4 should be used in this scenario. Each other version of Act 3 or 4 is removed from the game."
+    },
+    {
+      "id": "check_sided_with_lodge",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -242,13 +265,97 @@
           },
           {
             "boolCondition": false,
-            "steps": ["check_sided_with_the_coven"]
+            "steps": ["check_sided_with_the_coven_and_inner_circle"]
           }
         ]
       }
     },
     {
+      "id": "check_sided_with_the_coven_and_inner_circle",
+      "text": "<i>If the investigators sided with the coven</i>, <i>the investigators are deceiving the Lodge</i>, and <i>the investigators were inducted into the Inner Circle.</i>",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "deceiving_the_lodge",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "inducted_into_the_inner_circle",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          }
+        ],
+        "options": [{
+          "boolCondition": true,
+          "steps": ["act_3_v2"]
+        }, {
+          "boolCondition": false,
+          "steps": ["check_sided_with_the_coven_and_deceiving"]
+        }]
+      }
+    },
+    {
+      "id": "check_sided_with_the_coven_and_deceiving",
+      "text": "If the above is not true, <i>the investigators sided with the coven</i>, and at least two of the following is true: <i>the investigators are deceiving the Lodge</i>, <i>the investigators hid their knowledge of the coven</i>, or <i>the investigators kept their mementos hidden.</i>",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "deceiving_the_lodge",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "hid_knowledge_of_coven",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "kept_mementos_hidden",
+            "options": [{
+              "boolCondition": true,
+              "steps": []
+            }]
+          }
+        ],
+        "options": [{
+          "boolCondition": true,
+          "steps": ["act_3_v3"]
+        }, {
+          "boolCondition": false,
+          "steps": ["check_sided_with_the_coven"]
+        }]
+      }
+    },
+    {
       "id": "check_sided_with_the_coven",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -256,96 +363,6 @@
         "id": "sided_with_the_coven",
         "options": [{
             "boolCondition": true,
-            "steps": ["check_deceiving_the_lodge"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_deceiving_the_lodge",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "deceiving_the_lodge",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["check_inducted_into_the_inner_circle"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_hid_knowledge_of_the_coven_1"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_inducted_into_the_inner_circle",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "inducted_into_the_inner_circle",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v2"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_hid_knowledge_of_the_coven_0"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_hid_knowledge_of_the_coven_1",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "hid_knowledge_of_the_coven",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v3"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_kept_mementos_hidden"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_hid_knowledge_of_the_coven_0",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "hid_knowledge_of_the_coven",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["check_kept_mementos_hidden"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["act_3_v4"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_kept_mementos_hidden",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "kept_mementos_hidden",
-        "options": [{
-            "boolCondition": true,
-            "steps": ["act_3_v3"]
-          },
-          {
-            "boolCondition": false,
             "steps": ["act_3_v4"]
           }
         ]
@@ -353,19 +370,23 @@
     },
     {
       "id": "act_3_v1",
-      "text": "Because <i>the investigators sided with the Lodge</i>, use Act 3—“Beyond the Mist (v. I)” and Act 4—“The Binding Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. I)” and Act 4—“The Binding Rite.”"
     },
     {
       "id": "act_3_v2",
-      "text": "Because <i>the investigators sided with the coven</i>, <i>the investigators are deceiving the Lodge</i>, and <i>the investigators were inducted into the Inner Circle</i>, use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "act_3_v3",
-      "text": "Because <i>the investigators sided with the coven</i>, and at least two of the following is true: <i>the investigators are deceiving the Lodge</i>, <i>the investigators hid their knowledge of the coven</i>, or <i>the investigators kept their mementos hidden</i>, use Act 3—“Beyond the Mist (v. III)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. III)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "act_3_v4",
-      "text": "Because <i>the investigators sided with the coven</i>, use Act 3—“Beyond the Mist (v. IV)” and Act 4—“The Broken Rite.”"
+      "bullet_type": "small",
+      "text": "Use Act 3—“Beyond the Mist (v. IV)” and Act 4—“The Broken Rite.”"
     },
     {
       "id": "check_heretics_released",
@@ -400,23 +421,28 @@
     },
     {
       "id": "add_0_doom",
-      "text": "Because <i>0 heretics were unleashed unto Arkham</i>, no changes are made."
+      "bullet_type": "small",
+      "text": "No changes are made."
     },
     {
       "id": "add_1_doom",
-      "text": "Because <i>1 heretic was unleashed unto Arkham</i>, place 1 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 1 doom on agenda 1a."
     },
     {
       "id": "add_2_doom",
-      "text": "Because <i>2 heretic were unleashed unto Arkham</i>, place 2 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 2 doom on agenda 1a."
     },
     {
       "id": "add_3_doom",
-      "text": "Because <i>3 heretic were unleashed unto Arkham</i>, place 3 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 3 doom on agenda 1a."
     },
     {
       "id": "add_4_doom",
-      "text": "Because <i>4 heretic were unleashed unto Arkham</i>, place 4 doom on agenda 1a."
+      "bullet_type": "small",
+      "text": "Place 4 doom on agenda 1a."
     },
     {
       "id": "encounter_deck",
@@ -579,8 +605,13 @@
       ]
     },
     {
+      "id": "compare_columns_explanation",
+      "text": "Check Campaign Log. Compare the following two bullets to see which has the most true statements."
+    },
+    {
       "id": "compare_columns",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -588,18 +619,19 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["josef_disappeared_1"]
+            "steps": ["josef_disappeared_L0R1"]
           },
           {
-            "boolCondition": true,
-            "steps": ["josef_disappeared_0"]
+            "boolCondition": false,
+            "steps": ["josef_disappeared_L1R0"]
           }
         ]
       }
     },
     {
-      "id": "josef_disappeared_0",
+      "id": "josef_disappeared_L1R0",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -607,14 +639,69 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["2_or_more_heretics_released_1"]
+            "steps": ["2_or_more_heretics_released"]
           },
           {
             "boolCondition": false,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
+    },
+    {
+      "id": "left_result",
+      "bullet_type": "small",
+      "text": "<i>The witches’ spell was broken.</i>\n<i>The investigators rescued Josef</i> / <i>Josef is alive and well.</i>\n<i>1 or fewer heretics were unleashed unto Arkham.</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "left_column",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "right_result",
+      "bullet_type": "small",
+      "text": "<i>The witches’ spell was cast.</i>\n<i>Josef disappeared into the mist.</i>\n<i>2 or more heretics were unleashed unto Arkham.</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "right_column",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["right_has_more", "resolution_7"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["left_has_more", "resolution_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "left_has_more",
+      "bullet_type": "none",
+      "text": "Because the first bullet has more true statements, proceed to <b>Resolution 6</b>"
+    },
+    {
+      "id": "right_has_more",
+      "bullet_type": "none",
+      "text": "Because the second bullet has more true statements, proceed to <b>Resolution 7</b>"
     },
     {
       "id": "resolution_5",
@@ -632,8 +719,9 @@
       "resolution": "R7"
     },
     {
-      "id": "josef_disappeared_1",
+      "id": "josef_disappeared_L0R1",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -641,17 +729,25 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["resolution_7"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "right_column",
+                "text": "dummy"
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["2_or_more_heretics_released_1"]
+            "steps": ["2_or_more_heretics_released"]
           }
         ]
       }
     },
     {
-      "id": "2_or_more_heretics_released_1",
+      "id": "2_or_more_heretics_released",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log_count",
@@ -661,15 +757,33 @@
         "options": [
           {
             "numCondition": 0,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column"
+              }
+            ]
           },
           {
             "numCondition": 1,
-            "steps": ["resolution_6"]
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "left_column"
+              }
+            ]
           }
         ],
         "defaultOption": {
-          "steps": ["resolution_7"]
+          "effects": [
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "right_column"
+            }
+          ]
         }
       }
     },
@@ -699,7 +813,13 @@
       ]
     },
     {
+      "id": "check_missing_persons_alive",
+      "text": "Check the “Missing Persons” section of your Campaign Log."
+    },
+    {
       "id": "check_gavriella_alive",
+      "bullet_type": "small",
+      "text": "<i>If Gavriella Mizrah is alive</i>, any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Gavriella Mizrah’s profile, record <i>Gavriella Mizrah is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -708,7 +828,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_gavriella"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05258"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -717,7 +843,7 @@
                 "type": "campaign_log",
                 "section": "05046",
                 "id": "dead",
-                "text": "Gavriella is dead."
+                "text": "Gavriella Mizrah is dead."
               }
             ]
           }
@@ -726,6 +852,8 @@
     },
     {
       "id": "check_jerome_alive",
+      "bullet_type": "small",
+      "text": "<i>If Jerome Davids is alive</i>, any one investigator may choose to add the Jerome Davids asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Jerome Davids’s profile, record <i>Jerome Davids is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -734,7 +862,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_jerome"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05259"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -743,7 +877,7 @@
                 "type": "campaign_log",
                 "section": "05047",
                 "id": "dead",
-                "text": "Jerome is dead."
+                "text": "Jerome Davids is dead."
               }
             ]
           }
@@ -752,32 +886,8 @@
     },
     {
       "id": "check_penny_alive",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "05048",
-        "id": "alive",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["earn_penny"]
-          },
-          {
-            "boolCondition": false,
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "05048",
-                "id": "dead",
-                "text": "Penny is dead."
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_valentino_alive",
+      "bullet_type": "small",
+      "text": "<i>If Penny White is alive</i>, any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Penny White’s profile, record <i>Penny White is dead</i>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -786,7 +896,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["earn_valentino"]
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05260"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -795,7 +911,7 @@
                 "type": "campaign_log",
                 "section": "05049",
                 "id": "dead",
-                "text": "Valentino is dead."
+                "text": "Penny White is dead."
               }
             ]
           }
@@ -803,48 +919,38 @@
       }
     },
     {
-      "id": "earn_gavriella",
-      "text": "Any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05258"
-        }
-      ]
-    },
-    {
-      "id": "earn_jerome",
-      "text": "Any one investigator may choose to add the Jerome Davids asset to their deck. He does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05259"
-        }
-      ]
-    },
-    {
-      "id": "earn_penny",
-      "text": "Any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05260"
-        }
-      ]
-    },
-    {
-      "id": "earn_valentino",
-      "text": "Any one investigator may choose to add the Valentino Rivas asset to their deck. He does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "05261"
-        }
-      ]
+      "id": "check_valentino_alive",
+      "bullet_type": "small",
+      "text": "<i>If Valentino Rivas is alive</i>, any one investigator may choose to add the Valentino Rivas asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Valentino Rivas’s profile, record <i>Valentino Rivas</i> is dead.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "05261"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05048",
+                "id": "dead",
+                "text": "Valentino Rivas is dead."
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -887,7 +993,7 @@
     {
       "id": "R5",
       "title": "Resolution 5",
-      "steps": ["compare_columns"]
+      "steps": ["compare_columns_explanation", "compare_columns", "left_result", "right_result"]
     },
     {
       "id": "R6",
@@ -905,7 +1011,7 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
+      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_alive", "check_jerome_alive", "check_penny_alive", "check_valentino_alive", "earn_xp", "$upgrade_decks"]
     }
   ]
 }
