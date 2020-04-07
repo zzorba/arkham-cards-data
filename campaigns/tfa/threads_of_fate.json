@@ -13,6 +13,7 @@
     "setup_act_deck",
     "setup_act_ab",
     "setup_act_cd",
+    "setup_act_ef_prompt",
     "setup_act_ef",
     "encounter_deck",
     "$choose_resolution"
@@ -113,7 +114,13 @@
     },
     {
       "id": "listened_to_ichtaca",
-      "text": "Remember that “you listened to Ichtaca’s tale.”"
+      "text": "Remember that “you listened to Ichtaca’s tale.”",
+      "effects": [{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "listened_to_ichtaca",
+        "text": "listened to Ichtaca's tale."
+      }]
     },
     {
       "id": "add_cultist",
@@ -134,7 +141,13 @@
     },
     {
       "id": "ichtaca_left_without_you",
-      "text": "Remember that “Ichtaca left without you.”"
+      "text": "Remember that “Ichtaca left without you.”",
+      "effects": [{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "ichtaca_left_without_you",
+        "text": "Ichtaca left without you."
+      }]
     },
     {
       "id": "check_ignored_ichtaca_and_gave_relic_to_harlan",
@@ -166,7 +179,7 @@
           {
             "id": "on_your_own",
             "text": "“We should be wary of them.”",
-            "description": "Remove all [cultist] and [tablet] tokens from the chaos bag and replace them with 1 [elder_thing] token. In your Campaign Log, record that <i>you are forging your own path.</i>\nFor the remainder of the campaign, each investigator cannot include Alejandro Vela or Ichtaca in their deck. Anytime an investigator would be given the option to include either of them, each investigator earns 2 experience instead. Proceed to Setup.",
+            "description": "Remove all [cultist] and [tablet] tokens from the chaos bag and replace them with 1 [elder_thing] token. In your Campaign Log, record that <i>you are forging your own path.</i>\nFor the remainder of the campaign, each investigator cannot include Alejandro Vela or Ichtaca in their deck. Anytime an investigator would be given the option to include either of them, each investigator earns 2 experience instead.",
             "effects": [
               {
                 "type": "remove_chaos_token",
@@ -194,6 +207,7 @@
     },
     {
       "id": "gather_encounter_sets",
+      "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
         "threads_of_fate",
@@ -284,20 +298,24 @@
       "text": "Remove the following act cards from the “c/d” deck: Missing Persons, both copies of At the Station, and one of the two copies of Friends in High Places, at random."
     },
     {
+      "id": "setup_act_ef_prompt",
+      "text": "Adjust the contents of the “e/f ” deck as follows:"
+    },
+    {
       "id": "setup_act_ef",
-      "text": "Adjust the contents of the “e/f ” deck as follows:",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "listened_to_ichtaca",
+        "options": [
           {
-            "id": "listened_to_ichtaca",
-            "text": "If “you listened to Ichtaca’s tale”",
+            "boolCondition": true,
             "steps": ["act_listened_to_ichtaca"]
           },
           {
-            "id": "ichtaca_left",
-            "text": "If “Ichtaca left without you”",
+            "boolCondition": false,
             "steps": ["act_ichtaca_left_without_you"]
           }
         ]
@@ -306,12 +324,12 @@
     {
       "id": "act_listened_to_ichtaca",
       "bullet_type": "small",
-      "text": "Remove the following act cards from the “e/f ” deck: Trial of the Huntress, both copies of The Cave of Darkness, and one of the two copies of Strange Relics, at random."
+      "text": "Because “you listened to Ichtaca’s tale”, remove the following act cards from the “e/f ” deck: Trial of the Huntress, both copies of The Cave of Darkness, and one of the two copies of Strange Relics, at random."
     },
     {
       "id": "act_ichtaca_left_without_you",
       "bullet_type": "small",
-      "text": "Remove the following act cards from the “e/f” deck: The Guardian’s Inquiry, both copies of Strange Relics, and one of the two copies of The Cave of Darkness, at random."
+      "text": "Because “Ichtaca left without you”, remove the following act cards from the “e/f” deck: The Guardian’s Inquiry, both copies of Strange Relics, and one of the two copies of The Cave of Darkness, at random."
     },
     {
       "id": "encounter_deck",
@@ -341,6 +359,7 @@
     {
       "id": "maybe_earn_relic_of_ages",
       "bullet_type": "small",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -396,6 +415,7 @@
     {
       "id": "maybe_earn_alejandro",
       "type": "branch",
+      "hidden": true,
       "bullet_type": "small",
       "condition": {
         "type": "has_card",
@@ -412,6 +432,7 @@
     {
       "id": "check_forging_own_path_earn_alejandro",
       "type": "branch",
+      "hidden": true,
       "bullet_type": "small",
       "condition": {
         "type": "campaign_log",
@@ -419,12 +440,12 @@
         "id": "forging_own_path",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["earn_alejandro"]
+            "boolCondition": true,
+            "steps": ["earn_alejandro_xp"]
           },
           {
             "boolCondition": false,
-            "steps": ["earn_alejandro_xp"]
+            "steps": ["earn_alejandro"]
           }
         ]
       }
@@ -444,7 +465,7 @@
     {
       "id": "earn_alejandro_xp",
       "bullet_type": "small",
-      "text": "Because you are <i>forging your own path</i>, instead of earning Alejandro Vela you earn 2 bonus XP.",
+      "text": "Because you are <i>forging your own path</i>, instead of earning Alejandro Vela each investigator earns 2 bonus XP.",
       "effects": [
         {
           "type": "earn_xp",
@@ -456,6 +477,7 @@
     {
       "id": "maybe_remove_alejandro",
       "bullet_type": "small",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -523,6 +545,7 @@
     {
       "id": "maybe_earn_ichtaca",
       "type": "branch",
+      "hidden": true,
       "bullet_type": "small",
       "condition": {
         "type": "campaign_log",
@@ -534,7 +557,7 @@
             "steps": ["earn_ichtaca"]
           },
           {
-            "boolCondition": false,
+            "boolCondition": true,
             "steps": ["earn_ichtaca_xp"]
           }
         ]
@@ -555,7 +578,7 @@
     {
       "id": "earn_ichtaca_xp",
       "bullet_type": "small",
-      "text": "Because you are <i>forging your own path</i>, instead of earning Ichtaca <i>(The Forgotten Guardian)</i> you earn 2 bonus XP.",
+      "text": "Because you are <i>forging your own path</i>, instead of earning Ichtaca <i>(The Forgotten Guardian)</i> each investigator earns 2 bonus XP.",
       "effects": [
         {
           "type": "earn_xp",
@@ -787,7 +810,7 @@
               {
                 "type": "trauma",
                 "investigator": "$input_value",
-                "physical": -1
+                "mental": -1
               }
             ]
           }

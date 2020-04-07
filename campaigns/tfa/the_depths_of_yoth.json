@@ -9,7 +9,7 @@
     "check_yigs_fury",
     "set_aside_locations",
     "maybe_setup_harbinger",
-    "set_aside_yig",
+    "check_agenda_6",
     "create_exploration_deck",
     "setup_depth",
     "set_aside_relic",
@@ -51,7 +51,7 @@
     },
     {
       "id": "ichtaca_set_against_forging_own_path",
-      "text": "In your Campaign Log, record that <i>Ichtaca is set against you</i>.\nAdd 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "text": "In your Campaign Log, record that <i>Ichtaca is set against you</i>. Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "campaign_log",
@@ -251,6 +251,7 @@
     },
     {
       "id": "gather_encounter_sets",
+      "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
         "the_depths_of_yoth",
@@ -368,32 +369,49 @@
     {
       "id": "fury_1_to_5",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 1-5, no changes are made."
+      "text": "Because Yig's Fury is between 1 and 5, no changes are made."
     },
     {
       "id": "fury_6_to_10",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 6-10, remove agenda 1a from the game. The game begins at agenda 2a."
+      "text": "Because Yig's Fury is between 6 and 10, remove agenda 1a from the game. The game begins at agenda 2a."
     },
     {
       "id": "fury_11_to_14",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 11-14, remove agendas 1a and 2a from the game. The game begins at agenda 3a."
+      "text": "Because Yig's Fury is between 11 and 14, remove agendas 1a and 2a from the game. The game begins at agenda 3a."
     },
     {
       "id": "fury_15_to_17",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 15-17, remove agendas 1a, 2a, and 3a from the game. The game begins at agenda 4a."
+      "text": "Because Yig's Fury is between 15 and 17, remove agendas 1a, 2a, and 3a from the game. The game begins at agenda 4a."
     },
     {
       "id": "fury_18_to_20",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 18-20, remove agendas 1a, 2a, 3a, and 4a from the game. The game begins at agenda 5a."
+      "text": "Because Yig's Fury is between 18 and 20, remove agendas 1a, 2a, 3a, and 4a from the game. The game begins at agenda 5a.",
+      "effects": [{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "agenda_5",
+        "text": "hidden"
+      }]
     },
     {
       "id": "fury_21",
       "bullet_type": "small",
-      "text": "Because Yig's Fury is 21 or higher, remove agendas 1a, 2a, 3a, 4a, and 5a from the game. The game begins at agenda 6a."
+      "text": "Because Yig's Fury is 21 or higher, remove agendas 1a, 2a, 3a, 4a, and 5a from the game. The game begins at agenda 6a.",
+      "effects": [{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "agenda_5",
+        "text": "hidden"
+      },{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "agenda_6",
+        "text": "hidden"
+      }]
     },
     {
       "id": "set_aside_locations",
@@ -410,29 +428,68 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["setup_harbinger"]
+            "steps": ["check_agenda_5"]
           }
         ]
       }
     },
     {
-      "id": "setup_harbinger",
+      "id": "check_agenda_5",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "agenda_5",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["put_harbinger_in_pursuit"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["set_aside_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "put_harbinger_in_pursuit",
       "bullet_type": "small",
-      "text": "Search the collection for the Harbinger of Valusia and set it aside. Place damage on it equal to the amount of damage recorded in parentheses in your Campaign Log.",
-      "bullets": [
-        {
-          "text": "If it is agenda 5a or 6a, move that the set-aside Harbinger of Valusia enemy to the pursuit area. (See “Pursuit,” below.)"
-        }
-      ]
+      "text": "Search the collection for the Harbinger of Valusia and place damage on it equal to the amount of damage recorded in parentheses in your Campaign Log. Because it is agenda 5a or 6a, place it in the pursuit area. (See “Pursuit,” below.)"
+    },
+    {
+      "id": "set_aside_harbinger",
+      "bullet_type": "small",
+      "text": "Search the collection for the Harbinger of Valusia and set it aside. Place damage on it equal to the amount of damage recorded in parentheses in your Campaign Log."
+    },
+    {
+      "id": "check_agenda_6",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "agenda_6",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["put_yig_in_pursuit"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["set_aside_yig"]
+          }
+        ]
+      }
     },
     {
       "id": "set_aside_yig",
-      "text": "Set the Yig enemy aside, out of play.",
-      "bullets": [
-        {
-          "text": "If it is agenda 6a, move that the set-aside Yig enemy to the pursuit area."
-        }
-      ]
+      "text": "Set the Yig enemy aside, out of play."
+    },
+    {
+      "id": "put_yig_in_pursuit",
+      "text": "Because it is agenda 6a, put the set-aside Yig enemy in the pursuit area."
     },
     {
       "id": "create_exploration_deck",
@@ -731,7 +788,7 @@
     },
     {
       "id": "check_investigators_poisoned",
-      "text": "Which investigators gained the Poisoned weakness during this scenario?",
+      "text": "Did any investigator gain the Poisoned weakness?",
       "type": "input",
       "input": {
         "type": "investigator_choice",

@@ -99,15 +99,39 @@
     },
     {
       "id": "check_investigators_recovered_relic",
+      "text": "Check Campaign Log. <i>If the investigators recovered the Relic of Ages</i>, and <i>if you are forging your own path</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "investigators_recovered_relic",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "investigators_recovered_relic",
+            "options": [
+              {
+                "boolCondition": true,
+                "effects": []
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "forging_own_path",
+            "options": [
+              {
+                "boolCondition": true,
+                "effects": []
+              }
+            ]
+          }
+        ],
+        "count": 2,
         "options": [
           {
             "boolCondition": true,
-            "steps": ["check_forging_own_path"]
+            "steps": ["final_dawning", "swap_relic"]
           },
           {
             "boolCondition": false,
@@ -120,25 +144,6 @@
       "id": "no_ill_effects",
       "bullet_type": "small",
       "text": "You suffer no ill effects."
-    },
-    {
-      "id": "check_forging_own_path",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "forging_own_path",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["final_dawning", "swap_relic"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["no_ill_effects"]
-          }
-        ]
-      }
     },
     {
       "id": "final_dawning",
