@@ -9,6 +9,8 @@
     "setup_random_locations",
     "setup_locations",
     "choose_starting_location",
+    "check_for_onyx_clasp",
+    "check_for_mitpm",
     "set_aside_man_in_pallid_mask",
     "set_aside_cards",
     "add_doom",
@@ -208,6 +210,84 @@
       "text": "Because <i>you opened the path above</i>, each investigator begins play at Dark Spires."
     },
     {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
+    },
+    {
       "id": "set_aside_man_in_pallid_mask",
       "text": "The bearer of The Man in the Pallid Mask weakness searches their deck for it and sets it aside, out of play."
     },
@@ -382,11 +462,12 @@
     },
     {
       "id": "earn_xp_triumph",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has truimphed over their own self—the most dangerous of foes.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has truimphed over their own self—the most dangerous of foes.",
         "effects": [
           {
             "type": "earn_xp",
@@ -398,11 +479,12 @@
     },
     {
       "id": "earn_xp_truth",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has learned the truth behind <u>The King in Yellow</u>.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has learned the truth behind <u>The King in Yellow</u>.",
         "effects": [
           {
             "type": "earn_xp",

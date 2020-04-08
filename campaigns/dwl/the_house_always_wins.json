@@ -142,19 +142,14 @@
     },
     {
       "id": "francis_morgan_rescued",
+      "text": "In your Campaign Log, record that <i>the investigators rescued Dr. Francis Morgan</i>. Any one investigator may choose to add Dr. Francis Morgan to their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
           "id": "francis_morgan_rescued",
           "text": "the investigators rescued Dr. Francis Morgan."
-        }
-      ]
-    },
-    {
-      "id": "earn_francis_morgan",
-      "text": "Any one investigator may choose to add Dr. Francis Morgan to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
+        },
         {
           "type": "add_card",
           "investigator": "choice",
@@ -179,11 +174,12 @@
     },
     {
       "id": "earn_1_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 experience as they reflects on the night’s events.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience as they reflect on the night’s events.",
         "effects": [
           {
             "type": "earn_xp",
@@ -195,6 +191,7 @@
     },
     {
       "id": "proceed_either",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_data",
@@ -203,24 +200,10 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks", "proceed_extracurricular_activity"]
-          },
-          {
-            "boolCondition": true,
-            "steps": ["proceed_armitages_fate"]
+            "steps": ["$upgrade_decks"]
           }
         ]
       }
-    },
-    {
-      "id": "proceed_extracurricular_activity",
-      "bullet_type": "small",
-      "text": "Proceed to <b>Scenario I–A: Extracurricular Activity</b>."
-    },
-    {
-      "id": "proceed_armitages_fate",
-      "bullet_type": "small",
-      "text": "Proceed to <b>Interlude I: Armitage’s Fate</b>."
     },
     {
       "id": "resolution_1",
@@ -231,7 +214,7 @@
   "resolutions": [
     {
       "id": "no_resolution",
-      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "title": "No resolution was reached\n(each investigator resigned before Act 3 or was defeated)",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -251,7 +234,7 @@
       "id": "R2",
       "title": "Resolution 2",
       "text": "“What in the world…?” Dr. Morgan finally breaks out of his daze as you make your way to safety. You ask him what he remembers, and he sputters and shakes his head. “It’s all a haze,” he explains, visibly exhausted. “I was having the run of my life! Perhaps I had one too many shots. But, those creatures—I haven’t seen anything like that since…” He trails off, and you can tell that his mind is racing. His eyes widen with realization and his face pales. “I may not be in the best shape, but I’ll help with your investigation. Whatever it takes.”",
-      "steps": ["bone_to_pick", "francis_morgan_rescued", "earn_francis_morgan", "cheated", "earn_xp", "$upgrade_decks"]
+      "steps": ["bone_to_pick", "francis_morgan_rescued", "cheated", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R3",

@@ -378,7 +378,15 @@
     {
       "id": "act_3_v2",
       "bullet_type": "small",
-      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
+      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "act_3_v2",
+          "text": "dummy"
+        }
+      ]
     },
     {
       "id": "act_3_v3",
@@ -479,18 +487,79 @@
     {
       "id": "wait_resolve_story_cards",
       "type": "input",
-      "text": "When instructed to resolve the story cards during the scenario...",
+      "text": "If instructed to resolve the set-aside story cards during the scenario:",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "resolve_story_cards",
             "text": "Resolve the story cards",
-            "steps": ["resolve_story_cards"]
+            "steps": ["resolve_story_cards", "check_for_chaos_tokens"]
           },
           {
             "id": "scenario_ended",
             "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_for_chaos_tokens",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "act_3_v2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["wait_for_chaos_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "wait_for_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to change chaos tokens in the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "resolve_chaos_tokens",
+            "text": "Adjust chaos tokens",
+            "steps": ["resolve_chaos_tokens"]
+          },
+          {
+            "id": "scenario_ended",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolve_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to change chaos tokens in the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "remove_cultists",
+            "text": "Remove all [cultist] tokens",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["cultist", "cultist", "cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "none",
+            "text": "Nevermind",
             "steps": []
           }
         ]

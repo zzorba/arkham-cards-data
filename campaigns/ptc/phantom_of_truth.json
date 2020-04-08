@@ -18,6 +18,8 @@
     "set_aside_cards",
     "set_aside_lost_soul",
     "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
     "$choose_resolution"
   ],
   "steps": [
@@ -411,6 +413,84 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
     },
     {
       "id": "did_not_escape_gaze",

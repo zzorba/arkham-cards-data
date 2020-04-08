@@ -9,6 +9,7 @@
     "create_exploration_deck",
     "set_aside_cards",
     "encounter_deck",
+    "check_for_chaos_bag_additions",
     "$choose_resolution"
   ],
   "steps": [
@@ -47,7 +48,7 @@
       "encounter_sets": [
         "agents_of_yig"
       ],
-      "text": "Set the following cards aside, out of play: The three single-sided [[Ruins]] locations, the Agents of Yig encounter set, the four Poisoned weaknesses, the Alejandro Vela asset, and the Ichtaca enemy."
+      "text": "Set the following cards aside, out of play: The three single-sided [[Ruins]] locations, the <i>Agents of Yig</i> encounter set, the four Poisoned weaknesses, the Alejandro Vela asset, and the Ichtaca enemy."
     },
     {
       "id": "encounter_deck",
@@ -211,6 +212,58 @@
                 "type": "add_card",
                 "investigator": "$input_value",
                 "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_for_chaos_bag_additions",
+      "type": "input",
+      "text": "If instructed to add chaos tokens to the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chaos_tokens",
+            "text": "Choose chaos tokens",
+            "steps": ["chaos_token_choice"]
+          },
+          {
+            "id": "no_chaos_tokens",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "chaos_token_choice",
+      "type": "input",
+      "text": "Which of the following is true:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cultist",
+            "text": "<i>Ichtaca is leading the way.</i>",
+            "description": "Add 1 [cultist] token.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist"]
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "<i>You fought with Icthaca.</i>",
+            "description": "Add 1 [tablet] token.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
               }
             ]
           }

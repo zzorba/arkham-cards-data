@@ -302,7 +302,7 @@
     {
       "id": "gather_naomis_crew",
       "bullet_type": "small",
-      "text": "Seeking vengeance, the gang from the Clover Club has followed you to Dunwich. Gather all cards from the Naomi’s Crew encounter set and shuffle them into the encounter deck.",
+      "text": "Seeking vengeance, the gang from the Clover Club has followed you to Dunwich. Gather all cards from the <i>Naomi’s Crew</i> encounter set and shuffle them into the encounter deck.",
       "type": "encounter_sets",
       "encounter_sets": [
         "naomis_crew"
@@ -440,11 +440,12 @@
     },
     {
       "id": "earn_2_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as they gains insight into the hidden world of the Mythos.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 2 bonus experience as they gain insight into the hidden world of the Mythos.",
         "effects": [
           {
             "type": "earn_xp",
@@ -455,8 +456,8 @@
       }
     },
     {
-      "id": "proceed_undimensioned_and_unseen",
-      "text": "Proceed to <b>Scenario V: Undimensioned and Unseen.</b>",
+      "id": "skip_survivors",
+      "hidden": true,
       "effects": [
         {
           "type": "campaign_data",
@@ -464,10 +465,6 @@
           "scenario": "dwl_interlude2"
         }
       ]
-    },
-    {
-      "id": "proceed_survivors",
-      "text": "Proceed to <b>Interlude II: The Survivors.</b>"
     },
     {
       "id": "check_henry_armitage",
@@ -508,25 +505,25 @@
         "mental"
       ],
       "text": "The cries of the whippoorwills fade into the distance, and the town of Dunwich is filled with an eerie silence. All that can be heard is the dry whistle of the chill wind and the slow rustling of dead leaves. There is no sign of the missing townsfolk, nor will there be ever again.",
-      "steps": ["ritual_completed", "sacrifice_all", "record_sacrificed", "check_henry_armitage", "lose_necronomicon", "earn_2_xp", "$upgrade_decks", "proceed_undimensioned_and_unseen"]
+      "steps": ["ritual_completed", "sacrifice_all", "record_sacrificed", "check_henry_armitage", "lose_necronomicon", "earn_2_xp", "$upgrade_decks", "skip_survivors"]
     },
     {
       "id": "R1",
       "title": "Resolution 1",
       "text": "As you land the finishing blow, the creature’s body explodes into hundreds of squirming ropelike appendages, wriggling across the ground and climbing up the walls. You’re so startled that you aren’t fast enough to prevent them from escaping the room. Even so, whatever that creature was, you’re glad it’s now dead.",
-      "steps": ["killed_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_survivors"]
+      "steps": ["killed_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "With the creature that once was Silas lashing out at you from its chains, you have little time to react. Knowing that the Necronomicon might have a spell or incantation that could subdue Silas, you fend off the abomination long enough to find a passage that can help. With no time to spare, you recite the Latin incantation, and find that the words come effortlessly to your tongue, as though recalled from an earlier memory. The creature’s body begins to shrink and melt away as the incantation builds, its cries terrifying and haunting. In the end, all that is left is the disfigured corpse of a man—Silas Bishop. You find a silver pendant emblazoned with an odd constellation tucked into his shirt. You take it with you, hoping to find a use for it.",
-      "steps": ["restored_silas_bishop", "record_sacrificed", "earn_2_xp", "proceed_survivors"]
+      "steps": ["restored_silas_bishop", "record_sacrificed", "earn_2_xp"]
     },
     {
       "id": "R3",
       "title": "Resolution 3",
       "text": "With the creature that once was Silas lashing out at you from its chains, you have little time to react. Hoping there is something in the chamber you can use to your advantage, you fend off the abomination long enough to find a journal; many of its passages are written in Latin. It appears to be a handwritten excerpt from the Necronomicon, its purpose unknown. With no time to spare, you recite the incantation, stumbling over the words and feeling your throat tighten with each sentence. The creature’s body begins to shrink and melt away as the incantation continues, its cries terrifying and haunting. In the end, all that is left is a pile of wet and sticky ichor, and a rotten stench.",
-      "steps": ["banished_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp", "proceed_survivors"]
+      "steps": ["banished_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp"]
     }
   ]
 }
@@ -1112,6 +1109,7 @@
     },
     {
       "id": "proceed_either",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_data",
@@ -1120,22 +1118,10 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks", "proceed_house_always_wins"]
-          },
-          {
-            "boolCondition": true,
-            "steps": ["proceed_armitages_fate"]
+            "steps": ["$upgrade_decks"]
           }
         ]
       }
-    },
-    {
-      "id": "proceed_house_always_wins",
-      "text": "Proceed to <b>Scenario I–B: The House Always Wins</b>."
-    },
-    {
-      "id": "proceed_armitages_fate",
-      "text": "Proceed to <b>Interlude I: Armitage’s Fate</b>."
     }
   ],
   "resolutions": [
@@ -1155,7 +1141,7 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "You find Professor Rice bound and gagged in the closet of his office. When you free him, he informs you that the strange men and women wandering around the campus had been stalking him for hours. They cornered him in his office and tied him up, although for what purpose, Rice isn’t sure. You inform him that Dr. Armitage sent you, and Rice looks relieved, although he suspects that Dr. Morgan might be in danger as well. Because the strangers on campus seem to have been targeting Professor Rice, you decide that the best course of action is to escort him away from the campus as quickly as possible. As you leave the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
-      "steps": ["warren_rice_rescued", "earn_warren_rice", "failed_to_save_students", "earn_xp", "$upgrade_decks", "proceed_house_always_wins"]
+      "steps": ["warren_rice_rescued", "earn_warren_rice", "failed_to_save_students", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R2",
@@ -1334,10 +1320,11 @@
     },
     {
       "id": "earn_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they saved the world from being torn apart.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they saved the world from being torn apart.",
         "text": "Victory display:",
         "effects": [
           {
@@ -1468,8 +1455,7 @@
         "choices": [
           {
             "id": "1a",
-            "flavor": "Professor Warren Rice was last seen working late at night in the humanities department of Miskatonic University. Let’s search for him there.",
-            "text": "Proceed with “Scenario I–A: Extracurricular Activity” if you wish to find Professor Warren Rice first.",
+            "text": "<i>Professor Warren Rice was last seen working late at night in the humanities department of Miskatonic University. Let’s search for him there.</i>",
             "effects": [
               {
                 "type": "campaign_data",
@@ -1480,8 +1466,7 @@
           },
           {
             "id": "1b",
-            "flavor": "Dr. Francis Morgan was last seen gambling at the Clover Club, an upscale speakeasy and gambling joint located downtown. Let’s go talk to him.",
-            "text": "Proceed with “Scenario I–B: The House Always Wins” if you wish to find Dr. Francis Morgan first.",
+            "text": "<i>Dr. Francis Morgan was last seen gambling at the Clover Club, an upscale speakeasy and gambling joint located downtown. Let’s go talk to him.</i>",
             "effects": [
               {
                 "type": "campaign_data",
@@ -1549,6 +1534,7 @@
     },
     {
       "id": "maybe_earn_henry_armitage",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -1606,6 +1592,7 @@
     },
     {
       "id": "maybe_earn_warren_rice",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -1663,6 +1650,7 @@
     },
     {
       "id": "maybe_earn_francis_morgan",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -1773,6 +1761,7 @@
     },
     {
       "id": "maybe_earn_powder",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "has_card",
@@ -1944,19 +1933,14 @@
     },
     {
       "id": "francis_morgan_rescued",
+      "text": "In your Campaign Log, record that <i>the investigators rescued Dr. Francis Morgan</i>. Any one investigator may choose to add Dr. Francis Morgan to their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
           "id": "francis_morgan_rescued",
           "text": "the investigators rescued Dr. Francis Morgan."
-        }
-      ]
-    },
-    {
-      "id": "earn_francis_morgan",
-      "text": "Any one investigator may choose to add Dr. Francis Morgan to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
+        },
         {
           "type": "add_card",
           "investigator": "choice",
@@ -1981,11 +1965,12 @@
     },
     {
       "id": "earn_1_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 experience as they reflects on the night’s events.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience as they reflect on the night’s events.",
         "effects": [
           {
             "type": "earn_xp",
@@ -1997,6 +1982,7 @@
     },
     {
       "id": "proceed_either",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_data",
@@ -2005,24 +1991,10 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks", "proceed_extracurricular_activity"]
-          },
-          {
-            "boolCondition": true,
-            "steps": ["proceed_armitages_fate"]
+            "steps": ["$upgrade_decks"]
           }
         ]
       }
-    },
-    {
-      "id": "proceed_extracurricular_activity",
-      "bullet_type": "small",
-      "text": "Proceed to <b>Scenario I–A: Extracurricular Activity</b>."
-    },
-    {
-      "id": "proceed_armitages_fate",
-      "bullet_type": "small",
-      "text": "Proceed to <b>Interlude I: Armitage’s Fate</b>."
     },
     {
       "id": "resolution_1",
@@ -2033,7 +2005,7 @@
   "resolutions": [
     {
       "id": "no_resolution",
-      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "title": "No resolution was reached\n(each investigator resigned before Act 3 or was defeated)",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -2053,7 +2025,7 @@
       "id": "R2",
       "title": "Resolution 2",
       "text": "“What in the world…?” Dr. Morgan finally breaks out of his daze as you make your way to safety. You ask him what he remembers, and he sputters and shakes his head. “It’s all a haze,” he explains, visibly exhausted. “I was having the run of my life! Perhaps I had one too many shots. But, those creatures—I haven’t seen anything like that since…” He trails off, and you can tell that his mind is racing. His eyes widen with realization and his face pales. “I may not be in the best shape, but I’ll help with your investigation. Whatever it takes.”",
-      "steps": ["bone_to_pick", "francis_morgan_rescued", "earn_francis_morgan", "cheated", "earn_xp", "$upgrade_decks"]
+      "steps": ["bone_to_pick", "francis_morgan_rescued", "cheated", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R3",
@@ -2083,6 +2055,7 @@
     "set_aside_cards",
     "encounter_deck",
     "void_note",
+    "wait_for_chaos_tokens",
     "$choose_resolution"
   ],
   "steps": [
@@ -2228,6 +2201,57 @@
           {
             "type": "earn_xp",
             "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "wait_for_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to add chaos tokens to the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chaos_tokens",
+            "text": "Add chaos tokens",
+            "steps": ["chaos_token_choice"]
+          },
+          {
+            "id": "no_chaos_tokens",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "chaos_token_choice",
+      "type": "input",
+      "text": "Which ally left play?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "harold",
+            "text": "Harold Walsted",
+            "description": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
+          },          {
+            "id": "adam",
+            "text": "Adam Lynch",
+            "description": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
           }
         ]
       }
@@ -2760,6 +2784,7 @@
     {
       "id": "check_escaped_brood",
       "type": "branch",
+      "hidden": true,
       "condition": {
         "type": "campaign_log_count",
         "section": "campaign_notes",
@@ -2794,33 +2819,27 @@
     },
     {
       "id": "add_0_doom",
-      "bullet_type": "small",
-      "text": "Because no Broods escaped, no doom is added to agenda 1a."
+      "text": "Check Campaign Log. Because <i>no brood escaped into the wild</i>, no doom is added to agenda 1a."
     },
     {
       "id": "add_1_doom",
-      "bullet_type": "small",
-      "text": "Add 1 doom to agenda 1a."
+      "text": "Check Campaign Log. Because <i>1 brood escaped into the wild</i>, add 1 doom to agenda 1a."
     },
     {
       "id": "add_2_doom",
-      "bullet_type": "small",
-      "text": "Add 2 doom to agenda 1a."
+      "text": "Check Campaign Log. Because <i>2 brood escaped into the wild</i>, add 2 doom to agenda 1a."
     },
     {
       "id": "add_3_doom",
-      "bullet_type": "small",
-      "text": "Add 2 doom to agenda 1a."
+      "text": "Check Campaign Log. Because <i>3 brood escaped into the wild</i>, add 3 doom to agenda 1a."
     },
     {
       "id": "add_4_doom",
-      "bullet_type": "small",
-      "text": "Add 2 doom to agenda 1a."
+      "text": "Check Campaign Log. Because <i>4 brood escaped into the wild</i>, add 4 doom to agenda 1a."
     },
     {
       "id": "add_5_doom",
-      "bullet_type": "small",
-      "text": "Add 2 doom to agenda 1a."
+      "text": "Check Campaign Log. Because <i>5 brood escaped into the wild</i>, add 5 doom to agenda 1a."
     },
     {
       "id": "check_killed_silas_bishop",
@@ -3103,7 +3122,7 @@
         "agents_of_cthulhu",
         "agents_of_hastur"
       ],
-      "text": "Randomly choose one of following 4 encounter sets:",
+      "text": "Randomly choose one of following 4 encounter sets: <i>Agents of Yog-Sothoth</i>, <i>Agents of Shub-Niggurath</i>, <i>Agents of Cthulhu</i>, or <i>Agents of Hastur</i>.",
       "subtext": "Without looking at the chosen encounter set, shuffle it and the remainder of the encounter cards together to form the encounter deck. Remove the other 3 encounter sets from the game."
     },
     {
@@ -3336,11 +3355,12 @@
     },
     {
     	"id": "earn_5_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has saved Arkham from a terrible fate.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has saved Arkham from a terrible fate.",
         "effects": [
           {
             "type": "earn_xp",
@@ -3352,11 +3372,12 @@
     },
     {
     	"id": "earn_10_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 10 bonus experience, as they has triumphed in battle against a truly terrible foe.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 10 bonus experience, as they has triumphed in battle against a truly terrible foe.",
         "effects": [
           {
             "type": "earn_xp",
@@ -3549,10 +3570,11 @@
     },
     {
       "id": "earn_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display (remember to add eligible locations to the victory display). Each investigator earns 2 bonus experience as they gains insight into the hidden world of the Mythos.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display (remember to add eligible locations to the victory display).",
       "type": "input",
       "input": {
         "type": "counter",
+        "confirm_text": "Each investigator earns 2 bonus experience as they gain insight into the hidden world of the Mythos.",
         "text": "Victory display:",
         "effects": [
           {
@@ -3729,7 +3751,7 @@
       "encounter_sets": [
         "cultists"
       ],
-      "text": "Set the Cult of Umôrdhoth encounter set aside as a separate “Cultist deck,” and shuffle it. This set is indicated by the following icon:"
+      "text": "Set the <i>Cult of Umôrdhoth</i> encounter set aside as a separate “Cultist deck,” and shuffle it."
     },
     {
       "id": "setup_locations",
@@ -4204,6 +4226,7 @@
     "intro",
     "check_ashleigh_clarke",
     "gather_encounter_sets",
+    "flood_below",
     "add_chaos_token",
     "agenda_setup",
     "no_act_deck",
@@ -4212,6 +4235,8 @@
     "setup_locations",
     "add_weakness",
     "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
     "dual_agendas_rule",
     "$choose_resolution"
   ],
@@ -4257,8 +4282,17 @@
         "stranger",
         "pentagram",
         "ancient_evils"
+      ]
+    },
+    {
+      "id": "flood_below",
+      "type": "encounter_sets",
+      "bullet_type": "none",
+      "encounter_sets": [
+        "flood",
+        "vortex"
       ],
-      "text": "Be aware that some cards from the Black Stars Rise encounter set have multiple versions, some with The Flood Below encounter set icon on their reverse side, and some with The Vortex Above encounter set icon on their reverse side."
+      "text": "Be aware that some cards from the <i>Black Stars Rise</i> encounter set have multiple versions, some with <i>The Flood Below</i> encounter set icon on their reverse side, and some with <i>The Vortex Above</i> encounter set icon on their reverse side."
     },
     {
       "id": "add_chaos_token",
@@ -4351,6 +4385,84 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
     },
     {
       "id": "dual_agendas_rule",
@@ -4590,6 +4702,7 @@
     "set_aside_cards",
     "setup_locations",
     "encounter_deck",
+    "wait_for_chaos_tokens",
     "$choose_resolution"
   ],
   "steps": [
@@ -4753,6 +4866,70 @@
           "value": 1
         }
       ]
+    },
+
+    {
+      "id": "wait_for_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to add chaos tokens to the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chaos_tokens",
+            "text": "Add chaos tokens",
+            "steps": ["chaos_token_choice"]
+          },
+          {
+            "id": "no_chaos_tokens",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "chaos_token_choice",
+      "type": "input",
+      "text": "Which version of Act 2b was resolved?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "a_city_aflame",
+            "text": "A City Aflame",
+            "description": "Add 2 [cultist] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "the_path_is_mine",
+            "text": "The Path is Mine",
+            "description": "Add 2 [tablet] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "tablet"]
+              }
+            ]
+          },
+          {
+            "id": "the_shores_of_hali",
+            "text": "The Shores of Hali",
+            "description": "Add 2 [elder_thing] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing", "elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -4793,6 +4970,8 @@
     "setup_random_locations",
     "setup_locations",
     "choose_starting_location",
+    "check_for_onyx_clasp",
+    "check_for_mitpm",
     "set_aside_man_in_pallid_mask",
     "set_aside_cards",
     "add_doom",
@@ -4992,6 +5171,84 @@
       "text": "Because <i>you opened the path above</i>, each investigator begins play at Dark Spires."
     },
     {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
+    },
+    {
       "id": "set_aside_man_in_pallid_mask",
       "text": "The bearer of The Man in the Pallid Mask weakness searches their deck for it and sets it aside, out of play."
     },
@@ -5166,11 +5423,12 @@
     },
     {
       "id": "earn_xp_triumph",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has truimphed over their own self—the most dangerous of foes.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has truimphed over their own self—the most dangerous of foes.",
         "effects": [
           {
             "type": "earn_xp",
@@ -5182,11 +5440,12 @@
     },
     {
       "id": "earn_xp_truth",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has learned the truth behind <u>The King in Yellow</u>.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has learned the truth behind <u>The King in Yellow</u>.",
         "effects": [
           {
             "type": "earn_xp",
@@ -5363,6 +5622,7 @@
     "spawn_cultists",
     "check_fled_dinner_party",
     "encounter_deck",
+    "check_for_mitpm",
     "$choose_resolution"
   ],
   "steps": [
@@ -5490,6 +5750,37 @@
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
+    },
+    {
       "id": "took_onyx_clasp",
       "text": "In your Campaign Log, record that <i>you took the onyx clasp</i>. Mark one <b>Conviction</b> in your Campaign Log. For the remainder of the campaign, one investigator must include the Clasp of Black Onyx weakness in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
@@ -5564,11 +5855,12 @@
     },
     {
       "id": "earn_1_xp",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 1 bonus experience as they gains insight into the machinations of <u>The King in Yellow</u>.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience as they gain insight into the machinations of <u>The King in Yellow</u>.",
         "effects": [
           {
             "type": "earn_xp",
@@ -6183,6 +6475,8 @@
     "set_aside_cards",
     "set_aside_lost_soul",
     "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
     "$choose_resolution"
   ],
   "steps": [
@@ -6578,6 +6872,84 @@
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
+    },
+    {
       "id": "did_not_escape_gaze",
       "effects": [
         {
@@ -6834,6 +7206,7 @@
     "set_aside_cards",
     "setup_sickening_reality",
     "encounter_deck",
+    "check_for_mitpm",
     "$choose_resolution"
   ],
   "steps": [
@@ -6883,6 +7256,37 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck"
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
     },
     {
       "id": "earn_xp",
@@ -7077,6 +7481,8 @@
     "check_catacomb_entry",
     "create_catacombs_deck",
     "place_investigators",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
     "set_aside_pallid_mask",
     "encounter_deck",
     "location_adjacency_rule",
@@ -7223,6 +7629,84 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
     },
     {
       "id": "location_adjacency_rule",
@@ -7451,6 +7935,8 @@
     "select_act_2",
     "select_act_2_onyx_clasp",
     "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
     "$choose_resolution"
   ],
   "steps": [{
@@ -7606,6 +8092,84 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "check_for_mitpm",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03059",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["transfer_mitpm"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_mitpm",
+      "text": "Because the original bearer of The Man in the Pallid Mask weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03059"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03059"
+        }
+      ]
+    },
+    {
+      "id": "check_for_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "took_onyx_clasp",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_missing_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_missing_onyx_clasp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "03142",
+        "investigator": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_onyx_clasp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_onyx_clasp",
+      "text": "Because <i>you took the onyx clasp</i> and the original bearer of the Clasp of Black Onyx weakness is not playing this scenario, another investigator must become the bearer.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03142"
+        },
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "03142"
+        }
+      ]
     },
     {
       "id": "defeated_insane",
@@ -8038,7 +8602,7 @@
       "encounter_sets": [
         "cultists"
       ],
-      "text": "Set the Cult of Umôrdhoth encounter set aside as a separate “Cultist deck,” and shuffle it. This set is indicated by the following icon:"
+      "text": "Set the <i>Cult of Umôrdhoth</i> encounter set aside as a separate “Cultist deck,” and shuffle it."
     },
     {
       "id": "setup_locations",
@@ -9238,11 +9802,12 @@
     },
     {
       "id": "earn_xp_bonus_5",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they have saved the universe from being devoured.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they have saved the universe from being devoured.",
         "effects": [
           {
             "type": "earn_xp",
@@ -9325,11 +9890,12 @@
     },
     {
       "id": "earn_xp_bonus_10",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 10 bonus experience, as they have learned the innermost secrets of the Black Book",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
         "text": "Victory display:",
+        "confirm_text": "Each investigator earns 10 bonus experience, as they have learned the innermost secrets of the Black Book.",
         "effects": [
           {
             "type": "earn_xp",
@@ -11418,7 +11984,7 @@
     },
     {
       "id": "bonus_xp",
-      "text": "Each investigator earns 2 bonus experience, as they gains insight into the inner workings of the Silver Twilight Lodge.",
+      "text": "Each investigator earns 2 bonus experience, as they gain insight into the inner workings of the Silver Twilight Lodge.",
       "effects": [
         {
           "type": "earn_xp",
@@ -11967,10 +12533,11 @@
     },
     {
       "id": "earn_xp_bonus_2",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience as they gain insight into Arkham’s mysterious past",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
+        "confirm_text": "Each investigator earns 2 bonus experience as they gain insight into Arkham’s mysterious past.",
         "text": "Victory display:",
         "effects": [
           {
@@ -12441,7 +13008,7 @@
     },
     {
       "id": "mementos_flute_and_ritual_components",
-      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i> and <i>Ritual Components</i>. Each investigator earns 1 bonus experience, as they gains insight into Arkham’s mysterious past.",
+      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i> and <i>Ritual Components</i>. Each investigator earns 1 bonus experience, as they gain insight into Arkham’s mysterious past.",
       "effects": [
         {
           "type": "campaign_log",
@@ -12479,7 +13046,7 @@
     },
     {
       "id": "mementos_flute_and_scrap_of_torn_shadow",
-      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i> and <i>Scrap of Torn Shadow</i>. Each investigator earns 1 bonus experience, as they gains insight into Arkham’s mysterious past.",
+      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i> and <i>Scrap of Torn Shadow</i>. Each investigator earns 1 bonus experience, as they gain insight into Arkham’s mysterious past.",
       "effects": [
         {
           "type": "campaign_log",
@@ -12523,7 +13090,7 @@
     {
       "id": "mementos_flute",
       "bullet_type": "small",
-      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i>. Each investigator earns 1 bonus experience, as they gains insight into Arkham’s mysterious past.",
+      "text": "In your Campaign Log, under “Mementos Discovered,” record <i>Mesmerizing Flute</i>. Each investigator earns 1 bonus experience, as they gain insight into Arkham’s mysterious past.",
       "effects": [
         {
           "type": "campaign_log",
@@ -13266,7 +13833,15 @@
     {
       "id": "act_3_v2",
       "bullet_type": "small",
-      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”"
+      "text": "Use Act 3—“Beyond the Mist (v. II)” and Act 4—“The Broken Rite.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "act_3_v2",
+          "text": "dummy"
+        }
+      ]
     },
     {
       "id": "act_3_v3",
@@ -13367,18 +13942,79 @@
     {
       "id": "wait_resolve_story_cards",
       "type": "input",
-      "text": "When instructed to resolve the story cards during the scenario...",
+      "text": "If instructed to resolve the set-aside story cards during the scenario:",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "resolve_story_cards",
             "text": "Resolve the story cards",
-            "steps": ["resolve_story_cards"]
+            "steps": ["resolve_story_cards", "check_for_chaos_tokens"]
           },
           {
             "id": "scenario_ended",
             "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_for_chaos_tokens",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "act_3_v2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["wait_for_chaos_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "wait_for_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to change chaos tokens in the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "resolve_chaos_tokens",
+            "text": "Adjust chaos tokens",
+            "steps": ["resolve_chaos_tokens"]
+          },
+          {
+            "id": "scenario_ended",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolve_chaos_tokens",
+      "type": "input",
+      "text": "If instructed to change chaos tokens in the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "remove_cultists",
+            "text": "Remove all [cultist] tokens",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["cultist", "cultist", "cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "none",
+            "text": "Nevermind",
             "steps": []
           }
         ]
@@ -16456,10 +17092,11 @@
     },
     {
       "id": "earn_xp_plus_5",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 5 bonus experience, as they has mended the shattered timeline and saved the Earth from catastrophe.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they has mended the shattered timeline and saved the Earth from catastrophe.",
         "text": "Victory display:",
         "effects": [
           {
@@ -17389,7 +18026,7 @@
     },
     {
       "id": "process_was_perfected",
-      "text": "Because all 6 tasks were completed, record in your Campaign Log that <i>the process was perfected</i>. Each investigator earns 4 bonus experience as they gains insight into the secrets of the Earth.",
+      "text": "Because all 6 tasks were completed, record in your Campaign Log that <i>the process was perfected</i>. Each investigator earns 4 bonus experience as they gain insight into the secrets of the Earth.",
       "effects": [
         {
           "type": "campaign_log",
@@ -17406,7 +18043,7 @@
     },
     {
       "id": "process_was_successful",
-      "text": "Because 5 tasks were completed, record in your Campaign Log that <i>the process was successful</i>. Each investigator earns 2 bonus experience as they gains insight into the secrets of the Earth.",
+      "text": "Because 5 tasks were completed, record in your Campaign Log that <i>the process was successful</i>. Each investigator earns 2 bonus experience as they gain insight into the secrets of the Earth.",
       "effects": [
         {
           "type": "campaign_log",
@@ -17840,6 +18477,7 @@
     "encounter_deck",
     "depth_level_rule",
     "pursuit_rule",
+    "check_has_rope",
     "$choose_resolution"
   ],
   "steps": [
@@ -18641,6 +19279,56 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "id": "check_has_rope",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "check_supplies",
+        "section": "supplies",
+        "investigator": "any",
+        "id": "rope",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cross_out_supplies"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_supplies",
+      "type": "input",
+      "text": "If instructed to cross out any Supplies:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chaos_tokens",
+            "text": "Cross out Supplies",
+            "steps": ["cross_out_rope"]
+          },
+          {
+            "id": "no_chaos_tokens",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_rope",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "section": "supplies",
+        "id": "rope",
+        "investigator": "choice",
+        "min": 0,
+        "max": 1,
+        "choices": []
       }
     }
   ],
@@ -20537,6 +21225,7 @@
     "create_exploration_deck",
     "set_aside_cards",
     "encounter_deck",
+    "check_for_chaos_bag_additions",
     "$choose_resolution"
   ],
   "steps": [
@@ -20575,7 +21264,7 @@
       "encounter_sets": [
         "agents_of_yig"
       ],
-      "text": "Set the following cards aside, out of play: The three single-sided [[Ruins]] locations, the Agents of Yig encounter set, the four Poisoned weaknesses, the Alejandro Vela asset, and the Ichtaca enemy."
+      "text": "Set the following cards aside, out of play: The three single-sided [[Ruins]] locations, the <i>Agents of Yig</i> encounter set, the four Poisoned weaknesses, the Alejandro Vela asset, and the Ichtaca enemy."
     },
     {
       "id": "encounter_deck",
@@ -20739,6 +21428,58 @@
                 "type": "add_card",
                 "investigator": "$input_value",
                 "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_for_chaos_bag_additions",
+      "type": "input",
+      "text": "If instructed to add chaos tokens to the bag:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chaos_tokens",
+            "text": "Choose chaos tokens",
+            "steps": ["chaos_token_choice"]
+          },
+          {
+            "id": "no_chaos_tokens",
+            "text": "Scenario ended without instruction",
+            "steps": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "chaos_token_choice",
+      "type": "input",
+      "text": "Which of the following is true:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cultist",
+            "text": "<i>Ichtaca is leading the way.</i>",
+            "description": "Add 1 [cultist] token.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist"]
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "<i>You fought with Icthaca.</i>",
+            "description": "Add 1 [tablet] token.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
               }
             ]
           }

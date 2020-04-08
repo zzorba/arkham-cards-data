@@ -181,7 +181,6 @@ export interface AddCardEffect {
   type: "add_card";
   investigator: InvestigatorSelector;
   card: string;
-  required?: boolean;
   ignore_deck_limit?: boolean;
 }
 export interface AddWeaknessEffect {
@@ -207,6 +206,7 @@ export interface TraumaEffect {
   mental_or_physical?: number;
   killed?: boolean;
   insane?: boolean;
+  hidden?: boolean;
 }
 export interface CampaignLogEffect {
   type: "campaign_log";
