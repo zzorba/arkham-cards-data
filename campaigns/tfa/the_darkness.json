@@ -8,7 +8,6 @@
     "check_found_missing_relic",
     "find_brazier",
     "check_torches",
-    "check_braziers",
     "time_passes",
     "provisions_and_medicine_gone",
     "$upgrade_decks"
@@ -60,6 +59,7 @@
     },
     {
       "id": "check_found_missing_relic",
+      "text": "Check Campaign Log. <i>If the investigators found the missing relic</i>, the lead investigator reads <b>Arcane Thrumming</b>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -79,13 +79,41 @@
           },
           {
             "boolCondition": false,
-            "steps": ["check_relic_is_missing"]
+            "steps": ["check_relic_is_missing_difficulty"]
           }
         ]
       }
     },
     {
-      "id": "check_relic_is_missing",
+      "id": "check_relic_is_missing_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["check_relic_is_missing_easy"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["check_relic_is_missing_standard"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["check_relic_is_missing_hard"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["check_relic_is_missing_expert"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_relic_is_missing_easy",
+      "text": "<i>If the relic is missing</i>, the lead investigator reads <b>Growing Concern</b> instead.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -94,7 +122,95 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["growing_concern", "add_chaos_token"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["growing_concern", "add_easy_token"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-3"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_relic_is_missing_standard",
+      "text": "<i>If the relic is missing</i>, the lead investigator reads <b>Growing Concern</b> instead.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["growing_concern", "add_standard_token"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-4"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_relic_is_missing_hard",
+      "text": "<i>If the relic is missing</i>, the lead investigator reads <b>Growing Concern</b> instead.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["growing_concern", "add_hard_token"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-5"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_relic_is_missing_expert",
+      "text": "<i>If the relic is missing</i>, the lead investigator reads <b>Growing Concern</b> instead.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "relic_is_missing",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["growing_concern", "add_expert_token"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-7"]
+              }
+            ]
           }
         ]
       }
@@ -107,7 +223,7 @@
     },
     {
       "id": "check_investigators_recovered_relic",
-      "text": "Check Campaign Log. <i>If the investigators recovered the Relic of Ages</i>, and <i>if you are forging your own path</i>.",
+      "text": "Check Campaign Log. <i>If the investigators recovered the Relic of Ages</i>, and <i>if you are forging your own path</i>, read <b>Final Dawning</b>. Otherwise, you suffer no ill effects.",
       "type": "branch",
       "condition": {
         "type": "multi",
@@ -149,18 +265,9 @@
                 "new_card": "04303"
               }
             ]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["no_ill_effects"]
           }
         ]
       }
-    },
-    {
-      "id": "no_ill_effects",
-      "bullet_type": "small",
-      "text": "You suffer no ill effects."
     },
     {
       "id": "final_dawning",
@@ -180,50 +287,20 @@
       "text": "As you rise to your feet, the ground rumbles and growls. Something deep below you is moving. Shifting. Mutating."
     },
     {
-      "id": "add_chaos_token",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_data",
-        "campaign_data": "difficulty",
-        "options": [
-          {
-            "condition": "easy",
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["-3"]
-              }
-            ]
-          },
-          {
-            "condition": "standard",
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["-4"]
-              }
-            ]
-          },
-          {
-            "condition": "hard",
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["-5"]
-              }
-            ]
-          },
-          {
-            "condition": "expert",
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["-7"]
-              }
-            ]
-          }
-        ]
-      }
+      "id": "add_easy_token",
+      "text": "Because you are playing on Easy difficulty, add a -3 token to the chaos bag for the remainder of the campaign."
+    },
+    {
+      "id": "add_standard_token",
+      "text": "Because you are playing on Easy difficulty, add a -4 token to the chaos bag for the remainder of the campaign."
+    },
+    {
+      "id": "add_hard_token",
+      "text": "Because you are playing on Easy difficulty, add a -5 token to the chaos bag for the remainder of the campaign."
+    },
+    {
+      "id": "add_expert_token",
+      "text": "Because you are playing on Easy difficulty, add a -7 token to the chaos bag for the remainder of the campaign."
     },
     {
       "id": "find_brazier",
@@ -233,7 +310,7 @@
     {
       "id": "check_torches",
       "type": "branch",
-      "text": "Check your supplies to see if any investigator has torches.",
+      "text": "Check your supplies. If any investigator has torches, they read <b>Torchlight</b>. Otherwise, read <b>The Abyss</b>.",
       "condition": {
         "type": "check_supplies",
         "section": "supplies",
@@ -255,7 +332,8 @@
                 "id": "braziers_are_lit",
                 "text": "the braziers are lit."
               }
-            ]
+            ],
+            "steps": ["check_map_braziers"]
           },
           {
             "boolCondition": false,
@@ -272,7 +350,8 @@
                 "id": "braziers_remain_unlit",
                 "text": "the braziers remain unlit."
               }
-            ]
+            ],
+            "steps": ["check_map_no_braziers"]
           }
         ]
       }
@@ -285,7 +364,6 @@
     },
     {
       "id": "braziers_are_lit",
-      "bullet_type": "small",
       "text": "In your Campaign Log, record that <i>the braziers are lit</i>."
     },
     {
@@ -296,28 +374,23 @@
     },
     {
       "id": "braziers_remain_unlit",
-      "bullet_type": "small",
       "text": "In your Campaign Log, record that <i>the braziers remain unlit</i>."
     },
     {
-      "id": "check_braziers",
+      "id": "check_map_no_braziers",
+      "text": "Check Campaign Log. <i>If the braziers are lit</i>, check your supplies. If any investigator has a map, they read <b>Reading Signs</b>.",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
         "id": "braziers_are_lit",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["check_map"]
-          }
-        ]
+        "options": []
       }
     },
     {
-      "id": "check_map",
+      "id": "check_map_braziers",
       "type": "branch",
-      "text": "Check your supplies to see if any investigator has a map.",
+      "text": "Check Campaign Log. <i>If the braziers are lit</i>, check your supplies. If any investigator has a map, they read <b>Reading Signs</b>.",
       "condition": {
         "type": "check_supplies",
         "section": "supplies",
@@ -350,7 +423,6 @@
     },
     {
       "id": "map_xp",
-      "bullet_type": "small",
       "text": "Each investigator with a map earns 2 additional experience as he or she gains insight into the caverns that dwell beneath the surface of the Earth."
     },
     {
