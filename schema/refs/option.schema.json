@@ -2,9 +2,9 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/option.schema.json",
   "definitions": {
-    "effectOption": {
-      "$id": "#effectOption",
-      "title": "EffectOption",
+    "option": {
+      "$id": "#option",
+      "title": "Option",
       "type": "object",
       "properties": {
         "boolCondition": {
@@ -12,6 +12,71 @@
         },
         "numCondition": {
           "type": "number"
+        },
+        "condition": {
+          "type": "string"
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "stringOption": {
+      "$id": "#stringOption",
+      "title": "StringOption",
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string"
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "condition"
+      ],
+      "additionalProperties": false
+    },
+    "boolOption": {
+      "$id": "#boolOption",
+      "title": "BoolOption",
+      "type": "object",
+      "properties": {
+        "boolCondition": {
+          "type": "boolean"
         },
         "condition": {
           "type": "string"
@@ -22,113 +87,56 @@
             "$ref": "effect.schema.json#/definitions/effect"
           }
         },
-        "steps": {
-          "type": "null"
-        }
-      },
-      "required": [
-        "effects"
-      ],
-      "additionalProperties": false
-    },
-    "stepsOption": {
-      "$id": "#stepsOption",
-      "title": "StepsOption",
-      "type": "object",
-      "properties": {
-        "boolCondition": {
+        "border": {
           "type": "boolean"
         },
-        "numCondition": {
-          "type": "number"
-        },
-        "condition": {
-          "type": "string"
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
         },
         "steps": {
           "type": "array",
           "items": {
             "type": "string"
           }
-        },
-        "reason": {
-          "type": "string"
-        },
-        "effects": {
-          "type": "null"
         }
       },
       "required": [
-        "steps"
+        "boolCondition"
       ],
       "additionalProperties": false
-    },
-    "option": {
-      "$id": "#option",
-      "title": "Option",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/effectOption"
-        },
-        {
-          "$ref": "#/definitions/stepsOption"
-        }
-      ]
-    },
-    "stringOption": {
-      "$id": "#stringOption",
-      "title": "StringOption",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/effectOption"
-        },
-        {
-          "$ref": "#/definitions/stepsOption"
-        }
-      ],
-      "required": [
-        "condition"
-      ]
-    },
-    "boolOption": {
-      "$id": "#boolOption",
-      "title": "BoolOption",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/effectOption"
-        },
-        {
-          "$ref": "#/definitions/stepsOption"
-        }
-      ],
-      "required": [
-        "boolCondition"
-      ]
     },
     "numOption": {
       "$id": "#numOption",
       "title": "NumOption",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/effectOption"
+      "type": "object",
+      "properties": {
+        "numCondition": {
+          "type": "number"
         },
-        {
-          "$ref": "#/definitions/stepsOption"
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
-      ],
+      },
       "required": [
         "numCondition"
-      ]
+      ],
+      "additionalProperties": false
     },
     "defaultOption": {
       "$id": "#defaultOption",
       "title": "DefaultOption",
       "oneOf": [
         {
-          "$ref": "#/definitions/effectOption"
-        },
-        {
-          "$ref": "#/definitions/stepsOption"
+          "$ref": "#/definitions/option"
         }
       ]
     }

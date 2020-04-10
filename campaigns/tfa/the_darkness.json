@@ -8,6 +8,7 @@
     "check_found_missing_relic",
     "find_brazier",
     "check_torches",
+    "check_braziers",
     "time_passes",
     "provisions_and_medicine_gone",
     "$upgrade_decks"
@@ -67,7 +68,14 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["arcane_thrumming", "check_investigators_recovered_relic"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["arcane_thrumming"]
+              }
+            ],
+            "steps": ["check_investigators_recovered_relic"]
           },
           {
             "boolCondition": false,
@@ -110,8 +118,7 @@
             "id": "investigators_recovered_relic",
             "options": [
               {
-                "boolCondition": true,
-                "effects": []
+                "boolCondition": true
               }
             ]
           },
@@ -121,8 +128,7 @@
             "id": "forging_own_path",
             "options": [
               {
-                "boolCondition": true,
-                "effects": []
+                "boolCondition": true
               }
             ]
           }
@@ -131,7 +137,18 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["final_dawning", "swap_relic"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["final_dawning", "swap_relic"]
+              },
+              {
+                "type": "replace_card",
+                "old_card": "04191",
+                "new_card": "04303"
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -153,15 +170,8 @@
     },
     {
       "id": "swap_relic",
-      "bullet_type": "right",
-      "text": "The investigator with Relic of Ages in their deck swaps it with the new version of Relic of Ages included in this Mythos Pack: Relic of Ages (<i>Repossess the Past</i>).",
-      "effects": [
-        {
-          "type": "replace_card",
-          "old_card": "04191",
-          "new_card": "04303"
-        }
-      ]
+      "bullet_type": "small",
+      "text": "The investigator with Relic of Ages in their deck swaps it with the new version of Relic of Ages included in this Mythos Pack: Relic of Ages (<i>Repossess the Past</i>)."
     },
     {
       "id": "growing_concern",
@@ -233,12 +243,36 @@
           {
             "boolCondition": true,
             "condition": "Torchlight",
-            "steps": ["torchlight", "braziers_are_lit", "check_map"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["torchlight", "braziers_are_lit"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "braziers_are_lit",
+                "text": "the braziers are lit."
+              }
+            ]
           },
           {
             "boolCondition": false,
             "condition": "The Abyss",
-            "steps": ["the_abyss", "braziers_remain_unlit"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["the_abyss", "braziers_remain_unlit"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "braziers_remain_unlit",
+                "text": "the braziers remain unlit."
+              }
+            ]
           }
         ]
       }
@@ -251,14 +285,8 @@
     },
     {
       "id": "braziers_are_lit",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "braziers_are_lit",
-          "text": "the braziers are lit."
-        }
-      ]
+      "bullet_type": "small",
+      "text": "In your Campaign Log, record that <i>the braziers are lit</i>."
     },
     {
       "id": "the_abyss",
@@ -268,16 +296,24 @@
     },
     {
       "id": "braziers_remain_unlit",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "braziers_remain_unlit",
-          "text": "the braziers remain unlit."
-        }
-      ]
+      "bullet_type": "small",
+      "text": "In your Campaign Log, record that <i>the braziers remain unlit</i>."
     },
-
+    {
+      "id": "check_braziers",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "braziers_are_lit",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_map"]
+          }
+        ]
+      }
+    },
     {
       "id": "check_map",
       "type": "branch",
@@ -291,10 +327,11 @@
           {
             "boolCondition": true,
             "condition": "Reading Signs",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
-                "steps": ["reading_signs"]
+                "steps": ["reading_signs", "map_xp"]
               },
               {
                 "type": "earn_xp",
@@ -310,6 +347,11 @@
       "type": "story",
       "title": "Reading Signs",
       "text": "As you traverse the caverns, something catches your attention: streams of cold, gentle water that drip down the walls of the cavern. Curious, you unfold the previous expedition’s map and sit by one of the lit braziers, mentally retracing your steps. If your calculations are correct, you have traveled much farther south than you could have possibly guessed. Could it be these caverns extend all the way to the coastline? Do the caverns never end?"
+    },
+    {
+      "id": "map_xp",
+      "bullet_type": "small",
+      "text": "Each investigator with a map earns 2 additional experience as he or she gains insight into the caverns that dwell beneath the surface of the Earth."
     },
     {
       "id": "time_passes",

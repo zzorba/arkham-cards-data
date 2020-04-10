@@ -62,6 +62,20 @@ function validate(validator, file, json, schemaName) {
                 }
               });
             }
+            if (choice.effects) {
+              choice.effects.map(effect => {
+                if (effect.type === 'story_step' && effect.steps.length) {
+                  effect.steps.map(step => {
+                    if (!steps[step] && !magicSteps[step]) {
+                      console.log(`MISSING_STEP (${file}) - ${step}`);
+                      error = true;
+                    } else {
+                      delete unusedSteps[step];
+                    }
+                  });
+                }
+              });
+            }
           });
         }
         if (step.input.type === 'investigator_choice_supplies') {

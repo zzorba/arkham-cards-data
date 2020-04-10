@@ -16,6 +16,16 @@
         "$input_value"
       ]
     },
+    "border": {
+      "$id": "#border",
+      "title": "Border",
+      "type": "string",
+      "enum": [
+        "top",
+        "bottom",
+        "both"
+      ]
+    },
     "investigatorStatus": {
       "$id": "#investigatorStatus",
       "title": "InvestigatorStatus",
@@ -130,192 +140,119 @@
         }
       ]
     },
-    "stepsChoice": {
-      "$id": "#stepsChoice",
-      "title": "StepsChoice",
-      "type": "object",
-      "properties": {
-        "text": {
-          "type": "string"
-        },
-        "flavor": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "effects": {
-          "type": "null"
-        }
-      },
-      "required": ["steps"],
-      "additionalProperties": false
-    },
-    "conditionalStepsChoice": {
-      "$id": "#conditionalStepsChoice",
-      "title": "ConditionalStepsChoice",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "flavor": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "condition": {
-          "$ref": "condition.schema.json#/definitions/choiceCondition"
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "effects": {
-          "type": "null"
-        }
-      },
-      "required": ["id", "steps"],
-      "additionalProperties": false
-    },
-    "effectsChoice": {
-      "$id": "#effectsChoice",
-      "title": "EffectsChoice",
-      "type": "object",
-      "properties": {
-        "flavor": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "effects": {
-          "type": "array",
-          "items": {
-            "$ref": "effect.schema.json#/definitions/effect"
-          }
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["effects", "text"],
-      "additionalProperties": false
-    },
-    "simpleEffectsChoice": {
-      "$id": "#simpleEffectsChoice",
-      "title": "SimpleEffectsChoice",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-        },
-        "flavor": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "effects": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "effect.schema.json#/definitions/campaignLogCardsEffect"
-              },
-              {
-                "$ref": "effect.schema.json#/definitions/removeCardEffect"
-              }
-            ]
-          }
-        },
-        "steps": {
-          "type": "null"
-        }
-      },
-      "required": ["id", "text", "effects"],
-      "additionalProperties": false
-    },
-    "conditionalEffectsChoice": {
-      "$id": "#conditionalEffectsChoice",
-      "title": "ConditionalEffectsChoice",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "flavor": {
-          "type": "string"
-        },
-        "text": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "condition": {
-          "$ref": "condition.schema.json#/definitions/choiceCondition"
-        },
-        "effects": {
-          "type": "array",
-          "items": {
-            "$ref": "effect.schema.json#/definitions/effect"
-          }
-        },
-        "steps": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "required": ["id", "effects", "text"],
-      "additionalProperties": false
-    },
     "choice": {
       "$id": "#choice",
       "title": "Choice",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/stepsChoice"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
-        {
-          "$ref": "#/definitions/effectsChoice"
+        "text": {
+          "type": "string"
+        },
+        "flavor": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         }
-      ]
+      },
+      "required": ["id", "text"],
+      "additionalProperties": false
     },
-    "conditionalChoice": {
-      "$id": "#conditionalChoice",
-      "title": "ConditionalChoice",
-      "oneOf": [
-        {
-          "$ref": "#/definitions/conditionalStepsChoice"
+    "binaryConditionalChoice": {
+      "$id": "#binaryConditionalChoice",
+      "title": "BinaryConditionalChoice",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
-        {
-          "$ref": "#/definitions/conditionalEffectsChoice"
+        "text": {
+          "type": "string"
+        },
+        "flavor": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/binaryChoiceCondition"
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         }
-      ]
+      },
+      "required": ["id"],
+      "additionalProperties": false
+    },
+    "investigatorConditionalChoice": {
+      "$id": "#investigatorConditionalChoice",
+      "title": "InvestigatorConditionalChoice",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "flavor": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/investigatorChoiceCondition"
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": ["id", "text"],
+      "additionalProperties": false
     },
     "supply": {
       "$id": "#supply",

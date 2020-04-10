@@ -12,6 +12,10 @@
     "check_poison_spreads",
     "find_stone_carvings",
     "check_canteen",
+    "explain_faith_restored",
+    "check_cultists",
+    "check_forged_bond_with_ichtaca",
+    "check_has_confidence",
     "check_faith_restored",
     "$upgrade_decks"
   ],
@@ -36,7 +40,11 @@
           {
             "boolCondition": false,
             "condition": "Out of Gas",
-            "steps": ["out_of_gas", "no_mulligan"]
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["out_of_gas", "no_mulligan"]
+            }]
           }
         ]
       }
@@ -49,7 +57,7 @@
     },
     {
       "id": "no_mulligan",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "When drawing opening hands during this scenario, investigators cannot take a mulligan."
     },
     {
@@ -65,7 +73,11 @@
           {
             "boolCondition": true,
             "condition": "A Path Discovered",
-            "steps": ["path_discovered", "mapped_way_forward"]
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["path_discovered", "mapped_way_forward"]
+            }]
           }
         ]
       }
@@ -78,7 +90,7 @@
     },
     {
       "id": "mapped_way_forward",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -101,7 +113,11 @@
           {
             "boolCondition": false,
             "condition": "Low on Rations",
-            "steps": ["low_on_rations", "fewer_resources"]
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["low_on_rations", "fewer_resources"]
+            }]
           }
         ]
       }
@@ -114,7 +130,7 @@
     },
     {
       "id": "fewer_resources",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You begin the next scenario with 3 fewer resources."
     },
     {
@@ -151,6 +167,7 @@
           {
             "boolCondition": true,
             "condition": "The Poison Spreads",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
@@ -190,12 +207,22 @@
           {
             "boolCondition": true,
             "condition": "Patterns in the Stone",
-            "steps": ["patterns_in_the_stone", "start_with_clue"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["patterns_in_the_stone", "start_with_clue"]
+              }
+            ]
           },
           {
             "boolCondition": false,
             "condition": "Secrets in the Stone",
-            "steps": ["secrets_in_the_stone", "no_ill_effects"]
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["secrets_in_the_stone", "no_ill_effects"]
+            }]
           }
         ]
       }
@@ -208,7 +235,7 @@
     },
     {
       "id": "start_with_clue",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "Each investigator who has a canteen begins the next scenario with 1 clue <i>(from the token bank)</i>."
     },
     {
@@ -219,34 +246,49 @@
     },
     {
       "id": "no_ill_effects",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You suffer no ill effects."
     },
     {
-      "id": "check_faith_restored",
+      "id": "explain_faith_restored",
+      "text": "Check the chaos bag and the Campaign Log. If all of the following are true, the lead investigator reads <b>Faith Restored</b>."
+    },
+    {
+      "id": "check_cultists",
+      "bullet_type": "small",
+      "text": "There are 2 or more [cultist] tokens in the chaos bag.",
       "type": "branch",
       "condition": {
-        "type": "campaign_data",
-        "campaign_data": "chaos_bag",
-        "token": "cultist",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "cultist",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 3
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "count": 1,
         "options": [
           {
-            "numCondition": 2,
-            "steps": ["check_forged_bond_with_ichtaca"]
-          },
-          {
-            "numCondition": 3,
-            "steps": ["check_forged_bond_with_ichtaca"]
-          },
-          {
-            "numCondition": 4,
-            "steps": ["check_forged_bond_with_ichtaca"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
       "id": "check_forged_bond_with_ichtaca",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -254,14 +296,14 @@
         "id": "forged_bond_with_ichtaca",
         "options": [
           {
-            "boolCondition": true,
-            "steps": ["check_ichtaca_has_confidence"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
-      "id": "check_ichtaca_has_confidence",
+      "id": "check_has_confidence",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -269,8 +311,76 @@
         "id": "ichtaca_has_confidence",
         "options": [
           {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_faith_restored",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "cultist",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 3
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "forged_bond_with_ichtaca",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "ichtaca_has_confidence",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
+        "options": [
+          {
             "boolCondition": true,
-            "steps": ["faith_restored", "ichtacas_faith_restored", "add_cultist_token"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["faith_restored", "ichtacas_faith_restored"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "ichtacas_faith_restored",
+                "text": "Ichtaca’s faith is restored"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist"]
+              }
+            ]
           }
         ]
       }
@@ -283,26 +393,8 @@
     },
     {
       "id": "ichtacas_faith_restored",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "ichtacas_faith_restored",
-          "text": "Ichtaca’s faith is restored"
-        }
-      ]
-    },
-    {
-      "id": "add_cultist_token",
-      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
-      "effects": [
-        {
-          "type": "add_chaos_token",
-          "tokens": ["cultist"]
-        }
-      ]
+      "bullet_type": "small",
+      "text": "In your Campaign Log, record that <i>Ichtaca’s faith is restored</i>. Add 1 [cultist] token to the chaos bag for the remainder of the campaign."
     }
-
-
   ]
 }

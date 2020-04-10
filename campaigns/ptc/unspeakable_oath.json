@@ -16,6 +16,7 @@
     "encounter_deck",
     "check_for_mitpm",
     "check_for_onyx_clasp",
+    "track_mitpm",
     "$choose_resolution"
   ],
   "steps": [{
@@ -251,6 +252,24 @@
       ]
     },
     {
+      "id": "track_mitpm",
+      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Chasing the Stranger:",
+        "long_lived": true,
+        "delta": true,
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "chasing_the_stranger",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
       "id": "defeated_insane",
       "text": "Each investigator who was defeated is driven insane. If there are not enough investigators to continue the campaign, the campaign is over and the players lose.",
       "effects": [{
@@ -322,6 +341,22 @@
     },
     {
       "id": "ask_constance_dumaine",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "vips_slain",
+        "id": "03065b",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["prompt_constance_dumaine"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prompt_constance_dumaine",
       "type": "input",
       "input": {
         "type": "choose_one",

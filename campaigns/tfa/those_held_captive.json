@@ -5,6 +5,10 @@
   "type": "interlude",
   "setup": [
     "check_process_backfired",
+    "explain_mind_recovered",
+    "check_tablets",
+    "check_rescued_alejandro",
+    "ask_custodian",
     "check_mind_recovered",
     "find_stone_gate",
     "check_chalk",
@@ -149,38 +153,45 @@
       }
     },
     {
-      "id": "check_mind_recovered",
+      "id": "explain_mind_recovered",
+      "text": "Check the chaos bag and the Campaign Log. If all of the following are true, the lead investigator reads <b>A Mind Recovered</b>. If any of the following are not true, the lead investigator reads <b>Forever Lost</b> instead."
+    },
+    {
+      "id": "check_tablets",
+      "bullet_type": "small",
+      "text": "There are 2 or more [tablet] tokens in the chaos bag.",
       "type": "branch",
       "condition": {
-        "type": "campaign_data",
-        "campaign_data": "chaos_bag",
-        "token": "tablet",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 3
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "count": 1,
         "options": [
           {
-            "numCondition": 0,
-            "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
-          },
-          {
-            "numCondition": 2,
-            "steps": ["check_mind_recovered_rescued_alejandro"]
-          },
-          {
-            "numCondition": 3,
-            "steps": ["check_mind_recovered_rescued_alejandro"]
-          },
-          {
-            "numCondition": 4,
-            "steps": ["check_mind_recovered_rescued_alejandro"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
-      "id": "check_mind_recovered_rescued_alejandro",
+      "id": "check_rescued_alejandro",
+      "bullet_type": "small",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -188,32 +199,117 @@
         "id": "rescued_alejandro",
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
-          },
-          {
-            "boolCondition": true,
-            "steps": ["check_mind_recovered_had_custodian"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
-      "id": "check_mind_recovered_had_custodian",
+      "id": "ask_custodian",
+      "bullet_type": "small",
       "type": "input",
-      "text": "Was the Custodian was under an investigator’s control when the previous scenario ended?",
       "input": {
         "type": "choose_one",
         "choices": [
           {
-            "id": "yes",
-            "text": "Yes",
-            "steps": ["mind_recovered", "alejandro_remembers_everything"]
+            "id": "rescued_custodian",
+            "text": "Was the Custodian was under an investigator’s control when the previous scenario ended?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "rescued_custodian"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_mind_recovered",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 3
+              },
+              {
+                "numCondition": 4
+              }
+            ]
           },
           {
-            "id": "no",
-            "text": "No",
-            "steps": ["forever_lost", "alejandro_set_against", "maybe_lose_alejandro"]
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "rescued_custodian",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "rescued_alejandro",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
+        "options": [
+          {
+            "boolCondition": false,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["forever_lost", "alejandro_set_against"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "alejandro_set_against",
+                "text": "Alejandro is set against you."
+              },
+              {
+                "type": "remove_card",
+                "card": "04051"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["mind_recovered", "alejandro_remembers_everything"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "alejandro_remembers_everything",
+                "text": "Alejandro remembers everything."
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
           }
         ]
       }
@@ -226,19 +322,8 @@
     },
     {
       "id": "alejandro_remembers_everything",
-      "text": "In your Campaign Log, record that <i>Alejandro remembers everything</i>. Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "alejandro_remembers_everything",
-          "text": "Alejandro remembers everything."
-        },
-        {
-          "type": "add_chaos_token",
-          "tokens": ["tablet"]
-        }
-      ]
+      "bullet_type": "small",
+      "text": "In your Campaign Log, record that <i>Alejandro remembers everything</i>. Add 1 [tablet] token to the chaos bag for the remainder of the campaign."
     },
     {
       "id": "forever_lost",
@@ -248,40 +333,8 @@
     },
     {
       "id": "alejandro_set_against",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "alejandro_set_against",
-          "text": "Alejandro is set against you."
-        }
-      ]
-    },
-    {
-      "id": "maybe_lose_alejandro",
-      "type": "branch",
-      "condition": {
-        "type": "has_card",
-        "investigator": "any",
-        "card": "04051",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["lose_alejandro"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "lose_alejandro",
       "bullet_type": "small",
-      "text": "Remove Alejandro Vela from all investigator’s deck for the remainder of the campaign.",
-      "effects": [
-        {
-          "type": "remove_card",
-          "card": "04051"
-        }
-      ]
+      "text": "In your Campaign Log, record that <i>Alejandro is set against you</i>. If Alejandro Vela is part of an investigator’s deck, remove him from that investigator’s deck for the remainder of the campaign."
     },
     {
       "id": "find_stone_gate",
@@ -301,12 +354,24 @@
           {
             "boolCondition": true,
             "condition": "The Way is Open",
-            "steps": ["the_way_is_open", "no_ill_effects"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["the_way_is_open", "no_ill_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,
             "condition": "The Way is Shut",
-            "steps": ["the_way_is_shut", "no_mulligan"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["the_way_is_shut", "no_mulligan"]
+              }
+            ]
           }
         ]
       }
@@ -319,7 +384,7 @@
     },
     {
       "id": "no_ill_effects",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You suffer no ill effects."
     },
     {
@@ -330,7 +395,7 @@
     },
     {
       "id": "no_mulligan",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "When drawing opening hands during the next scenario, investigators cannot take a mulligan.."
     },
     {
@@ -346,7 +411,13 @@
           {
             "boolCondition": false,
             "condition": "Low on Rations",
-            "steps": ["low_on_rations", "fewer_resources"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["low_on_rations", "fewer_resources"]
+              }
+            ]
           }
         ]
       }
@@ -359,7 +430,7 @@
     },
     {
       "id": "fewer_resources",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You begin the next scenario with 3 fewer resources."
     },
     {
@@ -396,6 +467,7 @@
           {
             "boolCondition": true,
             "condition": "The Poison Spreads",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
@@ -435,6 +507,7 @@
           {
             "boolCondition": true,
             "condition": "Restful Sleep",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
@@ -445,6 +518,7 @@
           {
             "boolCondition": false,
             "condition": "Tossing and Turning",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",

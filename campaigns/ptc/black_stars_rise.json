@@ -18,6 +18,7 @@
     "check_for_mitpm",
     "check_for_onyx_clasp",
     "dual_agendas_rule",
+    "track_mitpm",
     "$choose_resolution"
   ],
   "steps": [
@@ -265,6 +266,24 @@
       ]
     },
     {
+      "id": "track_mitpm",
+      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Chasing the Stranger:",
+        "delta": true,
+        "long_lived": true,
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "chasing_the_stranger",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
       "id": "opened_path_below",
       "effects": [
         {
@@ -303,6 +322,22 @@
     },
     {
       "id": "ask_ashleigh_clarke",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "vips_slain",
+        "id": "03069b",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["prompt_ashleigh_clarke"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prompt_ashleigh_clarke",
       "type": "input",
       "input": {
         "type": "choose_one",

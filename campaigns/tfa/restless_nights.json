@@ -30,6 +30,7 @@
           {
             "boolCondition": true,
             "condition": "Restful Sleep",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
@@ -40,6 +41,7 @@
           {
             "boolCondition": false,
             "condition": "Tossing and Turning",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",
@@ -69,7 +71,7 @@
     },
     {
       "id": "no_ill_effects",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You suffer no ill effects."
     },
     {
@@ -84,8 +86,12 @@
         "choices": [
           {
             "boolCondition": false,
+            "border": true,
             "condition": "Low on Rations",
-            "steps": ["low_on_rations", "fewer_resources"]
+            "effects": [{
+              "type": "story_step",
+              "steps": ["low_on_rations", "fewer_resources"]
+             }]
           }
         ]
       }
@@ -98,7 +104,7 @@
     },
     {
       "id": "fewer_resources",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You begin the next scenario with 3 fewer resources."
     },
     {
@@ -109,9 +115,12 @@
         "type": "investigator_choice_supplies",
         "section": "supplies",
         "id": "binoculars",
+        "investigator": "choice",
         "prompt": "Group's lookout",
         "positiveChoice": {
+          "id": "positive",
           "text": "Shapes in the Trees",
+          "border": true,
           "effects": [
             {
               "type": "story_step",
@@ -125,7 +134,9 @@
           ]
         },
         "negativeChoice": {
+          "id": "eyes_in_the_dark",
           "text": "Eyes in the Dark",
+          "border": true,
           "effects": [
             {
               "type": "story_step",
@@ -154,7 +165,7 @@
     },
     {
       "id": "bonus_binoculars_xp",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "text": "You earn 2 additional experience as you gain further insight into the motivations of the Eztli."
     },
     {
@@ -171,11 +182,13 @@
         "choices": [
           {
             "boolCondition": true,
-            "effects": [{
-              "type": "remove_card",
-              "investigator": "choice",
-              "card": "04102"
-            }]
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "choice",
+                "card": "04102"
+              }
+            ]
           }
         ]
       }
@@ -191,6 +204,7 @@
           {
             "boolCondition": true,
             "condition": "The Poison Spreads",
+            "border": true,
             "effects": [
               {
                 "type": "story_step",

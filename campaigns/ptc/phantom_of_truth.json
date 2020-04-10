@@ -20,6 +20,7 @@
     "encounter_deck",
     "check_for_mitpm",
     "check_for_onyx_clasp",
+    "track_mitpm",
     "$choose_resolution"
   ],
   "steps": [
@@ -493,6 +494,24 @@
       ]
     },
     {
+      "id": "track_mitpm",
+      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Chasing the Stranger:",
+        "long_lived": true,
+        "delta": true,
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "chasing_the_stranger",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
       "id": "did_not_escape_gaze",
       "effects": [
         {
@@ -553,6 +572,22 @@
     },
     {
       "id": "ask_jordan_perry",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "vips_slain",
+        "id": "03066b",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["prompt_jordan_perry"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prompt_jordan_perry",
       "type": "input",
       "input": {
         "type": "choose_one",

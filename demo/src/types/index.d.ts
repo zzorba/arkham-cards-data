@@ -28,7 +28,6 @@ export type Condition =
   | ScenarioDataCondition
   | KilledTraumaCondition
   | CheckSuppliesCondition;
-export type BoolOption = EffectOption | StepsOption;
 export type Effect =
   | StoryStepEffect
   | EarnXpEffect
@@ -80,20 +79,21 @@ export type ChaosToken =
   | "elder_thing"
   | "elder_sign"
   | "auto_fail";
-export type NumOption = EffectOption | StepsOption;
-export type DefaultOption = EffectOption | StepsOption;
+export type BulletType = "none" | "small" | "right";
+export type DefaultOption = Option;
 export type MathCondition = MathCompareCondition | MathSumCondition | MathEqualsCondition;
 export type Operand = CampaignLogCountOperand | ChaosBagOperand | ConstantOperand;
 export type CardCondition = InvestigatorCardCondition | BinaryCardCondition;
-export type Option = EffectOption | StepsOption;
 export type CampaignDataCondition =
   | CampaignDataDifficultyCondition
   | CampaignDataScenarioCondition
   | CampaignDataChaosBagCondition
   | CampaignDataInvestigatorCondition;
-export type StringOption = EffectOption | StepsOption;
+export type ScenarioDataCondition =
+  | ScenarioDataResolutionCondition
+  | ScenarioDataInvestigatorStatusCondition
+  | ScenarioDataPlayerCountCondition;
 export type CheckSuppliesCondition = CheckSuppliesAllCondition | CheckSuppliesAnyCondition;
-export type BulletType = "none" | "small" | "right";
 export type Input =
   | UpgradeDecksInput
   | CardChoiceInput
@@ -107,15 +107,14 @@ export type Input =
   | ScenarioInvestigatorsInput;
 export type CardQuery = CardSearchQuery | CardCodeList;
 export type UseSuppliesInput = UseSuppliesChoiceInput | UseSuppliesAllInput;
-export type ChoiceCondition =
-  | CardCondition
+export type InvestigatorChoiceCondition = InvestigatorCardCondition | BasicTraumaCondition | InvestigatorCondition;
+export type BinaryChoiceCondition =
+  | BinaryCardCondition
   | CampaignDataInvestigatorCondition
   | CampaignLogCondition
-  | BasicTraumaCondition
   | MultiCondition;
-export type ConditionalChoice = ConditionalStepsChoice | ConditionalEffectsChoice;
 export type AllCampaigns = FullCampaign[];
-export type Choice =
+export type Choice1 =
   | CardChoice
   | SuppliesChoice
   | SelectChoice
@@ -151,7 +150,7 @@ export interface BranchStep {
 }
 export interface MultiCondition {
   type: "multi";
-  conditions: CampaignLogCondition[];
+  conditions: (CampaignLogCondition | CampaignDataChaosBagCondition)[];
   count: number;
   options: BoolOption[];
 }
@@ -161,12 +160,13 @@ export interface CampaignLogCondition {
   id: string;
   options: BoolOption[];
 }
-export interface EffectOption {
-  boolCondition?: boolean;
-  numCondition?: number;
+export interface BoolOption {
+  boolCondition: boolean;
   condition?: string;
-  effects: Effect[];
-  steps?: null;
+  effects?: Effect[];
+  border?: boolean;
+  bullet_type?: BulletType;
+  steps?: string[];
 }
 export interface StoryStepEffect {
   type: "story_step";
@@ -180,6 +180,7 @@ export interface EarnXpEffect {
 export interface AddCardEffect {
   type: "add_card";
   investigator: InvestigatorSelector;
+  optional?: boolean;
   card: string;
   ignore_deck_limit?: boolean;
 }
@@ -271,13 +272,16 @@ export interface AddRemoveChaosTokenEffect {
 export interface UpgradeDecksEffect {
   type: "upgrade_decks";
 }
-export interface StepsOption {
-  boolCondition?: boolean;
-  numCondition?: number;
-  condition?: string;
-  steps: string[];
-  reason?: string;
-  effects?: null;
+export interface CampaignDataChaosBagCondition {
+  type: "campaign_data";
+  campaign_data: "chaos_bag";
+  token: ChaosToken;
+  options: NumOption[];
+}
+export interface NumOption {
+  numCondition: number;
+  effects?: Effect[];
+  steps?: string[];
 }
 export interface CampaignLogCountCondition {
   type: "campaign_log_count";
@@ -286,6 +290,15 @@ export interface CampaignLogCountCondition {
   options: NumOption[];
   max?: number;
   defaultOption: DefaultOption;
+}
+export interface Option {
+  boolCondition?: boolean;
+  numCondition?: number;
+  condition?: string;
+  border?: boolean;
+  bullet_type?: BulletType;
+  effects?: Effect[];
+  steps?: string[];
 }
 export interface MathCompareCondition {
   type: "math";
@@ -326,30 +339,31 @@ export interface InvestigatorCardCondition {
   type: "has_card";
   investigator: "each";
   card: string;
-  options: Option[];
+  options: BoolOption[];
 }
 export interface BinaryCardCondition {
   type: "has_card";
   investigator: "defeated" | "any";
   card: string;
-  options: Option[];
+  options: BoolOption[];
 }
 export interface CampaignDataDifficultyCondition {
   type: "campaign_data";
   campaign_data: "difficulty";
-  options: Option[];
+  options: StringOption[];
+}
+export interface StringOption {
+  condition: string;
+  border?: boolean;
+  bullet_type?: BulletType;
+  effects?: Effect[];
+  steps?: string[];
 }
 export interface CampaignDataScenarioCondition {
   type: "campaign_data";
   campaign_data: "scenario_completed";
   scenario: string;
-  options: StepsOption[];
-}
-export interface CampaignDataChaosBagCondition {
-  type: "campaign_data";
-  campaign_data: "chaos_bag";
-  token: ChaosToken;
-  options: StepsOption[];
+  options: BoolOption[];
 }
 export interface CampaignDataInvestigatorCondition {
   type: "campaign_data";
@@ -363,17 +377,27 @@ export interface CampaignLogSectionExistsCondition {
   section: string;
   options: BoolOption[];
 }
-export interface ScenarioDataCondition {
+export interface ScenarioDataResolutionCondition {
   type: "scenario_data";
-  scenario_data: "player_count" | "resolution" | "investigator_status";
-  investigator?: InvestigatorSelector;
-  options: Option[];
+  scenario_data: "resolution";
+  options: StringOption[];
+}
+export interface ScenarioDataInvestigatorStatusCondition {
+  type: "scenario_data";
+  scenario_data: "investigator_status";
+  investigator: "defeated";
+  options: BoolOption[];
+}
+export interface ScenarioDataPlayerCountCondition {
+  type: "scenario_data";
+  scenario_data: "player_count";
+  options: NumOption[];
 }
 export interface KilledTraumaCondition {
   type: "trauma";
   investigator: "lead_investigator" | "all";
   trauma: "killed";
-  options: StepsOption[];
+  options: BoolOption[];
 }
 export interface CheckSuppliesAllCondition {
   type: "check_supplies";
@@ -401,6 +425,7 @@ export interface EffectsStep {
   bullet_type?: BulletType;
 }
 export interface EffectsWithInput {
+  border?: boolean;
   effects: Effect[];
   input?: string[];
   numberInput?: number[];
@@ -420,7 +445,7 @@ export interface CardChoiceInput {
   type: "card_choice";
   include_counts?: boolean;
   query: CardQuery[];
-  choices: SimpleEffectsChoice[];
+  choices: Choice[];
 }
 export interface CardSearchQuery {
   source: "scenario" | "deck";
@@ -432,13 +457,14 @@ export interface CardSearchQuery {
 export interface CardCodeList {
   code: string[];
 }
-export interface SimpleEffectsChoice {
+export interface Choice {
   id: string;
-  flavor?: string;
   text: string;
+  flavor?: string;
   description?: string;
-  effects: (CampaignLogCardsEffect | RemoveCardEffect)[];
-  steps?: null;
+  steps?: string[];
+  border?: boolean;
+  effects?: Effect[];
 }
 export interface SuppliesInput {
   type: "supplies";
@@ -460,50 +486,58 @@ export interface UseSuppliesChoiceInput {
   investigator: "choice";
   min: number;
   max: number;
-  choices: Option[];
+  choices: BoolOption[];
 }
 export interface UseSuppliesAllInput {
   type: "use_supplies";
   section: string;
   id: string;
   investigator: "all";
-  choices: Option[];
+  choices: BoolOption[];
 }
 export interface InvestigatorChoiceInput {
   type: "investigator_choice";
   source: "campaign" | "scenario";
   investigator: "all" | "choice" | "any";
   detailed?: boolean;
-  choices: ConditionalEffectsChoice[];
+  choices: InvestigatorConditionalChoice[];
 }
-export interface ConditionalEffectsChoice {
+export interface InvestigatorConditionalChoice {
   id: string;
-  flavor?: string;
   text: string;
+  flavor?: string;
   description?: string;
-  condition?: ChoiceCondition;
-  effects: Effect[];
+  condition?: InvestigatorChoiceCondition;
+  border?: boolean;
   steps?: string[];
+  effects?: Effect[];
 }
 export interface BasicTraumaCondition {
   type: "trauma";
   investigator: "each";
   trauma: "physical" | "mental";
-  options: StepsOption[];
+  options: BoolOption[];
+}
+export interface InvestigatorCondition {
+  type: "investigator";
+  investigator?: "each";
+  investigator_data: "trait" | "faction" | "code";
+  options: StringOption[];
 }
 export interface ChooseOneInput {
   type: "choose_one";
   style?: "picker";
-  choices: ConditionalChoice[];
+  choices: BinaryConditionalChoice[];
 }
-export interface ConditionalStepsChoice {
+export interface BinaryConditionalChoice {
   id: string;
   text?: string;
   flavor?: string;
   description?: string;
-  condition?: ChoiceCondition;
-  steps: string[];
-  effects?: null;
+  condition?: BinaryChoiceCondition;
+  border?: boolean;
+  steps?: string[];
+  effects?: Effect[];
 }
 export interface CounterInput {
   type: "counter";
@@ -511,6 +545,8 @@ export interface CounterInput {
   confirm_text?: string;
   min?: number;
   max?: number;
+  long_lived?: boolean;
+  delta?: boolean;
   effects: Effect[];
 }
 export interface InvestigatorCounterInput {
@@ -523,16 +559,9 @@ export interface InvestigatorChoiceWithSuppliesInput {
   section: string;
   id: string;
   prompt: string;
-  investigator?: "choice";
-  positiveChoice: EffectsChoice;
-  negativeChoice: EffectsChoice;
-}
-export interface EffectsChoice {
-  flavor?: string;
-  text: string;
-  description?: string;
-  effects: Effect[];
-  steps?: string[];
+  investigator: "choice";
+  positiveChoice: Choice;
+  negativeChoice: Choice;
 }
 export interface ScenarioInvestigatorsInput {
   type: "scenario_investigators";
@@ -622,7 +651,7 @@ export interface Log {
 }
 export interface LogEntry {
   id: string;
-  choice?: Choice;
+  choice?: Choice1;
 }
 export interface CardChoice {
   cards: string[];

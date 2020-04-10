@@ -13,6 +13,7 @@
     "check_fled_dinner_party",
     "encounter_deck",
     "check_for_mitpm",
+    "track_mitpm",
     "$choose_resolution"
   ],
   "steps": [
@@ -171,6 +172,24 @@
       ]
     },
     {
+      "id": "track_mitpm",
+      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Chasing the Stranger:",
+        "long_lived": true,
+        "delta": true,
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "chasing_the_stranger",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
       "id": "took_onyx_clasp",
       "text": "In your Campaign Log, record that <i>you took the onyx clasp</i>. Mark one <b>Conviction</b> in your Campaign Log. For the remainder of the campaign, one investigator must include the Clasp of Black Onyx weakness in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
@@ -262,6 +281,22 @@
     },
     {
       "id": "ask_sebastien_moreau",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "vips_slain",
+        "id": "03068b",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["prompt_sebastien_moreau"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prompt_sebastien_moreau",
       "type": "input",
       "input": {
         "type": "choose_one",

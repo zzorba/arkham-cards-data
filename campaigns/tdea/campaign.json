@@ -1,0 +1,177 @@
+{
+  "id": "tdea",
+  "position": 1,
+  "name": "The Dream-Quest",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "evidence_of_kadath",
+      "title": "Evidence of Kadath",
+      "type": "count"
+    }
+  ],
+  "scenarios": [
+    "tde_prologue",
+    "beyond_the_gates_of_sleep",
+    "the_black_cat",
+    "the_search_for_kadath",
+    "the_oneironauts",
+    "dark_side_of_the_moon",
+    "the_great_ones",
+    "where_gods_dwell",
+    "tde_epilogue"
+  ],
+  "setup": [
+    "prologue",
+    "difficulty_choice",
+    "alert",
+    "story",
+    "swarming",
+    "hidden"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "title": "The Waking World Is Only One Reality",
+      "text": "“In light slumber he descended the seventy steps to the cavern of flame and talked of this design to the bearded priests Nasht and Kaman-Thah. And the priests shook their pshent-bearing heads and vowed it would be the death of his soul.”\n– H. P. Lovecraft, The Dream-Quest of Unknown Kadath"
+    },
+    {
+      "id": "difficulty_choice",
+      "type": "input",
+      "text": "Choose difficulty level:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy <i>(I want to experience the story)</i>",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -2, -2, [cultist], [tablet], [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-2", "-2", "cultist", "tablet", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "standard",
+            "text": "Standard <i>(I want a challenge)</i>",
+            "description": "+1, 0, 0, -1, -1, -2, -2, -3, -4, [cultist], [tablet], [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-2", "-2", "-3", "-4", "cultist", "tablet", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard <i>(I want a true nightmare)</i>",
+            "description": "0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "cultist", "tablet", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "expert",
+            "text": "Expert <i>(I want Arkham Horror)</i>",
+            "description": "0, -1, -1, -2, -2, -3, -4, -4, -5, -6, -8, [skull], [skull], [cultist], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-1", "-2", "-2", "-3", "-4", "-4", "-5", "-6", "-8", "cultist", "tablet", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "alert",
+      "type": "rule_reminder",
+      "title": "Alert",
+      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the alert keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+    },
+    {
+      "id": "story",
+      "type": "rule_reminder",
+      "title": "Story Cards",
+      "text": "Story cards serve as an avenue for additional narrative and typically appear as the reverse side of another scenario card. When you are instructed to resolve a story card, simply read its story text and resolve its game text."
+    },
+    {
+      "id": "swarming",
+      "type": "rule_reminder",
+      "title": "Swarming X",
+      "text": "An enemy with the swarming X keyword is actually a pack of enemies operating in unison. After you put an enemy with the swarming X keyword into play, place the top X cards of your deck facedown underneath the enemy as swarm cards, without looking at them. The enemy they are underneath is called the “host enemy.” Some scenario card effects may also instruct a player to add swarm cards to an enemy. This is done using the same process.",
+      "bullets": [
+        {
+          "text": "If it is ever unclear which investigator should add swarm cards, the lead investigator does so."
+        },
+        {
+          "text": "Each swarm card underneath the host enemy acts as a separate instance of that enemy for most purposes. Each swarm card has the same values and text as its host card. <i>(For example, if an investigator is engaged with a host enemy with 2 swarm cards underneath it, that investigator is engaged with 3 enemies in total.)</i>"
+        },
+        {
+          "text": "Each swarm card attacks separately when enemies attack during the enemy phase. Once the host enemy and all of its swarm cards have attacked during this step, exhaust all of them."
+        },
+        {
+          "text": "Each swarm card can be attacked or dealt damage separately, but the host enemy cannot be defeated while it still has swarm cards underneath it. When a swarm card is defeated, any excess damage may be dealt to another swarm card underneath the same host enemy or to the host enemy itself. <i>(For example, Tony Morgan uses a .41 Derringer to attack a Stealthy Zoog with 2 swarm cards. The attack deals 2 damage. The first point of damage defeats 1 of the 2 swarm cards, so the excess point of damage may be dealt to another swarm card, defeating it as well.)</i>"
+        },
+        {
+          "text": "Anytime a swarm card leaves play, place it on the bottom of its owner’s deck. If you are unsure of the owner of the swarm card, you may look at it to determine its owner."
+        },
+        {
+          "text": "The host enemy and all of its swarm cards move, engage, and exhaust as a single entity. (For example, if a host enemy or any of its swarm cards are evaded, all of them exhaust and become disengaged.)"
+        }]
+    },
+    {
+      "id": "hidden",
+      "type": "rule_reminder",
+      "title": "Hidden",
+      "text": "An encounter card or weakness with the hidden keyword has a revelation ability that secretly adds that card to your hand. This should be done without revealing that card or its text to the other investigators.",
+      "bullets": [
+        {
+          "text": "While a hidden treachery is in your hand, treat it as if it were in your threat area. Its constant abilities are active, and abilities on it can be triggered, but only by you."
+        },
+        {
+          "text": "While a hidden enemy is in your hand, it is not considered to be engaged with you or in your threat area, and it does not attack unless otherwise specified. However, its constant abilities are active, and abilities on it can be triggered, but only by you."
+        },
+        {
+          "text": "A hidden card counts toward your hand size, but it cannot be discarded from your hand by any means except those described on the card. When discarded, a hidden card is placed in its appropriate discard pile."
+        }
+      ],
+      "example": "For the best experience, players are encouraged to stay “in character” and not share information about hidden cards in their hand."
+    }
+  ]
+}

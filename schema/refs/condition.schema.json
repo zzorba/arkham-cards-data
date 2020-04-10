@@ -2,24 +2,36 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/condition.schema.json",
   "definitions": {
-    "choiceCondition": {
-      "$id": "#choiceCondition",
-      "title": "ChoiceCondition",
+    "binaryChoiceCondition": {
+      "$id": "#binaryChoiceCondition",
+      "title": "BinaryChoiceCondition",
       "oneOf": [
         {
-          "$ref": "condition.schema.json#/definitions/cardCondition"
+          "$ref": "#/definitions/binaryCardCondition"
         },
         {
-          "$ref": "condition.schema.json#/definitions/campaignDataInvestigatorCondition"
+          "$ref": "#/definitions/campaignDataInvestigatorCondition"
         },
         {
-          "$ref": "condition.schema.json#/definitions/campaignLogCondition"
+          "$ref": "#/definitions/campaignLogCondition"
         },
         {
-          "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
+          "$ref": "#/definitions/multiCondition"
+        }
+      ]
+    },
+    "investigatorChoiceCondition": {
+      "$id": "#investigatorChoiceCondition",
+      "title": "InvestigatorChoiceCondition",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/investigatorCardCondition"
         },
         {
-          "$ref": "condition.schema.json#/definitions/multiCondition"
+          "$ref": "#/definitions/basicTraumaCondition"
+        },
+        {
+          "$ref": "#/definitions/investigatorCondition"
         }
       ]
     },
@@ -37,7 +49,10 @@
         "conditions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/campaignLogCondition"
+            "oneOf": [
+              { "$ref": "#/definitions/campaignLogCondition" },
+              { "$ref": "#/definitions/campaignDataChaosBagCondition" }
+            ]
           }
         },
         "count": {
@@ -82,7 +97,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/stepsOption"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
@@ -121,7 +136,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/stepsOption"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
@@ -141,9 +156,9 @@
         { "$ref": "#/definitions/basicTraumaCondition" }
       ]
     },
-    "scenarioDataCondition": {
-      "$id": "#scenarioDataCondition",
-      "title": "ScenarioDataCondition",
+    "scenarioDataPlayerCountCondition": {
+      "$id": "#scenarioDataPlayerCountCondition",
+      "title": "ScenarioDataPlayerCountCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -155,18 +170,13 @@
         "scenario_data": {
           "type": "string",
           "enum": [
-            "player_count",
-            "resolution",
-            "investigator_status"
+            "player_count"
           ]
-        },
-        "investigator": {
-          "$ref": "types.schema.json#/definitions/investigator"
         },
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/numOption"
           }
         }
       },
@@ -176,6 +186,84 @@
         "options"
       ],
       "additionalProperties": false
+    },
+    "scenarioDataResolutionCondition": {
+      "$id": "#scenarioDataResolutionCondition",
+      "title": "ScenarioDataResolutionCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "scenario_data": {
+          "type": "string",
+          "enum": [
+            "resolution"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stringOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "scenario_data",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataInvestigatorStatusCondition": {
+      "$id": "#scenarioDataInvestigatorStatusCondition",
+      "title": "ScenarioDataInvestigatorStatusCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "scenario_data": {
+          "type": "string",
+          "enum": [
+            "investigator_status"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "defeated"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "scenario_data",
+        "investigator",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "scenarioDataCondition": {
+      "$id": "#scenarioDataCondition",
+      "title": "ScenarioDataCondition",
+      "oneOf": [
+        { "$ref": "#/definitions/scenarioDataResolutionCondition" },
+        { "$ref": "#/definitions/scenarioDataInvestigatorStatusCondition" },
+        { "$ref": "#/definitions/scenarioDataPlayerCountCondition" }
+      ]
     },
     "campaignDataCondition": {
       "$id": "#campaignDataCondition",
@@ -207,7 +295,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/stringOption"
           }
         }
       },
@@ -241,7 +329,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/stepsOption"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
@@ -276,7 +364,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/stepsOption"
+            "$ref": "option.schema.json#/definitions/numOption"
           }
         }
       },
@@ -284,6 +372,46 @@
         "type",
         "campaign_data",
         "token",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "investigatorCondition": {
+      "$id": "#investigatorCondition",
+      "title": "InvestigatorCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "each"
+          ]
+        },
+        "investigator_data": {
+          "type": "string",
+          "enum": [
+            "trait",
+            "faction",
+            "code"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stringOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "investigator_data",
         "options"
       ],
       "additionalProperties": false
@@ -354,7 +482,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
@@ -390,7 +518,7 @@
         "options": {
           "type": "array",
           "items": {
-            "$ref": "option.schema.json#/definitions/option"
+            "$ref": "option.schema.json#/definitions/boolOption"
           }
         }
       },
