@@ -54,132 +54,50 @@
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
-
     {
-      "id": "wait_for_additional_supplies",
+      "id": "saved_by_randolph_carter",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "wait_for_additional_supplies",
-          "text": "the investigators were forced to wait for additional supplies."
+          "id": "saved_by_randolph_carter",
+          "text": "the investigators were saved by Randolph Carter."
         }
       ]
     },
     {
-      "id": "ichtaca_observed_progress",
+      "id": "gain_randolph_carter",
+      "text": "Any one investigator may choose to add Randolph Carter <i>(Expert Dreamer)</i> (<i>The Dream-Eaters</i> card #59) to their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "ichtaca_observed_progress",
-          "text": "Ichtaca observed your progress with keen interest."
-        }
-      ]
-    },
-    {
-      "id": "earned_ichtacas_trust",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "earned_ichtacas_trust",
-          "text": "the investigators have earned Ichtaca’s trust."
-        }
-      ]
-    },
-    {
-      "id": "alejandro_followed_to_ruins",
-      "text": "In your Campaign Log, record that <i>Alejandro followed the investigators into the ruins</i>. Any one investigator may choose to add Alejandro Vela to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "alejandro_followed_to_ruins",
-          "text": "Alejandro followed the investigators into the ruins."
-        },
         {
           "type": "add_card",
           "investigator": "choice",
-          "card": "04051"
+          "card": "06059"
         }
       ]
     },
     {
-      "id": "ichtaca_is_wary",
+      "id": "cats_collected_their_tribute",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "ichtaca_is_wary",
-          "text": "Ichtaca is wary of the investigators."
+          "id": "cats_collected_their_tribute",
+          "text": "the cats collected their tribute from the Zoogs."
         }
       ]
     },
+
     {
-      "id": "alejandro_remained_at_camp",
-      "text": "In your Campaign Log, record that <i>Alejandro chose to remain at camp</i>. Do not add Alejandro Vela to any investigator’s deck.",
+      "id": "parleyed_with_zoogs",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "alejandro_remained_at_camp",
-          "text": "Alejandro chose to remain at camp."
+          "id": "parleyed_with_zoogs",
+          "text": "the investigators parleyed with the Zoogs."
         }
       ]
-    },
-    {
-      "id": "cleared_path_to_temple",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "cleared_path_to_temple",
-          "text": "the investigators cleared a path to the Eztli ruins."
-        }
-      ]
-    },
-    {
-      "id": "check_final_act",
-      "text": "Which of the following was true?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "act_1_or_2",
-            "text": "It was Act 1 or 2 when the scenario ended",
-            "steps": ["ichtaca_observed_progress", "alejandro_followed_to_ruins"]
-          },
-          {
-            "id": "fought_ichtaca",
-            "text": "“You fought with Ichtaca”",
-            "steps": ["ichtaca_is_wary", "alejandro_followed_to_ruins"]
-          },
-          {
-            "id": "talked_to_ichtaca",
-            "text": "“Ichtaca is leading the way”",
-            "steps": ["earned_ichtacas_trust", "alejandro_remained_at_camp"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "record_vengeance",
-      "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log. Beware the anger of the Father of Serpents, as his fury will haunt you in the future.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Vengeance points in the victory display:",
-        "delta": true,
-        "effects": [
-          {
-            "type": "campaign_log_count",
-            "section": "yigs_fury",
-            "operation": "add_input"
-          }
-        ]
-      }
     },
     {
       "id": "earn_xp",
@@ -192,29 +110,6 @@
           {
             "type": "earn_xp",
             "investigator": "all"
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_investigators_poisoned",
-      "text": "Did any investigator gain the Poisoned weakness?",
-      "type": "input",
-      "input": {
-        "type": "investigator_choice",
-        "investigator": "all",
-        "source": "scenario",
-        "choices": [
-          {
-            "id": "poisoned",
-            "text": "Poisoned",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "04102"
-              }
-            ]
           }
         ]
       }
@@ -275,27 +170,26 @@
   "resolutions": [
     {
       "id": "no_resolution",
-      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "title": "No resolution was reached\n(each investigator was defeated)",
       "investigator_status": [
-        "resigned",
         "eliminated",
         "physical",
         "mental"
       ],
-      "text": "<right><fancy>Wednesday, July 1st, 1925</fancy></right>\nI still have no idea how we made it back to camp alive.\nThe jungle was more perilous than we could have possibly imagined. This may read like the ravings of a lunatic, but I cannot explain it any other way. Being lost in the jungle was no picnic, but that was the least of our worries. The rainforest was guarded. Guarded by unfathomable horrors: serpentine creatures driven by anger and hate, hunting us relentlessly.\nPerhaps just as deadly were the human natives of the rainforest. They appeared to be Aztec warriors as far as dress and speech were concerned. Despite the conquering of the Aztec people hundreds of years ago, these warriors somehow survived. How they managed to remain undiscovered this long is beyond us. I thought Alejandro would be excited to learn more about them, but he was more disturbed than fascinated. I suppose he has a right to be incredulous. Nothing about this expedition makes sense.\nThe serpent creatures chased us for what seemed like days. Finally we were able to find our way back to camp, but the price was steep. We had lost all progress we had made, and many of us were injured or afflicted by serpent venom. We have no choice but to send runners to the nearest city for additional supplies and to wait and recover from our wounds.",
-      "steps": ["wait_for_additional_supplies", "check_final_act", "record_vengeance", "earn_xp", "check_investigators_poisoned"]
+      "text": "You are nudged into consciousness by an old, scarred cat. “Hey. You all right, human?”\nI’m dreaming, you remember, and suddenly the talking cat doesn’t seem quite as weird. Exhausted, you manage to rise to your feet, brushing off the dirt caked on your clothing. “You’re lucky you weren’t harmed before we arrived,” a human voice calls out to you. It belongs to a blond-haired man in a brown traveling coat, who leans against a nearby tree. “These woods are not forgiving to the faint of heart.” The scarred cat walks to the man’s side, and the man leans over to pet its back.\nYou ask the man where you are and how he came to this place, but he cuts you off. “I will explain in due time. For now, we must follow the path to the town of Ulthar. It is a safe place, relatively speaking. There you may recover from your ordeals.” He turns to the cat and utters a word in an odd language—a password of sorts, you suspect—but the cat simply wanders off toward a hedge, where you see several other cats banded together. “Do it yerself,” it replies.\n“Don’t mind the cats,” the man says to you quietly as the cats depart. “They are useful allies, but also independent creatures with no need for you or me. When we reach Ulthar, you may get the chance to meet others of their kind. But first things first.” Together, you leave the eaves of the enchanted forest behind.",
+      "steps": ["saved_by_randolph_carter", "gain_randolph_carter", "earn_xp"]
     },
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "<right><fancy>Thursday, July 2nd, 1925</fancy></right>\nSomehow, after much toil and many hours of exploration, we found the ruins that Alejandro sought, though we scarcely could have been ready for what we encountered in the wilds of the jungle. The rainforest was guarded. Guarded by unfathomable horrors: serpentine creatures driven by anger and hate. They hunted us relentlessly, wielding primitive weaponry and communicating in sharp hisses.\nPerhaps just as deadly were the human natives of the rainforest. They appeared to be Aztec warriors as far as dress and speech were concerned. Despite the conquering of the Aztec people hundreds of years ago, these warriors somehow survived. How they managed to remain undiscovered this long is beyond us. The warrior named Ichtaca was particularly intriguing. We were able to defuse the initial encounter with her, and surprisingly, she helped guide us through the jungle, only to disappear mysteriously when we reached the ruins. I have a feeling we have not seen the last of her.\nAlejandro did not agree with our decision to trust the Eztli warriors. He’s decided to stay at camp until further notice, disturbed as he is by their presence. I thought he would be excited to learn more about them, but I expect this discovery defies even his broad-minded theories. I suppose he has a right to be distrustful. Nothing about this expedition makes sense.\nWe have cleared a route to what Alejandro believes is the main temple of the ruins. There is little time to rest. The serpent creatures seem intent on stopping us, so we cannot tarry any longer than necessary. Soon we will enter the ruins to see what secrets they hide.",
-      "steps": ["cleared_path_to_temple", "alejandro_remained_at_camp", "earned_ichtacas_trust", "record_vengeance", "earn_xp", "check_investigators_poisoned"]
+      "text": "The creatures chitter among themselves, and after a moment, a dozen of them retreat in the direction of the great tree beyond the beaten path. They return shortly afterward carrying a variety of grouse, quail, and pheasants in their mouths. You’re almost certain now that you are going crazy. And yet, the spectacle continues. The creatures timidly drop their “tribute” of birds in front of the cats and quietly depart. “My apologies on behalf of the Zoogs,” the man says as he approaches. “They are curious creatures, and not usually so…agitated. It is good that we showed up when we did.” The leader of the cats jumps on a tree stump and adds, “Yes, yes. Them vile Zoogs have done their part, now let’s do ours and leave this forsaken place. What say yeh?”\nYou cannot contain your excitement. Zoogs, talking cats—everything you have read about is real. You begin to ask the man more about this world, but he cuts you off. “I will explain in due time. For now, we must follow the path to the town of Ulthar. It is a safe place, relatively speaking. There you may recover from your travels.” He turns to the old, scarred cat and utters a word in an odd language—a password of sorts, you suspect—and the cat replies with a quick nod. The rest of the cats, tribute in mouth, take a protective circular formation around you, and together you escape from the eaves of the enchanted forest.",
+      "steps": ["cats_collected_their_tribute", "gain_randolph_carter", "earn_xp"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "<right><fancy>Thursday, July 2nd, 1925</fancy></right>\nSomehow, after much toil and many hours of exploration, we found the ruins that Alejandro sought, though we scarcely could have been ready for what we encountered in the wilds of the jungle. The rainforest was guarded. Guarded by unfathomable horrors: serpentine creatures driven by anger and hate. They hunted us relentlessly, wielding primitive weaponry and communicating in sharp hisses.\nPerhaps just as deadly were the human natives of the rainforest. They appeared to be Aztec warriors as far as dress and speech were concerned. Despite the conquering of the Aztec people hundreds of years ago, these warriors somehow survived. How they managed to remain undiscovered this long is beyond us. I thought Alejandro would be excited to learn more about them, but he shared our alarm. We managed to fend off and interrogate their leader, a warrior named Ichtaca. Before she fled, she warned us to not go near the ruins. Unfortunately for her, we refuse to go home empty-handed.\nWith Alejandro leading the way, we’ve cleared a route to what he believes is the main temple of the ruins. There is little time to rest. The serpent creatures seem intent on stopping us, so we cannot tarry any longer than necessary. Soon we will enter the ruins to see what secrets they hide.",
-      "steps": ["cleared_path_to_temple", "alejandro_followed_to_ruins", "ichtaca_is_wary", "record_vengeance", "earn_xp", "check_investigators_poisoned"]
+      "text": "You hold a hand up to the new visitors, believing that you can defuse this situation on your own. Had you known these rodent-like creatures were intelligent all along, you might have tried to communicate with them much earlier. You inform them that you are just travelers in this faraway land and that you simply wish to pass through peacefully. The creatures chitter among themselves for a moment: “They are kind!” “They are not with the black cat after all!” “Summon the Council of Sages!” After a short while, several more of them appear, each with withering grey fur and a frail, thin body. The eldest one peeks behind you and states that they will aid you if you get the cats to leave.\nSomehow, you contain your disbelief and politely ask the cats to come back another time. “All right,” the scarred cat replies, “but you ain’t seen the last of us.” The cats retreat to the edge of the woods, though their human companion stays behind with you. Once the cats are out of earshot, one of the elders offers you a gourd of what appears to be fermented tree sap, which you accept graciously.\n“It is the wine of the moon-tree,” the man behind you explains quietly, stepping forward. “The Zoogs do not give such gifts lightly. They are curious creatures, but not without wisdom. Now that you may speak freely with their elders, try asking them a question. They know more of the dealings of this land than you might think.”\nYou describe the author Virgil Gray and ask the Zoogs if they have seen a man fitting that description pass through these woods. You add that he would have walked this path many times. A hush falls over the Zoogs, and some of them immediately depart into the deep foliage. “We have met this human,” one of the elders replies with a flutter just louder than a whisper. “He often comes this way. He is kind but foolish. Take the road to Ulthar. You may meet him.” Then it adds with a low growl: “…but beware the cat that follows him. All cats are liars, but the black cat especially.” You thank the ancient Zoog for its wisdom and depart, led by the blond man and his feline escort. The cats eye you suspiciously after your discussion with the Zoogs. The man breaks the tension. “If you are heading to Ulthar to find this friend of yours, allow me to guide you there. It is a safe place, relatively speaking. There you may recover from your travels.”\nZoogs. Talking cats. This can’t all be a figment of your imagination. Somehow, you can see a layer of truth beneath all of this absurdity. For better or for worse, the Zoog council has confirmed the reality of your situation: the Dreamlands are real, and Virgil Gray is here.",
+      "steps": ["parleyed_with_zoogs", "gain_randolph_carter", "earn_xp"]
     }
   ]
 }
