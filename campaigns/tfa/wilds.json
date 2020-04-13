@@ -9,8 +9,7 @@
     "create_exploration_deck",
     "set_aside_cards",
     "encounter_deck",
-    "check_for_chaos_bag_additions",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
@@ -220,29 +219,41 @@
       }
     },
     {
-      "id": "check_for_chaos_bag_additions",
+      "id": "$play_scenario",
       "type": "input",
-      "text": "If instructed to add chaos tokens to the bag:",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "id": "chaos_tokens",
-            "text": "Choose chaos tokens.",
-            "steps": ["chaos_token_choice"]
-          },
-          {
-            "id": "no_chaos_tokens",
-            "text": "Scenario ended without instruction.",
-            "steps": []
+            "id": "add_chaos_token",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "wilds_add_chaos_token",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust chaos bag",
+            "steps": ["add_chaos_token"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wilds_add_chaos_token",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
-      "id": "chaos_token_choice",
+      "id": "add_chaos_token",
+      "text": "Which of these is true?",
       "type": "input",
-      "text": "Which of the following is true:",
       "input": {
         "type": "choose_one",
         "choices": [

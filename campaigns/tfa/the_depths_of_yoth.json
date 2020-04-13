@@ -17,8 +17,7 @@
     "encounter_deck",
     "depth_level_rule",
     "pursuit_rule",
-    "check_has_rope",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
@@ -824,38 +823,15 @@
       }
     },
     {
-      "id": "check_has_rope",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "check_supplies",
-        "section": "supplies",
-        "investigator": "any",
-        "id": "rope",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["cross_out_supplies"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "cross_out_supplies",
+      "id": "$play_scenario",
       "type": "input",
-      "text": "If instructed to cross out any Supplies:",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "id": "chaos_tokens",
-            "text": "Cross out Supplies",
+            "id": "cross_out_supplies",
+            "text": "Adjust supplies",
             "steps": ["cross_out_rope"]
-          },
-          {
-            "id": "no_chaos_tokens",
-            "text": "Scenario ended without instruction.",
-            "steps": []
           }
         ]
       }

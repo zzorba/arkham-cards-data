@@ -21,8 +21,7 @@
     "check_heretics_released",
     "encounter_deck",
     "circle_braziers",
-    "wait_resolve_story_cards",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
@@ -39,14 +38,14 @@
         "choices": [
           {
             "id": "help_ritual",
-            "flavor": "“We have to help complete the Lodge’s ritual.”",
-            "text": "Completing the ritual should bind the Spectral Watcher and prevent it from doing any more harm.",
+            "text": "<i>“We have to help complete the Lodge’s ritual.”</i>",
+            "description": "Completing the ritual should bind the Spectral Watcher and prevent it from doing any more harm.",
             "steps": ["sided_with_the_lodge"]
           },
           {
             "id": "thwart_ritual",
-            "flavor": "“We have to stop the Lodge’s ritual.”",
-            "text": "Disrupting the ritual should release the Spectral Watcher’s tether to the mortal realm.",
+            "text": "<i>“We have to stop the Lodge’s ritual.”</i>",
+            "description": "Disrupting the ritual should release the Spectral Watcher’s tether to the mortal realm.",
             "steps": ["sided_with_the_coven"]
           }
         ]
@@ -485,64 +484,152 @@
       ]
     },
     {
-      "id": "wait_resolve_story_cards",
-      "type": "input",
-      "text": "If instructed to resolve the set-aside story cards during the scenario:",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "resolve_story_cards",
-            "text": "Resolve the story cards",
-            "steps": ["resolve_story_cards", "check_for_chaos_tokens"]
-          },
-          {
-            "id": "scenario_ended",
-            "text": "Scenario ended without instruction.",
-            "steps": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_for_chaos_tokens",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "act_3_v2",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["wait_for_chaos_tokens"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "wait_for_chaos_tokens",
+      "id": "$play_scenario",
       "type": "input",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "id": "resolve_chaos_tokens",
-            "text": "Adjust chaos tokens",
-            "steps": ["resolve_chaos_tokens"]
+            "id": "add_chaos_token",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "uad_add_chaos_token",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "act_3_v2",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "count": 2,
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "text": "Adjust chaos bag",
+            "steps": ["add_chaos_token"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "uad_add_chaos_token",
+                "text": "dummy"
+              }
+            ]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "gavriella_alive",
+            "condition": {
+              "type": "campaign_log",
+              "section": "05046",
+              "id": "alive",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Gavriella is alive.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "05046",
+                "id": "alive",
+                "text": "Gavriella is alive."
+              }
+            ]
           },
           {
-            "id": "scenario_ended",
-            "text": "Scenario ended without instruction.",
-            "steps": []
+            "id": "jerome_alive",
+            "text": "Jerome is alive.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "05047",
+              "id": "alive",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "05047",
+                "id": "alive",
+                "text": "Jerome is alive."
+              }
+            ]
+          },
+          {
+            "id": "penny_alive",
+            "text": "Penny is alive.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "05049",
+              "id": "alive",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "05049",
+                "id": "alive",
+                "text": "Penny is alive."
+              }
+            ]
+          },
+          {
+            "id": "valentino_alive",
+            "text": "Valentino is alive.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "05048",
+              "id": "alive",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "05048",
+                "id": "alive",
+                "text": "Valentino is alive."
+              }
+            ]
           }
         ]
       }
     },
     {
-      "id": "resolve_chaos_tokens",
+      "id": "add_chaos_token",
+      "text": "What change should be made to the chaos bag?",
       "type": "input",
-      "text": "If instructed to change chaos tokens in the bag:",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -553,42 +640,6 @@
               {
                 "type": "remove_chaos_token",
                 "tokens": ["cultist", "cultist", "cultist", "cultist"]
-              }
-            ]
-          },
-          {
-            "id": "none",
-            "text": "Nevermind",
-            "steps": []
-          }
-        ]
-      }
-    },
-    {
-      "id": "resolve_story_cards",
-      "type": "input",
-      "input": {
-        "type": "card_choice",
-        "query": [
-          {
-            "code": [
-              "05046",
-              "05047",
-              "05048",
-              "05049"
-            ]
-          }
-        ],
-        "choices": [
-          {
-            "id": "alive",
-            "text": "Alive",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "$input_value",
-                "id": "alive",
-                "text": "#name# is alive."
               }
             ]
           }
@@ -603,13 +654,13 @@
         "choices": [
           {
             "id": "yes",
-            "flavor": "“Yes.”",
+            "text": "<i>“Yes.”</i>",
             "description": "You may choose this option only if <i>the investigators were inducted into the Inner Circle</i>, and cannot choose this option <i>if the investigators are deceiving the Lodge</i>.",
             "steps": ["resolution_2"]
           },
           {
             "id": "no",
-            "flavor": "No.”",
+            "text": "<i>“No.”</i>",
             "steps": ["resolution_3"]
           }
         ]

@@ -2,6 +2,54 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/input.schema.json",
   "definitions": {
+    "playScenarioInput": {
+      "$id": "#playScenarioInput",
+      "title": "PlayScenarioInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "play_scenario"
+          ]
+        },
+        "branches": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        },
+        "campaign_log": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "textBoxInput": {
+      "$id": "#textBoxInput",
+      "title": "TextBoxInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "text_box"
+          ]
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/freeformCampaignLogEffect"
+          }
+        }
+      },
+      "required": ["type", "effects"],
+      "additionalProperties": false
+    },
     "scenarioInvestigatorsInput": {
       "$id": "#scenarioInvestigatorsInput",
       "title": "ScenarioInvestigatorsInput",
@@ -391,6 +439,12 @@
         },
         {
           "$ref": "#/definitions/scenarioInvestigatorsInput"
+        },
+        {
+          "$ref": "#/definitions/playScenarioInput"
+        },
+        {
+          "$ref": "#/definitions/textBoxInput"
         }
       ]
     }

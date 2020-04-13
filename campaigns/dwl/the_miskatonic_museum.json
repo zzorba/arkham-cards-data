@@ -11,8 +11,7 @@
     "set_aside_cards",
     "encounter_deck",
     "void_note",
-    "wait_for_chaos_tokens",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
@@ -162,29 +161,41 @@
       }
     },
     {
-      "id": "wait_for_chaos_tokens",
+      "id": "$play_scenario",
       "type": "input",
-      "text": "If instructed to add chaos tokens to the bag:",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "id": "chaos_tokens",
-            "text": "Add chaos tokens.",
-            "steps": ["chaos_token_choice"]
-          },
-          {
-            "id": "no_chaos_tokens",
-            "text": "Scenario ended without instruction.",
-            "steps": []
+            "id": "add_chaos_token",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tmm_add_chaos_token",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust chaos bag",
+            "steps": ["add_chaos_token"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tmm_add_chaos_token",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
-      "id": "chaos_token_choice",
-      "type": "input",
+      "id": "add_chaos_token",
       "text": "Which ally left play?",
+      "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [

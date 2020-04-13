@@ -20,17 +20,18 @@ function validate(validator, file, json, schemaName) {
     process.exit();
   }
   const steps = {};
-  const magicSteps = { 
+  const magicSteps = {
     '$proceed': true,
     '$upgrade_decks': true,
     '$choose_investigators': true,
   };
   if (json.type !== 'interlude' && json.type !== 'epilogue' && json.scenario_name) {
-    steps['$choose_resolution'] = true;
+    steps['$play_scenario'] = true;
   }
   let error = false;
   json.steps.map(step => {
-    if (steps[step.id]) {
+    // $play_scenario is an overrideable default step
+    if (steps[step.id] && step.id !== '$play_scenario') {
       console.log(`DUPLICATE_STEP (${file}) - ${step.id}`);
       error = true;
     }
@@ -50,34 +51,37 @@ function validate(validator, file, json, schemaName) {
   if (json.steps) {
     json.steps.map(step => {
       if (step.input) {
-        if (step.input.choices) {
-          step.input.choices.map(choice => {
-            if (choice.steps) {
-              choice.steps.map(step => {
-                if (!steps[step] && !magicSteps[step]) {
-                  console.log(`MISSING_STEP (${file}) - ${step}`);
-                  error = true;
-                } else {
-                  delete unusedSteps[step];
-                }
-              });
-            }
-            if (choice.effects) {
-              choice.effects.map(effect => {
-                if (effect.type === 'story_step' && effect.steps.length) {
-                  effect.steps.map(step => {
-                    if (!steps[step] && !magicSteps[step]) {
-                      console.log(`MISSING_STEP (${file}) - ${step}`);
-                      error = true;
-                    } else {
-                      delete unusedSteps[step];
-                    }
-                  });
-                }
-              });
-            }
-          });
-        }
+        const allChoices = [
+          ...(step.input.choices ? step.input.choices : []),
+          ...(step.input.branches ? step.input.branches : []),
+          ...(step.input.campaign_log ? step.input.campaign_log : []),
+        ];
+        allChoices.map(choice => {
+          if (choice.steps) {
+            choice.steps.map(step => {
+              if (!steps[step] && !magicSteps[step]) {
+                console.log(`MISSING_STEP (${file}) - ${step}`);
+                error = true;
+              } else {
+                delete unusedSteps[step];
+              }
+            });
+          }
+          if (choice.effects) {
+            choice.effects.map(effect => {
+              if (effect.type === 'story_step' && effect.steps.length) {
+                effect.steps.map(step => {
+                  if (!steps[step] && !magicSteps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
+        });
         if (step.input.type === 'investigator_choice_supplies') {
           [...step.input.positiveChoice.effects, ...step.input.negativeChoice.effects].map(effect => {
             if (effect.type === 'story_step' && effect.steps.length) {

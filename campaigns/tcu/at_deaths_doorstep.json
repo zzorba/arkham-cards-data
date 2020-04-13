@@ -18,8 +18,7 @@
     "remove_pieces_of_evidence",
     "encounter_deck",
     "replacing_locations",
-    "wait_for_record_of_those_lost",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
@@ -170,30 +169,55 @@
       "text": "Throughout this scenario, you may be instructed to swap set-aside locations with existing ones. When a location is swapped with one that is already in play, it takes its place. All tokens, attachments, investigators, enemies, and other cards at the former location are considered to now be at the new location (attached cards remain attached, for example). No game element is considered to have moved during such a swap."
     },
     {
-      "id": "wait_for_record_of_those_lost",
-      "text": "When instructed by the scenario, choose one of the following:",
+      "id": "$play_scenario",
       "type": "input",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "id": "record_of_those_lost",
-            "text": "Read <b>Interlude I: A Record of Those Lost</b>.",
+            "id": "a_record_of_those_lost",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "a_record_of_those_lost",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Read Interlude I: A Record of Those Lost",
             "steps": [
+              "a_record_of_those_lost",
               "check_gavriella_fate",
               "check_jerome_fate",
               "check_penny_fate",
               "check_valentino_fate",
               "advance_act_1b"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "a_record_of_those_lost",
+                "text": "dummy"
+              }
             ]
-          },
-          {
-            "id": "choose_resolution",
-            "text": "Scenario ended without instruction.",
-            "steps": []
           }
         ]
       }
+    },
+    {
+      "id": "a_record_of_those_lost",
+      "title": "Interlude 1: A Record of Those Lost",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "a_record_of_those_lost",
+          "text": "dummy"
+        }
+      ]
     },
     {
       "id": "check_gavriella_fate",
@@ -276,7 +300,7 @@
     },
     {
       "id": "on_gavriellas_trail",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -307,7 +331,7 @@
     },
     {
       "id": "on_jeromes_trail",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -338,7 +362,7 @@
     },
     {
       "id": "on_pennys_trail",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -369,7 +393,7 @@
     },
     {
       "id": "on_valentinos_trail",
-      "bullet_type": "right",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -442,11 +466,6 @@
           "section": "campaign_notes",
           "id": "learned_nothing_of_the_lodges_schemes",
           "text": "the investigators learned nothing of the Lodge’s schemes."
-        },
-        {
-          "type": "campaign_data",
-          "setting": "skip_scenario",
-          "scenario": "a_record_of_those_lost"
         }
       ]
     },

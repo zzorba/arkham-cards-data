@@ -18,35 +18,13 @@
     "veiled_rule",
     "enemies_swarming_victory_rule",
     "stop_rule",
-    "oriab_setup",
-    "oriab_xp",
-    "oriab_locations",
-    "oriab_enemies",
-    "oriab_act",
-    "minar_setup",
-    "minar_xp",
-    "minar_locations",
-    "minar_enemies",
-    "minar_act",
-    "forbidden_lands_setup",
-    "forbidden_lands_xp",
-    "forbidden_lands_locations",
-    "forbidden_lands_enemies",
-    "forbidden_lands_more_enemies",
-    "forbidden_lands_act",
-    "timeless_realm_setup",
-    "timeless_realm_xp",
-    "timeless_realm_locations",
-    "timeless_realm_encounter_deck",
-    "timeless_realm_enemies",
-    "timeless_realm_act",
-    "$choose_resolution"
+    "$play_scenario"
   ],
   "steps": [
     {
       "id": "intro_1",
       "type": "story",
-      "text": " You stay the night at Einar’s Place. Your rest is anything but peaceful. Even if one could sleep within a dream, you certainly do not. Your mind teems with anxiety over the quest looming ahead. You reflect on the black cat’s warning about danger in the waking world, and you wonder about the others who have followed Virgil Gray down the steps of slumber and through the Enchanted Woods. Are they here now, too? Perhaps if you find this castle and return with proof of the Dreamlands, you can save everyone: yourself, your friends, and the other dreamers as well."
+      "text": "You stay the night at Einar’s Place. Your rest is anything but peaceful. Even if one could sleep within a dream, you certainly do not. Your mind teems with anxiety over the quest looming ahead. You reflect on the black cat’s warning about danger in the waking world, and you wonder about the others who have followed Virgil Gray down the steps of slumber and through the Enchanted Woods. Are they here now, too? Perhaps if you find this castle and return with proof of the Dreamlands, you can save everyone: yourself, your friends, and the other dreamers as well."
     },
     {
       "id": "check_black_cat_at_side",
@@ -367,7 +345,181 @@
       "id": "stop_rule",
       "type": "rule_reminder",
       "title": "Stop!",
-      "text": "At this point, you are ready to begin playing The Search for Kadath. Ignore the four additional sets of setup instructions for now. You will be instructed to resolve them at a later point during the scenario."
+      "text": "At this point, you are ready to begin playing <b>The Search for Kadath</b>. Ignore the four additional sets of setup instructions for now. You will be instructed to resolve them at a later point during the scenario."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "oriab",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "oriab",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Oriab Setup",
+            "steps": [
+              "oriab_setup",
+              "oriab_xp",
+              "oriab_locations",
+              "oriab_enemies",
+              "oriab_act"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "oriab",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "minar",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "minar",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Minar Setup",
+            "steps": [
+              "minar_setup",
+              "minar_xp",
+              "minar_locations",
+              "minar_enemies",
+              "minar_act"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "minar",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "forbidden_lands",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "forbidden_lands",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Forbidden Lands Setup",
+            "steps": [
+              "forbidden_lands_setup",
+              "forbidden_lands_xp",
+              "forbidden_lands_locations",
+              "forbidden_lands_enemies",
+              "forbidden_lands_more_enemies",
+              "forbidden_lands_act"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "forbidden_lands",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "timeless_realm",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "timeless_realm",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Timeless Realm Setup",
+            "steps": [
+              "timeless_realm_setup",
+              "timeless_realm_xp",
+              "timeless_realm_locations",
+              "timeless_realm_encounter_deck",
+              "timeless_realm_enemies",
+              "timeless_realm_act"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "timeless_realm",
+                "text": "dummy"
+              }
+            ]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "broken_the_laws_of_ulthar",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "broke_cat_law",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Someone has broken the laws of Ulthar.",
+            "steps": ["someone_broke_the_law"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "someone_broke_the_law",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "any",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "broke_the_law",
+            "text": "Broke the law of Ulthar",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "broken_the_laws_of_ulthar",
+                "text": "#name# has broken the law of Ulthar.",
+                "cards": "$input_value"
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "broke_cat_law",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "oriab_setup",
