@@ -1,0 +1,91 @@
+{
+  "id": "return_to_the_unspeakable_oath",
+  "original_id": "the_unspeakable_oath",
+  "scenario_name": "Return to The Unspeakable Oath",
+  "full_name": "Scenario IV: Retun to The Unspeakable Oath",
+  "setup": [
+    "check_followers_of_the_sign_found_way",
+    "intro_3",
+    "check_constance_dumaine",
+    "gather_encounter_sets",
+    "choose_locations",
+    "set_aside_cards",
+    "setup_locations",
+    "add_chaos_token",
+    "select_act_2",
+    "select_act_2_compare_doubt_conviction",
+    "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_unspeakable_oath",
+        "return_to_the_unspeakable_oath",
+        "hasturs_gift",
+        "inhabitants_of_carcosa",
+        "maddening_delusions",
+        "decaying_reality",
+        "hasturs_envoys"
+      ]
+    },
+    {
+      "id": "choose_locations",
+      "text": "Randomly choose 1 copy of Asylum Halls <i>(Eastern Patient Wing)</i> and 1 copy of Asylum Halls <i>(Western Patient Wing)</i>. Remove those copies from the game. Put the remaining Asylum Halls into play. Each investigator begins play at an Asylum Halls of their choice."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Daniel Chesterfield, Host of Insanity, Radical Treatment, and each copy of Patient Confinement."
+    },
+    {
+      "id": "select_act_2",
+      "text": "Depending on the following circumstances, a different version of Act 2 should be used in this scenario. Each other version of Act 2 is removed from the game."
+    },
+    {
+      "id": "select_act_2_compare_doubt_conviction",
+      "type": "branch",
+      "bullet_type": "small",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "conviction"
+        },
+        "opB": {
+          "type": "campaign_log_count",
+          "section": "doubt"
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["act_2_v4"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["act_2_v3"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["act_2_v3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "act_2_v3",
+      "bullet_type": "small",
+      "text": "Because you have more (or equal) <b>Conviction</b> than <b>Doubt</b>, use Act 2—”The Really Bad Ones” (v. III)."
+    },
+    {
+      "id": "act_2_v2",
+      "bullet_type": "small",
+      "text": "Because you have more <b>Doubt</b> than <b>Conviction</b>, use Act 2—”The Really Bad Ones” (v. IV)."
+    }
+  ]
+}

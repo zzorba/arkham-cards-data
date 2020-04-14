@@ -1,0 +1,83 @@
+{
+  "id": "return_to_blood_on_the_altar",
+  "original_id": "blood_on_the_altar",
+  "scenario_name": "Return to Blood on the Altar",
+  "full_name": "Scenario IV: Return to Blood on the Altar",
+  "setup": [
+    "prologue",
+    "gather_encounter_sets",
+    "setup_village_commons",
+    "setup_locations",
+    "gather_sacrifices",
+    "set_aside_cards",
+    "check_delayed",
+    "encounter_deck",
+    "check_bone_to_pick",
+    "hidden_chamber_note",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "blood_on_the_altar",
+        "return_to_blood_on_the_altar",
+        "dunwich",
+        "whippoorwills",
+        "nightgaunts",
+        "resurgent_evils"
+      ]
+    },
+    {
+      "id": "setup_village_commons",
+      "text": "Remove the original Village Commons location from the game. Put the new Village Commons <i>(Silent Decay)</i> into play. Each investigator begins play at the Village Commons <i>(Silent Decay)</i>."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Add the new locations to the original locations from the <i>Blood on the Altar</i> encounter set. Remove two of the three copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining locations into play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Hired Gun, Silas Bishop, The Hidden Chamber, Key to the Chamber, and Powder of Ibn-Ghazi."
+    },
+    {
+      "id": "check_bone_to_pick",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "bone_to_pick",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_naomis_crew", "setup_hidden_cards_naomi", "spawn_hired_gun"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["setup_hidden_cards"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_naomis_crew",
+      "bullet_type": "small",
+      "text": "Seeking vengeance, the gang from the Clover Club has followed you to Dunwich. Gather all cards from the <i>Naomi’s Crew</i> encounter set.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "naomis_crew"
+      ],
+      "subtext": "Do not shuffle these cards into the encounter deck yet."
+    },
+    {
+      "id": "setup_hidden_cards_naomi",
+      "text": "Before shuffling the <i>Naomi's Crew</i> encounter set into the encounter deck, take the previously set-aside The Hidden Chamber and Key to the Chamber cards, along with the top 3 cards of the encounter deck. Shuffle them and randomly deal 1 card facedown underneath each location in play except Village Commons."
+    },
+    {
+      "id": "spawn_hired_gun",
+      "text": "Spawn one set-aside Hired Gun at one of the locations not connected to Village Commons. Shuffle the other set-aside Hired Gun, along with the rest of the <i>Naomi's Crew</i> encounter set into the encounter deck."
+    }
+  ]
+}

@@ -18,7 +18,6 @@
     "check_for_mitpm",
     "check_for_onyx_clasp",
     "dual_agendas_rule",
-    "track_mitpm",
     "$play_scenario"
   ],
   "steps": [
@@ -266,22 +265,30 @@
       ]
     },
     {
-      "id": "track_mitpm",
-      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "id": "$play_scenario",
       "type": "input",
       "input": {
-        "type": "counter",
-        "text": "Chasing the Stranger:",
-        "delta": true,
-        "long_lived": true,
-        "effects": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "type": "campaign_log_count",
-            "section": "chasing_the_stranger",
-            "operation": "add_input"
+            "id": "mitpm_defeated",
+            "text": "Defeated the Man in the Pallid Mask",
+            "steps": ["mitpm_defeated"]
           }
         ]
       }
+    },
+    {
+      "id": "mitpm_defeated",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "chasing_the_stranger",
+          "operation": "add",
+          "value": 1
+        }
+      ]
     },
     {
       "id": "opened_path_below",

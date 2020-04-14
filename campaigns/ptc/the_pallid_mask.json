@@ -15,7 +15,6 @@
     "set_aside_pallid_mask",
     "encounter_deck",
     "location_adjacency_rule",
-    "track_mitpm",
     "$play_scenario"
   ],
   "steps": [
@@ -245,22 +244,30 @@
       "text": "During this scenario, locations will be arranged in a set pattern, with new locations from the Catacombs Deck emerging to the left, right, above, or below existing locations, as they are revealed. A location that is put into play to the left, right, above, or below another location should be set next to that location in the manner described, with no other locations in between them.\nA location that is next to another location in this manner is considered <b>adjacent</b>. Locations are only adjacent orthogonally (left, right, above, and below), and are not adjacent diagonally. During this scenario, adjacent locations are considered to be connected to one another.\nYou cannot put a location into play where an existing location already is. If you are given the choice to place a location from the Catacombs Deck in one of multiple spots, and one of those spots is occupied by an existing location, you cannot choose that spot. You must choose a spot unoccupied by a location, if able. If all of the specified spots are occupied by existing locations, the <b>Forced</b> effect fails and no new Catacombs locations are put into play."
     },
     {
-      "id": "track_mitpm",
-      "text": "While you are playing this scenario, track each time the Man in the Pallid Mask is defeated.",
+      "id": "$play_scenario",
       "type": "input",
       "input": {
-        "type": "counter",
-        "text": "Chasing the Stranger:",
-        "long_lived": true,
-        "delta": true,
-        "effects": [
+        "type": "play_scenario",
+        "branches": [
           {
-            "type": "campaign_log_count",
-            "section": "chasing_the_stranger",
-            "operation": "add_input"
+            "id": "mitpm_defeated",
+            "text": "Defeated the Man in the Pallid Mask",
+            "steps": ["mitpm_defeated"]
           }
         ]
       }
+    },
+    {
+      "id": "mitpm_defeated",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "chasing_the_stranger",
+          "operation": "add",
+          "value": 1
+        }
+      ]
     },
     {
       "id": "know_site_of_gate",

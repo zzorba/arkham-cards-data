@@ -1,0 +1,86 @@
+{
+  "id": "return_to_where_doom_awaits",
+  "original_id": "where_doom_awaits",
+  "scenario_name": "Return to Where Doom Awaits",
+  "full_name": "Scenario VI: Return to Where Doom Awaits",
+  "setup": [
+    "prologue",
+    "check_naomi_has_back",
+    "gather_encounter_sets",
+    "setup_locations",
+    "remove_diverging_path",
+    "remove_altered_path",
+    "check_set_aside_naomi",
+    "add_chaos_token",
+    "select_act_2",
+    "check_restored_silas_bishop",
+    "check_escaped_brood",
+    "check_killed_silas_bishop",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gain_naomi_award",
+      "bullet_type": "small",
+      "text": "The lead investigator may choose an investigator to add the Naomi O'Bannion asset to their deck. This card does not count toward that investigator's deck size",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "51052"
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "where_doom_awaits",
+        "return_to_where_doom_awaits",
+        "beast_thralls",
+        "sorcery",
+        "bishops_thralls",
+        "erratic_fear",
+        "resurgent_evils",
+        "creeping_cold"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Base of the Hill <i>(Warped and Twisted)</i>, Ascending Path <i>(Warped and Twisted)</i>, and Sentinel Peak into play. Remove the original Base of the Hill and Ascending Path locations from the game. Each investigator begins play at Base of the Hill."
+    },
+    {
+      "id": "remove_diverging_path",
+      "text": "Remove 2 copies of Diverging Path from the game, at random. Set the other 3 copies of Diverging Path aside, out of play."
+    },
+    {
+      "id": "remove_altered_path",
+      "text": "Remove 2 copies of Altered Path from the game, at random. Set the other 3 copies of Altered Path aside, out of play."
+    },
+    {
+      "id": "check_set_aside_naomi",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "naomi_has_back",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_cards"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["set_aside_cards_and_naomi"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_cards_and_naomi",
+      "text": "Set Seth Bishop and Naomi O'Bannion aside, out of play."
+    }
+  ]
+}
