@@ -20,7 +20,7 @@
       "title": "Setup",
       "encounter_sets": [
         "extracurricular_activity",
-        "return_to_extracurricular_activity",
+        "return_to_extracurricular_activities",
         "sorcery",
         "beyond_the_threshold",
         "bishops_thralls",
@@ -29,6 +29,25 @@
         "secret_doors",
         "yog_sothoths_emissaries"
       ]
+    },
+    {
+      "id": "faculty_offices",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "return_to_the_house_always_wins",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["faculty_office_night_is_young"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["faculty_office_hour_is_late"]
+          }
+        ]
+      }
     },
     {
       "id": "setup_locations",
@@ -41,7 +60,7 @@
       "condition": {
         "type": "campaign_data",
         "campaign_data": "scenario_completed",
-        "scenario": "the_house_always_wins",
+        "scenario": "return_to_the_house_always_wins",
         "options": [
           {
             "boolCondition": true,
@@ -53,6 +72,39 @@
     {
       "id": "spawn_security_guard",
       "text": "Because you have already completed <b>Return to The House Always Wins</b>, search the gathered encounter sets for 1 copy of Enthralled Security Guard, and spawn it at the Administration Building."
+    },
+    {
+      "id": "proceed_either",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "return_to_the_house_always_wins",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["$upgrade_decks"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "return_to_the_house_always_wins"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "armitages_fate"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

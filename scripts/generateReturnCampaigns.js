@@ -35,6 +35,22 @@ getFilePaths('./return_campaigns').sort().map(file => {
         original_id: undefined,
       }, null, 2)
     );
+    getFilePaths(
+      file.replace('return_campaigns/rt', 'campaigns/').replace("/campaign.json", "")
+    ).sort().map(originalFile => {
+      if (originalFile.endsWith('.schema.json') ||
+        !originalFile.endsWith('.json') ||
+        originalFile.endsWith('campaign.json')
+      ) {
+        return;
+      }
+      const originalScenarioJson = jsonlint.parse(fs.readFileSync(originalFile, 'utf-8').toString());
+      if (originalScenarioJson.type === 'interlude' || originalScenarioJson.type === 'epilogue') {
+        const outputFile = originalFile.replace('campaigns/', './build/return_campaigns/rt');
+        console.log(outputFile);
+        fs.writeFileSync(outputFile, JSON.stringify(originalScenarioJson, null, 2));
+      }
+    })
   } else {
     if (!json.id || !json.original_id) {
       throw new Error(`${file} is missing id/original_id`);

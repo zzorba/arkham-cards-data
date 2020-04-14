@@ -192,7 +192,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -274,13 +274,74 @@
             "id": "mitpm_defeated",
             "text": "Defeated the Man in the Pallid Mask",
             "steps": ["mitpm_defeated"]
+          },
+          {
+            "id": "mark_conviction_or_doubt",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "bsr_conviction_or_doubt",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Mark Conviction or Doubt",
+            "steps": ["mark_conviction_or_doubt"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_conviction_or_doubt",
+      "text": "Which should be marked, <b>Conviction</b> or <b>Doubt</b>?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "conviction",
+            "text": "Mark one <b>Conviction</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "conviction",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "doubt",
+            "text": "Mark one <b>Doubt</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "doubt",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",

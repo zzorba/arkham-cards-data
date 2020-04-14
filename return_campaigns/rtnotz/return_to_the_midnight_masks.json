@@ -25,7 +25,7 @@
       "type": "encounter_sets",
       "encounter_sets": [
         "arkham",
-        "return_to_midnight_masks",
+        "return_to_the_midnight_masks",
         "chilling_cold",
         "nightgaunts",
         "the_devourers_cult",
@@ -40,7 +40,7 @@
         "cultists",
         "return_cult"
       ],
-      "text": "Set these cards aside as a separate “Cultist deck.” Shuffle this deck and remove 3 random cards from it, without looking at them. <i>(You shoudl be left with a 5-card Cultist deck.)</i>"
+      "text": "Set the <i>Cult of Umôrdhoth</i> encounter sets aside as a separate “Cultist deck.” Shuffle this deck and remove 3 random cards from it, without looking at them. <i>(You should be left with a 5-card Cultist deck.)</i>"
     },
     {
       "id": "construct_act_deck",
@@ -48,7 +48,7 @@
     },
     {
       "id": "setup_locations",
-      "text": "Randomly choose one of the two Downtown locations, one of the two Southside locations, one of the two Easttown locations, one of the two Northside locations, one of the two Rivertown locations, and one of the two Miskatonic University locations and put them into play. Remove the other versions of Downtown, Southside, Easttown, Northside, Rivertown, and Miskatonic University from the game. Then, put Graveyeard, St. Mary's Hospital, and Your House into play."
+      "text": "Randomly put 1 of each of the following locations into play: Downtown, Southside, Easttown, Northside, Rivertown, and Miskatonic University. Remove the other versions of those locations from the game. Then, put Graveyeard, St. Mary's Hospital, and Your House into play."
     },
     {
       "id": "one_cultist",
@@ -64,6 +64,97 @@
       "id": "three_cultists",
       "text": "Search the gathered encounter sets for 3 1-health [[Cultist]] enemies. Spawn 1 at Southside, 1 at Downtown, and 1 at the Graveyard.",
       "bullet_type": "small"
+    },
+
+    {
+      "id": "cultists_interrogated_r1",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” under “Cultists Who Got Away” as well.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "cultist",
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "removed_from_game",
+            "text": "Removed from game"
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "got_away",
+            "text": "Got away",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cultists_interrogated_r2",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "cultist",
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "removed_from_game",
+            "text": "Removed from game"
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "got_away",
+            "text": "Got away",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

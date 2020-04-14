@@ -31,6 +31,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice"
   ],
   "steps": [
@@ -39,6 +40,13 @@
       "type": "story",
       "title": "Their hand is at your throats, yet ye see Them not...",
       "text": "“I’m going to burn his accursed diary, and if you men are wise you’ll dynamite that altar-stone up there, and pull down all the rings of standing stones on the other hills. Things like that brought down the beings those Whateleys were so fond of...”\n–H. P. Lovecraft, “The Dunwich Horror”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "difficulty_choice",
@@ -250,7 +258,7 @@
     },
     {
       "id": "setup_locations",
-      "text": "Remove one of the two copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining locations into play."
+      "text": "Remove one of the two copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining five locations into play."
     },
     {
       "id": "gather_sacrifices",
@@ -376,7 +384,8 @@
           {
             "trait": "ally",
             "unique": true,
-            "source": "deck"
+            "source": "deck",
+            "exclude_code": ["02080", "02061", "02040", "02217", "02218", "51052"]
           },
           {
             "code": ["02080", "02061", "02040", "02217", "02218"]
@@ -524,6 +533,56 @@
       "title": "Resolution 3",
       "text": "With the creature that once was Silas lashing out at you from its chains, you have little time to react. Hoping there is something in the chamber you can use to your advantage, you fend off the abomination long enough to find a journal; many of its passages are written in Latin. It appears to be a handwritten excerpt from the Necronomicon, its purpose unknown. With no time to spare, you recite the incantation, stumbling over the words and feeling your throat tighten with each sentence. The creature’s body begins to shrink and melt away as the incantation continues, its cries terrifying and haunting. In the end, all that is left is a pile of wet and sticky ichor, and a rotten stench.",
       "steps": ["banished_silas_bishop", "record_sacrificed", "lose_necronomicon", "earn_2_xp"]
+    }
+  ]
+}
+,
+{
+  "id": "dwl_prologue",
+  "scenario_name": "Prologue",
+  "full_name": "Prologue",
+  "type": "interlude",
+  "setup": [
+    "intro",
+    "scenario_choice"
+  ],
+
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Dr. Henry Armitage pours himself a glass of pinot and sits down at his desk, gesturing for you to sit across from him. “I apologize for the short notice,” he begins. His face is pale, his forehead sweaty and wrinkled with worry.\nArmitage—the head librarian of Miskatonic University, and a former mentor of yours—privately contacted you in the hopes of gaining your assistance. Eager to help, you made your way to his home in Southside. Upon entering, you were surprised to find his home in disarray. Books and notes litter his desk, and an empty bottle of wine has tipped over onto the ground by the fireplace. You’d always known Armitage to be neat and well-organized.\n The elderly man takes a moment to collect his thoughts. “I am looking for two of my colleagues—Dr. Francis Morgan, professor of archaeology, and Warren Rice, professor of languages. Warren was supposed to meet up with me over supper earlier today to discuss several important findings, but he has since gone missing. At first I thought nothing of it, but I have a nagging feeling something else is going on. A very… <b>familiar</b> feeling.” You’ve never seen Armitage quite this worried before. His hands tremble as he reaches for the glass on his desk, and he sips from it nervously. “I tried to find Francis, hoping he knew where Warren was, but he too is out of touch. Francis has been spending a lot of time in some gambling den, or so I am told.\n “I sent for you because I am worried Warren might be in trouble. I would appreciate it greatly if you could find him for me. You may also wish to ask Francis for help, if you can reach him.”"
+    },
+    {
+      "id": "scenario_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "1a",
+            "text": "<i>Professor Warren Rice was last seen working late at night in the humanities department of Miskatonic University. Let’s search for him there.</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "extracurricular_activity"
+              }
+            ]
+          },
+          {
+            "id": "1b",
+            "text": "<i>Dr. Francis Morgan was last seen gambling at the Clover Club, an upscale speakeasy and gambling joint located downtown. Let’s go talk to him.</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_house_always_wins"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
@@ -1117,7 +1176,24 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks"]
+            "steps": ["$upgrade_decks"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_house_always_wins"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "armitages_fate"
+              }
+            ]
           }
         ]
       }
@@ -1140,7 +1216,7 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "You find Professor Rice bound and gagged in the closet of his office. When you free him, he informs you that the strange men and women wandering around the campus had been stalking him for hours. They cornered him in his office and tied him up, although for what purpose, Rice isn’t sure. You inform him that Dr. Armitage sent you, and Rice looks relieved, although he suspects that Dr. Morgan might be in danger as well. Because the strangers on campus seem to have been targeting Professor Rice, you decide that the best course of action is to escort him away from the campus as quickly as possible. As you leave the university, you hear screaming from the northern end of the campus. An ambulance passes you by, and you fear the worst. Hours later, you learn that a ‘rabid dog of some sort’ found its way into the university dormitories. The creature attacked the students inside, and many were mauled or killed in the attack.",
-      "steps": ["warren_rice_rescued", "earn_warren_rice", "failed_to_save_students", "earn_xp", "$upgrade_decks"]
+      "steps": ["warren_rice_rescued", "earn_warren_rice", "failed_to_save_students", "earn_xp", "proceed_either"]
     },
     {
       "id": "R2",
@@ -1426,56 +1502,6 @@
       "title": "Resolution 4",
       "text": "The sorcerers from Dunwich, seeking arcane power from beyond this realm, have accomplished what Wilbur and Old Whateley could not. Through blood sacrifice and indescribable experiments, the dark power the sorcerers sought is now within their reach. However, they will never get the chance to truly wield this power. In beseeching Wilbur’s father for knowledge, they have drawn the creature forth from its extradimensional realm. Yog-Sothoth emerges from the open rift above Sentinel Hill, blotting out the sky and enveloping the world. Now it has come to Earth, and it rules where humanity once tread.",
       "steps": ["yog_sothoth_became_one_with_reality", "all_insane", "lose_campaign"]
-    }
-  ]
-}
-,
-{
-  "id": "dwl_prologue",
-  "scenario_name": "Prologue",
-  "full_name": "Prologue",
-  "type": "interlude",
-  "setup": [
-    "intro",
-    "scenario_choice"
-  ],
-
-  "steps": [
-    {
-      "id": "intro",
-      "type": "story",
-      "text": "Dr. Henry Armitage pours himself a glass of pinot and sits down at his desk, gesturing for you to sit across from him. “I apologize for the short notice,” he begins. His face is pale, his forehead sweaty and wrinkled with worry.\nArmitage—the head librarian of Miskatonic University, and a former mentor of yours—privately contacted you in the hopes of gaining your assistance. Eager to help, you made your way to his home in Southside. Upon entering, you were surprised to find his home in disarray. Books and notes litter his desk, and an empty bottle of wine has tipped over onto the ground by the fireplace. You’d always known Armitage to be neat and well-organized.\n The elderly man takes a moment to collect his thoughts. “I am looking for two of my colleagues—Dr. Francis Morgan, professor of archaeology, and Warren Rice, professor of languages. Warren was supposed to meet up with me over supper earlier today to discuss several important findings, but he has since gone missing. At first I thought nothing of it, but I have a nagging feeling something else is going on. A very… <b>familiar</b> feeling.” You’ve never seen Armitage quite this worried before. His hands tremble as he reaches for the glass on his desk, and he sips from it nervously. “I tried to find Francis, hoping he knew where Warren was, but he too is out of touch. Francis has been spending a lot of time in some gambling den, or so I am told.\n “I sent for you because I am worried Warren might be in trouble. I would appreciate it greatly if you could find him for me. You may also wish to ask Francis for help, if you can reach him.”"
-    },
-    {
-      "id": "scenario_choice",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "1a",
-            "text": "<i>Professor Warren Rice was last seen working late at night in the humanities department of Miskatonic University. Let’s search for him there.</i>",
-            "effects": [
-              {
-                "type": "campaign_data",
-                "setting": "next_scenario",
-                "scenario": "extracurricular_activity"
-              }
-            ]
-          },
-          {
-            "id": "1b",
-            "text": "<i>Dr. Francis Morgan was last seen gambling at the Clover Club, an upscale speakeasy and gambling joint located downtown. Let’s go talk to him.</i>",
-            "effects": [
-              {
-                "type": "campaign_data",
-                "setting": "next_scenario",
-                "scenario": "the_house_always_wins"
-              }
-            ]
-          }
-        ]
-      }
     }
   ]
 }
@@ -1990,7 +2016,14 @@
         "options": [
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks"]
+            "steps": ["$upgrade_decks"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "extracurricular_activity"
+              }
+            ]
           }
         ]
       }
@@ -2024,13 +2057,13 @@
       "id": "R2",
       "title": "Resolution 2",
       "text": "“What in the world…?” Dr. Morgan finally breaks out of his daze as you make your way to safety. You ask him what he remembers, and he sputters and shakes his head. “It’s all a haze,” he explains, visibly exhausted. “I was having the run of my life! Perhaps I had one too many shots. But, those creatures—I haven’t seen anything like that since…” He trails off, and you can tell that his mind is racing. His eyes widen with realization and his face pales. “I may not be in the best shape, but I’ll help with your investigation. Whatever it takes.”",
-      "steps": ["bone_to_pick", "francis_morgan_rescued", "cheated", "earn_xp", "$upgrade_decks"]
+      "steps": ["bone_to_pick", "francis_morgan_rescued", "cheated", "earn_xp", "proceed_either"]
     },
     {
       "id": "R3",
       "title": "Resolution 3",
       "text": "Although you were unable to find Dr. Morgan in the club, the man you rescued is grateful for your help. He introduces himself as Peter Clover, the owner of the establishment you’d just left. Despite the situation, he maintains an air of quiet professionalism. As you make your way towards the street, a well-polished Chrysler B-70 rolls up to you, and a gorgeous woman with long brown hair and narrow eyes exits. She is flanked by dangerous-looking men who slip their hands under their suit jackets when they see you. “Peter,” she says with a sigh of relief, “Good, you’re okay. I heard there was trouble?” She turns and glares at you with deadly eyes. “Who are they?”\nMr. Clover dusts off his vest, unworried. “Naomi, my dear, these are friends of mine. They…” he clears his throat. “They escorted me off the premises,” he explains after a short pause. “They have earned our gratitude.” The woman crosses her arms and takes a moment to size you up before giving you a smirk.\n“Very well then. I must thank you for taking care of Peter. Run along now; we’ll handle things from here.” She nods to the goons flanking her and they walk past you toward the club’s rear entrance, pulling firearms out from underneath their coats. You’re not sure what ‘handling things’ means, but you’re pretty sure you don’t want to be here when the gunfire starts. You thank Naomi and Peter, and head off.",
-      "steps": ["naomi_has_back", "francis_morgan_kidnapped", "cheated", "earn_xp", "$upgrade_decks"]
+      "steps": ["naomi_has_back", "francis_morgan_kidnapped", "cheated", "earn_xp", "proceed_either"]
     },
     {
       "id": "R4",
@@ -2999,6 +3032,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice"
   ],
   "steps": [
@@ -3006,6 +3040,13 @@
       "id": "prologue",
       "type": "story",
       "text": "Friday, September 18, 1925. Arkham, Massachusetts. It is the end of a long and abnormally hot summer. The first hints of autumn beckon, but a heavy heat persists, relentless. A silent, unspoken anger grips the town. Tempers are short, and in the last week alone there have been numerous reports of townspeople coming to heated, violent blows with one another over simple misunderstandings.\nAnd now, a call from James Hankerson. He claims to have found a dismembered body in his barn.\nBlaming the weather would be too easy. There is something wrong with this town, and not a whole lot this old soothsayer can do to stop the slide. My auguries indicate a small group of investigators will soon take note of these strange happenings and set forth to make things right. I’ll be watching their progress… but I won’t be holding my breath."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "difficulty_choice",
@@ -3284,7 +3325,7 @@
     },
     {
       "id": "cultists_interrogated_r1",
-      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” here as well.",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” under “Cultists Who Got Away” as well.",
       "type": "input",
       "input": {
         "type": "card_choice",
@@ -3297,24 +3338,24 @@
         ],
         "choices": [
           {
-            "id": "interrogated",
-            "text": "Interrogated",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_interrogated",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          },
-          {
             "id": "got_away",
             "text": "Got away",
             "effects": [
               {
                 "type": "campaign_log_cards",
                 "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
                 "id": "$input_value",
                 "text": "#name#"
               }
@@ -3338,24 +3379,24 @@
         ],
         "choices": [
           {
-            "id": "interrogated",
-            "text": "Interrogated",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_interrogated",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          },
-          {
             "id": "got_away",
             "text": "Got away",
             "effects": [
               {
                 "type": "campaign_log_cards",
                 "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
                 "id": "$input_value",
                 "text": "#name#"
               }
@@ -4119,6 +4160,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice",
     "hidden_keyword",
     "doubt_and_conviction",
@@ -4130,6 +4172,13 @@
       "type": "story",
       "title": "Have You Seen the Yellow Sign?",
       "text": "“He mentioned the establishment of the Dynasty in Carcosa, the lakes which connected Hastur, Aldebaran, and the mystery of the Hyades. He spoke of Cassilda and Camilla, and sounded the cloudy depths of Demhe and the Lake of Hali.” – Robert W. Chambers, “The Repairer of Reputations”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "hidden_keyword",
@@ -4584,7 +4633,7 @@
         "options": [
           {
             "numCondition": -1,
-            "steps": ["more_or_equal_doubt", "gather_doubt", "act_1_v1"]
+            "steps": ["more_conviction", "gather_conviction", "act_1_v2"]
           },
           {
             "numCondition": 0,
@@ -4592,7 +4641,7 @@
           },
           {
             "numCondition": 1,
-            "steps": ["more_conviction", "gather_conviction", "act_1_v2"]
+            "steps": ["more_or_equal_doubt", "gather_doubt", "act_1_v1"]
           }
         ]
       }
@@ -4671,7 +4720,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -4739,7 +4788,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -5155,7 +5204,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -5237,13 +5286,74 @@
             "id": "mitpm_defeated",
             "text": "Defeated the Man in the Pallid Mask",
             "steps": ["mitpm_defeated"]
+          },
+          {
+            "id": "mark_conviction_or_doubt",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "bsr_conviction_or_doubt",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Mark Conviction or Doubt",
+            "steps": ["mark_conviction_or_doubt"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_conviction_or_doubt",
+      "text": "Which should be marked, <b>Conviction</b> or <b>Doubt</b>?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "conviction",
+            "text": "Mark one <b>Conviction</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "conviction",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "doubt",
+            "text": "Mark one <b>Doubt</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "doubt",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -5898,7 +6008,7 @@
     },
     {
       "id": "act_2_v1",
-      "text": "Because you have 5 or less total <b>Doubt</b> and Conviction:",
+      "text": "Because you have 5 or less total <b>Doubt</b> and <b>Conviction</b>:",
       "bullets": [
         {
           "text": "Use Act 2—Search For the Stranger (v. I). Remove each other version of Act 2 from the game."
@@ -5907,7 +6017,7 @@
     },
     {
       "id": "act_2_v2",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and have more <b>Doubt</b> than <b>Conviction</b>.",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and have more <b>Doubt</b> than <b>Conviction</b>.",
       "bullets": [
         {
           "text": "Use Act 2—Search the Stranger (v. II). Remove each other version of Act 2 from the game."
@@ -5916,7 +6026,7 @@
     },
     {
       "id": "act_2_v3",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and have more <b>Conviction</b> than Doubt:",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and have more <b>Conviction</b> than Doubt:",
       "bullets": [
         {
           "text": "Use Act 2—Search the Stranger (v. III). Remove each other version of Act 2 from the game."
@@ -5925,7 +6035,7 @@
     },
     {
       "id": "act_2_choice",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and you have exactly equal <b>Doubt</b> and Conviction:",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and you have exactly equal <b>Doubt</b> and Conviction:",
       "bullets": [
         {
           "text": "You may choose to use either Act 2—Search For the Stranger (v. II) or Act 2—Search For the Stranger (v. III). Remove each other version of Act 2 from the game."
@@ -5993,7 +6103,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -6158,7 +6268,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -6620,7 +6730,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -7327,6 +7437,7 @@
   "full_name": "Prologue",
   "type": "interlude",
   "setup": [
+    "choose_investigators",
     "intro",
     "check_lola_hayes"
   ],
@@ -7337,18 +7448,30 @@
       "text": "You turn over the folded program in your hand, reading it for what seems like the hundredth time. “Miskatonic Playhouse presents: The King in Yellow,” it reads. “A special one-night engagement at Arkham’s very own Ward Theatre. An irresistible drama in two acts. Production staged and directed by Nigel Engram.” The cast is a small ensemble, with one unattributed credit at the end: “The Stranger.”\nTo have such a highly anticipated play come to Arkham all the way from Paris is a noteworthy event, even if it is just for one night. For weeks leading up to the show, it was the talk of the town. It seemed so unassuming...and yet, you have evidence something sinister is at work. It started with the disappearance of one of the stagehands at the theatre—a boy of only seventeen who missed rehearsal one night and was never seen again. Then, less than two weeks before the performance, there was the musician whose corpse was found with a gun in its mouth. Perhaps most chilling was the crazed man the coppers had picked up in Independence Square who had been ranting and raving about the “King’s return.” He was brought to Arkham Asylum, and you were surprised to discover that he was not alone in his delusions.\nFinding these events suspicious, you and your companions have delved deeper into the matter. Although no connection can be proven, these weren’t the only strange events surrounding the up-and-coming play. Instances of suicide and madness have followed in its wake, and you are determined to discover why.\nThe lights in the auditorium dim, and a spotlight shines on the stage. What unfolds is not quite what you expected. Slow-paced and monotonous, the first act of The King in Yellow is a tedious bore. The setting and characters are compelling, but the meandering and nonsensical story does little to entertain or inform. You begin to wonder whether the dreadful events surrounding The King in Yellow aren’t connected, after all. Perhaps it was just your overactive imagination; how could such a trivial and unassuming show cause such pandemonium? You are surprised when the first act closes without any rising action or revelation. The lights rise for the intermission, and you consider leaving early, stifling a yawn. Before you are able to decide, however, you find yourself drifting...drifting...to sleep."
     },
     {
-      "id": "check_lola_hayes",
+      "id": "choose_investigators",
       "type": "input",
       "input": {
-        "type": "choose_one",
-        "choices": [
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "check_lola_hayes",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
           {
-            "id": "lola",
-            "text": "Was Lola Hayes  chosen as an investigator for this campaign?",
-            "steps": ["lola_prologue"]
+            "condition": "03006",
+            "steps": ["lola_hayes_reads", "lola_prologue"]
           }
         ]
       }
+    },
+    {
+      "id": "lola_hayes_reads",
+      "text": "The Lola Hayes player reads the following section (out loud)."
     },
     {
       "id": "lola_prologue",
@@ -7468,7 +7591,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -7572,11 +7695,12 @@
     },
     {
       "id": "skip_lunacys_reward",
+      "text": "Skip <b>Interlude I: Lunacy's Reward</b>.",
       "effects": [
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
-          "scenario": "lunacys_reward"
+          "scenario": "ptc_interlude1"
         }
       ]
     },
@@ -7619,7 +7743,7 @@
   "resolutions": [
     {
       "id": "no_resolution_resigned",
-      "title": "No Resolution (at least one investigator resigned)",
+      "title": "No resolution\n(at least one investigator resigned)",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -7630,7 +7754,7 @@
     },
     {
       "id": "no_resolution_defeated",
-      "title": "No Resolution (all investigators defeated)",
+      "title": "No resolution\n(all investigators defeated)",
       "investigator_status": [
         "eliminated",
         "physical",
@@ -7846,7 +7970,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -7914,13 +8038,76 @@
             "id": "mitpm_defeated",
             "text": "Defeated the Man in the Pallid Mask",
             "steps": ["mitpm_defeated"]
+          },
+          {
+            "id": "mark_conviction_or_doubt",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tpm_conviction_or_doubt",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Mark Conviction or Doubt",
+            "steps": ["mark_conviction_or_doubt"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_conviction_or_doubt",
+      "text": "How was act 2 advanced?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "conviction",
+            "text": "The Man in the Pallid Mask was defeated.",
+            "description": "Mark two <b>Conviction</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "conviction",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tpm_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "doubt",
+            "text": "You spent clues to advance.",
+            "description": "Mark two <b>Doubt</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "doubt",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tpm_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -8382,7 +8569,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["transfer_onyx_clasp"]
           }
         ]
@@ -8419,7 +8606,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -8461,6 +8648,7 @@
     },
     {
       "id": "take_onyx_clasp",
+      "bullet_type": "small",
       "text": "Choose a new investigator to take the onyx clasp. That investigator must include the Clasp of Black Onyx weakness in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [{
         "type": "add_card",
@@ -8631,7 +8819,7 @@
       "effects": [{
         "type": "campaign_data",
         "setting": "skip_scenario",
-        "scenario": "lost_soul"
+        "scenario": "ptc_interlude2"
       }]
     },
     {
@@ -8719,6 +8907,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice"
   ],
   "steps": [
@@ -8727,6 +8916,13 @@
       "type": "story",
       "title": "Their hand is at your throats, yet ye see Them not...",
       "text": "“I’m going to burn his accursed diary, and if you men are wise you’ll dynamite that altar-stone up there, and pull down all the rings of standing stones on the other hills. Things like that brought down the beings those Whateleys were so fond of...”\n–H. P. Lovecraft, “The Dunwich Horror”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "difficulty_choice",
@@ -8872,6 +9068,191 @@
   ]
 }, "scenarios": [
 {
+  "id": "armitages_fate",
+  "scenario_name": "Armitage's Fate",
+  "full_name": "Interlude I: Armitage's Fate",
+  "type": "interlude",
+  "setup": [
+    "check_unconscious",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "check_unconscious",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "unconscious_for_several_hours",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "fate_1",
+              "henry_armitage_kidnapped",
+              "bonus_xp"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "fate_2",
+              "henry_armitage_rescued",
+              "earn_henry_armitage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fate_1",
+      "type": "story",
+      "text": "You are more than a little rattled by your experiences in the university and the Clover Club. You’re not sure what to make of whoever—or whatever—was after Rice and Morgan. Worried about Dr. Armitage, you swiftly make your way back to his home. When you arrive, you find that the latches of his front door have been busted open, and his living area and study have been ransacked. Dr. Armitage is nowhere to be found. Searching his home, you find a journal the intruders didn’t steal tucked beneath several other documents in the bottom drawer of Armitage’s desk.\nThe journal appears to be written in a strange language you cannot decode, using a script you’ve never seen in your entire life. Fortunately, it seems Dr. Armitage had already gone through the trouble of translating it into English. Apparently, it belongs to one “Wilbur Whateley.” The journal—along with Armitage’s many notes—tells a startling tale, one you would scarcely believe had it not been for your harrowing experiences earlier tonight…"
+    },
+    {
+      "id": "fate_2",
+      "type": "story",
+      "text": "When you arrive at Dr. Armitage’s home in Southside, you find him sitting at his desk, pale-faced and sweating with worry. He is grateful to you for searching for his colleagues, but he doesn’t look relieved. With a long pause, he straightens his glasses and explains:\n“I’m afraid I must apologize. There’s something I didn’t mention to you earlier.” Dr. Armitage then spins a tale you would scarcely believe had it not been for your harrowing experiences earlier that night…"
+    },
+    {
+      "id": "henry_armitage_kidnapped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "henry_armitage_kidnapped",
+          "text": "Dr. Henry Armitage was kidnapped."
+        }
+      ]
+    },
+    {
+      "id": "henry_armitage_rescued",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "henry_armitage_rescued",
+          "text": "the investigators rescued Dr. Henry Armitage."
+        }
+      ]
+    },
+    {
+      "id": "earn_henry_armitage",
+      "text": "Any one investigator may choose to add Dr. Henry Armitage to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02040"
+        }
+      ]
+    },
+    {
+      "id": "bonus_xp",
+      "text": "Each investigator earns 2 bonus experience as reading Wilbur’s journal gives them insight into the hidden world of the mythos.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    }
+  ]
+},
+{
+  "id": "dwl_prologue",
+  "scenario_name": "Prologue",
+  "full_name": "Prologue",
+  "type": "interlude",
+  "setup": [
+    "intro",
+    "scenario_choice"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Dr. Henry Armitage pours himself a glass of pinot and sits down at his desk, gesturing for you to sit across from him. “I apologize for the short notice,” he begins. His face is pale, his forehead sweaty and wrinkled with worry.\nArmitage—the head librarian of Miskatonic University, and a former mentor of yours—privately contacted you in the hopes of gaining your assistance. Eager to help, you made your way to his home in Southside. Upon entering, you were surprised to find his home in disarray. Books and notes litter his desk, and an empty bottle of wine has tipped over onto the ground by the fireplace. You’d always known Armitage to be neat and well-organized.\n The elderly man takes a moment to collect his thoughts. “I am looking for two of my colleagues—Dr. Francis Morgan, professor of archaeology, and Warren Rice, professor of languages. Warren was supposed to meet up with me over supper earlier today to discuss several important findings, but he has since gone missing. At first I thought nothing of it, but I have a nagging feeling something else is going on. A very… <b>familiar</b> feeling.” You’ve never seen Armitage quite this worried before. His hands tremble as he reaches for the glass on his desk, and he sips from it nervously. “I tried to find Francis, hoping he knew where Warren was, but he too is out of touch. Francis has been spending a lot of time in some gambling den, or so I am told.\n “I sent for you because I am worried Warren might be in trouble. I would appreciate it greatly if you could find him for me. You may also wish to ask Francis for help, if you can reach him.”"
+    },
+    {
+      "id": "scenario_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "1a",
+            "text": "<i>Professor Warren Rice was last seen working late at night in the humanities department of Miskatonic University. Let’s search for him there.</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "return_to_extracurricular_activity"
+              }
+            ]
+          },
+          {
+            "id": "1b",
+            "text": "<i>Dr. Francis Morgan was last seen gambling at the Clover Club, an upscale speakeasy and gambling joint located downtown. Let’s go talk to him.</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "return_to_the_house_always_wins"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "id": "dwl_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "type": "epilogue",
+  "setup": [
+    "check_calmed_townsfolk"
+  ],
+  "steps": [
+    {
+      "id": "check_calmed_townsfolk",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "calmed_townsfolk",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "epilogue_1"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "epilogue_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epilogue_1",
+      "type": "story",
+      "text": "Six months had passed, and life for Curtis Whateley was finally returning to normal. Since they’d hushed up the incident and the authorities kept their distance from these parts, Mr. Osborn had auctioned off the Ericks and Bishop families’ belongings. Joe took a few trinkets for himself, of course, but Curtis wanted nothing to do with it. Folk already didn’t trust him on account of his family’s sins, even though he’d been attending church on the regular and had stayed far away from anything resembling the arcane.\nEven so, Curtis could not shake a sense of foreboding. He’d seen the devastation that befell the Ericks, Bishop, and Frye homes. He’d even seen firsthand the creature the folks from Arkham had banished. Some days, his thoughts led him to Wilbur Whateley’s farm, where he would stand outside and stare for hours, too scared to enter, but too curious to leave. Maybe there was something in there that could make these terrible visions depart. Something that could give him strength enough to resist the nightmares. Curtis decided he would find it."
+    },
+    {
+      "id": "epilogue_2",
+      "type": "story",
+      "text": "Gené knelt closer to the ground to examine the sign in the dirt. The shape of the sign was foreign to her, and the tracks that had led to it were unlike any she’d ever seen. Coupled with the report from the university...she wasn’t sure what to think. “Ms. Beauregard,” her assistant called out to her, “have you found something?”\nGené stood and turned to face the freshman who’d been assigned to her. He was a good kid and a bit callow, but a hard worker and eager to prove himself. “This place was supposed to be cordoned off,” Gené responded. “Nobody’s lived here for months. And yet, see for yourself: their primitive rites continue to this day.”\nThe student approached and joined Gené in examining the sign, flipping through the pages of his journal to reference its symbols. “What do you think it means?” he asked. She shook her head. Outsiders rarely traveled to Dunwich, and all the signposts leading to the village had been taken down. But these days, even the townsfolk who had called this place home had abandoned it.\n“I don’t know,” Gené admitted. “But somebody is here, and this isn’t the first sign we’ve seen like this. Stories say there’s an altar where the townsfolk would conduct pagan rituals atop that hill. Maybe we’ll find more up there.”"
+    }
+  ]
+},
+{
   "id": "return_to_blood_on_the_altar",
   "scenario_name": "Return to Blood on the Altar",
   "full_name": "Scenario IV: Return to Blood on the Altar",
@@ -8992,7 +9373,15 @@
           {
             "trait": "ally",
             "unique": true,
-            "source": "deck"
+            "source": "deck",
+            "exclude_code": [
+              "02080",
+              "02061",
+              "02040",
+              "02217",
+              "02218",
+              "51052"
+            ]
           },
           {
             "code": [
@@ -9139,7 +9528,7 @@
     },
     {
       "id": "setup_locations",
-      "text": "Add the new locations to the original locations from the <i>Blood on the Altar</i> encounter set. Remove two of the three copies of each other location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining locations into play."
+      "text": "Add the new locations to the original locations from the <i>Blood on the Altar</i> encounter set. Remove two of the three copies of each location from the game at random. Then, choose one of the six remaining locations at random, and remove it from the game as well. Put the remaining five locations into play."
     },
     {
       "id": "set_aside_cards",
@@ -9556,8 +9945,8 @@
       "type": "encounter_sets",
       "encounter_sets": [
         "essex_county_express",
-        "return_to_essex_county_express",
-        "beyond_the_threshhold",
+        "return_to_the_essex_county_express",
+        "beyond_the_threshold",
         "erratic_fear",
         "resurgent_evils",
         "pentagram"
@@ -9655,29 +10044,6 @@
       "id": "prologue",
       "type": "story",
       "text": "Dr. Armitage is worried his colleague, Professor Warren Rice, might be in trouble, so he has asked for your help in finding his friend. He seems unreasonably nervous about his colleague’s disappearance considering Professor Rice has only been “missing” for a matter of hours…"
-    },
-    {
-      "id": "faculty_offices",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_data",
-        "campaign_data": "scenario_completed",
-        "scenario": "the_house_always_wins",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": [
-              "faculty_office_night_is_young"
-            ]
-          },
-          {
-            "boolCondition": true,
-            "steps": [
-              "faculty_office_hour_is_late"
-            ]
-          }
-        ]
-      }
     },
     {
       "id": "faculty_office_night_is_young",
@@ -9813,30 +10179,12 @@
       ]
     },
     {
-      "id": "proceed_either",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_data",
-        "campaign_data": "scenario_completed",
-        "scenario": "the_house_always_wins",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": [
-              "$upgrade_decks"
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "gather_encounter_sets",
       "type": "encounter_sets",
       "title": "Setup",
       "encounter_sets": [
         "extracurricular_activity",
-        "return_to_extracurricular_activity",
+        "return_to_extracurricular_activities",
         "sorcery",
         "beyond_the_threshold",
         "bishops_thralls",
@@ -9845,6 +10193,29 @@
         "secret_doors",
         "yog_sothoths_emissaries"
       ]
+    },
+    {
+      "id": "faculty_offices",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "return_to_the_house_always_wins",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "faculty_office_night_is_young"
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": [
+              "faculty_office_hour_is_late"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "setup_locations",
@@ -9857,7 +10228,7 @@
       "condition": {
         "type": "campaign_data",
         "campaign_data": "scenario_completed",
-        "scenario": "the_house_always_wins",
+        "scenario": "return_to_the_house_always_wins",
         "options": [
           {
             "boolCondition": true,
@@ -9871,6 +10242,41 @@
     {
       "id": "spawn_security_guard",
       "text": "Because you have already completed <b>Return to The House Always Wins</b>, search the gathered encounter sets for 1 copy of Enthralled Security Guard, and spawn it at the Administration Building."
+    },
+    {
+      "id": "proceed_either",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "return_to_the_house_always_wins",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "$upgrade_decks"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "return_to_the_house_always_wins"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "armitages_fate"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -9900,7 +10306,7 @@
         "earn_warren_rice",
         "failed_to_save_students",
         "earn_xp",
-        "$upgrade_decks"
+        "proceed_either"
       ]
     },
     {
@@ -10164,7 +10570,7 @@
         "lost_in_time_and_space",
         "return_to_lost_in_time_and_space",
         "sorcery",
-        "beyond_the_threshhold",
+        "beyond_the_threshold",
         "hideous_abominations",
         "yog_sothoths_emissaries"
       ]
@@ -10435,24 +10841,6 @@
       }
     },
     {
-      "id": "proceed_either",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_data",
-        "campaign_data": "scenario_completed",
-        "scenario": "extracurricular_activity",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": [
-              "$upgrade_decks"
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "resolution_1",
       "type": "resolution",
       "resolution": "R1"
@@ -10485,6 +10873,31 @@
     {
       "id": "set_aside_cards",
       "text": "Set the following cards aside, out of play: Clover Club Stage, Darkened Hall, Peter Clover, Dr. Francis Morgan, and each copy of Back Hall Doorway."
+    },
+    {
+      "id": "proceed_either",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_completed",
+        "scenario": "return_to_extracurricular_activity",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "$upgrade_decks"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "return_to_extracurricular_activity"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -10523,7 +10936,7 @@
         "francis_morgan_rescued",
         "cheated",
         "earn_xp",
-        "$upgrade_decks"
+        "proceed_either"
       ]
     },
     {
@@ -10535,7 +10948,7 @@
         "francis_morgan_kidnapped",
         "cheated",
         "earn_xp",
-        "$upgrade_decks"
+        "proceed_either"
       ]
     },
     {
@@ -10565,8 +10978,8 @@
     "setup_locations",
     "exhibit_halls",
     "set_aside_cards",
+    "attach_scenario_reference",
     "encounter_deck",
-    "agenda_forced_effect",
     "void_note",
     "$play_scenario"
   ],
@@ -10777,7 +11190,7 @@
         "return_to_the_miskatonic_museum",
         "bad_luck",
         "sorcery",
-        "beyond_the_threshhold",
+        "beyond_the_threshold",
         "creeping_cold",
         "secret_doors"
       ]
@@ -10798,8 +11211,8 @@
       ]
     },
     {
-      "id": "agenda_forced_effect",
-      "text": "For the duration of this scenario, the following additional rule applies:\n\"While an investigator is resolving the text on agenda 1b and agenda 2b, the <b>Forced</b> ability on the next agenda in the agenda deck is considered to be active.\"\nYou can attach the Return to The Miskatonic Museum scenario reference card to The Miskatonic Museum scenario reference card as a reminder."
+      "id": "attach_scenario_reference",
+      "text": "For the duration of this scenario, the following additional rule applies:\n\"While an investigator is resolving the text on agenda 1b and agenda 2b, the <b>Forced</b> ability on the next agenda in the agenda deck is considered to be active.\"\nAttach the Return to The Miskatonic Museum scenario reference card to the scenario reference card as a reminder."
     }
   ],
   "resolutions": [
@@ -11083,7 +11496,7 @@
     {
       "id": "randomize_broods_note",
       "bullet_type": "small",
-      "text": "For the duration of this scenario, the following additional rule applies:\n\"If a Brood of Yog-Sothoth would be put into play, it is chosen at random from among the set-aside versions of Brood of Yog-Sothoth.\"\nYou can attach the Return to Undimensionsed and Unseen scenario reference card to the Undimensionsed and Unseen scenario reference card as a reminder."
+      "text": "For the duration of this scenario, the following additional rule applies:\n\"If a Brood of Yog-Sothoth would be put into play, it is chosen at random from among the set-aside versions of Brood of Yog-Sothoth.\"\nAttach the Return to Undimensioned and Unseen scenario reference card to the scenario reference card as a reminder."
     },
     {
       "id": "spawn_two_brood",
@@ -11522,7 +11935,7 @@
     {
       "id": "gain_naomi_award",
       "bullet_type": "small",
-      "text": "The lead investigator may choose an investigator to add the Naomi O'Bannion asset to their deck. This card does not count toward that investigator's deck size",
+      "text": "The lead investigator may choose an investigator to add the Naomi O'Bannion asset to their deck. This card does not count toward that investigator's deck size.",
       "effects": [
         {
           "type": "add_card",
@@ -11621,13 +12034,351 @@
       ]
     }
   ]
+},
+{
+  "id": "dwl_interlude2",
+  "scenario_name": "The Survivors",
+  "full_name": "Interlude II: The Survivors",
+  "type": "interlude",
+  "setup": [
+    "prologue",
+    "check_henry_armitage",
+    "check_warren_rice",
+    "check_francis_morgan",
+    "check_zebulon_whateley",
+    "check_earl_sawyer",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "text": "Inside the chamber that contained the terrible beast, you find the missing townsfolk and the others from Arkham; they are bound and shackled. You also find several documents that suggest the creature you found isn’t the only one of its kind in Dunwich. You free the creature’s victims from their bonds, and they offer you their thanks. You begin to plan your next move."
+    },
+    {
+      "id": "check_henry_armitage",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02040",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "henry_armitage_not_sacrificed",
+              "henry_armitage_survived",
+              "maybe_earn_henry_armitage",
+              "maybe_earn_powder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "henry_armitage_not_sacrificed",
+      "type": "story",
+      "text": "“It is far worse than we had thought,” Dr. Armitage says, pale and trembling. “Wilbur Whateley was only the beginning. There were more, many more in Dunwich, who knew of the ‘Great Old Ones’ and who desired power and knowledge above all else, the Earth be damned. I knew I should have burned that wretch’s journal. But thanks to its contents, I know how we can stop them. We are the only ones who can! Now quickly, help me with this solution—the powder is the key, yes, the powder is the only way...”"
+    },
+    {
+      "id": "henry_armitage_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "henry_armitage_survived",
+          "text": "Dr. Henry Armitage survived The Dunwich Legacy."
+        }
+      ]
+    },
+    {
+      "id": "maybe_earn_henry_armitage",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "02040",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "earn_henry_armitage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_henry_armitage",
+      "text": "Any one investigator may choose to add Dr. Henry Armitage to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02040"
+        }
+      ]
+    },
+    {
+      "id": "check_warren_rice",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02061",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "warren_rice_not_sacrificed",
+              "warren_rice_survived",
+              "maybe_earn_warren_rice",
+              "maybe_earn_powder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "warren_rice_not_sacrificed",
+      "type": "story",
+      "text": "Professor Rice adjusts his glasses and studies the documents and arcane manuscripts left in the chamber. “I thought this nightmare was over and done with,” he sighs. “But we have a duty to see this through. We have to stop these creatures, or it won’t be just Dunwich in trouble. The powder mixture Armitage created to see the creatures will be our saving grace,” he explains, and sets off to the task of recreating the powder."
+    },
+    {
+      "id": "warren_rice_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "warren_rice_survived",
+          "text": "Professor Warren Rice survived The Dunwich Legacy."
+        }
+      ]
+    },
+    {
+      "id": "maybe_earn_warren_rice",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "02061",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "earn_warren_rice"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_warren_rice",
+      "text": "Any one investigator may choose to add Professor Warren Rice to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02061"
+        }
+      ]
+    },
+    {
+      "id": "check_francis_morgan",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02080",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "francis_morgan_not_sacrificed",
+              "francis_morgan_survived",
+              "maybe_earn_francis_morgan",
+              "maybe_earn_powder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "francis_morgan_not_sacrificed",
+      "type": "story",
+      "text": "“Thank you for everything you’ve done,” Dr. Morgan says, taking count of your provisions and ammunition. “Last time, we needed some of that strange powder Armitage concocted to even see the beast that terrorized Dunwich. If there’s more of those things out there, we’re going to need that powder. I think I remember how he made it...”"
+    },
+    {
+      "id": "francis_morgan_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "francis_morgan_survived",
+          "text": "Dr. Francis Morgan survived The Dunwich Legacy."
+        }
+      ]
+    },
+    {
+      "id": "maybe_earn_francis_morgan",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "02080",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "earn_francis_morgan"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_francis_morgan",
+      "text": "Any one investigator may choose to add Professor Warren Rice to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02080"
+        }
+      ]
+    },
+    {
+      "id": "check_zebulon_whateley",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02217",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "zebulon_whateley_not_sacrificed",
+              "zebulon_whateley_survived",
+              "earn_zebulon_whateley"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "zebulon_whateley_not_sacrificed",
+      "type": "story",
+      "text": "“Dunwich’s had its fair share of oddities,” Zebulon explains to you with a quavering voice, “but I ain’t ever seen anything as sick and twisted as this...this...<b>thing</b>.” He gives the creature’s remains one last sickened glance before closing the door to the chamber behind him, shuddering. He locks eyes with you, his expression grim. “Whoever dun this gotta pay. I’ll do all I can to help.”"
+    },
+    {
+      "id": "zebulon_whateley_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "zebulon_whateley_survived",
+          "text": "Zebulon Whateley survived The Dunwich Legacy."
+        }
+      ]
+    },
+    {
+      "id": "earn_zebulon_whateley",
+      "text": "Any one investigator may choose to add Zebulon Whateley to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02217"
+        }
+      ]
+    },
+    {
+      "id": "check_earl_sawyer",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "sacrificed",
+        "id": "02218",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "earl_sawyer_not_sacrificed",
+              "earl_sawyer_survived",
+              "earn_earl_sawyer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earl_sawyer_not_sacrificed",
+      "type": "story",
+      "text": "“I never could’a made it if it weren’t for you,” Earl says with a stammer, shaking your hand repeatedly. “If ’n there’s anything I can do to repay yeh, just ask away. I ain’t much of a fighter or anythin’, but I’ll do all I can. Jus’...don’t make me look at anythin’ like that beast again, a’right?”"
+    },
+    {
+      "id": "earl_sawyer_survived",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "earl_sawyer_survived",
+          "text": "Earl Sawyer survived The Dunwich Legacy."
+        }
+      ]
+    },
+    {
+      "id": "earn_earl_sawyer",
+      "text": "Any one investigator may choose to add Earl Sawyer to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02218"
+        }
+      ]
+    },
+    {
+      "id": "maybe_earn_powder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "02219",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "earn_powder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_powder",
+      "text": "Any one investigator may choose to add the Powder of Ibn‐Ghazi card to their deck. It does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "02219"
+        }
+      ]
+    }
+  ]
 }]}
 ,
 {
   "campaign":
 {
   "id": "rtnotz",
-  "name": "Return to the Night of the Zealot",
+  "name": "Return to The Night of the Zealot",
   "position": 0,
   "campaign_log": [
     {
@@ -11646,10 +12397,11 @@
   "scenarios": [
     "return_to_the_gathering",
     "return_to_the_midnight_masks",
-    "return_to_devourer_below"
+    "return_to_the_devourer_below"
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice"
   ],
   "steps": [
@@ -11657,6 +12409,13 @@
       "id": "prologue",
       "type": "story",
       "text": "Friday, September 18, 1925. Arkham, Massachusetts. It is the end of a long and abnormally hot summer. The first hints of autumn beckon, but a heavy heat persists, relentless. A silent, unspoken anger grips the town. Tempers are short, and in the last week alone there have been numerous reports of townspeople coming to heated, violent blows with one another over simple misunderstandings.\nAnd now, a call from James Hankerson. He claims to have found a dismembered body in his barn.\nBlaming the weather would be too easy. There is something wrong with this town, and not a whole lot this old soothsayer can do to stop the slide. My auguries indicate a small group of investigators will soon take note of these strange happenings and set forth to make things right. I’ll be watching their progress… but I won’t be holding my breath."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "difficulty_choice",
@@ -12684,88 +13443,6 @@
       "text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda."
     },
     {
-      "id": "cultists_interrogated_r1",
-      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” here as well.",
-      "type": "input",
-      "input": {
-        "type": "card_choice",
-        "query": [
-          {
-            "trait": "cultist",
-            "unique": true,
-            "source": "scenario"
-          }
-        ],
-        "choices": [
-          {
-            "id": "interrogated",
-            "text": "Interrogated",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_interrogated",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          },
-          {
-            "id": "got_away",
-            "text": "Got away",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_escaped",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "cultists_interrogated_r2",
-      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play.",
-      "type": "input",
-      "input": {
-        "type": "card_choice",
-        "query": [
-          {
-            "trait": "cultist",
-            "unique": true,
-            "source": "scenario"
-          }
-        ],
-        "choices": [
-          {
-            "id": "interrogated",
-            "text": "Interrogated",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_interrogated",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          },
-          {
-            "id": "got_away",
-            "text": "Got away",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_escaped",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
       "id": "ghoul_priest_defeated",
       "type": "branch",
       "condition": {
@@ -12841,7 +13518,7 @@
       "type": "encounter_sets",
       "encounter_sets": [
         "arkham",
-        "return_to_midnight_masks",
+        "return_to_the_midnight_masks",
         "chilling_cold",
         "nightgaunts",
         "the_devourers_cult",
@@ -12856,7 +13533,7 @@
         "cultists",
         "return_cult"
       ],
-      "text": "Set these cards aside as a separate “Cultist deck.” Shuffle this deck and remove 3 random cards from it, without looking at them. <i>(You shoudl be left with a 5-card Cultist deck.)</i>"
+      "text": "Set the <i>Cult of Umôrdhoth</i> encounter sets aside as a separate “Cultist deck.” Shuffle this deck and remove 3 random cards from it, without looking at them. <i>(You should be left with a 5-card Cultist deck.)</i>"
     },
     {
       "id": "construct_act_deck",
@@ -12864,7 +13541,7 @@
     },
     {
       "id": "setup_locations",
-      "text": "Randomly choose one of the two Downtown locations, one of the two Southside locations, one of the two Easttown locations, one of the two Northside locations, one of the two Rivertown locations, and one of the two Miskatonic University locations and put them into play. Remove the other versions of Downtown, Southside, Easttown, Northside, Rivertown, and Miskatonic University from the game. Then, put Graveyeard, St. Mary's Hospital, and Your House into play."
+      "text": "Randomly put 1 of each of the following locations into play: Downtown, Southside, Easttown, Northside, Rivertown, and Miskatonic University. Remove the other versions of those locations from the game. Then, put Graveyeard, St. Mary's Hospital, and Your House into play."
     },
     {
       "id": "one_cultist",
@@ -12880,6 +13557,96 @@
       "id": "three_cultists",
       "text": "Search the gathered encounter sets for 3 1-health [[Cultist]] enemies. Spawn 1 at Southside, 1 at Downtown, and 1 at the Graveyard.",
       "bullet_type": "small"
+    },
+    {
+      "id": "cultists_interrogated_r1",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” under “Cultists Who Got Away” as well.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "cultist",
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "removed_from_game",
+            "text": "Removed from game"
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "got_away",
+            "text": "Got away",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cultists_interrogated_r2",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "cultist",
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "removed_from_game",
+            "text": "Removed from game"
+          },
+          {
+            "id": "interrogated",
+            "text": "Interrogated",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_interrogated",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          },
+          {
+            "id": "got_away",
+            "text": "Got away",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "cultists_escaped",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -12979,6 +13746,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice",
     "hidden_keyword",
     "doubt_and_conviction",
@@ -12990,6 +13758,13 @@
       "type": "story",
       "title": "Have You Seen the Yellow Sign?",
       "text": "“He mentioned the establishment of the Dynasty in Carcosa, the lakes which connected Hastur, Aldebaran, and the mystery of the Hyades. He spoke of Cassilda and Camilla, and sounded the cloudy depths of Demhe and the Lake of Hali.” – Robert W. Chambers, “The Repairer of Reputations”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "hidden_keyword",
@@ -13152,6 +13927,495 @@
     }
   ]
 }, "scenarios": [
+{
+  "id": "ptc_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "type": "epilogue",
+  "setup": [
+    "check_epilogue"
+  ],
+  "steps": [
+    {
+      "id": "check_epilogue",
+      "text": "Check Campaign Log. If at least one investigator was possessed, <b>only those investigators</b> read this epilogue. Do not read it out loud unless all investigators were possessed.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "possessed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "possessed"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "possessed",
+      "type": "story",
+      "text": "It has taken months of preparation, but you are finally ready to unveil your latest work to the world. Gathering financial investments was your first task, of course. That hadn’t taken too long given the connections you’d made during your stay in Paris. You have been assured that the cast assembled is the finest that money could afford, but still you strive to make everything perfect. It must be perfect. The story must be told, so that the world knows. You’ve heard the troupe whisper behind your back: the remarks about your bizarre passion, the concern about your piercing yellow eyes. It matters not to you. All you care about is the performance. The pronunciation of the words. The melody of Cassilda’s song. The design of the Stranger’s mask.\nThis would be the greatest performance of <u>The King in Yellow</u> ever."
+    }
+  ]
+},
+{
+  "id": "ptc_interlude2",
+  "scenario_name": "Lost Soul",
+  "full_name": "Interlude II: Lost Soul",
+  "type": "interlude",
+  "setup": [
+    "daniel_choice",
+    "warning_choice",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "daniel_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "survived",
+            "text": "If an investigator resigned with the asset version of Daniel Chesterfield under their control.",
+            "steps": [
+              "daniel_survived",
+              "earn_2_xp"
+            ]
+          },
+          {
+            "id": "possessed",
+            "text": "If the enemy version of Daniel Chesterfield was in play when the scenario ended.",
+            "steps": [
+              "daniel_possessed"
+            ]
+          },
+          {
+            "id": "neither",
+            "text": "If neither of the above are true.",
+            "steps": [
+              "daniel_did_not_survive"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_2_xp",
+      "text": "Each investigator earns 2 additional experience as they gain insight into the machinations of the Tattered King.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "earn_1_xp",
+      "text": "Each investigator earns 1 additional experience as they gain insight into the machinations of the Tattered King.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "warning_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "ignore",
+            "text": "<i>Possession? Oaths? There must be another explanation for all of this.</i>",
+            "steps": [
+              "ignore_the_warning",
+              "ignored_daniels_warning",
+              "mark_2_doubt"
+            ]
+          },
+          {
+            "id": "heed",
+            "text": "<i>We must heed Daniel’s warning. We must not speak the name of the King in Yellow.</i>",
+            "steps": [
+              "heed_the_warning",
+              "heeded_daniels_warning",
+              "mark_2_conviction",
+              "earn_1_xp",
+              "forbidden_name"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "forbidden_name",
+      "text": "For the remainder of the campaign, any time an investigator speaks the name of HASTUR aloud during a scenario (or during the setup of a scenario), that investigator must immediately take 1 horror."
+    },
+    {
+      "id": "ignored_daniels_warning",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ignored_daniels_warning",
+          "text": "you ignored Daniel’s warning."
+        }
+      ]
+    },
+    {
+      "id": "mark_2_doubt",
+      "text": "Mark two <b>Doubt</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "doubt",
+          "operation": "add",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "mark_2_conviction",
+      "text": "Mark two <b>Conviction</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "conviction",
+          "operation": "add",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "heeded_daniels_warning",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "heeded_daniels_warning",
+          "text": "you heeded Daniel’s warning."
+        }
+      ]
+    },
+    {
+      "id": "daniel_survived",
+      "type": "story",
+      "text": "You decide to lay low for some time in Ma’s Boarding House and hide Daniel from the authorities, although you’re unsure how long you’ll be able to stay in Arkham with an escaped asylum patient. Daniel is a loose cannon, dazed and unresponsive one moment, and screaming for his life the next. It takes several days for him to realize he’s no longer institutionalized, which for some reason makes him even more terrified. “He’s coming for me, he’s coming for me!” he rambles, sometimes for hours at a time. Finally, during an unusually warm and starry night, Daniel is calm enough to open up to you. “The King in Yellow, it’s not just a play,” he explains. “It’s a being named Hastur, and He’s already claimed me. But there’s still time for you. You are not yet possessed. You have yet to speak the Oath. Whatever you do, speak not his name. Do not give in.” You ask him about the strange events that have been happening across town, and of the cultists and creatures you’ve encountered. “They are trying to find Carcosa,” he says matter-of-factly. You recognize the name as the fictional city from the play, the one The King in Yellow rules over. “They want to release Hastur from His prison. But you!—You can open the way to Carcosa before they do! You can seal Hastur for good!” He grips you tightly as he rants. “Quickly, before the Stranger discovers our plan!”\nHours later, Daniel is incoherent and unresponsive once more. You take a long walk to ease your thoughts, mulling over this new information. You’re unsure what to make of his wild claims. Before you can make a decision about what to do next, you return to find the door to your room broken open. Daniel lies in a heap on the ground, his face colorless and body limp. Judging from the bruising around his neck, you surmise that he has been choked to death."
+    },
+    {
+      "id": "daniel_did_not_survive",
+      "type": "story",
+      "text": "You decide to lay low for some time in Ma’s Boarding House, unsure whether news of the events at the asylum will get out to the general public. You take this time to make extensive notes of the events you’ve experienced thus far, including the brief dialogue between you and Daniel. He’d spoke of The King in Yellow as if it were an actual being, and even named it. “Hastur.” He’d rambled and muttered and screeched other phrases, as well. You doubt you’ll ever forget them. “He made us speak the Oath.” “The price was paid.” “They are opening the path to Carcosa.” For hours, you think about Daniel’s warning to you, which he begged you to heed: “Do not speak His name.” His final moments play out in your mind over and over again."
+    },
+    {
+      "id": "daniel_possessed",
+      "type": "story",
+      "text": "You decide to lay low for some time in Ma’s Boarding House, unsure whether news of the events at the asylum will get out to the general public. You take this time to make extensive notes of the events you’ve experienced thus far, including the brief dialogue between you and Daniel. He’d spoke of The King in Yellow as if it were an actual being, and even named it. “Hastur.” He’d rambled and muttered and screeched other phrases, as well. You doubt you’ll ever forget them. “He made us speak the Oath.” “The price was paid.” “They are opening the path to Carcosa.”\nOn the third night, you return to your room to find the door broken open. You enter cautiously, wondering if the police are onto you. Or worse, the Stranger. You are surprised to find the body of Daniel Chesterfield instead, lying on the ground with a pained, wide-eyed expression on his face. He is dead. His eyes are bloodshot and yellow, and he clutches a copy of The King in Yellow in his stiff hands. You pry the playbook from his deathly grasp and examine it. Daniel has scribbled notes in the margins of each page, mostly incomprehensible, but with a few lucid standouts. The first time the fictional city of Carcosa is mentioned, scrawled next to it Daniel has written:\n<center><fancy>*Carcosa is real\nDo not let them open the path</fancy></center>\nWhen Cassilda speaks of the tattered king, Daniel has written:<center><fancy>Hastur is the king in tatters\nlocked in his prison in the stars\nseal him away and stop this madness!</fancy></center>\nYour mind swims with questions. How did he escape the asylum? How did he die? And why does he appear human to your eyes now? With little time to spare, you clean the room of your belongings and flee. Daniel’s words, which he begged you to heed, play out in your mind over and over again."
+    },
+    {
+      "id": "ignore_the_warning",
+      "type": "story",
+      "text": "For hours, you struggle with this insight into The King in Yellow. What is true? What is real? Only you can sort through this madness."
+    },
+    {
+      "id": "heed_the_warning",
+      "type": "story",
+      "text": "For hours, you struggle with this insight into <u>The King in Yellow</u>. What is true? What is real? Only you can sort through this madness."
+    }
+  ]
+},
+{
+  "id": "ptc_interlude1",
+  "scenario_name": "Lunacy's Reward",
+  "full_name": "Interlude I: Lunacy's Reward",
+  "type": "interlude",
+  "setup": [
+    "house_choice",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "house_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "go_back_in",
+            "text": "<i>Things seem to have calmed down. Perhaps we should go back inside and investigate further.</i>",
+            "steps": [
+              "reward_1",
+              "why_go_back",
+              "intruded_on_secret_meeting",
+              "add_elder_things"
+            ]
+          },
+          {
+            "id": "block_door",
+            "text": "<i>I don’t trust this place one bit. Let’s block the door and get the hell out of here!</i>",
+            "steps": [
+              "reward_2",
+              "door_wont_stop_them",
+              "fled_dinner_party",
+              "add_tablets"
+            ]
+          },
+          {
+            "id": "burn_house",
+            "text": "<i>If these people are allowed to live, these horrors will only repeat themselves. We have to put an end to this. We have to <b>kill them.</b></i>",
+            "steps": [
+              "reward_3",
+              "did_what_had_to_be_done",
+              "slayed_the_monsters",
+              "slay_vips",
+              "add_cultists"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "why_go_back",
+      "text": "Why would you go back inside?"
+    },
+    {
+      "id": "door_wont_stop_them",
+      "text": "That door isn't going to stop them."
+    },
+    {
+      "id": "did_what_had_to_be_done",
+      "text": "You did what had to be done... Right?"
+    },
+    {
+      "id": "fled_dinner_party",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fled_dinner_party",
+          "text": "you fled the dinner party."
+        }
+      ]
+    },
+    {
+      "id": "intruded_on_secret_meeting",
+      "text": "In your Campaign Log, record that <i>you intruded on a secret meeting</i>. Mark one <b>Doubt</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "intruded_on_secret_meeting",
+          "text": "you intruded on a secret meeting."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "doubt",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "slayed_the_monsters",
+      "text": "In your Campaign Log, record that <i>you slayed the monsters at the dinner party</i>. Mark one <b>Conviction</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "slayed_the_monsters",
+          "text": "you slayed the monsters at the dinner party."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "conviction",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "add_elder_things",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [elder_thing] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist",
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "elder_thing",
+            "elder_thing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_tablets",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [tablet] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist",
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet",
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_cultists",
+      "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then, add 2 [cultist] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist",
+            "cultist",
+            "tablet",
+            "tablet",
+            "elder_thing",
+            "elder_thing"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist",
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "slay_vips",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03065b",
+          "text": "#name#"
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03066b",
+          "text": "#name#"
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03067b",
+          "text": "#name#"
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03068b",
+          "text": "#name#"
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "vips_slain",
+          "id": "03069b",
+          "text": "#name#"
+        }
+      ]
+    },
+    {
+      "id": "reward_1",
+      "type": "story",
+      "text": "The change in the atmosphere has you curious. What if it was all a trick of your mind? What if the hauntings that follow The King in Yellow are but transitory? The answers to all of your questions might lie inside. Cautiously, you open the front door to the manor once again. Reassuring jazz and the clamor of casual conversation grow louder as you step inside. The enticing smell of roasted pork wafts through the air. As you suspected, the signs of struggle and oddities you noticed before have vanished without explanation. Then, as you turn the corner into the dining room, you find the Stranger speaking with another man—tall, mustached, wearing a fine black suit, and holding a silver-handled cane. The Stranger turns to you, his gaze drills through your mind, and your vision swims with agony. Before you realize it, you are running as fast as you can, toppling through the front doorway in a haze of pain and disorientation. Without time to catch your breath, you race to your vehicle and speed away, hands trembling upon the steering wheel."
+    },
+    {
+      "id": "reward_2",
+      "type": "story",
+      "text": "You can’t trust your senses. This is all a trick, an attempt to lure you back inside. You’re no safer now than you were before. Swallowing your fear, you set to work barricading the front door of the manor using several of the heavy stone benches lining the cobblestone path in the front yard. You hope it’s enough, but you aren’t willing to stick around to find out. As soon as you’re done, you head back to your vehicle and drive toward Southside, where you hope to find answers."
+    },
+    {
+      "id": "reward_3",
+      "type": "story",
+      "text": "You dare not risk stepping back inside that madhouse. But you can’t let the monstrosities run amok, either. You root through the open garage for a few supplies, finding an old hose, an empty gasoline canister, and some matches. Knowing what you must do, you first siphon some gas from Mrs. Dumaine’s Oakland 6-54A. You spread the gasoline across the front porch, inside the garage, and around the manor’s outer walls. From there, all it takes is several matches to start the blaze. You watch from the front yard as the manor is eventually consumed by the flames. The sounds of crackling fire and snapping wood and the screeching of dying horrors fills the street. Satisfied, you head back to your vehicle and tear off toward Southside, full of grim determination."
+    }
+  ]
+},
+{
+  "id": "ptc_prologue",
+  "scenario_name": "Prologue",
+  "full_name": "Prologue",
+  "type": "interlude",
+  "setup": [
+    "choose_investigators",
+    "intro",
+    "check_lola_hayes"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You turn over the folded program in your hand, reading it for what seems like the hundredth time. “Miskatonic Playhouse presents: The King in Yellow,” it reads. “A special one-night engagement at Arkham’s very own Ward Theatre. An irresistible drama in two acts. Production staged and directed by Nigel Engram.” The cast is a small ensemble, with one unattributed credit at the end: “The Stranger.”\nTo have such a highly anticipated play come to Arkham all the way from Paris is a noteworthy event, even if it is just for one night. For weeks leading up to the show, it was the talk of the town. It seemed so unassuming...and yet, you have evidence something sinister is at work. It started with the disappearance of one of the stagehands at the theatre—a boy of only seventeen who missed rehearsal one night and was never seen again. Then, less than two weeks before the performance, there was the musician whose corpse was found with a gun in its mouth. Perhaps most chilling was the crazed man the coppers had picked up in Independence Square who had been ranting and raving about the “King’s return.” He was brought to Arkham Asylum, and you were surprised to discover that he was not alone in his delusions.\nFinding these events suspicious, you and your companions have delved deeper into the matter. Although no connection can be proven, these weren’t the only strange events surrounding the up-and-coming play. Instances of suicide and madness have followed in its wake, and you are determined to discover why.\nThe lights in the auditorium dim, and a spotlight shines on the stage. What unfolds is not quite what you expected. Slow-paced and monotonous, the first act of The King in Yellow is a tedious bore. The setting and characters are compelling, but the meandering and nonsensical story does little to entertain or inform. You begin to wonder whether the dreadful events surrounding The King in Yellow aren’t connected, after all. Perhaps it was just your overactive imagination; how could such a trivial and unassuming show cause such pandemonium? You are surprised when the first act closes without any rising action or revelation. The lights rise for the intermission, and you consider leaving early, stifling a yawn. Before you are able to decide, however, you find yourself drifting...drifting...to sleep."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "check_lola_hayes",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "03006",
+            "steps": [
+              "lola_hayes_reads",
+              "lola_prologue"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lola_hayes_reads",
+      "text": "The Lola Hayes player reads the following section (out loud)."
+    },
+    {
+      "id": "lola_prologue",
+      "type": "story",
+      "text": "Act I came and went without a hitch, as it often did in rehearsal. You couldn’t help but note the blank, dismissive expressions on many of the audience members’ faces, and you wonder how the audience will react to the play’s disturbing second half. The role of Cassilda is tiresomely boring for the first half of the play, although you enjoy portraying her regal charm. You find yourself missing your previous co-star, Miriam Twain, and suddenly the dread and regret you had felt in Paris comes flooding back. With a sigh, you retreat to a dark corner backstage to escape the sounds of stagehands preparing for the next scene. You try to quell your emotions and replace your thoughts with those of Cassilda’s—her hopes, her fears, her fate.\nJust then, you catch the Stranger staring at you from afar, and you find yourself shaking at the mere sight of him. Even though they continue to replace the actor who plays the Stranger before each show (and indeed many times during rehearsals), you know that this last-minute replacement is the most horrid of them all. Realizing you never caught his name, a shiver of terror courses through your spine. Have you found your way back to the wolves, like a lost lamb? You cannot look away— his gaze is inescapable. Everything goes black."
+    }
+  ]
+},
 {
   "id": "return_to_a_phantom_of_truth",
   "scenario_name": "Return to A Phantom of Truth",
@@ -13546,9 +14810,9 @@
           {
             "numCondition": -1,
             "steps": [
-              "more_or_equal_doubt",
-              "gather_doubt",
-              "act_1_v1"
+              "more_conviction",
+              "gather_conviction",
+              "act_1_v2"
             ]
           },
           {
@@ -13562,9 +14826,9 @@
           {
             "numCondition": 1,
             "steps": [
-              "more_conviction",
-              "gather_conviction",
-              "act_1_v2"
+              "more_or_equal_doubt",
+              "gather_doubt",
+              "act_1_v1"
             ]
           }
         ]
@@ -13634,7 +14898,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": [
               "transfer_onyx_clasp"
             ]
@@ -13708,7 +14972,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -13924,7 +15188,7 @@
     },
     {
       "id": "attach_scenario_reference",
-      "text": "For the duration of this scenario, the following additional rules apply:\n\"<b>Forced</b> - After The Organist enters play: Shuffle both set-aside copies of Figure in the Shadows into the encounter deck, along with the encounter discard pile.\"\nAttach the Return to A Phantom of Truth scenario reference card as a reminder."
+      "text": "For the duration of this scenario, the following additional rules apply:\n\"<b>Forced</b> - After The Organist enters play: Shuffle both set-aside copies of Figure in the Shadows into the encounter deck, along with the encounter discard pile.\"\nAttach the Return to A Phantom of Truth scenario reference card to the scenario reference card as a reminder."
     }
   ],
   "resolutions": [
@@ -13994,9 +15258,9 @@
     "gather_encounter_sets",
     "flood_below",
     "add_chaos_token",
+    "randomize_knights_hall_and_cloister",
     "agenda_setup",
     "no_act_deck",
-    "randomize_knights_hall_and_cloister",
     "set_aside_cards",
     "remove_locations",
     "setup_locations",
@@ -14179,7 +15443,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": [
               "transfer_onyx_clasp"
             ]
@@ -14267,13 +15531,76 @@
             "steps": [
               "mitpm_defeated"
             ]
+          },
+          {
+            "id": "mark_conviction_or_doubt",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "bsr_conviction_or_doubt",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Mark Conviction or Doubt",
+            "steps": [
+              "mark_conviction_or_doubt"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_conviction_or_doubt",
+      "text": "Which should be marked, <b>Conviction</b> or <b>Doubt</b>?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "conviction",
+            "text": "Mark one <b>Conviction</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "conviction",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "doubt",
+            "text": "Mark one <b>Doubt</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "doubt",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bsr_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -15080,7 +16407,7 @@
     },
     {
       "id": "act_2_v1",
-      "text": "Because you have 5 or less total <b>Doubt</b> and Conviction:",
+      "text": "Because you have 5 or less total <b>Doubt</b> and <b>Conviction</b>:",
       "bullets": [
         {
           "text": "Use Act 2—Search For the Stranger (v. I). Remove each other version of Act 2 from the game."
@@ -15089,7 +16416,7 @@
     },
     {
       "id": "act_2_v2",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and have more <b>Doubt</b> than <b>Conviction</b>.",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and have more <b>Doubt</b> than <b>Conviction</b>.",
       "bullets": [
         {
           "text": "Use Act 2—Search the Stranger (v. II). Remove each other version of Act 2 from the game."
@@ -15098,7 +16425,7 @@
     },
     {
       "id": "act_2_v3",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and have more <b>Conviction</b> than Doubt:",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and have more <b>Conviction</b> than Doubt:",
       "bullets": [
         {
           "text": "Use Act 2—Search the Stranger (v. III). Remove each other version of Act 2 from the game."
@@ -15107,7 +16434,7 @@
     },
     {
       "id": "act_2_choice",
-      "text": "Because you have 6 or more total <b>Doubt</b> and Conviction, and you have exactly equal <b>Doubt</b> and Conviction:",
+      "text": "Because you have 6 or more total <b>Doubt</b> and <b>Conviction</b>, and you have exactly equal <b>Doubt</b> and Conviction:",
       "bullets": [
         {
           "text": "You may choose to use either Act 2—Search For the Stranger (v. II) or Act 2—Search For the Stranger (v. III). Remove each other version of Act 2 from the game."
@@ -15177,7 +16504,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": [
               "transfer_onyx_clasp"
             ]
@@ -15368,7 +16695,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -15886,7 +17213,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -16174,7 +17501,7 @@
     },
     {
       "id": "attach_scenario_reference",
-      "text": "For the duration of this scenario, the following additional rule applies:\n\"<b>Forced</b> - After the investigators advance to act 2 or act 3: Spawn a set-aside Keeper of the Oath in any empty Historical Society location.\"\nYou can attach the Return to Echoes of the Past scenario reference card as a reminder."
+      "text": "For the duration of this scenario, the following additional rule applies:\n\"<b>Forced</b> - After the investigators advance to act 2 or act 3: Spawn a set-aside Keeper of the Oath in any empty Historical Society location.\"\nAttach the Return to Echoes of the Past scenario reference card to the scenario reference card as a reminder."
     }
   ],
   "resolutions": [
@@ -16332,7 +17659,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -16436,11 +17763,12 @@
     },
     {
       "id": "skip_lunacys_reward",
+      "text": "Skip <b>Interlude I: Lunacy's Reward</b>.",
       "effects": [
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
-          "scenario": "lunacys_reward"
+          "scenario": "ptc_interlude1"
         }
       ]
     },
@@ -16485,7 +17813,7 @@
       "type": "encounter_sets",
       "encounter_sets": [
         "the_last_king",
-        "retun_to_the_last_king",
+        "return_to_the_last_king",
         "hasturs_gift",
         "decaying_reality",
         "stranger",
@@ -16513,7 +17841,7 @@
   "resolutions": [
     {
       "id": "no_resolution_resigned",
-      "title": "No Resolution (at least one investigator resigned)",
+      "title": "No resolution\n(at least one investigator resigned)",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -16526,7 +17854,7 @@
     },
     {
       "id": "no_resolution_defeated",
-      "title": "No Resolution (all investigators defeated)",
+      "title": "No resolution\n(all investigators defeated)",
       "investigator_status": [
         "eliminated",
         "physical",
@@ -16757,7 +18085,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": [
               "transfer_onyx_clasp"
             ]
@@ -16831,13 +18159,78 @@
             "steps": [
               "mitpm_defeated"
             ]
+          },
+          {
+            "id": "mark_conviction_or_doubt",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tpm_conviction_or_doubt",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Mark Conviction or Doubt",
+            "steps": [
+              "mark_conviction_or_doubt"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_conviction_or_doubt",
+      "text": "How was act 2 advanced?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "conviction",
+            "text": "The Man in the Pallid Mask was defeated.",
+            "description": "Mark two <b>Conviction</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "conviction",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tpm_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "doubt",
+            "text": "You spent clues to advance.",
+            "description": "Mark two <b>Doubt</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "doubt",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tpm_conviction_or_doubt",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -17075,7 +18468,7 @@
     },
     {
       "id": "attach_scenario_reference",
-      "text": "For the duration of this scenario, the following additional rules apply:\n\"For the purposes of Corpse Dweller's spawn ability, The Man in the Pallid Mask does not count as a [[Humanoid]] enemy.\nWhile it is act 2, The Man in the Pallid Mask cannot leave the Tomb of Shadows.\"\nAttach the Return to The Pallid Mask scenario reference card as a reminder."
+      "text": "For the duration of this scenario, the following additional rules apply:\n\"For the purposes of Corpse Dweller's spawn ability, The Man in the Pallid Mask does not count as a [[Humanoid]] enemy.\nWhile it is act 2, The Man in the Pallid Mask cannot leave the Tomb of Shadows.\"\nAttach the Return to The Pallid Mask scenario reference card to the scenario reference card as a reminder."
     }
   ],
   "resolutions": [
@@ -17126,7 +18519,7 @@
 {
   "id": "return_to_the_unspeakable_oath",
   "scenario_name": "Return to The Unspeakable Oath",
-  "full_name": "Scenario IV: Retun to The Unspeakable Oath",
+  "full_name": "Scenario IV: Return to The Unspeakable Oath",
   "setup": [
     "check_followers_of_the_sign_found_way",
     "intro_3",
@@ -17366,7 +18759,7 @@
         "investigator": "any",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": [
               "transfer_onyx_clasp"
             ]
@@ -17407,7 +18800,7 @@
     },
     {
       "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark",
+      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
       "effects": [
         {
           "type": "campaign_log_count",
@@ -17455,6 +18848,7 @@
     },
     {
       "id": "take_onyx_clasp",
+      "bullet_type": "small",
       "text": "Choose a new investigator to take the onyx clasp. That investigator must include the Clasp of Black Onyx weakness in their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
@@ -17647,7 +19041,7 @@
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
-          "scenario": "lost_soul"
+          "scenario": "ptc_interlude2"
         }
       ]
     },
@@ -17701,31 +19095,31 @@
           {
             "numCondition": -1,
             "steps": [
-              "act_2_v4"
+              "more_doubt_act_2_v4"
             ]
           },
           {
             "numCondition": 0,
             "steps": [
-              "act_2_v3"
+              "more_or_equal_conviction_act_2_v3"
             ]
           },
           {
             "numCondition": 1,
             "steps": [
-              "act_2_v3"
+              "more_or_equal_conviction_act_2_v3"
             ]
           }
         ]
       }
     },
     {
-      "id": "act_2_v3",
+      "id": "more_or_equal_conviction_act_2_v3",
       "bullet_type": "small",
       "text": "Because you have more (or equal) <b>Conviction</b> than <b>Doubt</b>, use Act 2—”The Really Bad Ones” (v. III)."
     },
     {
-      "id": "act_2_v4",
+      "id": "more_doubt_act_2_v4",
       "bullet_type": "small",
       "text": "Because you have more <b>Doubt</b> than <b>Conviction</b>, use Act 2—”The Really Bad Ones” (v. IV)."
     }
@@ -21653,7 +23047,7 @@
   "resolutions": [
     {
       "id": "no_resolution_defeated",
-      "title": "No Resolution (each investigator defeated)",
+      "title": "No resolution\n(each investigator defeated)",
       "investigator_status": [
         "eliminated",
         "physical",
@@ -21663,7 +23057,7 @@
     },
     {
       "id": "no_resolution_resigned",
-      "title": "No Resolution (at least one investigator resigned)",
+      "title": "No resolution\n(at least one investigator resigned)",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -25589,6 +26983,7 @@
   ],
   "setup": [
     "prologue",
+    "choose_investigators",
     "difficulty_choice",
     "supplies",
     "vengeance",
@@ -25600,6 +26995,13 @@
       "type": "story",
       "title": "Earth is Not Ours",
       "text": "“Primal myth and modern delusion joined in their assumption that mankind is only one—perhaps the least—of the highly evolved and dominant races of this planet’s long and largely unknown career.” – H. P. Lovecraft, “The Shadow out of Time”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
     },
     {
       "id": "supplies",
@@ -27457,15 +28859,15 @@
       "text": "<right><fancy>Tuesday, June 2nd, 1925</fancy></right>\nThere will be no rest for us this summer, it seems.\nToday I met with Harlan Earnstone, a historical theorist at Miskatonic University and an old friend of mine. He’d said he had a job offer for me, but frankly, I didn’t know what to expect.\nHarlan introduced me to an associate of his: Alejandro Vela, a distinguished historian from across the southern border. Mr. Vela is a graduate of a prestigious university in Mexico City, and has spent many years researching the Aztec Empire. He claims that he has found evidence regarding the existence of an unheard-of Aztec city-state called Eztli. His strange and unprecedented findings were not accepted by the university, and he’s become a pariah among his peers.\nAlejandro came to Arkham to seek funding for an expedition into the rainforests of southern Mexico, where he believes that the ruins of the Eztli altepetl lie undiscovered. His description of this city-state’s origins defies modern understanding of Mesoamerican history. Despite this— or, knowing my old friend, because of this—Harlan is enthralled by Alejandro’s discoveries. Miskatonic University has agreed to fund the expedition (albeit meagerly), and Harlan wants me to go along.\nThe way I see it, there’s a good chance we’re looking for something that doesn’t even exist. But if there’s even a slight chance these Eztli people existed, the historical significance would be profound. We debated the issue for some time, but in the end, we accepted Alejandro’s offer. Preparations are underway, and we should be setting off by the end of the month. With any luck, we’ll have this journal filled with all manner of interesting discoveries. If not, perhaps it’ll be a nice wedge to place beneath Harlan’s lopsided desk."
     },
     {
-      "id": "expedition_leader",
-      "text": "If Ursula Downs, Leo Anderson, or Monterey Jack was chosen as an investigator for this campaign: Choose one of those investigators to be the expedition leader. That investigator begins Scenarios I and II as the lead investigator."
-    },
-    {
       "id": "choose_investigators",
       "type": "input",
       "input": {
         "type": "scenario_investigators"
       }
+    },
+    {
+      "id": "expedition_leader",
+      "text": "If Ursula Downs, Leo Anderson, or Monterey Jack was chosen as an investigator for this campaign: Choose one of those investigators to be the expedition leader. That investigator begins Scenarios I and II as the lead investigator."
     },
     {
       "id": "supplies",
