@@ -2,6 +2,7 @@
 
 set -e
 
+node scripts/generateReturnCampaigns.js
 node scripts/schemaValidate.js
 scripts/build.sh
 

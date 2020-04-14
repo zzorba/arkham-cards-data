@@ -183,7 +183,10 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, 'scenario');
     const QUIET = false;
-    getFilePaths('./campaigns').sort().map(file => {
+    [
+      ...getFilePaths('./campaigns').sort(),
+      ...getFilePaths('./build/return_campaigns').sort(),
+    ].sort().map(file => {
       if (!file.endsWith('.schema.json') && !file.endsWith('campaign.json') && file.endsWith('.json')) {
         const data = fs.readFileSync(file, 'utf-8').toString();
         if (!QUIET) {
@@ -210,7 +213,10 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, 'campaign');
     const QUIET = true;
-    getFilePaths('./campaigns').sort().map(file => {
+    [
+      ...getFilePaths('./campaigns').sort(),
+      ...getFilePaths('./build/return_campaigns').sort(),
+    ].map(file => {
       if (file.endsWith('campaign.json')) {
         const data = fs.readFileSync(file, 'utf-8').toString();
         if (!QUIET) {

@@ -17,6 +17,7 @@ getFilePaths('./return_campaigns').sort().map(file => {
   }
   const json = jsonlint.parse(fs.readFileSync(file, 'utf-8').toString());
   const originalId = json.original_id;
+  console.log(file);
   if (file.endsWith('campaign.json')) {
     const originalData = fs.readFileSync(
       file.replace('return_campaigns/rt', 'campaigns/'),
@@ -40,14 +41,14 @@ getFilePaths('./return_campaigns').sort().map(file => {
     }
     const newFile = file.replace('return_campaigns/rt', './campaigns/')
       .replace(json.id, json.original_id);
-    console.log(newFile);
     const originalJson = jsonlint.parse(fs.readFileSync(newFile, 'utf-8').toString());
     const newStepsIds = new Set(json.steps.map(step => step.id));
     const steps = [
       ...originalJson.steps.filter(step => !newStepsIds.has(step.id)),
       ...json.steps,
     ];
-    fs.writeFileSync(file.replace('return_campaigns', './build/return_campaigns'),
+    const outputFile = file.replace('return_campaigns/', './build/return_campaigns/');
+    fs.writeFileSync(outputFile,
       JSON.stringify({
         ...originalJson,
         ...json,
