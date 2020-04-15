@@ -192,9 +192,9 @@
       "text": "Note: Some effects first encountered in this scenario may cause doom to be placed on enemies. Remember that doom on enemies counts toward the amount of doom that will advance the agenda."
     },
     {
-      "id": "cultists_interrogated_r1",
-      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” under “Cultists Who Got Away” as well.",
+      "id": "cultists_interrogated",
       "type": "input",
+      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.",
       "input": {
         "type": "card_choice",
         "query": [
@@ -205,18 +205,6 @@
           }
         ],
         "choices": [
-          {
-            "id": "got_away",
-            "text": "Got away",
-            "effects": [
-              {
-                "type": "campaign_log_cards",
-                "section": "cultists_escaped",
-                "id": "$input_value",
-                "text": "#name#"
-              }
-            ]
-          },
           {
             "id": "interrogated",
             "text": "Interrogated",
@@ -233,8 +221,8 @@
       }
     },
     {
-      "id": "cultists_interrogated_r2",
-      "text": "In your Campaign Log, under “Cultists We Interrogated,” record the names of each unique Cultist enemy in the victory display.\nIn your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play.",
+      "id": "cultists_got_away_r1",
+      "text": "In your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play. If it is Agenda 1, record “The Masked Hunter” under “Cultists Who Got Away” as well.",
       "type": "input",
       "input": {
         "type": "card_choice",
@@ -257,14 +245,31 @@
                 "text": "#name#"
               }
             ]
-          },
+          }
+        ]
+      }
+    },
+    {
+      "id": "cultists_got_away_r2",
+      "text": "In your Campaign Log, under “Cultists Who Got Away,” record the name of each unique enemy still remaining in the Cultist deck or in play.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
           {
-            "id": "interrogated",
-            "text": "Interrogated",
+            "trait": "cultist",
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "got_away",
+            "text": "Got away",
             "effects": [
               {
                 "type": "campaign_log_cards",
-                "section": "cultists_interrogated",
+                "section": "cultists_escaped",
                 "id": "$input_value",
                 "text": "#name#"
               }
@@ -359,13 +364,13 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
-      "steps": ["cultists_interrogated_r1", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
+      "steps": ["cultists_interrogated", "cultists_got_away_r1", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "Twelve bells ring out, signaling midnight. You’re out of time; the cult’s ritual will begin shortly. You’ve managed to obtain some useful information about the cult and its plans. You can only hope it’s enough.",
-      "steps": ["cultists_interrogated_r2", "past_midnight", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
+      "steps": ["cultists_interrogated", "cultists_got_away_r2", "past_midnight", "ghoul_priest_defeated", "earn_xp", "$upgrade_decks"]
     }
   ]
 }
