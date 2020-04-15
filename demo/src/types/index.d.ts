@@ -640,6 +640,9 @@ export interface LocationSetupStep {
   type: "location_setup";
   text: string;
   title?: string;
+  note?: string;
+  vertical: "half" | "normal";
+  horizontal: "half" | "normal" | "tight";
   locations: string[][];
   bullet_type?: null;
 }
