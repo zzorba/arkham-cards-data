@@ -133,6 +133,7 @@ export interface FullCampaign {
 export interface Campaign {
   id: string;
   name: string;
+  version: number;
   position: number;
   campaign_log: {
     id: string;
