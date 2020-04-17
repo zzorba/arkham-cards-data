@@ -29,6 +29,30 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "campaignLinkInput": {
+      "$id": "#campaignLinkInput",
+      "title": "campaignLinkInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_link"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/choice"
+          }
+        }
+      },
+      "required": ["type", "id", "choices"],
+      "additionalProperties": false
+    },
     "textBoxInput": {
       "$id": "#textBoxInput",
       "title": "TextBoxInput",
@@ -135,8 +159,12 @@
             "any"
           ]
         },
-        "detailed": {
-          "type": "boolean"
+        "special_mode": {
+          "type": "string",
+          "enum": [
+            "detailed",
+            "sequential"
+          ]
         },
         "choices": {
           "type": "array",
@@ -445,6 +473,9 @@
         },
         {
           "$ref": "#/definitions/textBoxInput"
+        },
+        {
+          "$ref": "#/definitions/campaignLinkInput"
         }
       ]
     }

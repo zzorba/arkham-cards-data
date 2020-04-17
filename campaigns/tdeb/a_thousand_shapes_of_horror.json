@@ -8,6 +8,7 @@
     "intro_4",
     "gather_encounter_sets",
     "setup_locations",
+    "location_layout",
     "set_aside_cards",
     "encounter_deck",
     "$play_scenario"
@@ -68,11 +69,24 @@
     },
     {
       "id": "setup_locations",
-      "text": "Put the following locations into play: Burial Ground, Front Porch, Upstairs Hallway, both Downstairs Doorways, and both Upstairs Doorways (see suggested location placement on next page).",
+      "text": "Put the following locations into play: Burial Ground, Front Porch, Upstairs Hallway, both Downstairs Doorways, and both Upstairs Doorways.",
       "bullets": [
         {
-          "text": "Each investigator begins play at the Burial Ground"
+          "text": "Each investigator begins play at the Burial Ground."
         }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["06179_back", "blank", "06179_back"],
+        ["blank", "06178_back", "blank"],
+        ["06176_back", "06175_back", "06176_back"],
+        ["blank", "06174_back", "blank"]
       ]
     },
     {
@@ -188,6 +202,34 @@
       "id": "resolution_4",
       "type": "resolution",
       "resolution": "R4"
+    },
+    {
+      "id": "maybe_skip_interlude",
+      "text": "If you are playing The Web of Dreams as a four-part campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "half_campaign",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["skip_interlude"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skip_interlude",
+      "bullet_type": "small",
+      "text": "Skip <b>Interlude II: The Oneironauts</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "the_oneironauts"
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -205,7 +247,7 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "This place is nothing like the mystical forests, charming medieval villages, and majestic panoramas of which Virgil Gray wrote in his stories. No, far from it: this cold, bleak gulf eats away your hope and replaces it with a feeling of empty, meaningless dread. You ask Randolph if this is the way to your comatose companions. You almost hope that you are traveling in the wrong direction, so you can leave this awful place behind.\n“I do not know,” he replies, peering out one of the windows along the stairway. “We have traveled beyond the waking world, but this is the lower plane of the Dreamlands, known as the Underworld. It is an inhospitable place. Many of the creatures we have seen crossing over into our world come from this region. Perhaps our key knew this was our true destination?” Your guide examines the arcane key you found in the abandoned house, running his fingers over its arabesques as though recalling its shape, its weight, its texture. His eyes water with the depth of his loss.\nYou offer to hold the key for him, which yanks him from his private thoughts. “Ah. Yes, perhaps that would be best,” he says, handing the delicate artifact to you. It is surprisingly heavy for something that, according to Randolph, is not real.\nWith Randolph and the Silver Key in tow, you continue your descent anew. The Underworld may or may not be where your companions are, but if the creatures invading the world of the waking are indeed from this place, then perhaps here you can find answers.",
-      "steps": ["randolph_survived_descent", "possess_silver_key", "earn_xp", "add_skull"]
+      "steps": ["randolph_survived_descent", "possess_silver_key", "earn_xp", "add_skull", "maybe_skip_interlude"]
     },
     {
       "id": "R2",
@@ -217,13 +259,13 @@
       "id": "R3",
       "title": "Resolution 3",
       "text": "You barely hear Randolph shouting to you over the maelstrom of ice-cold air that surrounds you. Despite all odds, you somehow reach him, the indescribable monstrosity hot on your heels. Randolph wrenches open your hand, grabs the key you found in the unnamed house, and clutches it tightly. He closes his eyes and whispers something inaudible. As the abominable torrent crashes into you, everything goes black.\nWhen you awaken, you lie on a flat stone platform overlooking a steep, straight staircase that descends into unknown depths. Behind you, the stairway curls upward into a stone spire that ascends into a hazy mist. In both directions, the entirety of the cavern is dimly lit with grey phosphorescence. Randolph pulls you to your feet. “That was a close one,” he admits. “I never wish to take a journey like that again.” You ask where you are, and he bites his lip, looking out over the bleak, desolate scenery.\n“This is the lower plane of the Dreamlands, known as the Underworld. It is an inhospitable place. Many of the creatures we have seen crossing over into our world come from this region. Perhaps our key knew this was our true destination. I think…I think it is gone now,” your guide explains.\nYou are thunderstruck. Randolph grits his teeth at your reaction and looks away in shame. “Forget it. We no longer need it anyway. Let’s go.” His curt reply echoes off the stone steps. With Randolph leading the way, you continue your descent anew. The Underworld may or may not be where your companions are, but if the creatures invading the world of the waking are indeed from this place, then perhaps here you can find answers.",
-      "steps": ["randolph_survived_descent", "earn_xp", "add_skull"]
+      "steps": ["randolph_survived_descent", "earn_xp", "add_skull", "maybe_skip_interlude"]
     },
     {
       "id": "R4",
       "title": "Resolution 4",
       "text": "In the debris, you spot it: something glinting within the maelstrom of ice-cold air and dust, something that calls to you, whispers your name. You barely hear Randolph shouting as the indescribable monstrosity crashes into him. Despite all odds, you somehow reach the rubble that was once the attic of the house with no name. You realize now what that elusive glimmer was: the polished reflection of a bright silver key. “Use it!” Randolph screams between cries of agony. The abomination climbs atop his body. “Use it now, while you ca—”\nThe thing cuts Randolph’s cry short as it envelops his body. You clutch the key tightly in your hand and shudder as you watch a thousand shapes of horror devour Randolph whole. You think of your companions, trapped somewhere in a perilous dream far from home, and the key’s glow intensifies, swallowing you as completely as the creature swallowed Randolph. Everything goes white.\nWhen you awaken, you lie on a flat stone platform overlooking a steep, straight staircase that descends into unknown depths. Behind you, the stairway curls upward into a stone spire that ascends into a hazy mist. In both directions, the entirety of the cavern is dimly lit with grey phosphorescence. You search for the Silver Key, but it has vanished. There is no sign of Randolph Carter.\nIt is clear you are no longer in the waking world. Perhaps the key transported your physical body into the Dreamlands, as Randolph claimed it could. But this place is nothing like the mystical forests, charming medieval villages, and majestic panoramas of which Virgil Gray wrote in his stories. No, far from it: this cold, bleak gulf eats away your hope and replaces it with a feeling of empty, meaningless dread. You peer once more up the countless steps behind you. It seems you have no choice now but to move on, deeper into this desolate and perilous realm.",
-      "steps": ["randolph_did_not_survive_descent", "earn_xp"]
+      "steps": ["randolph_did_not_survive_descent", "earn_xp", "maybe_skip_interlude"]
     }
   ]
 }

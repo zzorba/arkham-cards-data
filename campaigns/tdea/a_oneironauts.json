@@ -1,0 +1,518 @@
+{
+  "id": "the_oneironauts",
+  "scenario_name": "The Oneironauts",
+  "full_name": "Interlude II: The Oneironauts",
+  "type": "interlude",
+  "setup": [
+    "check_black_cat_has_a_hunch",
+    "check_you_asked_for_it"
+  ],
+  "steps": [
+    {
+      "id": "check_black_cat_has_a_hunch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_has_a_hunch",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_oneironauts_black_cat_had_hunch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_oneironauts_black_cat_has_a_hunch",
+      "type": "input",
+      "input": {
+        "type": "campaign_link",
+        "id": "oneironauts_black_cat_has_a_hunch",
+        "choices": [
+          {
+            "id": "cross_out",
+            "text": "Cross off <i>the black cat has a hunch.</i>",
+            "steps": ["cross_off_black_cat_had_hunch"]
+          },
+          {
+            "id": "keep",
+            "text": "No change"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_off_black_cat_had_hunch",
+      "bullet_type": "small",
+      "text": "In both Campaign Logs, cross off <i>the black cat has a hunch</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_has_a_hunch",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "check_you_asked_for_it",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "you_asked_for_it",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["skip_rest_of_interlude_cat_mad"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "oneironauts_2",
+              "check_someone_escaped",
+              "check_everyone_captured",
+              "check_black_cat_has_a_hunch"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "oneironauts_2",
+      "type": "story",
+      "text": "You open your eyes to the sound of a cat’s shrill caterwauling. You had been drifting off to…well, not sleep, exactly. Despite—or perhaps due to—your dreaming, you have been unable to truly sleep in this realm. When you come to your senses, you spot the source of the wailing: Virgil’s cat, black as the void of space itself, sits several feet away waiting for you to pay attention. “Finally,” it declares, “about time you noticed something outside your own head. Listen, I got something important to tell you.”"
+    },
+    {
+      "id": "skip_rest_of_interlude_cat_mad",
+      "bullet_type": "small",
+      "text": "Skip the rest of this interlude."
+    },
+    {
+      "id": "check_someone_escaped",
+      "text": "If at least one investigator was not captured:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "someone_escaped",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["escaped_story"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "escaped_story",
+      "type": "story",
+      "text": "“Wait, where is my human?” the cat asks, craning its head to look around the deck of your ship. “Didn’t I leave him with you?”\nYou explain that Virgil has been taken captive by Corsairs, and the cat replies by licking its paw without much concern. “Oh yeah, that’s right. Okay. I’m on the same page as you now.”"
+    },
+    {
+      "id": "check_everyone_captured",
+      "text": "If all of the investigators were captured:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "everyone_captured",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["captured_story"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "captured_story",
+      "type": "story",
+      "text": "You try to shush the black cat, but it ignores you. “Relax. Your captors are all up on deck at the moment.” You ask bitterly why the creature is so cavalier about your capture, and request that it free you. “Nah. Somebody else has that covered, if memory serves,” it replies enigmatically."
+    },
+    {
+      "id": "check_black_cat_has_a_hunch",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_has_a_hunch",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_randolph_eluded_capture"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resume_interlude_no_message"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_randolph_eluded_capture",
+      "type": "branch",
+      "text": "<i>If the black cat has a hunch</i> and <i>Randolph eluded capture</i>:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "randolph_eluded_capture",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "black_cat_talks_to_randolph",
+                  "skip_rest_of_interlude_truth"
+                ]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "black_cat_is_searching_for_the_truth",
+                "text": "the black cat is searching for the truth."
+              },
+              {
+                "type": "campaign_link",
+                "id": "oneironauts_searching_for_the_truth",
+                "decision": "black_cat_is_searching_for_the_truth"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "resume_interlude",
+              "check_oneironauts_decision"
+            ],
+            "effects": [
+              {
+                "type": "campaign_link",
+                "id": "oneironauts_searching_for_the_truth",
+                "decision": "no_change"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "black_cat_talks_to_randolph",
+      "type": "story",
+      "text": "The black cat sees Randolph at the helm of your ship and glares at him suspiciously. You wonder aloud what is wrong. “Normally I like the smell of fish, but this is too fishy. Something is wrong. There are not supposed to be two of him. But my memory is fuzzy…” You thought you were confused before, but now you are truly lost. Two Randolphs? “Yes,” the black cat affirms. “This one, and another in the waking world. That seems off,” the black cat understates the problem. “I think something is trying to interfere. I need to go figure this out.” With that, the cat leaps out of view."
+    },
+    {
+      "id": "skip_rest_of_interlude_truth",
+      "bullet_type": "small",
+      "text": "Skip the rest of this interlude. In both Campaign Logs, record <i>the black cat is searching for the truth</i>."
+    },
+    {
+      "id": "resume_interlude",
+      "type": "story",
+      "text": "“Now, where was I? Oh, right. I had a chat with your friends. They’re in the Dreamlands now, too. They have a message for you.”"
+    },
+    {
+      "id": "resume_interlude_no_message",
+      "type": "story",
+      "text": "“Now, where was I? Oh, right. I had a chat with your friends. They’re in the Dreamlands now, too.”"
+    },
+    {
+      "id": "check_oneironauts_decision",
+      "type": "input",
+      "input": {
+        "type": "campaign_link",
+        "id": "oneironauts_decision",
+        "choices": [
+          {
+            "id": "black_cat_requested_aid",
+            "text": "The black cat requested aid from the others.",
+            "steps": ["requested_aid_story", "move_cat_to_campaign_b", "interlude_done"]
+          },
+          {
+            "id": "black_cat_warned_the_others",
+            "text": "The black cat warned the others.",
+            "steps": ["warned_the_others_story", "move_cat_to_campaign_a", "interlude_done"]
+          },
+          {
+            "id": "black_cat_shared_knowledge_of_the_underworld",
+            "text": "The black cat shared knowledge of the Underworld.",
+            "steps": ["knowledge_of_underworld_story", "dreamers_know_of_another_path", "remove_cat", "interlude_done"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "requested_aid_story",
+      "type": "story",
+      "text": "“Your friends are in a bit of trouble. They took a one-way trip to a pretty awful place, and I don’t know if they’ll be able to navigate it without me. I know your quest is looking pretty dire right now, too, but if I don’t stick by them, it won’t matter whether you reach Kadath or not. Good luck. Try not to die.” With that, the black cat leaps out of view."
+    },
+    {
+      "id": "warned_the_others_story",
+      "type": "story",
+      "text": "“Your friends are doing about as well as can be expected, really. But they’re worried about you, and for good reason, it seems. They might not be able to reach you any time soon. They want me to help you out instead, so I’ll be staying here for a little while longer. Gotta make sure you survive. If you don’t, well…” it takes a long pause, “…let’s not talk about that.”"
+    },
+    {
+      "id": "knowledge_of_underworld_story",
+      "type": "story",
+      "text": "The black cat tells you all about the region of the Dreamlands your companions have entered. “The entire surface of the Dreamlands, where you’ve been exploring, covers the Underworld like a beautiful silk dress over decayed skin. You have no reason to go there, which is a good thing, because it is a particularly inhospitable place. You actually might have walked right by one entrance to the Underworld, now that I think about it—back in the Enchanted Woods. There are several other entrances as well: beneath an old monastery in Leng, another in the ruins of Sarkomand…”"
+    },
+    {
+      "id": "dreamers_know_of_another_path",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dreamers_know_of_another_path",
+          "text": "the dreamers know of another path."
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_b",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["move_cat_to_campaign_b_check_elder_thing"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["cat_already_in_campaign_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "move_cat_to_campaign_b_check_elder_thing",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "elder_thing",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["move_cat_to_campaign_b_from_nowhere"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["move_cat_to_campaign_b_from_campaign_a"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cat_already_in_campaign_b",
+      "text": "Because the Campaign Log for <i>The Web of Dreams</i> (Campaign B) already has <i>the black cat is at your side</i> recorded, no change is made."
+    },
+    {
+      "id": "move_cat_to_campaign_b_from_nowhere",
+      "text": "Because neither Campaign Log has <i>the black cat is at your side</i> recorded, in the Campaign Log for <i>The Web of Dreams</i> (Campaign B), record <i>the black cat is at your side</i>. Add 1 [tablet] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_b_from_campaign_a",
+      "text": "Because the Campaign Log for <i>The Dream-Quest</i> (Campaign A) has <i>the black cat is at your side</i> recorded, cross it off and record it in the Campaign Log for <i>The Web of Dreams</i> (Campaign B) instead. Replace 1 [elder_thing] token in each campaign’s chaos bag with 1 [tablet] token.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side",
+          "cross_out": true
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["elder_thing"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_a",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "elder_thing",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["move_cat_to_campaign_a_check_tablet"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["cat_already_in_campaign_a"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "move_cat_to_campaign_a_check_tablet",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["move_cat_to_campaign_a_from_nowhere"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["move_cat_to_campaign_a_from_campaign_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cat_already_in_campaign_a",
+      "text": "Because the Campaign Log for <i>The Dream-Quest</i> (Campaign A) already has <i>the black cat is at your side</i> recorded, no change is made."
+    },
+    {
+      "id": "move_cat_to_campaign_a_from_nowhere",
+      "text": "Because neither Campaign Log has <i>the black cat is at your side</i> recorded, in the Campaign Log for <i>The Dream-Quest</i> (Campaign A), record <i>the black cat is at your side</i>. Add 1 [elder_thing] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_a_from_campaign_b",
+      "text": "Because the Campaign Log for <i>The Web of Dreams</i> (Campaign B) has <i>the black cat is at your side</i> recorded, cross it off and record it in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead. Replace 1 [tablet] token in each campaign’s chaos bag with 1 [elder_thing] token.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side",
+          "text": "the black cat is at your side."
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "remove_cat",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "elder_thing",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["remove_cat_check_tablet"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["remove_cat_from_campaign_a"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_cat_check_tablet",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["remove_cat_from_nowhere"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["remove_cat_from_campaign_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_cat_from_nowhere",
+      "text": "Because neither Campaign Log has <i>the black cat is at your side</i> recorded, no change is made."
+    },
+    {
+      "id": "remove_cat_from_campaign_a",
+      "text": "Because the Campaign Log for <i>The Dream-Quest</i> (Campaign A) has <i>the black cat is at your side</i> recorded, cross it off. Remove 1 [elder_thing] token from the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side",
+          "cross_out": true
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "remove_cat_from_campaign_b",
+      "text": "Because the Campaign Log for <i>The Web of Dreams</i> (Campaign B) has <i>the black cat is at your side</i> recorded, cross it off. Remove 1 [tablet] token from the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "interlude_done",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_link",
+          "id": "oneironauts_done",
+          "decision": "proceed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "id": "black_cat",
+  "scenario_name": "The Black Cat",
+  "full_name": "Interlude I: The Black Cat",
+  "type": "interlude",
+  "setup": [
+    "black_cat_3",
+    "connect_campaign_branch"
+  ],
+  "steps": [
+    {
+      "id": "black_cat_3",
+      "type": "story",
+      "text": "<i>Following scenario 1–B, the investigators are confronted outside St. Mary’s Hospital…</i>\n“…You must be their friends,” the enigmatic voice says from above. To your surprise, the quiet voice belongs not to a person, but to a black cat that lounges lazily across a tree branch hanging over the path outside the hospital. “Oh, pick your jaws up off the ground and listen.” The cat rises and leaps onto the top of a nearby fence, walking along it with the kind of grace only cats possess.\n“It is one of the cats of Earth’s Dreamlands,” Randolph proclaims, his voice tinged with merriment, like he was meeting an old friend for the first time in ages. “How long it has been since I have spoken with one of your kind!”\nThe cat’s piercing yellow eyes glare at Randolph for a moment before it returns its gaze to you. “…Sure. In any event, I bear a message from your dreaming friends.”"
+    },
+    {
+      "id": "connect_campaign_branch",
+      "text": "If you are playing both <i>The Dream-Quest</i> and <i>The Web of Dreams</i> as an interconnected campaign.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "interconnected_campaign",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["campaign_link_branch", "interlude_done"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["4_part_campaign", "on_your_own"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "4_part_campaign",
+      "type": "story",
+      "text": "“Your friends are not the only ones in trouble,” the black cat explains. “There’s a grand conspiracy at work here, and your friends are…well, let’s just say they’re a bit preoccupied with their own problems at the moment. You’re the only ones who can destroy the great web. Forget about your companions and descend into the pitch. It’s the only way. I’ll try to keep your friends safe while you fulfill your task. Do you understand?”"
+    },
+    {
+      "id": "on_your_own",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "on_your_own",
+          "text": "you are on your own."
+        }
+      ]
+    },
+    {
+      "id": "campaign_link_branch",
+      "type": "input",
+      "input": {
+        "type": "campaign_link",
+        "id": "black_cat",
+        "choices": [
+          {
+            "id": "black_cat_shared_knowledge_of_the_dreamlands",
+            "text": "The black cat shared knowledge of the Dreamlands.",
+            "steps": ["black_cat_shared_knowledge_of_the_dreamlands", "black_cat_has_a_hunch"]
+          },
+          {
+            "id": "black_cat_delivered_news",
+            "text": "The black cat delivered news of your plight.",
+            "steps": ["black_cat_delivered_news", "add_elder_thing_token"]
+          },
+          {
+            "id": "black_cat_warned_the_others",
+            "text": "The black cat warned the others.",
+            "steps": ["black_cat_warned_the_others", "black_cat_at_your_side", "add_tablet_token"]
+          },
+          {
+            "id": "threaten_black_cat",
+            "text": "Okay, fine, have it your way then.",
+            "steps": ["threaten_black_cat", "you_asked_for_it"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "black_cat_shared_knowledge_of_the_dreamlands",
+      "type": "story",
+      "text": "The black cat tells you all about the Dreamlands and about the quest your friends are about to embark upon. “Your friends are in a safe place in the Dreamlands, along with a couple of others. My pet human, Virgil, is one of them. Yes, that Virgil. I see the looks on your faces. They’re also with another dreamer, a man named…hey, wait a minute.” The cat glares suspiciously at Randolph, then yawns. “Huh. You know what? Never mind. I have to check on something.” With that, the cat suddenly departs."
+    },
+    {
+      "id": "black_cat_delivered_news",
+      "type": "story",
+      "text": "“So, your pals aren’t looking too good. They wanted me to tell you that they’re in a lot of trouble. They can’t wake up until they fulfill this quest, and it’s not going to be easy. The eye of chaos is watching them. You’ve got your work cut out for you, but you also might be their only hope.” The black cat hops down from the fence and starts to walk away. “Now, if you’ll excuse me, I’d better get back to your friends before they all get themselves killed.”"
+    },
+    {
+      "id": "black_cat_warned_the_others",
+      "type": "story",
+      "text": "“Your friends told me to tell you that they’re fine. In fact, they told me to warn you that you’re the ones in real danger. I’d believe them if I were you. There’s a grand conspiracy at work here, and you’re the only ones who can stop it. The best thing you can do is forge onward, for both your sakes. Don’t worry, I’ll stick around for a while. Someone’s gotta keep you alive.”"
+    },
+    {
+      "id": "threaten_black_cat",
+      "type": "story",
+      "text": "“Nah, you know what? Forget about it. I’m sure you’ll be fine.” The black cat suddenly leaves without another word."
+    },
+    {
+      "id": "add_elder_thing_token",
+      "text": "Add 1 [elder_thing] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "black_cat_has_a_hunch",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_has_a_hunch",
+          "text": "the black cat has a hunch."
+        }
+      ]
+    },
+    {
+      "id": "black_cat_at_your_side",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side",
+          "text": "the black cat is at your side."
+        }
+      ]
+    },
+    {
+      "id": "add_tablet_token",
+      "text": "Add 1 [tablet] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "you_asked_for_it",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_asked_for_it",
+          "text": "you asked for it."
+        }
+      ]
+    },
+    {
+      "id": "interlude_done",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_link",
+          "id": "black_cat_done",
+          "decision": "proceed"
+        }
+      ]
+    }
+  ]
+}

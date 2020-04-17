@@ -276,8 +276,40 @@
         { "$ref": "#/definitions/campaignDataDifficultyCondition" },
         { "$ref": "#/definitions/campaignDataScenarioCondition" },
         { "$ref": "#/definitions/campaignDataChaosBagCondition" },
-        { "$ref": "#/definitions/campaignDataInvestigatorCondition" }
+        { "$ref": "#/definitions/campaignDataInvestigatorCondition" },
+        { "$ref": "#/definitions/campaignDataLinkedCondition" }
       ]
+    },
+    "campaignDataLinkedCondition": {
+      "$id": "#campaignDataLinkedCondition",
+      "title": "CampaignDataLinkedCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "linked_campaign"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "options"
+      ],
+      "additionalProperties": false
     },
     "campaignDataDifficultyCondition": {
       "$id": "#campaignDataDifficultyCondition",
@@ -414,7 +446,7 @@
       },
       "required": [
         "type",
-        "campaign_data",
+        "investigator",
         "investigator_data",
         "options"
       ],
