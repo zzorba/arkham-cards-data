@@ -19,7 +19,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["check_oneironauts_black_cat_had_hunch"]
+            "steps": ["check_oneironauts_black_cat_has_a_hunch"]
           }
         ]
       }
@@ -28,7 +28,7 @@
       "id": "check_oneironauts_black_cat_has_a_hunch",
       "type": "input",
       "input": {
-        "type": "campaign_link",
+        "type": "receive_campaign_link",
         "id": "oneironauts_black_cat_has_a_hunch",
         "choices": [
           {
@@ -38,7 +38,7 @@
           },
           {
             "id": "keep",
-            "text": "No change"
+            "text": "Keep <i>the black cat has a hunch.</i>"
           }
         ]
       }
@@ -74,7 +74,7 @@
               "oneironauts_2",
               "check_someone_escaped",
               "check_everyone_captured",
-              "check_black_cat_has_a_hunch"
+              "check_black_cat_still_has_a_hunch"
             ]
           }
         ]
@@ -83,7 +83,7 @@
     {
       "id": "oneironauts_2",
       "type": "story",
-      "text": "You open your eyes to the sound of a cat’s shrill caterwauling. You had been drifting off to…well, not sleep, exactly. Despite—or perhaps due to—your dreaming, you have been unable to truly sleep in this realm. When you come to your senses, you spot the source of the wailing: Virgil’s cat, black as the void of space itself, sits several feet away waiting for you to pay attention. “Finally,” it declares, “about time you noticed something outside your own head. Listen, I got something important to tell you.”"
+      "text": "<i>Following scenario 2–A, the dreamers sail for parts unknown…</i>\nYou open your eyes to the sound of a cat’s shrill caterwauling. You had been drifting off to…well, not sleep, exactly. Despite—or perhaps due to—your dreaming, you have been unable to truly sleep in this realm. When you come to your senses, you spot the source of the wailing: Virgil’s cat, black as the void of space itself, sits several feet away waiting for you to pay attention. “Finally,” it declares, “about time you noticed something outside your own head. Listen, I got something important to tell you.”"
     },
     {
       "id": "skip_rest_of_interlude_cat_mad",
@@ -145,7 +145,7 @@
       "text": "You try to shush the black cat, but it ignores you. “Relax. Your captors are all up on deck at the moment.” You ask bitterly why the creature is so cavalier about your capture, and request that it free you. “Nah. Somebody else has that covered, if memory serves,” it replies enigmatically."
     },
     {
-      "id": "check_black_cat_has_a_hunch",
+      "id": "check_black_cat_still_has_a_hunch",
       "type": "branch",
       "hidden": true,
       "condition": {
@@ -189,29 +189,38 @@
                 "section": "campaign_notes",
                 "id": "black_cat_is_searching_for_the_truth",
                 "text": "the black cat is searching for the truth."
-              },
-              {
-                "type": "campaign_link",
-                "id": "oneironauts_searching_for_the_truth",
-                "decision": "black_cat_is_searching_for_the_truth"
               }
-            ]
+            ],
+            "steps": ["send_oneironauts_searching_for_the_truth_yes"]
           },
           {
             "boolCondition": false,
             "steps": [
+              "send_oneironauts_searching_for_the_truth_no",
               "resume_interlude",
               "check_oneironauts_decision"
-            ],
-            "effects": [
-              {
-                "type": "campaign_link",
-                "id": "oneironauts_searching_for_the_truth",
-                "decision": "no_change"
-              }
             ]
           }
         ]
+      }
+    },
+    {
+      "id": "send_oneironauts_searching_for_the_truth_yes",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "oneironauts_searching_for_the_truth",
+        "decision": "black_cat_is_searching_for_the_truth"
+      }
+    },
+    {
+      "id": "send_oneironauts_searching_for_the_truth_no",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "oneironauts_searching_for_the_truth",
+        "prompt": "If asked by the investigators of <i>The Web of Dreams</i> if <i>the black cat is searching for the truth</i>, tell them no.",
+        "decision": "no_change"
       }
     },
     {
@@ -238,7 +247,7 @@
       "id": "check_oneironauts_decision",
       "type": "input",
       "input": {
-        "type": "campaign_link",
+        "type": "receive_campaign_link",
         "id": "oneironauts_decision",
         "choices": [
           {
@@ -505,14 +514,12 @@
     },
     {
       "id": "interlude_done",
-      "hidden": true,
-      "effects": [
-        {
-          "type": "campaign_link",
-          "id": "oneironauts_done",
-          "decision": "proceed"
-        }
-      ]
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "oneironauts_done",
+        "decision": "proceed"
+      }
     }
   ]
 }

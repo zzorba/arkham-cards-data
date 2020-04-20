@@ -25,7 +25,7 @@ function validate(validator, file, json, schemaName) {
     '$upgrade_decks': true,
     '$choose_investigators': true,
   };
-  if (json.type !== 'interlude' && json.type !== 'epilogue' && json.scenario_name) {
+  if (json.type !== 'interlude' && json.type !== 'epilogue' && json.type !== 'placeholder' && json.scenario_name) {
     steps['$play_scenario'] = true;
   }
   let error = false;

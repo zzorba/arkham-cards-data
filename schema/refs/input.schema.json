@@ -29,15 +29,15 @@
       "required": ["type"],
       "additionalProperties": false
     },
-    "campaignLinkInput": {
-      "$id": "#campaignLinkInput",
-      "title": "campaignLinkInput",
+    "receiveCampaignLinkInput": {
+      "$id": "#receiveCampaignLinkInput",
+      "title": "ReceiveCampaignLinkInput",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
           "enum": [
-            "campaign_link"
+            "receive_campaign_link"
           ]
         },
         "id": {
@@ -51,6 +51,30 @@
         }
       },
       "required": ["type", "id", "choices"],
+      "additionalProperties": false
+    },
+    "sendCampaignLinkInput": {
+      "$id": "#sendCampaignLinkInput",
+      "title": "SendCampaignLinkInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "send_campaign_link"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "decision": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "id", "decision"],
       "additionalProperties": false
     },
     "textBoxInput": {
@@ -475,7 +499,10 @@
           "$ref": "#/definitions/textBoxInput"
         },
         {
-          "$ref": "#/definitions/campaignLinkInput"
+          "$ref": "#/definitions/receiveCampaignLinkInput"
+        },
+        {
+          "$ref": "#/definitions/sendCampaignLinkInput"
         }
       ]
     }

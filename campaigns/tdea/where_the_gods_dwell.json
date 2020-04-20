@@ -1,5 +1,5 @@
 {
-  "id": "where_the_gods_dwell",
+  "id": "where_gods_dwell",
   "scenario_name": "Where the Gods Dwell",
   "full_name": "Scenario IV–A: Where the Gods Dwell",
   "setup": [
@@ -22,7 +22,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["intro_1", "check_traveled_to_the_cold_wastes"]
+            "steps": ["intro_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_travelled_to_the_cold_wastes"]
           }
         ]
       }
@@ -33,12 +37,12 @@
       "text": "It takes many hours for your steeds to reach their destination. You dare not try to wriggle free, for the fall would surely kill you. Besides, this may be your only chance to find Kadath. The creatures pass under archways of woven shadow, over cerulean seas that glimmer in the moonlight, and through vast swaths of dense mist. Eventually, you reach a continent far to the north, where even your intrepid captain never ventured. Colossal creatures dwell in the deep, dark ocean—a terrible danger to any ship that dares the dreadful seas.\nYour steeds fly over a desolate landscape of ice and snow before landing. In the distance, through a haze of snow, you barely make out the shape of a domed building. One of the winged creatures points in the direction of the foreboding ruin, silently commanding you to proceed. The rest stand silently behind you with perfect patience, guarding against your escape, though you have no intention of fleeing. You will find and scale the peaks of unknown Kadath, or you will die trying."
     },
     {
-      "id": "check_traveled_to_the_cold_wastes",
+      "id": "check_travelled_to_the_cold_wastes",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "traveled_to_the_cold_wastes",
+        "id": "travelled_to_the_cold_wastes",
         "options": [
           {
             "boolCondition": true,
@@ -57,11 +61,11 @@
       "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
-        "where_the_gods_dwell",
+        "where_gods_dwell",
         "agents_of_nyarlathotep",
         "dreamers_curse",
-        "whispers_of_hynpos",
-        "dark_cult"
+        "whispers_of_hypnos",
+        "pentagram"
       ]
     },
     {
@@ -188,9 +192,30 @@
       "id": "check_black_cat_at_your_side",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "black_cat_at_your_side",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "black_cat_at_your_side",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "black_cat_at_your_side_2",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
         "options": [
           {
             "boolCondition": true,
@@ -449,7 +474,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["win"],
+            "steps": ["$upgrade_decks", "win"],
             "effects": [
               {
                 "type": "campaign_data",

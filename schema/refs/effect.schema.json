@@ -88,7 +88,8 @@
           "type": "string",
           "enum": [
             "all",
-            "$input_value"
+            "$input_value",
+            "target_investigator"
           ]
         },
         "weakness_traits": {
@@ -354,6 +355,7 @@
           "type": "string",
           "enum": [
             "lead_investigator",
+            "target_investigator",
             "playing_scenario"
           ]
         },
@@ -494,31 +496,6 @@
       ],
       "additionalProperties": false
     },
-    "campaignLinkEffect": {
-      "$id": "#campaignLinkEffect",
-      "title": "CampaignLinkEffect",
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "campaign_link"
-          ]
-        },
-        "id": {
-          "type": "string"
-        },
-        "decision": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "id",
-        "decision"
-      ],
-      "additionalProperties": false
-    },
     "campaignLogCardsEffect": {
       "$id": "#campaignLogCardsEffect",
       "title": "CampaignLogCardsEffect",
@@ -601,6 +578,7 @@
           "enum": [
             "all",
             "lead_investigator",
+            "target_investigator",
             "defeated",
             "not_resigned",
             "$input_value"
@@ -623,6 +601,9 @@
         },
         "hidden": {
           "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
         }
       },
       "required": [
@@ -649,7 +630,6 @@
         { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" },
         { "$ref": "#/definitions/upgradeDecksEffect" },
-        { "$ref": "#/definitions/campaignLinkEffect" },
         { "$ref": "#/definitions/freeformCampaignLogEffect" }
       ]
     },

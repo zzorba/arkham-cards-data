@@ -1,0 +1,391 @@
+{
+  "id": "the_great_ones",
+  "scenario_name": "The Great Ones",
+  "full_name": "Interlude III: The Great Ones",
+  "type": "interlude",
+  "setup": [
+    "check_black_is_searching_for_the_truth",
+    "check_you_asked_for_it",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "check_black_is_searching_for_the_truth",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_is_searching_for_the_truth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_great_ones_black_cat_is_searching_for_the_truth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_great_ones_black_cat_is_searching_for_the_truth",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "id": "great_ones_black_cat_is_searching_for_the_truth",
+        "choices": [
+          {
+            "id": "cross_out",
+            "text": "Cross off <i>the black cat is searching for the truth.</i>",
+            "steps": ["cross_off_black_cat_is_searching_for_the_truth"]
+          },
+          {
+            "id": "keep",
+            "text": "No change."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_off_black_cat_is_searching_for_the_truth",
+      "bullet_type": "small",
+      "text": "In both Campaign Logs, cross off <i>the black cat is searching for the truth</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_is_searching_for_the_truth",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "check_you_asked_for_it",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "you_asked_for_it",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["skip_rest_of_interlude_cat_mad"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "great_ones_2",
+              "check_possess_silver_key",
+              "check_black_cat_is_searching_for_the_truth"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "great_ones_2",
+      "type": "story",
+      "text": "<i>Following scenario 3–B, the investigators have reached a cosmic penumbra between worlds…</i>\nA cat’s low-pitched wail draws your attention to a nearby web. When you arrive, you find the black cat stuck on a patch of particularly sticky web, wriggling back and forth in a vain attempt to free itself. Even with its sharp claws, it seems to be in trouble. You lean over and pull the cat free, and it leaps from your arms to a rocky platform below, the only thing between the cat and an endless void. It hisses for a moment, then stands tall. “Did I ask for your help?” it scolds. “Well, you made it below the Sea of Pitch after all. Now look around you. See all this webbing?” You couldn’t miss it even if you tried; you are surrounded on all sides by webs, treacherous pathways across the aether. “It is a bridge between your world and the Dreamlands. If it is completed, the two will merge. Understand? Unless you want everything to look like that hospital where your friends are sleeping, you have to stop this at all costs. Nothing else matters. <i>Nothing.</i>”"
+    },
+    {
+      "id": "skip_rest_of_interlude_cat_mad",
+      "bullet_type": "small",
+      "text": "Skip the rest of this interlude."
+    },
+    {
+      "id": "check_possess_silver_key",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "possess_silver_key",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["transfer_key_story", "transfer_silver_key", "transfer_silver_key_card"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "possess_silver_key",
+                "cross_out": true
+              },
+              {
+                "type": "remove_card",
+                "card": "06189"
+              }
+            ],
+            "steps": ["send_great_ones_silver_key"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["send_great_ones_no_key"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "send_great_ones_silver_key",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "great_ones_silver_key",
+        "decision": "transfer_key"
+      }
+    },
+    {
+      "id": "send_great_ones_no_key",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "great_ones_silver_key",
+        "decision": "no_key"
+      }
+    },
+    {
+      "id": "transfer_key_story",
+      "type": "story",
+      "text": "“Hey, you still have that key?” the black cat asks. You scrounge through your belongings for the key you found in the Unnamable and show it to the cat. “Gimme that,” it demands, jumping and biting it out of your hands before you can protest. “Don’t look at me like that. Your other friends need it more than you.”"
+    },
+    {
+      "id": "transfer_silver_key",
+      "bullet_type": "small",
+      "text": "In the Campaign Log for <i>The Web of Dreams</i> (Campaign B), cross off the investigators possess the Silver Key. Record this in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead."
+    },
+    {
+      "id": "transfer_silver_key_card",
+      "bullet_type": "small",
+      "text": "If The Silver Key is currently in an investigator’s deck, remove it. Any one investigator in <i>The Dream-Quest</i> (Campaign A) may choose to add The Silver Key to their deck. This card does not count toward that investigator’s deck size."
+    },
+    {
+      "id": "check_black_cat_is_searching_for_the_truth",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_is_searching_for_the_truth",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["black_cat_searching_for_truth_story", "black_cat_knows_the_truth"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "black_cat_knows_the_truth",
+                "text": "the black cat knows the truth."
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resume_interlude_decision", "check_great_ones_decision"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "black_cat_searching_for_truth_story",
+      "type": "story",
+      "text": "The black cat stops talking as it spots Randolph for the first time. It circles around the man a few times, agitated. For his part, Randolph looks uncharacteristically perturbed by the cat’s presence, even taking a step backward as it closes in. “What is the matter? I’ve not harmed any of your kind,” he says matter-of-factly. “Have I done something to offend you?”\n“Your mere existence offends me,” the cat replies with a hiss. It strolls back toward you, keeping a wary eye on Randolph. “I think I know what is going on now. It all makes sense. I know who is interfering with my sight. Do not trust that <i>thing</i>,” it warns, circling to keep an eye on the blond man behind it. “I have to prepare. I’ll return when the time is right.”"
+    },
+    {
+      "id": "black_cat_knows_the_truth",
+      "bullet_type": "small",
+      "text": "Skip the rest of this interlude. In both Campaign Logs, record <i>the black cat knows the truth</i>."
+    },
+    {
+      "id": "resume_interlude_decision",
+      "type": "story",
+      "text": "“Oh, before I forget: your friends have almost made it to their destination. If everything happens as I have foreseen, they’ll be able to free themselves. In the meantime, they wanted me to let you know…”"
+    },
+    {
+      "id": "check_great_ones_decision",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "id": "great_ones_decision",
+        "choices": [
+          {
+            "id": "black_cat_spoke_of_nyarlathotep",
+            "text": "The black cat spoke of Nyarlathotep.",
+            "steps": ["nyarlathotep_story", "move_cat_to_campaign_a"]
+          },
+          {
+            "id": "black_cat_spoke_of_atlach_nacha",
+            "text": "The black cat spoke ot Atlach-Nacha.",
+            "steps": ["atlach_nacha_story", "move_cat_to_campaign_b"]
+          },
+          {
+            "id": "black_cat_wanders_off",
+            "text": "The black cat wandered off before taking a message."
+          }
+        ]
+      }
+    },
+    {
+      "id": "nyarlathotep_story",
+      "type": "story",
+      "text": "“…the being they face is one with thousands, perhaps an endless number of masks. <smallcaps>Nyarlathotep</smallcaps>, it is called by some. It is manipulative, deceptive, and cunning. It is probably the thing that trapped them in the Dreamlands to begin with. Why, I have no idea. If you want them to survive, they’re probably going to need my help. You’ll be okay here on your own, right?” The black cat doesn’t wait for an answer; without another word, it leaps into the aether below and vanishes."
+    },
+    {
+      "id": "atlach_nacha_story",
+      "type": "story",
+      "text": "“…that bridge I just mentioned? The creature weaving it is unlike anything you have ever seen. <smallcaps>Atlach-Nacha</smallcaps> is the name I have heard whispered in the dark corners of the Dreamlands. It is the master and progenitor of all the spiders crawling around these parts. Maybe all parts, really. You’re going to need my help to stop its scheme.”"
+    },
+    {
+      "id": "move_cat_to_campaign_b",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["move_cat_to_campaign_b_check_elder_thing"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["cat_already_in_campaign_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "move_cat_to_campaign_b_check_elder_thing",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "elder_thing",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["move_cat_to_campaign_b_from_nowhere"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["move_cat_to_campaign_b_from_campaign_a"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cat_already_in_campaign_b",
+      "text": "Because the Campaign Log for <i>The Web of Dreams</i> (Campaign B) already has <i>the black cat is at your side</i> recorded, no change is made."
+    },
+    {
+      "id": "move_cat_to_campaign_b_from_nowhere",
+      "text": "Because neither Campaign Log has <i>the black cat is at your side</i> recorded, in the Campaign Log for <i>The Web of Dreams</i> (Campaign B), record <i>the black cat is at your side</i>. Add 1 [tablet] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_b_from_campaign_a",
+      "text": "Because the Campaign Log for <i>The Dream-Quest</i> (Campaign A) has <i>the black cat is at your side</i> recorded, cross it off and record it in the Campaign Log for <i>The Web of Dreams</i> (Campaign B) instead. Replace 1 [elder_thing] token in each campaign’s chaos bag with 1 [tablet] token.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side",
+          "cross_out": true
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["elder_thing"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_a",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "elder_thing",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["move_cat_to_campaign_a_check_tablet"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["cat_already_in_campaign_a"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "move_cat_to_campaign_a_check_tablet",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["move_cat_to_campaign_a_from_nowhere"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["move_cat_to_campaign_a_from_campaign_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cat_already_in_campaign_a",
+      "text": "Because the Campaign Log for <i>The Dream-Quest</i> (Campaign A) already has <i>the black cat is at your side</i> recorded, no change is made."
+    },
+    {
+      "id": "move_cat_to_campaign_a_from_nowhere",
+      "text": "Because neither Campaign Log has <i>the black cat is at your side</i> recorded, in the Campaign Log for <i>The Dream-Quest</i> (Campaign A), record <i>the black cat is at your side</i>. Add 1 [elder_thing] token to the chaos bags for both campaigns.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "move_cat_to_campaign_a_from_campaign_b",
+      "text": "Because the Campaign Log for <i>The Web of Dreams</i> (Campaign B) has <i>the black cat is at your side</i> recorded, cross it off and record it in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead. Replace 1 [tablet] token in each campaign’s chaos bag with 1 [elder_thing] token.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_at_your_side_2",
+          "text": "the black cat is at your side."
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    }
+  ]
+}

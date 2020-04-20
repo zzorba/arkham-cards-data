@@ -43,16 +43,17 @@ export type Effect =
   | ScenarioDataEffect
   | AddRemoveChaosTokenEffect
   | UpgradeDecksEffect
-  | CampaignLinkEffect
   | FreeformCampaignLogEffect;
 export type InvestigatorSelector =
   | "lead_investigator"
+  | "target_investigator"
   | "all"
   | "any"
   | "choice"
   | "defeated"
   | "not_resigned"
   | "$input_value";
+export type BulletType = "none" | "small";
 export type CampaignDataEffect =
   | CampaignDataResultEffect
   | CampaignDataDifficultyEffect
@@ -96,7 +97,6 @@ export type ScenarioDataCondition =
   | ScenarioDataInvestigatorStatusCondition
   | ScenarioDataPlayerCountCondition;
 export type CheckSuppliesCondition = CheckSuppliesAllCondition | CheckSuppliesAnyCondition;
-export type BulletType = "none" | "small";
 export type Input =
   | UpgradeDecksInput
   | CardChoiceInput
@@ -110,7 +110,8 @@ export type Input =
   | ScenarioInvestigatorsInput
   | PlayScenarioInput
   | TextBoxInput
-  | CampaignLinkInput;
+  | ReceiveCampaignLinkInput
+  | SendCampaignLinkInput;
 export type CardQuery = CardSearchQuery | CardCodeList;
 export type UseSuppliesInput = UseSuppliesChoiceInput | UseSuppliesAllInput;
 export type InvestigatorChoiceCondition = InvestigatorCardCondition | BasicTraumaCondition | InvestigatorCondition;
@@ -193,7 +194,7 @@ export interface AddCardEffect {
 }
 export interface AddWeaknessEffect {
   type: "add_weakness";
-  investigator: "all" | "$input_value";
+  investigator: "all" | "$input_value" | "target_investigator";
   weakness_traits: string[];
   select_traits?: boolean;
 }
@@ -209,13 +210,14 @@ export interface ReplaceCardEffect {
 }
 export interface TraumaEffect {
   type: "trauma";
-  investigator: "all" | "lead_investigator" | "defeated" | "not_resigned" | "$input_value";
+  investigator: "all" | "lead_investigator" | "target_investigator" | "defeated" | "not_resigned" | "$input_value";
   mental?: number;
   physical?: number;
   mental_or_physical?: number;
   killed?: boolean;
   insane?: boolean;
   hidden?: boolean;
+  bullet_type?: BulletType;
 }
 export interface CampaignLogEffect {
   type: "campaign_log";
@@ -258,7 +260,7 @@ export interface CampaignDataNextScenarioEffect {
 }
 export interface ScenarioDataInvestigatorEffect {
   type: "scenario_data";
-  setting: "lead_investigator" | "playing_scenario";
+  setting: "lead_investigator" | "target_investigator" | "playing_scenario";
   investigator: "$input_value";
 }
 export interface ScenarioDataInvestigatorStatusEffect {
@@ -279,11 +281,6 @@ export interface AddRemoveChaosTokenEffect {
 }
 export interface UpgradeDecksEffect {
   type: "upgrade_decks";
-}
-export interface CampaignLinkEffect {
-  type: "campaign_link";
-  id: string;
-  decision: string;
 }
 export interface FreeformCampaignLogEffect {
   type: "freeform_campaign_log";
@@ -594,10 +591,16 @@ export interface TextBoxInput {
   type: "text_box";
   effects: FreeformCampaignLogEffect[];
 }
-export interface CampaignLinkInput {
-  type: "campaign_link";
+export interface ReceiveCampaignLinkInput {
+  type: "receive_campaign_link";
   id: string;
   choices: Choice[];
+}
+export interface SendCampaignLinkInput {
+  type: "send_campaign_link";
+  id: string;
+  decision: string;
+  prompt?: string;
 }
 export interface EncounterSetsStep {
   id: string;
@@ -672,7 +675,7 @@ export interface Scenario {
   setup: string[];
   resolutions?: Resolution[];
   steps: Step[];
-  type?: "interlude" | "epilogue";
+  type?: "interlude" | "epilogue" | "placeholder";
 }
 export interface Resolution {
   id: string;

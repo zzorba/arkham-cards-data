@@ -1,5 +1,5 @@
 {
-  "id": "black_cat",
+  "id": "the_black_cat",
   "scenario_name": "The Black Cat",
   "full_name": "Interlude I: The Black Cat",
   "type": "interlude",
@@ -15,19 +15,19 @@
     },
     {
       "id": "connect_campaign_branch",
-      "text": "If you are playing both <i>The Dream-Quest</i> and <i>The Web of Dreams</i> as an interconnected campaign.",
+      "text": "If you are playing <i>The Web of Dreams</i> (Campaign B) by itself, and there is no Campaign Log for <i>The Dream-Quest</i>:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "interconnected_campaign",
+        "id": "half_campaign",
         "options": [
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["campaign_link_branch", "interlude_done"]
           },
           {
-            "boolCondition": false,
+            "boolCondition": true,
             "steps": ["4_part_campaign", "on_your_own"]
           }
         ]
@@ -53,7 +53,7 @@
       "id": "campaign_link_branch",
       "type": "input",
       "input": {
-        "type": "campaign_link",
+        "type": "receive_campaign_link",
         "id": "black_cat",
         "choices": [
           {
@@ -154,14 +154,12 @@
     },
     {
       "id": "interlude_done",
-      "hidden": true,
-      "effects": [
-        {
-          "type": "campaign_link",
-          "id": "black_cat_done",
-          "decision": "proceed"
-        }
-      ]
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "black_cat_done",
+        "decision": "proceed"
+      }
     }
   ]
 }
