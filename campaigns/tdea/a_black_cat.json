@@ -4,10 +4,58 @@
   "full_name": "Interlude I: The Black Cat",
   "type": "interlude",
   "setup": [
+    "maybe_check_dreamers_grow_weaker",
     "black_cat_1",
     "connect_campaign_branch"
   ],
   "steps": [
+    {
+      "id": "maybe_check_dreamers_grow_weaker",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "interconnected_campaign",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_dreamers_grow_weaker"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_dreamers_grow_weaker",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "You must complete <b>Scenario I–B: Waking Nightmare</b> before reading this interlude.",
+        "id": "dreamers_grow_weaker",
+        "choices": [
+          {
+            "id": "dreamers_grow_weaker",
+            "text": "The dreamers grow weaker.",
+            "steps": ["dreamers_grow_weaker"]
+          },
+          {
+            "id": "dreamers_are_strong",
+            "text": "The dreamers' sleeping bodies are safe."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dreamers_grow_weaker",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dreamers_grow_weaker",
+          "text": "the dreamers grow weaker."
+        }
+      ]
+    },
     {
       "id": "black_cat_1",
       "type": "story",
@@ -52,7 +100,8 @@
         "choices": [
           {
             "id": "black_cat_sent_news",
-            "text": "Tell your companions of your quest, your plight, and your  peril. The black cat will return to you once this message is delivered. This may put an undue burden on your companions.",
+            "text": "<i>Tell your companions of your quest, your plight, and your peril.</i>",
+            "description": "The black cat will return to you once this message is delivered. This may put an undue burden on your companions.",
             "steps": [
               "black_cat_delivered_news",
               "send_black_cat_delivered_news",
@@ -63,7 +112,7 @@
           },
           {
             "id": "black_cat_shared_knowledge_of_the_dreamlands",
-            "text": "Tell your companions about your new friends and about the Dreamlands.",
+            "text": "<i>Tell your companions about your new friends and about the Dreamlands.</i>",
             "steps": [
               "black_cat_shared_knowledge_of_the_dreamlands",
               "send_black_cat_shared_knowledge_of_the_dreamlands",
@@ -73,7 +122,8 @@
           },
           {
             "id": "black_cat_warned_the_others",
-            "text": "Tell your companions that they are in danger, and that you are safe. The black cat will stay with them once this message is delivered. This might make your quest a little more difficult.",
+            "text": "<i>Tell your companions that they are in danger, and that you are safe.</i>",
+            "description": "The black cat will stay with them once this message is delivered. This might make your quest a little more difficult.",
             "steps": [
               "black_cat_warned_the_others",
               "send_black_cat_warned_the_others",
@@ -83,7 +133,8 @@
           },
           {
             "id": "threaten_black_cat",
-            "text": "You don’t trust this creature one bit. You threaten the black cat, warning it not to approach your friends under any circumstance. The black cat yawns and vanishes out the door.",
+            "text": "<i>You don’t trust this creature one bit.</i>",
+            "description": "You threaten the black cat, warning it not to approach your friends under any circumstance. The black cat yawns and vanishes out the door.",
             "steps": [
               "threaten_black_cat",
               "send_threaten_black_cat",
@@ -107,6 +158,7 @@
     },
     {
       "id": "black_cat_delivered_news",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -121,7 +173,7 @@
       "type": "input",
       "input": {
         "type": "send_campaign_link",
-        "id": "black_cat",
+        "id": "black_cat_decision",
         "prompt": "Tell the investigators of <i>The Web of Dreams</i> (Campaign B), that <i>the black cat delivered news of your plight.</i>",
         "decision": "black_cat_delivered_news"
       }
@@ -149,6 +201,7 @@
     },
     {
       "id": "black_cat_shared_knowledge_of_the_dreamlands",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -163,13 +216,14 @@
       "type": "input",
       "input": {
         "type": "send_campaign_link",
-        "id": "black_cat",
+        "id": "black_cat_decision",
         "decision": "black_cat_shared_knowledge_of_the_dreamlands",
         "prompt": "Tell the investigators of <i>The Web of Dreams</i> (Campaign B), that <i>the black cat shared knowledge of the Dreamlands.</i>"
       }
     },
     {
       "id": "black_cat_warned_the_others",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -184,7 +238,7 @@
       "type": "input",
       "input": {
         "type": "send_campaign_link",
-        "id": "black_cat",
+        "id": "black_cat_decision",
         "decision": "black_cat_warned_the_others",
         "prompt": "Tell the investigators of <i>The Web of Dreams</i> (Campaign B), that <i>the black cat warned the others.</i>"
       }
@@ -201,6 +255,7 @@
     },
     {
       "id": "threaten_black_cat",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -215,7 +270,7 @@
       "type": "input",
       "input": {
         "type": "send_campaign_link",
-        "id": "black_cat",
+        "id": "black_cat_decision",
         "decision": "threaten_black_cat",
         "prompt": "Tell the investigators of <i>The Web of Dreams</i> (Campaign B), <i>okay, fine, have it your way then.</i>"
       }
@@ -236,6 +291,7 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "linked_prompt": "This interlude continues in <b>The Web of Dreams</b> (Campaign B).",
         "id": "black_cat_done",
         "choices": []
       }

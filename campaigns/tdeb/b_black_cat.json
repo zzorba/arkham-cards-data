@@ -4,10 +4,37 @@
   "full_name": "Interlude I: The Black Cat",
   "type": "interlude",
   "setup": [
+    "check_interconnected_campaign",
     "black_cat_3",
     "connect_campaign_branch"
   ],
   "steps": [
+    {
+      "id": "check_interconnected_campaign",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "interconnected_campaign",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_black_cat_decision"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_black_cat_decision",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "The interlude begins with <i>The Dream-Quest</i> (Campaign A).",
+        "id": "black_cat_decision",
+        "choices": []
+      }
+    },
     {
       "id": "black_cat_3",
       "type": "story",
@@ -54,7 +81,8 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
-        "id": "black_cat",
+        "linked_prompt": "This interlude continues in <b>The Dream-Quest</b> (Campaign A).",
+        "id": "black_cat_decision",
         "choices": [
           {
             "id": "black_cat_shared_knowledge_of_the_dreamlands",
