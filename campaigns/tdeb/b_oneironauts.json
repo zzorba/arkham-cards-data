@@ -4,11 +4,22 @@
   "full_name": "Interlude II: The Oneironauts",
   "type": "interlude",
   "setup": [
+    "check_the_search_for_kadath",
     "oneironauts_1",
     "check_randolph_did_not_survive_descent",
     "check_you_asked_for_it"
   ],
   "steps": [
+    {
+      "id": "check_the_search_for_kadath",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Do not read this interlude until you have completed <b>Scenario II–A: The Search for Kadath</b>.",
+        "id": "the_search_for_kadath",
+        "choices": []
+      }
+    },
     {
       "id": "oneironauts_1",
       "type": "story",
@@ -94,7 +105,6 @@
     },
     {
       "id": "cross_off_black_cat_has_a_hunch",
-      "bullet_type": "small",
       "text": "In both Campaign Logs, cross off <i>the black cat has a hunch</i>.",
       "effects": [
         {
@@ -119,7 +129,7 @@
             "effects": [
               {
                 "type": "story_step",
-                "steps": ["you_asked_for_it", "skip_rest_of_interlude"]
+                "steps": ["you_asked_for_it", "skip_rest_of_interlude", "send_black_cat_mad"]
               }
             ]
           },
@@ -137,8 +147,16 @@
     },
     {
       "id": "skip_rest_of_interlude",
-      "bullet_type": "small",
       "text": "Skip the rest of this interlude."
+    },
+    {
+      "id": "send_black_cat_mad",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "oneironauts_decision",
+        "decision": "black_cat_mad"
+      }
     },
     {
       "id": "resume_interlude",
@@ -155,7 +173,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["black_cat_wanders_off"]
+            "steps": ["black_cat_wanders_off", "send_black_cat_wanders_off"]
           },
           {
             "boolCondition": false,
@@ -170,6 +188,15 @@
       "text": "The black cat wanders off before you can reply, its pitch-black fur melding into the darkness of the Underworld."
     },
     {
+      "id": "send_black_cat_wanders_off",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "oneironauts_decision",
+        "decision": "black_cat_wanders_off"
+      }
+    },
+    {
       "id": "black_cat_decision",
       "text": "The black cat once again offers to pass a message along to your companions. The lead investigator must decide (choose one):",
       "type": "input",
@@ -178,17 +205,20 @@
         "choices": [
           {
             "id": "black_cat_requested_aid",
-            "text": "Tell your companions that you are in trouble. The black cat will return to you with aid once this message is delivered. This may put an undue burden on your companions.",
+            "text": "<i>Tell your companions that you are in trouble.</i>",
+            "description": "The black cat will return to you with aid once this message is delivered. This may put an undue burden on your companions.",
             "steps": ["black_cat_requested_aid", "send_black_cat_requested_aid"]
           },
           {
             "id": "black_cat_shared_knowledge_of_the_underworld",
-            "text": "Tell your companions about the Underworld. The black cat will then go elsewhere.",
+            "text": "<i>Tell your companions about the Underworld.</i>",
+            "description": "The black cat will then go elsewhere.",
             "steps": ["black_cat_shared_knowledge_of_the_underworld", "send_black_cat_shared_knowledge_of_the_underworld"]
           },
           {
             "id": "black_cat_warned_the_others",
-            "text": "Tell your companions that you are safe. The black cat will stay with them once this message is delivered. This might make your quest a little more difficult.",
+            "text": "<i>Tell your companions that you are safe.</i>",
+            "description": "The black cat will stay with them once this message is delivered. This might make your quest a little more difficult.",
             "steps": ["black_cat_warned_the_others", "send_black_cat_warned_the_others"]
           }
         ]

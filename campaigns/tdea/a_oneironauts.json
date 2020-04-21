@@ -4,10 +4,32 @@
   "full_name": "Interlude II: The Oneironauts",
   "type": "interlude",
   "setup": [
+    "check_a_thousand_shapes_of_horror",
+    "wait_oneironauts_decision",
     "check_black_cat_has_a_hunch",
     "check_you_asked_for_it"
   ],
   "steps": [
+    {
+      "id": "check_a_thousand_shapes_of_horror",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Do not read this interlude until you have completed <b>Scenario II–B: A Thousand Shapes of Horror</b>.",
+        "id": "a_thousand_shapes_of_horror",
+        "choices": []
+      }
+    },
+    {
+      "id": "wait_oneironauts_decision",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "The interlude begins with <i>The Web of Dreams</i> (Campaign B).",
+        "id": "oneironauts_decision",
+        "choices": []
+      }
+    },
     {
       "id": "check_black_cat_has_a_hunch",
       "hidden": true,
@@ -46,8 +68,7 @@
     },
     {
       "id": "cross_off_black_cat_had_hunch",
-      "bullet_type": "small",
-      "text": "In both Campaign Logs, cross off <i>the black cat has a hunch</i>.",
+      "text": "Based on events from <i>The Web of Dreams</i> (Campaign B), cross off <i>the black cat has a hunch</i> from your Campaign Log.",
       "effects": [
         {
           "type": "campaign_log",
@@ -59,6 +80,7 @@
     },
     {
       "id": "check_you_asked_for_it",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -75,7 +97,7 @@
               "oneironauts_2",
               "check_someone_escaped",
               "check_everyone_captured",
-              "check_black_cat_still_has_a_hunch"
+              "check_black_cat_has_a_hunch_and_randolph_eluded_capture"
             ]
           }
         ]
@@ -146,33 +168,33 @@
       "text": "You try to shush the black cat, but it ignores you. “Relax. Your captors are all up on deck at the moment.” You ask bitterly why the creature is so cavalier about your capture, and request that it free you. “Nah. Somebody else has that covered, if memory serves,” it replies enigmatically."
     },
     {
-      "id": "check_black_cat_still_has_a_hunch",
-      "type": "branch",
-      "hidden": true,
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "black_cat_has_a_hunch",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["check_randolph_eluded_capture"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["resume_interlude_no_message"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_randolph_eluded_capture",
+      "id": "check_black_cat_has_a_hunch_and_randolph_eluded_capture",
       "type": "branch",
       "text": "<i>If the black cat has a hunch</i> and <i>Randolph eluded capture</i>:",
       "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "randolph_eluded_capture",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "randolph_eluded_capture",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "black_cat_has_a_hunch",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
         "options": [
           {
             "boolCondition": true,
@@ -192,15 +214,35 @@
                 "text": "the black cat is searching for the truth."
               }
             ],
-            "steps": ["send_oneironauts_searching_for_the_truth_yes"]
+            "steps": [
+              "send_oneironauts_searching_for_the_truth_yes"
+            ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "send_oneironauts_searching_for_the_truth_no",
-              "resume_interlude",
-              "check_oneironauts_decision"
+              "check_black_cat_still_has_a_hunch"
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_black_cat_still_has_a_hunch",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_has_a_hunch",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_randolph_eluded_capture"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resume_interlude_no_message"]
           }
         ]
       }
