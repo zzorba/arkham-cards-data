@@ -194,7 +194,7 @@ export interface AddCardEffect {
 }
 export interface AddWeaknessEffect {
   type: "add_weakness";
-  investigator: "all" | "$input_value" | "target_investigator";
+  investigator: "all" | "$input_value" | "lead_investigator" | "target_investigator";
   weakness_traits: string[];
   select_traits?: boolean;
 }
@@ -225,6 +225,7 @@ export interface CampaignLogEffect {
   id: string;
   text?: string;
   cross_out?: boolean;
+  remove?: boolean;
 }
 export interface CampaignLogCardsEffect {
   type: "campaign_log_cards";
@@ -233,6 +234,7 @@ export interface CampaignLogCardsEffect {
   text?: string;
   cards?: "$lead_investigator" | "$defeated_investigators" | "$input_value";
   cross_out?: boolean;
+  remove?: boolean;
 }
 export interface CampaignLogCountEffect {
   type: "campaign_log_count";
@@ -373,7 +375,7 @@ export interface StringOption {
 }
 export interface CampaignDataScenarioCondition {
   type: "campaign_data";
-  campaign_data: "scenario_completed";
+  campaign_data: "scenario_completed" | "scenario_replayed";
   scenario: string;
   options: BoolOption[];
 }
@@ -463,6 +465,8 @@ export interface CardChoiceInput {
   include_counts?: boolean;
   query: CardQuery[];
   choices: Choice[];
+  min?: number;
+  max?: number;
 }
 export interface CardSearchQuery {
   source: "scenario" | "deck";

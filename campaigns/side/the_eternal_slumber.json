@@ -93,32 +93,6 @@
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
-      "id": "$play_scenario",
-      "type": "input",
-      "input": {
-        "type": "play_scenario",
-        "branches": [
-          {
-            "id": "mitpm_defeated",
-            "text": "Defeated the Man in the Pallid Mask",
-            "steps": ["mitpm_defeated"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "chasing_the_stranger",
-          "operation": "add",
-          "value": 1
-        }
-      ]
-    },
-    {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
@@ -241,6 +215,78 @@
           "cross_out": true
         }
       ]
+    },
+    {
+      "id": "record_ally_taken_by_the_abyss",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "trait": "ally",
+            "unique": true,
+            "source": "deck"
+          }
+        ],
+        "choices": [
+          {
+            "id": "taken_by_the_abyss",
+            "text": "Taken by the Abyss",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "tes_taken_by_the_abyss",
+                "cards": "$input_value",
+                "text": "#name# was taken by the abyss."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_investigator_taken_by_the_abyss",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "choice",
+        "choices": [
+          {
+            "id": "taken_by_the_abyss",
+            "text": "Taken by the Abyss",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "tes_taken_by_the_abyss",
+                "cards": "$input_value",
+                "text": "#name# was taken by the abyss."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "record_ally_taken_by_the_abyss",
+            "text": "An unique [[Ally]] was <i>taken by the abyss</i>.",
+            "steps": ["record_ally_taken_by_the_abyss"]
+          },
+          {
+            "id": "record_investigator_taken_by_the_abyss",
+            "text": "An investigator was <i>taken by the abyss</i>.",
+            "steps": ["record_investigator_taken_by_the_abyss"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [

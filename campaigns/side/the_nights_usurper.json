@@ -9,7 +9,7 @@
     "setup_locations",
     "set_aside_cards",
     "create_exploration_deck",
-    "create_botherhood_deck",
+    "create_brotherhood_deck",
     "set_strength_of_the_abyss",
     "encounter_deck",
     "$play_scenario"
@@ -78,32 +78,6 @@
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
-      "id": "$play_scenario",
-      "type": "input",
-      "input": {
-        "type": "play_scenario",
-        "branches": [
-          {
-            "id": "mitpm_defeated",
-            "text": "Defeated the Man in the Pallid Mask",
-            "steps": ["mitpm_defeated"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "mitpm_defeated",
-      "text": "In your Campaign Log, under “Chasing the Stranger,” place one tally mark.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "chasing_the_stranger",
-          "operation": "add",
-          "value": 1
-        }
-      ]
-    },
-    {
       "id": "earn_xp",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
@@ -119,46 +93,101 @@
       }
     },
     {
-      "id": "record_dreamers_in_abyss",
-      "text": "In your Campaign Log, record <i>dreamers in the abyss (X)</i>. X is the strength of the abyss when the scenario ended.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Strength of the Abyss:",
-        "effects": [
-          {
-            "type": "campaign_log_count",
-            "section": "campaign_notes",
-            "id": "tes_dreamers_in_the_abyss",
-            "operation": "set_input",
-            "text": "dreamers in the abyss (#X#)"
-          }
-        ]
-      }
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
     },
     {
-      "id": "record_escaped_brotherhood",
+      "id": "day_of_reckoning_is_coming",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tnu_day_of_reckoning_is_coming",
+          "text": "the Day of Reckoning is coming."
+        }
+      ]
+    },
+    {
+      "id": "abyss_was_saved",
+      "text": "In your Campaign Log, record that <i>the Abyss was saved</i>. Cross off all <i>“(card name) was taken by the abyss”</i> notes in your Campaign Log. ",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tnu_the_abyss_was_saved",
+          "text": "the Abyss was saved."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tes_taken_by_the_abyss",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tnu_taken_by_the_abyss",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "joined_xzharah",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tnu_joined_xzharah",
+          "text": "you joined forces with Xzharah."
+        }
+      ]
+    },
+    {
+      "id": "earn_summoned_nightgaunt",
+      "text": "Any one investigator may choose to add Summoned Nightgaunt to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "83058"
+        }
+      ]
+    },
+    {
+      "id": "earn_kopesh_of_the_abyss",
+      "text": "Any one investigator may choose to add Khopesh of the Abyss to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "83057"
+        }
+      ]
+    },
+    {
+      "id": "record_ally_taken_by_the_abyss",
       "type": "input",
-      "text": "In your Campaign Log, record <i>Brotherhood Agents Who Escaped:</i> and list the names of each unique [[Cultist]] enemy that was in play or beneath the scenario reference card when the game ended.",
       "input": {
         "type": "card_choice",
         "query": [
           {
-            "trait": "cultist",
+            "trait": "ally",
             "unique": true,
-            "source": "scenario"
+            "source": "deck"
           }
         ],
         "choices": [
           {
-            "id": "escaped",
-            "text": "Escaped",
+            "id": "taken_by_the_abyss",
+            "text": "Taken by the Abyss",
             "effects": [
               {
                 "type": "campaign_log_cards",
                 "section": "campaign_notes",
-                "id": "tes_escaped_brotherhood",
-                "text": "Brotherhood Agents Who Escaped: #name#"
+                "id": "tnu_taken_by_the_abyss",
+                "cards": "$input_value",
+                "text": "#name# was taken by the abyss."
               }
             ]
           }
@@ -166,70 +195,47 @@
       }
     },
     {
-      "id": "earn_ancient_ankh",
-      "text": "Any one investigator may choose to add the Ancient Ankh to their deck. It does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "83056"
-        }
-      ]
+      "id": "record_investigator_taken_by_the_abyss",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "choice",
+        "choices": [
+          {
+            "id": "taken_by_the_abyss",
+            "text": "Taken by the Abyss",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "tnu_taken_by_the_abyss",
+                "cards": "$input_value",
+                "text": "#name# was taken by the abyss."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
-      "id": "earn_john_and_jessie",
-      "text": "Any one investigator may choose to add John & Jessie Burke to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "83055"
-        }
-      ]
-    },
-    {
-      "id": "brotherhood_schemes_continue",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "tes_brotherhood_schemes_continue",
-          "text": "the Brotherhood’s schemes continue unabated."
-        }
-      ]
-    },
-    {
-      "id": "aware_of_xzharahs_plan",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "tes_aware_of_xzharahs_plan",
-          "text": "you are aware of Xzharah’s plans."
-        }
-      ]
-    },
-    {
-      "id": "curse_of_slumber_lifted",
-      "text": "In your Campaign Log, record that <i>the curse of slumber was lifted</i>. Cross off all <i>“(card name) was taken by the abyss”</i> notes in your Campaign Log.",
-      "effects": [
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "tes_curse_of_slumber_lifted",
-          "text": "the curse of slumber was lifted."
-        },
-        {
-          "type": "campaign_log",
-          "section": "campaign_notes",
-          "id": "tes_taken_by_the_abyss",
-          "cross_out": true
-        }
-      ]
-    },
-    {
-      "id": "resolution_1",
-      "resolution": "R1"
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "record_ally_taken_by_the_abyss",
+            "text": "An unique [[Ally]] was taken by the abyss.",
+            "steps": ["record_ally_taken_by_the_abyss"]
+          },
+          {
+            "id": "record_investigator_taken_by_the_abyss",
+            "text": "An investigator was taken by the abyss.",
+            "steps": ["record_investigator_taken_by_the_abyss"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [

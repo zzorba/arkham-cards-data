@@ -38,6 +38,12 @@ function validate(validator, file, json, schemaName) {
     steps[step.id] = true;
   });
   const unusedSteps = { ...steps };
+  if (!json.scenario_name) {
+    // Campaign
+    if (unusedSteps['$play_scenario']) {
+      delete unusedSteps['$play_scenario'];
+    }
+  }
   if (json.setup) {
     json.setup.map(step => {
       if (!steps[step] && !magicSteps[step]) {

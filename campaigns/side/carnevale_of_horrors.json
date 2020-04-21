@@ -1,0 +1,287 @@
+{
+  "id": "carnevale_of_horrors",
+  "scenario_name": "Carnevale of Horrors",
+  "full_name": "Carnevale of Horrors",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "remove_random_location",
+    "setup_locations",
+    "setup_masked_people",
+    "set_aside_cards",
+    "encounter_deck",
+    "circle_rule",
+    "counter_clockwise_rule",
+    "across_from_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "\"Look,\" Sheriff Engel insists, \"I know it sounds crazy, but that's really all there is to it.\" He sighs and sits back down, pouring a cup of joe for you and one for himself. \"A dame in Uptown spotted a cracked egg wearing this mask and holdin' a bloody butcher's cleaver,\" he says, motioning to the black leather mask sitting on his desk. It has a comicaly long nose and a strange symbol scrawled in yellow on its forehead. \"So, she calls it in. My boys and I picked him up on the corner of Saltonstall & Garrison.\" The sheriff's jaw clenches and his brows furrow as he recounts the story. \"Fella did nothing but laugh as we slapped the bracelets on him. Called himself Zanni. Said nothing except the 'carnival is coming'; whatever the hell that meant. Wasn't until the next day we found the victim's body. Defense wanted him in a straitjacket. We were happy to oblige.\"\nThere isn't much time to spare. If your research is right, there is more to this case than meets the eye. This \"Zanni\" wasn't talking about Darke's Carnival, but rather the Carnevale of Venice, which begins just before the next full moon."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "venice"
+      ]
+    },
+    {
+      "id": "remove_random_location",
+      "text": "Choose 1 location at random and remove it from the game. If San Marco Basilica or Canal-side is chosen, randomly choose a different location instead."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the other 8 locations into play, in a random circular formation. Each investigator begins play in San Marco Basilica. Put Abbess Allegria Di Biase into play at San Marco Basilica."
+    },
+    {
+      "id": "setup_masked_people",
+      "text": "Shuffle the 7 Masked Carnevale-Goers and put 1 into play at each location other than San Marco Basilica, Masked Carnevale-Goers side face-up. Do not look at their other sides."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Cnidathqua, Pantalone, Medico Della Peste, Bauta, Gilded Volto."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "circle_rule",
+      "type": "rule_reminder",
+      "title": "Location Setup",
+      "text": "In this scenario, locations are placed in a circle. Due to the parade during the Carnevale, each location is connectd only to the location in the clockwise direction. This means that investigators and monsters can only travel (or count the nearest location) in the clockwise direction unless otherwise noted."
+    },
+    {
+      "id": "counter_clockwise_rule",
+      "type": "rule_reminder",
+      "title": "Counter-clockwise",
+      "text": "Some cards instruct the players to find the nearest location in the counter-clockwise direction. This is an exception to the above rule and should be followed as though locations are connected counter-clockwise."
+    },
+    {
+      "id": "across_from_rule",
+      "type": "rule_reminder",
+      "title": "\"Across from\"",
+      "text": "The location \"across from\" another l ocation is the farthest location, equidistant in both the clockwise and counter-clockwise directions. For hte purpose of this scenario, \"across from your location\" and \"across from you\" have the same meaning."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "many_were_sacrificed_to_cnidathqua",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "coh_many_were_sacrificed_to_cnidathqua",
+          "text": "many were sacrificed to Cnidathqua during the Carnevale."
+        }
+      ]
+    },
+    {
+      "id": "sun_banished_cnidathqua",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "coh_sun_banished_cnidathqua",
+          "text": "the sun banished Cnidathqua into the depths."
+        }
+      ]
+    },
+    {
+      "id": "cnidathqua_retreated",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "coh_cnidathqua_retreated",
+          "text": "Cnidathqua retreated to nurse its wounds."
+        }
+      ]
+    },
+    {
+      "id": "move_innocent_reveler",
+      "text": "Move 1 Innocent Reveler from underneath the act deck to underneath the agenda deck, if able."
+    },
+    {
+      "id": "choose_masks",
+      "title": "Additional Rewards",
+      "text": "In player order, each investigator may choose one of the following [[Mask]] cards to add to his or her deck: Pantalone, Medico Della Peste, Bauta, Gilded Volto. The chosen card does not count towards that investigator's deck size.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "82025",
+            "text": "Pantalone",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82025"
+              }
+            ]
+          },
+          {
+            "id": "82024",
+            "text": "Medico Della Peste",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82024"
+              }
+            ]
+          },
+          {
+            "id": "82023",
+            "text": "Bauta",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82023"
+              }
+            ]
+          },
+          {
+            "id": "82026",
+            "text": "Gilded Volto",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82026"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_innocent_revelers_saved",
+      "type": "input",
+      "text": "How many Innocent Revelers are underneath the act deck?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "none",
+            "text": "None",
+            "steps": ["ask_innocent_revelers_killed"]
+          },
+          {
+            "id": "one_or_two",
+            "text": "One or Two",
+            "steps": ["no_further_rewards"]
+          },
+          {
+            "id": "three",
+            "text": "Three",
+            "steps": ["abbess_satisfied", "earn_abbess"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_further_rewards",
+      "bullet_type": "small",
+      "text": "No further rewards."
+    },
+    {
+      "id": "ask_innocent_revelers_killed",
+      "text": "How many Innocent Revelers are underneath the agenda deck?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "none",
+            "text": "None"
+          },
+          {
+            "id": "one_or_more",
+            "text": "One or more",
+            "steps": ["sacrifice_made", "random_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "abbess_satisfied",
+      "type": "story",
+      "text": "\"Grazie mille—thank you for all your help.\" Allegria says as you return to the basilica. \"Thanks to you, there were few casualties. I shudder to think what might have happened had you not arrived. Should you ever require assistance, please do not hesitate to ask.\""
+    },
+    {
+      "id": "earn_abbess",
+      "text": "Any one investigator may choose to add Abbess Allegria Di Biase to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "82022"
+        }
+      ]
+    },
+    {
+      "id": "sacrifice_made",
+      "type": "story",
+      "text": "Too many lives were lost during the eclipse to stop the machinations of Cnidathqua's servants. The beast has been fed, its minions empowered. You find yourself hoping you don't live long enough to see the fallout of your failure."
+    },
+    {
+      "id": "random_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Madness]], [[Injury]], or [[Monster]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": ["Madness", "Injury", "Monster"]
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You sputter awake as an oar gently taps yoru shoulder. \"Tutto bene?\" The goldolier holding the oars says with a concerned expression. You nod and drag yourself onto the docks from his gondola, drenched and aching all over. The city is devestated. Most of the boats in the canal are wrecked. The streets are covered not in confetti, but in blood.",
+      "steps": ["many_were_sacrificed_to_cnidathqua", "earn_xp", "move_innocent_reveler", "choose_masks", "ask_innocent_revelers_saved"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The city is still recovering from the events during the eclipse. With nearly all evidence of the creature melted away by the hot sun, many attribute the violence during the Carnevale to local crime lord Cascio Di Boerio and his crew. Those that know the truth know better than to speak of the elder creature that lives in Laguna Veneta. With any luck, its name will never be spoken again.",
+      "steps": ["sun_banished_cnidathqua", "earn_xp", "choose_masks", "ask_innocent_revelers_saved"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The creature recoils as globules of its jelly-like flesh rip and tear from its body, splashing into the lagoon. It makes no sound as its torn body sinks into the depths. The chanting in the city plunges into mournful silence. As you return to the canal-side streets, black feathers fall from the sky where bright confetti once fluttered. You can only wonder how long it will take for the creature to recover.",
+      "steps": ["cnidathqua_retreated", "earn_xp", "choose_masks", "ask_innocent_revelers_saved"]
+    }
+  ]
+}

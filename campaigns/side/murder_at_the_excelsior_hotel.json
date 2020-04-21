@@ -1,0 +1,1415 @@
+{
+  "id": "murder_at_the_excelsior_hotel",
+  "scenario_name": "Murder at the Excelsior Hotel",
+  "full_name": "Murder at the Excelsior Hotel",
+  "setup": [
+    "patrol_rule",
+    "true_culprit_rule",
+    "intro_1",
+    "check_player_count",
+    "intro_4",
+    "gather_encounter_sets",
+    "set_aside_encounter_sets",
+    "construct_act_deck",
+    "set_aside_true_culprit",
+    "take_bloodstained_dagger",
+    "create_leads_deck",
+    "setup_locations",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "patrol_rule",
+      "title": "patrol",
+      "type": "rule_reminder",
+      "text": "Some enemies have the patrol keyword. During the enemy phase (in framework step 3.2), each ready, unengaged enemy with the patrol keyword moves to a connecting location along the shortest path toward the designated location (as described in parentheses next to the word patrol).",
+      "bullets": [
+        {
+          "text": "If there are multiple locations that qualify as the designated location, the lead investigator may choose which location the enemy moves toward."
+        },
+        {
+          "text": "If an enemy with patrol would be compelled to move to a location which is blocked by a card ability, the enemy does not move."
+        }
+      ]
+    },
+    {
+      "id": "true_culprit_rule",
+      "title": "The True Culprit",
+      "type": "rule_reminder",
+      "text": "Each copy of The True Culprit is an agenda card with a different card template than most other agendas. These agendas each have doom thresholds which can be found to the right of their title, instead of in their normal position."
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "There have been reports of strange occurrences at Arkham’s Excelsior Hotel for over a month now. Disappearances. Bizarre sightings. Sudden closures, sometimes for days at a time, seemingly without warning. It’s like something out of a ghost story, but you know better than to simply dismiss these rumors. Too many people have whispered about the Excelsior…and to make matters worse, it seems the stories have only grown more unsettling in the last week. It’s time somebody looked into it all.\nYou’ve tried going to the police, but the grizzled and world‑weary Sergeant Monroe has dismissed you every time. You’ve been left to investigate on your own. Asking around at all the local hot-spots yields no leads. Velma’s Diner, Hibb’s Roadhouse, La Bella Luna; Each visit leaves you with only more questions. That is, until today.\nWhile walking down Central Avenue in Downtown, minding your own business, you bump into a man in a long trench coat. You begin to apologize, but he simply continues walking briskly away from you. It isn’t until you return home that you find the note in your pocket—one that wasn’t there before.\n<center><fancy>I have answers</fancy></center>\n<center><fancy>Room 225. Tonight. Come alone.</fancy></center>\n<center><fancy>They’re watching!</fancy></center>\nUncertain of what else you can do at this point, you begin making preparations to meet this mystery person."
+    },
+    {
+      "id": "check_player_count",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["intro_2"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["intro_3"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["intro_3"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["intro_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "The Excelsior is busy tonight. Either the rumors haven’t fazed these guests, or the stories have given the hotel a new allure. Everything seems normal. Hotel staff carry luggage and cleaning supplies throughout the lobby and the main stairway. The man behind the front desk greets you with a curt nod and a thin smile. A uniformed security guard reads the latest Arkham Advertiser in the corner. And yet, you can’t get the note’s final warning out of your mind.\nYou stride quickly across the lobby and up the stairs, wondering if you should have let someone know where you were going. Was it wise to come alone? What if you’re walking into a trap? You set your jaw and clench your fists as you stand in front of the blood-red door to room 225, and before you can second guess yourself any further, you knock. There’s no going back now."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The Excelsior is busy tonight. Either the rumors haven’t fazed these guests, or the stories have given the hotel a new allure. Everything seems normal. Hotel staff carry luggage and cleaning supplies throughout the lobby and the main stairway. The man behind the front desk greets you with a curt nod and a thin smile. A uniformed security guard reads the latest Arkham Advertiser in the corner. And yet, you can’t get the note’s final warning out of your mind. You stride quickly across the lobby and up the stairs, taking some measure of comfort in the knowledge that you at least contacted others you could trust, letting them know of your whereabouts and intent. Your clandestine meetings have rarely gone as planned, especially lately, and it never hurts to have some measure of backup. You stand before the blood-red door to room 225, take a deep breath, and knock. There’s no going back now."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You sit in a chair in the suite’s living room, watching as the man who slipped you the note paces about nervously. He rambles about secret meetings and watchful staff. The entire time, you find yourself glancing to the coffee table in front of you, and the curved dagger that rests there. He pauses for a moment, pours himself a drink, and raises the glass to his lips with a shaky grip. He then pours a second drink and hands it to you. “This is all going to sound crazy,” he says, his voice little more than a whisper. He glances at every darting shadow and twitches at every creak the old building makes. “I’m beginning to feel crazy, but there’s too much going on here to just ignore. And I’ve been a part of it long enough…” You listen closely, but his words are starting to run together. His voice is ethereal and wispy, like wind at the end of a long tunnel. You blink rapidly. Your vision blurs. The next thing you know, you’re on your feet. Your glass drops to the floor, and then—"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "murder_at_the_excelsior_hotel"
+      ]
+    },
+    {
+      "id": "set_aside_encounter_sets",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "alien_interference",
+        "dark_rituals",
+        "excelsior_management",
+        "sins_of_the_past",
+        "vile_experiments"
+      ]
+    },
+    {
+      "id": "construct_act_deck",
+      "text": "Construct the act and agenda deck using only acts 1 & 2 and agendas 1 & 2 from <i>the Murder at the Excelsior Hotel</i> encounter set."
+    },
+    {
+      "id": "set_aside_true_culprit",
+      "text": "Set all ten copies of The True Culprit aside, out of play"
+    },
+    {
+      "id": "take_bloodstained_dagger",
+      "text": "The lead investigator begins play with the Bloodstained Dagger story asset under his or her control."
+    },
+    {
+      "id": "create_leads_deck",
+      "text": "Find each of the story assets from the 5 set-aside encounter sets (Alien Device, Tome of Rituals, Sinister Solution, Manager’s Key, and Time-Worn Locket) and shuffle them together into a separate deck. This deck is called the Leads deck. Place this deck near the scenario reference card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Room 225, Suite Balcony, Second Floor Hall, Restaurant, and Foyer.",
+      "bullets": [
+        {
+          "text": "The lead investigator begins play in Room 225."
+        },
+        {
+          "text": "Each other investigator begins play in the Foyer."
+        },
+        {
+          "text": "Set each other location aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: All three copies of Arkham Officer, the Sergeant Monroe story asset, and the What Have You Done? weakness."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "excelsior_claims_another_victim",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_excelsior_claims_another_victim",
+          "text": "the Excelsior claims another victim."
+        }
+      ]
+    },
+    {
+      "id": "fled_scene_of_the_crime",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_fled_scene_of_the_crime",
+          "text": "the investigators fled the scene of the crime."
+        }
+      ]
+    },
+    {
+      "id": "excelsior_is_quiet_for_now",
+      "text": "In your Campaign Log, record that <i>the Excelsior is quiet, for now</i>. The lead investigator must add the What Have You Done? weakness to their deck. They may also choose to add the Bloodstained Dagger story asset to their deck as well. Both cards do not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_excelsior_is_quiet_for_now",
+          "text": "the Excelsior is quiet, for now."
+        },
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "84007"
+        },
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "84006",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "earn_story_cards",
+      "text": "The lead investigator must add the What Have You Done? weakness to their deck. They may also choose to add the Bloodstained Dagger story asset to their deck as well. Both cards do not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "84007"
+        },
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "84006",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "check_police_on_your_side",
+      "type": "branch",
+      "text": "If “the police are on your side”:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "meh_police_are_on_your_side",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_sergeant_monroe"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_sergeant_monroe",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Sergeant Monroe to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "84008"
+        }
+      ]
+    },
+    {
+      "id": "check_police_dont_believe_you",
+      "type": "branch",
+      "text": "If “the police don't believe you”:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "meh_police_dont_believe_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["do_not_earn_sergeant_monroe", "ask_police_in_victory_display"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "do_not_earn_sergeant_monroe",
+      "bullet_type": "small",
+      "text": "Do not add Sergeant Monroe to any investigator’s deck."
+    },
+    {
+      "id": "ask_police_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "killed_police",
+            "text": "Are there any [[Police]] enemies in the victory display?",
+            "steps": ["earn_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_weakness",
+      "text": "Search the collection for a [[Detective]] or [[Madness]] weakness and add it to the lead investigator’s deck.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "lead_investigator",
+          "weakness_traits": ["Madness", "Detective"]
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "the_truth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "meh_the_truth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude: The Truth",
+            "steps": [
+              "the_truth_1",
+              "choose_inspector_monroe",
+              "the_truth_7",
+              "choose_lead_assets",
+              "lead_asset_branch_1",
+              "continue_playing"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "meh_the_truth",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_truth_1",
+      "type": "story",
+      "text": "Your investigation is halted by Sergeant Monroe—the very same police sergeant who had spurned your earlier warnings about the Excelsior Hotel. He is clearly exasperated by all of the strange happenings in the building, and demands answers. “Now listen here,” he says, his hand twitching toward his holstered gun. “I’m a reasonable man, but you’re looking mighty suspicious. You better tell me everything that’s going on right now, you understand? Or you’re gonna take a oneway trip straight to the big house.”"
+    },
+    {
+      "id": "choose_inspector_monroe",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "tell_truth",
+            "text": "<i>Tell Sergeant Monroe the truth.</i>",
+            "steps": ["the_truth_2", "truth_intro", "ask_did_not_cover_evidence", "ask_have_clues", "ask_no_innocents_killed", "tell_truth_branch"]
+          },
+          {
+            "id": "lie",
+            "text": "<i>Lie about your involvement.</i>",
+            "steps": ["the_truth_3", "lie_intro", "ask_cleared_evidence", "ask_no_innocents_killed", "lie_branch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_truth_2",
+      "type": "story",
+      "text": "You explain everything to Sergeant Monroe from the beginning. The rumors. The note. The murder. The more you explain, the more you realize how crazy it all sounds, but you know it is the truth. You know you’re innocent. But do you have the evidence to back it up?"
+    },
+    {
+      "id": "truth_intro",
+      "text": "Sergeant Monroe will only believe you if you collected enough evidence and did not try to cover up your involvement. If all of the following circumstances are true:"
+    },
+    {
+      "id": "ask_did_not_cover_evidence",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cleared_evidence",
+            "text": "Have the investigators NOT “cleaned up the blood,” “hid the body,” or “tidied up the room?”",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "meh_did_not_cover_up",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_have_clues",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "have_clues",
+            "text": "Are there are least 2 [per_investigator] clues on each [[Lead]] asset in play?”",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "meh_have_clues",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_no_innocents_killed",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "have_clues",
+            "text": "Are there no [[Innocent]] enemies in the victory display?”",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "meh_no_innocents_killed",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tell_truth_branch",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "meh_did_not_cover_up",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "meh_have_clues",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "meh_no_innocents_killed",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["the_truth_5", "the_truth_5_consequences"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["the_truth_4", "the_truth_4_consequences"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_truth_3",
+      "type": "story",
+      "text": "You do the only thing you can think to do in the moment: lie through your teeth. After all, there is no way the police would understand all of the strange occurrences within the hotel, and even if they did, you don’t expect them to turn a blind eye to all of the evidence pointing in your direction."
+    },
+    {
+      "id": "lie_intro",
+      "text": "Sergeant Monroe will only believe you if you successfully covered up your involvement. If all of the following circumstances are true:"
+    },
+    {
+      "id": "ask_cleared_evidence",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cleared_evidence",
+            "text": "Have the investigators “cleaned up the blood,” “hid the body,” and “tidied up the room?”",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "meh_did_cover_up",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lie_branch",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "meh_did_cover_up",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "meh_no_innocents_killed",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["the_truth_6", "the_truth_6_consequences"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["the_truth_4", "the_truth_4_consequences"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_truth_4",
+      "type": "story",
+      "text": "“No. No, I don’t believe you.” The man says, unholstering his weapon. “None of this checks out. You’re coming with me, pal. You can sing your story down at the station.” You raise your hands, and he starts ushering you out of the room when there is a tremendous crash from another part of the hotel. The entire building shakes to its foundations, and you hear guests screaming. “What in the hell?” He looks to the door, then to you. “Stay put,” he warns, “Or I swear, next time I see you, you’re gettin’ cuffed.” He runs off to investigate the noise, mumbling about how he is getting too old for this job."
+    },
+    {
+      "id": "the_truth_4_consequences",
+      "text": "Remember that “the police don’t believe you.” Remove Sergeant Monroe from the game. Search the encounter deck, discard pile, and all play areas for each copy of Arkham Officer and remove them from the game. Shuffle the encounter discard pile into the encounter deck.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_police_dont_believe_you"
+        }
+      ]
+    },
+    {
+      "id": "the_truth_5",
+      "type": "story",
+      "text": "Sergeant Monroe listens to your story with skepticism, though he seems to come around the more evidence you present to him. “All right,” he says once you are finished explaining. “So you were under duress. Drugged, maybe. Crazy as it sounds, the pieces fit. I think you’re telling the truth. But if there's someone else pulling the strings, we've gotta figure out who, or nobody's gonna believe either one of us.” A drop of sweat slides down his forehead. “Come on, let’s go.”"
+    },
+    {
+      "id": "the_truth_5_consequences",
+      "text": "Remember that “the police are on your side.” Choose an investigator to take control of the Sergeant Monroe story asset <i>(move him to that investigator’s threat area)</i>. Search the encounter deck, discard pile, and all play areas for each copy of Arkham Officer and remove them from the game. ",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_police_are_on_your_side"
+        }
+      ]
+    },
+    {
+      "id": "the_truth_6",
+      "type": "story",
+      "text": "Sergeant Monroe nods along to your story, convinced. “All right,” he says, “Sounds like you really did have nothing to do with this. But maybe you can help me find the real culprit. Somebody in this damned hotel is a murderer, and we’re gonna find them.” You breathe a sigh of relief. At least the police won’t be a problem anymore."
+    },
+    {
+      "id": "the_truth_6_consequences",
+      "text": "Remember that “the police are on your side.” Choose an investigator to take control of the Sergeant Monroe story asset <i>(move him to that investigator’s threat area)</i>. Search the encounter deck, discard pile, and all play areas for each copy of Arkham Officer and remove them from the game. Shuffle the encounter discard pile into the encounter deck.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_police_are_on_your_side"
+        }
+      ]
+    },
+    {
+      "id": "the_truth_7",
+      "type": "story",
+      "text": "Thanks to your cunning investigation, you now have a better idea of what is going on. You’re not the real culprit here. There is much more happening behind the scenes of the Excelsior Hotel, and you’re just caught in the middle…"
+    },
+    {
+      "id": "choose_lead_assets",
+      "text": "Based on which two [[Lead]] assets are controlled by the players, a different result will occur.",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "min": 2,
+        "max": 2,
+        "query": [
+          {
+            "code": ["84028", "84034", "84031", "84037", "84040"]
+          }
+        ],
+        "choices": [
+          {
+            "id": "in_play",
+            "text": "In play",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lead_asset_branch_1",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84028",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84040",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["alien_device_and_time_worn_locket", "true_culprit_1", "move_clues_1", "boss_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "alien_device_and_time_worn_locket",
+      "type": "story",
+      "text": "The specter laid dormant for many years, in relative peace. It wasn’t violent until the victim brought that accursed device into the hotel. The signal emitted from the transmitter was inaudible to human ears, but somehow pierced beyond the veil of the material world. Driven berserk, the specter will not stop until it has killed every last person in the hotel."
+    },
+    {
+      "id": "true_culprit_1",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. I).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_1",
+      "text": "Move all clues from Time-Worn Locket to Alien Device."
+    },
+    {
+      "id": "boss_1",
+      "text": "Spawn the set-aside Vengeful Specter in Room 245."
+    },
+    {
+      "id": "lead_asset_branch_2",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84028",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84037",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["alien_device_and_sinister_solution", "true_culprit_2", "move_clues_2", "boss_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "alien_device_and_sinister_solution",
+      "type": "story",
+      "text": "The victim was experimenting with extraterrestrial brain matter and attracted the attention of another creature from beyond the stars. Between the concoction you were forced to drink and the signal emitted by that horrible device, it’s a wonder you are able to think properly at all. You hear a crash and an unearthly screech from the rooftop. Perhaps you can turn this strange potion to your advantage."
+    },
+    {
+      "id": "true_culprit_2",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. II).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_2",
+      "text": "Move all clues from Alien Device to Sinister Solution."
+    },
+    {
+      "id": "boss_2",
+      "text": "Spawn the set-aside Otherworldly Meddler at the Hotel Roof. Place 1[per_investigator] doom on Otherworldly Meddler."
+    },
+    {
+      "id": "lead_asset_branch_3",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84028",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84031",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["alien_device_and_managers_key", "true_culprit_3", "move_clues_3", "boss_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "alien_device_and_managers_key",
+      "type": "story",
+      "text": "Whatever the extraterrestrial device’s original purpose was, it never should have been brought to your world. The moment it came into contact with humans, it changed them, and the resulting monstrosities hunger for more flesh. Your “victim” was one such creature, no innocent at all, and you were forced to defend yourself when you learned the truth. Now, with your memories returned, you can put an end to this."
+    },
+    {
+      "id": "true_culprit_3",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. III).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_3",
+      "text": "Move all clues from Manager’s Key to Alien Device."
+    },
+    {
+      "id": "boss_3",
+      "text": "Spawn the set-aside Hotel Manager in the Restaurant."
+    },
+    {
+      "id": "lead_asset_branch_4",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84028",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84034",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["alien_device_and_tome_of_rituals", "true_culprit_4", "move_clues_4", "boss_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "alien_device_and_tome_of_rituals",
+      "type": "story",
+      "text": "The Enclave used the strange transmitter to summon its owner to the hotel. Now they hope to gain control over the creature through a ritual of blood sacrifice. By forcing other guests to do their bloody work, evidence of their wrongdoing remains hidden...but you know the truth. And now you can stop their ritual and allow the hideous creature to return to its own world."
+    },
+    {
+      "id": "true_culprit_4",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. IV).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_4",
+      "text": "Move all clues from Alien Device to Tome of Rituals."
+    },
+    {
+      "id": "boss_4",
+      "text": "Spawn the set-aside Otherworldly Meddler at the Hotel Roof. Place 2 plus 2[per_investigator] doom on Otherworldly Meddler."
+    },
+    {
+      "id": "lead_asset_branch_5",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84040",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84037",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["time_worn_locket_and_sinister_solution", "true_culprit_5", "move_clues_5", "boss_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "time_worn_locket_and_sinister_solution",
+      "type": "story",
+      "text": "The victim was utilizing a strange concoction in an attempt to peer into the world beyond the living. His experiments were what angered the specter, and led to his demise. It is up to you to destroy this spirit once and for all, and there’s only one way to do that..."
+    },
+    {
+      "id": "true_culprit_5",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. V).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_5",
+      "text": "Move all clues from Time-Worn Locket to Sinister Solution."
+    },
+    {
+      "id": "boss_5",
+      "text": "Spawn the set-aside Vengeful Specter in Room 245."
+    },
+    {
+      "id": "lead_asset_branch_6",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84040",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84031",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["time_worn_locket_and_managers_key", "true_culprit_6", "move_clues_6", "boss_6"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_7"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "time_worn_locket_and_managers_key",
+      "type": "story",
+      "text": "The woman in the locket was killed many years ago, and the manager is the one responsible. The man who met you in 225 was one of the staff members involved. That is when the spirit possessed you in a fit of righteous fury. Nothing in this hotel will return to normal until the manager is destroyed and the spirit is avenged."
+    },
+    {
+      "id": "true_culprit_6",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. VI).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_6",
+      "text": "Move all clues from Manager’s Key to Time-Worn Locket."
+    },
+    {
+      "id": "boss_6",
+      "text": "Spawn the set-aside Hotel Manager in the Restaurant."
+    },
+    {
+      "id": "lead_asset_branch_7",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84040",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84034",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["time_worn_locket_and_tome_of_rituals", "true_culprit_7", "move_clues_7", "shuffle_guests_7", "boss_7"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_8"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "time_worn_locket_and_tome_of_rituals",
+      "type": "story",
+      "text": "The woman in the locket was killed many years ago in one of the Enclave’s many blood sacrifices. Its hate and malice for the cult is what drove it to possess you, and what drove it to kill. Its fury must be satisfied, and you are its righteous agent. It is up to you to direct that fury to its rightful source: the cult that infests the hotel."
+    },
+    {
+      "id": "true_culprit_7",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. VII).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_7",
+      "text": "Spawn the set-aside Dimensional Shambler in the Basement."
+    },
+    {
+      "id": "shuffle_guests_7",
+      "text": "Shuffle each [[Guest]] enemy in the victory display into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "boss_7",
+      "text": "Discard cards from the top of the encounter deck until 1 plus 1[per_investigator] [[Guest]] or [[Cultist]] enemies are discarded. Randomly spawn each of those enemies in a different [[Crime Scene]] location (empty, if able)."
+    },
+    {
+      "id": "lead_asset_branch_8",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84037",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84031",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["sinister_solution_and_managers_key", "true_culprit_8", "shuffle_staff_8", "spawn_staff_8", "boss_8"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["lead_asset_branch_9"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sinister_solution_and_managers_key",
+      "type": "story",
+      "text": "The victim was performing horrible experiments within the Excelsior. He had already transformed much of the staff, and you were to be the next in a long line of subjects...only the experiment was a failure. Now it is up to you to put a stop to these horrible transformations by destroying the source of this concoction."
+    },
+    {
+      "id": "true_culprit_8",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. VIII).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "shuffle_staff_8",
+      "text": "Shuffle each [[Staff]] enemy in the victory display into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "spawn_staff_8",
+      "text": "Discard cards from the top of the encounter deck until 1 [[Staff]] enemy is discarded (2 instead if there are 3 or 4 investigators in the game). Spawn each of those enemies in the Foyer."
+    },
+    {
+      "id": "boss_8",
+      "text": "Attach the set-aside Harvested Brain to Room 212."
+    },
+    {
+      "id": "lead_asset_branch_9",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84037",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "84034",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["sinister_solution_and_tome_of_rituals", "true_culprit_9", "move_clues_9", "boss_9"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["managers_key_and_tome_of_rituals", "true_culprit_10", "boss_10", "shuffle_guest_10", "place_doom_10"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sinister_solution_and_tome_of_rituals",
+      "type": "story",
+      "text": "The Enclave have wrested control of an inhuman brain through a vile ritual and blood sacrifice. Now the cult utilizes the brain’s vast intellect and strange secretions to possess others to do their bidding, and you are their latest victim. The only way to stop their scheme is to break their hold over this brain once and for all."
+    },
+    {
+      "id": "true_culprit_9",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. IX).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "move_clues_9",
+      "text": "Move all clues from Sinister Solution to Tome of Rituals."
+    },
+    {
+      "id": "boss_9",
+      "text": "Attach the set-aside Harvested Brain to Room 212."
+    },
+    {
+      "id": "managers_key_and_tome_of_rituals",
+      "type": "story",
+      "text": "The Enclave has been performing a terrible ritual for days, intending to change every last human inside the Excelsior into wretched monstrosities. The staff were the first to change, and if you aren’t quick, you will be next. The transformation has already begun... "
+    },
+    {
+      "id": "true_culprit_10",
+      "text": "Remove all doom from play. Advance the act and agenda deck to the set-aside “The True Culprit (v. X).” It is both the current act and the current agenda."
+    },
+    {
+      "id": "boss_10",
+      "text": "Spawn the set-aside Dimensional Shambler in the Basement."
+    },
+    {
+      "id": "shuffle_guest_10",
+      "text": "Shuffle each [[Guest]] enemy in the victory display into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "place_doom_10",
+      "text": "Place 2[per_investigator] doom on “The True Culprit (v. X).”"
+    },
+    {
+      "id": "continue_playing",
+      "text": "You are now ready to continue playing."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "check_replay_scenario_R2",
+      "type": "branch",
+      "text": "If this is the first time you have played this scenario during this campaign:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_replayed",
+        "scenario": "murder_at_the_excelsior_hotel",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["murders_continue_unsolved", "earn_xp", "earn_story_cards", "$upgrade_decks"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_replay_scenario_R2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_replay_scenario_R3",
+      "type": "branch",
+      "text": "If this is the first time you have played this scenario during this campaign:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_replayed",
+        "scenario": "murder_at_the_excelsior_hotel",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["murders_continue_unsolved", "earn_xp", "earn_story_cards", "earn_weakness", "$upgrade_decks"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_replay_scenario_R3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_replay_scenario_R2",
+      "type": "input",
+      "text": "You may replay this scenario. If you choose to, reset the game to this scenario’s <b>Setup</b>. Do not record anything else in your Campaign Log except for any trauma suffered. No experience points are earned from your previous game.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "replay",
+            "text": "Replay scenario.",
+            "steps": ["$upgrade_decks", "replay_scenario"]
+          },
+          {
+            "id": "done",
+            "text": "Do not replay.",
+            "steps": ["murders_continue_unsolved", "earn_xp", "earn_story_cards", "$upgrade_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_replay_scenario_R3",
+      "type": "input",
+      "text": "You may replay this scenario. If you choose to, reset the game to this scenario’s <b>Setup</b>. Do not record anything else in your Campaign Log except for any trauma suffered. No experience points are earned from your previous game.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "replay",
+            "text": "Replay scenario.",
+            "steps": ["$upgrade_decks", "replay_scenario"]
+          },
+          {
+            "id": "done",
+            "text": "Do not replay.",
+            "steps": ["murders_continue_unsolved", "earn_xp", "earn_story_cards", "earn_weakness", "$upgrade_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "murders_continue_unsolved",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_murders_continue_unsolved",
+          "text": "the murders continue, unsolved."
+        }
+      ]
+    },
+    {
+      "id": "replay_scenario",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "replay_scenario",
+          "scenario": "murder_at_the_excelsior_hotel"
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_excelsior_claims_another_victim",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "meh_fled_scene_of_the_crime",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_police_are_on_your_side",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_police_dont_believe_you",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_the_truth",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "hidden",
+          "id": "84028",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "hidden",
+          "id": "84034",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "hidden",
+          "id": "84031",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "hidden",
+          "id": "84037",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_cards",
+          "section": "hidden",
+          "id": "84040",
+          "remove": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution was reached\n(each investigator was defeated)",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You collapse to the floor, gasping for breath. The air around you feels oppressive, your ears filled with the agonizing wails of other innocents who have fallen victim to the cruel machinations that continue in the Excelsior hotel. You clutch at the carpet, your vision swirling and swaying as you feel yourself losing consciousness. Your efforts have been in vain. The nefarious plans that have been set into motion can no longer be undone.",
+      "steps": [
+        "excelsior_claims_another_victim",
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(at least one investigator resigned)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "With no hope of solving this mystery, you fled the hotel. Unfortunately, your flight did not do much to prove your innocence. It wasn’t long before the bulls tracked you down and the dreaded knock on your door arrived: “Open up! Arkham Police!”",
+      "steps": ["fled_scene_of_the_crime", "resolution_3"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Nobody will ever believe what you witnessed at the Excelsior. Not three days later, the hotel was open again, like nothing had ever happened. You know better, though. You witnessed it all firsthand. The events continue to haunt your dreams and your waking thoughts. Even now you go out of your way to avoid the Excelsior, though weeks have passed and there has been no sign of any other nefarious schemes within its accursed walls. The only thing that can quiet the echoing memories of that horrible experience is a visit to the local speakeasy. But all the booze in the world can’t keep the grisly visions from your nightmares, waking you in the dead of night with a violent start, soaked in sweat. That’s when you notice the person asking around town about the Excelsior. Innocent questions, at first, but more prodding with each passing day. Surely they will believe you. Somebody has to. You may have broken free of the Excelsior’s grasp, but there will be other victims, of that you are sure. You grab a piece of paper and hastily scribble a note.\n<center><fancy>It’s all a facade.</fancy></center>\n<center><fancy>Room 225. Tonight.</fancy></center>\n<center><fancy>It’s not over.</fancy></center>\nIf they can see past the veil of the Excelsior’s operations, then maybe others can too. It may not be too late to stop it all from happening again!",
+      "steps": ["excelsior_is_quiet_for_now", "check_police_on_your_side", "check_police_dont_believe_you", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "“Sit there any longer and I’ll have to charge you rent.” You blink rapidly, as if coming out of a deep dream. Looking up, you see a waiter giving you an annoyed look. He is carrying a stack of dirty dishes. In your hand is a glass of water. You don’t remember ordering it, nor do you remember how long you’ve been here. And where <i>is</i> here, exactly? You spin around in your chair and realize you’re in the restaurant of the Excelsior Hotel. A few other diners are present, catching an early dinner and minding their own business. The soft light of an autumn afternoon filters in through the windows, and the general din of activity can be heard from the lobby. You turn and briefly glance back at the waiter before reaching in your pocket and dropping a quarter on the table, heading for the lobby. Your legs feel like jelly. As you stumble out of the restaurant, other guests view you with concern. The security guard in the corner watches you like a hawk. You head over to the front desk, steadying yourself against it. The concierge approaches, but you recoil at the recognition of his face. The hotel is operating as if nothing happened. But that can’t be. Everything you saw was true, right? You dash out the front door before he can reach you. You have to put some distance between yourself and this accursed place.\nWeeks pass. Nothing helps to quell the feeling in your mind that you have missed something important. This business with the Excelsior is not done, not by a long shot. You begin your investigation anew, asking around town for the latest rumors regarding the hotel. More missing staff. More sudden closures. Guests who never arrived. Guests who <i>never</i> left. It’s all too much.\nStanding on a lonely street corner in Northside, you consider your options. Streetlamps flicker to life around you as evening creeps in. Just then, a stranger bumps into you, muttering a half-hearted apology. You take a step after them before you feel something tugging at the back of your mind. No. Could it be? You stick your hands into your coat pocket. Stuffed inside is a small, folded note. You look up, but the pedestrian is nowhere in sight. You unfold the note slowly, fingers shaking from anxiety and fear.\n<center><fancy>It’s all a facade.</fancy></center>\n<center><fancy>Room 225. Tonight.</fancy></center>\n<center><fancy>This isn't over.</fancy></center>",
+      "steps": ["check_replay_scenario_R2"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You sit in a cold, dank holding cell awaiting your arraignment. You have no doubt that with the evidence the police gathered, you’ll be spending the rest of your life behind bars. You have sworn high and low that you had nothing to do with the murder, but doubt lingers in your mind. Could it have been you, somehow? What really happened in the Excelsior that night?\nJust then, you hear rapping on the bars of your cell. An officer stands just outside, looking away from you. He slips a folded note between the bars of your cell. Knowing better than to ask his intentions out loud, you slowly walk over and unfold the note, your fingers shaking with trepidation.\n<center><fancy>It’s all a facade.</fancy></center>\n<center><fancy>Room 225. Tonight.</fancy></center>\n<center><fancy>This isn't over.</fancy></center>\nJust as you finish reading the note, you hear the click of the cell’s latch unlocking. The officer is gone, and the door to your cell swings open.",
+      "steps": ["check_replay_scenario_R3"]
+    }
+  ]
+}
