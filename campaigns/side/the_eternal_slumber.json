@@ -2,21 +2,34 @@
   "id": "the_eternal_slumber",
   "scenario_name": "The Eternal Slumber",
   "full_name": "The Eternal Slumber",
+  "xp_cost": 2,
   "setup": [
-    "explore_rule",
-    "story_cards",
-    "strength_of_the_abyss",
-    "taken_by_the_abyss",
+    "xp_cost",
     "intro_1",
     "gather_encounter_sets",
     "setup_locations",
+    "location_layout",
     "set_aside_cards",
     "create_brotherhood_deck",
     "set_strength_of_the_abyss",
     "encounter_deck",
+    "explore_rule",
+    "story_cards",
+    "strength_of_the_abyss",
+    "taken_by_the_abyss",
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2
+        }
+      ]
+    },
     {
       "id": "explore_rule",
       "title": "explore",
@@ -75,6 +88,18 @@
     {
       "id": "setup_locations",
       "text": "Put the following locations into play: Streets of Cairo, Outskirts of Cairo, Temple Courtyard, Museum of Egyptian Antiquities, Cairo Bazaar, and Expedition Camp. Each investigator begins play in the Streets of Cairo."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "83012_back", "blank", "blank"],
+        ["83009_back", "83008_back", "83011_back", "83037_back"],
+        ["blank", "83010_back", "blank", "blank"]
+      ]
     },
     {
       "id": "set_aside_cards",
@@ -277,12 +302,12 @@
         "branches": [
           {
             "id": "record_ally_taken_by_the_abyss",
-            "text": "An unique [[Ally]] was <i>taken by the abyss</i>.",
+            "text": "Unique ally was taken by the abyss.",
             "steps": ["record_ally_taken_by_the_abyss"]
           },
           {
             "id": "record_investigator_taken_by_the_abyss",
-            "text": "An investigator was <i>taken by the abyss</i>.",
+            "text": "Investigator was taken by the abyss.",
             "steps": ["record_investigator_taken_by_the_abyss"]
           }
         ]

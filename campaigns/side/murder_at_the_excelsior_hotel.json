@@ -2,12 +2,9 @@
   "id": "murder_at_the_excelsior_hotel",
   "scenario_name": "Murder at the Excelsior Hotel",
   "full_name": "Murder at the Excelsior Hotel",
+  "xp_cost": 3,
   "setup": [
-    "patrol_rule",
-    "true_culprit_rule",
-    "intro_1",
-    "check_player_count",
-    "intro_4",
+    "check_first_play_xp_cost",
     "gather_encounter_sets",
     "set_aside_encounter_sets",
     "construct_act_deck",
@@ -15,14 +12,44 @@
     "take_bloodstained_dagger",
     "create_leads_deck",
     "setup_locations",
+    "location_layout",
     "set_aside_cards",
     "encounter_deck",
+    "patrol_rule",
+    "true_culprit_rule",
     "$play_scenario"
   ],
   "steps": [
     {
+      "id": "check_first_play_xp_cost",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_replayed",
+        "scenario": "murder_at_the_excelsior_hotel",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "intro_1",
+              "check_player_count",
+              "intro_4"
+            ],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "patrol_rule",
-      "title": "patrol",
+      "title": "Patrol",
       "type": "rule_reminder",
       "text": "Some enemies have the patrol keyword. During the enemy phase (in framework step 3.2), each ready, unengaged enemy with the patrol keyword moves to a connecting location along the shortest path toward the designated location (as described in parentheses next to the word patrol).",
       "bullets": [
@@ -135,6 +162,19 @@
         {
           "text": "Set each other location aside, out of play."
         }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        ["blank", "84012_back", "84010_back", "84011_back"],
+        ["84014_back", "blank", "blank", "blank"],
+        ["blank", "84013_back", "blank", "blank"],
+        ["blank", "blank", "blank", "blank"]
       ]
     },
     {
@@ -569,7 +609,8 @@
         {
           "type": "campaign_log",
           "section": "hidden",
-          "id": "meh_police_dont_believe_you"
+          "id": "meh_police_dont_believe_you",
+          "text": "dummy"
         }
       ]
     },
@@ -585,7 +626,8 @@
         {
           "type": "campaign_log",
           "section": "hidden",
-          "id": "meh_police_are_on_your_side"
+          "id": "meh_police_are_on_your_side",
+          "text": "dummy"
         }
       ]
     },
@@ -601,7 +643,8 @@
         {
           "type": "campaign_log",
           "section": "hidden",
-          "id": "meh_police_are_on_your_side"
+          "id": "meh_police_are_on_your_side",
+          "text": "dummy"
         }
       ]
     },
@@ -1325,6 +1368,30 @@
           "type": "campaign_log",
           "section": "hidden",
           "id": "meh_police_dont_believe_you",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_did_cover_up",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_did_not_cover_up",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_have_clues",
+          "remove": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "meh_no_innocents_killed",
           "remove": true
         },
         {

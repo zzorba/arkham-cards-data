@@ -147,6 +147,7 @@ export interface Campaign {
   scenarios: string[];
   setup: string[];
   steps: Step[];
+  side_scenario_steps?: Step[];
 }
 export interface BranchStep {
   id: string;
@@ -590,6 +591,7 @@ export interface PlayScenarioInput {
   type: "play_scenario";
   branches?: BinaryConditionalChoice[];
   campaign_log?: BinaryConditionalChoice[];
+  no_resolutions?: boolean;
 }
 export interface TextBoxInput {
   type: "text_box";
@@ -677,6 +679,7 @@ export interface Scenario {
   id: string;
   scenario_name: string;
   full_name: string;
+  xp_cost?: number;
   setup: string[];
   resolutions?: Resolution[];
   steps: Step[];

@@ -2,8 +2,9 @@
   "id": "the_nights_usurper",
   "scenario_name": "The Night's Usurper",
   "full_name": "The Night's Usurper",
+  "xp_cost": 2,
   "setup": [
-    "story_cards",
+    "xp_cost",
     "intro_1",
     "gather_encounter_sets",
     "setup_locations",
@@ -12,9 +13,56 @@
     "create_brotherhood_deck",
     "set_strength_of_the_abyss",
     "encounter_deck",
+    "explore_rule",
+    "story_cards",
+    "strength_of_the_abyss",
+    "taken_by_the_abyss",
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "explore_rule",
+      "title": "explore",
+      "type": "rule_reminder",
+      "text": "Some abilities in <i>Guardians of the Abyss</i> are identified with an <b>Explore</b> action designator. Such abilities are generally used to find new locations to put into play, and are initiated using the “activate” action.\n<b>Explore</b> abilities instruct you to draw the top card of the “exploration deck,” which is a separate deck that will be constructed during this scenario. This deck consists of several single-sided locations and treachery cards.",
+      "bullets": [
+        {
+          "text": "Each <b>Explore</b> ability indicates a particular type of location that you are seeking to draw. <b>If a location of that type is drawn, it is put into play, and you move to that location.</b> This is considered a “successful” exploration."
+        },
+        {
+          "text": "If any other location is drawn, place it next to the exploration deck, and draw the next card from the exploration deck. Repeat this process until a location of the indicated type is drawn, or a treachery is drawn. After this action has ended, shuffle each location next to the exploration deck back into the exploration deck."
+        },
+        {
+          "text": "If a treachery card is drawn, it is resolved as normal. If it is discarded, place it in the encounter discard pile as you would normally. There is no discard pile for the exploration deck. This is considered an “unsuccessful” exploration."
+        },
+        {
+          "text": "When a single-sided location is put into play from the exploration deck, place clues on that location equal to its clue value."
+        }
+      ],
+      "example": "<i>Example: Act 1a—“Search for the Gate” has the following ability: “[action]: <b>Explore</b>. Draw the top card of the exploration deck. If it is a connecting location, put it into play and move to it.” Ursula Downs is at the Expedition Camp and wishes to find a new location to travel to. She spends her first action to explore, drawing the top card of the exploration deck. The card she draws is Desert Oasis. Because Desert Oasis is a location that is not connected to the Expedition Camp, it is placed next to the exploration deck, and Ursula draws the next card in the exploration deck. This time, she draws the Sandstorm treachery card, which she resolves as normal and places in the encounter discard pile. Her exploration is unsuccessful, and she must shuffle the Desert Oasis that she drew previously back into the exploration deck. Ursula decides to explore one more time, spending a second action. This time, she draws Nile River, which is connected to the Expedition Camp. Her exploration is successful. Nile River is put into play with clues on it equal to its clue value, and Ursula immediately moves from the Expedition Camp to the Nile River."
+    },
+    {
+      "id": "strength_of_the_abyss",
+      "title": "Strength of the Abyss",
+      "type": "rule_reminder",
+      "text": "During this scenario, resources on the scenario reference card represent the current strength of the abyss. When you are instructed to add strength to the abyss or remove strength from the abyss, adjust the number of resource tokens on the scenario reference card accordingly. The strength of the abyss has no inherent game effect on its own, though certain encounter card effects may grow stronger or change depending on the current strength of the abyss. Beware—as the abyss grows in strength, so too will the forces set against you. Should it grow too powerful, you will surely fail as Guardians of the Abyss."
+    },
+    {
+      "id": "taken_by_the_abyss",
+      "title": "“Taken by the Abyss”",
+      "type": "rule_reminder",
+      "text": "If an effect states that a defeated investigator or [[Ally]] asset has been <i>“taken by the abyss,”</i> that character has been afflicted by a curse which puts them in a comatose state. When an investigator or [[Ally]] asset is <i>taken by the abyss</i>, first add 1 strength to the abyss. Then, if that card was unique, record in the campaign log that <i>“(card name) was taken by the abyss.”</i> An investigator who has been <i>taken by the abyss</i> is treated as if he or she was killed or driven insane. Additionally, for the remainder of the campaign, players cannot play copies of any unique [[Ally]] asset who has been <i>taken by the abyss.</i>"
+    },
     {
       "id": "story_cards",
       "title": "Story Cards",
@@ -226,12 +274,12 @@
         "branches": [
           {
             "id": "record_ally_taken_by_the_abyss",
-            "text": "An unique [[Ally]] was taken by the abyss.",
+            "text": "Unique ally was taken by the abyss.",
             "steps": ["record_ally_taken_by_the_abyss"]
           },
           {
             "id": "record_investigator_taken_by_the_abyss",
-            "text": "An investigator was taken by the abyss.",
+            "text": "Investigator was taken by the abyss.",
             "steps": ["record_investigator_taken_by_the_abyss"]
           }
         ]
