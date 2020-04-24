@@ -238,6 +238,76 @@
       "example": "<i>For example: A breach is about to be placed on Rivertown, which has 3 breaches on it. Instead, an <b>incursion</b> is resolved at Rivertown. First, all of the breaches on Rivertown are removed. Then, 1 doom is placed on Rivertown. Finally, 1 breach is placed on each of the locations connected to Rivertown. This may cause another incursion at one of those locations.</i>"
     },
     {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "randomize_locations",
+            "text": "Choose a random location",
+            "steps": ["choose_random_location_branch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_random_location_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "carl_sanford_possesses_the_secrets_of_the_universe",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_random_location_carl"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["choose_random_location_anette"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_random_location_carl",
+      "type": "input",
+      "input": {
+        "type": "random_location",
+        "cards": [
+          "05300",
+          "05292",
+          "05304",
+          "05296",
+          "05294",
+          "05290",
+          "05305",
+          "05298"
+        ],
+        "multiple": true
+      }
+    },
+    {
+      "id": "choose_random_location_anette",
+      "type": "input",
+      "input": {
+        "type": "random_location",
+        "cards": [
+          "05300",
+          "05292",
+          "05302",
+          "05296",
+          "05294",
+          "05290",
+          "05303",
+          "05298"
+        ],
+        "multiple": true
+      }
+    },
+    {
       "id": "choose_anettes_fate",
       "type": "input",
       "input": {
