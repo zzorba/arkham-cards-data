@@ -4,6 +4,7 @@
   "full_name": "Interlude III: The Great Ones",
   "type": "interlude",
   "setup": [
+    "check_point_of_no_return",
     "great_ones_1",
     "check_difficulty",
     "check_randolph_did_not_survive_the_voyage_and_black_cat_is_searching_for_the_truth",
@@ -12,9 +13,19 @@
   ],
   "steps": [
     {
+      "id": "check_point_of_no_return",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Do not read this interlude until you have completed <b>Scenario III–B: Point of No Return</b>.",
+        "id": "point_of_no_return",
+        "choices": []
+      }
+    },
+    {
       "id": "great_ones_1",
       "type": "story",
-      "text": "<i>Following scenario 3–A, the dreamers are on their way to the Cold Wastes wherein lies unknown Kadath…</i>You are nudged out of a sleepless reverie by a furry forehead. You look down to find the black cat peering up at you. “Hey. I see you’ve made some progress.” You’re not quite sure if you would call this progress. Though you are finally on your way to the Cold Wastes, you haven’t pinned down the exact location of unknown Kadath, and you have no idea what to expect when you arrive."
+      "text": "<i>Following scenario 3–A, the dreamers are on their way to the Cold Wastes wherein lies unknown Kadath…</i>\nYou are nudged out of a sleepless reverie by a furry forehead. You look down to find the black cat peering up at you. “Hey. I see you’ve made some progress.” You’re not quite sure if you would call this progress. Though you are finally on your way to the Cold Wastes, you haven’t pinned down the exact location of unknown Kadath, and you have no idea what to expect when you arrive."
     },
     {
       "id": "check_difficulty",
@@ -151,22 +162,18 @@
     },
     {
       "id": "add_easy_token",
-      "bullet_type": "small",
       "text": "Because you are playing on <b>Easy</b> difficulty, add a -3 token to the chaos bag."
     },
     {
       "id": "add_standard_token",
-      "bullet_type": "small",
       "text": "Because you are playing on <b>Standard</b> difficulty, add a -4 token to the chaos bag."
     },
     {
       "id": "add_hard_token",
-      "bullet_type": "small",
       "text": "Because you are playing on <b>Hard</b> difficulty, add a -5 token to the chaos bag."
     },
     {
       "id": "add_expert_token",
-      "bullet_type": "small",
       "text": "Because you are playing on <b>Expert</b> difficulty, add a -7 token to the chaos bag."
     },
     {
@@ -249,7 +256,6 @@
     },
     {
       "id": "cross_off_black_cat_is_searching_for_the_truth",
-      "bullet_type": "small",
       "text": "In both Campaign Logs, cross off <i>the black cat is searching for the truth</i>."
     },
     {
@@ -268,7 +274,8 @@
                 "type": "story_step",
                 "steps": ["you_asked_for_it", "skip_rest_of_interlude"]
               }
-            ]
+            ],
+            "steps": ["send_great_ones_black_cat_mad"]
           },
           {
             "boolCondition": false,
@@ -288,6 +295,15 @@
       "text": "Skip the rest of this interlude."
     },
     {
+      "id": "send_great_ones_black_cat_mad",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "great_ones_decision",
+        "decision": "black_cat_mad"
+      }
+    },
+    {
       "id": "resume_interlude",
       "type": "story",
       "text": "You ask the black cat if it knows what you’ll find in Kadath. “Sort of,” it answers. “I’ve foreseen your arrival in Kadath for some time now. I’ve seen a lot of this, in fact. But it’s…well, it’s not playing out exactly the same way. Or maybe I just didn’t <i>see</i> it the same way. Regardless, I think you’re on the right path. After all, it’s the only path that’s left. I know a little more about what you’ll see when you get there, but I’m afraid that if I tell you, you’ll see it differently, too. Don’t worry about it. You’re doing fine. Get to Kadath. Find the land of the Great Ones. Everything else will fall into place when you arrive. As long as you don’t mess this up. These beings that you face, the ones whose names I do not wish to speak, they don’t just threaten the Dreamlands. They threaten existence itself. Now, if you’ll excuse me, I have somewhere to be.”"
@@ -302,7 +318,12 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["black_cat_wanders_off", "send_great_ones_black_cat_wanders_off"]
+            "steps": [
+              "black_cat_wanders_off",
+              "send_great_ones_black_cat_wanders_off",
+              "check_great_ones_silver_key",
+              "check_black_cat_still_searching_for_the_truth"
+            ]
           },
           {
             "boolCondition": false,
@@ -401,7 +422,7 @@
           {
             "id": "transfer_key",
             "text": "<i>the investigators possess the Silver Key.</i>",
-            "steps": ["possess_silver_key", "gain_silver_key"]
+            "steps": ["other_campaign_header", "possess_silver_key", "gain_silver_key"]
           },
           {
             "id": "no_key",
@@ -411,8 +432,12 @@
       }
     },
     {
+      "id": "other_campaign_header",
+      "text": "Based on events from <i>The Web of Dreams</i> (Campaign B): "
+    },
+    {
       "id": "possess_silver_key",
-      "text": "In the Campaign Log for <i>The Web of Dreams</i> (Campaign B), cross off the investigators possess the Silver Key. Record this in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead.",
+      "bullet_type": "small",
       "effects": [
         {
           "type": "campaign_log",
@@ -424,7 +449,8 @@
     },
     {
       "id": "gain_silver_key",
-      "text": "If The Silver Key is currently in an investigator’s deck, remove it. Any one investigator in <i>The Dream-Quest</i> (Campaign A) may choose to add The Silver Key to their deck. This card does not count toward that investigator’s deck size.",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add The Silver Key to their deck. This card does not count toward that investigator’s deck size.",
       "effects": [
         {
           "type": "add_card",
@@ -443,11 +469,27 @@
         "id": "black_cat_is_searching_for_the_truth",
         "options": [
           {
+            "boolCondition": true,
+            "steps": ["other_campaign_header", "black_cat_knows_the_truth"]
+          },
+          {
             "boolCondition": false,
             "steps": ["resolve_decision_effects"]
           }
         ]
       }
+    },
+    {
+      "id": "black_cat_knows_the_truth",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "black_cat_knows_the_truth",
+          "text": "the black cat knows the truth."
+        }
+      ]
     },
     {
       "id": "resolve_decision_effects",

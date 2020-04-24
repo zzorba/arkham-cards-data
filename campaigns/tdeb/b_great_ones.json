@@ -4,11 +4,33 @@
   "full_name": "Interlude III: The Great Ones",
   "type": "interlude",
   "setup": [
+    "check_dark_side_of_the_moon",
+    "wait_great_ones_decision",
     "check_black_is_searching_for_the_truth",
     "check_you_asked_for_it",
     "$upgrade_decks"
   ],
   "steps": [
+    {
+      "id": "check_dark_side_of_the_moon",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Do not read this interlude until you have completed <b>Scenario III–A: Dark Side of the Moon</b>.",
+        "id": "dark_side_of_the_moon",
+        "choices": []
+      }
+    },
+    {
+      "id": "wait_great_ones_decision",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "The interlude begins with <i>The Dream-Quest</i> (Campaign A).",
+        "id": "great_ones_decision",
+        "choices": []
+      }
+    },
     {
       "id": "check_black_is_searching_for_the_truth",
       "hidden": true,
@@ -60,6 +82,7 @@
     },
     {
       "id": "check_you_asked_for_it",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -152,12 +175,10 @@
     },
     {
       "id": "transfer_silver_key",
-      "bullet_type": "small",
-      "text": "In the Campaign Log for <i>The Web of Dreams</i> (Campaign B), cross off the investigators possess the Silver Key. Record this in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead."
+      "text": "In the Campaign Log for <i>The Web of Dreams</i> (Campaign B), cross off <i>the investigators possess the Silver Key</i>. Record this in the Campaign Log for <i>The Dream-Quest</i> (Campaign A) instead."
     },
     {
       "id": "transfer_silver_key_card",
-      "bullet_type": "small",
       "text": "If The Silver Key is currently in an investigator’s deck, remove it. Any one investigator in <i>The Dream-Quest</i> (Campaign A) may choose to add The Silver Key to their deck. This card does not count toward that investigator’s deck size."
     },
     {
@@ -198,7 +219,6 @@
     },
     {
       "id": "black_cat_knows_the_truth",
-      "bullet_type": "small",
       "text": "Skip the rest of this interlude. In both Campaign Logs, record <i>the black cat knows the truth</i>."
     },
     {

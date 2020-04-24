@@ -253,6 +253,22 @@
       "resolution": "R2"
     },
     {
+      "id": "maybe_upgrade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "half_campaign",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$upgrade_decks"]
+          }
+        ]
+      }
+    },
+    {
       "id": "maybe_skip_interlude",
       "text": "If you are playing The Web of Dreams as a four-part campaign:",
       "type": "branch",
@@ -267,7 +283,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["$upgrade_decks"]
+            "steps": ["send_point_of_no_return_done"]
           }
         ]
       }
@@ -334,6 +350,15 @@
           "text": "the investigators found a way out of the Underworld."
         }
       ]
+    },
+    {
+      "id": "send_point_of_no_return_done",
+      "type": "input",
+      "input": {
+        "type": "send_campaign_link",
+        "id": "point_of_no_return",
+        "decision": "done"
+      }
     }
   ],
   "resolutions": [
@@ -351,13 +376,13 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "The black, tarry liquid rises around you, consuming you, and you fear that you’ve made a grave mistake. The pressure of the dense liquid surrounds your body, crushing you from all sides. But then you emerge on the other side. You fall for a brief, silent moment before being caught by a glowing, sinewy web. Panicking, you scramble to a nearby platform made of solid rock. Your refuge is one of many, each suspended in the air and connected by thick webbing. Beyond that is a vast, cosmic space, an infinite darkness that stretches as far as the eye can see.",
-      "steps": ["record_steps_of_the_bridge", "earn_xp", "maybe_skip_interlude"]
+      "steps": ["record_steps_of_the_bridge", "earn_xp", "maybe_upgrade_decks", "maybe_skip_interlude"]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
       "text": "You brace yourself as another wave of distorted reality crashes into you. This feeling, whatever it is, is growing stronger as time marches on. Someone or something is causing it, but how? Just as you are pondering its meaning, you realize something curious: you aren’t the only one affected. Far from it, in fact; the entirety of the Underworld seems to be changing with each wave of warped energy that flows through the realm. Walls shift, the floor skews, and the dim, phosphorescent light scintillates with a cosmic, otherworldly glow. The ground rumbles as another wave of force rushes through the foundations of the dream world. The rocky surface upon which you stand gives way. You flail in the air, attempting to grab hold of something, anything that you can use to pull yourself up. Your hands wrap around a painted plank of wood. You have no time to question its appearance—survival comes first.\nWhen you pull yourself up, you realize you are curled up on a park bench, surrounded by a thick fog and the grim, gambrel rooftops of Arkham. There is no ground in front of you. Just an open, endless pit into fathomless depths. The Underworld, perhaps? But how is that possible? Virgil’s cat watches you casually from a tree branch that hangs over the park bench. “It won’t stop,” the black cat tells you. “Not until there is nothing left of your world.” You wonder what you could possibly do in the face of such horror. The cat gazes down into the pit below. “It’s waiting for you.”\nAnother rumble. In the distance, you watch with horror as an entire building is sucked into the ground. You think you spot a pedestrian in the distance, but it is no human. If this goes on any longer, your companions won’t have a world to awaken to. You steel yourself, look down into the empty pit, and gulp. “Down you go,” the cat says.\nYou fall. The roar of the wind is deafening as it whips by your head. You can’t possibly survive a fall like this, you think. But instead of splattering against a hard, rocky ground, you are caught by a glowing, sinewy web. Panicking, you scramble to a nearby platform made of solid rock. Your refuge is one of many, each suspended in the air and connected by thick webbing. Beyond that is a vast, cosmic space, an infinite darkness that stretches as far as the eye can see.",
-      "steps": ["lead_investigator_gains_false_awakening", "record_steps_of_the_bridge", "earn_xp", "maybe_skip_interlude"]
+      "steps": ["lead_investigator_gains_false_awakening", "record_steps_of_the_bridge", "earn_xp", "maybe_upgrade_decks", "maybe_skip_interlude"]
     }
   ]
 }
