@@ -668,6 +668,41 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_check_final_act",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "strayed_from_the_path",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["check_final_act"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_final_act",
+      "type": "input",
+      "text": "What act was in play when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1, 2, or 3"
+          },
+          {
+            "id": "act_4",
+            "text": "Act 4",
+            "steps": ["strayed_from_the_path"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -680,7 +715,7 @@
         "mental"
       ],
       "text": "You are nudged into consciousness by an old, scarred cat. “Hey. You all right, human?”\nI’m dreaming, you remember, and suddenly the talking cat doesn’t seem quite as weird. Exhausted, you manage to rise to your feet, brushing off the dirt caked on your clothing. “You’re lucky you weren’t harmed before we arrived,” a human voice calls out to you. It belongs to a blond-haired man in a brown traveling coat, who leans against a nearby tree. “These woods are not forgiving to the faint of heart.” The scarred cat walks to the man’s side, and the man leans over to pet its back.\nYou ask the man where you are and how he came to this place, but he cuts you off. “I will explain in due time. For now, we must follow the path to the town of Ulthar. It is a safe place, relatively speaking. There you may recover from your ordeals.” He turns to the cat and utters a word in an odd language—a password of sorts, you suspect—but the cat simply wanders off toward a hedge, where you see several other cats banded together. “Do it yerself,” it replies.\n“Don’t mind the cats,” the man says to you quietly as the cats depart. “They are useful allies, but also independent creatures with no need for you or me. When we reach Ulthar, you may get the chance to meet others of their kind. But first things first.” Together, you leave the eaves of the enchanted forest behind.",
-      "steps": ["saved_by_randolph_carter", "gain_randolph_carter", "earn_xp", "$upgrade_decks"]
+      "steps": ["maybe_check_final_act", "saved_by_randolph_carter", "gain_randolph_carter", "earn_xp", "$upgrade_decks"]
     },
     {
       "id": "R1",

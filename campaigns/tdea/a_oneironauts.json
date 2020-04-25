@@ -25,6 +25,7 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "The interlude begins with <i>The Web of Dreams</i> (Campaign B).",
         "id": "oneironauts_decision",
         "choices": []
@@ -52,6 +53,8 @@
       "input": {
         "type": "receive_campaign_link",
         "linked_prompt": "This interlude begins in <b>The Web of Dreams</b> (Campaign B).",
+        "manual_prompt": "Ask the investigators of <i>The Web of Dreams</i> (Campaign B) if you should cross off <i>the black cat has a hunch</i>:",
+        "flip_campaign": true,
         "id": "oneironauts_black_cat_has_a_hunch",
         "choices": [
           {
@@ -222,7 +225,7 @@
           {
             "boolCondition": false,
             "steps": [
-              "send_oneironauts_searching_for_the_truth_no",
+              "maybe_send_oneironauts_searching_for_the_truth_no",
               "check_black_cat_still_has_a_hunch"
             ]
           }
@@ -262,6 +265,22 @@
       }
     },
     {
+      "id": "maybe_send_oneironauts_searching_for_the_truth_no",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_has_a_hunch",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["send_oneironauts_searching_for_the_truth_no"]
+          }
+        ]
+      }
+    },
+    {
       "id": "send_oneironauts_searching_for_the_truth_no",
       "type": "input",
       "input": {
@@ -296,6 +315,8 @@
       "input": {
         "type": "receive_campaign_link",
         "linked_prompt": "This interlude continues in <b>The Web of Dreams</b> (Campaign B).",
+        "manual_prompt": "Ask the investigators of <i>The Web of Dreams</i> (Campaign B) for the message they told the black cat:",
+        "flip_campaign": true,
         "id": "oneironauts_decision",
         "choices": [
           {

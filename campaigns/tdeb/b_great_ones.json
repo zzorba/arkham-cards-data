@@ -26,6 +26,7 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "The interlude begins with <i>The Dream-Quest</i> (Campaign A).",
         "id": "great_ones_decision",
         "choices": []
@@ -52,7 +53,9 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "This interlude continues in <b>The Dream-Quest</b> (Campaign A).",
+        "manual_prompt": "Ask the investigators of <i>The Dream-Quest</i> (Campaign A) if you should cross off <i>the black cat is searching for the truth</i>:",
         "id": "great_ones_black_cat_is_searching_for_the_truth",
         "choices": [
           {
@@ -156,6 +159,7 @@
       "input": {
         "type": "send_campaign_link",
         "id": "great_ones_silver_key",
+        "prompt": "Tell the investigators of <i>The Dream-Quest</i> that <i>the black cat brought a Silver Key</i>.",
         "decision": "transfer_key"
       }
     },
@@ -165,6 +169,7 @@
       "input": {
         "type": "send_campaign_link",
         "id": "great_ones_silver_key",
+        "prompt": "Tell the investigators of <i>The Dream-Quest</i> that <i>the black cat did not bring a key</i>.",
         "decision": "no_key"
       }
     },
@@ -231,7 +236,9 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "This interlude continues in <b>The Dream-Quest</b> (Campaign A).",
+        "manual_prompt": "Ask the investigators of <i>The Dream-Quest</i> (Campaign A) for the message they told the black cat:",
         "id": "great_ones_decision",
         "choices": [
           {
@@ -271,11 +278,11 @@
         "token": "tablet",
         "options": [
           {
-            "numCondition": 2,
+            "numCondition": 0,
             "steps": ["move_cat_to_campaign_b_check_elder_thing"]
           },
           {
-            "numCondition": 3,
+            "numCondition": 1,
             "steps": ["cat_already_in_campaign_b"]
           }
         ]
@@ -291,11 +298,11 @@
         "token": "elder_thing",
         "options": [
           {
-            "numCondition": 0,
+            "numCondition": 2,
             "steps": ["move_cat_to_campaign_b_from_nowhere"]
           },
           {
-            "numCondition": 1,
+            "numCondition": 3,
             "steps": ["move_cat_to_campaign_b_from_campaign_a"]
           }
         ]
@@ -322,8 +329,8 @@
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "black_cat_at_your_side",
-          "cross_out": true
+          "id": "black_cat_at_your_side_2",
+          "text": "the black cat is at your side."
         },
         {
           "type": "remove_chaos_token",
@@ -345,11 +352,11 @@
         "token": "elder_thing",
         "options": [
           {
-            "numCondition": 0,
+            "numCondition": 2,
             "steps": ["move_cat_to_campaign_a_check_tablet"]
           },
           {
-            "numCondition": 1,
+            "numCondition": 3,
             "steps": ["cat_already_in_campaign_a"]
           }
         ]
@@ -365,11 +372,11 @@
         "token": "tablet",
         "options": [
           {
-            "numCondition": 2,
+            "numCondition": 0,
             "steps": ["move_cat_to_campaign_a_from_nowhere"]
           },
           {
-            "numCondition": 3,
+            "numCondition": 1,
             "steps": ["move_cat_to_campaign_a_from_campaign_b"]
           }
         ]
@@ -396,8 +403,8 @@
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "black_cat_at_your_side_2",
-          "text": "the black cat is at your side."
+          "id": "black_cat_at_your_side",
+          "cross_out": true
         },
         {
           "type": "remove_chaos_token",

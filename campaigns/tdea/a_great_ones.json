@@ -225,7 +225,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_great_ones_black_cat_is_searching_for_the_truth_keep"]
+            "steps": ["maybe_send_great_ones_black_cat_is_searching_for_the_truth_keep"]
           }
         ]
       }
@@ -240,7 +240,24 @@
       }
     },
     {
+      "id": "maybe_send_great_ones_black_cat_is_searching_for_the_truth_keep",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_is_searching_for_the_truth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["send_great_ones_black_cat_is_searching_for_the_truth_keep"]
+          }
+        ]
+      }
+    },
+    {
       "id": "send_great_ones_black_cat_is_searching_for_the_truth_keep",
+      "bullet_type": "small",
       "type": "input",
       "input": {
         "type": "send_campaign_link",
@@ -360,12 +377,14 @@
         "choices": [
           {
             "id": "black_cat_spoke_of_nyarlathotep",
-            "text": "Tell your companions about the threats that you face. The black cat will return to you with aid once this message is delivered. This may put an undue burden on your companions.",
+            "text": "<i>Tell your companions about the threats that you face.</i>",
+            "description": "The black cat will return to you with aid once this message is delivered. This may put an undue burden on your companions.",
             "steps": ["black_cat_spoke_of_nyarlathotep", "send_great_ones_black_cat_spoke_of_nyarlathotep"]
           },
           {
             "id": "black_cat_spoke_of_atlach_nacha",
-            "text": "Tell your companions that you will be okay. The black cat will stay with them once this message is delivered. This might make your quest a little more difficult. ",
+            "text": "<i>Tell your companions that you will be okay.</i>",
+            "description": "The black cat will stay with them once this message is delivered. This might make your quest a little more difficult. ",
             "steps": ["black_cat_spoke_of_atlach_nacha", "send_great_ones_black_cat_spoke_of_atlach_nacha"]
           }
         ]
@@ -416,17 +435,19 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "This interlude continues in <b>The Web of Dreams</b> (Campaign B).",
+        "manual_prompt": "Ask the investigators of <i>The Web of Dreams</i> (Campaign B) whether <i>the black cat brought a Silver Key</i>:",
         "id": "great_ones_silver_key",
         "choices": [
           {
             "id": "transfer_key",
-            "text": "<i>the investigators possess the Silver Key.</i>",
+            "text": "<i>The black cat brought a Silver Key.</i>",
             "steps": ["other_campaign_header", "possess_silver_key", "gain_silver_key"]
           },
           {
             "id": "no_key",
-            "text": "No key"
+            "text": "<i>The black cat did not bring a key.</i>"
           }
         ]
       }

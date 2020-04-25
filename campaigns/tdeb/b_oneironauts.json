@@ -74,7 +74,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_oneironauts_black_cat_has_a_hunch_keep"]
+            "steps": ["maybe_send_oneironauts_black_cat_has_a_hunch_keep"]
           }
         ]
       }
@@ -89,7 +89,24 @@
       }
     },
     {
+      "id": "maybe_send_oneironauts_black_cat_has_a_hunch_keep",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "black_cat_has_a_hunch",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["send_oneironauts_black_cat_has_a_hunch_keep"]
+          }
+        ]
+      }
+    },
+    {
       "id": "send_oneironauts_black_cat_has_a_hunch_keep",
+      "bullet_type": "small",
       "type": "input",
       "input": {
         "type": "send_campaign_link",
@@ -177,7 +194,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["black_cat_decision", "wait_for_other_side"]
+            "steps": ["black_cat_decision", "wait_for_other_side", "check_has_hunch"]
           }
         ]
       }
@@ -207,19 +224,23 @@
             "id": "black_cat_requested_aid",
             "text": "<i>Tell your companions that you are in trouble.</i>",
             "description": "The black cat will return to you with aid once this message is delivered. This may put an undue burden on your companions.",
-            "steps": ["black_cat_requested_aid", "send_black_cat_requested_aid"]
+            "steps": [
+              "black_cat_requested_aid",
+              "send_black_cat_requested_aid",
+              "wait_for_other_side"
+            ]
           },
           {
             "id": "black_cat_shared_knowledge_of_the_underworld",
             "text": "<i>Tell your companions about the Underworld.</i>",
             "description": "The black cat will then go elsewhere.",
-            "steps": ["black_cat_shared_knowledge_of_the_underworld", "send_black_cat_shared_knowledge_of_the_underworld"]
+            "steps": ["black_cat_shared_knowledge_of_the_underworld", "send_black_cat_shared_knowledge_of_the_underworld", "wait_for_other_side"]
           },
           {
             "id": "black_cat_warned_the_others",
             "text": "<i>Tell your companions that you are safe.</i>",
             "description": "The black cat will stay with them once this message is delivered. This might make your quest a little more difficult.",
-            "steps": ["black_cat_warned_the_others", "send_black_cat_warned_the_others"]
+            "steps": ["black_cat_warned_the_others", "send_black_cat_warned_the_others", "wait_for_other_side"]
           }
         ]
       }
@@ -302,7 +323,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["wait_for_other_side"]
+            "steps": ["wait_for_other_side", "interlude_resolution"]
           }
         ]
       }
@@ -312,7 +333,9 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "This interlude continues in <b>The Dream-Quest</b> (Campaign A).",
+        "manual_prompt": "Ask the investigators of <i>The Dream-Quest</i> (Campaign A) if <i>the black cat is searching for the truth</i>:",
         "id": "oneironauts_searching_for_the_truth",
         "choices": [
           {
@@ -609,6 +632,7 @@
       "type": "input",
       "input": {
         "type": "receive_campaign_link",
+        "flip_campaign": true,
         "linked_prompt": "This interlude continues in <b>The Dream-Quest</b> (Campaign A).",
         "id": "oneironauts_done",
         "choices": []
