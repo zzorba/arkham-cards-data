@@ -1173,6 +1173,114 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_note_about_campaign_log",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["note_about_campaign_log"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "note_about_campaign_log",
+      "text": "If you need to record information about the \"Missing Persons\", use \"undo\" and select \"Edit campaign log\"."
+    },
+    {
+      "id": "maybe_adjust_chaos_bag",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "uad_add_chaos_token",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "act_3_v2",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["fix_remove_all_cultist_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fix_remove_all_cultist_tokens",
+      "text": "While playing the scenario, there was an instruction to remove all [cultist] tokens from the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["cultist", "cultist", "cultist", "cultist"]
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -1210,7 +1318,7 @@
       "id": "R4",
       "title": "Resolution 4",
       "text": "Anette approaches, confronting the remnant’s ethereal shell. “Sister! We are the ones who have called you here from the great beyond.” The shattered revenant turns its attention to Anette, and the rest of her coven watch in anticipation.\n “What are you doing, you fool? This spirit is no mere witch!” Carl Sanford yells out. But it is too late. Anette ignores Mr. Sanford, continuing to speak with the spectral presence. “For years we have suffered injustice after injustice. Share with me your secrets, sister. Together, as one mind, body, and soul, we can begin anew.”\n The ghost reaches out to her with a long, skeletal arm. Anette’s sisters gasp as their high priestess steps forward and kneels before the being, offering herself. With a sudden rush of energy, the phantom soul is drawn inside Anette. She collapses to the ground, reeling from the spiritual impact. Her body writhes in torment, but none of the other witches step forward to help, instead watching with equal parts terror and fascination. Finally, Anette rises to her feet, her eyes aglow with mystical power. When she speaks, it is not her voice. “Sisters. Rejoice, for I am reborn,” Keziah says.\n Carl Sanford taps you with his cane. You were so transfixed by the events occurring in front of you that you hadn’t noticed the Lodge members slinking toward the edges of the clearing. One of the Lodge’s inner circle raises a revolver and attempts to fire, but the high priestess simply glares at him, and his arm withers and rots before your eyes. His gun clatters to the ground and he makes one final croak before he is nothing but a decayed husk on the ground. “We must leave this place at once,” Sanford says stoically. “This being possesses power over life and death itself. It will not suffer our presence any longer.”\nAnette—no, Keziah—turns her attention to you, and her eyes brighten. “You look familiar, child. Come, come. Do not be afraid. You have nothing to fear from me.” She grins wickedly. Her voice is like knives driving into your soul. You hate to admit it, but Sanford is right. You turn and flee with the rest of the Lodge, hoping you are fast enough to escape the witch’s magic. \nYour escape is a blur. Witches and spirits chase you relentlessly throughout the forsaken woods. You are only barely able to make it back to the shore before they catch up to you. Other members of the Lodge are perhaps not so fortunate. Having scattered in many directions, you’re not sure how many of them escaped, and you don’t see Carl Sanford anywhere, though you suspect he had a plan for this outcome.",
-      "steps": ["anette_mason_is_possessed_by_evil", "resolution_8"]
+      "steps": ["maybe_adjust_chaos_bag", "anette_mason_is_possessed_by_evil", "resolution_8"]
     },
     {
       "id": "R5",
@@ -1233,7 +1341,7 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "check_missing_persons_alive", "check_gavriella_in_game", "check_jerome_in_game", "check_penny_in_game", "check_valentino_in_game", "earn_xp", "$upgrade_decks"]
+      "steps": ["remove_puzzle_box", "maybe_note_about_campaign_log", "check_missing_persons_alive", "check_gavriella_in_game", "check_jerome_in_game", "check_penny_in_game", "check_valentino_in_game", "earn_xp", "$upgrade_decks"]
     }
   ]
 }
