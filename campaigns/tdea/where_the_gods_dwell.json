@@ -446,7 +446,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_where_the_gods_dwell_done"]
+            "steps": ["send_where_the_gods_dwell_done", "maybe_proceed_campaign_b"]
           }
         ]
       }
@@ -462,6 +462,22 @@
           "value": "lose"
         }
       ]
+    },
+    {
+      "id": "maybe_ugprade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$upgrade_decks"]
+          }
+        ]
+      }
     },
     {
       "id": "maybe_win_campaign",
@@ -485,7 +501,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_where_the_gods_dwell_done"]
+            "steps": ["maybe_ugprade_decks", "send_where_the_gods_dwell_done", "maybe_proceed_campaign_b"]
           }
         ]
       }
@@ -524,7 +540,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_where_the_gods_dwell_done"]
+            "steps": ["maybe_ugprade_decks", "send_where_the_gods_dwell_done", "maybe_proceed_campaign_b"]
           }
         ]
       }
@@ -584,6 +600,16 @@
         "type": "send_campaign_link",
         "id": "a_epilogue",
         "decision": "dreamers_stayed_in_dreamlands_forever"
+      }
+    },
+    {
+      "id": "maybe_proceed_campaign_b",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Proceed to <b>Scenario IV–B: Weaver of the Cosmos</b>.",
+        "id": "weaver_of_the_cosmos",
+        "choices": []
       }
     }
   ],

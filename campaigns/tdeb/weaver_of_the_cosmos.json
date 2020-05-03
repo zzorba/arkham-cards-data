@@ -546,7 +546,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_weaver_of_the_cosmos_done"]
+            "steps": ["send_weaver_of_the_cosmos_done", "maybe_proceed_campaign_a"]
           }
         ]
       }
@@ -585,7 +585,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_weaver_of_the_cosmos_done"]
+            "steps": ["maybe_ugprade_decks", "send_weaver_of_the_cosmos_done", "maybe_proceed_campaign_a"]
           }
         ]
       }
@@ -624,7 +624,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_weaver_of_the_cosmos_done"]
+            "steps": ["maybe_ugprade_decks", "send_weaver_of_the_cosmos_done", "maybe_proceed_campaign_a"]
           }
         ]
       }
@@ -686,6 +686,22 @@
       }
     },
     {
+      "id": "maybe_ugprade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$upgrade_decks"]
+          }
+        ]
+      }
+    },
+    {
       "id": "resolution_3",
       "type": "resolution",
       "resolution": "R3"
@@ -707,6 +723,16 @@
         "type": "send_campaign_link",
         "id": "weaver_of_the_cosmos",
         "decision": "done"
+      }
+    },
+    {
+      "id": "maybe_proceed_campaign_a",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Proceed to <b>Scenario IV–A: Where the Gods Dwell</b>.",
+        "id": "where_the_gods_dwell",
+        "choices": []
       }
     },
     {

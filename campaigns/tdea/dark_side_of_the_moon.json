@@ -259,9 +259,30 @@
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "half_campaign",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "half_campaign",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_data",
+            "campaign_data": "version",
+            "min_version": 1,
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
         "options": [
           {
             "boolCondition": true,
@@ -285,9 +306,19 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_moon_done"]
+            "steps": ["send_moon_done", "maybe_proceed_campaign_b"]
           }
         ]
+      }
+    },
+    {
+      "id": "maybe_proceed_campaign_b",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Proceed to <b>Scenario III–B: Point of No Return</b>.",
+        "id": "point_of_no_return",
+        "choices": []
       }
     },
     {

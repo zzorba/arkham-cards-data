@@ -257,9 +257,30 @@
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "half_campaign",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "half_campaign",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_data",
+            "campaign_data": "version",
+            "min_version": 1,
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
         "options": [
           {
             "boolCondition": true,
@@ -283,9 +304,20 @@
           },
           {
             "boolCondition": false,
-            "steps": ["send_point_of_no_return_done"]
+            "steps": ["send_point_of_no_return_done", "maybe_proceed_campaign_a"]
           }
         ]
+      }
+    },
+
+    {
+      "id": "maybe_proceed_campaign_a",
+      "type": "input",
+      "input": {
+        "type": "receive_campaign_link",
+        "linked_prompt": "Proceed to <b>Scenario III–A: Dark Side of the Moon</b>.",
+        "id": "dark_side_of_the_moon",
+        "choices": []
       }
     },
     {
