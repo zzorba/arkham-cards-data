@@ -999,12 +999,44 @@
       "text": "<i>If Gavriella Mizrah is alive</i>, any one investigator may choose to add the Gavriella Mizrah asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Gavriella Mizrah’s profile, record <i>Gavriella Mizrah is dead</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "05046",
-        "id": "alive",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "uad_no_investigators_alive",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "on_gavriellas_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
         "options": [
           {
             "boolCondition": true,
+            "steps": ["maybe_record_gavriella_alive"],
             "effects": [
               {
                 "type": "add_card",
@@ -1048,12 +1080,44 @@
       "text": "<i>If Jerome Davids is alive</i>, any one investigator may choose to add the Jerome Davids asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Jerome Davids’s profile, record <i>Jerome Davids is dead</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "05047",
-        "id": "alive",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "uad_no_investigators_alive",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "on_jeromes_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
         "options": [
           {
             "boolCondition": true,
+            "steps": ["maybe_record_jerome_alive"],
             "effects": [
               {
                 "type": "add_card",
@@ -1097,12 +1161,44 @@
       "text": "<i>If Penny White is alive</i>, any one investigator may choose to add the Penny White asset to their deck. She does not count toward that investigator’s deck size. Otherwise, next to Penny White’s profile, record <i>Penny White is dead</i>.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "05049",
-        "id": "alive",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "uad_no_investigators_alive",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "on_pennys_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
         "options": [
           {
             "boolCondition": true,
+            "steps": ["maybe_record_penny_alive"],
             "effects": [
               {
                 "type": "add_card",
@@ -1146,12 +1242,44 @@
       "text": "<i>If Valentino Rivas is alive</i>, any one investigator may choose to add the Valentino Rivas asset to their deck. He does not count toward that investigator’s deck size. Otherwise, next to Valentino Rivas’s profile, record <i>Valentino Rivas</i> is dead.",
       "type": "branch",
       "condition": {
-        "type": "campaign_log",
-        "section": "05048",
-        "id": "alive",
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "uad_no_investigators_alive",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "on_valentinos_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
         "options": [
           {
             "boolCondition": true,
+            "steps": ["maybe_record_valentino_alive"],
             "effects": [
               {
                 "type": "add_card",
@@ -1170,6 +1298,193 @@
                 "text": "Valentino Rivas is dead."
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_record_gavriella_alive",
+      "text": "hidden",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05046",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05046",
+                "id": "alive",
+                "text": "Gavriella is alive."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_record_jerome_alive",
+      "text": "hidden",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05047",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05047",
+                "id": "alive",
+                "text": "Jerome is alive."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_record_penny_alive",
+      "text": "hidden",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05049",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05049",
+                "id": "alive",
+                "text": "Penny is alive."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_record_valentino_alive",
+      "text": "hidden",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "05048",
+        "id": "alive",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "05048",
+                "id": "alive",
+                "text": "Valentino is alive."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_act_1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "alive",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ask_final_act"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "uad_no_investigators_alive",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2"
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3"
+          },
+          {
+            "id": "act_4",
+            "text": "Act 4"
           }
         ]
       }
@@ -1230,10 +1545,6 @@
           }
         ]
       }
-    },
-    {
-      "id": "note_about_campaign_log",
-      "text": "If you need to record information about the \"Missing Persons\", use \"undo\" and select \"Edit campaign log\"."
     },
     {
       "id": "maybe_adjust_chaos_bag",
@@ -1323,7 +1634,13 @@
     {
       "id": "R5",
       "title": "Resolution 5",
-      "steps": ["compare_columns_explanation", "compare_columns", "left_result", "right_result"]
+      "steps": [
+        "maybe_ask_act_1",
+        "compare_columns_explanation",
+        "compare_columns",
+        "left_result",
+        "right_result"
+      ]
     },
     {
       "id": "R6",
@@ -1341,7 +1658,16 @@
       "id": "R8",
       "title": "Resolution 8",
       "text": "When you finally return to the banks of the Miskatonic River, you take stock of the situation…",
-      "steps": ["remove_puzzle_box", "maybe_note_about_campaign_log", "check_missing_persons_alive", "check_gavriella_in_game", "check_jerome_in_game", "check_penny_in_game", "check_valentino_in_game", "earn_xp", "$upgrade_decks"]
+      "steps": [
+        "remove_puzzle_box",
+        "check_missing_persons_alive",
+        "check_gavriella_in_game",
+        "check_jerome_in_game",
+        "check_penny_in_game",
+        "check_valentino_in_game",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
     }
   ]
 }
