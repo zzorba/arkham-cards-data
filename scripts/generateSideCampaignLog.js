@@ -17,9 +17,11 @@ const resultJson = [];
 json.forEach(campaignLog => {
   if (campaignLog.campaignId !== 'side') {
     const sections = [];
+    const usedSideSections = [];
     campaignLog.sections.forEach(section => {
       const sideSection = sideCampaign.sections.find(side => side.section === section.section);
       if (sideSection) {
+        usedSideSections.push(section.section);
         sections.push({
           section: section.section,
           entries: [
@@ -29,6 +31,12 @@ json.forEach(campaignLog => {
         });
       } else {
         sections.push(section);
+      }
+    });
+    const usedSideSectionsSet = new Set(usedSideSections);
+    sideCampaign.sections.forEach(side => {
+      if (!usedSideSectionsSet.has(side.section)) {
+        sections.push(side);
       }
     });
     resultJson.push({
