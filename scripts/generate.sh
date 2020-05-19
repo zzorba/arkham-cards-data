@@ -1,11 +1,10 @@
 #!/bin/bash
+# Generate TypeScript definition from JSON Schema
 
 set -e
 
-npx json2ts schema/schema.json -o ./demo/src/types/index.temp.d.ts -declareExternallyReferenced
+echo "/* eslint-disable */" > ./build/index.d.ts
+npx json2ts schema/schema.json -declareExternallyReferenced >> ./build/index.d.ts
 
-rm ./demo/src/types/index.d.ts
-echo "/* eslint-disable */" >> ./demo/src/types/index.d.ts
-cat ./demo/src/types/index.temp.d.ts >> ./demo/src/types/index.d.ts
-rm ./demo/src/types/index.temp.d.ts
-
+# Copy definitions to the demo app
+cp build/index.d.ts demo/src/types/
