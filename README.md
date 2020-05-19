@@ -30,4 +30,5 @@ The following scripts are available to build the project using Yarn or NPM :
 - **clean**: clean generated targets
 - **definitions**: generate TypeScript definitions based on the JSON Schema
 - **build**: build JSON files ArkhamCards needs
+- **build:return-to**: build Return To campaigns by merging Return To modifications with original campaign
 - **sync**: copy TypeScript definitions and generated JSON files to your ArkhamCards project
