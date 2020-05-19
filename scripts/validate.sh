@@ -8,7 +8,7 @@ scripts/build.sh
 
 invalid_has_card=$(jq -f scripts/jq/invalid_has_card.jq build/allCampaigns.json)
 if [[ $invalid_has_card ]]; then
-  echo "A \"has_card\" condition has an invalid effect (only trauma allowed)"
+  echo "A \"has_card\" condition has an invalid effect (only trauma or story step allowed)"
 fi
 
 echo "Looking for invalid encounter sets"
