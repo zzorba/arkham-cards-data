@@ -1,0 +1,32 @@
+# Continuous Integration workflow
+name: Continuous Integration
+
+on: push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Validate JSON files against schema
+        run: yarn validate
+
+      - name: Build JSON files
+        run: yarn build
+
+      - name: Verify JSON files
+        run: yarn verify
