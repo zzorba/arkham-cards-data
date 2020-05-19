@@ -2,7 +2,19 @@
 
 set -e
 
-cp ./demo/src/types/index.d.ts ../ArkhamCards/src/data/scenario/types.d.ts
-cp ./build/allCampaigns.json ../ArkhamCards/assets/allCampaigns.json
-cp ./build/campaignLogs.json ../ArkhamCards/assets/campaignLogs.json
+# Read environment settings
+if test -f .env; then
+  export $(grep -v '^#' .env | xargs)
+else
+  echo ".env file is missing."
+  exit 1
+fi
 
+if [ -d "$ARKHAM_CARDS" ]; then
+  cp ./build/index.d.ts "$ARKHAM_CARDS/src/data/scenario/types.d.ts"
+  cp ./build/allCampaigns.json "$ARKHAM_CARDS/assets/allCampaigns.json"
+  cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/campaignLogs.json"
+else
+  echo "Folder $ARKHAM_CARDS does not exist."
+  exit 1
+fi
