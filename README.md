@@ -29,6 +29,18 @@ The following scripts are available to build the project using Yarn or NPM :
 
 - **clean**: clean generated targets
 - **definitions**: generate TypeScript definitions based on the JSON Schema
+- **validate**: validate JSON files against the schema (it builds Return To campaigns)
 - **build**: build JSON files ArkhamCards needs
+- **build:all-campaigns**: build campaigns JSON file
+- **build:campaign-logs**: build campaign logs JSON file
 - **build:return-to**: build Return To campaigns by merging Return To modifications with original campaign
+- **verify**: run various checks on the generated campaigns JSON file
 - **sync**: copy TypeScript definitions and generated JSON files to your ArkhamCards project
+- **sync:demo**: update the demo app assets
+
+A typical workflow for editing the data is :
+
+- edit files in `campaigns` or `return_campaigns`
+- validate against the schema using `yarn validate`
+- build the JSON files with `yarn build`
+- run post-build checks with `yarn verify`

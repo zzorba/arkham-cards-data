@@ -1,37 +1,60 @@
-const Ajv = require('ajv');
-const fs = require('fs');
-const path = require('path');
-const jsonlint = require('jsonlint');
-const $RefParser = require('json-schema-ref-parser');
+const Ajv = require("ajv");
+const fs = require("fs");
+const path = require("path");
+const jsonlint = require("jsonlint");
+const $RefParser = require("json-schema-ref-parser");
 
 /** Retrieve file paths from a given folder and its subfolders. */
-const getFilePaths = (folderPath) => {
-  const entryPaths = fs.readdirSync(folderPath).map(entry => path.join(folderPath, entry));
-  const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile());
-  const dirPaths = entryPaths.filter(entryPath => !filePaths.includes(entryPath));
-  const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(getFilePaths(curr)), []);
+const getFilePaths = folderPath => {
+  const entryPaths = fs
+    .readdirSync(folderPath)
+    .map(entry => path.join(folderPath, entry));
+  const filePaths = entryPaths.filter(entryPath =>
+    fs.statSync(entryPath).isFile()
+  );
+  const dirPaths = entryPaths.filter(
+    entryPath => !filePaths.includes(entryPath)
+  );
+  const dirFiles = dirPaths.reduce(
+    (prev, curr) => prev.concat(getFilePaths(curr)),
+    []
+  );
   return [...filePaths, ...dirFiles];
 };
 
 function validate(validator, file, json, schemaName) {
   const valid = validator.validate(schemaName, json);
   if (!valid) {
-    console.log(`SCHEMA Error(${file})\n${validator.errors.map(e => `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(e.params)}\n${JSON.stringify(e.data)}`).join('\n\n')}\n\n\n\n`);
-    process.exit();
+    console.log(
+      `SCHEMA Error(${file})\n${validator.errors
+        .map(
+          e =>
+            `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(
+              e.params
+            )}\n${JSON.stringify(e.data)}`
+        )
+        .join("\n\n")}\n\n\n\n`
+    );
+    process.exit(1);
   }
   const steps = {};
   const magicSteps = {
-    '$proceed': true,
-    '$upgrade_decks': true,
-    '$choose_investigators': true,
+    $proceed: true,
+    $upgrade_decks: true,
+    $choose_investigators: true
   };
-  if (json.type !== 'interlude' && json.type !== 'epilogue' && json.type !== 'placeholder' && json.scenario_name) {
-    steps['$play_scenario'] = true;
+  if (
+    json.type !== "interlude" &&
+    json.type !== "epilogue" &&
+    json.type !== "placeholder" &&
+    json.scenario_name
+  ) {
+    steps["$play_scenario"] = true;
   }
   let error = false;
   json.steps.map(step => {
     // $play_scenario is an overrideable default step
-    if (steps[step.id] && step.id !== '$play_scenario') {
+    if (steps[step.id] && step.id !== "$play_scenario") {
       console.log(`DUPLICATE_STEP (${file}) - ${step.id}`);
       error = true;
     }
@@ -40,8 +63,8 @@ function validate(validator, file, json, schemaName) {
   const unusedSteps = { ...steps };
   if (!json.scenario_name) {
     // Campaign
-    if (unusedSteps['$play_scenario']) {
-      delete unusedSteps['$play_scenario'];
+    if (unusedSteps["$play_scenario"]) {
+      delete unusedSteps["$play_scenario"];
     }
   }
   if (json.setup) {
@@ -60,7 +83,7 @@ function validate(validator, file, json, schemaName) {
         const allChoices = [
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
-          ...(step.input.campaign_log ? step.input.campaign_log : []),
+          ...(step.input.campaign_log ? step.input.campaign_log : [])
         ];
         allChoices.map(choice => {
           if (choice.steps) {
@@ -75,7 +98,7 @@ function validate(validator, file, json, schemaName) {
           }
           if (choice.effects) {
             choice.effects.map(effect => {
-              if (effect.type === 'story_step' && effect.steps.length) {
+              if (effect.type === "story_step" && effect.steps.length) {
                 effect.steps.map(step => {
                   if (!steps[step] && !magicSteps[step]) {
                     console.log(`MISSING_STEP (${file}) - ${step}`);
@@ -88,9 +111,12 @@ function validate(validator, file, json, schemaName) {
             });
           }
         });
-        if (step.input.type === 'investigator_choice_supplies') {
-          [...step.input.positiveChoice.effects, ...step.input.negativeChoice.effects].map(effect => {
-            if (effect.type === 'story_step' && effect.steps.length) {
+        if (step.input.type === "investigator_choice_supplies") {
+          [
+            ...step.input.positiveChoice.effects,
+            ...step.input.negativeChoice.effects
+          ].map(effect => {
+            if (effect.type === "story_step" && effect.steps.length) {
               effect.steps.map(step => {
                 if (!steps[step] && !magicSteps[step]) {
                   console.log(`MISSING_STEP (${file}) - ${step}`);
@@ -117,7 +143,7 @@ function validate(validator, file, json, schemaName) {
         step.condition.options.map(option => {
           if (option.effects) {
             option.effects.map(effect => {
-              if (effect.type === 'story_step') {
+              if (effect.type === "story_step") {
                 effect.steps.map(step => {
                   if (!steps[step] && !magicSteps[step]) {
                     console.log(`MISSING_STEP (${file}) - ${step}`);
@@ -154,7 +180,6 @@ function validate(validator, file, json, schemaName) {
           });
         }
       }
-
     });
   }
   if (json.resolutions) {
@@ -172,14 +197,18 @@ function validate(validator, file, json, schemaName) {
     });
   }
   if (Object.keys(unusedSteps).length > 0) {
-    console.log(`UNUSED STEPS (${file} - ${Object.keys(unusedSteps).join(', ')}`)
+    console.log(
+      `UNUSED STEPS (${file} - ${Object.keys(unusedSteps).join(", ")}`
+    );
   }
   if (error) {
-    process.exit();
+    process.exit(1);
   }
 }
 
-const scenarioSchema = fs.readFileSync('./schema/scenario.schema.json').toString();
+const scenarioSchema = fs
+  .readFileSync("./schema/scenario.schema.json")
+  .toString();
 $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
   if (err) {
     console.error(err);
@@ -187,29 +216,37 @@ $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
     // including referenced files, combined into a single object
     const ajv = new Ajv({ verbose: true });
-    const validator = ajv.addSchema(schema, 'scenario');
+    const validator = ajv.addSchema(schema, "scenario");
     const QUIET = false;
     [
-      ...getFilePaths('./campaigns').sort(),
-      ...getFilePaths('./build/return_campaigns').sort(),
-    ].sort().map(file => {
-      if (!file.endsWith('.schema.json') && !file.endsWith('campaign.json') && file.endsWith('.json')) {
-        const data = fs.readFileSync(file, 'utf-8').toString();
-        if (!QUIET) {
-          console.log('Validating: ' + file);
+      ...getFilePaths("./campaigns").sort(),
+      ...getFilePaths("./build/return_campaigns").sort()
+    ]
+      .sort()
+      .map(file => {
+        if (
+          !file.endsWith(".schema.json") &&
+          !file.endsWith("campaign.json") &&
+          file.endsWith(".json")
+        ) {
+          const data = fs.readFileSync(file, "utf-8").toString();
+          if (!QUIET) {
+            console.log("Validating: " + file);
+          }
+          try {
+            const json = jsonlint.parse(data);
+            validate(validator, file, json, "scenario");
+          } catch (e) {
+            console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+          }
         }
-        try {
-          const json = jsonlint.parse(data);
-          validate(validator, file, json, 'scenario');
-        } catch (e) {
-          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }
-      }
-    });
+      });
   }
 });
 
-const campaignSchema = fs.readFileSync('./schema/campaign.schema.json').toString();
+const campaignSchema = fs
+  .readFileSync("./schema/campaign.schema.json")
+  .toString();
 $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
   if (err) {
     console.error(err);
@@ -217,20 +254,20 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
     // including referenced files, combined into a single object
     const ajv = new Ajv({ verbose: true });
-    const validator = ajv.addSchema(schema, 'campaign');
+    const validator = ajv.addSchema(schema, "campaign");
     const QUIET = true;
     [
-      ...getFilePaths('./campaigns').sort(),
-      ...getFilePaths('./build/return_campaigns').sort(),
+      ...getFilePaths("./campaigns").sort(),
+      ...getFilePaths("./build/return_campaigns").sort()
     ].map(file => {
-      if (file.endsWith('campaign.json')) {
-        const data = fs.readFileSync(file, 'utf-8').toString();
+      if (file.endsWith("campaign.json")) {
+        const data = fs.readFileSync(file, "utf-8").toString();
         if (!QUIET) {
-          console.log('Validating: ' + file);
+          console.log("Validating: " + file);
         }
         try {
           const json = jsonlint.parse(data);
-          validate(validator, file, json, 'campaign');
+          validate(validator, file, json, "campaign");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
         }
@@ -238,4 +275,3 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
     });
   }
 });
-

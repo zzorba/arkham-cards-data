@@ -2,8 +2,6 @@
 
 set -e
 
-command -v jq >/dev/null 2>&1 || { printf >&2 "jq required, but not installed..aborting..\n"; exit 1; }
-
 buildCampaign () {
   if [ -d ${1} ]; then
     IFS='/' read -ra my_array <<< "$1"
@@ -56,8 +54,3 @@ for f in campaigns/*; do
     count=1
 done
 echo ']' >> ./allCampaigns.json
-jq -f ../scripts/jq/tempCampaignLogs.jq ./allCampaigns.json > tempCampaignLogs.json
-cd ..
-node scripts/generateSideCampaignLog.js
-cp build/allCampaigns.json demo/src/assets/allCampaigns.json
-cp build/campaignLogs.json demo/src/assets/campaignLogs.json
