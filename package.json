@@ -1,9 +1,32 @@
 {
+  "name": "arkham-cards-data",
+  "version": "0.1.0",
+  "description": "Repo for campaign guide data for ArkhamCards app.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zzorba/arkham-cards-data.git"
+  },
+  "scripts": {
+    "build": "npm-run-all build:return-to build:all-campaigns build:return-to",
+    "build:all-campaigns": "./scripts/build.sh",
+    "build:campaign-logs": "./scripts/generate-campaign-logs.sh",
+    "build:return-to": "node ./scripts/generateReturnCampaigns.js",
+    "clean": "rm -Rf ./build",
+    "definitions": "./scripts/generate.sh",
+    "sync": "./scripts/sync.sh",
+    "sync:demo": "cp ./build/allCampaigns.json ./demo/src/assets/allCampaigns.json && cp ./build/campaignLogs.json ./demo/src/assets/campaignLogs.json",
+    "validate": "npm-run-all build:return-to validate:schema",
+    "validate:schema": "node scripts/schemaValidate.js",
+    "verify": "npm-run-all build verify:all-campaigns",
+    "verify:all-campaigns": "./scripts/validate.sh"
+  },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^8.0.0",
     "ajv": "^6.10.2",
     "ajv-cli": "^3.1.0",
     "json-schema-to-typescript": "^8.2.0",
-    "jsonlint": "^1.6.3"
+    "jsonlint": "^1.6.3",
+    "npm-run-all": "^4.1.5"
   }
 }

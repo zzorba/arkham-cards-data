@@ -1,0 +1,47 @@
+# Continuous Integration workflow
+name: Continuous Integration
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Create .env file
+        run: echo "ARKHAMDB_DATA=./arkhamdb-json-data" >> .env
+
+      - name: Clone arkhamdb-json-data
+        uses: actions/checkout@v2
+        with:
+          repository: Kamalisk/arkhamdb-json-data
+          path: ./arkhamdb-json-data
+
+      - name: Validate JSON files against schema
+        run: yarn validate
+
+      - name: Build JSON files
+        run: yarn build
+
+      - name: Verify JSON files
+        run: yarn verify
