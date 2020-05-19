@@ -6,13 +6,13 @@ node scripts/generateReturnCampaigns.js
 node scripts/schemaValidate.js
 scripts/build.sh
 
-invalid_has_card=$(jq ".[] | .scenarios[] | .steps[] | select(.condition != null) | .condition | select(.type == \"has_card\") | .options[] | select(.effects != null) | .effects[] | select(.type != \"trauma\" and .type != \"story_step\")" build/allCampaigns.json)
+invalid_has_card=$(jq -f scripts/jq/invalid_has_card.jq build/allCampaigns.json)
 if [[ $invalid_has_card ]]; then
   echo "A \"has_card\" condition has an invalid effect (only trauma allowed)"
 fi
 
 echo "Looking for invalid encounter sets"
-encounter_sets=$(jq ".[] | .scenarios[] | .steps[] | select(.type == \"encounter_sets\" and .encounter_sets != null) | .encounter_sets | .[]" build/allCampaigns.json)
+encounter_sets=$(jq -f scripts/jq/encounter_sets.jq build/allCampaigns.json)
 while IFS= read -r line; do
   case `grep -F "$line" "../arkhamdb-json-data/encounters.json" >/dev/null; echo $?` in
   0)
@@ -32,4 +32,3 @@ echo "Done"
 scripts/generate.sh
 
 scripts/sync.sh
-
