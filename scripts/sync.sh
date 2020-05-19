@@ -1,4 +1,5 @@
 #!/bin/bash
+# Copy TypeScript definitions and generated JSON files to your ArkhamCards project
 
 set -e
 
