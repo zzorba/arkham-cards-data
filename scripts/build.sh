@@ -2,6 +2,8 @@
 
 set -e
 
+command -v jq >/dev/null 2>&1 || { printf >&2 "jq required, but not installed..aborting..\n"; exit 1; }
+
 buildCampaign () {
   if [ -d ${1} ]; then
     IFS='/' read -ra my_array <<< "$1"
