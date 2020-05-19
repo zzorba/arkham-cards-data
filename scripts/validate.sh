@@ -30,7 +30,7 @@ fi
 echo "Looking for invalid encounter sets"
 encounter_sets=$(jq -f scripts/jq/encounter_sets.jq build/allCampaigns.json)
 while IFS= read -r line; do
-  case `grep -F "$line" "../arkhamdb-json-data/encounters.json" >/dev/null; echo $?` in
+  case `grep -F "$line" "$ARKHAMDB_DATA/encounters.json" >/dev/null; echo $?` in
   0)
     # code if found
     ;;
