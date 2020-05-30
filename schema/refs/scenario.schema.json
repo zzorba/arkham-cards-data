@@ -2,6 +2,31 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/scenario.schema.json",
   "definitions": {
+    "challengeData": {
+      "$id": "#challengeData",
+      "title": "ChallengeData",
+      "type": "object",
+      "properties": {
+        "investigator": {
+          "type": "string"
+        },
+        "xp_cost": {
+          "type": "number"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "investigator",
+        "xp_cost",
+        "requirements"
+      ],
+      "additionalProperties": false
+    },
     "scenario": {
       "$id": "#scenario",
       "title": "Scenario",
@@ -18,6 +43,13 @@
         },
         "xp_cost": {
           "type": "number"
+        },
+        "side_scenario_type": {
+          "type": "string",
+          "enum": ["challenge"]
+        },
+        "challenge": {
+          "$ref": "#/definitions/challengeData"
         },
         "setup": {
           "type": "array",
