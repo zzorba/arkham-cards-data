@@ -1,0 +1,397 @@
+{
+  "id": "blob_that_ate_everything",
+  "scenario_name": "The Blob That Ate Everything",
+  "full_name": "The Blob That Ate Everything",
+  "xp_cost": 2,
+  "setup": [
+    "xp_cost",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_migo",
+    "set_aside_cards",
+    "setup_blob",
+    "setup_locations",
+    "location_layout",
+    "place_countermeasures",
+    "encounter_deck",
+    "devour_rule",
+    "countermeasures"
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>Incident Report: 8L-08</i>\n<i>Thursday, 07/05/1928</i>\n<i>Blackwater, MA</i>\n\n<i>0312 hours - Impact event just outside of Blackwater. Intercepted police call, agents sent to investigate. Interviewed local farmer, Ron Graham; claims meteor was several feet wide, greenish hue. Crater roughly 100 yards in diameter. Radiation detected in outlying area. Recommend immediate quarantine and further observation by research team. Situation under control.</i>\nIt wasn't under control.\nThat was the report the G-men took when they first arrived. For the next few days, the town of Blackwater was on lockdown. The impact was all that was talked about in the papers, but not much was known aside from the enormous crater and the effect it had on the countryside. Nobody was allowed to leave the town, and only those approved by the shadow government agency was allowed to enter. Those unfortunate few included high-ranking government agent, and a team of researchers from the nearby Miskatonic University, who were summoned to investigate the meteor itself. For the rest of the town's inhabitants, it was a strange occurence, nothing more... that is, until the meteor <i>hatched</i>.\nI saw it with my own eyes. When the anomaly emerged, the first thing it did was devour the team of researchers who have been sent to collect and study samples from the meteor. The next thing it did was devour their lab equipment. Then Ron Graham's tractor. Then his house, in its entirety. It continued to grow and spread, devouring everything in its path. I barely escaped with my life.\nWhen the army arrived, they thought they could kill it with bullets and shells. Everything they threw at the creature was devoured, one round after the next. Then it split into hundreds of smaller pieces of itself, and the army was quickly overwhelmed. While the battle raged on, myself and others back in town saw lights and shapes in the sky above. Something was up there, waiting. Biding time.\nThe quarantine still holds, and we're stuck in the middle of it. It won't be long before the anomaly has grown large enough to devour everything in Blackwater. And if that happens, who could possibly stop its rampage?"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "blob",
+        "blob_single_group"
+      ]
+    },
+    {
+      "id": "set_aside_migo",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "migo_incursion"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Search <i>The Blob That Ate Everything</i> encounter set for the following encounter cards and set them aside out of play: Vulnerable Heart, 1 copy of Grasping Ooze, 1 copy of Cubic Ooze, and both copies of Oozewraith."
+    },
+    {
+      "id": "setup_blob",
+      "text": "Put the Subject 8L-08 enemy into play next to the agenda deck. It is not at any location."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Set up the locations acccording to the guidelines below.",
+      "bullets": [
+        {
+          "text": "Shuffle the Quarantine Zone locations together and remove 1 of them from the game."
+        },
+        {
+          "text": "Put The Crater into play."
+        },
+        {
+          "text": "Take the Research Site, the Temporary HQ, and 2 random Quarantine Zone locations. Shuffle them and place each of them connected to the Crater, in a random order."
+        },
+        {
+          "text": "Take the Fungus Mound and 3 random Qurantine Zone locations. Shuffle them and place each of them in 1 of the 4 positions in the outer ring, farthest from the Crater."
+        },
+        {
+          "text": "Put the remaining Quarantine Zone locations into play."
+        },
+        {
+          "text": "Each investigator begins play at the Temporary HQ."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "note": "<i>Note: The positions of the Research Site, Temporary HQ, and Fungus Mound may differ from this diagram.</i>",
+
+      "locations": [
+        ["blank", "blank", "02048_back", "blank", "blank"],
+        ["blank", "02048_back", "02048_back", "02048_back", "blank"],
+        ["02049_back", "02051_back", "02053_back", "02053_back", "02053_back"],
+        ["blank", "02048_back", "02048_back", "02048_back", "blank"],
+        ["blank", "blank", "02048_back", "blank", "blank"]
+      ]
+    },
+    {
+      "id": "place_countermeasures",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["one_countermeasure"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["one_countermeasure"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["two_countermeasure"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["two_countermeasure"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "one_countermeasure",
+      "text": "Place 1 resource on the scenario reference card as a countermeasure."
+    },
+    {
+      "id": "two_countermeasure",
+      "text": "Place 2 resources on the scenario reference card as a countermeasures."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "devour_rule",
+      "type": "rule_reminder",
+      "title": "Devour",
+      "text": "During this scenario, Subject 8L-08 can \"devour\" a variety of things.",
+      "bullets": [
+        {
+          "text": "If a card is devoured, it is placed beneath Subject 8L-08. Cards beneath Subject 8L-08 are considered out of play. Each devoured card is returned to its owner's deck at the end of the game. If an investigator is devoured, he or she is killed."
+        },
+        {
+          "text": "If a token is devoured, it is placed in the token pool."
+        },
+        {
+          "text": "When choosing a location to be devoured, you cannot choose to devour a location if it causes another location to have no valid connections."
+        },
+        {
+          "text": "Subject 8L-08 can also devour certain aspect of reality or metaphysical objects. If it does so, you will be instructed of the consequences."
+        }
+      ]
+    },
+    {
+      "id": "countermeasures_rule",
+      "type": "rule_reminder",
+      "title": "Countermeasures",
+      "text": "Countermeasures represent supplies, research, or military equipment which may aid the investigators in their survival. Countermeasures may be spent via certain card abilities in order to trigger powerful effects. However, gaining new countermeasures is rare, so be careful how you spend them!"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "many_were_sacrificed_to_cnidathqua",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "coh_many_were_sacrificed_to_cnidathqua",
+          "text": "many were sacrificed to Cnidathqua during the Carnevale."
+        }
+      ]
+    },
+    {
+      "id": "sun_banished_cnidathqua",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "coh_sun_banished_cnidathqua",
+          "text": "the sun banished Cnidathqua into the depths."
+        }
+      ]
+    },
+    {
+      "id": "blob_devoured_universe",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "blob_devoured_universe",
+          "text": "Subject 8L-08 devoured the entire universe."
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "move_innocent_reveler",
+      "text": "Move 1 Innocent Reveler from underneath the act deck to underneath the agenda deck, if able."
+    },
+    {
+      "id": "choose_masks",
+      "title": "Additional Rewards",
+      "text": "In player order, each investigator may choose one of the following [[Mask]] cards to add to his or her deck: Pantalone, Medico Della Peste, Bauta, Gilded Volto. The chosen card does not count towards that investigator's deck size.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "82025",
+            "text": "Pantalone",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82025"
+              }
+            ]
+          },
+          {
+            "id": "82024",
+            "text": "Medico Della Peste",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82024"
+              }
+            ]
+          },
+          {
+            "id": "82023",
+            "text": "Bauta",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82023"
+              }
+            ]
+          },
+          {
+            "id": "82026",
+            "text": "Gilded Volto",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "82026"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_innocent_revelers_saved",
+      "type": "input",
+      "text": "How many Innocent Revelers are underneath the act deck?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "none",
+            "text": "None",
+            "steps": ["ask_innocent_revelers_killed"]
+          },
+          {
+            "id": "one_or_two",
+            "text": "One or Two",
+            "steps": ["no_further_rewards"]
+          },
+          {
+            "id": "three",
+            "text": "Three",
+            "steps": ["abbess_satisfied", "earn_abbess"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_further_rewards",
+      "bullet_type": "small",
+      "text": "No further rewards."
+    },
+    {
+      "id": "ask_innocent_revelers_killed",
+      "text": "How many Innocent Revelers are underneath the agenda deck?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "none",
+            "text": "None"
+          },
+          {
+            "id": "one_or_more",
+            "text": "One or more",
+            "steps": ["sacrifice_made", "random_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "abbess_satisfied",
+      "type": "story",
+      "text": "\"Grazie mille—thank you for all your help.\" Allegria says as you return to the basilica. \"Thanks to you, there were few casualties. I shudder to think what might have happened had you not arrived. Should you ever require assistance, please do not hesitate to ask.\""
+    },
+    {
+      "id": "earn_abbess",
+      "text": "Any one investigator may choose to add Abbess Allegria Di Biase to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "82022"
+        }
+      ]
+    },
+    {
+      "id": "sacrifice_made",
+      "type": "story",
+      "text": "Too many lives were lost during the eclipse to stop the machinations of Cnidathqua's servants. The beast has been fed, its minions empowered. You find yourself hoping you don't live long enough to see the fallout of your failure."
+    },
+    {
+      "id": "random_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Madness]], [[Injury]], or [[Monster]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": ["Madness", "Injury", "Monster"]
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator was defeated)",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Nothing is left of Blackwater now. The quarantine is broken. The anomaly cannot be contained. First it will spread throughout the countryside, devouring all in its path. Soon all of Massachusetts will be devoured. Then the entirety of New England. It has burrowed beneath the ground and cannot be stopped even by the oceans. No continent is safe. Every living organism on the planet will be devoured. And then, so too will the Earth.\n...but that won't be the end.\nNot even the void of space can stop the creature's growth. In time, it will continue to expand and devour until there is nothing left but the cold emptiness of space and the blob that ate everything.",
+      "steps": ["blob_devoured_universe", "lose_campaign"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "<i>Incident Report: 8L-08, continued</i>\n<i>Wednesday, 07/11/1928</i>\n<i>Blackwater, MA</i>\n<i>0742 hours - Contact made with ████████████ subject. Subject ███████████ meteor; researchers are unsure whether meteor served as an avenue for ██████████ or as some kind of ██████████████. Initiated immediate emergency response procedures. At roughly 0500 hours, subject was eliminated by third party. As per operational protocol, samples have been collected and sent to ██████ for further study. Agents are currently scrubbing remainder of subject's presence from quarantine zone. Strongly recommend immediate expunging of previous conflicting incident report.</i>\n<i>Citizens of Blackwater have been informed ██████████ quarantine ████████ contagion of airborne virus. ███████ several infections ████████; medical teams en route to confirm.</i>\n<i>Agents are attempting to meet with unlicensed combatants for debriefing. Due to sensitive nature of incident, recommend release followed by close observation. Story must be kept ████████████. ████████████████████████████████████████████.</i>\n<i>Destroy the incident report immediately. Additional instructions to follow.</i>",
+      "steps": ["blob_contained", "earn_assets", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}
