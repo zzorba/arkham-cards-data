@@ -10,7 +10,12 @@ const getFilePaths = (folderPath) => {
   const dirFiles = dirPaths.reduce((prev, curr) => prev.concat(getFilePaths(curr)), []);
   return [...filePaths, ...dirFiles];
 };
-
+if (!fs.existsSync('./build')) {
+  fs.mkdirSync('./build', { recursive: true })
+}
+if (!fs.existsSync('./build/return_campaigns')) {
+  fs.mkdirSync('./build/return_campaigns', { recursive: true })
+}
 getFilePaths('./return_campaigns').sort().map(file => {
   if (file.endsWith('.schema.json') || !file.endsWith('.json')) {
     return;
@@ -26,8 +31,9 @@ getFilePaths('./return_campaigns').sort().map(file => {
     const originalJson = jsonlint.parse(originalData);
 
     const targetDir = `./build/return_campaigns/${json.id}`;
-    fs.mkdirSync(targetDir, { recursive: true });
-
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
     fs.writeFileSync(`${targetDir}/campaign.json`,
       JSON.stringify({
         ...originalJson,
