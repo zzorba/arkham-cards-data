@@ -34,12 +34,21 @@ getFilePaths('./return_campaigns').sort().map(file => {
     if (!fs.existsSync(targetDir)) {
       fs.mkdirSync(targetDir, { recursive: true });
     }
+    const newCampaign = {
+      ...originalJson,
+      ...json,
+      original_id: undefined,
+    };
+    if (json.steps) {
+      const newStepsIds = new Set(json.steps.map(step => step.id));
+      newCampaign.steps = [
+        ...originalJson.steps.filter(step => !newStepsIds.has(step.id)),
+        ...json.steps,
+      ];
+    }
+
     fs.writeFileSync(`${targetDir}/campaign.json`,
-      JSON.stringify({
-        ...originalJson,
-        ...json,
-        original_id: undefined,
-      }, null, 2)
+      JSON.stringify(newCampaign, null, 2)
     );
     getFilePaths(
       file.replace('return_campaigns/rt', 'campaigns/').replace("/campaign.json", "")
