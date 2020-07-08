@@ -1,0 +1,322 @@
+{
+  "id": "return_to_heart_of_the_elders_part_1",
+  "original_id": "heart_of_the_elders_part_1",
+  "scenario_name": "Return to Heart of the Elders, Part 1",
+  "full_name": "Scenario V–A: Return to Heart of the Elders, Part 1",
+  "setup": [
+    "intro_1",
+    "choose_who_to_consult",
+    "check_paths_known"
+  ],
+  "steps": [
+    {
+      "id": "check_paths_known",
+      "text": "If 6 paths are known to you, skip this scenario and proceed immediately to <b>Resolution 1</b>.",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "paths_known"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 6
+        },
+        "operation": "equals",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_1", "$proceed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gather_encounter_sets",
+              "remove_act_1a",
+              "setup_locations",
+              "setup_paths",
+              "check_replay",
+              "create_exploration_deck",
+              "check_mapped_way_forward",
+              "set_aside_poisoned",
+              "encounter_deck",
+              "additional_return_rules",
+              "$play_scenario"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "pillars_of_judgment",
+        "return_to_pillars_of_judgment",
+        "heart_of_the_elders",
+        "return_to_heart_of_the_elders",
+        "rainforest",
+        "return_to_the_rainforest",
+        "serpents",
+        "doomed_expedition",
+        "poison"
+      ]
+    },
+    {
+      "id": "remove_act_1a",
+      "text": "Remove the Act 1a—\"Search for the Pattern\" from the game and replace it with the new Act 1a—\"A Familiar Pattern.\""
+    },
+    {
+      "id": "create_exploration_deck",
+      "type": "location_connectors",
+      "text": "Create the exploration deck. Gather all of the single-sided [[Jungle]] locations. Include only 1 of the 2 locations with each of the following connection symbols, chosen at random.",
+      "location_conectors": [
+        "purple_moon",
+        "blue_triangle",
+        "red_square",
+        "orange_heart"
+      ],
+      "subtext": "Remove the other 4 [[Jungle]] locations from the game. Do not include any of the other encounter cards listed in the original setup instructions."
+    },
+    {
+      "id": "additional_return_rules",
+      "text": "For the duration of this scenario, the following additional rules apply:",
+      "bullets": [
+        {
+          "text": "The 'check your supplies' ability on the Mouth of K'n-yan can be used from any location."
+        },
+        {
+          "text": "<b>Forced</b> - After a successful exploration ends: Shuffle the top card of the encounter deck into the exploration deck."
+        }
+      ]
+    },
+    {
+      "id": "replay_scenario",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "replay",
+            "text": "Replace <b>Scenario V-A: Heart of the Elders, Part 1</b>.",
+            "steps": ["chose_replay"]
+          },
+          {
+            "id": "resolution_2",
+            "text": "Proceed to <b>Resolution 2</b>",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chose_replay",
+      "text": "The investigators must replay <b>Scenario V-A: Heart of the Elders, Part 1</b>. Reset the game to this scenario’s <b>Setup</b>. Do not record anything else in your Campaign Log except for any trauma suffered from your previous game. No experience points are earned from your previous game. Any player whose investigator was killed or driven insane must choose a new investigator to play, as normal.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "replay_scenario",
+          "scenario": "heart_of_the_elders_part_1"
+        }
+      ]
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "late_resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "trespassed_in_hostile_land",
+      "text": "You have trespassed in a hostile land. Place pillar tokens on the Mouth of K'n-yan until there are exactly 6 pillar tokens. For every pillar token added in this way, record two tally marks under \"Yig's Fury\" in your Campaign Log.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "campaign_notes",
+        "id": "paths_known",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["6_paths_12_fury"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["5_paths_10_fury"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["4_paths_8_fury"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["3_paths_6_fury"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["2_paths_4_fury"]
+          },
+          {
+            "numCondition": 5,
+            "steps": ["1_path_2_fury"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "6_paths_12_fury",
+      "bullet_type": "small",
+      "text": "Record 12 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "id": "5_paths_10_fury",
+      "bullet_type": "small",
+      "text": "Record 10 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 10
+        }
+      ]
+    },
+    {
+      "id": "4_paths_8_fury",
+      "bullet_type": "small",
+      "text": "Record 8 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "id": "3_paths_6_fury",
+      "bullet_type": "small",
+      "text": "Record 6 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 6
+        }
+      ]
+    },
+    {
+      "id": "2_paths_4_fury",
+      "bullet_type": "small",
+      "text": "Record 4 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "1_path_2_fury",
+      "bullet_type": "small",
+      "text": "Record 2 tally marks under \"Yig's Fury\".",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "yigs_fury",
+          "operation": "add",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "pass_pillars_take_trauma_or_poison",
+      "text": "As you pass the pillars, intense pain wrenches its way through your body, and you are afflicted with a terrible curse. Each investigator who is poisoned takes 1 mental trauma. Each investigator who is not poisoned adds a set-aside Poisoned weakness to their deck."
+    },
+    {
+      "id": "poison_or_trauma",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "04102",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "proceed_resolution_1",
+      "text": "Proceed to <b>Resolution 1</b>."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The hazards of the jungle are too dangerous for you to continue exploring. If you remain any longer, these odd pillars will mark your grave. You decide to flee for now, returning to a familiar clearing several miles away where you can recuperate. You know that you must eventually return to the pillars and figure out the pattern that will open the way forward...but for now, at least you are safe.",
+      "steps": ["record_paths_known", "check_investigators_poisoned", "replay_scenario"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Swallowing your fear, you enter the cavern...",
+      "steps": ["check_paths_known_jungle_watches", "earn_xp", "check_investigators_poisoned", "proceed_scenario_2"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You haven't yet completed the puzzle of the six pillars that serve as the entrance to K'n-yan, but you don't wish to tarry any further in this hostile jungle. You decide to enter the cavern anyway, hoping that whatever \"wards\" the pillars represent are nothing but ancient superstition...",
+      "steps": [
+        "trespassed_in_hostile_land",
+        "pass_pillars_take_trauma_or_poison",
+        "poison_or_trauma",
+        "proceed_resolution_1",
+        "late_resolution_1"
+      ]
+    }
+  ]
+}
