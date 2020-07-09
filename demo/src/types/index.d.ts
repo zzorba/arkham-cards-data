@@ -16,7 +16,8 @@ export type Step =
   | ResolutionStep
   | RuleReminderStep
   | StoryStep
-  | LocationSetupStep;
+  | LocationSetupStep
+  | LocationConnectorsStep;
 export type Condition =
   | MultiCondition
   | CampaignLogCondition
@@ -703,6 +704,15 @@ export interface LocationSetupStep {
   horizontal: "half" | "normal" | "tight";
   locations: string[][];
   bullet_type?: null;
+}
+export interface LocationConnectorsStep {
+  id: string;
+  type: "location_connectors";
+  title?: string;
+  text: string;
+  subtext: string;
+  location_connectors: string[];
+  bullet_type?: BulletType;
 }
 export interface Scenario {
   id: string;

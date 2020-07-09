@@ -19,11 +19,11 @@ if [ ! -d "$ARKHAMDB_DATA" ]; then
 fi
 
 if test -f ./build/allCampaigns.json; then
-  invalid_has_card=$(jq -f scripts/jq/invalid_has_card.jq build/allCampaigns.json)
-  if [[ $invalid_has_card ]]; then
-    echo "A \"has_card\" condition has an invalid effect (only trauma or story step allowed)"
-    exit 1
-  fi
+#  invalid_has_card=$(jq -f scripts/jq/invalid_has_card.jq build/allCampaigns.json)
+#  if [[ $invalid_has_card ]]; then
+#    echo "A \"has_card\" condition has an invalid effect (only trauma or story step allowed)"
+#    exit 1
+#  fi
 
   echo "Looking for invalid encounter sets"
   encounter_sets=$(jq -f scripts/jq/encounter_sets.jq build/allCampaigns.json)
