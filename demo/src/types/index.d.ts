@@ -126,6 +126,7 @@ export type BinaryChoiceCondition =
   | CampaignLogCondition
   | CampaignDataChaosBagCondition
   | MultiCondition;
+export type LocationConnector = "purple_moon" | "blue_triangle" | "red_square" | "orange_heart" | "green_diamond";
 export type AllCampaigns = FullCampaign[];
 export type Choice1 =
   | CardChoice
@@ -711,7 +712,7 @@ export interface LocationConnectorsStep {
   title?: string;
   text: string;
   subtext: string;
-  location_connectors: string[];
+  location_connectors: LocationConnector[];
   bullet_type?: BulletType;
 }
 export interface Scenario {
