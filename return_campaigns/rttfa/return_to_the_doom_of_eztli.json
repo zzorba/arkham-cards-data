@@ -62,6 +62,71 @@
           "text": "<b>Forced</b> - After a successful exploration ends: Shuffle the top card of the encounter deck into the exploration deck."
         }
       ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_supplies",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "rtdoe_gain_mysterious_scepter",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust supplies",
+            "steps": ["adjust_supplies_choice", "gain_mysterious_scepter"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_supplies_choice",
+      "text": "Which investigator should add the \"Mysterious Scepter\" to their supplies?"
+    },
+    {
+      "id": "gain_mysterious_scepter",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "any",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "gain_mysterious_scepter",
+            "text": "Mysterious Scepter",
+            "effects": [
+              {
+                "type": "gain_supplies",
+                "section": "supplies",
+                "investigator": "$input_value",
+                "supplies": [
+                  {
+                    "id": "mysterious_scepter",
+                    "name": "Mysterious Scepter",
+                    "description": "A mysterious scepter you found in the throne room.",
+                    "cost": 0,
+                    "multiple": false
+                  }
+                ]
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "rtdoe_gain_mysterious_scepter",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

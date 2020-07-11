@@ -60,6 +60,71 @@
           "text": "<b>Forced</b> - After a successful exploration ends: Shuffle the top card of the encounter deck into the exploration deck."
         }
       ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_supplies",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "rthote2_gain_sticky_goop",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust supplies",
+            "steps": ["adjust_supplies_choice", "gain_sticky_goop"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_supplies_choice",
+      "text": "Which investigator should add the \"Sticky Goop\" to their supplies?"
+    },
+    {
+      "id": "gain_sticky_goop",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "any",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "gain_sticky_goop",
+            "text": "Found \"Sticky Goop\"",
+            "effects": [
+              {
+                "type": "gain_supplies",
+                "section": "supplies",
+                "investigator": "$input_value",
+                "supplies": [
+                  {
+                    "id": "sticky_goop",
+                    "name": "Sticky Goopr",
+                    "description": "A mysterious scepter you found in a subterranean swamp.",
+                    "cost": 0,
+                    "multiple": false
+                  }
+                ]
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "rthote2_gain_sticky_goop",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }

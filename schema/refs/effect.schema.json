@@ -69,6 +69,12 @@
         },
         "bonus": {
           "type": "number"
+        },
+        "input_scale": {
+          "type": "number"
+        },
+        "special_xp": {
+          "type": "string"
         }
       },
       "required": [
@@ -273,6 +279,36 @@
         "setting",
         "scenario"
       ],
+      "additionalProperties": false
+    },
+    "gainSuppliesEffect": {
+      "$id": "#gainSuppliesEffect",
+      "title": "GainSuppliesEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "gain_supplies"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "supplies": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/supply"
+          }
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "$input_value"
+          ]
+        }
+      },
+      "required": ["type", "section", "supplies", "investigator"],
       "additionalProperties": false
     },
     "scenarioDataEffect": {
@@ -605,6 +641,13 @@
             "$input_value"
           ]
         },
+        "heal_input": {
+          "type": "string",
+          "enum": [
+            "physical",
+            "mental"
+          ]
+        },
         "mental": {
           "type": "number"
         },
@@ -651,7 +694,8 @@
         { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" },
         { "$ref": "#/definitions/upgradeDecksEffect" },
-        { "$ref": "#/definitions/freeformCampaignLogEffect" }
+        { "$ref": "#/definitions/freeformCampaignLogEffect" },
+        { "$ref": "#/definitions/gainSuppliesEffect" }
       ]
     },
     "effectsWithInput": {

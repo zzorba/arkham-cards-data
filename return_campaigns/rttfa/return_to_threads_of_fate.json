@@ -77,6 +77,462 @@
       "id": "find_root_of_problem",
       "bullet_type": "small",
       "text": "Remove the following act cards from the “g/h” deck: Search for the Source, both copies of Seeking Trouble, and 1 of the 2 copies of The Overgrown Estate, at random."
+    },
+    {
+      "id": "recruited_help_of_another_expedition",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "recruited_help_of_another_expedition",
+          "text": "the investigators recruited the help of another expedition."
+        }
+      ]
+    },
+    {
+      "id": "earn_veda_whitsley",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to include the Veda Whitsley story asset in their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "53037"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "cross_out_supplies",
+            "text": "Adjust supplies",
+            "steps": ["cross_out_medicine"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_medicine",
+      "type": "input",
+      "input": {
+        "type": "use_supplies",
+        "section": "supplies",
+        "id": "medicine",
+        "investigator": "choice",
+        "min": 1,
+        "max": 1,
+        "choices": []
+      }
+    },
+    {
+      "id": "check_act_ab",
+      "type": "input",
+      "text": "Which stage of the act “a/b” deck was in play?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1a",
+            "steps": ["relic_is_missing", "maybe_remove_relic_of_ages"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2a",
+            "steps": ["relic_is_missing", "maybe_remove_relic_of_ages"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3a",
+            "steps": ["relic_is_missing", "maybe_remove_relic_of_ages"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 2
+              }
+            ]
+          },
+          {
+            "id": "completed",
+            "text": "Act 3b was completed.",
+            "steps": ["found_missing_relic", "maybe_earn_relic_of_ages"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_cd",
+      "text": "Which stage of the act “c/d” deck was in play?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1c",
+            "steps": ["alejandro_is_missing", "maybe_remove_alejandro"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2c",
+            "steps": ["alejandro_is_missing", "maybe_remove_alejandro"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3c",
+            "steps": ["alejandro_is_missing", "maybe_remove_alejandro"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 2
+              }
+            ]
+          },
+          {
+            "id": "completed",
+            "text": "Act 3d was completed.",
+            "steps": ["rescued_alejandro", "maybe_earn_alejandro"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_ef",
+      "text": "Which stage of the act “e/f” deck was in play?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [ 
+          {
+            "id": "act_1",
+            "text": "Act 1e",
+            "steps": ["ichtaca_in_the_dark"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2e",
+            "steps": ["ichtaca_in_the_dark"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3e",
+            "steps": ["ichtaca_in_the_dark"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 2
+              }
+            ]
+          },
+          {
+            "id": "completed",
+            "text": "Act 3f was completed.",
+            "steps": ["forged_bond_with_ichtaca", "maybe_earn_ichtaca"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_gh",
+      "text": "Which stage of the act “g/h” deck was in play?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1g",
+            "steps": []
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2g",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3g",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 2
+              }
+            ]
+          },
+          {
+            "id": "completed",
+            "text": "Act 3h was completed.",
+            "steps": ["recruited_help_of_another_expedition", "earn_veda_whitsley"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "special_xp": "resupply_points",
+                "bonus": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_act_xp",
+      "text": "Each investigator earns 1 additional experience for each act 1, act 2, or act 3 card that was completed during this scenario, as you gain insight into the schemes of the Brotherhood.",
+      "bullets": [
+        {
+          "text": "This additional experience cannot be spent to purchase cards."
+        },
+        {
+          "text": "Instead, it must be spent to remove poison or cure trauma, or it must be converted to supply points during the upcoming <b>Resupply Point</b>"
+        }
+      ]
+    },
+    {
+      "id": "resupply_point_explanation",
+      "text": "When spending experience points during this section, experience earned from completing acts will be spent first. You may also convert up to 10 points of experience to supply points, at a rate of 1 supply point for every 2 experience converted."    
+    },
+    {
+      "id": "choose_to_heal_trauma",
+      "bullet_type": "small",
+      "text": "Each investigator may spend 5 experience points to remove physical or mental trauma from their investigator."
+    },
+    {
+      "id": "choose_to_heal_physical_trauma",
+      "bullet_type": "none",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Physical trauma to remove",
+        "investigator_max": "physical_trauma",
+        "show_special_xp": "resupply_points",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "special_xp": "resupply_points",
+            "input_scale": -5,
+            "investigator": "$input_value"            
+          },
+          {
+            "type": "trauma",
+            "investigator": "$input_value",
+            "heal_input": "physical",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_to_heal_mental_trauma",
+      "bullet_type": "none",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Mental trauma to remove",
+        "investigator_max": "mental_trauma",
+        "show_special_xp": "resupply_points",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "special_xp": "resupply_points",
+            "input_scale": -5,
+            "investigator": "$input_value"            
+          },
+          {
+            "type": "trauma",
+            "investigator": "$input_value",
+            "heal_input": "mental",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "buy_supply_points",
+      "bullet_type": "none",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Supply points to purchase (2 expeirence each)",
+        "max": 5,
+        "show_special_xp": "resupply_points",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "special_xp": "resupply_points",
+            "input_scale": -2,
+            "investigator": "$input_value"            
+          },
+          {
+            "type": "earn_xp",
+            "special_xp": "supply_points",
+            "investigator": "$input_value"            
+          }
+        ]
+      }
+    },
+    {
+      "id": "buy_supplies",
+      "type": "input",
+      "text": "Each investigator may spend supply points to purchase one or more of the supplies listed below. The number of supply points available to each investigator is based on the number of investigators in the campaign.",
+      "input": {
+        "type": "supplies",
+        "section": "supplies",
+        "points": [8, 5, 4, 3],
+        "special_xp": "supply_points",
+        "supplies": [
+          {
+            "id": "provisions",
+            "name": "Provisions",
+            "description": "Food and water for one person. A must-have for any journey.",
+            "cost": 1,
+            "multiple": true
+          },
+          {
+            "id": "medicine",
+            "name": "Medicine",
+            "description": "To stave off disease, infection, or venom.",
+            "cost": 2,
+            "multiple": true
+          },
+          {
+            "id": "gasoline",
+            "name": "Gasoline",
+            "description": "Enough for a long journey bycar.",
+            "cost": 1,
+            "multiple": true
+          },
+          {
+            "id": "blanket",
+            "name": "Blanket",
+            "description": "For warmth at night.",
+            "cost": 2
+          },
+          {
+            "id": "canteen",
+            "name": "Canteen",
+            "description": "Can be refilled at streams and rivers.",
+            "cost": 2
+          },
+          {
+            "id": "compass",
+            "name": "Compass",
+            "description": "Can guide you when you are hopelessly lost.",
+            "cost": 2
+          },
+          {
+            "id": "binoculars",
+            "name": "Binoculars",
+            "description": "To help you see faraway places.",
+            "cost": 2
+          },
+          {
+            "id": "chalk",
+            "name": "Chalk",
+            "description": "For writing on rough stone surfaces.",
+            "cost": 2
+          },
+          {
+            "id": "pocketknife",
+            "name": "Pocketknife",
+            "description": "Too small to be used as a reliable weapon, but easily concealed.",
+            "cost": 2
+          },
+          {
+            "id": "pickaxe",
+            "name": "Pickaxe",
+            "description": "For breaking apart rocky surfaces.",
+            "cost": 2
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You arrive back at your house and take stock of the situation. Your investigation throughout the city has uncovered the existence of a secret cabal within Arkham. From what you can tell, they call themselves the Brotherhood, and they seem to know more about the Eztli relic and Alejandro’s previous expedition than even you do. Their methods are secret and furtive, and their motives elude you still. However, one piece of vital information has come to light.\n“They seek a place known as the Nexus of N’kai,” Ichtaca claims. A map of Central America lies on the table before you, marked with the previous expedition’s trail. “I have heard of this place, but its exact location is not known to me.” Once again, your mysterious guide appears to know more than she lets on.\nWith no other leads to follow, you are left with no choice. Once more you must journey into uncharted territory in search of answers...but will anyone return this time?",
+      "steps": ["check_act_ab", "check_act_cd", "check_act_ef", "check_act_gh", "earn_expedition_journal", "earn_xp", "earn_act_xp", "resupply_point",
+        "resupply_point_explanation", "visit_hospital", "choose_to_heal_poison", "choose_to_heal_trauma", "choose_to_heal_physical_trauma", "choose_to_heal_mental_trauma", "buy_supply_points", "buy_supplies", "$upgrade_decks"]
     }
   ]
 }
