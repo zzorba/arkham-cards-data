@@ -25,10 +25,10 @@ const asyncFilter = async (arr, predicate) =>
  * @param {string} filePath - The path to the PO file.
  * @returns {PO.Item[]} An array of PO items
  */
-async function getPOEntries(filePath) {
+async function getPOFile(filePath) {
   try {
     const poFile = await loadPOFile(filePath);
-    return poFile.items;
+    return poFile;
   } catch (err) {
     throw new Error("Could not load PO entries : " + err);
   }
@@ -64,29 +64,60 @@ async function writeJSON(object, filePath) {
   }
 }
 
+const TRANSLATEABLE_KEYS = new Set(['text', 'title', 'subtext', 'name', 'description', 'confirm_text']);
+
 /**
  * Recursively translate an object using entries from a PO file.
  * The object is modified in place.
  * It will only translate `text` properties.
  *
  * @param {object} object - The object to translate
- * @param {PO.Item[]} poEntires - The array of PO entries to use for translation
+ * @param {PO} poFile - The PO file to use for translation
  */
-async function translate(object, poEntries) {
+async function translate(object, poFile, basePoFile) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
-      if (prop === "text" && typeof object[prop] === "string") {
-        let foundPoEntry = poEntries.find(e => e.msgid === object[prop]);
+      if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
+        let foundPoEntry = basePoFile.items.find(e => e.msgid === object[prop]);
+        if (!foundPoEntry) {
+          foundPoEntry = poFile.items.find(e => e.msgid === object[prop]);
+        }
         if (foundPoEntry !== undefined) {
           object[prop] = foundPoEntry.msgstr;
+        } else {
+          const item = new PO.Item();
+          item.msgid = object[prop];
+          poFile.items.push(item);
         }
       }
       if (typeof object[prop] === "object") {
         // Recursion
-        translate(object[prop], poEntries);
+        translate(object[prop], poFile, basePoFile);
       }
     }
   }
+}
+
+const SETTINGS_FOR_LANGUAGE = {
+  fr: {
+    'Language': 'fr',
+    'Plural-Forms': 'nplurals=2; plural=(n > 1);',
+  },
+  es: {
+    'Language': 'es',
+    'Plural-Forms': 'nplurals=2; plural=(n != 1);',
+  },
+};
+
+async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
+  if (await exists(scenarioPoFile)) {
+    console.log("(" + localeCode + ") Translating " + scenario);
+    return await getPOFile(scenarioPoFile);
+  }
+  console.log("(" + localeCode + ") No translation found for scenario " + scenario + ". Creating placeholder file.");
+  const po = new PO();
+  po.headers = SETTINGS_FOR_LANGUAGE[localeCode];
+  return po;
 }
 
 /**
@@ -95,24 +126,30 @@ async function translate(object, poEntries) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateLocale(localeCode) {
+  const basePoFile = '../ArkhamCards/assets/i18n/' + localeCode + '.po';
+  const basePo = await getPOFile(basePoFile);
   const allScenarios = getFilePaths("./campaigns");
+  const printErr = (err) => {
+    if (err) {
+      console.log(err);
+    }
+  };
   for (const scenario of allScenarios) {
+    if (scenario.indexOf(".DS_Store") !== -1) {
+      continue;
+    }
     const scenarioPoFile =
       "i18n/" + localeCode + "/" + scenario.replace(/json$/, "po");
-    if (await exists(scenarioPoFile)) {
-      console.log("(" + localeCode + ") Translating " + scenario);
-      let poEntries = await getPOEntries(scenarioPoFile);
-      let scenarioDesc = await readJSON(scenario);
-      translate(scenarioDesc, poEntries);
-      await writeJSON(
-        scenarioDesc,
-        "build/i18n/" + localeCode + "/" + scenario
-      );
-    } else {
-      console.log(
-        "(" + localeCode + ") No translation found for scenario " + scenario
-      );
-    }
+    const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
+    const scenarioDesc = await readJSON(scenario);
+
+    translate(scenarioDesc, poFile, basePo);
+    await writeJSON(
+      scenarioDesc,
+      "build/i18n/" + localeCode + "/" + scenario
+    );
+    await mkdir(path.dirname(scenarioPoFile), { recursive: true });
+    poFile.save(scenarioPoFile, printErr);
   }
 }
 
@@ -135,5 +172,6 @@ async function run() {
     generateLocale(localeCode);
   }
 }
+
 
 run();
