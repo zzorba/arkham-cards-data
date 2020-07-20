@@ -110,6 +110,14 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'es',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
   },
+  de: {
+    'Language': 'de',
+    'Plural-Forms': 'nplurals=2; plural=(n != 1);',
+  },
+  it: {
+    'Language': 'it',
+    'Plural-Forms': 'nplurals=2; plural=(n != 1);',
+  },
 };
 
 async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
