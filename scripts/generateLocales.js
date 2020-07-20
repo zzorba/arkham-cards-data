@@ -9,7 +9,6 @@ const loadPOFile = promisify(PO.load);
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
-const mkdir = promisify(fs.mkdir);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 
@@ -57,10 +56,13 @@ async function readJSON(filePath) {
  */
 async function writeJSON(object, filePath) {
   try {
-    await mkdir(path.dirname(filePath), { recursive: true });
+    console.log(`Creating directory for file: ${filePath} - ${path.dirname(filePath)}`)
+    fs.mkdirSync(path.dirname(filePath), { recursive: true }, err => {
+      console.log(err);
+    });
     writeFile(filePath, JSON.stringify(object, null, 2));
   } catch (err) {
-    throw new Error("Could not load JSON file : " + err);
+    throw new Error("Could not write JSON file: " + filePath + err);
   }
 }
 
@@ -73,12 +75,13 @@ const TRANSLATEABLE_KEYS = new Set(['text', 'title', 'subtext', 'name', 'descrip
  *
  * @param {object} object - The object to translate
  * @param {PO} poFile - The PO file to use for translation
+ * @param {PO.Item[]} allPoEntries - All entities we have seen to date
  */
-async function translate(object, poFile, basePoFile) {
+async function translate(object, poFile, allPoEntries) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
-        let foundPoEntry = basePoFile.items.find(e => e.msgid === object[prop]);
+        let foundPoEntry = allPoEntries.find(e => e.msgid === object[prop]);
         if (!foundPoEntry) {
           foundPoEntry = poFile.items.find(e => e.msgid === object[prop]);
         }
@@ -92,7 +95,7 @@ async function translate(object, poFile, basePoFile) {
       }
       if (typeof object[prop] === "object") {
         // Recursion
-        translate(object[prop], poFile, basePoFile);
+        translate(object[prop], poFile, allPoEntries);
       }
     }
   }
@@ -126,15 +129,14 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateLocale(localeCode) {
-  const basePoFile = '../ArkhamCards/assets/i18n/' + localeCode + '.po';
-  const basePo = await getPOFile(basePoFile);
+  const allPoEntries = [];
   const allScenarios = getFilePaths("./campaigns");
   const printErr = (err) => {
     if (err) {
       console.log(err);
     }
   };
-  for (const scenario of allScenarios) {
+  for (const scenario of allScenarios.sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
     }
@@ -143,13 +145,17 @@ async function generateLocale(localeCode) {
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
     const scenarioDesc = await readJSON(scenario);
 
-    translate(scenarioDesc, poFile, basePo);
+    await translate(scenarioDesc, poFile, allPoEntries);
     await writeJSON(
       scenarioDesc,
       "build/i18n/" + localeCode + "/" + scenario
     );
-    await mkdir(path.dirname(scenarioPoFile), { recursive: true });
-    poFile.save(scenarioPoFile, printErr);
+    fs.mkdirSync(path.dirname(scenarioPoFile), { recursive: true }, (err) => {
+      console.log(err)
+    });
+    poFile.save(scenarioPoFile, printErr);    
+
+    allPoEntries.push(...poFile.items);
   }
 }
 
@@ -169,7 +175,7 @@ async function run() {
   const localeCodes = await getAvailableLocales();
   for (const localeCode of localeCodes) {
     console.log("Generating translations for " + localeCode);
-    generateLocale(localeCode);
+    await generateLocale(localeCode);
   }
 }
 
