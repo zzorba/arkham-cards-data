@@ -139,12 +139,13 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
 async function generateLocale(localeCode) {
   const allPoEntries = [];
   const allScenarios = getFilePaths("./campaigns");
+  const allReturnScenarios = getFilePaths("./return_campaigns");
   const printErr = (err) => {
     if (err) {
       console.log(err);
     }
   };
-  for (const scenario of allScenarios.sort()) {
+  for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
     }
