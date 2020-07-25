@@ -112,6 +112,44 @@
       ],
       "additionalProperties": false
     },
+    "tableStep": {
+      "$id": "#tableStep",
+      "title": "TableStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "table"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "header": {
+          "$ref": "types.schema.json#/definitions/tableRow"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/tableRow"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "header",
+        "rows"
+      ],
+      "additionalProperties": false
+    },
     "locationConnectorsStep": {
       "$id": "#locationConnectorsStep",
       "title": "LocationConnectorsStep",
@@ -483,6 +521,9 @@
         },
         {
           "$ref": "#/definitions/locationConnectorsStep"
+        },
+        {
+          "$ref": "#/definitions/tableStep"
         }
       ]
     }
