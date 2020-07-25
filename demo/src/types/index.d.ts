@@ -737,6 +737,7 @@ export interface TableStep {
   text?: string;
   header: TableRow;
   rows: TableRow[];
+  bullet_type?: BulletType;
 }
 export interface TableRow {
   cells: TableCell[];
