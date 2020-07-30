@@ -44,3 +44,15 @@ A typical workflow for editing the data is :
 - validate against the schema using `yarn validate`
 - build the JSON files with `yarn build`
 - run post-build checks with `yarn verify`
+
+
+## Translation
+Translationn files live in the `i18n/` folder and are grouped by language. There are many programs that are capable of editing them, but I've found that a program called [PoEdit](https://poedit.net/), which has a free version that is totally serviceable. Using this program, you can edit the .po files in the `i18n` folder and submit the changes via Pull Request (or by opening an issue and I will provide contact information on how to submit changes).
+
+A couple notes about translation.
+
+- Since a lot of phrases are duplicated, we translate the files in order starting with `dwl`. This means that some strings will only appear there, but be used in other campaigns as well.
+- The best thing to do is probably work from the PDFs available from FFG. Most of the story text can be copy/pasted directly into the matching section, but some of the instruction text might need phrasing/tense changes to match the campaign guide.
+- The text contains some limited markdown, please try to maintain this to match the formatting found in the campaign guides.
+- Text inside of # marks (like #name# or #count#) should be left as is, these will be interpolated by the system.
+- Campaign log entry text should start with a lower case, unless the start of the sentence is a proper noun. This allows us to use the same text for *In your campaign log, record that "phrase"* as well as in the actual campaign log.
