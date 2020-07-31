@@ -2,7 +2,20 @@ const Ajv = require('ajv');
 const fs = require('fs');
 const path = require('path');
 const jsonlint = require('jsonlint');
+const yargs = require('yargs');
 
+const argv = yargs
+  .option(
+    'output', { 
+      alias: 'o',
+      description: 'Output directory',
+      type: 'string',
+    }
+  ).help()
+  .alias('help', 'h')
+  .argv;
+
+const output_dir = argv.output || './build'
 const getFilePaths = (folderPath) => {
   const entryPaths = fs.readdirSync(folderPath).map(entry => path.join(folderPath, entry));
   const filePaths = entryPaths.filter(entryPath => fs.statSync(entryPath).isFile());
@@ -11,7 +24,7 @@ const getFilePaths = (folderPath) => {
   return [...filePaths, ...dirFiles];
 };
 
-const json = jsonlint.parse(fs.readFileSync('./build/tempCampaignLogs.json', 'utf-8').toString());
+const json = jsonlint.parse(fs.readFileSync(`${output_dir}/tempCampaignLogs.json`, 'utf-8').toString());
 const sideCampaign = json.find(entry => entry.campaignId === 'side');
 const resultJson = [];
 json.forEach(campaignLog => {
@@ -45,6 +58,6 @@ json.forEach(campaignLog => {
     });
   }
 })
-fs.writeFileSync('./build/campaignLogs.json',
+fs.writeFileSync(`${output_dir}/campaignLogs.json`,
   JSON.stringify(resultJson, null, 2)
 );

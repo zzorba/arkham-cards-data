@@ -66,7 +66,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['text', 'title', 'subtext', 'name', 'description', 'confirm_text']);
+const TRANSLATEABLE_KEYS = new Set(['text', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
 /**
  * Recursively translate an object using entries from a PO file.
@@ -86,7 +86,9 @@ async function translate(object, poFile, allPoEntries) {
           foundPoEntry = poFile.items.find(e => e.msgid === object[prop]);
         }
         if (foundPoEntry !== undefined) {
-          object[prop] = foundPoEntry.msgstr;
+          if (foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
+            object[prop] = foundPoEntry.msgstr[0];
+          }
         } else {
           const item = new PO.Item();
           item.msgid = object[prop];
