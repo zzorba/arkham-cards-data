@@ -343,6 +343,84 @@
       ],
       "additionalProperties": false
     },
+    "campaignLogCountStep": {
+      "$id": "#campaignLogCountStep",
+      "title": "CampaignLogCountStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_count"
+          ]
+        },
+        "text_count": {
+          "type": "string"
+        },
+        "campaign_log_count": {
+          "type": "object",
+          "properties": {
+            "section": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "required": [ 
+            "section"
+          ],
+          "additionalProperties": false
+        },
+        "bullet_type": {
+          "type": "null"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "text_count",
+        "campaign_log_count"
+      ],
+      "additionalProperties": false
+    },
+    "xpCountStep": {
+      "$id": "#xpCountStep",
+      "title": "XpCountStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "xp_count"
+          ]
+        },
+        "bullet_type": {
+          "type": "null"
+        },
+        "title": {
+          "type": "string"
+        },
+        "special_xp": {
+          "$ref": "types.schema.json#/definitions/specialXp"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "special_xp"
+      ],
+      "additionalProperties": false
+    },
     "resolutionStep": {
       "$id": "#resolutionStep",
       "title": "ResolutionStep",
@@ -527,6 +605,12 @@
         },
         {
           "$ref": "#/definitions/tableStep"
+        },
+        {
+          "$ref": "#/definitions/campaignLogCountStep"
+        },
+        {
+          "$ref": "#/definitions/xpCountStep"
         }
       ]
     }
