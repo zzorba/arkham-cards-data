@@ -138,6 +138,20 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
 }
 
 /**
+ * Read the encounter sets.
+ * @param {string} localeCode  - Locale code (en, es, ...)
+ */
+async function readEncounterSets(localeCode) {
+  const json = await readJSON(`encounter_sets/${localeCode}.json`);
+  const encounter_sets = {};
+  for(let i = 0; i < json.length; i++) {
+    const entry = json[i];
+    encounter_sets[entry.code] = entry.name;
+  }
+  return encounter_sets;
+}
+
+/**
  * Generate localized JSON files for a specific locale.
  *
  * @param {string} localeCode - Locale code (fr, it, es ...)
@@ -168,8 +182,21 @@ async function generateLocale(localeCode) {
     fs.mkdirSync(path.dirname(scenarioPoFile), { recursive: true }, (err) => {
       console.log(err)
     });
-    poFile.save(scenarioPoFile, printErr);    
+    poFile.save(scenarioPoFile, printErr);
 
+    const encounter_sets = await readEncounterSets('en');
+    await writeJSON(
+      encounter_sets,
+      "encounter_sets.json"
+    );
+    const lang_encounter_sets = await readEncounterSets(localeCode);
+    for (const code of Object.keys(lang_encounter_sets)) {
+      encounter_sets[code] = lang_encounter_sets[code];
+    }
+    await writeJSON(
+      encounter_sets,
+      "build/i18n/" + localeCode + "/encounter_sets.json"
+    )
     allPoEntries.push(...poFile.items);
   }
 }
