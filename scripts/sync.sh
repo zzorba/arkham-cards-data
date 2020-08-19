@@ -18,6 +18,8 @@ if [ -d "$ARKHAM_CARDS" ]; then
   # I18N files
   cp ./build/allCampaigns_es.json "$ARKHAM_CARDS/assets/allCampaigns_es.json"
   cp ./build/campaignLogs_es.json "$ARKHAM_CARDS/assets/campaignLogs_es.json"
+  cp ./build/allCampaigns_ru.json "$ARKHAM_CARDS/assets/allCampaigns_ru.json"
+  cp ./build/campaignLogs_ru.json "$ARKHAM_CARDS/assets/campaignLogs_ru.json"
 else
   echo "Folder $ARKHAM_CARDS does not exist."
   exit 1
