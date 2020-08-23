@@ -106,15 +106,14 @@ async function translate(object, poFile, allPoEntries) {
 }
 
 const SETTINGS_FOR_LANGUAGE = {
-  /*fr: {
+  fr: {
     'Language': 'fr',
     'Plural-Forms': 'nplurals=2; plural=(n > 1);',
-  },*/
+  },
   es: {
     'Language': 'es',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
   },
-  /*
   de: {
     'Language': 'de',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
@@ -126,7 +125,7 @@ const SETTINGS_FOR_LANGUAGE = {
   ru: {
     'Language': 'ru',
     'Plural-Forms': 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
-  },*/
+  },
 };
 
 async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
