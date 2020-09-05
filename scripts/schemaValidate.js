@@ -26,7 +26,7 @@ function validate(validator, file, json, schemaName) {
   const valid = validator.validate(schemaName, json);
   if (!valid) {
     console.log(
-      `SCHEMA Error(${file})\n${validator.errors
+      `SCHEMA Error(${file})\n${(validator.errors || [])
         .map(
           e =>
             `${e.keyword} - ${e.dataPath} - ${e.message} - ${JSON.stringify(
@@ -52,14 +52,16 @@ function validate(validator, file, json, schemaName) {
     steps["$play_scenario"] = true;
   }
   let error = false;
-  json.steps.map(step => {
-    // $play_scenario is an overrideable default step
-    if (steps[step.id] && step.id !== "$play_scenario") {
-      console.log(`DUPLICATE_STEP (${file}) - ${step.id}`);
-      error = true;
-    }
-    steps[step.id] = true;
-  });
+  if (json.steps) {
+    json.steps.map(step => {
+      // $play_scenario is an overrideable default step
+      if (steps[step.id] && step.id !== "$play_scenario") {
+        console.log(`DUPLICATE_STEP (${file}) - ${step.id}`);
+        error = true;
+      }
+      steps[step.id] = true;
+    });
+  }
   const unusedSteps = { ...steps };
   if (!json.scenario_name) {
     // Campaign
@@ -271,6 +273,36 @@ $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
         }
+      }
+    });
+  }
+});
+
+const errataSchema = fs
+  .readFileSync('./schema/errata.schema.json')
+  .toString();
+$RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
+  if (err) {
+    console.error(err);
+  } else {
+     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+    // including referenced files, combined into a single object
+    const ajv = new Ajv({ verbose: true });
+    const validator = ajv.addSchema(schema, "errata");
+    const QUIET = false;
+   
+    getFilePaths("./errata").sort().map(file => {
+      if (file.endsWith('errata.json')) {
+        const data = fs.readFileSync(file, "utf-8").toString();
+        if (!QUIET) {
+          console.log("Validating: " + file);
+        }
+        try {
+          const json = jsonlint.parse(data);
+          validate(validator, file, json, "errata");
+        } catch (e) {
+          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+        }   
       }
     });
   }
