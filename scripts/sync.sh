@@ -17,8 +17,9 @@ if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/campaignLogs.json"
   cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/encounterSets.json"
   cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/campaignErrata.json"
+  cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/rules.json"
   # I18N files
-  LANGS=(es ru de)
+  LANGS=(es fr ru de)
   for lang in ${LANGS[@]}; do
     cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/allCampaigns_$lang.json"
     cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/campaignLogs_$lang.json"
