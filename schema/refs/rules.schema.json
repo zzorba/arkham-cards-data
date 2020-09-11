@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "schema/rules.schema.json",
+  "definitions": {
+    "rule": {
+      "$id": "#rule",
+      "title": "Rule",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "table": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "row": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "text": {
+                    "type": "string"
+                  },
+                  "color": {
+                    "type": "string",
+                    "enum": [
+                      "grey",
+                      "green",
+                      "red"
+                    ]
+                  }
+                },
+                "required": ["text"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["row"],
+            "additionalProperties": false
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rule"
+          },
+          "default": []
+        }
+      },
+      "required": ["id", "title"],
+      "additionalProperties": false
+    },
+    "rules": {
+      "$id": "#rules",
+      "title": "Rules",
+      "type": "object",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/rule"
+          }
+        }
+      },
+      "required": ["rules"],
+      "additionalProperties": false
+    }
+  }
+}
