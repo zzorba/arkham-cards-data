@@ -55,5 +55,5 @@ A couple notes about translation.
 - The best thing to do is probably work from the PDFs available from FFG. Most of the story text can be copy/pasted directly into the matching section, but some of the instruction text might need phrasing/tense changes to match the campaign guide.
 - When copying pasting text from the PDFs, watch out for the newlines. Often you have to remove the aggressive newlines, and then put in `\n` for the line breaks we do want to keep. I've found that using a text editor like sublime lets you match on the whitespace and replace it in bulk before putting into PoEdit.
 - The text contains some limited markdown, please try to maintain this to match the formatting found in the campaign guides.
-- Text inside of # marks (like #name# or #count#) should be left as is, these will be interpolated by the system.
+- Text inside of # marks (like #name# or #count#) or brackets (\[guardian\] or \[auto_fail\]) should be left as is, these will be interpolated by the system or turned into symbols.
 - Campaign log entry text should start with a lower case, unless the start of the sentence is a proper noun. This allows us to use the same text for *In your campaign log, record that "phrase"* as well as in the actual campaign log.

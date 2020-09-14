@@ -63,6 +63,8 @@ buildCampaign () {
 
 mkdir -p $OUTPUT_DIR
 
+cp $INPUT_DIR/../encounter_sets.json $OUTPUT_DIR/encounterSets.json
+
 rm -rf $OUTPUT_DIR/campaigns
 mkdir $OUTPUT_DIR/campaigns
 CAMPAIGNS=$INPUT_DIR/*

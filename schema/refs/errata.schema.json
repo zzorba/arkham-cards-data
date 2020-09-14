@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "schema/errata.schema.json",
+  "definitions": {
+    "question": {
+      "$id": "#question",
+      "title": "Question",
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "required": ["question", "answer"],
+      "additionalProperties": false
+    },
+    "faqEntry": {
+      "$id": "#faqEntry",
+      "title": "FaqEntry",
+      "type": "object",
+      "properties": {
+        "scenario_code": {
+          "type": "string"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/question"
+          }
+        }
+      },
+      "required": ["scenario_code", "questions"],
+      "additionalProperties": false
+    },
+    "cardErrata": {
+      "$id": "#cardErrata",
+      "title": "CardErrata",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": ["code", "text"],
+      "additionalProperties": false
+    },
+    "scenarioCardErrata": {
+      "$id": "#scenarioCardErrata",
+      "title": "ScenarioCardErrata",
+      "type": "object",
+      "properties": {
+        "encounter_code": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/cardErrata"
+          }
+        }
+      },
+      "required": ["encounter_code", "cards"],
+      "additionalProperties": false
+    },
+    "errata": {
+      "$id": "#errata",
+      "title": "Errata",
+      "type": "object",
+      "properties": {
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/scenarioCardErrata"
+          }
+        },
+        "faq": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/faqEntry"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": ["cards", "faq"]
+    }
+  }
+}

@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const PO = require("pofile");
 const getFilePaths = require("./utils/getFilePaths");
+const unorm = require('unorm');
 
 const loadPOFile = promisify(PO.load);
 
@@ -41,7 +42,7 @@ async function getPOFile(filePath) {
  */
 async function readJSON(filePath) {
   try {
-    const rawData = await readFile(filePath);
+    const rawData = await readFile(filePath, 'utf8');
     return JSON.parse(rawData);
   } catch (err) {
     throw new Error("Could not load JSON file : " + err);
@@ -75,15 +76,16 @@ const TRANSLATEABLE_KEYS = new Set(['text', 'title', 'subtext', 'name', 'descrip
  *
  * @param {object} object - The object to translate
  * @param {PO} poFile - The PO file to use for translation
- * @param {PO.Item[]} allPoEntries - All entities we have seen to date
+ * @param {object} allPoEntries - All entities we have seen to date
  */
 async function translate(object, poFile, allPoEntries) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
-        let foundPoEntry = allPoEntries.find(e => e.msgid === object[prop]);
+        const normalized = unorm.nfc(object[prop]);
+        let foundPoEntry = allPoEntries[normalized];
         if (!foundPoEntry) {
-          foundPoEntry = poFile.items.find(e => e.msgid === object[prop]);
+          foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized);
         }
         if (foundPoEntry !== undefined) {
           if (foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
@@ -138,12 +140,26 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario) {
 }
 
 /**
+ * Read the encounter sets.
+ * @param {string} localeCode  - Locale code (en, es, ...)
+ */
+async function readEncounterSets(localeCode) {
+  const json = await readJSON(`encounter_sets/${localeCode}.json`);
+  const encounter_sets = {};
+  for(let i = 0; i < json.length; i++) {
+    const entry = json[i];
+    encounter_sets[entry.code] = entry.name;
+  }
+  return encounter_sets;
+}
+
+/**
  * Generate localized JSON files for a specific locale.
  *
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateLocale(localeCode) {
-  const allPoEntries = [];
+  const allPoEntries = {};
   const allScenarios = getFilePaths("./campaigns");
   const allReturnScenarios = getFilePaths("./return_campaigns");
   const printErr = (err) => {
@@ -168,9 +184,24 @@ async function generateLocale(localeCode) {
     fs.mkdirSync(path.dirname(scenarioPoFile), { recursive: true }, (err) => {
       console.log(err)
     });
-    poFile.save(scenarioPoFile, printErr);    
+    poFile.save(scenarioPoFile, printErr);
 
-    allPoEntries.push(...poFile.items);
+    const encounter_sets = await readEncounterSets('en');
+    await writeJSON(
+      encounter_sets,
+      "encounter_sets.json"
+    );
+    const lang_encounter_sets = await readEncounterSets(localeCode);
+    for (const code of Object.keys(lang_encounter_sets)) {
+      encounter_sets[code] = lang_encounter_sets[code];
+    }
+    await writeJSON(
+      encounter_sets,
+      "build/i18n/" + localeCode + "/encounter_sets.json"
+    )
+    for (const item of poFile.items) {
+      allPoEntries[unorm.nfc(item.msgid)] = item;
+    }
   }
 }
 

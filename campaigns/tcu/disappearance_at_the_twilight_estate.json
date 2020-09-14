@@ -22,6 +22,7 @@
     "encounter_deck",
     "no_way_out",
     "agenda_1_results",
+    "maybe_ask_being_hunted",
     "resolution_1"
   ],
   "steps": [
@@ -327,6 +328,43 @@
                 "section": "$input_value",
                 "id": "pulled_into_the_spectral_realm",
                 "text": "#name# was pulled into the spectral realm."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_being_hunted",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_being_hunted"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_being_hunted",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "being_hunted",
+            "text": "Are you being hunted?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "being_hunted",
+                "text": "you are being hunted."
               }
             ]
           }

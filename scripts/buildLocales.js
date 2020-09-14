@@ -1,11 +1,6 @@
 const promisify = require("util").promisify;
 const fs = require("fs");
-const path = require("path");
-const PO = require("pofile");
-const getFilePaths = require("./utils/getFilePaths");
 const shell = require('shelljs')
-
-const loadPOFile = promisify(PO.load);
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -40,9 +35,9 @@ async function run() {
     shell.exec(`./scripts/generate-campaign-logs.sh -o build/i18n/${localeCode}/build`);
     shell.cp(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/campaignLogs.json`, `./build/campaignLogs_${localeCode}.json`);
+    shell.cp(`./build/i18n/${localeCode}/build/encounterSets.json`, `./build/encounterSets_${localeCode}.json`);
   }
 }
 
 
 run();
-  

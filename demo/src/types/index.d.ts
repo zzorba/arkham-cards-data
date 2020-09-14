@@ -6,7 +6,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Schema = AllCampaigns | Log;
+export type Schema = AllCampaigns | Log | Errata | Rules;
 export type Step =
   | BranchStep
   | EffectsStep
@@ -160,6 +160,7 @@ export interface Campaign {
   setup: string[];
   steps: Step[];
   side_scenario_steps?: Step[];
+  standalone?: any[];
 }
 export interface BranchStep {
   id: string;
@@ -797,7 +798,9 @@ export interface Scenario {
 export interface ChallengeData {
   investigator: string;
   xp_cost: number;
-  requirements: string[];
+  requirements: {
+    text: string;
+  }[];
 }
 export interface Resolution {
   id: string;
@@ -841,4 +844,38 @@ export interface InvestigatorChoice {
     investigator: string;
     deck?: string;
   }[];
+}
+export interface Errata {
+  cards: ScenarioCardErrata[];
+  faq: FaqEntry[];
+}
+export interface ScenarioCardErrata {
+  encounter_code: string;
+  cards: CardErrata[];
+}
+export interface CardErrata {
+  code: string[];
+  text: string;
+}
+export interface FaqEntry {
+  scenario_code: string;
+  questions: Question[];
+}
+export interface Question {
+  question: string;
+  answer: string;
+}
+export interface Rules {
+  rules: Rule[];
+}
+export interface Rule {
+  id: string;
+  title: string;
+  text?: string;
+  table?: {
+    row: {
+      [k: string]: any;
+    }[];
+  }[];
+  rules?: Rule[];
 }
