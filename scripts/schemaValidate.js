@@ -307,3 +307,35 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     });
   }
 });
+
+/*
+const rulesSchema = fs
+  .readFileSync('./schema/rules.schema.json')
+  .toString();
+$RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
+  if (err) {
+    console.error(err);
+  } else {
+     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+    // including referenced files, combined into a single object
+    const ajv = new Ajv({ verbose: true });
+    const validator = ajv.addSchema(schema, "rules");
+    const QUIET = false;
+   
+    getFilePaths("./rules").sort().map(file => {
+      if (file.endsWith('foo.json')) {
+        const data = fs.readFileSync(file, "utf-8").toString();
+        if (!QUIET) {
+          console.log("Validating: " + file);
+        }
+        try {
+          const json = jsonlint.parse(data);
+          validate(validator, file, json, "rules");
+        } catch (e) {
+          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+        }   
+      }
+    });
+  }
+});
+*/
