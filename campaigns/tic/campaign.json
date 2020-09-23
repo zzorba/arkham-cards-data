@@ -1,0 +1,144 @@
+{
+  "id": "tfa",
+  "position": 3,
+  "version": 1,
+  "name": "The Innsmouth Conspiracy",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "recovered_memories",
+      "title": "Recovered Memories"
+    },
+    {
+      "id": "possible_suspects",
+      "title": "Possible Suspects"
+    },
+    {
+      "id": "possible_hideouts",
+      "title": "Possible Hideouts"
+    },
+    {
+      "id": "hidden",
+      "type": "hidden",
+      "title": "Hidden"
+    }
+  ],
+  "scenarios": [
+    "grotto_of_despair",
+    "puzzle_pieces",
+    "disappearance_of_elina_harper",
+    "syzygy",
+    "in_too_deep",
+    "devil_reef",
+    "under_the_waves",
+    "horror_in_high_gear",
+    "a_light_in_the_fog",
+    "the_lair_of_dagon",
+    "hidden_truths",
+    "into_the_maelstrom",
+    "tic_epligoue"
+  ],
+  "setup": [
+    "prologue",
+    "choose_investigators",
+    "difficulty_choice"
+  ],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "title": "They blossom in the depths",
+      "text": "\"It was a city of great expanse and compact construction, but with a ghostly lack of visible signs of life.\"\n- H. P. Lovecraft, The Shadow Over Innsmouth"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [{
+          "id": "easy",
+          "text": "Easy <i>(I want to experience the story)</i>",
+          "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "easy"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "standard",
+          "text": "Standard <i>(I want a challenge)</i>",
+          "description": "+1, 0, 0, -1, -1, -1 -2, -2, -3, -4, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "standard"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hard",
+          "text": "Hard <i>(I want a true nightmare)</i>",
+          "description": "0, 0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "hard"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "expert",
+          "text": "Expert <i>(I want Arkham Horror)</i>",
+          "description": "0, -1, -1, -2, -2, -3, -3, -4, -4, -6, -8, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "expert"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-6", "-8", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        }]
+      }
+    }
+  ]
+}

@@ -12,12 +12,6 @@ else
   exit 1
 fi
 
-# Check for ArkhamDB JSON data
-if [ ! -d "$ARKHAMDB_DATA" ]; then
-  echo "$ARKHAMDB_DATA does not exist."
-  exit 1
-fi
-
 if test -f ./build/allCampaigns.json; then
 #  invalid_has_card=$(jq -f scripts/jq/invalid_has_card.jq build/allCampaigns.json)
 #  if [[ $invalid_has_card ]]; then
@@ -28,7 +22,7 @@ if test -f ./build/allCampaigns.json; then
   echo "Looking for invalid encounter sets"
   encounter_sets=$(jq -f scripts/jq/encounter_sets.jq build/allCampaigns.json)
   while IFS= read -r line; do
-    case `grep -F "$line" "$ARKHAMDB_DATA/encounters.json" >/dev/null; echo $?` in
+    case `grep -F "$line" "encounter_sets/en.json" >/dev/null; echo $?` in
     0)
       # code if found
       ;;
