@@ -60,7 +60,14 @@
     {
       "id": "investigator_setup",
       "title": "Investigator Setup",
-      "text": "Agent Dawson has told the investigators their job and they on theirs Mission prepared. Each investigator may now use his experience points output, which in the campaign log under \"Unissued EP\" are noted."
+      "text": "Agent Dawson has told the investigators their job and they on theirs Mission prepared. Each investigator may now use his experience points output, which in the campaign log under \"Unissued EP\" are noted.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unissued_xp"
+        }
+      ]
     },
     {
       "id": "gather_encounter_sets",
@@ -130,6 +137,66 @@
         "type": "play_scenario",
         "branches": [
           {
+            "id": "eliminate_suspects",
+            "text": "Eliminate suspects",
+            "steps": [
+              "eliminate_suspects"
+            ],
+            "repeatable": true,
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "possible_suspects",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                },
+                {
+                  "numCondition": 6
+                }
+              ]
+            }
+          },
+          {
+            "id": "eliminate_hideouts",
+            "text": "Eliminate hideouts",
+            "steps": [
+              "eliminate_hideouts"
+            ],
+            "repeatable": true,
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "possible_hideouts",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                },
+                {
+                  "numCondition": 6
+                }
+              ]
+            }
+          },
+          {
             "id": "the_accusation",
             "condition": {
               "type": "campaign_log",
@@ -160,6 +227,292 @@
       }
     },
     {
+      "id": "eliminate_suspects",
+      "type": "input",
+      "text": "Choose which suspects to eliminate:",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminate",
+        "choices": [
+          {
+            "id": "burnham",
+            "text": "Brian Burnham",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "burnham",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "burnham",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "gilman",
+            "text": "Othera Gilman",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "gilman",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "gilman",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "little",
+            "text": "Joyce Little",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "little",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "little",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "marsh",
+            "text": "Barnabas Marsh",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "marsh",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "marsh",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "allen",
+            "text": "Zadok Allen",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "allen",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "allen",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "friendly",
+            "text": "Robert Friendly",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_suspects",
+              "id": "friendly",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "friendly",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_hideouts",
+      "type": "input",
+      "text": "Choose which hideouts to eliminate:",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminate",
+        "choices": [
+          {
+            "id": "prison",
+            "text": "Innsmouth Prison",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "prison",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "prison",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "slums",
+            "text": "Shanty town slums",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "slums",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "slums",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "bonesaw_lane",
+            "text": "Bonesaw Lane",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "bonesaw_lane",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "bonesaw_lane",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "house_on_water_street",
+            "text": "The house on Water Street",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "house_on_water_street",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "house_on_water_street",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "order_of_dagon",
+            "text": "Esoteric Order of Dagon",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "order_of_dagon",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "order_of_dagon",
+                "cross_out": true
+              }
+            ]
+          },
+          {
+            "id": "church_square",
+            "text": "New Church Square",
+            "condition": {
+              "type": "campaign_log",
+              "section": "possible_hideouts",
+              "id": "church_square",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "possible_hideouts",
+                "id": "church_square",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "earn_xp",
       "text": "Each investigator earns experience points equal to Victory X value of all cards in the victory point pile. Note these experience points in the campaign log under \"Unissued XP\". These experience points are allowed not yet issued. The investigators will instructed spend these experience points at a later date.",
       "type": "input",
@@ -178,7 +531,7 @@
     {
       "id": "accusation_story",
       "bullet_type": "none",
-      "text": "With the knowledge gathered, investigators must make an allegation to find out who kidnapped Elina Harper and where it is kept hidden. To make the accusation the investigators must have 1 suspect opponent and 1 hiding place from the Select options listed on the Find Agent Harper overview card. Note: the suspect cannot be an opponent currently in the Game or in the victory point pile. The hiding place cannot either be the location currently in play. Investigators should remember think before making your choice"
+      "text": "With the knowledge gathered, investigators must make an allegation to find out who kidnapped Elina Harper and where it is kept hidden. To make the accusation the investigators must choose 1 suspect and 1 hiding spot from the options listed on the Find Agent Harper overview card. <i>Note: the suspect cannot be an opponent currently in the Game or in the victory point pile. The hiding place cannot either be the location currently in play.</i> Investigators should think carefully before making a choice."
     },
     {
       "id": "accusation_steps",
