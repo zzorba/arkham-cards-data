@@ -175,7 +175,12 @@ export interface BranchStep {
 }
 export interface MultiCondition {
   type: "multi";
-  conditions: (CampaignLogCondition | CampaignDataChaosBagCondition | CampaignDataVersionCondition)[];
+  conditions: (
+    | CampaignLogCondition
+    | CampaignDataChaosBagCondition
+    | CampaignLogCountCondition
+    | CampaignDataVersionCondition
+  )[];
   count: number;
   options: BoolOption[];
 }
@@ -250,6 +255,7 @@ export interface CampaignLogEffect {
   id: string;
   text?: string;
   cross_out?: boolean;
+  decorate?: "circle";
   remove?: boolean;
 }
 export interface CampaignLogCardsEffect {
@@ -337,12 +343,6 @@ export interface NumOption {
   effects?: Effect[];
   steps?: string[];
 }
-export interface CampaignDataVersionCondition {
-  type: "campaign_data";
-  campaign_data: "version";
-  min_version: number;
-  options: BoolOption[];
-}
 export interface CampaignLogCountCondition {
   type: "campaign_log_count";
   section: string;
@@ -358,6 +358,12 @@ export interface Option {
   border?: boolean;
   effects?: Effect[];
   steps?: string[];
+}
+export interface CampaignDataVersionCondition {
+  type: "campaign_data";
+  campaign_data: "version";
+  min_version: number;
+  options: BoolOption[];
 }
 export interface MathCompareCondition {
   type: "math";
