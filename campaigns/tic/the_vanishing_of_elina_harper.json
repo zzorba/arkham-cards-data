@@ -195,102 +195,18 @@
           },
           {
             "id": "eliminate_suspects",
-            "text": "Eliminate suspects",
+            "text": "Eliminate leads",
             "steps": [
-              "eliminate_suspects"
+              "eliminate_leads"
             ],
             "repeatable": true,
             "condition": {
-              "type": "multi",
-              "conditions": [
-                {
-                  "type": "campaign_log_count",
-                  "section": "possible_suspects",
-                  "id": "$num_entries",
-                  "options": [
-                    {
-                      "numCondition": 2
-                    },
-                    {
-                      "numCondition": 3
-                    },
-                    {
-                      "numCondition": 4
-                    },
-                    {
-                      "numCondition": 5
-                    },
-                    {
-                      "numCondition": 6
-                    }
-                  ]
-                },
-                {
-                  "type": "campaign_log",
-                  "section": "hidden",
-                  "id": "the_accusation",
-                  "options": [
-                    {
-                      "boolCondition": false
-                    }
-                  ]
-                }
-              ],
-              "count": 2,
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "the_accusation",
               "options": [
                 {
-                  "boolCondition": true
-                }
-              ]
-            }
-          },
-          {
-            "id": "eliminate_hideouts",
-            "text": "Eliminate hideouts",
-            "steps": [
-              "eliminate_hideouts"
-            ],
-            "repeatable": true,
-            "condition": {
-              "type": "multi",
-              "conditions": [
-                {
-                  "type": "campaign_log_count",
-                  "section": "possible_hideouts",
-                  "id": "$num_entries",
-                  "options": [
-                    {
-                      "numCondition": 2
-                    },
-                    {
-                      "numCondition": 3
-                    },
-                    {
-                      "numCondition": 4
-                    },
-                    {
-                      "numCondition": 5
-                    },
-                    {
-                      "numCondition": 6
-                    }
-                  ]
-                },
-                {
-                  "type": "campaign_log",
-                  "section": "hidden",
-                  "id": "the_accusation",
-                  "options": [
-                    {
-                      "boolCondition": false
-                    }
-                  ]
-                }
-              ],
-              "count": 2,
-              "options": [
-                {
-                  "boolCondition": true
+                  "boolCondition": false
                 }
               ]
             }
@@ -332,7 +248,7 @@
     {
       "id": "ask_defeated_suspect",
       "type": "input",
-      "text": "Choose which [[Suspect]] enemy was defated (other than \"the kidnapper\"):",
+      "text": "Choose the non-kidnapper [[Suspect]] enemies that were defeated:",
       "input": {
         "type": "checklist",
         "text": "Defeated",
@@ -363,6 +279,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "burnham",
+                "cross_out": true
               }
             ]
           },
@@ -392,6 +314,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "gilman",
+                "cross_out": true
               }
             ]
           },
@@ -421,6 +349,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "little",
+                "cross_out": true
               }
             ]
           },
@@ -450,6 +384,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "marsh",
+                "cross_out": true
               }
             ]
           },
@@ -479,6 +419,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "allen",
+                "cross_out": true
               }
             ]
           },
@@ -508,6 +454,12 @@
                 "id": "defeated_suspects",
                 "operation": "add",
                 "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "possible_suspects",
+                "id": "friendly",
+                "cross_out": true
               }
             ]
           }
@@ -515,9 +467,9 @@
       }
     },
     {
-      "id": "eliminate_suspects",
+      "id": "eliminate_leads",
       "type": "input",
-      "text": "Choose which suspects to eliminate:",
+      "text": "Choose which leads to eliminate:",
       "input": {
         "type": "checklist",
         "text": "Eliminate",
@@ -653,18 +605,7 @@
                 "cross_out": true
               }
             ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "eliminate_hideouts",
-      "type": "input",
-      "text": "Choose which hideouts to eliminate:",
-      "input": {
-        "type": "checklist",
-        "text": "Eliminate",
-        "choices": [
+          },
           {
             "id": "innsmouth_jail",
             "text": "Innsmouth Jail",
@@ -1836,7 +1777,7 @@
     {
       "id": "R4",
       "title": "Resolution 4",
-      "text": "Despite her situation, Joyce does little to resist you once you have her restrained. She seems resigned to her fate, her gaze elsewhere as you question her. \"Believe me, if I'd had another method of getting you to back off, I would have used it,\" she says to Agent Harper. \"But you were getting too close. So I did what had to be done.\"\n\"I don't understand. Too close to what, exactly, Ms. Little?\" Harper asks.\n\"There is a secret at the heart of this town. A secret that brings us wealth. A secret that brings us power. A secret that brings us...\" She pauses to find the right words. \"... closer to our destiny.\"\n\"And what kind of secret is that?\" Harper probes.\nJoyce smirks and shakes her head. \"What makes you think I would ever share that with outsiders?\"\n\"Because you assaulted a federal agent, and if you don't tell me what I want to know, your 'destiny' is going to be the inside of a lonely prison cell.\"\nYou watch Ms. Little's confidence shatter. She gulps down the last of her pride. A beat of sweat drips down her forehead. \"It started with the Order,\" she explains quietly.",
+      "text": "Despite her situation, Joyce does little to resist you once you have her restrained. She seems resigned to her fate, her gaze elsewhere as you question her. \"Believe me, if I'd had another method of getting you to back off, I would have used it,\" she says to Agent Harper. \"But you were getting too close. So I did what had to be done.\"\n\"I don't understand. Too close to what, exactly, Ms. Little?\" Harper asks.\n\"There is a secret at the heart of this town. A secret that brings us wealth. A secret that brings us power. A secret that brings us...\" She pauses to find the right words. \"...closer to our destiny.\"\n\"And what kind of secret is that?\" Harper probes.\nJoyce smirks and shakes her head. \"What makes you think I would ever share that with outsiders?\"\n\"Because you assaulted a federal agent, and if you don't tell me what I want to know, your 'destiny' is going to be the inside of a lonely prison cell.\"\nYou watch Ms. Little's confidence shatter. She gulps down the last of her pride. A beat of sweat drips down her forehead. \"It started with the Order,\" she explains quietly.",
       "steps": ["earn_xp", "mission_success"]
     },
     {
