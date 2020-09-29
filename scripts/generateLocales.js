@@ -171,10 +171,6 @@ async function generateLocale(localeCode) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
     }
-    if (scenario.indexOf("/tic/") !== -1) {
-      // not ready for TIC yet
-      continue;
-    }
     const scenarioPoFile =
       "i18n/" + localeCode + "/" + scenario.replace(/json$/, "po");
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
