@@ -1,0 +1,270 @@
+{
+  "id": "tic",
+  "position": 7,
+  "version": 1,
+  "name": "The Innsmouth Conspiracy",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "memories_recovered",
+      "title": "Memories Recovered"
+    },
+    {
+      "id": "possible_suspects",
+      "title": "Possible Suspects"
+    },
+    {
+      "id": "possible_hideouts",
+      "title": "Possible Hideouts"
+    },
+    {
+      "id": "hidden",
+      "type": "hidden",
+      "title": "Hidden"
+    }
+  ],
+  "scenarios": [
+    "the_pit_of_despair",
+    "puzzle_pieces",
+    "the_vanishing_of_elina_harper",
+    "the_syzygy",
+    "in_too_deep",
+    "devil_reef",
+    "beneath_the_waves",
+    "horror_in_high_gear",
+    "a_light_in_the_fog",
+    "the_lair_of_dagon",
+    "hidden_truths",
+    "into_the_maelstrom",
+    "tic_epilogue"
+  ],
+  "setup": [
+    "setup_campaign_log",
+    "prologue",
+    "choose_investigators",
+    "difficulty_choice",
+    "keys_rule",
+    "flood_token_rule"
+  ],
+  "steps": [
+    {
+      "id": "setup_campaign_log",
+      "text": "dummy",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "burnham",
+          "text": "Brian Burnham"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "gilman",
+          "text": "Othera Gilman"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "little",
+          "text": "Joyce Little"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "marsh",
+          "text": "Barnabas Marsh"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "allen",
+          "text": "Zadok Allen"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_suspects",
+          "id": "friendly",
+          "text": "Robert Friendly"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "innsmouth_jail",
+          "text": "Innsmouth Jail"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "shoreward_slums",
+          "text": "Shoreward Slums"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "sawbone_lane",
+          "text": "Sawbone Lane"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "house_on_water_street",
+          "text": "The House on Water Street"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "order_of_dagon",
+          "text": "Esoteric Order of Dagon"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_hideouts",
+          "id": "new_church_green",
+          "text": "New Church Green"
+        }
+      ]
+    },
+    {
+      "id": "prologue",
+      "type": "story",
+      "title": "In the Deep, They Thrive",
+      "text": "“It was a town of wide extent and dense construction, yet one with a portentous dearth of visible life.”\n- H. P. Lovecraft, “The Shadow Over Innsmouth”"
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [{
+          "id": "easy",
+          "text": "Easy <i>(I want to experience the story)</i>",
+          "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "easy"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "standard",
+          "text": "Standard <i>(I want a challenge)</i>",
+          "description": "+1, 0, 0, -1, -1, -1 -2, -2, -3, -4, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "standard"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hard",
+          "text": "Hard <i>(I want a true nightmare)</i>",
+          "description": "0, 0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "hard"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "expert",
+          "text": "Expert <i>(I want Arkham Horror)</i>",
+          "description": "0, -1, -1, -2, -2, -3, -3, -4, -4, -5, -6, -8, [skull], [skull], [cultist], [cultist], [tablet], [tablet], [elder_thing], [elder_thing], [auto_fail], [elder_sign]",
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "difficulty",
+              "value": "expert"
+            },
+            {
+              "type": "add_chaos_token",
+              "tokens": [
+                "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "-8", "skull", "skull", "cultist", "cultist", "tablet", "tablet", "elder_thing", "elder_thing", "auto_fail", "elder_sign"
+              ]
+            }
+          ]
+        }]
+      }
+    },
+    {
+      "id": "keys_rule",
+      "title": "Keys",
+      "type": "rule_reminder",
+      "text": "This expansion introduces key tokens that represent important objects or pieces of information that can be claimed and used during scenarios.\nKey tokens have two sides. When facedown, all seven keys have the same universal key symbol, so they can be randomized without the investigators knowing which is which. When faceup, each key is color coded with a unique color.\nIf a scenario uses one or more keys, the setup of that scenario indicates how many are set aside and whether they should be faceup or randomized facedown. Keys can enter play via several different card effects, and they are usually placed on enemy, location, or story asset. Keys can be acquired in any of three ways:",
+      "bullets": [
+        {
+          "text": "If a location with a key on it has no clues, an investigator may take control of each of that location's keys as a [fast] ability."
+        },
+        {
+          "text": "If an investigator causes an enemy with a key on it to leave play, that investigator may take control of each of the keys that were on that enemy. (If it leaves play through some other means, place its keys on its location.)"
+        },
+        {
+          "text": "Some card effects may allow an investigator to take control of keys in other ways."
+        }
+      ],
+      "example": "When an investigator takes control of a key, they flip it faceup (if it is facedown) and place it on their investigator card. If an investigator who controls one or more keys is eliminated, place each of their keys on their locations. As an [action] ability, an investigator may give any number of their keys to another investigator at the same location.\n<b>Keys have no inherent game effect.</b> However, some card effects may change depending on which keys an investigator controls. Additionally, keys may sometimes be required in order to progress during a scenario."
+    },
+    {
+      "id": "flood_token_rule",
+      "title": "Flood Tokens",
+      "type": "rule_reminder",
+      "text": "Throughout the campaign, scenario card effects can flood locations. Each location has one of three different flood levels: it is either unflooded, partially flooded, or fully flooded. A location's flood level can be tracked using the double-sided flood tokens included in this deluxe box. <b>A location's flood level has no inherent game effect.</b> However, some card effects may change or become stronger while you are at a flooded location, particularly if that location is fully flooded.",
+      "bullets": [
+        {
+          "text": "A location with no flood tokens is unflooded."
+        },
+        {
+          "text": "If a location becomes partially flooded, place a flood token on it with the partially flooded side faceup to designate this."
+        },
+        {
+          "text": "If a location becomes fully fooded, place a flood token on it with the fully flooded side faceup (or if it is already partially flooded, flip its flood token over) to desginate this."
+        },
+        {
+          "text": "If a location's flood level is \"increased\", it changes from unflooded to partially flooded, or from partially flooded to fully flooded. A fully flooded location cannot have its flood level increased."
+        },
+        {
+          "text": "If a location's flood level is \"decreased\", it changes from fully flooded to partially flooded, or from partially flooded to unflooded. A a location becomes unflooded, remove its flood token."
+        },
+        {
+          "text": "For the purposes of card effects, both partially flooded locations and fully flooded locations are considered to be \"flooded.\""
+        }
+      ]
+    }
+  ]
+}

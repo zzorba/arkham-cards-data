@@ -431,6 +431,30 @@
       "required": ["type", "choices"],
       "additionalProperties": false
     },
+    "checklistInput": {
+      "$id": "#checklistInput",
+      "title": "ChecklistInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "checklist"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "choices", "text"],
+      "additionalProperties": false
+    },
     "investigatorCounterInput": {
       "$id": "#investigatorCounterInput",
       "title": "InvestigatorCounterInput",
@@ -544,6 +568,9 @@
         },
         {
           "$ref": "#/definitions/chooseOneInput"
+        },
+        {
+          "$ref": "#/definitions/checklistInput"
         },
         {
           "$ref": "#/definitions/counterInput"
