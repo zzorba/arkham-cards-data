@@ -5,26 +5,31 @@
   "type": "interlude",
   "setup": [
     "intro",
+    "check_memories_recovered",
     "check_meeting_with_thomas_dawson",
-    "check_no_recovered_memories",
-    "check_fight_with_a_terrible_devil",
-    "check_decided_to_stay_together",
-    "check_encountered_a_secret_cult",
+    "check_no_memories_recovered",
+    "check_battle_with_a_horrifying_devil",
+    "check_decision_to_stick_together",
+    "check_encounter_with_a_secret_cult",
     "outro"
   ],
   "steps": [
     {
       "id": "intro",
       "type": "story",
-      "text": "You have no idea who this woman is and how she knows you, but she does seems to be more familiar with you. You rummage through your memories and try to find out where and when the first meeting with her took place may have, but you are unsuccessful. You are convinced one facing total strangers. After waking up without You don't feel memories in the cold, wet prison either Mood to socialize. Your fear and your distrust must be you are written on the forehead, because the woman takes a step back and frowns.\"What's happening? What is wrong?\"\nYou answer with the counter-question whether you should know them.\"You can really don't remember? Well, that doesn't make things any easier. On what can you remember? Can <i>you</i> relate to anything at all recall?\"\nYou tell the woman about the flashes of thought that you have previously experienced ...\n<i>Check the Reclaimed Memories section in the Campaign log. Read each one that fits your situation below standing section.</i>"
+      "text": "You have no idea who this woman is or how she knows you, yet she seems comfortable and familiar with you. You strain your memory trying to think of how you might have met, but it's no use. You're certain she is a complete stranger. Having woken up in a cold, wet prison with no memories, you aren't feeling very sociable. Your fear and distrust must show, because the woman backs off and narrows her eyes. \"What is it? What's wrong?\"\nYou respond by asking the woman if you know her. \"You truly don't remember? Well, that's going to complicate things. What do you recall? Do you remember anything?\"\nYou relate to the woman the flashes of recollection that you experienced earlier..."
+    },
+    {
+      "id": "check_memories_recovered",
+      "text": "Check the \"Memories Recovered\" section of the Campaign Log. Read each of the sections below that apply to your situation."
     },
     {
       "id": "check_meeting_with_thomas_dawson",
       "type": "branch",
-      "text": "If a meeting with Thomas Dawson under \"Recovered memories\" is noted:",
+      "text": "If <i>a meeting with Thomas Dawson</i> is listed under \"Memories Recovered\":",
       "condition": {
         "type": "campaign_log",
-        "section": "recovered_memories",
+        "section": "memories_recovered",
         "id": "meeting_with_thomas_dawson",
         "options": [
           {
@@ -37,50 +42,61 @@
     {
       "id": "thomas_dawson_story",
       "type": "story",
-      "text": "You put one and one together and ask the woman if she's a miss Harper is. \"Ah, so you remember me?\" Asks her with a teasing grin. But you shake your head and explain to her that you can only remember it from one man named Thomas Dawson to have been hired to find her. “But that was… Oh. You must have forgotten a lot. And as for Dawson, where is he? Did you see him down there?\"\nYour thoughts wander to the twisted, mutilated face back that sparked the memories. Agent Harper's expression darkens as she looks you in the eye. “I see… I wish I had never gotten to this lost city. These brutes will have to pay for it. ”You ask them who they are for blames Dawson's death. She raises her eyebrows and replies: “Right, you can't remember it. So far as I know, both you and him were the last time See entering the esoteric Order of Dagon. Draw your own Conclusions from this.\""
+      "text": "You put two and two together and ask if the woman is Miss Harper. \"Ah, so you do remember me?\" she asks with a playful smirk, but you shake your head in response and explain that you only remember being hired by a man named Thomas Dawson to find her. \"But that was... oh. You have forgotten a lot, haven't you? Speaking of Dawson, where is he? Did you see him down there?\"\nYour thoughts turn to the twisted, mangled face that triggered your flashback. Agent Harper's expression turns dour as she watches your eyes. \"...I see. I wish he hadn't come to this forsaken town. Those brutes are going to pay for this.\" You ask who she thinks is responsible for Dawson's death, and she raises her eyebrows in response. \"Right, you don't remember. As far as I know, the last time anybody saw either of you was just before you visited the Esoteric Order of Dagon. Draw your own conclusions.\""
     },
     {
       "id": "thomas_dawson_effects",
-      "text": "The conspiracy expands. Every investigator makes a note 1 additional experience point under \"XP not spent\".",
+      "text": "The conspiracy deepens. Every investigator records 1 additional experience under \"Unspent Experience.\"",
       "effects": [
         {
           "type": "earn_xp",
           "investigator": "all",
-          "special_xp": "unissued_xp",
+          "special_xp": "unspect_xp",
           "bonus": 1
         }
       ]
     },
     {
-      "id": "check_no_recovered_memories",
+      "id": "check_no_memories_recovered",
       "type": "branch",
+      "text": "If nothing is listed under \"Memories Recovered\":",
       "condition": {
-        "type": "campaign_log_count",
-        "section": "recovered_memories",
-        "id": "$num_entries",
-        "max": 4,
-        "options": [
+        "type": "multi",
+        "conditions": [
           {
-            "numCondition": 0,
-            "steps": ["no_recovered_memories_story"]
+            "type": "campaign_log_count",
+            "section": "memories_recovered",
+            "id": "$num_entries",
+            "max": 4,
+            "options": [
+              {
+                "numCondition": 0
+              }
+            ]
           }
         ],
-        "defaultOption": {}
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["no_memories_recovered_story"]
+          }
+        ]
       }
     },
     {
-      "id": "no_recovered_memories_story",
+      "id": "no_memories_recovered_story",
       "type": "story",
-      "text": "blah blah blah"
+      "text": "You shake your head. You remember nothing. \"That's going to make this difficult,\" the woman says with a sigh. \"All right. Well, I'll tell you what I know. I am Agent Elina Harper. My understanding is that you were hired by my boss, Agent Thomas Dawson, thanks to your deeper understanding of... well, of things that don't really make sense to the rest of us.\" You ask what task you were hired to perform, and the woman smirks. \"You were hired to find me, actually. The Order wasn't too happy about that. It's a bit of a long story. Let's get out of here first, and then I can catch you up on all of that.\""
     },
     {
-      "id": "check_fight_with_a_terrible_devil",
+      "id": "check_battle_with_a_horrifying_devil",
       "type": "branch",
-      "text": "If <i>a fight with a terrible devil</i> under \"Recovered memories\" is noted:",
+      "text": "If <i>a battle with a horrifying devil</i> is listed under \"Memories Recovered\":",
       "condition": {
         "type": "campaign_log",
-        "section": "recovered_memories",
-        "id": "fight_with_a_terrible_devil",
+        "section": "memories_recovered",
+        "id": "battle_with_a_horrifying_devil",
         "options": [
           {
             "boolCondition": true,
@@ -92,28 +108,28 @@
     {
       "id": "devil_fight_story",
       "type": "story",
-      "text": "blah blah blah"
+      "text": "You tell Agent Harper about your battle with some kind of aquatic creature. \"Devil Reef,\" she says, shuddering. \"Whatever is going on in this town, Devil Reef is at the heart of it. Let's hope we don't have to head back that way anytime soon... and let's hope that <i>thing</i> stays dead.\""
     },
     {
       "id": "devil_fight_effects",
-      "text": "The conspiracy expands. Every investigator makes a note 1 additional experience point under \"XP not spent\".",
+      "text": "The conspiracy deepens. Every investigator records 1 additional experience under \"Unspent Experience.\"",
       "effects": [
         {
           "type": "earn_xp",
           "investigator": "all",
-          "special_xp": "unissued_xp",
+          "special_xp": "unspect_xp",
           "bonus": 1
         }
       ]
     },
     {
-      "id": "check_decided_to_stay_together",
+      "id": "check_decision_to_stick_together",
       "type": "branch",
-      "text": "If <i>decided to stay together</i> under \"Recovered memories\" is noted:",
+      "text": "If <i>a decision to stick together</i> is listed under \"Memories Recovered\":",
       "condition": {
         "type": "campaign_log",
-        "section": "recovered_memories",
-        "id": "decided_to_stay_together",
+        "section": "memories_recovered",
+        "id": "decision_to_stick_together",
         "options": [
           {
             "boolCondition": true,
@@ -125,49 +141,49 @@
     {
       "id": "stayed_together_story",
       "type": "story",
-      "text": "blah blah blah"
+      "text": "\"So you and Dawson were looking for me together, then? Interesting.\" She considers this for a moment. \"I guess even the extraordinary Captain Dawson can be rattled from time to time. It's somewhat gratifying to know he cared that much about finding me. Still...\" her gaze wanders towards the horizon. \"All right, Dawson. I'll make sure you didn't die in vain. I'll burn this whole town to the ground if I have to.\""
     },
     {
       "id": "stayed_together_effects",
-      "text": "The conspiracy expands. Every investigator makes a note 1 additional experience point under \"XP not spent\".",
+      "text": "The conspiracy deepens. Every investigator records 1 additional experience under \"Unspent Experience.\"",
       "effects": [
         {
           "type": "earn_xp",
           "investigator": "all",
-          "special_xp": "unissued_xp",
+          "special_xp": "unspect_xp",
           "bonus": 1
         }
       ]
     },
     {
-      "id": "check_encountered_a_secret_cult",
+      "id": "check_encounter_with_a_secret_cult",
       "type": "branch",
-      "text": "If <i>encountered a secret cult</i> under \"Recovered memories\" is noted:",
+      "text": "If <i>an encounter with a secret cult</i> is listed under \"Memories Recovered\":",
       "condition": {
         "type": "campaign_log",
-        "section": "recovered_memories",
-        "id": "encountered_a_secret_cult",
+        "section": "memories_recovered",
+        "id": "encounter_with_a_secret_cult",
         "options": [
           {
             "boolCondition": true,
-            "steps": ["encountered_a_secret_cult_story", "encountered_a_secret_cult_effects"]
+            "steps": ["encounter_with_a_secret_cult_story", "encounter_with_a_secret_cult_effects"]
           }
         ]
       }
     },
     {
-      "id": "encountered_a_secret_cult_story",
+      "id": "encounter_with_a_secret_cult_story",
       "type": "story",
-      "text": "blah blah blah"
+      "text": "You describe your memory from inside some kind of cult headquarters. \"Sounds like that must have taken place inside the Esoteric Order of Dagon building on the north side of town,\" Agent Harper reasons. \"That organization is vile: I just know it. I have no evidence to bring back, though, and it sounds like you've forgotten everything you learned.\" She curses under her breath."
     },
     {
-      "id": "encountered_a_secret_cult_effects",
-      "text": "The conspiracy expands. Every investigator makes a note 1 additional experience point under \"XP not spent\".",
+      "id": "encounter_with_a_secret_cult_effects",
+      "text": "The conspiracy deepens. Every investigator records 1 additional experience under \"Unspent Experience.\"",
       "effects": [
         {
           "type": "earn_xp",
           "investigator": "all",
-          "special_xp": "unissued_xp",
+          "special_xp": "unspect_xp",
           "bonus": 1
         }
       ]
@@ -175,7 +191,7 @@
     {
       "id": "outro",
       "type": "story",
-      "text": "You point towards the strange blood-red sky behind Agent Harper and notice the strange constellation that the sun and moon occupy. “It started shortly after you and Agent Dawson got into headquarters of the order, ”she explains to you. “That was almost three days ago. I have no idea what that means. But I can't imagine that it's a good thing. All doors in Innsmouth have recently been locked. No Soul can be seen outside. You're lucky I found out where I had to look for you.\"\nYour mind is racing. The last thing you can remember before going in awakened in the damp cave is that you are in for a pleasant summer night Arkham. Now you are in another city and yours Memories are more than sketchy. You wonder out loud what day it is. Agent Harper replies, “September 24th. I don't know exactly when you will arrived in Innsmouth or how many of your memories you lost to have. Do you remember anything else? Something?\"\nAs you ponder, the water laps your feet. Within minutes the tide raised the water several centimeters. It looks too it does not look as if the increase will soon subside. Your gaze remains rest on the woman as she tired-eyed, troubled Clothes and the red welts on her wrists stand in front of you - and suddenly you can remember something.\n<i>\"Wake up. We're almost there.”</i> The memory lurks at the abyss of yours Consciousness and threatens to pull you into the darkness. \"Hey. Wake up, I said.“ You grip your forehead as a sudden pain is yours Skulls threatened to smash. \"Wake up, damn it!\"\nThe darkness tugs at the edges of your vision. And suddenly you get from flooded with even more returning memories ..."
+      "text": "You point to the strange, crimson horizon behind Agent Harper and note aloud the alignment of the sun and the moon. \"That began just after you and Agent Dawson entered the Order's headquarters,\" she explains. \"That was almost three days ago. I have no idea what it means, but I can't imagine it is anything good. All of Innsmouth's been locked tight lately. Not a soul in sight. You're lucky I figured out where to look for you.\"\nYour mind reels. The last thing you remember before waking up in that dank pit was enjoying a pleasant late-summer's eve in Arkham. Now you're in another town altogether, and your memory is filled with gaping holes. You wonder aloud what the date is, and Agent Harper replies: \"It's the twenty-fourth of September. I don't know when exactly you arrived in Innsmouth or how much of your memory is missing. Isn't there anything else you remember? Anything at all?\"\nThe water sloshes against your feet as you struggle to remember. In minutes, the tide has risen several inches, and there's no sign of it slowing down. You fix your gaze on the woman who stands before you—her weary eyes, her disheveled clothes, the red marks on her wrists—and something triggers in your recollection.\n\"Wake up. We're almost there.\" The memory lurks at the precipice of your consciousness, threatening to draw you into the darkness. \"Hey. Wake up, I said.\" You clutch your forehead as searing pain bounces throughout your skull. \"Wake up, dammit!\"\nDarkness pulls at the edges of your vision. More memories come flooding back..."
     }
   ]
 }
