@@ -67,7 +67,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['text', 'note', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'text', 'note', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
 /**
  * Recursively translate an object using entries from a PO file.
@@ -125,6 +125,10 @@ const SETTINGS_FOR_LANGUAGE = {
   ru: {
     'Language': 'ru',
     'Plural-Forms': 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
+  },
+  pl: {
+    'Language': 'pl',
+    'Plural-Forms': 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
   },
 };
 
