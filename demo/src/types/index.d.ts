@@ -525,6 +525,7 @@ export interface CardChoiceInput {
   include_counts?: boolean;
   query: CardQuery[];
   choices: Choice[];
+  campaign_log_condition?: CampaignLogCardsCondition;
   min?: number;
   max?: number;
 }
