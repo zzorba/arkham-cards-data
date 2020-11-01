@@ -67,7 +67,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'text', 'note', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
 /**
  * Recursively translate an object using entries from a PO file.
@@ -83,9 +83,15 @@ async function translate(object, poFile, allPoEntries) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
         const normalized = unorm.nfc(object[prop]);
+        let context = undefined;
+        if (prop === 'masculine_text') {
+          context = 'masculine';
+        } else if (prop === 'feminine_text') {
+          context = 'feminine';
+        }
         let foundPoEntry = allPoEntries[normalized];
         if (!foundPoEntry) {
-          foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized);
+          foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
         }
         if (foundPoEntry !== undefined) {
           if (foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
@@ -94,6 +100,7 @@ async function translate(object, poFile, allPoEntries) {
         } else {
           const item = new PO.Item();
           item.msgid = object[prop];
+          item.msgctxt = context;
           poFile.items.push(item);
         }
       }
