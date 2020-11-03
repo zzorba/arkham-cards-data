@@ -749,6 +749,14 @@ export interface LocationSetupStep {
   vertical: "half" | "normal";
   horizontal: "half" | "normal" | "tight";
   locations: string[][];
+  resource_dividers?: {
+    right?: number;
+    bottom?: number;
+  }[][];
+  location_names?: {
+    code: string;
+    name: string;
+  }[];
   bullet_type?: null;
 }
 export interface LocationConnectorsStep {
