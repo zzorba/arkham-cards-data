@@ -104,7 +104,7 @@ async function translate(object, poFile, allPoEntries) {
           poFile.items.push(item);
         }
       }
-      if (typeof object[prop] === "object") {
+      if (typeof object[prop] === "object" && prop !== 'narration') {
         // Recursion
         translate(object[prop], poFile, allPoEntries);
       }
