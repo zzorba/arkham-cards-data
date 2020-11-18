@@ -7,6 +7,19 @@ const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
+const yargs = require('yargs');
+
+const argv = yargs
+  .option(
+    'arkham_cards', {
+      alias: 'ac',
+      description: 'Arkham Cards directory',
+      type: 'string',
+      default: '.',
+    }
+  ).help()
+  .alias('help', 'h')
+  .argv;
 
 /** Asynchronous filtering of an array. */
 const asyncFilter = async (arr, predicate) =>
@@ -28,7 +41,7 @@ async function getAvailableLocales() {
 
 async function run() {
   const localeCodes = await getAvailableLocales();
-  shell.exec('node ./scripts/generateLocales.js')
+  shell.exec(`node ./scripts/generateLocales.js --arkham_cards ${argv.arkham_cards}`)
   for (const localeCode of localeCodes) {
     shell.exec(`node ./scripts/generateReturnCampaigns.js -i build/i18n/${localeCode} -o build/i18n/${localeCode}/build`);
     shell.exec(`./scripts/build.sh -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`)
