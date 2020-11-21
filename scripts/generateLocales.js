@@ -12,6 +12,19 @@ const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
+const yargs = require('yargs');
+
+const argv = yargs
+  .option(
+    'arkham_cards', {
+      alias: 'ac',
+      description: 'Arkham Cards directory',
+      type: 'string',
+      default: '.',
+    }
+  ).help()
+  .alias('help', 'h')
+  .argv;
 
 /** Asynchronous filtering of an array. */
 const asyncFilter = async (arr, predicate) =>
@@ -77,8 +90,9 @@ const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text'
  * @param {object} object - The object to translate
  * @param {PO} poFile - The PO file to use for translation
  * @param {object} allPoEntries - All entities we have seen to date
+ * @param {object} corePoEntries - Entities from the core app
  */
-async function translate(object, poFile, allPoEntries) {
+async function translate(object, poFile, allPoEntries, corePoEntries) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
@@ -96,6 +110,11 @@ async function translate(object, poFile, allPoEntries) {
         if (foundPoEntry !== undefined) {
           if (foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
             object[prop] = foundPoEntry.msgstr[0];
+          } else {
+            foundPoEntry = corePoEntries[normalized];
+            if (foundPoEntry && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
+              object[prop] = foundPoEntry.msgstr[0];
+            }
           }
         } else {
           const item = new PO.Item();
@@ -106,7 +125,7 @@ async function translate(object, poFile, allPoEntries) {
       }
       if (typeof object[prop] === "object" && prop !== 'narration') {
         // Recursion
-        translate(object[prop], poFile, allPoEntries);
+        translate(object[prop], poFile, allPoEntries, corePoEntries);
       }
     }
   }
@@ -170,7 +189,16 @@ async function readEncounterSets(localeCode) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateLocale(localeCode) {
+  console.log(`${argv.arkham_cards}/assets/i18n/${localeCode}.po`);
+  const coreTranslationFile = await getPOFile(`${argv.arkham_cards}/assets/i18n/${localeCode}.po`);
+  const corePoEntries = {};
+  for (const entry of coreTranslationFile.items) {
+    if (entry.msgstr && entry.msgstr.length && entry.msgstr[0]) {
+      corePoEntries[unorm.nfc(entry.msgid)] = entry;
+    }
+  }
   const allPoEntries = {};
+
   const allScenarios = getFilePaths("./campaigns");
   const allReturnScenarios = getFilePaths("./return_campaigns");
   const printErr = (err) => {
@@ -187,7 +215,7 @@ async function generateLocale(localeCode) {
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
     const scenarioDesc = await readJSON(scenario);
 
-    await translate(scenarioDesc, poFile, allPoEntries);
+    await translate(scenarioDesc, poFile, allPoEntries, corePoEntries);
     await writeJSON(
       scenarioDesc,
       "build/i18n/" + localeCode + "/" + scenario
