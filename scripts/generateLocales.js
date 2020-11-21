@@ -80,7 +80,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
 /**
  * Recursively translate an object using entries from a PO file.

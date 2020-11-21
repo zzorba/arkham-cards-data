@@ -3,6 +3,26 @@
   "scenario_name": "Murder at the Excelsior Hotel",
   "full_name": "Murder at the Excelsior Hotel",
   "xp_cost": 3,
+  "standalone_setup": [
+    "choose_investigators",
+    "choose_difficulty",
+    "intro_1",
+    "check_player_count",
+    "intro_4",
+    "gather_encounter_sets",
+    "set_aside_encounter_sets",
+    "construct_act_deck",
+    "set_aside_true_culprit",
+    "take_bloodstained_dagger",
+    "create_leads_deck",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "patrol_rule",
+    "true_culprit_rule",
+    "$play_scenario"
+  ],
   "setup": [
     "check_first_play_xp_cost",
     "gather_encounter_sets",
@@ -20,6 +40,58 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, 0, -1, -1, -2, -3, -3, -4, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "-1", "-1", "-2", "-3", "-3", "-4", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard",
+            "description": "0, -1, -2, -3, -4, -4, -5, -6, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-2", "-3", "-4", "-4", "-5", "-6", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
     {
       "id": "check_first_play_xp_cost",
       "hidden": true,

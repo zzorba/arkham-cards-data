@@ -79,6 +79,16 @@ function validate(validator, file, json, schemaName) {
       }
     });
   }
+  if (json.standalone_setup) {
+    json.standalone_setup.map(step => {
+      if (!steps[step] && !magicSteps[step]) {
+        console.log(`MISSING_STEP (${file}) - ${step}`);
+        error = true;
+      } else {
+        delete unusedSteps[step];
+      }
+    });
+  }
   if (json.steps) {
     json.steps.map(step => {
       if (step.input) {

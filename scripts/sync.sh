@@ -13,6 +13,7 @@ fi
 
 if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/index.d.ts "$ARKHAM_CARDS/src/data/scenario/types.d.ts"
+  cp ./build/standalone.json "$ARKHAM_CARDS/assets/standalone.json"
   cp ./build/allCampaigns.json "$ARKHAM_CARDS/assets/allCampaigns.json"
   cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/campaignLogs.json"
   cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/encounterSets.json"

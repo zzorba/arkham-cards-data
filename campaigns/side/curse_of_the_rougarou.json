@@ -3,6 +3,17 @@
   "scenario_name": "Curse of the Rougarou",
   "full_name": "Curse of the Rougarou",
   "xp_cost": 1,
+  "standalone_setup": [
+    "choose_investigators",
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_rougarou",
+    "setup_locations",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
   "setup": [
     "xp_cost",
     "intro",
@@ -14,6 +25,58 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, -4, -5, -6, [skull], [skull], [cultist], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "skull", "skull", "cultist", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard",
+            "description": "+1, 0, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, -4, -5, -5, -6, -8, [skull], [skull], [cultist], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-5", "-6", "-8", "skull", "skull", "cultist", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
     {
       "id": "xp_cost",
       "effects": [

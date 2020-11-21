@@ -13,6 +13,24 @@
       }
     ]
   },
+  "standalone_setup": [
+    "choose_investigators",
+    "choose_difficulty",
+    "intro",
+    "investigator_setup",
+    "gather_encounter_sets",
+    "new_scenario_card",
+    "new_act_agenda",
+    "remove_misc_cards",
+    "setup_locations",
+    "location_layout",
+    "setup_tomes",
+    "setup_jazz_mulligan",
+    "spawn_namer_of_the_dead",
+    "daisy_gets_henry_armitage",
+    "encounter_deck",
+    "$play_scenario"
+  ],
   "setup": [
     "xp_cost",
     "intro",
@@ -31,6 +49,95 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, 0, 0, -1, -1, -1, -2, -2, -3, -4, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "0, 0, -1, -1, -2, -2, -3, -4, -5, -6, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "-1", "-1", "-2", "-2", "-3", "-4", "-5", "-6", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "0, -1, -2, -3, -4, -5, -6, -7, -8, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
     {
       "id": "xp_cost",
       "hidden": true,
