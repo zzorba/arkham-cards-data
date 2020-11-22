@@ -21,8 +21,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if test -f $OUTPUT_DIR/allCampaigns.json; then
-  jq -f ./scripts/jq/tempCampaignLogs.jq $OUTPUT_DIR/allCampaigns.json > $OUTPUT_DIR/tempCampaignLogs.json
-  node ./scripts/generateSideCampaignLog.js -o $OUTPUT_DIR
+  jq -f ./scripts/jq/tempCampaignLogs.jq $OUTPUT_DIR/allCampaigns.json > $OUTPUT_DIR/campaignLogs.json
 else
   echo "$OUTPUT_DIR/allCampaigns.json file is missing. Build it first."
   exit 1

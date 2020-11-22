@@ -49,8 +49,8 @@ getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
   if (json.standalone_setup) {
     const parts = file.split('/');
     standaloneList.push({
-      campaign: parts[parts.length - 2],
-      scenario: json.id,
+      campaignId: parts[parts.length - 2],
+      scenarioId: json.id,
     });
   }
 });
