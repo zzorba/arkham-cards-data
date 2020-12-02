@@ -541,6 +541,94 @@
     {
       "id": "proceed_keys",
       "text": "Do not move the purple, black, or white keys from their current position just yet—the location of each of these keys will be important during <b>Interlude III: Beneath the Waves</b>."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "tide_has_grown_stronger",
+            "text": "The tide has grown stronger.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "tide_has_grown_stronger",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "tide_has_grown_stronger",
+                "text": "the tide has grown stronger."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_tide_has_grown_stronger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "scenario_data",
+            "scenario_data": "resolution",
+            "options": [
+              {
+                "condition": "R1"
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "tide_has_grown_stronger",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_tide_has_grown_stronger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_tide_has_grown_stronger",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cheat",
+            "text": "Should <i>the tide has grown stronger</i> be added to the Campaign Log?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "tide_has_grown_stronger",
+                "text": "the tide has grown stronger."
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
