@@ -2,6 +2,26 @@
   "id": "the_pallid_mask",
   "scenario_name": "The Pallid Mask",
   "full_name": "Scenario VI: The Pallid Mask",
+  "standalone_setup": [
+    "setup_standalone_bag",
+    "randomly_choose_tokens",
+    "lead_investigator_mitpm",
+    "found_nigels_home",
+    "no_haruko",
+    "check_intro_condition",
+    "check_ishimaru_haruko",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "check_catacomb_entry",
+    "create_catacombs_deck",
+    "place_investigators",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
+    "set_aside_pallid_mask",
+    "encounter_deck",
+    "location_adjacency_rule",
+    "$play_scenario"
+  ],
   "setup": [
     "check_intro_condition",
     "check_ishimaru_haruko",
@@ -18,6 +38,96 @@
     "$play_scenario"
   ],
   "steps": [
+
+    {
+      "id": "setup_standalone_bag",
+      "text": "Assemble the chaos bag using the following tokens: +1, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, [skull], [skull], [skull], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "difficulty",
+          "value": "standard"
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "skull", "skull", "skull", "auto_fail", "elder_sign"
+          ]
+        }
+      ],
+      "bullets": [
+        {
+          "text": "Do not alter the contents of the chaos bag during the intro."
+        }
+      ]
+    },
+    {
+      "id": "randomly_choose_tokens",
+      "text": "Randomly choose one of the following tokens ([cultist], [tablet], or [elder_thing]). Add 2 of the chosen token to the chaos bag.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "tablet"]
+              }
+            ]
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing", "elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lead_investigator_mitpm",
+      "text": "The lead investigator adds The Man in the Pallid Mask weakness to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "03059"
+        }
+      ]
+    },
+    {
+      "id": "found_nigels_home",
+      "text": "<i>You found Nigel's home.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_nigels_home",
+          "text": "you found Nigel's home."
+        }
+      ]
+    },
+    {
+      "id": "no_haruko",
+      "text": "<i>Ishimaru Haruko is not listed under VIPs Interviewed or VIPs Slain.</i>"
+    },
     {
       "id": "check_intro_condition",
       "text": "Check Campaign Log. <i>If you did not escape the gaze of the phantom</i>, or <i>if you were unable to find Nigel</i>",
@@ -61,7 +171,7 @@
     },
     {
       "id": "intro_1",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.intro_1",
         "name": "Intro 1"
       },
@@ -70,7 +180,7 @@
     },
     {
       "id": "intro_2",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.intro_2",
         "name": "Intro 2"
       },
@@ -117,7 +227,7 @@
     },
     {
       "id": "harukos_information",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.harukos_information",
         "name": "Haruko's Information"
       },
@@ -565,7 +675,7 @@
   "resolutions": [
     {
       "id": "no_resolution",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.no_resolution",
         "name": "No Resolution"
       },
@@ -580,7 +690,7 @@
     },
     {
       "id": "R1",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.resolution_1",
         "name": "Resolution 1"
       },
@@ -591,7 +701,7 @@
     },
     {
       "id": "R2",
-      "narration": { 
+      "narration": {
         "id": "the_path_to_carcosa.the_pallid_mask.resolution_2",
         "name": "Resolution 2"
       },

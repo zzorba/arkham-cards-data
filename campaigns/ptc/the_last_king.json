@@ -2,6 +2,21 @@
   "id": "the_last_king",
   "scenario_name": "The Last King",
   "full_name": "Scenario II: The Last King",
+  "standalone_setup": [
+    "setup_standalone_bag",
+    "randomly_choose_tokens",
+    "lead_investigator_mitpm",
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_bystanders",
+    "set_aside_cards",
+    "setup_sickening_reality",
+    "encounter_deck",
+    "check_for_mitpm",
+    "$play_scenario"
+  ],
   "setup": [
     "intro",
     "gather_encounter_sets",
@@ -15,6 +30,79 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "setup_standalone_bag",
+      "text": "Assemble the chaos bag using the following tokens: +1, 0, 0, -1, -1, -1, -2, -2, -3, -4, [skull], [skull], [skull], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "difficulty",
+          "value": "standard"
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "skull", "auto_fail", "elder_sign"
+          ]
+        }
+      ],
+      "bullets": [
+        {
+          "text": "Do not alter the contents of the chaos bag during the intro."
+        }
+      ]
+    },
+    {
+      "id": "randomly_choose_tokens",
+      "text": "Randomly choose one of the following tokens ([cultist], [tablet], or [elder_thing]). Add 2 of the chosen token to the chaos bag.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "tablet"]
+              }
+            ]
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing", "elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lead_investigator_mitpm",
+      "text": "The lead investigator adds The Man in the Pallid Mask weakness to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "03059"
+        }
+      ]
+    },
     {
       "id": "intro",
       "narration": {

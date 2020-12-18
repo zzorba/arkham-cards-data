@@ -2,6 +2,28 @@
   "id": "the_unspeakable_oath",
   "scenario_name": "The Unspeakable Oath",
   "full_name": "Scenario IV: The Unspeakable Oath",
+  "standalone_setup": [
+    "setup_standalone_bag",
+    "randomly_choose_tokens",
+    "no_constance",
+    "no_onyx_clasp",
+    "check_followers_of_the_sign_found_way",
+    "intro_3",
+    "check_constance_dumaine",
+    "gather_encounter_sets",
+    "set_aside_monsters",
+    "set_aside_lunatics",
+    "choose_locations",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "select_act_2",
+    "select_act_2_onyx_clasp",
+    "encounter_deck",
+    "check_for_mitpm",
+    "check_for_onyx_clasp",
+    "$play_scenario"
+  ],
   "setup": [
     "check_followers_of_the_sign_found_way",
     "intro_3",
@@ -22,6 +44,76 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "setup_standalone_bag",
+      "text": "Assemble the chaos bag using the following tokens: +1, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, [skull], [skull], [skull], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "difficulty",
+          "value": "standard"
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "skull", "skull", "skull", "auto_fail", "elder_sign"
+          ]
+        }
+      ],
+      "bullets": [
+        {
+          "text": "Do not alter the contents of the chaos bag during the intro."
+        }
+      ]
+    },
+    {
+      "id": "randomly_choose_tokens",
+      "text": "Randomly choose one of the following tokens ([cultist], [tablet], or [elder_thing]). Add 2 of the chosen token to the chaos bag.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist", "cultist"]
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "tablet"]
+              }
+            ]
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing", "elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_constance",
+      "text": "<i>Constance Dumaine is not listed under VIPs Interviewed or VIPs Slain.</i>"
+    },
+    {
+      "id": "no_onyx_clasp",
+      "text": "<i>You did not take the onyx clasp.</i>"
+    },
     {
       "id": "check_followers_of_the_sign_found_way",
       "type": "branch",
