@@ -2,6 +2,23 @@
   "id": "arkham",
   "scenario_name": "The Midnight Masks",
   "full_name": "Scenario II: The Midnight Masks",
+  "standalone_setup": [
+    "setup_standalone_bag",
+    "house_burned",
+    "lita_condition",
+    "intro_3",
+    "gather_encounter_sets",
+    "gather_cult",
+    "setup_locations",
+    "location_layout",
+    "spawn_cultists",
+    "check_house_burned",
+    "check_house_standing",
+    "encounter_deck",
+    "check_ghoul_priest",
+    "doom_note",
+    "$play_scenario"
+  ],
   "setup": [
     "lita_condition",
     "intro_3",
@@ -18,6 +35,97 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "setup_standalone_bag",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy <i>(I want to experience the story)</i>",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "standard",
+            "text": "Standard <i>(I want a challenge)</i>",
+            "description": "+1, 0, 0, -1, -1, -1, -2, -2, -3, -4, [skull], [skull], [cultist],  [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard <i>(I want a true nightmare)</i>",
+            "description": "0, 0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "expert",
+            "text": "Expert <i>(I want Arkham Horror)</i>",
+            "description": "0, -1, -1, -2, -2, -3, -3, -4, -4, -5, -6, -8, [skull], [skull], [cultist], [tablet], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "-8", "skull", "skull", "cultist", "tablet", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "house_burned",
+      "text": "<i>Your house has burned to the ground.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "house_burned",
+          "text": "your house has burned to the ground."
+        }
+      ]
+    },
     {
       "id": "lita_condition",
       "type": "branch",
