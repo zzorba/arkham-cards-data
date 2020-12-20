@@ -2,6 +2,7 @@ const Ajv = require('ajv');
 const fs = require('fs');
 const path = require('path');
 const jsonlint = require('jsonlint');
+const { filter } = require('lodash');
 const yargs = require('yargs');
 
 const argv = yargs
@@ -48,8 +49,9 @@ getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
   const json = jsonlint.parse(fs.readFileSync(file, 'utf-8').toString());
   if (json.standalone_setup) {
     const parts = file.split('/');
+    const campaignFile =  jsonlint.parse(fs.readFileSync(filter(parts, x => x !== parts[parts.length - 1]).join('/') + '/campaign.json', 'utf-8').toString())
     standaloneList.push({
-      campaignId: parts[parts.length - 2],
+      campaignId: campaignFile.id,
       scenarioId: json.id,
     });
   }
