@@ -48,8 +48,9 @@ export type Effect =
   | CampaignDataEffect
   | ScenarioDataEffect
   | AddRemoveChaosTokenEffect
-  | UpgradeDecksEffect
   | FreeformCampaignLogEffect
+  | UpgradeDecksEffect
+  | SaveDecksEffect
   | GainSuppliesEffect;
 export type SpecialXp = "resupply_points" | "supply_points" | "unspect_xp";
 export type InvestigatorSelector =
@@ -123,7 +124,8 @@ export type Input =
   | TextBoxInput
   | ReceiveCampaignLinkInput
   | SendCampaignLinkInput
-  | RandomLocationInput;
+  | RandomLocationInput
+  | SaveDecksInput;
 export type CardQuery = CardSearchQuery | CardCodeList;
 export type UseSuppliesInput = UseSuppliesChoiceInput | UseSuppliesAllInput;
 export type InvestigatorChoiceCondition = InvestigatorCardCondition | BasicTraumaCondition | InvestigatorCondition;
@@ -162,7 +164,8 @@ export interface Campaign {
   setup: string[];
   steps: Step[];
   side_scenario_steps?: Step[];
-  standalone?: any[];
+  campaign_type: "standalone" | "campaign";
+  achievements?: Achievement[];
 }
 export interface BranchStep {
   id: string;
@@ -181,6 +184,7 @@ export interface MultiCondition {
     | CampaignDataChaosBagCondition
     | CampaignLogCountCondition
     | CampaignDataVersionCondition
+    | ScenarioDataResolutionCondition
   )[];
   count: number;
   options: BoolOption[];
@@ -193,7 +197,7 @@ export interface CampaignLogCondition {
 }
 export interface BoolOption {
   boolCondition: boolean;
-  condition?: string;
+  prompt?: string;
   effects?: Effect[];
   border?: boolean;
   steps?: string[];
@@ -225,6 +229,8 @@ export interface AddWeaknessEffect {
   investigator: "all" | "$input_value" | "lead_investigator";
   weakness_traits: string[];
   select_traits?: boolean;
+  count?: "$input_value";
+  standalone?: boolean;
 }
 export interface RemoveCardEffect {
   type: "remove_card";
@@ -315,12 +321,15 @@ export interface AddRemoveChaosTokenEffect {
   type: "add_chaos_token" | "remove_chaos_token";
   tokens: ChaosToken[];
 }
-export interface UpgradeDecksEffect {
-  type: "upgrade_decks";
-}
 export interface FreeformCampaignLogEffect {
   type: "freeform_campaign_log";
   section: "campaign_notes";
+}
+export interface UpgradeDecksEffect {
+  type: "upgrade_decks";
+}
+export interface SaveDecksEffect {
+  type: "save_decks";
 }
 export interface GainSuppliesEffect {
   type: "gain_supplies";
@@ -358,6 +367,7 @@ export interface Option {
   boolCondition?: boolean;
   numCondition?: number;
   condition?: string;
+  prompt?: string;
   border?: boolean;
   effects?: Effect[];
   steps?: string[];
@@ -367,6 +377,17 @@ export interface CampaignDataVersionCondition {
   campaign_data: "version";
   min_version: number;
   options: BoolOption[];
+}
+export interface ScenarioDataResolutionCondition {
+  type: "scenario_data";
+  scenario_data: "resolution";
+  options: StringOption[];
+}
+export interface StringOption {
+  condition: string;
+  border?: boolean;
+  effects?: Effect[];
+  steps?: string[];
 }
 export interface MathCompareCondition {
   type: "math";
@@ -420,12 +441,6 @@ export interface CampaignDataDifficultyCondition {
   campaign_data: "difficulty";
   options: StringOption[];
 }
-export interface StringOption {
-  condition: string;
-  border?: boolean;
-  effects?: Effect[];
-  steps?: string[];
-}
 export interface CampaignDataScenarioCondition {
   type: "campaign_data";
   campaign_data: "scenario_completed" | "scenario_replayed";
@@ -448,11 +463,6 @@ export interface CampaignLogSectionExistsCondition {
   type: "campaign_log_section_exists";
   section: string;
   options: BoolOption[];
-}
-export interface ScenarioDataResolutionCondition {
-  type: "scenario_data";
-  scenario_data: "resolution";
-  options: StringOption[];
 }
 export interface ScenarioDataInvestigatorStatusCondition {
   type: "scenario_data";
@@ -508,6 +518,7 @@ export interface EffectsStep {
   stepText: boolean;
   bullet_type?: BulletType;
   narration?: Narration;
+  syntheticId?: boolean;
 }
 export interface EffectsWithInput {
   border?: boolean;
@@ -570,6 +581,7 @@ export interface UseSuppliesChoiceInput {
   section: string;
   id: string;
   name: string;
+  prompt: string;
   investigator: "choice";
   min: number;
   max: number;
@@ -580,6 +592,7 @@ export interface UseSuppliesAllInput {
   section: string;
   id: string;
   name: string;
+  prompt: string;
   investigator: "all";
   choices: BoolOption[];
 }
@@ -691,6 +704,9 @@ export interface RandomLocationInput {
   cards: string[];
   multiple?: boolean;
 }
+export interface SaveDecksInput {
+  type: "save_decks";
+}
 export interface EncounterSetsStep {
   id: string;
   type: "encounter_sets";
@@ -730,7 +746,7 @@ export interface ResolutionStep {
 export interface RuleReminderStep {
   id: string;
   type: "rule_reminder";
-  text: string;
+  text?: string;
   title?: string;
   bullets?: {
     text: string;
@@ -830,17 +846,29 @@ export interface InternalStep {
   title?: null;
   narration?: Narration;
 }
+export interface Achievement {
+  id: string;
+  title: string;
+  text: string;
+  type: "binary" | "count" | "list";
+  max?: number;
+  items?: {
+    id: string;
+    text: string;
+  }[];
+}
 export interface Scenario {
   id: string;
   scenario_name: string;
   full_name: string;
   xp_cost?: number;
-  side_scenario_type?: "challenge";
+  side_scenario_type?: "challenge" | "standalone";
   challenge?: ChallengeData;
   setup: string[];
   resolutions?: Resolution[];
   steps: Step[];
   type?: "interlude" | "epilogue" | "placeholder";
+  standalone_setup?: string[];
 }
 export interface ChallengeData {
   investigator: string;

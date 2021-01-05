@@ -2,6 +2,47 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/types.schema.json",
   "definitions": {
+    "achievement": {
+      "$id": "#achievement",
+      "title": "Achievement",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["binary", "count", "list"]
+        },
+        "max": {
+          "type": "number"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": ["id", "text"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["id", "title", "text", "type"],
+      "additionalProperties": false
+    },
     "narration": {
       "$id": "#narration",
       "title": "Narration",

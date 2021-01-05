@@ -2,7 +2,262 @@
   "id": "beneath_the_waves",
   "scenario_name": "Beneath the Waves",
   "full_name": "Interlude III: Beneath the Waves",
-  "type": "placeholder",
-  "setup": [],
-  "steps": []
+  "type": "interlude",
+  "setup": [
+    "intro",
+    "section_intro",
+    "ask_purple_key",
+    "ask_white_key",
+    "ask_black_key",
+    "check_no_keys",
+    "outro",
+    "return_thomas_dawson",
+    "spend_xp",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You bounce through your memories, struggling to return to the present. You remember a dark cell. A knife at your throat. A man with wide, unblinking eyes, wearing a long hooded robe. \"Oceiros,\" another voice calls, \"these ones were found in Dagon's lair as well. We believe they were the ones snooping around Devil Reef.\"\nOceiros nods. The knife at your throat digs deeper. \"Take what they have stolen to the lighthouse at once,\" he commands. \"It is time to begin our great work. None will disrupt the Order's business every again.\"\nYour mind snaps back to the present. The rumbling of an automobile engine grows as your senses return. Agent Harper grips your shoulder and peers into your eyes. \"Another vision,\" she utters with a hint of surprise. \"Do you remember something? What was it?\"\nYou shake the ache from your pounding skull and ask Harper if the name Oceiros means anything. \"Oceiros Marsh? He's the keeper of the old lighthouse on Falcon Point,\" she replies. \"Why? What did you see?\""
+    },
+    {
+      "id": "section_intro",
+      "type": "rule_reminder",
+      "text": "Depending on which keys were on the current act or controlled by an investigator when <b>Scenario IV: Devil Reef</b> ended, read each of the sections below that apply. Then, proceed to the following text."
+    },
+    {
+      "id": "ask_purple_key",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "purple_key",
+            "text": "Was the purple key on the current act or controlled by an investigator when the scenario ended?",
+            "steps": ["purple_key_story", "purple_key_xp", "purple_key_token", "idol_brought_to_the_lighthouse"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "purple_key_story",
+      "type": "story",
+      "text": "You describe the idol found in the undersea grotto. Agent Harper nods along with you. \"I remember seeing something like that in some of the notes I found while you were off investigating the reef. It depicts some kind of ancient diety—something those vile creatures worship.\" Her voice lowers to little more than a whisper. \"Something I suspect is no myth.\" You ask where the idol is now, and she shakes her head. \"I suspect it was taken from you when you were thrown into that pit,\" she replies."
+    },
+    {
+      "id": "purple_key_xp",
+      "text": "The conspiracy deepens. Every investigator records 2 additional experience under \"Unspent Experience.\"",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "special_xp": "unspect_xp",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "purple_key_token",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "idol_brought_to_the_lighthouse",
+      "text": "In your Campaign Log, record <i>the idol was brought to the lighthouse.</i> <i>(Do not add the Waveworn Idol story asset to any investigator's deck. It must be recovered first.)</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "idol_brought_to_the_lighthouse",
+          "text": "the idol was brought to the lighthouse."
+        }
+      ]
+    },
+
+    {
+      "id": "ask_white_key",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "white_key",
+            "text": "Was the white key on the current act or controlled by an investigator when the scenario ended?",
+            "steps": ["white_key_story", "white_key_xp", "white_key_token", "mantle_brought_to_the_lighthouse"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "white_key_story",
+      "type": "story",
+      "text": "You recall the strange mantle you found submerged in the depths of Devil Reef. \"Yes, I remember seeing that,\" Harper says with a snap of her fingers. \"One of the 'priests' in that accursed Esoteric Order of Dagon wore it when I first arrived in Innsmouth. It must have been taken to the lighthouse with the rest of your belongings when you were captured at the Order's headquarters. If we're lucky, it'll still be there...\""
+    },
+    {
+      "id": "white_key_xp",
+      "text": "The conspiracy deepens. Every investigator records 2 additional experience under \"Unspent Experience.\"",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "special_xp": "unspect_xp",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "white_key_token",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "mantle_brought_to_the_lighthouse",
+      "text": "In your Campaign Log, record <i>the mantle was brought to the lighthouse.</i> <i>(Do not add the Awakened Mantle story asset to any investigator's deck. It must be recovered first.)</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "mantle_brought_to_the_lighthouse",
+          "text": "the mantle was brought to the lighthouse."
+        }
+      ]
+    },
+    {
+      "id": "ask_black_key",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "black_key",
+            "text": "Was the black key on the current act or controlled by an investigator when the scenario ended?",
+            "steps": ["black_key_story", "black_key_xp", "black_key_token", "headdress_brought_to_the_lighthouse"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "black_key_story",
+      "type": "story",
+      "text": "You tell Agent Harper about the temple with the two statues you discovered within Devil Reef, and about the crown you stole. \"That sounds like the 'Headdress of Y'ha-nthlei' I read about while I was researching the Order. I'm impressed you were able to make off with it. Whatever it is, it sounds pretty important to the Order. Although I still have no clue what 'Y'ha-nthlei' is.\" You remark that you don't have the crown anymore, and she nods. \"It must have been taken from you and brought to the lighthouse with the rest of your things before you lost your memories,\" she explains."
+    },
+    {
+      "id": "black_key_xp",
+      "text": "The conspiracy deepens. Every investigator records 2 additional experience under \"Unspent Experience.\"",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "special_xp": "unspect_xp",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "black_key_token",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "headdress_brought_to_the_lighthouse",
+      "text": "In your Campaign Log, record <i>the headress was brought to the lighthouse.</i> <i>(Do not add the Headdress of Y'ha-nthlei story asset to any investigator's deck. It must be recovered first.)</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "headdress_brought_to_the_lighthouse",
+          "text": "the headdress was brought to the lighthouse."
+        }
+      ]
+    },
+
+    {
+      "id": "check_no_keys",
+      "text": "If no keys were on the current act or controlled by an investigator when the scenario ended:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "headdress_brought_to_the_lighthouse",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "mantle_brought_to_the_lighthouse",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "idol_brought_to_the_lighthouse",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["no_keys_story"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_keys_story",
+      "type": "story",
+      "text": "You struggle to remember anything of value beyond your initial exploration of the reef. You recall the uncanny creatures you fought, the various islands you explored, and the rising tides, but no more. Secrets must be hidden in those reefs, but either you were unable to find them, or you simply don't recall. Your head throbs with pain as you struggle to summon memories from the void within your mind. \"That's okay,\" Agent Harper says, placing a hand on your shoulder. \"We'll figure this out together.\""
+    },
+    {
+      "id": "outro",
+      "type": "story",
+      "text": "\"It seems your memories are starting to return,\" Agent Harper says with a tentative grin. \"How do you feel?\"\nYou struggle to find a reply that fits. Part of you is relieved to have your memories returning, but the rest of you wishes they hadn't been so vivid. You wonder once more if you should simply take this opportunity to drive back to Arkham and never set foot in Innsmouth again. Then your gaze meets Harper's, and you see that fierce resolve within her eyes. The same resolve that stirs in you.\nYou say nothing, but she seems to understand. \"This must be a lot to take in. For now, let's focus on getting to Falcon Point. If what you say is true, and Oceiros is part of the Esoteric Order of Dagon, there should be answers there.\" She looks over her shoulder, peering into the western horizon. The sun dips just below the treeline, bathing the sky in deep scarlet. \"Something tells me this isn't over.\""
+    },
+    {
+      "id": "return_thomas_dawson",
+      "text": "Return Thomas Dawson to the collection. If an investigator earned Elina Harper (at any point during this campaign), they may add her back to their deck."
+    },
+    {
+      "id": "spend_xp",
+      "text": "With a fragment of your memories returned to you, past events have become clearer. Each investigator may now spend the experience recorded under \"Unspent Experience\" in your Campaign Log.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unspect_xp"
+        }
+      ]
+    }
+  ]
 }

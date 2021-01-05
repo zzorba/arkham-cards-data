@@ -63,35 +63,20 @@
             "$ref": "step.schema.json#/definitions/step"
           }
         },
-        "standalone": {
+        "campaign_type": {
+          "type": "string",
+          "enum": ["standalone", "campaign"]
+        },
+        "achievements": {
           "type": "array",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "setup": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "steps": {
-              "type": "array",
-              "items": {
-                "$ref": "step.schema.json#/definitions/step"
-              }
-            }
-          },
-          "required": [
-            "id",
-            "setup",
-            "steps"
-          ],
-          "additionalProperties": false
+          "items": {
+            "$ref": "types.schema.json#/definitions/achievement"
+          }
         }
       },
       "required": [
         "id",
+        "campaign_type",
         "version",
         "name",
         "position",
