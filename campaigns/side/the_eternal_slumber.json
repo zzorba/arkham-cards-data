@@ -3,6 +3,23 @@
   "scenario_name": "The Eternal Slumber",
   "full_name": "The Eternal Slumber",
   "xp_cost": 2,
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro_1",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "create_brotherhood_deck",
+    "set_strength_of_the_abyss",
+    "encounter_deck",
+    "explore_rule",
+    "story_cards",
+    "strength_of_the_abyss",
+    "taken_by_the_abyss",
+    "$play_scenario"
+
+  ],
   "setup": [
     "xp_cost",
     "intro_1",
@@ -21,6 +38,51 @@
   ],
   "steps": [
     {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, +1, 0, 0, -1, -1, -1, -2, -2, -3, -3, -4, -6, [skull], [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-6", "skull", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard",
+            "description": "+1, 0, 0, -1, -1, -1, -2, -2, -2, -3, -3, -4, -4, -5, -7, [skull], [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-7", "skull", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "xp_cost",
       "effects": [
         {
@@ -32,7 +94,7 @@
     },
     {
       "id": "explore_rule",
-      "title": "explore",
+      "title": "Explore",
       "type": "rule_reminder",
       "text": "Some abilities in <i>Guardians of the Abyss</i> are identified with an <b>Explore</b> action designator. Such abilities are generally used to find new locations to put into play, and are initiated using the “activate” action.\n<b>Explore</b> abilities instruct you to draw the top card of the “exploration deck,” which is a separate deck that will be constructed during this scenario. This deck consists of several single-sided locations and treachery cards.",
       "bullets": [

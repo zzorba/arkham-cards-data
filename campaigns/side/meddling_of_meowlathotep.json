@@ -1,0 +1,417 @@
+{
+  "id": "meddling_of_meowlathotep",
+  "scenario_name": "The Meddling of Meowlathotep",
+  "full_name": "The Meddling of Meowlathotep",
+  "side_scenario_type": "standalone",
+  "standalone_setup": [
+    "choose_difficulty",
+    "barkham_rule",
+    "alert_rule",
+    "lousy_with_cats_rule",
+    "sniffing_locations_rule",
+    "hp_quote",
+    "intro_1",
+    "choose_scent_to_follow",
+    "location_layout",
+    "setup_meowsk_cards",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "+1, +1, 0, 0, 0, -1, -1, -1, -2, -2, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-2", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, 0, 0, -1, -1, -1, -2, -2, -3, -4, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "-1", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "0, 0, 0, -1, -1, -2, -2, -3, -3, -4, -5, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-5", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "0, -1, -1, -2, -2, -3, -3, -4, -4, -5, -6, -8, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "-1", "-1", "-2", "-2", "-3", "-3", "-4", "-4", "-5", "-6", "-8", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "barkham_rule",
+      "title": "Barkham Horror",
+      "type": "rule_reminder",
+      "text": "<i>Barkham Horror</i> is an alternate universe in which the conflict between humanity and the eldritch forces of the mythos takes a back seat, and the conflict between dogs and cats takes center stage.",
+      "bullets": [
+        {
+          "text": "Investigator and player cards included in <i>Barkham Horror</i> expansions cannot be used in traditional <i>Arkham Horror: The Card Game</i> scenarios."
+        },
+        {
+          "text": "Likewise, only investigators from <i>Barkham Horror</i> expansions should be used while playing a <i>Barkham Horror</i> scenario. Other player cards from any <i>Arkham Horror: The Card Game</i> product may be used."
+        }
+      ]
+    },
+    {
+      "id": "alert_rule",
+      "type": "rule_reminder",
+      "title": "Alert",
+      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the alert keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+    },
+    {
+      "id": "lousy_with_cats_rule",
+      "type": "rule_reminder",
+      "title": "“Lousy with cats”",
+      "text": "Six of the locations in this scenario begin play with a facedown [[Meowsk]] enemy beneath them. During this scenario, a location with a facedown encounter card beneath it is “lousy with cats.” <b>This has no inherent game effect.</b> However, some card effects may change depending on whether or not a location is lousy with cats.",
+      "bullets": [
+        {
+          "text": "If the encounter card beneath a location that is lousy with cats enters play or is removed for any reason, that location is no longer lousy with cats."
+        }
+      ]
+    },
+    {
+      "id": "sniffing_locations_rule",
+      "type": "rule_reminder",
+      "title": "“Sniffing” Locations",
+      "text": "Dogs have a fantastic sense of smell. Kate Winthpup in particular has an ability that allows her to “sniff ” a location. You may wish to use a token (such as a resource token) or a piece of scrap paper to record which locations you’ve sniffed. In general, once you sniff a location, it is sniffed for the rest of the game."
+    },
+    {
+      "id": "hp_quote",
+      "type": "story",
+      "text": "“We may, indeed, judge the tone and bias of a civilisation by its relative attitude toward dogs and cats.”\n– H. P. Lovecraft, “Cats and Dogs”"
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "It is a dark and stormy night in the storied and haunted city of Barkham. By the time you hit the streets, it is raining cats and dogs. But you’ve picked up the scent of something big, and once you sink your teeth into a story, you just can’t let go. A little wet fur has never stopped you from finding the truth.\nStrange happenings have been going on in Barkham. Cat sightings are at an all-time high, and each day more and more pigeons go missing. While this wouldn’t normally be newsworthy, you know that there is more to this story than meets the eye. After all, while a few cats are harmless and adorable, most are nefarious schemers. You have heard the whispers and the howls on the wind. The Order of Dead Rodents on the Doorstep is back, and whatever they are plotting, only you can stop it.\nYou’re heading back to your home in Slobbertown—the Barkham neighborhood closest to the docks—when you catch a whiff of something foul and pungent in the air. Whatever is causing such an acrid stench must be nearby. But just then, another scent—!"
+    },
+    {
+      "id": "choose_scent_to_follow",
+      "type": "input",
+      "text": "The lead investigator must decide (choose one):",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "foul_stench",
+            "text": "Follow the foul stench.",
+            "steps": ["intro_2", "choose_confront_cat"]
+          },
+          {
+            "id": "bacon",
+            "text": "Follow the scent of bacon.",
+            "steps": ["intro_3", "choose_food"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "No! You cannot be dissuaded, not even by thoughts of tasty bacon and ear scratches from all of the humans who congegrate around Velma’s Doghouse. This investigation is too important. You continue tracking the awful odor until you come upon its source: a hairball, hacked up in an alleyway by the docks. Of course. If this isn’t proof of feline involvement, you don’t know what is. Then you hear it: HRRK! HRRRRK! There’s only one thing that could be!"
+    },
+    {
+      "id": "choose_confront_cat",
+      "type": "input",
+      "text": "The lead investigator must decide (choose one):",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "foul_stench",
+            "text": "Confront the barfy cat.",
+            "steps": ["intro_4", "setup_slobbertown", "gather_encounter_sets", "setup_locations_slobbertown"]
+          },
+          {
+            "id": "bacon",
+            "text": "Follow the cat to its lair.",
+            "steps": ["intro_5", "setup_snoutside", "gather_encounter_sets", "setup_locations_snoutside"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The investigation can wait. Bacon is eternal. You follow that lovely smell northeast to Velma’s Doghouse in Beasttown. The sounds of revelry and the sizzling of grilled food make your tail wag faster than the cracking of a whip. And yet, something else tugs at the back of your dog-brain… What was it you were doing before?"
+    },
+    {
+      "id": "choose_food",
+      "type": "input",
+      "text": "The lead investigator must decide (choose one):",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "foul_stench",
+            "text": "Nope, food.",
+            "steps": ["intro_6", "setup_beasttown", "gather_encounter_sets", "setup_locations_beasttown"]
+          },
+          {
+            "id": "bacon",
+            "text": "Oh yeah, investigating the Order.",
+            "steps": ["intro_7", "setup_tailside", "gather_encounter_sets", "setup_locations_tailside"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You are too dogged to turn back now. You soon come across the unfortunate creature, the source of the wretched retching. Once it is done, it goes back to licking its fur, and you wonder if cats truly have no sense of cause and effect. “What is the Order plotting?” you ask pointedly.\n“Why should I tell you, mutt?” the cat replies with a hint of apathy in its voice. “You’ll be our prey soon enough.” With that, the cat leaps gracefully from the street to a low-hanging tree branch, and vanishes from sight.\nPrey? You ponder the cat’s words. Conflict between your kind and theirs is as old as time, but you have never been their prey. What exactly is their game…?"
+    },
+    {
+      "id": "setup_slobbertown",
+      "text": "Proceed to <b>Setup</b>. You will begin play in Slobbertown."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "You track the scent of the cat and follow from a distance. Eventually it leaves the docks and makes its way southwest, toward Snoutside. What could a cat be doing way out here?\nYour question is answered when the creature is picked up by a robed human outside the manor house of the Barkham Hisstorical Society, an organization devoted to educating the populace about the “noble” cats of the city. It makes sense that such a reviled cult would be involved in this plot. The human brings the cat indoors, presumably to feed it and give it treats and such. Your blood boils. Curse you, foul cat! How dare you trick these humans into thinking you are cute and fluffy and not at all evil—!"
+    },
+    {
+      "id": "setup_snoutside",
+      "text": "Proceed to <b>Setup</b>. You will begin play in Snoutside."
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": ": It isn’t until your belly is full of yummy food and your tummy has been thoroughly rubbed that you remember why you were out and about in the first place. You patrol the area until you spot several panicked rats scurrying from a nearby sewer drain.\n“What’s the matter?” you bark. They chitter and chirp in response, and it is only then that you remember that rats can’t talk. Still, you glean some of their story from their frantic pantomiming. The Order of Dead Rodents at the Doorstep, as evidenced by their very namesake, has been hunting rats for ages. But now it is not just cats hunting them, but horrid cat-abominations that defy all earthly logic. Sounds like the Order is up to its old tricks once again…"
+    },
+    {
+      "id": "setup_beasttown",
+      "text": "Proceed to <b>Setup</b>. You will begin play in Beasttown."
+    },
+    {
+      "id": "intro_7",
+      "type": "story",
+      "text": "The urgency of your investigation is too important for you to be distracted by thoughts of tasty food. As you turn away from Velma’s, you spot a streak of cat-fur dipping gracefully out of sight. Using your keen sense of smell, you keep a tight pursuit as the cat winds its way west to Tailside, where Barkham’s train station can be found.\nYou follow the cat to the tracks on the western edge of town, where it ducks underneath an abandoned train car marked with a cat’s paw print. “Meowsachusetts Catnip Co.” reads the label beneath the logo. A front for a cult headquarters, no doubt. You are about to eavesdrop on the cats’ refuge when suddenly, a creature bursts forth from underneath the train! It is a hideous hybrid of bird, bat, and cat, with webbed paws and membranous wings notably lacking in fur, though its face is unmistakably feline. The sight of the thing makes your fur stand on end."
+    },
+    {
+      "id": "setup_tailside",
+      "text": "Proceed to <b>Setup</b>. You will begin play in Tailside."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "meddling_of_meowlathotep"
+      ]
+    },
+    {
+      "id": "setup_locations_snoutside",
+      "text": "Put all of the locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Snoutside."
+        }
+      ]
+    },
+    {
+      "id": "setup_locations_tailside",
+      "text": "Put all of the locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Tailside."
+        }
+      ]
+    },
+    {
+      "id": "setup_locations_beasttown",
+      "text": "Put all of the locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Beasttown."
+        }
+      ]
+    },
+    {
+      "id": "setup_locations_slobbertown",
+      "text": "Put all of the locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Slobbertown."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "barkham_asylum", "velmas_doghouse"],
+        ["blank", "tailside", "beasttown", "arkham_city_pound"],
+        ["muttskatonic_university", "snoutside", "slobbertown", "blank"],
+        ["st_marys_animal_hospital", "boneyard", "blank", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "barkham_asylum",
+          "name": "Barkham Asylum"
+        },
+        {
+          "code": "velmas_doghouse",
+          "name": "Velma's Doghouse"
+        },
+        {
+          "code": "tailside",
+          "name": "Tailside"
+        },
+        {
+          "code": "beasttown",
+          "name": "Beasttown"
+        },
+        {
+          "code": "arkham_city_pound",
+          "name": "Arkham City Pound"
+        },
+        {
+          "code": "muttskatonic_university",
+          "name": "Muttskatonic University"
+        },
+        {
+          "code": "snoutside",
+          "name": "Snoutside"
+        },
+        {
+          "code": "slobbertown",
+          "name": "Slobbertown"
+        },
+        {
+          "code": "st_marys_animal_hospital",
+          "name": "St. Mary's Animal Hospital"
+        },
+        {
+          "code": "boneyard",
+          "name": "Boneyard"
+        }
+      ]
+    },
+    {
+      "id": "setup_meowsk_cards",
+      "text": "Find and shuffle the 7 [[Meowsk]] enemies. Remove 1 of them from the game without looking at it. Place 1 of the remaining [[Meowsk]] enemies facedown beneath each of the following locations: Barkham Asylum, Barkham City Pound, Velma’s Doghouse, Muttskatonic University, Boneyard, and St. Mary’s Animal Hospital.",
+      "bullets": [
+        {
+          "text": "Each of these locations is “lousy with cats” (see “lousy with cats”, above). A location is no longer lousy with cats if the encounter card beneath it is removed for any reason."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set Meowlathotep aside, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "investigators_win",
+      "text": "The investigators win, but only if they, too, are dog people."
+    },
+    {
+      "id": "cat_people_are_traitors",
+      "text": "Cat people complete the scenario successfully but feel like traitors."
+    },
+    {
+      "id": "investigators_lose",
+      "text": "The investigators lose! Players who are cat people win the game, though."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_2"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The humans will never know the danger that lurked just beyond the edges of their senses—the danger they could not smell despite its foul scent. You will stay alert and loyally sniff out any hazards to your beloved city, for that is the duty and burden you and all dogkind bear. But, until the next time you are needed, you are content to sleep, play, and eat treat after treat. Victory is sweet.",
+      "steps": ["investigators_win", "cat_people_are_traitors"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "It's the end of all dogkind. The a-pawcalypse. A real cat-astrophe. An absolute cat-acylsm.\n\n\n\n…I'll see myself out.",
+      "steps": ["investigators_lose"]
+    }
+  ]
+}

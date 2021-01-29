@@ -3,6 +3,24 @@
   "scenario_name": "The Blob That Ate Everything",
   "full_name": "The Blob That Ate Everything",
   "xp_cost": 2,
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro_1",
+    "intro_2",
+    "gather_encounter_sets",
+    "set_aside_migo",
+    "set_aside_cards",
+    "setup_blob",
+    "setup_locations",
+    "location_layout",
+    "place_countermeasures",
+    "encounter_deck",
+    "countermeasures_rule",
+    "blob_x_rule",
+    "devour_rule",
+    "reality_acid",
+    "$play_scenario"
+  ],
   "setup": [
     "xp_cost",
     "intro_1",
@@ -12,6 +30,7 @@
     "set_aside_cards",
     "setup_blob",
     "setup_locations",
+    "location_layout",
     "place_countermeasures",
     "encounter_deck",
     "countermeasures_rule",
@@ -21,6 +40,51 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, 0, 0, 0, -1, -2, -2, -3, -4, -5, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "0", "-1", "-2", "-2", "-3", "-4", "-5", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }, {
+            "id": "hard",
+            "text": "Hard",
+            "description": "0, 0, 0, -1, -1, -2, -3, -4, -5, -6, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0", "0", "0", "-1", "-1", "-2", "-3", "-4", "-5", "-6", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "xp_cost",
       "effects": [
@@ -88,6 +152,21 @@
         {
           "text": "Each investigator begins play at the Temporary HQ."
         }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "note": "<i>Note: The positions of the Research Site, Temporary HQ, and Fungus Mound may differ from this diagram.</i>",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "85014_back", "blank", "blank"],
+        ["blank", "85014_back", "85014_back", "85014_back", "blank"],
+        ["85014_back", "85012_back", "85010_back", "85014_back", "85013_back"],
+        ["blank", "85014_back", "85011_back", "85014_back", "blank"],
+        ["blank", "blank", "85014_back", "blank", "blank"]
       ]
     },
     {

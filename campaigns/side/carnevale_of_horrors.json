@@ -3,6 +3,20 @@
   "scenario_name": "Carnevale of Horrors",
   "full_name": "Carnevale of Horrors",
   "xp_cost": 3,
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "remove_random_location",
+    "setup_locations",
+    "setup_masked_people",
+    "set_aside_cards",
+    "encounter_deck",
+    "circle_rule",
+    "counter_clockwise_rule",
+    "across_from_rule",
+    "$play_scenario"
+  ],
   "setup": [
     "xp_cost",
     "intro",
@@ -18,6 +32,51 @@
     "$play_scenario"
   ],
   "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "+1, 0, 0, 0, -1, -1, -1, -2, -3, -4, -6, [skull], [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "0", "-1", "-1", "-1", "-2", "-3", "-4", "-6", "skull", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          },{
+            "id": "hard",
+            "text": "Hard",
+            "description": "+1, 0, 0, 0, -1, -1, -3, -4, -5, -6, -7, [skull], [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1", "0", "0", "0", "-1", "-1", "-3", "-4", "-5", "-6", "-7", "skull", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "xp_cost",
       "effects": [

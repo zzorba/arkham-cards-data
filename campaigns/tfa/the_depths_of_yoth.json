@@ -2,6 +2,31 @@
   "id": "the_depths_of_yoth",
   "scenario_name": "The Depths of Yoth",
   "full_name": "Scenario VII: The Depths of Yoth",
+  "standalone_setup": [
+    "setup_standalone_bag",
+    "setup_standalone_log_1",
+    "setup_standalone_log_2",
+    "setup_standalone_log_3",
+    "explain_difficulty",
+    "choose_yigs_fury",
+    "setup_standalone_supplies",
+    "intro_1",
+    "check_forging_own_path",
+    "gather_encounter_sets",
+    "check_yigs_fury",
+    "set_aside_locations",
+    "maybe_setup_harbinger",
+    "check_agenda_6",
+    "create_exploration_deck",
+    "setup_depth",
+    "set_aside_relic",
+    "set_aside_poison",
+    "encounter_deck",
+    "standalone_unwinnable",
+    "depth_level_rule",
+    "pursuit_rule",
+    "$play_scenario"
+  ],
   "setup": [
     "intro_1",
     "check_forging_own_path",
@@ -21,7 +46,168 @@
   ],
   "steps": [
     {
+      "id": "setup_standalone_bag",
+      "text": "Assemble the chaos bag using the following tokens: +1, 0, 0, 0, -1, -2, -2, -3, -5, [skull], [skull], [cultist], [tablet], [elder_thing], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "difficulty",
+          "value": "hard"
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "+1", "0", "0", "0", "-1", "-2", "-2", "-3", "-5", "skull", "skull", "cultist", "tablet", "elder_thing", "auto_fail", "elder_sign"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "setup_standalone_log_1",
+      "text": "<i>You are not forging your own path.</i>"
+    },
+    {
+      "id": "setup_standalone_log_2",
+      "text": "<i>Ichtaca's faith is not restored.</i>"
+    },
+    {
+      "id": "setup_standalone_log_3",
+      "text": "<i>The relic is missing.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "relic_is_missing",
+          "text": "the relic is missing."
+        }
+      ]
+    },
+    {
+      "id": "explain_difficulty",
+      "text": "The investigators may choose how many tally marks are under “Yig’s Fury.” The lower the number chosen, the safer and easier the scenario will be.",
+      "bullets": [
+        {
+          "text": "For a safer and easier experience, choose 0 or 5."
+        },
+        {
+          "text": "For an average experience, choose 10 or 14."
+        },
+        {
+          "text": "For a more brutal experience, choose 17 or 20. "
+        },
+        {
+          "text": "For the ultimate challenge, choose 21 or higher."
+        }
+      ]
+    },
+    {
+      "id": "choose_yigs_fury",
+      "text": "Choose the amount of \"Yig's Fury\" to start with:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "0",
+            "text": "0",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "id": "5",
+            "text": "5",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 5
+              }
+            ]
+          },
+          {
+            "id": "10",
+            "text": "10",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "id": "14",
+            "text": "14",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 14
+              }
+            ]
+          },
+          {
+            "id": "17",
+            "text": "17",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 17
+              }
+            ]
+          },
+          {
+            "id": "20",
+            "text": "20",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 20
+              }
+            ]
+          },
+          {
+            "id": "21",
+            "text": "21+",
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "yigs_fury",
+                "operation": "set",
+                "value": 21
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_standalone_supplies",
+      "text": "<i>You have no supplies.</i>"
+    },
+    {
+      "id": "standalone_unwinnable",
+      "text": "This scenario is <b>unwinnable</b> in Standalone Mode. Your goal is to continue playing for as long as you can. Once each investigator has been defeated, the current depth level will determine how well you performed."
+    },
+    {
       "id": "intro_1",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_1",
+        "name": "Intro 1"
+      },
       "type": "story",
       "text": "Several hours after you wake, your laborious descent pays dividends. The red glow emanating from the bottom of the steps grows brighter with each step. The stone floor finally levels off, and the choking tunnel walls open to reveal a labyrinthine network of immense, far-reaching caverns. Littered throughout the caverns are the ruins of a vast city, the likes of which you have never seen. The elaborate stone architecture has been worn away by ages of abandonment, but you sense that there is a history here that runs deeper than you can even fathom. When you turn around to question Ichtaca, you notice a faint yellow glow in her eyes, her pupils narrowed and contracted. “Yoth...the last refuge of Valusia...” she quietly intones.\nJust then, a terrifying roar echoes throughout the cavern. The walls and floor shake with tremendous force, and the red glow that permeates the area brightens. A flood of hisses emerges from the tunnels all around you. Ichtaca walks to the edge of a nearby precipice and looks out over the vast depths. “He is here. I feel his presence. The Father of the Serpents...<b>Yig</b>.”"
     },
@@ -46,6 +232,10 @@
     },
     {
       "id": "intro_2",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_2",
+        "name": "Intro 2"
+      },
       "type": "story",
       "text": "You realize now that Ichtaca has her own agenda. Alejandro, as well—both have been using you for their own ends, keeping you from the truth. You raise a weapon and demand answers from her, catching her by surprise. “Yig demands the relic be brought to the Nexus,” she responds anxiously. Her eyes glow brightly, and her skin starts to scale over. Your eyes narrow, and you move to corner her against the edge of the precipice, so she cannot escape. “The relic cannot be trusted to the hands of Brotherhood: this much is true...For it is Valusia that shall be restored to glory. Yig has called, and I must answer.” Before you can react, she throws herself off the edge and into the depths below."
     },
@@ -86,11 +276,19 @@
     },
     {
       "id": "intro_3",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_3",
+        "name": "Intro 3"
+      },
       "type": "story",
       "text": "You approach Ichtaca and rest a hand on her shoulder. Your companion takes a deep breath and turns to face you. Her eyes are cast downward in shame, and they have returned to their normal color. “I...I’m sorry. I have brought you to your ruin. He called out to me, long ago, told me of my heritage, of my people. I did his bidding willingly.”\nShe clenches her fists, her gaze meeting yours. “But now I realize I was wrong. Humanity deserves its time on Earth. You may have inherited it from far more powerful forces, but it is humanity’s time, not theirs.” You don’t completely understand what she is saying, but you understand the implication. Whatever Ichtaca truly is, she is on your side. A calm silence lingers between you, an unspoken bond that joins you as one. “We must get to the Nexus and prevent the serpents from recovering the relic,” she explains after a few moments, breaking the silence. You nod in agreement."
     },
     {
       "id": "intro_4",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_4",
+        "name": "Intro 4"
+      },
       "type": "story",
       "text": "You hesitate, unsure what to do next. What are Ichtaca’s true motives? Why has she led you here? Before you have the chance to react, she draws her bow and aims an arrow at your heart. “Thank you for aiding me this far,” Ichtaca says curtly, “but the time has come for us to part ways. Yig has called, and I must answer.” Her yellow eyes narrow and shine brightly."
     },
@@ -167,11 +365,19 @@
     },
     {
       "id": "intro_5",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_5",
+        "name": "Intro 5"
+      },
       "type": "story",
       "text": "“You must leave this place at once. This is not humanity’s battle. It is ours. We cannot let you or the Brotherhood foil our plans. Not now, not when we are so close.” Her hand wavers for a moment, and her eyes flicker again. You can tell that something is tearing at her, weighing on her mind. Finally, she speaks again. “Go now. Before I change my mind. And if you wish to live, do not follow. I will not give you a second chance.” Ichtaca swiftly departs, eyes trained on you until she leaves your sight. Despite her warning, you feel that you have no choice but to follow. If you don’t, who will protect humanity?"
     },
     {
       "id": "intro_6",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_6",
+        "name": "Intro 6"
+      },
       "type": "story",
       "text": "Now drop your weapons.” The betrayal stings your chest, and you are gripped with anger and despair. Thoughts of escape flash across your mind, but you have seen her skill with a bow—with her steady aim, you would be dead before you took two steps. You have no choice but to comply. Your weapons clatter to the ground, one at a time. “Good. Now the relic: hand it to me.” Grimacing, you take a few steps forward and offer the relic to Ichtaca."
     },
@@ -199,11 +405,19 @@
     },
     {
       "id": "intro_7",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_7",
+        "name": "Intro 7"
+      },
       "type": "story",
       "text": "As Ichtaca reaches out to grab the relic, you pull out your concealed pocketknife and quickly attack, catching her by surprise. The blade cuts deeply across her forearm. Blood sprays across your chest, and she staggers with pain, gripping her arm. Her heel clips a rock near the edge of the precipice, and she tumbles over the side of the ledge, her scream growing distant as she falls. You barely have time to recover from the shock of what just happened, as another colossal roar fills the cavern, and the ground shakes. You gather your belongings and continue your descent."
     },
     {
       "id": "intro_8",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.intro_8",
+        "name": "Intro 8"
+      },
       "type": "story",
       "text": "Ichtaca grabs the relic. You can see the skin on the back of her hand growing hard and scaly. You take a few steps back, knuckles white with anger. “Go now. Before I change my mind,” she says. “And if you wish to live, do not follow. I will not give you a second chance.” Ichtaca swiftly departs, eyes trained on you until she leaves your sight. Despite her warning, you feel that you have no choice but to follow. If you don’t, who will protect humanity?"
     },
@@ -873,6 +1087,7 @@
         "section": "supplies",
         "id": "rope",
         "name": "Rope",
+        "prompt": "Use rope",
         "investigator": "choice",
         "min": 1,
         "max": 1,
@@ -894,12 +1109,20 @@
     },
     {
       "id": "R1",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.resolution_1",
+        "name": "Resolution 1"
+      },
       "title": "Resolution 1",
       "text": "After hours and hours of travel, you’ve only just scratched the surface of this boundless subterranean world. Humanity could spend centuries mapping out these tunnels and never complete the task. No matter how quickly you plumb the depths, the serpents chasing you are hot on your tail. You are intruders in their home, and they know these hellish tunnels better than you. With your wounds slowing you down and panic seeping into every one of your decisions, your death at the hands of these creatures is inevitable. Despair worms its way into your mind. When the serpents inevitably catch up to you, you are crossing one of the cavern’s many long bridges of stone that span a wide, dark chasm. Serpent creatures on both sides of the chasm flank you, spear tips corralling you against the precarious edge of the bridge. A small hunk of stone cracks at your heel and detaches, falling into the inky void below. You do not hear it strike the floor of the chasm. There is no hope to escape or flee this time—you have no choice but to accept your fate. The spear tips press you closer to the edge. You close your eyes and fall.",
       "steps": ["fell_into_depths", "record_final_depth", "check_final_depth", "check_harbinger", "record_yigs_fury", "earn_xp", "check_investigators_poisoned"]
     },
     {
       "id": "R2",
+      "narration": {
+        "id": "the_forgotten_age.the_depths_of_yoth.resolution_2",
+        "name": "Resolution 2"
+      },
       "title": "Resolution 2",
       "text": "Somehow, despite the odds stacked against you, you’ve reached your destination. The telltale red glow that has enveloped you since you entered Yoth recedes, replaced with an unpierceable inky darkness. The Nexus must be close... You can feel it.",
       "steps": ["nexus_is_near", "check_harbinger", "record_yigs_fury", "earn_xp_full_depth", "check_investigators_poisoned"]
