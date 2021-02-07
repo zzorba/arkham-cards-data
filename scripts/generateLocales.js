@@ -135,6 +135,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'fr',
     'Plural-Forms': 'nplurals=2; plural=(n > 1);',
   },
+  pt: {
+    'Language': 'pt',
+    'Plural-Forms': 'nplurals=2; plural=(n > 1);',
+  },
   es: {
     'Language': 'es',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
