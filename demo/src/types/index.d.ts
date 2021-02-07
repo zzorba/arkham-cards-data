@@ -600,7 +600,7 @@ export interface UseSuppliesAllInput {
 export interface InvestigatorChoiceInput {
   type: "investigator_choice";
   source: "campaign" | "scenario";
-  investigator: "all" | "choice" | "any";
+  investigator: "all" | "choice" | "any" | "resigned";
   special_mode?: "detailed" | "sequential";
   choices: InvestigatorConditionalChoice[];
 }
@@ -862,6 +862,7 @@ export interface Scenario {
   id: string;
   scenario_name: string;
   full_name: string;
+  icon?: string;
   xp_cost?: number;
   side_scenario_type?: "challenge" | "standalone";
   challenge?: ChallengeData;
