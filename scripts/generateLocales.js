@@ -147,6 +147,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'de',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
   },
+  ko: {
+    'Language': 'ko',
+    'Plural-Forms': 'nplurals=1; plural=0;',
+  },
   it: {
     'Language': 'it',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
