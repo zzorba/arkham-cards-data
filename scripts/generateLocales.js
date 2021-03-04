@@ -135,6 +135,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'fr',
     'Plural-Forms': 'nplurals=2; plural=(n > 1);',
   },
+  pt: {
+    'Language': 'pt',
+    'Plural-Forms': 'nplurals=2; plural=(n > 1);',
+  },
   es: {
     'Language': 'es',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
@@ -143,6 +147,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'de',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
   },
+  ko: {
+    'Language': 'ko',
+    'Plural-Forms': 'nplurals=1; plural=0;',
+  },
   it: {
     'Language': 'it',
     'Plural-Forms': 'nplurals=2; plural=(n != 1);',
@@ -150,6 +158,10 @@ const SETTINGS_FOR_LANGUAGE = {
   ru: {
     'Language': 'ru',
     'Plural-Forms': 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
+  },
+  zh: {
+    'Language': 'zh',
+    'Plural-Forms': 'nplurals=1; plural=0;',
   },
   pl: {
     'Language': 'pl',
