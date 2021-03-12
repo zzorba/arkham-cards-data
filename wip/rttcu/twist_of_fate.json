@@ -1,0 +1,153 @@
+{
+  "id": "twist_of_fate",
+  "original_id": "twist_of_fate",
+  "setup": [
+    "tof_1",
+    "path_winds_before_you",
+    "check_accept_fate",
+    "check_asked_anette_for_assistance",
+    "check_asked_sanford_for_assistance",
+    "check_mementos",
+    "check_black_book",
+    "check_doom_draws_ever_closer",
+    "check_arrested_anette",
+    "check_anette_taught_you_the_spells_of_old",
+    "check_arrested_sanford",
+    "check_assumed_control_of_the_silver_twilight_lodge",
+    "tof_2",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "check_arrested_anette",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "arrested_anette",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_skull"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_skull",
+      "text": "Streiche 1 Zählstrich durch. Entferne 1 [skull] ­Marker aus dem Chaosbeutel.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "path_winds_before_you",
+          "operation": "add",
+          "value": -1
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["skull"]
+        }
+      ]
+    },
+    {
+      "id": "check_anette_taught_you_the_spells_of_old",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "anette_taught_you_the_spells_of_old",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_trade_weakness_for_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_trade_weakness_for_xp",
+      "text": "Each investigator may search the collection for a basic weakness of his choice with the trait [[Pact]], [[Curse]], [Silver Twilight]] and add it to their deck. Each investigator who does this earns 4 additional experience points that can only be spent on acquiring or upgrading cards with the [[Spell]], [[Ritual]], [[Wizard]], or [[Witch]] trait. <i>(Note: the app will not enforce the what the XP is spent on.)</i>",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "accept_magic",
+            "text": "Accept the trade",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": ["Pact", "Curse", "Silver Twilight"]
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 4
+              }
+            ]
+          }
+        ]
+      }
+    },{
+      "id": "check_arrested_sanford",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "arrested_sanford",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_neg_one_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_neg_one_token",
+      "text": "Cross out 1 count. Add a \"-1\" marker to the chaos bag.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "path_winds_before_you",
+          "operation": "add",
+          "value": -1
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-1"]
+        }
+      ]
+    },
+    {
+      "id": "check_assumed_control_of_the_silver_twilight_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "assumed_control_of_the_silver_twilight_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["add_cultist_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_cultist_tokens",
+      "text": "Add 2 [cultist] tokens to the chaos bag. Each investigator begins the next scenario with 2 additional resources and 2 additional cards on their starting hand.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist", "cultist"]
+        }
+      ]
+    }
+  ]
+}
