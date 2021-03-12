@@ -1,0 +1,99 @@
+{
+  "id": "return_to_the_wages_of_sin",
+  "original_id": "the_wages_of_sin",
+  "scenario_name": "Return to The Wages of Sin",
+  "full_name": "Scenario IV: Return to The Wages of Sin",
+  "steps": [
+    {
+      "id": "1_heretic_released",
+      "text": "blah blah blah",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "heretics_released",
+          "operation": "set",
+          "value": 1,
+          "text": "#X# heretics were unleashed unto Arkham."
+        }
+      ]
+    },
+    {
+      "id": "earned_bloody_scraps",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "bloody_scraps",
+          "text": "Bloody Scraps"
+        }
+      ]
+    },
+    {
+      "id": "earn_erynn",
+      "text": "In your Campaign Log, record that <i>Erynn has joined the investigators</i>. Any one investigator may choose to add Erynn MacAoidh to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "erynn_joined_investigators",
+          "text": "Erynn has joined the investigators."
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "????"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution\n(each investigator defeated)",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_2"]
+    },
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution\n(at least one investigator resigned)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "narration": {
+        "id": "the_circle_undone.the_wages_of_sin.resolution_1",
+        "name": "Resolution 1"
+      },
+      "text": "Rays of faded sunlight stream through the haze, and the unnatural mist finally recedes. As it does, Hangman’s Hill returns to its original state. No other spiteful ghosts emerge to haunt you, and the witches who summoned them have retreated into the shadows once more. You hope that you have done enough to prevent the rest of Arkham to succumbing to this horror.",
+      "steps": ["maybe_corn_husk_doll", "record_heretics_released", "check_earned_wisp", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R2",
+      "narration": {
+        "id": "the_circle_undone.the_wages_of_sin.resolution_2",
+        "name": "Resolution 2"
+      },
+      "title": "Resolution 2",
+      "text": "Resigned to your fate, you fall to your knees. The mist parts. Time slows to a crawl as the watcher emerges. Its spectral form glides along the ground, approaching with the slow surety of a ticking clock. You close your eyes, unwilling to look upon your killer. Your fingers dig into your palm, and you brace yourself.\nThe moment passes.\nWhen you open your eyes again, the creature is gone, along with the spectral mist.\n…Have you been spared?",
+      "steps": ["survived_the_watchers_embrace", "record_heretics_released", "check_earned_wisp", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 2",
+      "text": "blah blah blah",
+      "steps": ["1_heretic_released", "earned_bloody_scraps", "earn_erynn", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}
