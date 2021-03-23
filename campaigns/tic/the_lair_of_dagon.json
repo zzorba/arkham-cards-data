@@ -420,6 +420,18 @@
       ]
     },
     {
+      "id": "dagon_has_awakened_small",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dagon_has_awakened",
+          "text": "Dagon has awakened."
+        }
+      ]
+    },
+    {
       "id": "resolution_1",
       "type": "resolution",
       "resolution": "R1"
@@ -551,6 +563,85 @@
       "id": "keys_rule",
       "title": "Keys",
       "text": "During this scenario, each colored key represents a different object. You can use the \"Keys\" option below to reveal their narrative role as they enter play."
+    },
+    {
+      "id": "maybe_ask_act_or_agenda",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["ask_act_or_agenda"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_act_or_agenda",
+      "text": "Did you reach R1 by advancing Act 3b or Agenda 3b?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act",
+            "text": "Act 3b",
+            "steps": ["orders_ritual_was_disrupted", "ask_dagon_asleep"]
+          },
+          {
+            "id": "agenda",
+            "text": "Agenda 3b",
+            "steps": ["dagon_has_awakened_small"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orders_ritual_was_disrupted",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "orders_ritual_was_disrupted",
+          "text": "the Order's ritual was disrupted."
+        }
+      ]
+    },
+    {
+      "id": "dagon_still_slumbers",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dagon_still_slumbers",
+          "text": "Dagon still slumbers."
+        }
+      ]
+    },
+    {
+      "id": "ask_dagon_asleep",
+      "text": "Which version of Dagon was in play (or in the victory display)?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "sleep",
+            "text": "Dagon <i>(Deep in Slumber)</i> is in play.",
+            "steps": ["dagon_still_slumbers"]
+          },
+          {
+            "id": "awake",
+            "text": "Dagon <i>(Awakened and Enraged)</i> is in play or in the victory display.",
+            "steps": ["dagon_has_awakened_small"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -576,8 +667,12 @@
         "physical",
         "mental"
       ],
-      "text": "You're somewhere else now, lying on your stomach on cold, damp stone. Your arms are held tight behind your back. You have no idea how you got here. As consciousness returns, your vision comes into focus. You crane your neck up to view your surroundings, but it's too dark to see anything inside your stone cell.\n\"I'll ask you one last time. Who sent you here?\" a voice asks. It is deep and husky, like the croaking of a frog.\nYou hear the familiar, cool baritone of Agent Dawson reply: \"Your breath smells awful. Ever heard of brushing your teeth?\" Despite the sarcasm dripping from his words, his voice wavers ever so slightly.\n\"Your mockery only masks the fear that hides within,\" the voice replies. \"Very well. If you are of no use to us, you will be the first to be sacrificed.\"\nYour vision continues to adjust. You can just barely make out Dawson's silhouette on the other side of the cell. He is kneeling before a metal hatch in the stone floor. An elderly robed figure presses a curved knife against Dawson's throat. Someone lifts the hatch, and Dawson's eyes go wide. He gives you one last despairing look, shakes his head slowly and deliberately, and quietly slides something across the stone floor. Then the hooded figure pushes him in. In the scuffle and the low light, nobody notices the car key that skitters to a halt directly next to you.\nYou grab the key and stuff it into your pocket just before you are shoved forward. Two more sets of cold, clammy hands grap your shoulders, and the hooded figure slides his knife up to your neck. All you can see of his face are his wide, unblinking eyes.\n\"Oceiros, these ones were found in Dagon's lair as well,\" another voice explains to the elderly figure in the robes. \"We believe they were the ones snooping around Devil Reef.\"\nThe man with the knife to your throat nods. \"Your turn,\" he declares. \"Tell us why you have come and perhaps we will let you go. Who sent you? What have you seen?\"",
-      "steps": ["earn_xp", "maybe_ask_suspect_defeated", "ask_oceiros"]
+      "text": "You're somewhere else now, lying on your stomach on cold, damp stone. Your arms are held tight behind your back. You have no idea how you got here. As consciousness returns, your vision comes into focus. You crane your neck up to view your surroundings, but it's too dark to see anything inside your stone cell.\n\"I'll ask you one last time. Who sent you here?\" a voice asks. It is deep and husky, like the croaking of a frog.\nYou hear the familiar, cool baritone of Agent Dawson reply: \"Your breath smells awful. Ever heard of brushing your teeth?\" Despite the sarcasm dripping from his words, his voice wavers ever so slightly.\n\"Your mockery only masks the fear that hides within,\" the voice replies. \"Very well. If you are of no use to us, you will be the first to be sacrificed.\"\nYour vision continues to adjust. You can just barely make out Dawson's silhouette on the other side of the cell. He is kneeling before a metal hatch in the stone floor. An elderly robed figure presses a curved knife against Dawson's throat. Someone lifts the hatch, and Dawson's eyes go wide. He gives you one last despairing look, shakes his head slowly and deliberately, and quietly slides something across the stone floor. Then the hooded figure pushes him in. In the scuffle and the low light, nobody notices the car key that skitters to a halt directly next to you.\nYou grab the key and stuff it into your pocket just before you are shoved forward. Two more sets of cold, clammy hands grap your shoulders, and the hooded figure slides his knife up to your neck. All you can see of his face are his wide, unblinking eyes.\n\"Oceiros, these ones were found in Lair of Dagon as well,\" another voice explains to the elderly figure in the robes. \"We believe they were the ones snooping around Devil Reef.\"\nThe man with the knife to your throat nods. \"Your turn,\" he declares. \"Tell us why you have come and perhaps we will let you go. Who sent you? What have you seen?\"",
+      "steps": [
+        "maybe_ask_act_or_agenda",
+        "earn_xp",
+        "maybe_ask_suspect_defeated",
+        "ask_oceiros"]
     },
     {
       "id": "R2",
