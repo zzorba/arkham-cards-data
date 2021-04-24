@@ -3,6 +3,7 @@
   "scenario_name": "The Pit of Despair",
   "full_name": "Scenario I: The Pit of Despair",
   "header": "Scenario I",
+  "chaos_bag_card": "07041",
   "setup": [
     "intro",
     "gather_encounter_sets",
@@ -435,6 +436,31 @@
           "tokens": ["elder_thing"]
         }
       ]
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "special_xp": "unspect_xp"
+      }
+    },
+    {
+      "id": "maybe_upgrade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$upgrade_decks"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -451,7 +477,7 @@
         "mental"
       ],
       "text": "You sputter and cough up an entire lungful of dirty water and sand. Cold, dark seawater laps at your skin as you spit the last of the bitter salt taste back into the rolling tide.\nA pair of warm hands shoves you onto your back and pulls you up into a sitting position. \"Thank goodness you're alive,\" someone says. Even through the strained voice, you can hear a rhythmic Indian accent and the unwavering confidence of a trained professional. As your eyes adjust, they take in a sky of dark crimson, the full moon hanging just below the blackened sun. \"We have no time to spare. Come on: get up.\"\nYou wipe stinging salt water from your eyes, your strength returning slowly. Your savior is a woman with long, raven-black hair. Her tattered trench coat has seen better days, and bruises splash across her dirt-covered skin. \"You seem confused. What are you looking at me like that?\" the stranger asks.",
-      "steps": ["earn_xp"]
+      "steps": ["earn_xp", "maybe_upgrade_decks"]
     },
     {
       "id": "R1",
@@ -467,7 +493,7 @@
       ],
       "title": "Resolution 1",
       "text": "In the distance, the sky is a dark crimson, and the full moon hangs just below the blackened sun. You are about to close your eyes and surrender to unconsciousness when a stranger's voice startles you back to your feet. \"Oh! You are alive?\" Even through her strained voice, you can hear a rhythmic Indian accent and the unwavering confidence of a trained professional. Standing in front of you is a woman with long, raven-black hair. Her tattered trench coat has seen better days, and bruises splash across her dirt-covered skin. \"You seem confused. Why are you looking at me like that?\" the stranger asks.",
-      "steps": ["earn_xp"]
+      "steps": ["earn_xp", "maybe_upgrade_decks"]
     }
   ]
 }
