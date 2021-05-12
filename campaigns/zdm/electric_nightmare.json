@@ -1,0 +1,506 @@
+{
+  "id": "electric_nightmare",
+  "scenario_name": "Electric Nightmare",
+  "full_name": "Scenario II: Electrict Nightmare",
+  "header": "Scenario II",
+  "setup": [
+    "intro",
+    "check_memories",
+    "check_memories_weakness",
+    "gather_encounter_sets",
+    "gather_boogeyman",
+    "random_act_1",
+    "set_aside_locations",
+    "setup_locations",
+    "attach_maja",
+    "set_aside_cards",
+    "check_cybervirus",
+    "encounter_deck",
+    "locations_in_the_virtual_dreamlands_rule",
+    "switching_locations_rule",
+    "swarming_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You struggle to follow the pace of the little girl as she skips and hops towards the small town. \"My name is Maja. My directive is to store and manage the information archives on the ship.\" She hastily explains that a few of her classmates and her were kidnapped from their school by the 'bad people' on January 16th, 2045. Their brains were surgically removed and preserved in a special experimental machine that eventually became the powerful supercomputer operating the Tatterdemalion, K2-PS187.\nAs you walk through the town, it becomes clear that something horrible has happened here. Everything appears to be in disarray, as if a riot has recently passed through. Freshly-painted yellow graffiti depicting strange symbols and hieroglyphs can be seen. Everywhere are splatters of blood, spent shell casings, and pale face masks. There are no bodies, but you can hear the sound of distant screams, gunshots, and sirens coming from beyond the streets. Nearby is an overturned police car and a black box truck lying on its side. Huge claw marks have torn into the metal of the truck and its rear doors hang open. As you walk past, a radio from within crackles and sputters, then blares, “Hello, Unit 12? Unit 12, is that you? Please respond.\" Maja clarifies that this virtual environment that represents K2-PS187's dreams takes the form of the day they got captured, the day the entire world ended. What could possibly have happened on Earth in the distant future? Or rather, the distant past?\nYou finally arrive outside of a large brick building. Maja halts and gestures towards it. \"This is where my friends are hiding. The bad people made us translate a scary story and make a movie for them. We didn't want to read it, but they made us. A few days later, Annie, the universal translator, she -- she --\" Maja struggles to utter the words. There is a desperate fear in her eyes. \"You won't believe me, but I swear, it was the Boogeyman! I saw the Boogeyman eat her! I ran away and searched the archives to see if anything, anyone could help. After a long time, I finally found someone and called out to them. That's when you woke up! Now that you're inside our system, you can save us!\"\nBefore you is a path leading to a pair of double doors, above which are the words “Public School 187.” Underneath, someone has written “HASTUR RISES!” in yellow spray paint. An inhuman howl echoes through the halls inside the school, followed by children screaming in terror."
+    },
+    {
+      "id": "check_memories",
+      "text": "Check Campaign Log. Each investigator with 3 or fewer \"Memories\" must read <b>Desynchronization</b>.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_investigator_count",
+        "section": "memories",
+        "investigator": "any",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["desync_story", "desync_effect"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["desync_story", "desync_effect"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["desync_story", "desync_effect"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["desync_story", "desync_effect"]
+          }
+        ],
+        "defaultOption": {}
+      }
+    },
+    {
+      "id": "desync_story",
+      "type": "story",
+      "text": "An overturned schoolbus gathers dust on the school grounds. As you examine the vandalized windows, you notice a glimpse of your own reflection. However, you no longer recognize the person looking back at you. The frame, the distinct facial features, they all seem so familiar to you, yet you know this is not your body. You stare into the glass in disbelief. The face of your reflection morphs into a blank, pale mask with no mouth, nose or eyes. The virtual reality no longer recognizes your residual self image anymore -- the mental projection of your digital self has decayed into nothingness."
+    },
+    {
+      "id": "desync_effect",
+      "text": "You must add the Desync weakness to your deck. This card does not count towards your deck limit."
+    },
+    {
+      "id": "check_memories_weakness",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_investigator_count",
+        "section": "memories",
+        "investigator": "all",
+        "options": [
+          {
+            "numCondition": 0,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zdm_desync"
+              }
+            ]
+          },
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zdm_desync"
+              }
+            ]
+          },
+          {
+            "numCondition": 2,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zdm_desync"
+              }
+            ]
+          },
+          {
+            "numCondition": 3,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zdm_desync"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "electric_nightmare",
+        "endtimes",
+        "dark_past"
+      ]
+    },
+    {
+      "id": "gather_boogeyman",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "the_boogeyman"
+      ]
+    },
+    {
+      "id": "random_act_1",
+      "text": "Randomly select one version of act 1 (Public School 187) to put into play. Remove the other two versions from the game."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set each copy of Undefined Room locations aside, out of play, as well as the Entrance Hall (A Shimmer in the Wall)."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the School Grounds location into play. Each investigator begins play at the School Grounds."
+    },
+    {
+      "id": "attach_maja",
+      "text": "Attach the Maja story asset to School Grounds."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following story assets aside, out of play: Alma, David, Tilde, William, and each copy of K2-PS187."
+    },
+    {
+      "id": "check_cybervirus",
+      "type": "branch",
+      "text": "Check your Campaign Log. If an investigator <i>has been infected by the cybervirus></i>:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "infected_by_cybervirus",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_cybervirus"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "start_with_cybervirus",
+      "bullet_type": "small",
+      "text": "That investigator must search the collection for Cybervirus and begin the scenario with it in their hand."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "locations_in_the_virtual_dreamlands_rule",
+      "type": "rule_reminder",
+      "title": "Locations in the Virtual Dreamlands",
+      "text": "During this scenario, locations will be arranged in schematics, depicted by their icons. Locations are adjacent orthogonally (left, right, above, and below), and are not adjacent diagonally. <b>Adjacent locations are considered to be connected to one another.</b>"
+    },
+    {
+      "id": "switching_locations_rule",
+      "type": "rule_reminder",
+      "title": "Switching Locations",
+      "text": "Throughout this scenario, you may be instructed to switch two locations with each other. When a location is switched with another location, they take each other's place in the arrangement. All tokens, attachments, investigators, enemies, and other cards at each location remain on the same location (they have “moved” with the location -- only the arrangement and connections have changed.)\n<i>For example, if Wendy Adams is currently in the School Grounds and is instructed to switch her location with the Entrance Hall, which is directly above the School Grounds, the positions of the two locations will be switched. After switching these two locations with each other, Wendy Adams remains in the School Grounds, which is now directly above the Entrance Hall.</i>"
+    },
+    {
+      "id": "swarming_rule",
+      "type": "rule_reminder",
+      "title": "Swarming X",
+      "text": "An enemy with the swarming X keyword is actually a pack of enemies operating in unison. After you put an enemy with the swarming X keyword into play, place the top X cards of your deck facedown underneath the enemy as swarm cards, without looking at them. The enemy they are underneath is called the “host enemy.” Some scenario card effects may also instruct a player to add swarm cards to an enemy. This is done using the same process.",
+      "bullets": [
+        {
+          "text": "If it is ever unclear which investigator should add swarm cards, the lead investigator does so."
+        },
+        {
+          "text": "Each swarm card underneath the host enemy acts as a separate instance of that enemy for most purposes. Each swarm card has the same values and text as its host card. <i>(For example, if an investigator is engaged with a host enemy with 2 swarm cards underneath it, that investigator is engaged with 3 enemies in total.)</i>"
+        },
+        {
+          "text": "Each swarm card attacks separately when enemies attack during the enemy phase. Once the host enemy and all of its swarm cards have attacked during this step, exhaust all of them."
+        },
+        {
+          "text": "Each swarm card can be attacked or dealt damage separately, but the host enemy cannot be defeated while it still has swarm cards underneath it. When a swarm card is defeated, any excess damage may be dealt to another swarm card underneath the same host enemy or to the host enemy itself. <i>(For example, Tony Morgan uses a .41 Derringer to attack a Stealthy Zoog with 2 swarm cards. The attack deals 2 damage. The first point of damage defeats 1 of the 2 swarm cards, so the excess point of damage may be dealt to another swarm card, defeating it as well.)</i>"
+        },
+        {
+          "text": "Anytime a swarm card leaves play, place it on the bottom of its owner’s deck. If you are unsure of the owner of the swarm card, you may look at it to determine its owner."
+        },
+        {
+          "text": "The host enemy and all of its swarm cards move, engage, and exhaust as a single entity. (For example, if a host enemy or any of its swarm cards are evaded, all of them exhaust and become disengaged.)"
+        }]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mayber_ask_reintegrated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "en_asked_reintegrated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ask_reintegrated"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_reintegrated",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "How many Reintegrated story cards are in the victory display?",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "en_asked_reintegrated",
+            "text": "dummy"
+          },
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "en_reintegrated",
+            "operation": "set_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "trapped_in_a_virtual_nightmare",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "trapped_in_a_virtual_nightmare",
+          "text": "you are trapped in a virtual nightmare."
+        }
+      ]
+    },
+    {
+      "id": "partially_restored_the_sanity_of_k2ps187",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "partially_restored_the_sanity_of_k2ps187",
+          "text": "you partially restored the sanity of K2-PS187."
+        }
+      ]
+    },
+    {
+      "id": "fully_restored_the_sanity_of_k2ps187",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fully_restored_the_sanity_of_k2ps187",
+          "text": "you fully restored the sanity of K2-PS187."
+        }
+      ]
+    },
+    {
+      "id": "check_reintegrated_resolution",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "en_reintegrated",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["go_resolution_1", "resolution_1"]
+          }
+        ],
+        "defaultOption": {
+          "steps": ["go_resolution_2", "resolution_2"]
+        }
+      }
+    },
+    {
+      "id": "go_resolution_1",
+      "text": "Because there are no Reintegrated story cards in the Victory Display, proceed to <b>Resolution 1</b>."
+    },
+    {
+      "id": "go_resolution_2",
+      "text": "Because there are one or more Reintegrated story cards in the Victory Display, proceed to <b>Resolution 2</b>."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "insane": true,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "dm_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "check_integrated_k2ps187",
+      "text": "Check the number of Reintegrated story cards in the victory display:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "en_reintegrated",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["earn_k2ps187_25"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["earn_k2ps187_50"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["earn_k2ps187_75"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_k2ps187_25",
+      "bullet_type": "small",
+      "text": "Because there is exactly 1: An investigator may choose to add the K2-PS187 (25% Functionality) permanent story asset to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_k2ps187_25"
+        }
+      ]
+    },
+    {
+      "id": "earn_k2ps187_50",
+      "bullet_type": "small",
+      "text": "Because there are exactly 2: An investigator may choose to add the K2-PS187 (50% Functionality) permanent story asset to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_k2ps187_50"
+        }
+      ]
+    },
+    {
+      "id": "earn_k2ps187_75",
+      "bullet_type": "small",
+      "text": "Because there are exactly 3: An investigator may choose to add the K2-PS187 (75% Functionality) permanent story asset to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_k2ps187_75"
+        }
+      ]
+    },
+    {
+      "id": "earn_k2ps187_100",
+      "text": "An investigator may choose to add the K2-PS187 (100% Functionality) permanent story asset to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_k2ps187_75"
+        }
+      ]
+    },
+    {
+      "id": "ask_reminiscence",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_tablet",
+            "text": "Was at least 1 copy of the Reminiscence treachery in the victory display?",
+            "steps": ["add_tablet_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_tablet_token",
+      "bullet_type": "small",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "counter": "memories"
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["ask_reintegrated", "check_reintegrated_resolution"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "A roar of applause startles you awake. The crowd of the theatre rises to their feet, cheering endlessly. Several patrons in the front row are throwing roses to the actors on stage, who are bowing with wide smiles across their faces. A searing headache crawls through your temples. How did you get back here? Were you in the theatre all along? What about the spaceship? The virtual reality? Was it all just a terrible dream? Before you can get up and exit the auditorium, the lights flicker off. A spotlight shines onto the stage, illuminating a single actor, dressed up as a clown. Something must have gone wrong inside the simulation. You are no longer inside of K2-PS187's nightmare, but your own. Without outside interference, your body will likely be drifting in endless space forever, as your mind slowly decays in this rotten reproduction of reality. The stranger begins laughing. A horrible, ear-piercing laugh.",
+      "steps": ["trapped_in_a_virtual_nightmare", "all_insane", "lose_campaign"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You wake up inside of a virtual classroom, surrounded by the children you rescued. The children themselves, who at first appeared dirty and disheveled, now appear clean and neat in school uniforms. They contained the insanity of the remaining children by creating a new pocket reality, disconnected from the system mainframe. The survivors mourn the loss of their friends, but are glad that there is no more Boogeyman to scare them and that there are no more bad people to tell them what to do. The virtual dreamscape is no longer a nightmarish hell it used to be.",
+      "steps": ["partially_restored_the_sanity_of_k2ps187", "mayber_ask_reintegrated", "check_integrated_k2ps187", "ask_reminiscence", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Outside, the sun comes out and it appears to be a beautiful spring day. Inside, the halls are clean and orderly, with brightly painted pictures on the walls. The children themselves, who at first appeared dirty and disheveled, now appear clean and neat in school uniforms. They are overjoyed that the Boogeyman and all the bad people are finally gone. They understand that they can never return home and that their families are long dead. But that does not diminish their happiness that there is no more Boogeyman to scare them and that they have a real teacher to take care of them again. The virtual dreamscape is now filled with happy, loving children.",
+      "steps": ["fully_restored_the_sanity_of_k2ps187", "earn_k2ps187_100", "ask_reminiscence", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}

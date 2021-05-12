@@ -1,0 +1,181 @@
+{
+  "id": "wilds",
+  "scenario_name": "The Tatterdemalion",
+  "full_name": "Scenario I: The Tatterdemalion",
+  "header": "Scenario I",
+  "chaos_bag_card": "04043",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_ai",
+    "set_aside_cards",
+    "create_scanning_deck",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You awaken, entombed in ice. Your skin, your organs, even your bones are cold. You can't move and it's hard to form coherent thoughts… A tingle of warmth slowly spreads through your veins…\nWhen your eyelids finally thaw, all you see is a large pane of frosted glass. What is going on? Where are you? One moment, you were in the Ward Theatre, watching the tedious theatre performance, and the next, in a cryosleep chamber.\nCryosleep… Despite having never heard the word before, you instinctively know what this procedure must be. Your mind may not recollect, but your body has been through this cycle of freezing and thawing many times. The thought of being familiar with something so foreign to you disturbs you to the core.\nWhen the warmth eventually reaches your fingers, the glass window slides open and releases you into a dark, metallic room. The control panel next to your tomb delivers its computerized announcement: \"Welcome back aboard the Tatterdemalion. The current star date is April 4, 2147.\" You look out the nearest window, only to witness a black canvas of infinite stars and a colossal cerulean sphere -- the planet Neptune. The thought of drifting through the infinite expanse of space does not frighten you, for you have lived your entire life in space -- not in your past life in Arkham, but in the person you embody now. As you begin wondering how much stranger this dream of yours can become, a loud blaring alarm echoes through the vacant ship…"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_tatterdemalion",
+        "anachronism",
+        "dark_past"
+      ]
+    },
+    {
+      "id": "set_aside_ai",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "artificial_intelligence"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set aside the Virtual Access Key story asset, out of play."
+    },
+    {
+      "id": "create_scanning_deck",
+      "text": "Create the scanning deck. This is done by taking all the encounter cards with icons at the bottom of their back side and shuffling them together."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all remaining locations into play. Each investigator begins play at the Cryosleep Quarters."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "transported_to_the_virtual_dreamlands_by_maja",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "transported_to_the_virtual_dreamlands_by_maja",
+          "text": "you were transported to the Virtual Dreamlands by Maja."
+        }
+      ]
+    },
+    {
+      "id": "entered_the_virtual_dreamlands_by_your_own_means",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "entered_the_virtual_dreamlands_by_your_own_means",
+          "text": "you entered the Virtual Dreamlands by your own means."
+        }
+      ]
+    },
+    {
+      "id": "ask_cybervirus",
+      "text": "Did an investigator resign or get defeated with Cybervirus in their hand?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "has_cybervirus",
+            "text": "Infected with Cybervirus",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "infected_by_cybervirus",
+                "cards": "$input_value",
+                "masculine_text": "#name# has been infected by the cybervirus.",
+                "feminine_text": "#name# has been infected by the cybervirus."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_reminiscence",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_tablet",
+            "text": "Was at least 1 copy of the Reminiscence treachery in the victory display?",
+            "steps": ["add_tablet_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_tablet_token",
+      "bullet_type": "small",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "counter": "memories"
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Once again you are startled awake, this time by the small, cold hands of a young girl. \"It worked! You're here! Please, follow me quickly.\" You are surprised to find yourself standing in a field of grass. The sky is black and seething, the sun unable to penetrate the dark, rolling storm clouds… You are no longer on the Tatterdemalion, but you don't recognize this place either. Metallic cylinders with red, pulsating lights stand tall in the distance, looming above a small town. Behind you is a large obsidian door.\nYou ask the little girl about your whereabouts. \"You are in a simulated dream. In fact, you are in <b>my</b> dream. Now follow me quickly before the monster eats my friends.\"",
+      "steps": ["transported_to_the_virtual_dreamlands_by_maja", "ask_cybervirus", "ask_reminiscence", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You find yourself standing in a field of grass. You are no longer on the Tatterdemalion, but you don't recognize this place either.  The sky is black and seething, the sun unable to penetrate the dark, rolling storm clouds. Metallic cylinders with red, pulsating lights stand tall in the distance, looming above a small town.\nThis system’s pocket dream reality is like nothing you have ever experienced. The colors, textures, sounds, and scents are startlingly realistic. Behind you is a large obsidian door, a virtual gateway to represent your arrival.\nYou are surprised to see a little girl walking towards you. \"You got here just in time! Please, follow me quickly before the monster eats my friends.\"",
+      "steps": ["entered_the_virtual_dreamlands_by_your_own_means", "ask_cybervirus", "ask_reminiscence", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}
