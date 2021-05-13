@@ -147,6 +147,522 @@
       "id": "resolution_2",
       "type": "resolution",
       "resolution": "R2"
+    },
+    {
+      "id": "adjust_impending_doom",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Impending Doom to remove:",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "impending_doom",
+            "operation": "subtract_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_impending_doom",
+            "text": "Adjust \"Impending Doom\"",
+            "steps": ["adjust_impending_doom"]
+          },
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          },
+          {
+            "id": "add_cards",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zdm_00217",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Add cards to deck",
+            "steps": ["add_bottle_of_whispers"]
+          },
+          {
+            "id": "adjust_chaos_bag",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "zdm_foc_chaos_bag",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust chaos bag",
+            "steps": ["remove_chaos_token"]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "know_of_abjuration_of_the_throne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "know_of_abjuration_of_the_throne",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You know of the Abjuration of the Throne.",
+            "steps": ["know_of_abjuration_of_the_throne"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_chaos_token",
+      "type": "input",
+      "text": "Choose which chaos token to remove from the bag?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "+1",
+            "text": "+1",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["+1"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "+1",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                }
+              ]
+            }
+          },
+          {
+            "id": "0",
+            "text": "0",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["0"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "0",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "-1",
+            "text": "-1",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-1"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-1",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                }
+              ]
+            }
+          },
+          {
+            "id": "-2",
+            "text": "-2",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-2"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-2",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "-3",
+            "text": "-3",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-3"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-3",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                }
+              ]
+            }
+          },
+          {
+            "id": "-4",
+            "text": "-4",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-4"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-4",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-5",
+            "text": "-5",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-5"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-5",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-6",
+            "text": "-6",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-6"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-6",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "-7",
+            "text": "-7",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-7"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-7",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "-8",
+            "text": "-8",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-8"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-8",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "skull",
+            "text": "[skull]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["skull"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "skull",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["cultist"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "cultist",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "tablet",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["elder_thing"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "elder_thing",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "elder_sign",
+            "text": "[elder_sign]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["elder_sign"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "elder_sign",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_bottle_of_whispers",
+      "text": "Choose the investigator who was instructed to add Bottle of Whispers to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_00217"
+        }
+      ]
+    },
+    {
+      "id": "know_of_abjuration_of_the_throne",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "know_of_abjuration_of_the_throne",
+          "text": "you know of the Abjuration of the Throne."
+        }
+      ]
     }
   ],
   "resolutions": [

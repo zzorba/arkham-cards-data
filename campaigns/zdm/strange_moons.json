@@ -423,6 +423,72 @@
           "value": 1
         }
       ]
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          },
+          {
+            "id": "mark_impending_doom",
+            "text": "Mark 1 \"Impending Doom\"",
+            "steps": ["add_1_impending_doom"]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "have_witnessed_",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_witnessed_the_unconscious_pandemonium",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You have witnessed the unconscious pandemonium.",
+            "steps": ["have_witnessed_the_unconscious_pandemonium"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "have_witnessed_the_unconscious_pandemonium",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_witnessed_the_unconscious_pandemonium",
+          "text": "you have witnessed the unconscious pandemonium."
+        }
+      ]
     }
   ],
   "resolutions": [

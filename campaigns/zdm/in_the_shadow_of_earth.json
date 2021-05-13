@@ -242,7 +242,7 @@
         {
           "type": "add_card",
           "investigator": "choice",
-          "card": "zdm_space_artillery"
+          "card": "zdm_00121"
         }
       ]
     },
@@ -277,7 +277,6 @@
         ]
       }
     },
-
     {
       "id": "add_win_impending_doom",
       "bullet_type": "small",
@@ -413,6 +412,125 @@
       "id": "resolution_1",
       "type": "resolution",
       "resolution": "R1"
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "has_been_corrupted_by_the_earth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "has_been_corrupted_by_the_earth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You have been corrupted by the Earth.",
+            "steps": ["has_been_corrupted_by_the_earth"]
+          },
+          {
+            "id": "witnesed_the_manifested_madness",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "witnesed_the_manifested_madness",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "you witnessed the manifested madness.",
+            "steps": ["witnesed_the_manifested_madness"]
+          }
+
+        ]
+      }
+    },
+    {
+      "id": "has_been_corrupted_by_the_earth",
+      "text": "Which investigator(s) <i>has been corrupted by the earth</i>",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "corrupted",
+            "text": "Has been corrupted by the Earth.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "has_been_corrupted_by_the_earth",
+                "cards": "$input_value",
+                "masculine_text": "#name# has been corrupted by the Earth.",
+                "feminine_text": "#name# has been corrupted by the Earth."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "witnesed_the_manifested_madness",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "witnesed_the_manifested_madness",
+          "text": "you witnessed the manifested madness."
+        }
+      ]
+    },
+    {
+      "id": "maybe_witnesed_the_manifested_madness",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "witnesed_the_manifested_madness",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["witnesed_the_manifested_madness"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -449,7 +567,7 @@
       "id": "R4",
       "title": "Resolution 4",
       "text": "The remaining crew of the Nostalgia II thank you for your help in defeating the abomination. They describe how the madness only began a few days after they decoded a transmission from Earth -- a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after -- but it is meaningless to you and doesn't help you uncover the coordinates of Fragment. Despite all, you must leave this behind you and look forwards towards another lead.",
-      "steps": ["nostalgia_2_has_been_saved", "earn_space_artillery", "add_elder_thing", "add_impending_doom", "add_win_impending_doom", "earn_xp_plus_crew", "$upgrade_decks", "proceed_search_for_fragment"]
+      "steps": ["maybe_witnesed_the_manifested_madness", "nostalgia_2_has_been_saved", "earn_space_artillery", "add_elder_thing", "add_impending_doom", "add_win_impending_doom", "earn_xp_plus_crew", "$upgrade_decks", "proceed_search_for_fragment"]
     }
   ]
 }

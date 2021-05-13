@@ -165,6 +165,22 @@
       ]
     },
     {
+      "id": "maybe_have_witnessed_the_primordial_chaos",
+      "text": "If it is not already written, record in your campaign log that <i>you have witnessed the primordial chaos.</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_witnessed_the_primordial_chaos",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["have_witnessed_the_primordial_chaos"]
+          }
+        ]
+      }
+    },
+    {
       "id": "elbrus_station_has_been_fully_stabilized",
       "effects": [
         {
@@ -216,7 +232,7 @@
         {
           "type": "add_card",
           "investigator": "choice",
-          "card": "zdm_erwin_simmons"
+          "card": "zdm_00096"
         }
       ]
     },
@@ -345,6 +361,56 @@
           "scenario": "strange_moons"
         }
       ]
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "have_witnessed_the_primordial_chaos",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_witnessed_the_primordial_chaos",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You have witnessed the primordial chaos.",
+            "steps": ["have_witnessed_the_primordial_chaos"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -363,7 +429,7 @@
       "id": "R1",
       "title": "Resolution 1",
       "text": "When you finally came back to your senses, you and your companions were inside the Tatterdemalion, and Elbrus appears to have disappeared -- possibly lost in space and time within the quantum realm. You don't remember much of what happened. Despite the initial evidence pointing to the contrary -- proof was eventually found that the ordeal has been real -- shards of the quantum-behaving crystals were discovered in the cargo bay, that you presumably have brought back from Elbrus. Still unsure of why the cultists have come, you prepare for the next destination, which may finally give a few answers rather than pose more questions.",
-      "steps": ["elbrus_station_has_been_lost_in_the_quantum_realm", "have_witnessed_the_primordial_chaos", "earn_xp", "$upgrade_decks", "add_4_impending_doom", "proceed_search_for_fragment"]
+      "steps": ["elbrus_station_has_been_lost_in_the_quantum_realm", "maybe_have_witnessed_the_primordial_chaos", "earn_xp", "$upgrade_decks", "add_4_impending_doom", "proceed_search_for_fragment"]
     },
     {
       "id": "R2",
