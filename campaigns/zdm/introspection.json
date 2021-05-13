@@ -4,7 +4,7 @@
   "full_name": "Interlude II: Introspection",
   "header": "Interlude II",
   "type": "interlude",
-  "icon": "",
+  "icon": "deep_space",
   "setup": [
     "intro",
     "ask_search_ship",
@@ -40,6 +40,7 @@
               {
                 "type": "campaign_log_investigator_count",
                 "section": "memories",
+                "id": "$count",
                 "investigator": "all",
                 "operation": "add",
                 "value": 1
@@ -99,7 +100,43 @@
       }
     },
     {
-      "id": "check_memories_for_weakness"
+      "id": "check_memories_for_weakness",
+      "text": "Each investigator with 6 or more \"Memories\" earns the Echoes of the Past weakness.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_investigator_count",
+        "section": "memories",
+        "investigator": "all",
+        "options": [
+          {
+            "numCondition": 0
+          },
+          {
+            "numCondition": 1
+          },
+          {
+            "numCondition": 2
+          },
+          {
+            "numCondition": 3
+          },
+          {
+            "numCondition": 4
+          },
+          {
+            "numCondition": 5
+          }
+        ],
+        "defaultOption": {
+          "effects": [
+            {
+              "type": "add_card",
+              "investigator": "$input_value",
+              "card": "zdm_echoes_of_the_past"
+            }
+          ]
+        }
+      }
     },
     {
       "id": "check_uncovered_the_cultists_inhuman_methods",
