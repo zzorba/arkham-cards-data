@@ -13,13 +13,16 @@
           "$ref": "#/definitions/campaignDataInvestigatorCondition"
         },
         {
+          "$ref": "#/definitions/campaignDataScenarioCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignDataChaosBagCondition"
+        },
+        {
           "$ref": "#/definitions/campaignLogCondition"
         },
         {
           "$ref": "#/definitions/campaignLogCountCondition"
-        },
-        {
-          "$ref": "#/definitions/campaignDataChaosBagCondition"
         },
         {
           "$ref": "#/definitions/multiCondition"
@@ -38,6 +41,9 @@
         },
         {
           "$ref": "#/definitions/investigatorCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogCondition"
         }
       ]
     },
@@ -60,6 +66,7 @@
               { "$ref": "#/definitions/campaignDataChaosBagCondition" },
               { "$ref": "#/definitions/campaignLogCountCondition" },
               { "$ref": "#/definitions/campaignDataVersionCondition" },
+              { "$ref": "#/definitions/campaignDataScenarioCondition" },
               { "$ref": "#/definitions/scenarioDataResolutionCondition" },
               { "$ref": "#/definitions/binaryCardCondition" }
             ]
@@ -848,6 +855,46 @@
       ],
       "additionalProperties": false
     },
+
+    "campaignLogInvestigatorCountCondition": {
+      "$id": "#campaignLogInvestigatorCountCondition",
+      "title": "CampaignLogInvestigatorCountCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_investigator_count"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "any",
+            "all"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/numOption"
+          }
+        },
+        "defaultOption": {
+          "$ref": "option.schema.json#/definitions/defaultOption"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "investigator",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "campaignLogCountOperand": {
       "$id": "#campaignLogCountOperand",
       "title": "CampaignLogCountOperand",
@@ -1071,6 +1118,9 @@
         },
         {
           "$ref": "#/definitions/campaignLogCountCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogInvestigatorCountCondition"
         },
         {
           "$ref": "#/definitions/mathCondition"

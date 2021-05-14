@@ -486,10 +486,55 @@
         "section": {
           "type": "string"
         },
-        "investigator": {
+        "id": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "set_input",
+            "set",
+            "add_input",
+            "add",
+            "subtract_input"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogInvestigatorCountEffect": {
+      "$id": "#campaignLogInvestigatorCountEffect",
+      "title": "CampaignLogInvestigatorCountEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_investigator_count"
+          ]
+        },
+        "section": {
           "type": "string"
         },
         "id": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": ["all", "$input_value", "$fixed_investigator"]
+        },
+        "fixed_investigator": {
           "type": "string"
         },
         "operation": {
@@ -511,6 +556,8 @@
       "required": [
         "type",
         "section",
+        "id",
+        "investigator",
         "operation"
       ],
       "additionalProperties": false
@@ -731,6 +778,7 @@
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },
+        { "$ref": "#/definitions/campaignLogInvestigatorCountEffect" },
         { "$ref": "#/definitions/campaignDataEffect" },
         { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" },

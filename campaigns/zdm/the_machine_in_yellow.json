@@ -1,0 +1,224 @@
+{
+  "id": "the_machine_in_yellow",
+  "scenario_name": "The Machine in Yellow",
+  "full_name": "Scenario IV: The Machine in Yellow",
+  "header": "Scenario IV",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "gather_maddening_delusions",
+    "ask_add_memories",
+    "setup_locations",
+    "set_aside_locations",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You awaken with a start, as though shaken by an unseen force. There are only a few other patrons in the audience, and no performers on stage. The lights are dimmed, and the stage curtains are tattered and ripped. A foul but unrecognizable smell permeates the air. You are back in the Ward theatre -- where it all began. Is this an artifact of your memory? Or have you been dreaming this entire time? Shaking off your drowsiness, you call out into the air for K2-PS187. To your relief, and slight disappointment, the digitalized voices respond in confirmation that the procedure behaved as planned. You have arrived inside of your own mind…"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "text": "Gather all cards from the following encounter sets: <i>Curtain Call</i>, <i>The Machine in Yellow</i>, <i>Dark Past</i>, <i>Delusions</i> and <i>Rats</i>  . <i>(Curtain Call and Delusions are from The Path to Carcosa.)</i>",
+      "encounter_sets": [
+        "curtain_call",
+        "the_machine_in_yellow",
+        "dark_past",
+        "delusions",
+        "rats"
+      ],
+      "subtext": "When gathering the Curtain Call encounter set, only gather the locations."
+    },
+    {
+      "id": "gather_maddening_delusions",
+      "type": "encounter_sets",
+      "text": "The investigators may choose to use the <i>Maddening Delusions</i> encounter set (from Return to The Path to Carcosa) instead of the <i>Delusions</i> encounter set. If you do so, each investigator may add 1 tally mark next to their \"Memories\".",
+      "encounter_sets": [
+        "maddening_delusions"
+      ]
+    },
+    {
+      "id": "ask_add_memories",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are you using the <i>Maddening Delusions</i> encounter set?",
+            "steps": ["add_1_memories"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_memories",
+      "bullet_type": "small",
+      "text": "Each investigators gains 1 Memory.",
+      "effects": [
+        {
+          "type": "campaign_log_investigator_count",
+          "section": "memories",
+          "id": "$count",
+          "investigator": "all",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Theatre, Lobby, Balcony, and Backstage locations into play. Each investigator begins play at the Theatre."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set aside each copy of the Backstage Doorway and Lobby Doorway locations, out of play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set aside each copy of the Your Other Self enemy, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_bonus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 2 additional experience for reliving their past memories.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "ask_reminiscence",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_tablet",
+            "text": "Was at least 1 copy of the Reminiscence treachery in the victory display?",
+            "steps": ["add_tablet_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_tablet_token",
+      "bullet_type": "small",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "add_2_impending_doom",
+      "text": "Add 2 tally marks under \"Impending Doom\" in your Campaign Log."
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "counter": "memories"
+      }
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You had a dream. A vivid, lucid and all-too real dream. You escaped the Ward theatre into the rainy streets of Arkham. You would visit the after-party of the dreadful King in Yellow, and embark along a grand and mind-bending adventure across Arkham which eventually leads to France and into Carcosa itself. When you finally wake up in cold sweat back in the cryo-chamber, you almost forgot the new reality you had found yourself in. Although the ordeal has been difficult and took much longer than you anticipated, you have finally unlocked that part of your memories that has been kept concealed by your other self -- the ritual to locate the Fragment of Carcosa.",
+      "steps": ["ask_reminiscence", "add_2_impending_doom", "earn_xp_bonus_2", "$upgrade_decks"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "With the infectious tumor that is the cultist's consciousness finally ejected from your mind, you have unlocked that part of your memories that has been kept concealed by your other self -- the ritual to locate the Fragment of Carcosa. Without further ado, you quickly disconnect yourself from the virtual dreamlands and return to form in the Tatterdemalion, ready to confront Tassilda at long last.",
+      "steps": ["ask_reminiscence", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}

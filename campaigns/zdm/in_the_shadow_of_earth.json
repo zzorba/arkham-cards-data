@@ -1,0 +1,573 @@
+{
+  "id": "in_the_shadow_of_earth",
+  "scenario_name": "In the Shadow of Earth",
+  "full_name": "Scenario IIIb: In the Shadow of Earth",
+  "header": "Scenario IIIb",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "create_scanning_deck",
+    "create_evidence_deck",
+    "setup_locations",
+    "set_aside_evidence",
+    "encounter_deck",
+    "cards_removed_from_game_rule",
+    "motion_scanning_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "\"In the middle of the 21st century, Earth was in complete chaos. Rioting, crime, madness and worse had become the order of the day for the entire world. […] In a last ditch of effort, two of the Arks were completed and the third vessel was stripped for parts. The two completed vessels set out for Mars, each carrying 3000 humans in suspended animation. One vessel, the Liberty, suffered a massive power plant failure and the crew and passengers were killed. The other ship, Hope, eventually reached Mars…\"\n<right>-- Maja, Information Archives</right>\nThe planet Earth -- what used to be humanity's sanctuary, is now abandoned to the madness of the Ancient Ones. There is very little information of what remains on the Earth, but if anyone would attempt to send out a transmission, survey vessels stationed around the planet such as the Nostalgia II would hear those calls.\nThe trip itself was uneventful, and you spend your days watching the blue dot of Earth grow and grow in size. Around the time you can finally recognize a few of the continents, the Tatterdemalion picks up a lonely and distant beat -- the echo of the Nostalgia II's distress beacon. You try to hail the crew with your radios, but there is no response. The Tatterdemalion begins its deceleration, and with no time to waste, you prepare to board the godforsaken ship."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "in_the_shadow_of_earth",
+        "deep_space"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set aside the The Entity and The Feaster from Afar enemies."
+    },
+    {
+      "id": "create_scanning_deck",
+      "text": "Create the scanning deck. This is done by taking all the encounter cards with icons at the bottom of their back side and shuffling them together."
+    },
+    {
+      "id": "create_evidence_deck",
+      "text": "Create the facedown \"Evidence\" deck. This is done by taking all the one sided story cards and shuffling them together."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all remaining locations into play. Each investigator begins play at the Airlocks."
+    },
+    {
+      "id": "set_aside_evidence",
+      "text": "Without looking at it, put the top card of the \"Evidence\" deck facedown under the scenario reference card. Repeat this process once for every 3 tally marks under \"Impending Doom\" in your Campaign Log.\n<i>(Example: If you had 5 Impending Doom, you would put a total of 2 cards under the scenario reference card.)</i>"
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "cards_removed_from_game_rule",
+      "type": "rule_reminder",
+      "title": "Cards Removed from the Game",
+      "text": "In this scenario, you must keep track of cards that are removed from the game. Put any cards removed from the game in an area out of play that is still accessible."
+    },
+    {
+      "id": "motion_scanning_rule",
+      "type": "rule_reminder",
+      "title": "Motion Scanning",
+      "text": "In this scenario, the <b>Scan</b> action designator functions slightly differently. <b>You may only scan when you are at a location with an icon matching the top card of the scanning deck.</b> When you scan, instead of searching for the topmost card of the scanning deck matching the icon you are scanning for, simply draw the top card of the scanning deck. As such, you will have to move around the ship and follow the icons depicted on the top card of the scanning deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_crew",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display and of each [[Crew]] asset that the investigators control.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_crew_assets_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "crew",
+            "text": "Are there any [[Crew]] story assets in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "soe_crew_assets",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_crew_assets_in_victory_display",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "soe_crew_assets",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["go_resolution_5", "resolution_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_for_imitations", "ask_imitations", "check_imitations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "go_resolution_5",
+      "bullet_type": "small",
+      "text": "Proceed to <b>Resolution 5</b>."
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "check_for_imitations",
+      "text": "Look at the story cards that are under the scenario reference card but do not read them. For each of the story cards, reveal 1 random chaos token from the chaos bag. If it is not a [elder_sign], [bless], '+1', or '0' token, the [[Crew]] story asset corresponding to that story card is an imitation of the Entity!"
+    },
+    {
+      "id": "ask_imitations",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "resigned",
+            "text": "Are any of the [[Crew]] story assets that are imitations in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "soe_crew_imitations",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_imitations", "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "soe_crew_imitations",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["go_resolution_2", "resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["go_resolution_3", "resolution_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "go_resolution_2",
+      "bullet_type": "small",
+      "text": "Proceed to <b>Resolution 2</b>."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "go_resolution_3",
+      "bullet_type": "small",
+      "text": "Proceed to <b>Resolution 3</b>."
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "you_have_rescued_the_remaining_crew_of_the_nostalgia_2",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_have_rescued_the_remaining_crew_of_the_nostalgia_2",
+          "text": "you have rescued the remaining crew of the Nostalgia II."
+        }
+      ]
+    },
+    {
+      "id": "nostalgia_2_has_been_saved",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "nostalgia_2_has_been_saved",
+          "text": "the Nostalgia II has been saved."
+        }
+      ]
+    },
+
+    {
+      "id": "earn_space_artillery",
+      "text": "An investigator may add the Space Artillery story asset to their deck. This card does not count towards that investigator's deck limit.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zdm_00121"
+        }
+      ]
+    },
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign for catching the eye of the King in Yellow.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "add_impending_doom",
+      "text": "Add 1 tally mark under \"Impending Doom\" in your Campaign Log."
+    },
+    {
+      "id": "add_loss_impending_doom",
+      "bullet_type": "small",
+      "text": "Add 1 additional tally mark for every 2 [[Crew]] story asset removed from the game, attached to the Entity, or in the scanning deck.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Additional \"Impending Doom\":",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "impending_doom",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_win_impending_doom",
+      "bullet_type": "small",
+      "text": "Add 1 additional tally mark for every 2 [[Crew]] story asset attached to the Entity.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Additional \"Impending Doom\":",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "impending_doom",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "counter": "memories"
+      }
+    },
+    {
+      "id": "proceed_search_for_fragment",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "scenario_completed",
+            "scenario": "strange_moons",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_data",
+            "campaign_data": "scenario_completed",
+            "scenario": "lost_quantum",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["search_for_fragment", "choose_trace"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "search_for_fragment",
+      "title": "The Search for Fragment",
+      "text": "Aboard the Tatterdemalion, you and your companions seek the coordinates of the asteroid \"Fragment\" to prevent the ascension of Tassilda, daughter of Hastur. Upon analysing the remaining data aboard the ship, K2-PS187 and you have decided on 3 traces that are worth investigating. However, time is of the essence  -- you may want to visit the destination you think will be the most valuable first."
+    },
+    {
+      "id": "choose_trace",
+      "title": "The Search for Fragment (continued)",
+      "text": "The investigators must choose to follow one of the following traces:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "trace_1",
+            "text": "The last destination of the Tatterdemalion before travelling to Fragment was a research laboratory on a stray asteroid named Elbrus. This specific facility was built to study and experiment with the materials that exhibit quantum-like behaviour. You aren't sure what the cultists were hoping to achieve there, but perhaps these scientists can steer you in the right direction.",
+            "steps": ["proceed_lost_quantum"],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "scenario_completed",
+              "scenario": "lost_quantum",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            }
+          },
+          {
+            "id": "trace_3",
+            "text": "The Tatterdemalion appears to have landed on one of Saturn's moons several times in the past few years. The ship's log record these operations as \"negotiations.\" K2-PS187 notes that this is particularly strange, as there are no known human outposts this far out in the solar system. You could pay a visit to these coordinates to figure out what these \"negotiations\" consist of.",
+            "steps": ["proceed_strange_moons"],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "scenario_completed",
+              "scenario": "strange_moons",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "proceed_lost_quantum",
+      "text": "Proceed to <b>Scenario IIIa: Lost Quantum</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "lost_quantum"
+        }
+      ]
+    },
+    {
+      "id": "proceed_strange_moons",
+      "text": "Proceed to <b>Scenario IIIc: Strange Moons</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "strange_moons"
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "adjust_memories",
+      "type": "input",
+      "text": "Add or remove \"Memories\":",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Memories",
+        "investigator_count_min": "memories",
+        "effects": [
+          {
+            "type": "campaign_log_investigator_count",
+            "section": "memories",
+            "id": "$count",
+            "investigator": "$input_value",
+            "operation": "add_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "adjust_memories",
+            "text": "Adjust \"Memories\"",
+            "steps": ["adjust_memories"]
+          }
+        ],
+        "campaign_log": [
+          {
+            "id": "has_been_corrupted_by_the_earth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "has_been_corrupted_by_the_earth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You have been corrupted by the Earth.",
+            "steps": ["has_been_corrupted_by_the_earth"]
+          },
+          {
+            "id": "witnesed_the_manifested_madness",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "witnesed_the_manifested_madness",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "you witnessed the manifested madness.",
+            "steps": ["witnesed_the_manifested_madness"]
+          }
+
+        ]
+      }
+    },
+    {
+      "id": "has_been_corrupted_by_the_earth",
+      "text": "Which investigator(s) <i>has been corrupted by the earth</i>",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "corrupted",
+            "text": "Has been corrupted by the Earth.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "has_been_corrupted_by_the_earth",
+                "cards": "$input_value",
+                "masculine_text": "#name# has been corrupted by the Earth.",
+                "feminine_text": "#name# has been corrupted by the Earth."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "witnesed_the_manifested_madness",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "witnesed_the_manifested_madness",
+          "text": "you witnessed the manifested madness."
+        }
+      ]
+    },
+    {
+      "id": "maybe_witnesed_the_manifested_madness",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "witnesed_the_manifested_madness",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["witnesed_the_manifested_madness"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You barely made it out of the madhouse alive. The horrors you've seen of what remains of the crew is almost too much for you to handle.",
+      "steps": ["ask_crew_assets_in_victory_display", "check_crew_assets_in_victory_display"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "A horrible scream echoes through the halls of the Tatterdemalion. One of the crew members you've brought aboard was an imitation! They revealed themselves and consumed all the crew members you could have saved. You were eventually able to fight it off and eject it through an airlock. However, the damage is considerable and has set back your mission by many months.",
+      "steps": ["resolution_5"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You barely made it out of the madhouse alive. You managed to save some of the crew, and they mourn the lost for several days. Thankfully, none of the crew members you have brought aboard was an imitation. Over time, they describe how the madness only began a few days after they decoded a transmission from Earth -- a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after -- but it is meaningless to you and doesn't help you uncover the coordinates of Fragment.\nWhen you finally deliver the remaining crew to a service station in the Martian orbit, the survivors thank you once more for saving them and bids farewell. Despite all, you must leave this behind you and look forwards towards another lead.",
+      "steps": ["you_have_rescued_the_remaining_crew_of_the_nostalgia_2", "add_impending_doom", "add_loss_impending_doom", "earn_xp", "$upgrade_decks", "proceed_search_for_fragment"]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The remaining crew of the Nostalgia II thank you for your help in defeating the abomination. They describe how the madness only began a few days after they decoded a transmission from Earth -- a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after -- but it is meaningless to you and doesn't help you uncover the coordinates of Fragment. Despite all, you must leave this behind you and look forwards towards another lead.",
+      "steps": ["maybe_witnesed_the_manifested_madness", "nostalgia_2_has_been_saved", "earn_space_artillery", "add_elder_thing", "add_impending_doom", "add_win_impending_doom", "earn_xp_plus_crew", "$upgrade_decks", "proceed_search_for_fragment"]
+    }
+  ]
+}
