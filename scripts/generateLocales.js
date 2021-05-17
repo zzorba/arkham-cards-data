@@ -83,6 +83,33 @@ async function writeJSON(object, filePath) {
 
 const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
+function translateField(object, prop, poFile, allPoEntries, corePoEntries) {
+  const normalized = unorm.nfc(object[prop]);
+  let context = undefined;
+  if (prop === 'masculine_text') {
+    context = 'masculine';
+  } else if (prop === 'feminine_text') {
+    context = 'feminine';
+  }
+  let foundPoEntry = allPoEntries[messageId(normalized, context)];
+  if (!foundPoEntry) {
+    foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
+  }
+  if (foundPoEntry !== undefined && foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
+    object[prop] = foundPoEntry.msgstr[0];
+  } else {
+    const needsCreate = foundPoEntry === undefined;
+    foundPoEntry = corePoEntries[messageId(normalized, context)];
+    if (foundPoEntry && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
+      object[prop] = foundPoEntry.msgstr[0];
+    } else if (needsCreate) {
+      const item = new PO.Item();
+      item.msgid = object[prop];
+      item.msgctxt = context;
+      poFile.items.push(item);
+    }
+  }
+}
 /**
  * Recursively translate an object using entries from a PO file.
  * The object is modified in place.
@@ -97,31 +124,7 @@ async function translate(object, poFile, allPoEntries, corePoEntries) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
-        const normalized = unorm.nfc(object[prop]);
-        let context = undefined;
-        if (prop === 'masculine_text') {
-          context = 'masculine';
-        } else if (prop === 'feminine_text') {
-          context = 'feminine';
-        }
-        let foundPoEntry = allPoEntries[messageId(normalized, context)];
-        if (!foundPoEntry) {
-          foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
-        }
-        if (foundPoEntry !== undefined && foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
-          object[prop] = foundPoEntry.msgstr[0];
-        } else {
-          const needsCreate = foundPoEntry === undefined;
-          foundPoEntry = corePoEntries[messageId(normalized, context)];
-          if (foundPoEntry && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
-            object[prop] = foundPoEntry.msgstr[0];
-          } else if (needsCreate) {
-            const item = new PO.Item();
-            item.msgid = object[prop];
-            item.msgctxt = context;
-            poFile.items.push(item);
-          }
-        }
+        translateField(object, prop, poFile, allPoEntries, corePoEntries);
       }
       if (typeof object[prop] === "object" && prop !== 'narration') {
         // Recursion
@@ -167,6 +170,10 @@ const SETTINGS_FOR_LANGUAGE = {
   pl: {
     'Language': 'pl',
     'Plural-Forms': 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
+  },
+  uk: {
+    'Language': 'uk',
+    'Plural-Forms': 'nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 &&  n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
   },
 };
 
@@ -247,7 +254,6 @@ async function generateLocale(localeCode) {
     shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${translatedFile}`);
   }
 
-
   // First we gather all the known PO entries.
   for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
@@ -278,6 +284,40 @@ async function generateLocale(localeCode) {
     }
   }
 
+  // Translate the custom card packs
+  const packsPoFile = "i18n/" + localeCode + "/packs.po";
+  const poFile = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
+  const packsJson = await readJSON("packs/packs.json");
+  for (let i = 0; i< packsJson.length; i++) {
+    await translate(packsJson[i], poFile, allPoEntries, corePoEntries);
+  }
+  await writeJSON(
+    packsJson,
+    "build/i18n/" + localeCode + "/packs.json"
+  );
+  poFile.save(packsPoFile, printErr);
+
+
+  for (const item of poFile.items) {
+    allPoEntries[itemMessageId(item)] = item;
+  }
+
+  // Translate the encounter_sets
+  const encounter_sets = await readEncounterSets('en');
+  await writeJSON(
+    encounter_sets,
+    "encounter_sets.json"
+  );
+  const lang_encounter_sets = await readEncounterSets(localeCode);
+  for (const code of Object.keys(lang_encounter_sets)) {
+    encounter_sets[code] = lang_encounter_sets[code];
+  }
+  await writeJSON(
+    encounter_sets,
+    "build/i18n/" + localeCode + "/encounter_sets.json"
+  );
+
+  // Translate all the scenarios.
   for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
@@ -297,19 +337,6 @@ async function generateLocale(localeCode) {
     });
     poFile.save(scenarioPoFile, printErr);
 
-    const encounter_sets = await readEncounterSets('en');
-    await writeJSON(
-      encounter_sets,
-      "encounter_sets.json"
-    );
-    const lang_encounter_sets = await readEncounterSets(localeCode);
-    for (const code of Object.keys(lang_encounter_sets)) {
-      encounter_sets[code] = lang_encounter_sets[code];
-    }
-    await writeJSON(
-      encounter_sets,
-      "build/i18n/" + localeCode + "/encounter_sets.json"
-    )
     for (const item of poFile.items) {
       allPoEntries[itemMessageId(item)] = item;
     }
