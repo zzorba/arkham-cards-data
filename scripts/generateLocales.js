@@ -2,6 +2,7 @@ const promisify = require("util").promisify;
 const fs = require("fs");
 const path = require("path");
 const PO = require("pofile");
+const shell = require('shelljs')
 const getFilePaths = require("./utils/getFilePaths");
 const unorm = require('unorm');
 
@@ -220,12 +221,32 @@ async function generateLocale(localeCode) {
   const allPoEntries = {};
   const allScenarios = getFilePaths("./campaigns");
   const allReturnScenarios = getFilePaths("./return_campaigns");
+  const allCards = getFilePaths("./cards");
 
   const printErr = (err) => {
     if (err) {
       console.log(err);
     }
   };
+
+  fs.mkdirSync("i18n/" + localeCode + "/cards", { recursive: true }, (err) => {
+    console.log(err)
+  });
+  for (const card of allCards.sort()) {
+    if (card.indexOf(".DS_Store") !== -1) {
+      continue;
+    }
+    const file = card.split("/")[1];
+    const translatedFile = "i18n/" + localeCode + "/cards/" + file;
+    if ((await exists(translatedFile))) {
+      // File already exists, so continue.
+      console.log(`Cards: translation file for ${file} already exists, skipping.`);
+      continue;
+    }
+    console.log(`Cards: extracting translations for ${file}.`);
+    shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${translatedFile}`);
+  }
+
 
   // First we gather all the known PO entries.
   for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
