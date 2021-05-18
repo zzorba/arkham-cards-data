@@ -7,22 +7,26 @@
   "icon": "deep_space",
   "setup": [
     "intro",
+    "describe_search_ship",
     "ask_search_ship",
+    "describe_side_mission",
     "ask_side_mission",
-    "add_chaos_token",
-    "check_memories_for_weakness",
-    "check_uncovered_the_cultists_inhuman_methods"
+    "check_side_mission"
   ],
   "steps": [
     {
       "id": "intro",
       "type": "story",
-      "text": "The strange quantum shards, the golden disks obtained from the Mi-Go, the cryptic message from Earth… Despite travelling throughout the solar system to uncover these individual pieces of the puzzle, you still can't seem to fit them together into one big picture. There is a key element missing -- a connective tissue that will make sense of it all. Of course, there is also still one place you know for certain contains all of your answers, but you fear what you may find there. And that place is your own mind.\nDeep within your own subconscious, you can feel a shimmer of the cultist you embody  -- imprisoned in the edges between your thoughts. You know for certain that the other version of you remembers how to find Fragment.\nEntering one's own virtual mind is particularly dangerous as any small mistake could send you spiraling into insanity. But you are ready to confront your past once and for all. With the help of K2-PS187, the cryo-chamber's dream protocols are once again tinkered with to access your own personal memories this time. You lie back down in the cryo-chamber once more. With a flick of a switch, you begin to fall back into unconsciousness…"
+      "text": "The strange quantum shards, the golden disks obtained from the Mi-Go, the cryptic message from Earth… Despite travelling throughout the solar system to uncover these individual pieces of the puzzle, you still can't seem to fit them together into one big picture. There is a key element missing — a connective tissue that will make sense of it all. Of course, there is also still one place you know for certain contains all of your answers, but you fear what you may find there. And that place is your own mind.\nDeep within your own subconscious, you can feel a shimmer of the cultist you embody  — imprisoned in the edges between your thoughts. You know for certain that the other version of you remembers how to find Fragment.\nEntering one's own virtual mind is particularly dangerous as any small mistake could send you spiraling into insanity. But you are ready to confront your past once and for all. With the help of K2-PS187, the cryo-chamber's dream protocols are once again tinkered with to access your own personal memories this time. You lie back down in the cryo-chamber once more. With a flick of a switch, you begin to fall back into unconsciousness…"
+    },
+    {
+      "id": "describe_search_ship",
+      "text": "The investigators may choose to take their time to search the Tatterdemalion for any more important details they may have missed."
     },
     {
       "id": "ask_search_ship",
+      "bullet_type": "small",
       "type": "input",
-      "text": "The investigators may choose to take their time to search the Tatterdemalion for any more important details they may have missed.",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -30,20 +34,58 @@
             "id": "yes",
             "text": "Would you like to search the Tatterdemalion?",
             "description": "If you do so, add 1 tally mark to \"Impending Doom\" and to each investigator's \"Memories\".",
+            "steps": ["add_1_impending_doom", "add_1_memory"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_impending_doom",
+      "bullet_type": "small",
+      "text": "Add 1 tally mark under \"Impending Doom\" in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "impending_doom",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "add_1_memory",
+      "bullet_type": "small",
+      "text": "Each investigators gains 1 Memory.",
+      "effects": [
+        {
+          "type": "campaign_log_investigator_count",
+          "section": "memories",
+          "id": "$count",
+          "investigator": "all",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "describe_side_mission",
+      "text": "The investigators may choose to enter a simulation of the Earth's histories to learn more about this future by playing a side-story, crossing out \"Memories\" instead of paying its experience cost. Experience earned by playing the side-story become \"Memories\" for investigators instead."
+    },
+    {
+      "id": "ask_side_mission",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "side_mission",
+            "text": "Would you like to add a side-story to the campaign?",
             "effects": [
               {
-                "type": "campaign_log_count",
-                "section": "impending_doom",
-                "operation": "add",
-                "value": 1
-              },
-              {
-                "type": "campaign_log_investigator_count",
-                "section": "memories",
-                "id": "$count",
-                "investigator": "all",
-                "operation": "add",
-                "value": 1
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "zdm_side_story",
+                "text": "dummy"
               }
             ]
           }
@@ -51,7 +93,46 @@
       }
     },
     {
-      "id": "ask_side_mission"
+      "id": "check_side_mission",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "zdm_side_story",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "redirect_experience",
+                "investigator_count": "memories"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "introspection_continued"
+              }
+            ],
+            "steps": ["side_scenario_instructions"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "add_chaos_token",
+              "explain_memories_for_weakness",
+              "check_memories_for_weakness",
+              "check_uncovered_the_cultists_inhuman_methods"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "side_scenario_instructions",
+      "bullet_type": "small",
+      "text": "Use the \"Add side scenario\" button on the campaign screen to choose and play a side scenario. Experience will be automatically turned into \"Memories\"."
     },
     {
       "id": "add_chaos_token",
@@ -100,8 +181,11 @@
       }
     },
     {
+      "id": "explain_memories_for_weakness",
+      "text": "Each investigator with 6 or more \"Memories\" earns the Echoes of the Past weakness."
+    },
+    {
       "id": "check_memories_for_weakness",
-      "text": "Each investigator with 6 or more \"Memories\" earns the Echoes of the Past weakness.",
       "type": "branch",
       "condition": {
         "type": "campaign_log_investigator_count",
@@ -134,8 +218,16 @@
               "investigator": "$input_value",
               "card": "zdm_00198"
             }
-          ]
+          ],
+          "steps": ["save_decks"]
         }
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks"
       }
     },
     {
@@ -148,7 +240,13 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["introspection_1", "additional_resource_card"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["introspection_1", "additional_resource_card"]
+              }
+            ]
           }
         ]
       }
@@ -156,7 +254,7 @@
     {
       "id": "introspection_1",
       "type": "story",
-      "text": "Memories of your past life come flooding back to you -- horrible visions of launching missiles onto mining outposts, spreading memetic biological viruses, and other unspeakable evils upon humanity. The cultist that you used to be must answer for their atrocities -- and you are more than ready to finally extinguish their presence within you."
+      "text": "Memories of your past life come flooding back to you — horrible visions of launching missiles onto mining outposts, spreading memetic biological viruses, and other unspeakable evils upon humanity. The cultist that you used to be must answer for their atrocities — and you are more than ready to finally extinguish their presence within you."
     },
     {
       "id": "additional_resource_card",
