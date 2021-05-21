@@ -18,7 +18,7 @@
     "setup_chesire_cat",
     "encounter_deck",
     "alices_assitance_rule",
-    "add_shadow_straing",
+    "add_shadows_strain",
     "check_white_rabbit_survived",
     "check_walrus_and_carpenter_lost_their_appetites",
     "check_hare_and_hatter_enjoyed_company",
@@ -81,6 +81,7 @@
       "condition": {
         "type": "campaign_log_count",
         "section": "strength_of_wonderland",
+        "id": "$count",
         "options": [
           {
             "numCondition": 0,
@@ -206,6 +207,7 @@
       "condition": {
         "type": "campaign_log_count",
         "section": "fragments_of_alice",
+        "id": "$num_entries",
         "options": [
           {
             "numCondition": 0,
@@ -291,6 +293,7 @@
       "condition": {
         "type": "campaign_log_count",
         "section": "strength_of_wonderland",
+        "id": "$count",
         "options": [
           {
             "numCondition": 0,
@@ -418,7 +421,7 @@
       "text": "In this scenario, Alice joins as an additional investigator, with some differences.  She does not count as an investigator for anything that uses the [per_investigator] multiplier.  Alice cannot take actions or gain resources, but draws during each upkeep phase until she has three cards in her hand.  Enemies cannot engage or attack Alice, and she does not draw an encounter card during the mythos phase.\nAlice has a unique deck of 24 cards that is built according to your choices, successes, and failures in your path through Wonderland."
     },
     {
-      "id": "shadows_strain",
+      "id": "add_shadows_strain",
       "text": "Add all three copies of Shadow Strain to Alice's deck."
     },
     {
@@ -568,7 +571,7 @@
           },
           {
             "boolCondition": false,
-            "steps": ["add_shed_a_bitter_tear"]
+            "steps": ["add_broke_her_crown"]
           }
         ]
       }
@@ -659,6 +662,11 @@
           }
         ]
       }
+    },
+    {
+      "id": "add_brothers_in_arms",
+      "bullet_type": "small",
+      "text": "Add Brothers in Arms to Alice's deck."
     },
     {
       "id": "check_one_tweedle_killed",
@@ -1123,42 +1131,15 @@
           }
         ]
       }
-    }
-  ],
-  "resolutions": [
-    {
-      "id": "no_resolution",
-      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
-      "investigator_status": [
-        "resigned",
-        "eliminated",
-        "physical",
-        "mental"
-      ],
-      "text": "The investigators cannot hold back the ravenous shadows.",
-      "steps": ["check_any_resigned"]
-    },
-    {
-      "id": "R1",
-      "title": "Resolution 1",
-      "investigator_status": [
-        "alive",
-        "resigned",
-        "eliminated",
-        "physical",
-        "mental"
-      ],
-      "text": "You strive and strain to your limits, but ultimately cannot beat back the relentless shadows streaming out into Arkham.  Gurathnaka's howling grows louder by the moment, and its minions slake their hunger on Arkham's architecture.  Injured and desperate, you rack your brain for something, anything that might yet save the world from the consuming shadows.  You look to Alice nearby, dazed and despairing as you are, and the grim thought occurs to you: Gurathnaka is using her dreams for this invasion.  Without Alice, the bridge between Arkham and Wonderland will immediately vanish, and the shadows with it.  The Cheshire Cat appears over you as the thought crosses your mind, and for the first time since you first laid eyes on it, the cat's grin falls to a grimace.  Your conscience undergoes a brief tug-of-war as your window of opportunity grows smaller.",
-      "steps": ["choose_alices_fate"]
     },
     {
       "id": "all_killed",
-      "text": "Each surviving investigator is <b>killed</b>.",
+      "text": "Each investigator is <b>killed</b>.",
       "effects": [
         {
           "type": "trauma",
-          "killed": true,
-          "investigator": "all"
+          "investigator": "all",
+          "killed": true
         }
       ]
     },
@@ -1188,6 +1169,33 @@
           "value": "win"
         }
       ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The investigators cannot hold back the ravenous shadows.",
+      "steps": ["check_any_resigned"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "alive",
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You strive and strain to your limits, but ultimately cannot beat back the relentless shadows streaming out into Arkham.  Gurathnaka's howling grows louder by the moment, and its minions slake their hunger on Arkham's architecture.  Injured and desperate, you rack your brain for something, anything that might yet save the world from the consuming shadows.  You look to Alice nearby, dazed and despairing as you are, and the grim thought occurs to you: Gurathnaka is using her dreams for this invasion.  Without Alice, the bridge between Arkham and Wonderland will immediately vanish, and the shadows with it.  The Cheshire Cat appears over you as the thought crosses your mind, and for the first time since you first laid eyes on it, the cat's grin falls to a grimace.  Your conscience undergoes a brief tug-of-war as your window of opportunity grows smaller.",
+      "steps": ["choose_alices_fate"]
     },
     {
       "id": "R2",

@@ -19,6 +19,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/encounterSets.json"
   cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/campaignErrata.json"
   cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/rules.json"
+  cp ./rules/fr/rules.json "$ARKHAM_CARDS/assets/rules_fr.json"
   cp ./rules/es/rules.json "$ARKHAM_CARDS/assets/rules_es.json"
   cp ./rules/ru/rules.json "$ARKHAM_CARDS/assets/rules_ru.json"
   cp ./rules/de/rules.json "$ARKHAM_CARDS/assets/rules_de.json"
