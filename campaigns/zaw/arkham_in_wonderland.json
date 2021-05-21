@@ -1,0 +1,260 @@
+{
+  "id": "arkham_in_wonderland",
+  "scenario_name": "Arkham in Wonderland",
+  "full_name": "Scenario I: The Arkham in Wonderland",
+  "header": "Scenario I",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_chesire_cat",
+    "set_aside_cards",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You enter the asylum and approach the receptionist, expecting a long and tedious chain of permissions, but are pleasantly surprised to find that Alice can be freely visited.  Ms. Liddell was quite cooperative upon her arrival and was granted a furnished room without restraints.  An orderly escorts you down one of the less unpleasant halls and into Alice's room.  She sits on the edge of the bed with her hands folded, and her head snaps up as you enter, apprehension plastered on her face.  Once you make it clear that you believe her story, however, Alice relaxes visibly, but her worried expression remains.\n\"What you saw was a dream,\" she explains slowly, \"one from my childhood of a strange place called Wonderland.  How innocent it once was...\" her voice trails off and she begins to tremble.  \"When I was younger, I believed it to be a real place.  It all seemed so real to me then, and it was that belief that drew the attention of something dark.  A great and terrible creature that dwells in shadows and feeds on dreams.  But rather than devour Wonderland, the creature strengthened it... no, raised it like cattle.  Fattened it.  Wonderland became more vivid and real than I ever imagined it could be, and it grew beyond my ability to control.  Now, in recent months, my dreams have begun to manifest in the real world.\"\nHer story is utterly fantastical, but you find yourself drawn in even more.  Alice continues with deep terror beginning to surface.  \"The creature is using me to bridge the gap of reality.  It wishes to merge the waking world with Wonderland in order to consume them both.  It began in my hometown in England, where the world began to unravel around me.  I fled, hoping to find a way to escape it, but it follows me no matter where I go.\"  Alice looks to you with exhausted desperation in her eyes.  \"And now that I cannot leave, it is only a matter of time until your own city of Arkham begins to unravel too.  You must find a way to stop this being, for your own sake if not for mine.  Please, you must find a way!\"\nYou reassure Alice to the best of your ability and depart the asylum, wondering how you can even begin this bizarre task.  As you exit, the familiar sight of Arkham's downtown district ripples before your eyes like a band of hot air in the summer, slowly beginning to distort.  Before you can act any further, a grinning mouth appears before you and a striped cat soon blossoms around it.  \"Welcome to Wonderland,\" it suddenly purrs, \"or perhaps you had better welcome Wonderland instead.  The longer you wait, the more of it there is... and the less of you there may be.  Gurathnaka is hungry, and it is very nearly supper time.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "arkham_in_wonderland",
+        "warped_reality",
+        "gurathnakas_shadows"
+      ]
+    },
+    {
+      "id": "set_aside_chesire_cat",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "chesire_cat"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Abandoned House, The White Rabbit, and The Looking-Glass."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Arkham Asylum, Bank of Arkham, Independence Square, Newspaper Office, Curiositie Shoppe, and Train Station locations into play with their non-[[Wonderland]] sides revealed. Each investigator begins play at Arkham Asylum."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "check_any_resigned",
+      "text": "If any investigator resigned:",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "resigned",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["no_resigned_story", "check_no_resolution_resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resigned_story", "check_no_resolution_resolution_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_resigned_story",
+      "type": "story",
+      "text": "As you wonder if this could already be the end, a deep pit carried by the city's shifting current draws alongside you.  You waste no time in taking the chance to escape the crushing cityscape, pulling yourself in and beginning to plummet down a seemingly endless shaft."
+    },
+    {
+      "id": "resigned_story",
+      "type": "story",
+      "text": "As the city whirls around you, the strange mirror from Alice's house floats by, untouched by the roiling chaos.  You can see one of your comrades on the other side of the glass, reaching through the rippling surface out toward you.  You grab on for dear life, and are barely pulled inside to safety."
+    },
+    {
+      "id": "check_no_resolution_resolution_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "no_resolution",
+        "options": [
+          {
+            "condition": "R2",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_no_resolution_resolution_1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "no_resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["resolution_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "travel_the_dreamlands",
+      "text": "As you travel through Alice's dreams, the fate of the mad realm of Wonderland also rests within your hands.  Each denizen that you aid or destroy has a direct effect on the stability of the dreams.  It may seem like a simple choice to cooperate with and save everyone you can, but the stronger Wonderland is, the more easily Gurathnaka can use it to strike out against the waking world.  Will you protect Wonderland while bolstering the shadows?  Or will you burn it away as you cauterize the wounds that the Eater of Dreams inflicted on Arkham?"
+    },
+    {
+      "id": "alice_psyche",
+      "text": "How will Alice's psyche fare as you traverse her strange dreams?  Be aware of anything that could help preserve her sanity."
+    },
+    {
+      "id": "went_down_the_rabbit_hole",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "went_down_the_rabbit_hole",
+          "text": "the investigators went down the rabbit hole."
+        }
+      ]
+    },
+    {
+      "id": "went_through_the_looking_glass",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "went_through_the_looking_glass",
+          "text": "the investigators went through the looking glass."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "proceed_interlude",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "went_down_the_rabbit_hole",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_dodo"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_white_queen"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "The city flows like an ocean, sweeping you away and nearly swallowing you in the chaotic mass.  You are battered and crushed between bricks and cobble-stones as the landscape swirls around and around, folding in on itself with each rotation.",
+      "steps": ["check_any_resigned"]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": []
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The terror of diving into the pit quickly fades to apprehension, and soon curiosity.  The counted seconds stretch to minutes, though easily tracked by the constant ticking of the clocks lining the walls of the rabbit hole.  Just as you wonder if you might very well fall infinitely, the ground suddenly rises below you, and you land with surprisingly little impact.  Rising to your feet, you spy the fleeting form of the white rabbit once again sprinting down a long corridor before you.  With no way back up, and Arkham likely in shambles anyhow, you have little choice but to continue following the strange creature.\nThe corridors wind endlessly, diverging and converging like the tunnels of an ant colony.  Doors fill every part of the walls, no two alike in shape, size, or style.  Your curiosity is stifled, however, as you find each solidly locked.  With no alternative but to continue down the hallway, you soldier onward in pursuit of the rabbit.",
+      "steps": ["went_down_the_rabbit_hole", "earn_xp", "resolution_3"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The sound of Arkham's collapse vanishes completely as you cross through the glass.  You glance backwards to see only blackness with splashes of color and shapes, churning slowly.  You're not sure if you can return the way you came, or if you even want to, with the way that the city was being torn apart.  You stand transfixed until the heat and crackle of the fire beneath the mantle rouse your thoughts.  This is no time to be waiting and wondering.  You must find what lies beyond the mirror.",
+      "steps": ["went_through_the_looking_glass", "earn_xp", "resolution_3"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "\"I do hope you'll forgive our cold hospitality.  A welcoming committee simply couldn't be arranged.\"  The Cheshire Cat appears before you, its grin ever constant.  For the first time since the danger started, you at last have a moment to chastise the cat.  Appearing and disappearing, helping you and hindering you, it only proves to muddle your understanding of the bizarre events.  \"I'm afraid I can't help it,\" the cat purrs serenely, \"my nature is madness.  Everyone is mad in Wonderland, you see.  You yourself are beginning to go mad, or else you wouldn't be here.\"  You'd like to refute the cat, but you feel as if you are already walking a path of madness in trying to save Arkham from these bizarre occurrences.\nThe Cheshire Cat orbits you slowly, observing you from all angles as it speaks.  \"Still, I am a creature of Wonderland, and it is in my best interests to preserve my home, just as it is in your best interests to preserve yours.  Quizzically, Alice has entrusted you with both.\"  The cat rises up to stare you in the eye at an uncomfortably close distance.  \"You'll carry on, of course, but how will you carry on?  Like a surgeon, cutting out the infection?\" Its head detaches to punctuate the point.  \"Or like a miner, blasting all to oblivion?\"  The cat's body scatters as if blown apart, but the head remains eerily in place.  \"Whether you trim gently or tear it out by the roots, any future is preferable to being consumed utterly.  Alice would agree, I should think.  Assuming she is still lucid after being made into a gateway, of course.\"\nThe cat's head fades away, leaving only its grin behind once more.  You have a lot to consider and a long road ahead.",
+      "steps": ["travel_the_dreamlands", "alice_psyche", "proceed_interlude"]
+    }
+  ]
+}

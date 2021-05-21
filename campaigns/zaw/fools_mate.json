@@ -1,0 +1,308 @@
+{
+  "id": "fools_mate",
+  "scenario_name": "Fool's Mate",
+  "full_name": "Scenario II-F: Fool's Mate",
+  "header": "Scenario II-F",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "gather_boons_and_banes",
+    "set_aside_cards",
+    "setup_locations",
+    "white_king",
+    "chesire_cat",
+    "encounter_deck",
+    "chess_movement_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The winding paths through the rolling hills remind you of Miskatonic Valley in a way.  You might feel at ease, were it not for the glimpses of strange creatures and wisps of shadows each time you look back over your shoulder.\nYour worries are compounded as the landscape smooths out to tidy fields in perfect squares.  Immaculate hedge rows and canals line each plot of land.  The grass of each alternates between darker and lighter shades to contrast with its neighbors.  The parallel with a chess board occurs to you at the same moment that you catch sight of several enormous white chess pieces, alive as any person and grouped together fearfully.  The pieces regard your approach warily and hold themselves proudly until a distant creaking and cracking sends them back to shuddering timidly.\nA massive storm of shadows looms several fields beyond your own, churning but stationary.  \"It is a travesty, is it not?\"  You turn to find the White King staring grimly at the fearsome event alongside you.  \"To think we once fought with such chivalry according to the Rules of Battle with the red army.\"  You press the king on his comments, and he realizes rather suddenly that you are not a native of Wonderland.\n\"You are perhaps another visitor from Alice's domain?  You have impeccable timing.  Completely wrong, but impeccable.  My own army has lost its nerve completely, and I am in need of new pawns.  Strong and keen, brave and true.\"  The King looks to you and stares in uncomfortable silence with a disappointed look stamped on his face.  \"You will have to do.\"  You attempt to protest being drafted, but the White King snorts impudently.  \"Hush hush, it's an honor to serve a king, you know!  All you must do is travel to the eighth square and capture the Red King.  Defeat the Red Queen as well, if you are able.  You will of course meet with some opposition, but I'm confident - no, confident is the wrong word.  Optimistic?  Satisfied?  Yes, that will do - satisfied that you will find success.\"\nIrritation builds within you at the White King's haughtiness, but you consider the situation carefully.  You entered Wonderland to seek out and destroy Gurathnaka's shadows, and such a target is now within your sight.  With any luck, you might even be able to convince some of the other white chess pieces to assist you in stamping out this corruption.  With some resignation, you accept the White King's badgering and proceed to the edge of his defenses.  The Cheshire Cat grins down at you from the battlements, lounging lazily but eyes fixed on the distant shadows permeating the far side of the chess board."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "fools_mate",
+        "chessmen",
+        "gurathnakas_shadows",
+        "chesire_cat"
+      ]
+    },
+    {
+      "id": "gather_boons_and_banes",
+      "type": "encounter_sets",
+      "text": "Check the Campaign Log. Gather the cards from the <i>Wonderland Boons</i> encounter set whose names are listed under \"Wonderland Boons\" and the cards from the <i>Wonderland Banes</i> encounter set whose names are listed under \"Wonderland Banes.\"",
+      "encounter_sets": [
+        "wonderland_boons",
+        "wonderland_banes"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: The Red Queen, The White Knight, both copies of Absent-Minded, both copies of The Red King."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the First Row, Second Row, Third Row, Fourth Row, Fifth Row, Sixth Row, Seventh Row, Eighth Row, and Distant Square locations into play.  Each investigator begins play at Second Row."
+    },
+    {
+      "id": "white_king",
+      "text": "Put The White King into play at First Row."
+    },
+    {
+      "id": "chesire_cat",
+      "text": "Put The Cheshire Cat <i>(Grinning Guide)</i> into play in the lead investigator's play area."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "chess_movement_rule",
+      "type": "rule_reminder",
+      "title": "Chess Movement",
+      "text": "For this scenario, when resolving the hunter keyword, all [[Chess]] enemies behave differently depending on which piece they are:",
+      "bullets": [
+        {
+          "text": "<b>Pawn:</b> Resolve the hunter keyword as normal."
+        },
+        {
+          "text": "<b>Knight:</b> If the Knight is at a [[Row]] location, move it to Distant Square.  If the Knight is at Distant Square, it hunts directly to any investigator."
+        },
+        {
+          "text": "<b>Bishop:</b> If the Bishop is at an odd-numbered [[Row]] location, it hunts directly only to an investigator at any other odd-numbered [[Row]] location.  If the Bishop is at an even-numbered [[Row]] location, it hunts directly only to an investigator at any other even-numbered [[Row]] location.  If neither are true, cancel the effects of the hunter keyword."
+        },
+        {
+          "text": "<b>Rook:</b> Move one location at a time until it engages an investigator.  If it moved more than once, it does not attack."
+        },
+        {
+          "text": "<b>Queen:</b> Resolve the hunter effect as if the Queen were a Bishop.  If the Queen would not hunt as a result, resolve the hunter effect as if the Queen were a Rook instead."
+        },
+        {
+          "text": "<b>King:</b> The King does not move.  Heal 1 damage from all [[Chess]] enemies in play instead."
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "white_knight_revels_in_your_victory_over_the_red_queen",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "white_knight_revels_in_your_victory_over_the_red_queen",
+          "text": "the White Knight revels in your victory over the Red Queen."
+        }
+      ]
+    },
+    {
+      "id": "white_knight_has_fallen_in_battle_to_the_red_queen",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "white_knight_has_fallen_in_battle_to_the_red_queen",
+          "text": "the White Knight has fallen in battle to the Red Queen."
+        }
+      ]
+    },
+    {
+      "id": "white_king_was_slain_by_the_red_pieces",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "white_king_was_slain_by_the_red_pieces",
+          "text": "the White King was slain by the red pieces."
+        }
+      ]
+    },
+    {
+      "id": "white_king_celebrates_a_grand_victory",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "white_king_celebrates_a_grand_victory",
+          "text": "the White King celebrates a grand victory."
+        }
+      ]
+    },
+    {
+      "id": "proceed_interlude",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "went_down_the_rabbit_hole",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_white_queen"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_lion_and_the_unicorn"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_strength_of_wonderland",
+      "text": "In your Campaign Log, record 1 tally mark under \"Strength of Wonderland.\"",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "strength_of_wonderland",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "ask_queen",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Red Queen in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "zaw_fm_req_queen",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_queen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "zaw_fm_req_queen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["pawn_takes_queen", "add_1_strength_of_wonderland", "white_knight_revels_in_your_victory_over_the_red_queen"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["queens_castle", "white_knight_has_fallen_in_battle_to_the_red_queen"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_queen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["ask_queen", "check_queen"]
+          },
+          {
+            "condition": "R2",
+            "steps": ["ask_queen", "check_queen"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pawn_takes_queen",
+      "title": "Pawn Takes Queen",
+      "type": "story",
+      "text": "After several minutes of protracted battle, the tenacious Red Queen collapses to the ground, unable to pursue you any further.  You take a moment to catch your breath, and have barely rested a moment when you hear a loud call nearby.  The White Knight approaches on his horse and promptly falls off, but just as quickly stands with a laugh.  \"Ah, what a glorious battle that was, young pawn!  Few are able to keep pace with a queen at all, but you have done so splendidly!  With skill such as yours, why, I dare say you have the makings of a fine knight within you!\"  The knight's lack of perspective is oddly refreshing amid the horrors being wreaked by the shadows, and you give him an appreciative nod."
+    },
+    {
+      "id": "queens_castle",
+      "title": "Queen's Castle",
+      "type": "story",
+      "text": "The Red Queen pursues you relentlessly, flanked by dozens of other chess pieces.  The queen's speed is tremendous, constantly cornering you and leaving you no chance for respite.  As the crowd of red chess pieces closes in on you, the White Knight gallops onto the scene once more, and intervenes between you and the shadowy horde.  \"Carry on quickly, my friend,\" he bellows, \"and leave this rabble to me!\"  He charges clumsily at the advancing line in a show of hopeless heroics, but he has given you much-needed time to focus on your task.  You turn away from the carnage and work as quickly as you can."
+    },
+    {
+      "id": "r1_story",
+      "type": "story",
+      "text": "You abandon the prospect of victory against the Red King and flee the chess board fields.  The landscape tears as you flee, ripped apart by the sudden surge of shadows while the red pieces rush forward to finish the defenders.  It seems as if you may be overwhelmed as well, but the shifting landscape opens up a gap in the orderly hedge rows.  You dive through without hesitation and hunker down as the land around you shudders in destruction.\nMinutes pass, and finally the wild din fades, replaced again by an eerie silence.  You emerge from the hedges to find the entire battlefield now marred and blasted by the dark surge.  Bodies of defeated chess pieces lie strewn about the fields, most of them cracked and contorted from whatever force ripped them apart.  You glance in the direction of the Red King's castle to see it as you first did: a red shard in a dark vortex.  Slowly you make your way back towards the ruined defenses of the White King to search for survivors.\nScattered stone and derelict pillars are all that remain of the white castle you first set out from.  Many of the missing chunks of masonry look as though they were bitten or clawed apart rather than shattered.  The trail of destruction leads directly to the throne of the White King.  You find his body on the steps to his throne, shredded to unrecognizable state but for the crown he once wore.  You realize now just how deeply the shadows have divided Wonderland.  The two sides may have once met in combat honorably, as the white pieces expected to fight, but Gurathnaka's corruption transformed the red pieces into remorseless monsters that share its hunger.  You depart solemnly to recuperate and find a new battlefield to face the shadows upon."
+    },
+    {
+      "id": "r2_story",
+      "type": "story",
+      "text": "You approach the fallen Red King cautiously.  The shadows have ceased to flow out of him, but you're not about to take extra risks if you can help it.  Moments pass without event, and gradually the sound of the Red King's labored breathing magnifies.  You turn him over and are astonished to find that despite his injuries, the king is asleep!  You open the Red King's eyes manually, only to find them filled with swirling darkness.  Whatever shadowy power has possessed the king is keeping him alive even in this state.  You ponder the possibilities and it soon becomes clear to you what has happened.  Gurathnaka is an eater of dreams, and even the denizens of a dream can have dreams of their own.  The Red King's dreams sustain the shadows as they try to consume both Wonderland and Arkham.  You grimace with pity as you deliver the merciful killing blow to the Red King.\nAs the death blow lands, the shadows retreat from the castle with an echoing shriek.  The remaining red chess pieces, however, turn to retire without any sound or expression.  Perhaps some core principle drives them to obey the rules of chess even when controlled by Gurathnaka's shadows.  Whatever the reason, you're relieved that you won't have to fight your way back out of the castle.\nYou return wearily across the battlefield to the opposing castle of the White King, who meets you proudly.  \"A fine victory, just fine!  I knew I was right to put my confidence - no, wait, it was satisfaction - satisfaction in you!  Come now, we must feast and revel before we go to gloat of our victory to the Red King!\"  You say nothing, not wanting to sour the mood and possibly upset the White King.  If there's one thing you've learned, it's that the inhabitants of Wonderland are notoriously short-tempered.  You give a noncommittal answer and let the king return to his celebration as you quietly depart."
+    }
+  ],
+  "resolutions": [
+
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": ["ask_queen"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": ["maybe_ask_queen", "r1_story", "white_king_was_slain_by_the_red_pieces", "earn_xp", "proceed_interlude"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": ["maybe_ask_queen", "r2_story", "white_king_celebrates_a_grand_victory", "add_1_strength_of_wonderland", "earn_xp", "proceed_interlude"]
+    }
+  ]
+}
