@@ -108,6 +108,20 @@ function validate(validator, file, json, schemaName) {
               }
             });
           }
+          if (choice.pre_border_effects) {
+            choice.pre_border_effects.map(effect => {
+              if (effect.type === "story_step" && effect.steps.length) {
+                effect.steps.map(step => {
+                  if (!steps[step] && !magicSteps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
           if (choice.effects) {
             choice.effects.map(effect => {
               if (effect.type === "story_step" && effect.steps.length) {
@@ -153,6 +167,20 @@ function validate(validator, file, json, schemaName) {
       }
       if (step.condition && step.condition.options) {
         step.condition.options.map(option => {
+          if (option.pre_border_effects) {
+            option.pre_border_effects.map(effect => {
+              if (effect.type === "story_step") {
+                effect.steps.map(step => {
+                  if (!steps[step] && !magicSteps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
           if (option.effects) {
             option.effects.map(effect => {
               if (effect.type === "story_step") {
@@ -300,7 +328,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, "errata");
     const QUIET = false;
-   
+
     getFilePaths("./errata").sort().map(file => {
       if (file.endsWith('errata.json')) {
         const data = fs.readFileSync(file, "utf-8").toString();
@@ -312,7 +340,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
           validate(validator, file, json, "errata");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
+        }
       }
     });
   }
@@ -331,7 +359,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, "rules");
     const QUIET = false;
-   
+
     getFilePaths("./rules").sort().map(file => {
       if (file.endsWith('foo.json')) {
         const data = fs.readFileSync(file, "utf-8").toString();
@@ -343,7 +371,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
           validate(validator, file, json, "rules");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
+        }
       }
     });
   }
