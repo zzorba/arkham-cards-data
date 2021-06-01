@@ -217,7 +217,8 @@
         { "$ref": "#/definitions/campaignDataResultEffect" },
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
         { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
-        { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" }
+        { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" },
+        { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" }
       ]
     },
     "campaignDataResultEffect": {
@@ -305,6 +306,35 @@
       "required": [
         "type",
         "setting"
+      ],
+      "additionalProperties": false
+    },
+
+    "campaignDataRedirectExperienceEffect": {
+      "$id": "#campaignDataRedirectExperienceEffect",
+      "title": "CampaignDataRedirectExperienceEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "redirect_experience"
+          ]
+        },
+        "investigator_count": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator_count"
       ],
       "additionalProperties": false
     },
@@ -560,7 +590,13 @@
         },
         "investigator": {
           "type": "string",
-          "enum": ["all", "$input_value", "$fixed_investigator"]
+          "enum": [
+            "all",
+            "defeated",
+            "$input_value",
+            "lead_investigator",
+            "$fixed_investigator"
+          ]
         },
         "fixed_investigator": {
           "type": "string"
@@ -684,6 +720,7 @@
           "type": "string",
           "enum": [
             "$lead_investigator",
+            "$all_investigators",
             "$defeated_investigators",
             "$input_value"
           ]

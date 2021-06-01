@@ -20,7 +20,7 @@
     {
       "id": "intro",
       "type": "story",
-      "text": "\"In the middle of the 21st century, Earth was in complete chaos. Rioting, crime, madness and worse had become the order of the day for the entire world. […] In a last ditch of effort, two of the Arks were completed and the third vessel was stripped for parts. The two completed vessels set out for Mars, each carrying 3000 humans in suspended animation. One vessel, the Liberty, suffered a massive power plant failure and the crew and passengers were killed. The other ship, Hope, eventually reached Mars…\"\n<right>-- Maja, Information Archives</right>\nThe planet Earth -- what used to be humanity's sanctuary, is now abandoned to the madness of the Ancient Ones. There is very little information of what remains on the Earth, but if anyone would attempt to send out a transmission, survey vessels stationed around the planet such as the Nostalgia II would hear those calls.\nThe trip itself was uneventful, and you spend your days watching the blue dot of Earth grow and grow in size. Around the time you can finally recognize a few of the continents, the Tatterdemalion picks up a lonely and distant beat -- the echo of the Nostalgia II's distress beacon. You try to hail the crew with your radios, but there is no response. The Tatterdemalion begins its deceleration, and with no time to waste, you prepare to board the godforsaken ship."
+      "text": "\"In the middle of the 21st century, Earth was in complete chaos. Rioting, crime, madness and worse had become the order of the day for the entire world. […] In a last ditch of effort, two of the Arks were completed and the third vessel was stripped for parts. The two completed vessels set out for Mars, each carrying 3000 humans in suspended animation. One vessel, the Liberty, suffered a massive power plant failure and the crew and passengers were killed. The other ship, Hope, eventually reached Mars…\"\n<right>— Maja, Information Archives</right>\nThe planet Earth — what used to be humanity's sanctuary, is now abandoned to the madness of the Ancient Ones. There is very little information of what remains on the Earth, but if anyone would attempt to send out a transmission, survey vessels stationed around the planet such as the Nostalgia II would hear those calls.\nThe trip itself was uneventful, and you spend your days watching the blue dot of Earth grow and grow in size. Around the time you can finally recognize a few of the continents, the Tatterdemalion picks up a lonely and distant beat — the echo of the Nostalgia II's distress beacon. You try to hail the crew with your radios, but there is no response. The Tatterdemalion begins its deceleration, and with no time to waste, you prepare to board the godforsaken ship."
     },
     {
       "id": "gather_encounter_sets",
@@ -83,6 +83,23 @@
       }
     },
     {
+      "id": "earn_xp_plus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 2 bonus experience as they have seen the unthinkable.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
       "id": "earn_xp_plus_crew",
       "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display and of each [[Crew]] asset that the investigators control.",
       "type": "input",
@@ -129,11 +146,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["go_resolution_5", "resolution_5"]
+            "steps": ["check_for_imitations", "ask_imitations", "check_imitations"]
           },
           {
             "boolCondition": false,
-            "steps": ["check_for_imitations", "ask_imitations", "check_imitations"]
+            "steps": ["go_resolution_5", "resolution_5"]
           }
         ]
       }
@@ -150,17 +167,19 @@
     },
     {
       "id": "check_for_imitations",
+      "bullet_type": "small",
       "text": "Look at the story cards that are under the scenario reference card but do not read them. For each of the story cards, reveal 1 random chaos token from the chaos bag. If it is not a [elder_sign], [bless], '+1', or '0' token, the [[Crew]] story asset corresponding to that story card is an imitation of the Entity!"
     },
     {
       "id": "ask_imitations",
+      "bullet_type": "small",
       "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "resigned",
-            "text": "Are any of the [[Crew]] story assets that are imitations in the victory display?",
+            "text": "Are any of the [[Crew]] story assets that turned out to be imitations of the Entity in the victory display?",
             "effects": [
               {
                 "type": "campaign_log",
@@ -258,7 +277,27 @@
     },
     {
       "id": "add_impending_doom",
-      "text": "Add 1 tally mark under \"Impending Doom\" in your Campaign Log."
+      "text": "Add 1 tally mark under \"Impending Doom\" in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "impending_doom",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "add_4_impending_doom",
+      "text": "Add 4 tally marks under \"Impending Doom\" in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "impending_doom",
+          "operation": "add",
+          "value": 4
+        }
+      ]
     },
     {
       "id": "add_loss_impending_doom",
@@ -299,7 +338,6 @@
       "type": "input",
       "input": {
         "type": "upgrade_decks",
-        "skip_decks": true,
         "counter": "memories"
       }
     },
@@ -326,7 +364,7 @@
             "scenario": "lost_quantum",
             "options": [
               {
-                "boolCondition": false
+                "boolCondition": true
               }
             ]
           }
@@ -342,12 +380,11 @@
     },
     {
       "id": "search_for_fragment",
-      "title": "The Search for Fragment",
-      "text": "Aboard the Tatterdemalion, you and your companions seek the coordinates of the asteroid \"Fragment\" to prevent the ascension of Tassilda, daughter of Hastur. Upon analysing the remaining data aboard the ship, K2-PS187 and you have decided on 3 traces that are worth investigating. However, time is of the essence  -- you may want to visit the destination you think will be the most valuable first."
+      "title": "The Search for Fragment (continued)",
+      "text": "Aboard the Tatterdemalion, you and your companions seek the coordinates of the asteroid \"Fragment\" to prevent the ascension of Tassilda, daughter of Hastur. Upon analysing the remaining data aboard the ship, K2-PS187 and you have decided on 3 traces that are worth investigating. However, time is of the essence  — you may want to visit the destination you think will be the most valuable first."
     },
     {
       "id": "choose_trace",
-      "title": "The Search for Fragment (continued)",
       "text": "The investigators must choose to follow one of the following traces:",
       "type": "input",
       "input": {
@@ -388,7 +425,6 @@
     },
     {
       "id": "proceed_lost_quantum",
-      "text": "Proceed to <b>Scenario IIIa: Lost Quantum</b>.",
       "effects": [
         {
           "type": "campaign_data",
@@ -399,7 +435,6 @@
     },
     {
       "id": "proceed_strange_moons",
-      "text": "Proceed to <b>Scenario IIIc: Strange Moons</b>.",
       "effects": [
         {
           "type": "campaign_data",
@@ -473,15 +508,27 @@
                 }
               ]
             },
-            "text": "you witnessed the manifested madness.",
-            "steps": ["witnesed_the_manifested_madness"]
+            "text": "You witnessed the manifested madness.",
+            "steps": ["witnesed_the_manifested_madness_small"]
           }
-
         ]
       }
     },
     {
+      "id": "witnesed_the_manifested_madness_small",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "witnesed_the_manifested_madness",
+          "text": "you witnessed the manifested madness."
+        }
+      ]
+    },
+    {
       "id": "has_been_corrupted_by_the_earth",
+      "bullet_type": "small",
       "text": "Which investigator(s) <i>has been corrupted by the earth</i>",
       "type": "input",
       "input": {
@@ -532,12 +579,38 @@
           }
         ]
       }
+    },
+    {
+      "id": "couldnt_save_the_crew_of_the_nostalgia_2",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "couldnt_save_the_crew_of_the_nostalgia_2",
+          "text": "you couldn't save the crew of the Nostalgia II."
+        }
+      ]
+    },
+    {
+      "id": "all_investigsators_corrupted_by_the_earth",
+      "text": "Record in your Campaign Log that all investigators <i>have been corrupted by the Earth.</i>",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "has_been_corrupted_by_the_earth",
+          "cards": "$all_investigators",
+          "masculine_text": "#name# has been corrupted by the Earth.",
+          "feminine_text": "#name# has been corrupted by the Earth."
+        }
+      ]
     }
   ],
   "resolutions": [
     {
       "id": "no_resolution",
-      "title": "No resolution was reached\n(each investigator resigned or was defeated)",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
       "investigator_status": [
         "resigned",
         "eliminated",
@@ -561,14 +634,20 @@
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "You barely made it out of the madhouse alive. You managed to save some of the crew, and they mourn the lost for several days. Thankfully, none of the crew members you have brought aboard was an imitation. Over time, they describe how the madness only began a few days after they decoded a transmission from Earth -- a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after -- but it is meaningless to you and doesn't help you uncover the coordinates of Fragment.\nWhen you finally deliver the remaining crew to a service station in the Martian orbit, the survivors thank you once more for saving them and bids farewell. Despite all, you must leave this behind you and look forwards towards another lead.",
+      "text": "You barely made it out of the madhouse alive. You managed to save some of the crew, and they mourn the lost for several days. Thankfully, none of the crew members you have brought aboard was an imitation. Over time, they describe how the madness only began a few days after they decoded a transmission from Earth — a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after — but it is meaningless to you and doesn't help you uncover the coordinates of Fragment.\nWhen you finally deliver the remaining crew to a service station in the Martian orbit, the survivors thank you once more for saving them and bids farewell. Despite all, you must leave this behind you and look forwards towards another lead.",
       "steps": ["you_have_rescued_the_remaining_crew_of_the_nostalgia_2", "add_impending_doom", "add_loss_impending_doom", "earn_xp", "$upgrade_decks", "proceed_search_for_fragment"]
     },
     {
       "id": "R4",
       "title": "Resolution 4",
-      "text": "The remaining crew of the Nostalgia II thank you for your help in defeating the abomination. They describe how the madness only began a few days after they decoded a transmission from Earth -- a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after -- but it is meaningless to you and doesn't help you uncover the coordinates of Fragment. Despite all, you must leave this behind you and look forwards towards another lead.",
+      "text": "The remaining crew of the Nostalgia II thank you for your help in defeating the abomination. They describe how the madness only began a few days after they decoded a transmission from Earth — a cryptic poem.\n<center>\"Let the red dawn surmise</center>\n<center>What we shall do,</center>\n<center>When this blue starlight dies</center>\n<center>And all is through.\"</center>\nYou believe this poem must be what the cultists were after — but it is meaningless to you and doesn't help you uncover the coordinates of Fragment. Despite all, you must leave this behind you and look forwards towards another lead.",
       "steps": ["maybe_witnesed_the_manifested_madness", "nostalgia_2_has_been_saved", "earn_space_artillery", "add_elder_thing", "add_impending_doom", "add_win_impending_doom", "earn_xp_plus_crew", "$upgrade_decks", "proceed_search_for_fragment"]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "You couldn't save anyone. The one silver lining — during the ordeal, K2-PS187 was able to hack into the mainframe and uncover what the cultists retrieved, a cryptic message received from Earth. You spend some time attempting to decode the message — but to no avail. You just leave this decryption, and the traumatic experiences associated with it, behind for now and look forwards toward another lead.",
+      "steps": ["couldnt_save_the_crew_of_the_nostalgia_2", "all_investigsators_corrupted_by_the_earth", "add_4_impending_doom", "earn_xp_plus_2", "$upgrade_decks", "proceed_search_for_fragment"]
     }
   ]
 }

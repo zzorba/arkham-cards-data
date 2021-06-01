@@ -95,7 +95,8 @@ function validate(validator, file, json, schemaName) {
         const allChoices = [
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
-          ...(step.input.campaign_log ? step.input.campaign_log : [])
+          ...(step.input.campaign_log ? step.input.campaign_log : []),
+          ...(step.input.defaultOption ? [step.input.defaultOption] : []),
         ];
         allChoices.map(choice => {
           if (choice.steps) {
@@ -108,8 +109,8 @@ function validate(validator, file, json, schemaName) {
               }
             });
           }
-          if (choice.effects) {
-            choice.effects.map(effect => {
+          if (choice.pre_border_effects) {
+            choice.pre_border_effects.map(effect => {
               if (effect.type === "story_step" && effect.steps.length) {
                 effect.steps.map(step => {
                   if (!steps[step] && !magicSteps[step]) {
@@ -117,6 +118,20 @@ function validate(validator, file, json, schemaName) {
                     error = true;
                   } else {
                     delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
+          if (choice.effects) {
+            choice.effects.map(effect => {
+              if (effect.type === "story_step" && effect.steps.length) {
+                effect.steps.map(s => {
+                  if (!steps[s] && !magicSteps[s]) {
+                    console.log(`MISSING_STEP (${file}) - ${s}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[s];
                   }
                 });
               }
@@ -151,8 +166,36 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
-      if (step.condition && step.condition.options) {
-        step.condition.options.map(option => {
+      if (step.input && step.input.type === 'scenario_investigators' && step.input.choose_none_steps) {
+        step.input.choose_none_steps.map(step => {
+          if (!steps[step] && !magicSteps[step]) {
+            console.log(`MISSING_STEP (${file}) - ${step}`);
+            error = true;
+          } else {
+            delete unusedSteps[step];
+          }
+        });
+      }
+      if (step.condition && (step.condition.options || step.condition.defaultOption)) {
+        const allOptions = [
+          ...(step.condition.options ? step.condition.options : []),
+          ...(step.condition.defaultOption ? [step.condition.defaultOption] : []),
+        ];
+        allOptions.map(option => {
+          if (option.pre_border_effects) {
+            option.pre_border_effects.map(effect => {
+              if (effect.type === "story_step") {
+                effect.steps.map(step => {
+                  if (!steps[step] && !magicSteps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
           if (option.effects) {
             option.effects.map(effect => {
               if (effect.type === "story_step") {
@@ -178,19 +221,6 @@ function validate(validator, file, json, schemaName) {
             });
           }
         });
-      }
-      if (step.condition && step.condition.defaultOption) {
-        const option = step.condition.defaultOption;
-        if (option.steps) {
-          option.steps.map(step => {
-            if (!steps[step] && !magicSteps[step]) {
-              console.log(`MISSING_STEP (${file}) - ${step}`);
-              error = true;
-            } else {
-              delete unusedSteps[step];
-            }
-          });
-        }
       }
     });
   }
@@ -300,7 +330,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, "errata");
     const QUIET = false;
-   
+
     getFilePaths("./errata").sort().map(file => {
       if (file.endsWith('errata.json')) {
         const data = fs.readFileSync(file, "utf-8").toString();
@@ -312,7 +342,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
           validate(validator, file, json, "errata");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
+        }
       }
     });
   }
@@ -331,7 +361,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, "rules");
     const QUIET = false;
-   
+
     getFilePaths("./rules").sort().map(file => {
       if (file.endsWith('foo.json')) {
         const data = fs.readFileSync(file, "utf-8").toString();
@@ -343,7 +373,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
           validate(validator, file, json, "rules");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
+        }
       }
     });
   }

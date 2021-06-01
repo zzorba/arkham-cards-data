@@ -77,6 +77,7 @@ for f in $RETURN_CAMPAIGNS; do
   buildCampaign $f;
 done
 
+echo "Building allCampaigns.json"
 cd $OUTPUT_DIR
 count=0
 echo '[' > ./allCampaigns.json
