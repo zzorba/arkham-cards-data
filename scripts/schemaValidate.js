@@ -95,7 +95,8 @@ function validate(validator, file, json, schemaName) {
         const allChoices = [
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
-          ...(step.input.campaign_log ? step.input.campaign_log : [])
+          ...(step.input.campaign_log ? step.input.campaign_log : []),
+          ...(step.input.defaultOption ? [step.input.defaultOption] : []),
         ];
         allChoices.map(choice => {
           if (choice.steps) {
@@ -125,12 +126,12 @@ function validate(validator, file, json, schemaName) {
           if (choice.effects) {
             choice.effects.map(effect => {
               if (effect.type === "story_step" && effect.steps.length) {
-                effect.steps.map(step => {
-                  if (!steps[step] && !magicSteps[step]) {
-                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                effect.steps.map(s => {
+                  if (!steps[s] && !magicSteps[s]) {
+                    console.log(`MISSING_STEP (${file}) - ${s}`);
                     error = true;
                   } else {
-                    delete unusedSteps[step];
+                    delete unusedSteps[s];
                   }
                 });
               }
@@ -165,8 +166,22 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
-      if (step.condition && step.condition.options) {
-        step.condition.options.map(option => {
+      if (step.input && step.input.type === 'scenario_investigators' && step.input.choose_none_steps) {
+        step.input.choose_none_steps.map(step => {
+          if (!steps[step] && !magicSteps[step]) {
+            console.log(`MISSING_STEP (${file}) - ${step}`);
+            error = true;
+          } else {
+            delete unusedSteps[step];
+          }
+        });
+      }
+      if (step.condition && (step.condition.options || step.condition.defaultOption)) {
+        const allOptions = [
+          ...(step.condition.options ? step.condition.options : []),
+          ...(step.condition.defaultOption ? [step.condition.defaultOption] : []),
+        ];
+        allOptions.map(option => {
           if (option.pre_border_effects) {
             option.pre_border_effects.map(effect => {
               if (effect.type === "story_step") {
@@ -206,19 +221,6 @@ function validate(validator, file, json, schemaName) {
             });
           }
         });
-      }
-      if (step.condition && step.condition.defaultOption) {
-        const option = step.condition.defaultOption;
-        if (option.steps) {
-          option.steps.map(step => {
-            if (!steps[step] && !magicSteps[step]) {
-              console.log(`MISSING_STEP (${file}) - ${step}`);
-              error = true;
-            } else {
-              delete unusedSteps[step];
-            }
-          });
-        }
       }
     });
   }
