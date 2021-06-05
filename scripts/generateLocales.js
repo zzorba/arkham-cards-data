@@ -81,7 +81,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries) {
   const normalized = unorm.nfc(object[prop]);
