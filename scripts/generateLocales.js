@@ -83,9 +83,9 @@ async function writeJSON(object, filePath) {
 
 const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
 
-function translateField(object, prop, poFile, allPoEntries, corePoEntries) {
+function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender) {
   const normalized = unorm.nfc(object[prop]);
-  let context = undefined;
+  let context = gender;
   if (prop === 'masculine_text') {
     context = 'masculine';
   } else if (prop === 'feminine_text') {
@@ -124,7 +124,7 @@ async function translate(object, poFile, allPoEntries, corePoEntries) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
-        translateField(object, prop, poFile, allPoEntries, corePoEntries);
+        translateField(object, prop, poFile, allPoEntries, corePoEntries, object.gender || undefined);
       }
       if (typeof object[prop] === "object" && prop !== 'narration') {
         // Recursion
