@@ -581,6 +581,36 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "prologueRandomizer": {
+      "$id": "#prologueRandomizer",
+      "title": "PrologueRandomizer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "prologue_randomizer"
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stringOption"
+          }
+        }
+      },
+      "required": ["type", "prompt", "choices", "options"],
+      "additionalProperties": false
+    },
     "counterInput": {
       "$id": "#counterInput",
       "title": "CounterInput",
@@ -672,6 +702,9 @@
         },
         {
           "$ref": "#/definitions/randomLocationInput"
+        },
+        {
+          "$ref": "#/definitions/prologueRandomizer"
         },
         {
           "$ref": "#/definitions/saveDecksInput"
