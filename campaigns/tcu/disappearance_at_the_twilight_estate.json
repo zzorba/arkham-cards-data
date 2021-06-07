@@ -9,7 +9,7 @@
     "pre_intro",
     "choose_neutral_investigators",
     "no_decks",
-    "check_unplayed_investigators",
+    "maybe_check_unplayed_investigators",
     "intro",
     "read_intros",
     "check_gavriella_intro",
@@ -46,21 +46,7 @@
       "text": "Do not assemble an investigator deck for any neutral investigator. Instead, gather the cards listed on its reverse side—these cards will be used in that investigator’s unique setup. (All listed cards are level 0 unless otherwise noted.)"
     },
     {
-      "id": "check_unplayed_investigators",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "fewer_than_4_players",
-            "text": "Are there fewer than 4 players in this campaign?",
-            "steps": ["maybe_ask_record_missing_investigators"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "maybe_ask_record_missing_investigators",
+      "id": "maybe_check_unplayed_investigators",
       "type": "branch",
       "hidden": true,
       "condition": {
@@ -70,17 +56,95 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["new_missing_investigators", "cross_off_prompt", "maybe_cross_off_05046", "maybe_cross_off_05047", "maybe_cross_off_05049", "maybe_cross_off_05048"]
+            "steps": ["ask_player_count"]
           },
           {
             "boolCondition": false,
+            "steps": ["check_unplayed_investigators"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_unplayed_investigators",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fewer_than_4_players",
+            "text": "Are there fewer than 4 players in this campaign?",
             "steps": ["record_missing_investigators"]
           }
         ]
       }
     },
     {
-      "id": "new_missing_investigators",
+      "id": "ask_player_count",
+      "type": "input",
+      "text": "How many players are there?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "one",
+            "text": "One",
+            "steps": ["new_missing_investigators_1", "cross_off_prompt", "maybe_cross_off_05046", "maybe_cross_off_05047", "maybe_cross_off_05049", "maybe_cross_off_05048"]
+          },
+          {
+            "id": "two",
+            "text": "Two",
+            "steps": ["new_missing_investigators_2", "cross_off_prompt", "maybe_cross_off_05046", "maybe_cross_off_05047", "maybe_cross_off_05049", "maybe_cross_off_05048"]
+          },
+          {
+            "id": "three",
+            "text": "Three",
+            "steps": ["new_missing_investigators_3", "cross_off_prompt", "maybe_cross_off_05046", "maybe_cross_off_05047", "maybe_cross_off_05049", "maybe_cross_off_05048"]
+          },
+          {
+            "id": "four",
+            "text": "Four"
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_missing_investigators_3",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "code": [
+              "05046",
+              "05047",
+              "05048",
+              "05049"
+            ]
+          }
+        ],
+        "min": 3,
+        "max": 3,
+        "choices": [
+          {
+            "id": "chosen",
+            "text": "Choose your prologue investigators:",
+            "confirm_text": "Chosen prologue investigators:",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "$input_value",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "new_missing_investigators_1",
       "type": "input",
       "input": {
         "type": "card_choice",
@@ -95,7 +159,41 @@
           }
         ],
         "min": 1,
-        "max": 3,
+        "max": 1,
+        "choices": [
+          {
+            "id": "chosen",
+            "text": "Choose your prologue investigators:",
+            "confirm_text": "Chosen prologue investigators:",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "$input_value",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "new_missing_investigators_2",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "code": [
+              "05046",
+              "05047",
+              "05048",
+              "05049"
+            ]
+          }
+        ],
+        "min": 2,
+        "max": 2,
         "choices": [
           {
             "id": "chosen",
