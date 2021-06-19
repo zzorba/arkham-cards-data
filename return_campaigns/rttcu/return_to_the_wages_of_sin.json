@@ -1,0 +1,153 @@
+{
+  "id": "return_to_the_wages_of_sin",
+  "original_id": "the_wages_of_sin",
+  "scenario_name": "Return to The Wages of Sin",
+  "full_name": "Scenario IV: Return to The Wages of Sin",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_watcher",
+    "setup_locations",
+    "location_layout",
+    "set_aside_spectral_web",
+    "set_aside_erynn",
+    "shuffle_heretics",
+    "create_encounter_decks",
+    "extra_rule",
+    "spectral_encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_wages_of_sin",
+        "return_to_the_wages_of_sin",
+        "anettes_coven",
+        "city_of_the_damned",
+        "unspeakable_fate",
+        "unstable_realm",
+        "bloodthirsty_spirits",
+        "hexcraft"
+      ]
+    },
+    {
+      "id": "set_aside_erynn",
+      "text": "Set the Erynn MacAoidh story asset aside, out of play."
+    },
+
+    {
+      "id": "setup_locations",
+      "text": "Randomly choose one of the two The Gallows locations, one of the two Heretics’ Graves locations, one of the two Chapel Attic locations, one of the two Chapel Crypt locations, and one of the two Hangman's Brook locations, and put them into play. Remove the other versions of The Gallows, Heretics’ Graves, Chapel Attic, Chapel Crypt, and Hangman's Brook from the game. Then, put Haunted Fields and Abandoned Chapel into play.",
+      "bullets": [
+        {
+          "text": "These locations have revealed versions on both sides. One side has the [[Spectral]] trait, and one side does not. When putting these locations into play, use the revealed sides without the [[Spectral]] trait."
+        },
+        {
+          "text": "Each investigator begins play in Hangman’s Brook."
+        }
+      ]
+    },
+    {
+      "id": "shuffle_heretics",
+      "text": "Shuffle the eight Heretic enemies and set aside four of them, at random. Remove the other four copies from the game. These cards are double-sided and have story cards on their reverse side. For the best experience, do not look at the story cards on their other side."
+    },
+    {
+      "id": "1_heretic_released",
+      "text": "In your Campaign Log, record <i>1 heretic was unleashed unto Arkham.</i>",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "heretics_released",
+          "operation": "set",
+          "value": 1,
+          "text": "#X# heretics were unleashed unto Arkham."
+        }
+      ]
+    },
+    {
+      "id": "earned_bloody_tree_carvings",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "mementos",
+          "id": "bloody_tree_carvings",
+          "text": "Bloody Tree Carvings"
+        }
+      ]
+    },
+    {
+      "id": "earn_erynn",
+      "text": "In your Campaign Log, record that <i>Erynn joined the investigators</i>. Any one investigator may choose to add Erynn MacAoidh to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "erynn_joined_investigators",
+          "text": "Erynn joined the investigators."
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "????"
+        }
+      ]
+    },
+    {
+      "id": "extra_rule",
+      "text": "For the duration of this scenario, the following additional rule applies:\n\"While resolving The Watcher's Grasp treachery, The Spectral Watcher does not exhaust after it attacks.\"\nAttach the Return to The Wages of Sin card to the scenario reference card as a reminder."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution\n(each investigator defeated)",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_2"]
+    },
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution\n(at least one investigator resigned)",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "narration": {
+        "id": "the_circle_undone.the_wages_of_sin.resolution_1",
+        "name": "Resolution 1"
+      },
+      "text": "Rays of faded sunlight stream through the haze, and the unnatural mist finally recedes. As it does, Hangman’s Hill returns to its original state. No other spiteful ghosts emerge to haunt you, and the witches who summoned them have retreated into the shadows once more. You hope that you have done enough to prevent the rest of Arkham to succumbing to this horror.",
+      "steps": ["maybe_corn_husk_doll", "record_heretics_released", "check_earned_wisp", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R2",
+      "narration": {
+        "id": "the_circle_undone.the_wages_of_sin.resolution_2",
+        "name": "Resolution 2"
+      },
+      "title": "Resolution 2",
+      "text": "Resigned to your fate, you fall to your knees. The mist parts. Time slows to a crawl as the watcher emerges. Its spectral form glides along the ground, approaching with the slow surety of a ticking clock. You close your eyes, unwilling to look upon your killer. Your fingers dig into your palm, and you brace yourself.\nThe moment passes.\nWhen you open your eyes again, the creature is gone, along with the spectral mist.\n…Have you been spared?",
+      "steps": ["survived_the_watchers_embrace", "record_heretics_released", "check_earned_wisp", "earn_xp", "$upgrade_decks"]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 2",
+      "text": "As you depart Hangman's Hill, the unnatural mist lingers behind—a reminder that you chose information and power over the safety of the city. The last thing you see as you cross the brook is the blood streaking down the bark of the trees flanking the bridge. The sight is repulsive, and yet… perhaps there is information to be gathered here, as well. Hoping you've done the right thing, you study the strange carving for a moment before continuing to your next destination.",
+      "steps": ["1_heretic_released", "earned_bloody_tree_carvings", "earn_erynn", "earn_xp", "$upgrade_decks"]
+    }
+  ]
+}
