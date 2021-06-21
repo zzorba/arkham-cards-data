@@ -12,6 +12,7 @@
     "set_aside_spectral_web",
     "set_aside_erynn",
     "shuffle_heretics",
+    "check_campaign_reading_reminder",
     "create_encounter_decks",
     "extra_rule",
     "spectral_encounter_deck",
@@ -99,6 +100,50 @@
     {
       "id": "extra_rule",
       "text": "For the duration of this scenario, the following additional rule applies:\n\"While resolving The Watcher's Grasp treachery, The Spectral Watcher does not exhaust after it attacks.\"\nAttach the Return to The Wages of Sin card to the scenario reference card as a reminder."
+    },
+    {
+      "id":  "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_scenario_campaign_reading_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_hanged_man_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["campaign_reading_reversed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["campaign_reading_upright"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "Place \"The Hanged Man · XII\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "Place \"The Hanged Man · XII\" in the upright position."
     }
   ],
   "resolutions": [

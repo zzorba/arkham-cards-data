@@ -14,6 +14,7 @@
     "setup_act_deck",
     "put_azathoth_in_play",
     "add_path_winds_before_you_resources",
+    "check_campaign_reading_reminder",
     "encounter_deck",
     "nightmare_steed",
     "the_cosmos",
@@ -64,6 +65,50 @@
     {
       "id": "nightmare_steed",
       "text": "When the game begins, the investigators may remove 2 resources from the scenario reference card to have each investigator begin the game with the Nightgaunt Steed story asset in play. Remove each remaining Nightgaunt Steed from the game."
+    },
+    {
+      "id":  "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_scenario_campaign_reading_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_wheel_of_fortune_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["campaign_reading_reversed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["campaign_reading_upright"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "Place \"Wheel of Fortune · X\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "Place \"Wheel of Fortune · X\" in the upright position."
     }
   ],
 

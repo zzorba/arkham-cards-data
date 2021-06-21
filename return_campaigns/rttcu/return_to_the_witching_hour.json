@@ -12,6 +12,7 @@
     "setup_locations",
     "set_aside_cards",
     "setup_act_deck",
+    "check_campaign_reading_reminder",
     "encounter_deck",
     "lost_and_separated",
     "$play_scenario"
@@ -85,7 +86,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["perform_campaign_reading"]
+            "steps": ["perform_campaign_reading", "ask_reversed"]
           },
           {
             "boolCondition": false,
@@ -97,7 +98,173 @@
     {
       "id": "perform_campaign_reading",
       "bullet_type": "small",
-      "text": "Using the Tarot Deck, perform an 8-card Campaign Reading with these specific 8 cards, in this order: Temperance, Justice, Hermit, Hanged Man, Hierophant, Lovers, Chariot, Wheel of Fortune."
+      "text": "Using the Tarot Deck, perform an 8-card Campaign Reading with these specific 8 cards, in this order: Temperance, Justice, Hermit, Hanged Man, Hierophant, Lovers, Chariot, Wheel of Fortune.",
+      "bullets": [
+        {
+          "text": "Place each card in a horizontal line, in the upgright position. Each of these cards applies to one scenario in the campaign, with the leftmost card corresponding to the first scenario, and the rightmost card corresponding to the final scenario."
+        }
+      ]
+    },
+    {
+      "id": "ask_reversed",
+      "type": "input",
+      "text": "Choose and reverse four of the cards:",
+      "input": {
+        "type": "checklist",
+        "text": "Reversed",
+        "min": 4,
+        "max": 4,
+        "choices": [
+          {
+            "id": "temperance",
+            "text": "Temperance · XIV",
+            "description": "The Witching Hour",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_temperance_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "justice",
+            "text": "Justice · XI",
+            "description": "At Death's Doorstep)",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_justice_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "hermit",
+            "text": "The Hermit · IX",
+            "description": "The Secret Name",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_hermit_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "hermit",
+            "text": "The Hanged Man · XII",
+            "description": "The Wages of Sin",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_hanged_man_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "hierophant",
+            "text": "The Hierophant · V",
+            "description": "For the Greater Good",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_hierophant_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "lovers",
+            "text": "The Lovers · VI",
+            "description": "Union and Disillusion",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_lovers_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "chariot",
+            "text": "The Chariot · VII",
+            "description": "In the Clutches of Chaos",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_chariot_reversed",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wheel_of_fortune",
+            "text": "Wheel of Fortune · X",
+            "description": "Before the Black Throne",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "campaign_reading_wheel_of_fortune_reversed",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id":  "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_scenario_campaign_reading_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_temperance_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["campaign_reading_reversed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["campaign_reading_upright"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "Place \"Temperance · XIV\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "Place \"Temperance · XIV\" in the upright position."
     },
     {
       "id": "add_tarot",

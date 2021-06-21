@@ -22,6 +22,7 @@
     "select_act_3_4",
     "check_sided_with_lodge_and_erynn",
     "check_heretics_released",
+    "check_campaign_reading_reminder",
     "encounter_deck",
     "extra_rule",
     "circle_braziers",
@@ -204,6 +205,50 @@
     {
       "id": "extra_rule",
       "text": "For the duration of this scenario, the following additional rule applies:\n\"While resolving The Watcher's Grasp treachery, The Spectral Watcher does not exhaust after it attacks.\"\nAttach the Return to Union and Disillusion card to the scenario reference card as a reminder."
+    },
+    {
+      "id":  "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_scenario_campaign_reading_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_lovers_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["campaign_reading_reversed"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["campaign_reading_upright"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "Place \"The Lovers · VI\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "Place \"The Lovers · VI\" in the upright position."
     }
   ],
   "resolutions": [
