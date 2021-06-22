@@ -13,6 +13,7 @@
     "check_anette_mason_is_possessed_by_evil",
     "set_aside_cards",
     "choose_random_breaches",
+    "check_players_random_breaches",
     "encounter_deck",
     "choosing_a_random_location",
     "breaches_and_incursions",
@@ -197,18 +198,45 @@
     },
     {
       "id": "choose_random_breaches",
-      "text": "Choose 2 different random locations. Place 1 breach on each of those locations <i>(see Breaches and Incursions)</i>.",
-      "bullets": [
-        {
-          "text": "If there are 2 investigators in the game, perform this step twice."
-        },
-        {
-          "text": "If there are 3 investigators in the game, perform this step three times."
-        },
-        {
-          "text": "If there are 4 investigators in the game, perform this step three times, choosing 3 different random locations each time, instead of 2."
-        }
-      ]
+      "text": "Choose 2 different random locations. Place 1 breach on each of those locations <i>(see Breaches and Incursions)</i>."
+    },
+    {
+      "id": "check_players_random_breaches",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["choose_random_breaches_2"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["choose_random_breaches_3"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["choose_random_breaches_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_random_breaches_2",
+      "bullet_type": "small",
+      "text": "Because there are 2 investigators in the game, perform this step twice."
+    },
+    {
+      "id": "choose_random_breaches_3",
+      "bullet_type": "small",
+      "text": "Because there are 3 investigators in the game, perform this step three times."
+    },
+    {
+      "id": "choose_random_breaches_4",
+      "bullet_type": "small",
+      "text": "Because there are 4 investigators in the game, perform this step three times, choosing 3 different random locations each time, instead of 2."
     },
     {
       "id": "encounter_deck",
