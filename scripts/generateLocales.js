@@ -81,14 +81,14 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender) {
   const normalized = unorm.nfc(object[prop]);
   let context = gender;
   if (prop === 'masculine_text') {
     context = 'masculine';
-  } else if (prop === 'feminine_text') {
+  } else if (prop === 'feminine_text' || prop === 'selected_feminine_text') {
     context = 'feminine';
   }
   let foundPoEntry = allPoEntries[messageId(normalized, context)];

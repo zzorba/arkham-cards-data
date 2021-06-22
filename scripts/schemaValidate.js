@@ -93,6 +93,7 @@ function validate(validator, file, json, schemaName) {
     json.steps.map(step => {
       if (step.input) {
         const allChoices = [
+          ...(step.input.options ? step.input.options : []),
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
           ...(step.input.campaign_log ? step.input.campaign_log : []),
