@@ -147,19 +147,36 @@
       "text": "If 3 or fewer <i>heretics were unleashed unto Arkham</i>…",
       "type": "branch",
       "condition": {
-        "type": "campaign_log_count",
-        "section": "campaign_notes",
-        "id": "heretics_released",
-        "max": 4,
-        "options": [
+        "type": "multi",
+        "conditions": [
           {
-            "numCondition": 4,
-            "steps": []
+            "type": "campaign_log_count",
+            "section": "campaign_notes",
+            "id": "heretics_released",
+            "max": 4,
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 3
+              }
+            ]
           }
         ],
-        "defaultOption": {
-          "steps": ["record_wisp_of_spectral_mist"]
-        }
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["record_wisp_of_spectral_mist"]
+          }
+        ]
       }
     },
     {
@@ -214,7 +231,8 @@
   "resolutions": [
     {
       "id": "no_resolution_defeated",
-      "title": "No resolution\n(each investigator defeated)",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
       "investigator_status": [
         "eliminated",
         "physical",
@@ -224,7 +242,8 @@
     },
     {
       "id": "no_resolution_resigned",
-      "title": "No resolution\n(at least one investigator resigned)",
+      "title": "No resolution was reached",
+      "description": "At least one investigator resigned",
       "investigator_status": [
         "resigned",
         "eliminated",
