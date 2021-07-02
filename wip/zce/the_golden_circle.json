@@ -1,0 +1,412 @@
+{
+  "id": "the_golden_circle",
+  "scenario_name": "The Golden Circle",
+  "full_name": "Chapter II: The Golden Circle",
+  "header": "Chapter II",
+  "setup": [
+    "check_runes_remain_a_mystery",
+    "intro_3",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_locations",
+    "setup_locations",
+    "take_brownie",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_runes_remain_a_mystery",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "runes_remain_a_mystery",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1", "place_1_doom"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_mapped_the_golden_circle"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_mapped_the_golden_circle",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "mapped_the_golden_circle",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You spend the next morning trying to piece together the notes from your first day. The strange occurrences feel linked, but you don't have much to go on. At the Culture House, Professor Day Morris has a map of Reykjavik laid out.\n\"No... she says. We need to think bigger.\"\nShe approaches an ancient desk made of ashen wood and pulls out a map of the surrounding areas.\n\"The runes we found appear to indicate these geographical features in the area around Reykjavik: The Golden Circle. It's not much to go on, but we've lost enough time as it is.\""
+    },
+    {
+      "id": "place_1_doom",
+      "text": "Place 1 doom on agenda 1A."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You have strange dreams that night. An enormous man slouches in an ashen wood chair that is barely able to contain him. His profile is a silhouette chiselled out of stone–his expression inscrutable in the shadow. Slowly, he pulls his sword out of its scabbard a few inches, and returns it. He repeats this, each time arching one giant eyebrow. A pulsing drumbeat gets louder and louder. You seek meaning in this absurd dance and find none. You are transfixed by the rhythm. He turns sharply and looks you in the eye, and you see his hideous, deformed face.\nYou awaken on the couch in the Culture House."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Professor Day Morris outlines the plan for your excursion to the Golden Circle:\n\"If the Disciples are using Icelandic magical staves to communicate, then we need to decipher them quickly. Take my camera and capture any carved runes you see. The Golden Circle is beautiful, but save your exposures for the important stuff. Let's hop to it, daylight is wearing thin! I'm parked outside.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_golden_circle",
+        "hudulfolk",
+        "lacuna",
+        "runic_oaths",
+        "ghouls"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Gryla, each copy of Night Troll, each copy of One Good Turn."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set the following locations aside, out of play: Parliament Lake, Icy Cavern, Mossy Platform, and Lava Tunnel."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all other locations into play. Each investigator begins play at Borgarnes."
+    },
+    {
+      "id": "take_brownie",
+      "text": "Choose an investigator to take control of the Brownie 2 story asset."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "did_not_find_the_ritual_site",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "did_not_find_the_ritual_site",
+          "text": "the investigators did not find the ritual site."
+        }
+      ]
+    },
+    {
+      "id": "found_the_ritual_site",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_the_ritual_site",
+          "text": "the investigators found the ritual site."
+        }
+      ]
+    },
+    {
+      "id": "physical_trauma",
+      "text": "Each investigator suffers 1 physical trauma.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "found_chest",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "found_chest",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator found the chest in the lake.",
+            "steps": ["found_chest", "add_cultist"]
+          },
+          {
+            "id": "opened_chest",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "opened_chest",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator forced open the frozen chest.",
+            "steps": ["opened_chest", "add_tablet"]
+          },
+          {
+            "id": "noticed_ring",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "noticed_ring",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator noticed the ring.",
+            "steps": ["noticed_ring", "add_elder_thing"]
+          },
+          {
+            "id": "retrieved_pole",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "retrieved_pole",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator retrieved the eerie pole.",
+            "steps": ["retrieved_pole", "add_minus_5"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["cultist"]
+      }]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["tablet"]
+      }]
+    },
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["elder_thing"]
+      }]
+    },
+    {
+      "id": "add_minus_5",
+      "text": "Add a -1 token to the chaos bag.",
+      "effects": [{
+        "type": "remove_chaos_token",
+        "tokens": ["0"]
+      }]
+    },
+    {
+      "id": "found_chest",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_chest",
+          "text": "An investigator found the chest in the lake."
+        }
+      ]
+    },
+    {
+      "id": "opened_chest",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "opened_chest",
+          "text": "An investigator forced open the frozen chest."
+        }
+      ]
+    },
+    {
+      "id": "retrieved_pole",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "retrieved_pole",
+          "text": "An investigator retrieved the eerie pole."
+        }
+      ]
+    },
+    {
+      "id": "noticed_ring",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "noticed_ring",
+          "text": "An investigator noticed the ring."
+        }
+      ]
+    },
+    {
+      "id": "ask_photographs",
+      "type": "input",
+      "text": "In your Campaign Log, for each location with a resource on it, record that \"the investigators photographed\" that location.",
+      "input": {
+        "type": "checklist",
+        "text": "Photographed",
+        "choices": [
+          {
+            "id": "gulfoss",
+            "text": "Gulfoss",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "photographed_gulfoss",
+                "text": "the investigators photographed Gulfoss."
+              },
+              {
+                "type": "campiagn_log_count",
+                "section": "hidden",
+                "id": "photographs",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "kerio",
+            "text": "Kerið",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "photographed_kerio",
+                "text": "the investigators photographed Kerið."
+              },
+              {
+                "type": "campiagn_log_count",
+                "section": "hidden",
+                "id": "photographs",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "thingvellir",
+            "text": "Thingvellir",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "photographed_thingvellir",
+                "text": "the investigators photographed Thingvellir."
+              },
+              {
+                "type": "campiagn_log_count",
+                "section": "hidden",
+                "id": "photographs",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "glacier",
+            "text": "Long Glacier",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "photographed_glacier",
+                "text": "the investigators photographed Long Glacier."
+              },
+              {
+                "type": "campiagn_log_count",
+                "section": "hidden",
+                "id": "photographs",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You awaken next to an impossibly small pony. Are ponies supposed to be this small?\n\"Rough night?\" a thick voice calls out from above you.\nYou look up and see a local farmer in a denim jacket and a beret. You're still on the Golden Circle, but not sure exactly where.\n\"Listen, I know Iceland is a very safe country, but you ought not sleep in the fields lest the Hudulfolk or the trolls come for ye! This is their land!\" says the farmer.\nYou thank him for his concern and ask for directions back to Borgarnes. You camera is nowhere to be seen, and you're still confused about how these runes connect to the bigger picture. ",
+      "steps": ["did_not_find_the_ritual_site", "ask_photographs", "earn_xp"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The next thing you know, you are being pulled from your car by a helpful farmer.\n\"Thank goodness you're alive,\" he says, \"I've seen quite a few cars run off these winding roads, but that was the mightiest crash I've ever seen! Do you need a doctor?\"\nYou're certainly banged up, and the car is in shambles, but you are able to walk away from the wreck with your trusted Brownie intact. As you regain your composure, you remember your purpose. If you're going to find the ritual site, you are going to have to get some new leads.",
+      "steps": ["did_not_find_the_ritual_site", "physical_trauma", "ask_photographs", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Professor Day Morris ponders your discoveries in the passenger seat.\n\"These locations served to hide Egil's relics in plain sight, under the protection of trolls and spirits of the land,\" she says. \"They don't appear to be part of the ritual...\"\nYou ask why the cultists didn't follow you out of Reykjavik.\nProfessor Day Morris replies, \"It could be a diversion... or perhaps Egil has already drawn power from these relics. Most of the runes acted as signposts for the ritual at Snæfellsjökull, but one of them was more telling. It was written in fresh blood and read, 'The Crown of Egil will shine its dull brilliance atop a mountain of bone. The eternal lawspeaker will judge the world at the Althing.' This speaks to Egil's resurrection... and it's happening soon.\"",
+      "steps": ["found_the_ritual_site", "ask_photographs", "earn_xp"]
+    }
+  ]
+}

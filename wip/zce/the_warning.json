@@ -1,0 +1,279 @@
+{
+  "id": "the_warning",
+  "scenario_name": "The Warning",
+  "full_name": "Chapter I: The Warning",
+  "header": "Chapter I",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You step off the ship, grateful for the solid wood beneath your feet. The capital city of Reykjavik is modest, with small wooden houses lining the streets and nary a soul to be seen. The warm light of dusk bathes the pale houses in a comforting prismatic glow.\nThis otherworldly comfort lulls you nearly to sleep and almost distracts you from the task at hand: finding Professor Shirley Day Morris. She should be awaiting your arrival at the Culture House."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_warning",
+        "berserkers",
+        "draugar",
+        "lacuna",
+        "locked_doors"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Professor Shirley Day Morris, Lodge Tyler."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all [[Reykjavik]] locations into play. Each investigator begins play at The Harbor."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "runes_remain_a_mystery",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "runes_remain_a_mystery",
+          "text": "the runes remain a mystery."
+        }
+      ]
+    },
+    {
+      "id": "mapped_the_golden_circle",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "mapped_the_golden_circle",
+          "text": "the investigators have mapped the Golden Circle."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "read_bards_tale",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "read_bards_tale",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator read Bard's Tale.",
+            "steps": ["read_bards_tale", "add_cultist"]
+          },
+          {
+            "id": "know_where_silver_is",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "know_where_silver_is",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator knows where the silver is.",
+            "steps": ["know_where_silver_is", "remove_0_token"]
+          },
+          {
+            "id": "split_skull",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "uncovered_the_split_skill",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator uncovered the split skill.",
+            "steps": ["uncovered_the_split_skill", "add_tablet"]
+          },
+          {
+            "id": "studied_the_markings",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "studied_the_markings",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "An investigator studied the markings.",
+            "steps": ["studied_the_markings", "add_elder_thing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["cultist"]
+      }]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["tablet"]
+      }]
+    },
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] to the chaos bag.",
+      "effects": [{
+        "type": "add_chaos_token",
+        "tokens": ["elder_thing"]
+      }]
+    },
+    {
+      "id": "remove_0_token",
+      "text": "Remove a 0 token from the chaos bag.",
+      "effects": [{
+        "type": "remove_chaos_token",
+        "tokens": ["0"]
+      }]
+    },
+    {
+      "id": "read_bards_tale",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "read_bards_tale",
+          "text": "an investigator read Bard's tale."
+        }
+      ]
+    },
+    {
+      "id": "know_where_silver_is",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "know_where_silver_is",
+          "text": "an investigator knows where the silver is."
+        }
+      ]
+    },
+    {
+      "id": "uncovered_the_split_skill",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "uncovered_the_split_skill",
+          "text": "an investigator uncovered the split skull."
+        }
+      ]
+    },
+    {
+      "id": "studied_the_markings",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "studied_the_markings",
+          "text": "an investigator studied the markings."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_act_1",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated and it was Act 1",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The peaceful streets of Reykjavik have become a parade of angry cultists in grey cowls. You find safety in the winding alleys and make your way back to the Culture House, where you almost crash into a middle-aged woman clearly dressed in American fashion. \"I had begun to think you'd never show up!\" the woman says. \"I'm Professor Day Morris, but you can call me Shirley. We have a lot of catching up to do.\"",
+      "steps": ["runes_remain_a_mystery", "earn_xp"]
+    },
+    {
+      "id": "no_resolution_act_2",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated and it was Act 2 or later",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": ["resolution_1"]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The peaceful streets of Reykjavik have become a parade of angry cultists in grey cowls. You find safety in the winding alleys and make your way back to the Culture House. \"This is about how well I thought this would go,\" says Professor Day Morris. \"The cultists must be getting more confident. They're not usually this brazen in the middle of the day. Whatever they're planning must be coming to fruition. Let's collect ourselves and figure out our next steps.\"",
+      "steps": ["runes_remain_a_mystery", "earn_xp"]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "investigator_status": [
+        "alive",
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "\"This is the Gulfoss Waterfall,\" Professor Day Morris says, pointing at the runic message you copied down, \"and this is the Great Geysir.\" Each of these locations sits along the famed Golden Circle, which traces a route just outside of Reykjavik, connecting some of the most important historical and geological features of Iceland. These must mean something to the cultists... but what? Egil's Saga barely mentions this part of the country. In any case, we know where we have to go.\" You've seen the violent rage of the Disciples and you know they will stop at nothing to derail your investigation. You secure the map in your pocket and set out for the Golden Circle.",
+      "steps": ["mapped_the_golden_circle", "earn_xp"]
+    }
+  ]
+}
