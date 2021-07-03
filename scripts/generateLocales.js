@@ -120,15 +120,18 @@ function translateField(object, prop, poFile, allPoEntries, corePoEntries, gende
  * @param {object} allPoEntries - All entities we have seen to date
  * @param {object} corePoEntries - Entities from the core app
  */
-async function translate(object, poFile, allPoEntries, corePoEntries) {
+async function translate(object, poFile, allPoEntries, corePoEntries, lang) {
   for (const prop in object) {
     if (object.hasOwnProperty(prop)) {
       if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
         translateField(object, prop, poFile, allPoEntries, corePoEntries, object.gender || undefined);
       }
-      if (typeof object[prop] === "object" && prop !== 'narration') {
+      if (
+        typeof object[prop] === "object" &&
+        (prop !== 'narration' || (object.narration.lang && object.narration.lang.find(x => x === lang)))
+      ) {
         // Recursion
-        translate(object[prop], poFile, allPoEntries, corePoEntries);
+        translate(object[prop], poFile, allPoEntries, corePoEntries, lang);
       }
     }
   }
@@ -289,7 +292,7 @@ async function generateLocale(localeCode) {
   const poFile = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
   const packsJson = await readJSON("packs/packs.json");
   for (let i = 0; i< packsJson.length; i++) {
-    await translate(packsJson[i], poFile, allPoEntries, corePoEntries);
+    await translate(packsJson[i], poFile, allPoEntries, corePoEntries, localeCode);
   }
   await writeJSON(
     packsJson,
@@ -327,7 +330,7 @@ async function generateLocale(localeCode) {
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
     const scenarioDesc = await readJSON(scenario);
 
-    await translate(scenarioDesc, poFile, allPoEntries, corePoEntries);
+    await translate(scenarioDesc, poFile, allPoEntries, corePoEntries, localeCode);
     await writeJSON(
       scenarioDesc,
       "build/i18n/" + localeCode + "/" + scenario
