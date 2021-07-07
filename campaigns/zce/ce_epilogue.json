@@ -4,7 +4,7 @@
   "full_name": "Epilogue",
   "header": "",
   "type": "epilogue",
-  "icon": "rising_tide",
+  "icon": "berserkers",
   "setup": [
     "check_intro",
     "check_oblivion",
@@ -46,11 +46,17 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["oblivion_story"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["oblivion_story"]
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["oblivion_story"]
+            "steps": ["check_redemption"]
           }
         ]
       }
@@ -83,11 +89,17 @@
         ],
         "options": [
           {
-            "boolCondition": false,
-            "steps": ["redemption_story"]
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["redemption_story"]
+              }
+            ]
           },
           {
-            "boolCondition": true,
+            "boolCondition": false,
             "steps": ["check_enlightenment"]
           }
         ]
@@ -96,34 +108,44 @@
     {
       "id": "check_enlightenment",
       "text": "3 [per_investigator] or more token:",
-      "type": "branch",      "condition": {
-        "type": "multi",
-        "count": 1,
-        "conditions": [
-          {
-            "type": "math",
-            "opA": {
-              "type": "campaign_log_count",
-              "section": "hidden",
-              "id": "chaos_tokens"
-            },
-            "opB": {
-              "type": "campaign_log_count",
-              "section": "hidden",
-              "id": "zce_player_count_3"
-            },
-            "operation": "compare",
-            "options": [
-              { "numCondition": -1 },
-              { "numCondition": 0 },
-              { "numCondition": 1 }
-            ]
-          }
-        ],
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "win",
         "options": [
           {
             "boolCondition": true,
-            "steps": ["enlightenment_story", "physical_trauma"]
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["enlightenment_story", "physical_trauma"]
+              }
+            ],
+            "steps": ["choose_lead_investigator_trauma"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_lead_investigator_trauma",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "trauma",
+            "text": "Lead Investigator",
+            "effects": [
+              {
+                "type": "trauma",
+                "physical": 1,
+                "investigator": "$input_value"
+              }
+            ]
           }
         ]
       }
@@ -148,20 +170,13 @@
     },
     {
       "id": "physical_trauma",
-      "text": "The lead investigator takes 1 physical trauma as they bear the burden of avenging Egil's countless victims.",
-      "effects": [
-        {
-          "type": "trauma",
-          "physical": 1,
-          "investigator": "lead_investigator"
-        }
-      ]
+      "text": "The lead investigator takes 1 physical trauma as they bear the burden of avenging Egil's countless victims."
     },
     {
       "id": "credits",
       "type": "rule_reminder",
       "title": "Credits",
-      "text": "<b><i>Arkham Horror: TCG</i> Design:</b> Nate French and MJ Newman\nCampaign Design:</b> Chris Fazio\n<b>Art Design:</b> Jinie Choi, Chris Fazio\n<b>Background Research:</b> The Saga Thing Podcast\n<b>Editing:</b> bluehg (Pat)\n<b>Playtesters:</b> <i>Axolotl, Dan Abdul-Malak, Jinie Choi, DoomRat, Tyler Gotch, Kardian, Eric Keilback, Daniel Martinez, L.A. Schordine, Cat Shen, Walker, Spencer Wilkinson."
+      "text": "<b><i>Arkham Horror: TCG</i> Design:</b> Nate French and MJ Newman\n<b>Campaign Design:</b> Chris Fazio\n<b>Art Design:</b> Jinie Choi, Chris Fazio\n<b>Background Research:</b> The Saga Thing Podcast\n<b>Editing:</b> bluehg (Pat)\n<b>Playtesters:</b> Axolotl, Dan Abdul-Malak, Jinie Choi, DoomRat, Tyler Gotch, Kardian, Eric Keilback, Daniel Martinez, L.A. Schordine, Cat Shen, Walker, Spencer Wilkinson."
     }
   ]
 }
