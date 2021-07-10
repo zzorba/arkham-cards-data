@@ -11,6 +11,7 @@
     "location_layout",
     "set_aside_spectral_web",
     "set_aside_erynn",
+    "check_erynn_wants_to_meet",
     "shuffle_heretics",
     "check_campaign_reading_reminder",
     "create_encounter_decks",
@@ -38,7 +39,36 @@
       "id": "set_aside_erynn",
       "text": "Set the Erynn MacAoidh story asset aside, out of play."
     },
+    {
+      "id": "check_erynn_wants_to_meet",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "erynn_wants_to_meet",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_erynn_act"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_new_act"]
+          }
+        ]
 
+      }
+    },
+    {
+      "id": "setup_erynn_act",
+      "bullet_type": "small",
+      "text": "When building the act deck, use the new Act 1a—\"In Pursuit of Answers\" instead of the original act 1, and include both versions of act 2. When advancing to act 2a, put both act cards into play; the text on both cards is active."
+    },
+    {
+      "id": "remove_new_act",
+      "bullet_type": "small",
+      "text": "Remove the new act cards included in the <i>Return to the Wages of Sin</i> encounter set from the game."
+    },
     {
       "id": "setup_locations",
       "text": "Randomly choose one of the two The Gallows locations, one of the two Heretics’ Graves locations, one of the two Chapel Attic locations, one of the two Chapel Crypt locations, and one of the two Hangman's Brook locations, and put them into play. Remove the other versions of The Gallows, Heretics’ Graves, Chapel Attic, Chapel Crypt, and Hangman's Brook from the game. Then, put Haunted Fields and Abandoned Chapel into play.",

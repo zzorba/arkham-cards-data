@@ -4,9 +4,179 @@
   "full_name": "Epilogue",
   "header": "",
   "type": "epilogue",
-  "icon": "rising_tide",
+  "icon": "berserkers",
   "setup": [
+    "check_intro",
+    "check_oblivion",
+    "credits"
   ],
   "steps": [
+    {
+      "id": "check_intro",
+      "bullet_type": "none",
+      "text": "Check Chaos Bag. If the investigators have added or removed..."
+    },
+    {
+      "id": "check_oblivion",
+      "text": "2 [per_investigator] or fewer tokens:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "zce_player_count_2"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "chaos_tokens"
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": -1 },
+              { "numCondition": 0 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["oblivion_story"]
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_redemption"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_redemption",
+      "text": "between 2 [per_investigator] and 3 [per_investigator] tokens:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "chaos_tokens"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "zce_player_count_3"
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": -1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["redemption_story"]
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_enlightenment"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_enlightenment",
+      "text": "3 [per_investigator] or more token:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "win",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["enlightenment_story", "physical_trauma"]
+              }
+            ],
+            "steps": ["choose_lead_investigator_trauma"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_lead_investigator_trauma",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "trauma",
+            "text": "Lead Investigator",
+            "effects": [
+              {
+                "type": "trauma",
+                "physical": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "oblivion_story",
+      "type": "story",
+      "title": "Oblivion",
+      "text": "You stare in disbelief at Egil's collapsed skull on the cavern floor. Where did this ghastly power come from? How did the Disciples know about the arcane magic in this corpse?\nYou notice a few cultists skulk toward you from the shadows of the tomb. Immediately, you brace for a fight, but they drop their weapons. Their leader speaks to you in English.\n\"Egil is dead. You are the eternal lawspeaker. You must now lead us into the new millennium.\""
+    },
+    {
+      "id": "redemption_story",
+      "type": "story",
+      "title": "Redemption",
+      "text": "When you finally return Egil's collapsed skull to Professor Day Morris, she seems astonished.\n\"The sagas all depicted Egil as having a giant, deformed head. Some doctors believe it was evidence of some form of Piaget's disease that causes craniofacial gigantism. But here, we have proof.\"\nTogether, you and Professor Day Morris complete your forensic analysis and present your findings to a grateful Icelandic Historical Society. You leverage your success into a permanent position at the Culture House where you teach the truth about Egil, the bad and the good in equal measure. But above all, you are compelled to be <i>near</i> the hideous skull. To <i>watch</i> it... to <i>protect</i> it... <i>forever</i>..."
+    },
+    {
+      "id": "enlightenment_story",
+      "type": "story",
+      "title": "Enlightenment",
+      "text": "After celebrating your victory in the tomb, you emerge from the volcano with Egil's skull fragments. You ascertain from your studies that this is the seat of the eldritch power that drew the spirits of Egil's victims near and crystallized them in the wicked mist.\nIt is clear to you that while the skull's power has abated, it still commands the mist across the Snæfellsnes Peninsula. It must be destroyed.\nDespite the frigid cold of the cliff side, you remove your jacket and begin to carve a series of runes into your arms. The snow catches the drops of blood in silence, creating a constellation of red.\nProfessor Day Morris looks at you in abject terror, but before she can turn away, the surrounding mist swirls into a maelstrom, tossing up a blinding sheet of snow.\nWhen the storm settles, the mist has entirely dissipated. The skull is nowhere to be seen. The souls of the fallen can finally rest."
+    },
+    {
+      "id": "physical_trauma",
+      "text": "The lead investigator takes 1 physical trauma as they bear the burden of avenging Egil's countless victims."
+    },
+    {
+      "id": "credits",
+      "type": "rule_reminder",
+      "title": "Credits",
+      "text": "<b><i>Arkham Horror: TCG</i> Design:</b> Nate French and MJ Newman\n<b>Campaign Design:</b> Chris Fazio\n<b>Art Design:</b> Jinie Choi, Chris Fazio\n<b>Background Research:</b> The Saga Thing Podcast\n<b>Editing:</b> bluehg (Pat)\n<b>Playtesters:</b> Axolotl, Dan Abdul-Malak, Jinie Choi, DoomRat, Tyler Gotch, Kardian, Eric Keilback, Daniel Martinez, L.A. Schordine, Cat Shen, Walker, Spencer Wilkinson."
+    }
   ]
 }
