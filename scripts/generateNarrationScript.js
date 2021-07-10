@@ -235,7 +235,7 @@ async function generateNarration(localeCode) {
       }
       fs.writeFileSync(`${argv.arkham_cards}/build/${localeCode}/${campaign.id}/0_campaign.txt`, output);
     }
-    for (const idx  in campaign.scenarios) {
+    for (const idx  in [...campaign.scenarios, ...(campaign.hidden_scenarios || [])]) {
       const scenario_code = campaign.scenarios[idx];
       const scenario = scenarios.find(s => s.id === scenario_code);
       if (scenario) {
