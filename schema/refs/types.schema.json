@@ -61,7 +61,7 @@
           }
         }
       },
-      "required": ["id", "name"],
+      "required": ["id", "name", "lang"],
       "additionalProperties": false
     },
     "locationConnector": {
@@ -394,6 +394,89 @@
         }
       },
       "required": ["id", "text"],
+      "additionalProperties": false
+    },
+    "singleChaosTokenValue": {
+      "$id": "#singleChaosTokenValue",
+      "title": "SingleChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "enum": [
+            "skull",
+            "cultist",
+            "tablet",
+            "elder_thing"
+          ]
+        },
+        "modifier": {
+          "type": "number"
+        },
+        "reveal_another": {
+          "type": "boolean"
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "type": "string"
+            },
+            "max": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            }
+          },
+          "required": ["prompt"],
+          "additionalProperties": false
+        },
+        "condition": {
+          "type": "object",
+          "properties": {
+            "default_value": {
+              "type": "number"
+            },
+            "prompt": {
+              "type": "string"
+            },
+            "modified_value": {
+              "type": "number"
+            }
+          },
+          "required": ["default_value", "prompt", "modified_value"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["token"],
+      "additionalProperties": false
+    },
+    "chaosTokenValue": {
+      "$id": "#chaosTokenValue",
+      "title": "ChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/singleChaosTokenValue"
+          }
+        },
+        "hard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/singleChaosTokenValue"
+          }
+        }
+      },
+      "required": ["code", "scenario", "standard", "hard"],
       "additionalProperties": false
     },
     "investigatorConditionalChoice": {
