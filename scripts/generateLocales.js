@@ -344,6 +344,13 @@ async function generateLocale(localeCode) {
       allPoEntries[itemMessageId(item)] = item;
     }
   }
+
+  const chaosTokensJson = await readJSON("chaos_tokens.json")
+  const chaosTokensPoFileName = "i18n/" + localeCode + "/chaos_tokens.po";
+  const chaosTokenspoFile = await getOrCreatePOFile(chaosTokensPoFileName, localeCode, "chaos_tokens");
+  await translate(chaosTokensJson, chaosTokenspoFile, allPoEntries, corePoEntries, localeCode);
+  await writeJSON(chaosTokensJson, "build/i18n/" + localeCode + "/chaos_tokens.json");
+  chaosTokenspoFile.save(chaosTokensPoFileName, printErr);
 }
 
 /**
