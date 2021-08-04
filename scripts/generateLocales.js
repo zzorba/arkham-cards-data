@@ -349,7 +349,7 @@ async function generateLocale(localeCode) {
   const chaosTokensPoFileName = "i18n/" + localeCode + "/chaos_tokens.po";
   const chaosTokenspoFile = await getOrCreatePOFile(chaosTokensPoFileName, localeCode, "chaos_tokens");
   await translate(chaosTokensJson, chaosTokenspoFile, allPoEntries, corePoEntries, localeCode);
-  await writeJSON(chaosTokensJson, "build/i18n/" + localeCode + "/chaos_tokens.json");
+  await writeJSON(chaosTokensJson, "build/chaos_tokens_" + localeCode + ".json");
   chaosTokenspoFile.save(chaosTokensPoFileName, printErr);
 }
 
