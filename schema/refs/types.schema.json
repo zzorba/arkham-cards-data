@@ -154,6 +154,17 @@
         "unspect_xp"
       ]
     },
+    "specialChaosToken": {
+      "$id": "#specialChaosToken",
+      "title": "SpecialChaosToken",
+      "type": "string",
+      "enum": [
+        "skull",
+        "cultist",
+        "tablet",
+        "elder_thing"
+      ]
+    },
     "chaosToken": {
       "$id": "#chaosToken",
       "title": "ChaosToken",
@@ -396,25 +407,56 @@
       "required": ["id", "text"],
       "additionalProperties": false
     },
-    "singleChaosTokenValue": {
-      "$id": "#singleChaosTokenValue",
-      "title": "SingleChaosTokenValue",
+    "chaosTokenModifier": {
+      "$id": "#chaosTokenModifier",
+      "title": "ChaosTokenModifier",
       "type": "object",
       "properties": {
-        "token": {
-          "type": "string",
-          "enum": [
-            "skull",
-            "cultist",
-            "tablet",
-            "elder_thing"
-          ]
-        },
         "modifier": {
-          "type": "number"
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string", "enum": ["auto_fail", "auto_succeed"] }
+          ]
         },
         "reveal_another": {
           "type": "boolean"
+        },
+        "cancel_modifiers": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["modifier"]
+    },
+    "simpleChaosTokenValue": {
+      "$id": "#simpleChaosTokenValue",
+      "title": "SimpleChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "null"
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
+        },
+        "value": {
+          "$ref": "#/definitions/chaosTokenModifier"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["token", "value"]
+    },
+    "counterChaosTokenValue": {
+      "$id": "#counterChaosTokenValue",
+      "title": "CounterChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["counter"]
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
         },
         "counter": {
           "type": "object",
@@ -422,35 +464,73 @@
             "prompt": {
               "type": "string"
             },
+            "min": {
+              "type": "number"
+            },
             "max": {
               "type": "number"
             },
             "scale": {
               "type": "number"
+            },
+            "reveal_another": {
+              "type": "boolean"
             }
           },
           "required": ["prompt"],
           "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "token", "counter"]
+    },
+    "conditionChaosTokenValue": {
+      "$id": "#conditionChaosTokenValue",
+      "title": "ConditionChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["condition"]
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
         },
         "condition": {
           "type": "object",
           "properties": {
-            "default_value": {
-              "type": "number"
-            },
             "prompt": {
               "type": "string"
             },
+            "default_value": {
+              "$ref": "#/definitions/chaosTokenModifier"
+            },
             "modified_value": {
-              "type": "number"
+              "$ref": "#/definitions/chaosTokenModifier"
             }
           },
           "required": ["default_value", "prompt", "modified_value"],
           "additionalProperties": false
         }
       },
-      "required": ["token"],
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": ["type", "token", "condition"]
+    },
+    "singleChaosTokenValue": {
+      "$id": "#singleChaosTokenValue",
+      "title": "SingleChaosTokenValue",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/simpleChaosTokenValue"
+        },
+        {
+          "$ref": "#/definitions/counterChaosTokenValue"
+        },
+        {
+          "$ref": "#/definitions/conditionChaosTokenValue"
+        }
+      ]
     },
     "chaosTokenValue": {
       "$id": "#chaosTokenValue",

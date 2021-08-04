@@ -249,6 +249,32 @@ function validate(validator, file, json, schemaName) {
   }
 }
 
+const chaosTokensSchema = fs
+  .readFileSync('./schema/chaosTokens.schema.json')
+  .toString();
+$RefParser.dereference(jsonlint.parse(chaosTokensSchema), (err, schema) => {
+  if (err) {
+    console.error(err);
+  } else {
+     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+    // including referenced files, combined into a single object
+    const ajv = new Ajv({ verbose: true });
+    const validator = ajv.addSchema(schema, "chaosTokens");
+    const QUIET = false;
+
+    const data = fs.readFileSync("./chaos_tokens.json", "utf-8").toString();
+    if (!QUIET) {
+      console.log("Validating chaos_tokens");
+    }
+    try {
+      const json = jsonlint.parse(data);
+      validate(validator, "chaos_tokens.json", json, "chaosTokens");
+    } catch (e) {
+      console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+    }
+  }
+});
+
 const scenarioSchema = fs
   .readFileSync("./schema/scenario.schema.json")
   .toString();
