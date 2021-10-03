@@ -41,6 +41,8 @@
     "setup_depth",
     "set_aside_relic",
     "set_aside_poison",
+    "check_no_provisions",
+    "check_no_mulligan",
     "encounter_deck",
     "depth_level_rule",
     "pursuit_rule",
@@ -1118,6 +1120,103 @@
         "min": 1,
         "max": 1,
         "choices": []
+      }
+    },
+    {
+      "id": "check_no_provisions",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "doy_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["thc_reminder", "list_no_provisions"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "thc_reminder",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "thc_reminder",
+      "text": "Based on the events of <b>Interlude IV: Those Held Captive</b>:"
+    },
+    {
+      "id": "list_no_provisions",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "doy_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# starts with 3 fewer resources.",
+                "feminine_text": "#name# starts with 3 fewer resources.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_no_mulligan",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "doy_no_mulligan",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["maybe_thc_reminder", "no_mulligan_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_mulligan_reminder",
+      "bullet_type": "small",
+      "text": "Investigators cannot take a mulligan."
+    },
+    {
+      "id": "maybe_thc_reminder",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "thc_reminder",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["thc_reminder"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "thc_reminder",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
       }
     }
   ],
