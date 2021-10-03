@@ -17,6 +17,8 @@
     "setup_locations",
     "location_layout",
     "check_diving_suit",
+    "list_diving_suit",
+    "remove_diving_suit",
     "setup_act_deck",
     "set_aside_cards",
     "add_flood_tokens",
@@ -476,11 +478,37 @@
       "bullets": [
         {
           "text": "Each investigator who <i>possesses a diving suit</i> begins play with a Diving Suit story asset in their play area."
-        },
-        {
-          "text": "Remove each unused Diving Suit from the game."
         }
       ]
+    },
+    {
+      "id": "list_diving_suit",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "possesses_a_diving_suit",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# begins play with a Diving Suit story asset in his play area.",
+                "feminine_text": "#name# begins play with a Diving Suit story asset in her play area.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_diving_suit",
+      "bullet_type": "small",
+      "text": "Remove each unused Diving Suit from the game."
     },
     {
       "id": "setup_act_deck",

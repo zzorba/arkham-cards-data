@@ -97,7 +97,7 @@ function validate(validator, file, json, schemaName) {
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
           ...(step.input.campaign_log ? step.input.campaign_log : []),
-          ...(step.input.defaultOption ? [step.input.defaultOption] : []),
+          ...(step.input.default_option ? [step.input.default_option] : []),
         ];
         allChoices.map(choice => {
           if (choice.steps) {
@@ -177,10 +177,10 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
-      if (step.condition && (step.condition.options || step.condition.defaultOption)) {
+      if (step.condition && (step.condition.options || step.condition.default_option)) {
         const allOptions = [
           ...(step.condition.options ? step.condition.options : []),
-          ...(step.condition.defaultOption ? [step.condition.defaultOption] : []),
+          ...(step.condition.default_option ? [step.condition.default_option] : []),
         ];
         allOptions.map(option => {
           if (option.pre_border_effects) {
