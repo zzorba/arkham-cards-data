@@ -55,10 +55,18 @@
             "boolCondition": false,
             "prompt": "Out of Gas",
             "border": true,
-            "effects": [{
-              "type": "story_step",
-              "steps": ["out_of_gas", "no_mulligan"]
-            }]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["out_of_gas", "no_mulligan"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hote_no_mulligan",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
@@ -150,10 +158,20 @@
             "boolCondition": false,
             "prompt": "Low on Rations",
             "border": true,
-            "effects": [{
-              "type": "story_step",
-              "steps": ["low_on_rations", "fewer_resources"]
-            }]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["low_on_rations", "fewer_resources"]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "hote_fewer_resources",
+                "cards": "$input_value",
+                "masculine_text": "#name# starts with 3 fewer resources.",
+                "feminine_text": "#name# starts with 3 fewer resources."
+              }
+            ]
           }
         ]
       }
@@ -270,6 +288,14 @@
               {
                 "type": "story_step",
                 "steps": ["patterns_in_the_stone", "start_with_clue"]
+              },
+              {
+                 "type": "campaign_log_cards",
+                 "section": "hidden",
+                 "id": "hote_start_with_clue",
+                 "cards": "$input_value",
+                 "masculine_text": "#name# starts with 1 clue <i>(from the token bank)</i>.",
+                 "feminine_text": "#name# starts with 1 clue <i>(from the token bank)</i>."
               }
             ]
           },

@@ -12,6 +12,7 @@
     "set_aside_cards",
     "set_aside_poisoned",
     "encounter_deck",
+    "check_no_provisions",
     "$play_scenario"
   ],
   "steps": [
@@ -298,7 +299,7 @@
       "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log.",
       "input": {
         "type": "counter",
-        "text": "Vengance in the victory display:",
+        "text": "Vengeance in the victory display:",
         "delta": true,
         "effects": [
           {
@@ -315,7 +316,7 @@
       "text": "For each vengeance point in the victory display, record one tally mark under “Yig’s Fury”in your Campaign Log.",
       "input": {
         "type": "counter",
-        "text": "Vengance in the victory display:",
+        "text": "Vengeance in the victory display:",
         "confirm_text": "Record an additional ten tally marks, as you have angered Yig with your foolish actions.",
         "delta": true,
         "effects": [
@@ -411,6 +412,50 @@
           }
         ]
       }
+    },
+    {
+      "id": "check_no_provisions",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "eztli_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["restless_nights_reminder", "list_no_provisions"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "list_no_provisions",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "eztli_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# starts with 3 fewer resources.",
+                "feminine_text": "#name# starts with 3 fewer resources.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "restless_nights_reminder",
+      "text": "Based on the events of <b>Interlude I: Restless Nights:</b>"
     }
   ],
   "resolutions": [

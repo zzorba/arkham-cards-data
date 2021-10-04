@@ -19,6 +19,7 @@
     "check_valentino_clues",
     "check_penny_clues",
     "remove_pieces_of_evidence",
+    "list_pieces_of_evidence",
     "encounter_deck",
     "replacing_locations",
     "$play_scenario"
@@ -182,6 +183,26 @@
     {
       "id": "remove_pieces_of_evidence",
       "text": "As evenly as possible, remove a total number of clues from the above locations equal to the number of <i>pieces of evidence that were left behind</i> in your Campaign Log."
+    },
+    {
+      "id": "list_pieces_of_evidence",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "campaign_notes",
+        "id": "pieces_of_evidence",
+        "options": [],
+        "default_option": {
+          "effects": [
+            {
+              "type": "check_campaign_log_count",
+              "bullet_type": "small",
+              "text": "#X# pieces of evidence were left behind."
+            }
+          ]
+        }
+      }
     },
     {
       "id": "encounter_deck",

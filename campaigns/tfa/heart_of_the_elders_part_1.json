@@ -149,6 +149,9 @@
               "create_exploration_deck",
               "check_mapped_way_forward",
               "set_aside_poisoned",
+              "check_no_provisions",
+              "check_start_with_clue",
+              "check_no_mulligan",
               "encounter_deck",
               "$play_scenario"
             ]
@@ -364,6 +367,143 @@
                 "type": "add_card",
                 "investigator": "$input_value",
                 "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_no_provisions",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "hote_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["jungle_beckons_reminder", "list_no_provisions"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "jungle_beckons_reminder",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "jungle_beckons_reminder",
+      "text": "Based on the events of <b>Interlude III: The Jungle Beckons:</b>"
+    },
+    {
+      "id": "list_no_provisions",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "hote_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# starts with 3 fewer resources.",
+                "feminine_text": "#name# starts with 3 fewer resources.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_start_with_clue",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "hote_start_with_clue",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["maybe_jungle_beckons_reminder", "list_start_with_clue"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_no_mulligan",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "hote_no_mulligan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["maybe_jungle_beckons_reminder", "no_mulligan_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_mulligan_reminder",
+      "bullet_type": "small",
+      "text": "Investigators cannot take a mulligan."
+    },
+    {
+      "id": "maybe_jungle_beckons_reminder",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "jungle_beckons_reminder",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["jungle_beckons_reminder"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "jungle_beckons_reminder",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "list_start_with_clue",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "hote_start_with_clue",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# starts with 1 clue <i>(from the token bank)</i>.",
+                "feminine_text": "#name# starts with 1 clue <i>(from the token bank)</i>.",
+                "bullet_type": "small"
               }
             ]
           }
