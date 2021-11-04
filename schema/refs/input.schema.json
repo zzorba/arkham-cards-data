@@ -146,6 +146,42 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "investigatorPartnerChoiceInput": {
+      "$id": "#investigatorPartnerChoiceInput",
+      "title": "InvestigatorPartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice_partner"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id",
+        "prompt",
+        "cards"
+      ],
+      "additionalProperties": false
+    },
     "investigatorChoiceWithSuppliesInput": {
       "$id": "#investigatorChoiceWithSuppliesInput",
       "title": "InvestigatorChoiceWithSuppliesInput",
@@ -563,6 +599,32 @@
       ],
       "additionalProperties": false
     },
+
+    "partnerTraumaInput": {
+      "$id": "#partnerTraumaInput",
+      "title": "PartnerTraumaInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_trauma"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id"
+      ],
+      "additionalProperties": false
+    },
     "upgradeDecksInput": {
       "$id": "#upgradeDecksInput",
       "title": "UpgradeDecksInput",
@@ -587,9 +649,9 @@
       "required": ["type"],
       "additionalProperties": false
     },
-    "tarotReading": {
-      "$id": "#tarotReading",
-      "title": "TarotReading",
+    "tarotReadingInput": {
+      "$id": "#tarotReadingInput",
+      "title": "TarotReadingInput",
       "type": "object",
       "properties": {
         "type": {
@@ -743,7 +805,13 @@
           "$ref": "#/definitions/saveDecksInput"
         },
         {
-          "$ref": "#/definitions/tarotReading"
+          "$ref": "#/definitions/tarotReadingInput"
+        },
+        {
+          "$ref": "#/definitions/partnerTraumaInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorPartnerChoiceInput"
         }
       ]
     }
