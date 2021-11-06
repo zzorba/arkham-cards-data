@@ -157,28 +157,57 @@
             "investigator_choice_partner"
           ]
         },
-        "section": {
-          "type": "string"
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
         },
-        "id": {
+        "prompt": {
           "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "condition",
+        "prompt"
+      ],
+      "additionalProperties": false
+    },
+    "partnerChoiceInput": {
+      "$id": "#partnerChoiceInput",
+      "title": "PartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_choice"
+          ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
+        },
+        "random": {
+          "type": "boolean"
+        },
+        "quantity": {
+          "$ref": "condition.schema.json#/definitions/operand"
         },
         "prompt": {
           "type": "string"
         },
-        "cards": {
+        "effects": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "effect.schema.json#/definitions/effect"
           }
         }
       },
       "required": [
         "type",
-        "section",
-        "id",
+        "condition",
+        "random",
+        "quantity",
         "prompt",
-        "cards"
+        "effects"
       ],
       "additionalProperties": false
     },
@@ -599,7 +628,6 @@
       ],
       "additionalProperties": false
     },
-
     "partnerTraumaInput": {
       "$id": "#partnerTraumaInput",
       "title": "PartnerTraumaInput",
@@ -613,15 +641,11 @@
         },
         "section": {
           "type": "string"
-        },
-        "id": {
-          "type": "string"
         }
       },
       "required": [
         "type",
-        "section",
-        "id"
+        "section"
       ],
       "additionalProperties": false
     },
@@ -812,6 +836,9 @@
         },
         {
           "$ref": "#/definitions/investigatorPartnerChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/partnerChoiceInput"
         }
       ]
     }

@@ -847,6 +847,59 @@
       ],
       "additionalProperties": false
     },
+    "partnerStatusEffect": {
+      "$id": "#partnerStatusEffect",
+      "title": "PartnerStatusEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_status"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string",
+          "enum": [
+            "$input_value",
+            "$fixed_partner"
+          ]
+        },
+        "fixed_partner": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["add", "remove"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "eliminated",
+            "resolute",
+            "mia",
+            "safe"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "partner",
+        "operation",
+        "status"
+      ],
+      "additionalProperties": false
+    },
     "traumaEffect": {
       "$id": "#traumaEffect",
       "title": "TraumaEffect",
@@ -914,6 +967,7 @@
         { "$ref": "#/definitions/removeCardEffect" },
         { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
+        { "$ref": "#/definitions/partnerStatusEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },

@@ -1,0 +1,128 @@
+{
+  "id": "eoe_prologue",
+  "scenario_name": "Prologue",
+  "full_name": "Prologue",
+  "header": "",
+  "type": "interlude",
+  "icon": "armitages_fate",
+  "setup": [
+    "quote",
+    "prologue_1",
+    "choose_believe",
+    "prologue_4",
+    "gather_expedition_team",
+    "introduce_expedition_team",
+    "expedition_explanation"
+  ],
+  "steps": [
+    {
+      "id": "quote",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "prologue_1",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "choose_believe",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "p2",
+            "text": "<i>\"I believe you... but if what you say is true, should we not investigate these findings further?\"</i>",
+            "steps": ["prologue_2", "convinced_dyer_to_allow_the_expedition", "add_cultist"]
+          },
+          {
+            "id": "p3",
+            "text": "<i>\"I'm sorry, but this seems too wild to be true.\"</i>",
+            "steps": ["prologue_3", "did_not_believe_dyers_report", "add_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prologue_2",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "convinced_dyer_to_allow_the_expedition",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "convinced_dyer_to_allow_the_expedition",
+          "text": "the investigators convinced Dyer to allow the expedition."
+        }
+      ]
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prologue_3",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "did_not_believe_dyers_report",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "did_not_believe_dyers_report",
+          "text": "the investigators did not believe Dyer's report."
+        }
+      ]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prologue_4",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "gather_expedition_team",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "expedition_team"
+      ],
+      "text": "Gather each of the cards from the <i>Expedition Team</i> encounter set. As you read the rest of this prologue and each member of the expedition team is introduced, find the story asset from that encounter set that matches their name and acquaint yourself with that card."
+    },
+    {
+      "id": "introduce_expedition_team",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "expedition_explanation",
+      "bullet_type": "none",
+      "text": "These nine characters will be your partners throughout this campaign. Their various talents will be crucial in the scenarios to come. However, if you wish for this expedition to be successful, it is imperative that you keep them healthy and sane.\nIn the \"Expedition Team\" section of the Campaign Log, you can view the status of each member of the expedition team. As they are injured or begin to question their sanity, update the Campaign Log accordingly. <i>(You will be instructed when to do so.)</i>\nAs each team member is killed or driven insane, cross them off the list, one by one."
+    }
+  ]
+}

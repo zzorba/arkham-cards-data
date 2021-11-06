@@ -1,0 +1,825 @@
+{
+  "id": "ice_and_death_part_2",
+  "scenario_name": "Ice and Death, Part II",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Ice and Death, Part II",
+  "chaos_bag_card": "02041",
+  "icon": "lost_in_the_night",
+  "setup": [
+    "intro",
+    "add_frost",
+    "check_amy_kensler",
+    "check_william_dyer",
+    "check_avery_claypool",
+    "check_james_cookie_fredericks",
+    "starting_resources",
+    "choose_partners",
+    "check_continue",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "add_frost",
+      "text": "Add 1 [frost] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
+    },
+    {
+      "id": "check_amy_kensler",
+      "bullet_type": "none",
+      "text": "<b>If Dr. Amy Kensler is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "status": ["alive", "safe"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_safe_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "amy_kensler_effect",
+      "text": "If Dr. Amy Kensler is chosen to accompany an investigator this game, she enters play with 1 additional secret."
+    },
+    {
+      "id": "check_dr_mala_singh",
+      "text": "<b>In addition, if Dr. Mala Sinha is missing:</b>",
+      "bullet_type": "none",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "status": ["mia"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mala_sinha_missing_story", "mala_sinha_effect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_missing_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "mala_sinha_effect",
+      "text": "Dr. Amy Kensler must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_william_dyer",
+      "bullet_type": "none",
+      "text": "<b>If Professor William Dyer is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "status": ["alive", "safe"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_safe_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "william_dyer_effect",
+      "text": "If Professor William Dyer is chosen to accompany an investigator this game, he enters play with 1 additional secret."
+    },
+    {
+      "id": "check_danforth",
+      "text": "<b>In addition, if Danforth is missing:</b>",
+      "bullet_type": "none",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "status": ["mia"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["danforth_missing_story", "danforth_effect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "danforth_missing_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "danforth_effect",
+      "text": "Professor William Dyer must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_avery_claypool",
+      "bullet_type": "none",
+      "text": "<b>If Avery Claypool is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "status": ["alive", "safe"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_safe_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "avery_claypool_effect",
+      "text": "If Avery Claypool is chosen to accompany an investigator this game, he enters play with 1 additional supply."
+    },
+    {
+      "id": "check_roald_ellsworth",
+      "text": "<b>In addition, if Roald Ellsworth is missing:</b>",
+      "bullet_type": "none",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "status": ["mia"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["roald_ellsworth_missing_story", "roald_ellsworth_effect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "roald_ellsworth_missing_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "roald_ellsworth_effect",
+      "text": "Roald Ellsworth must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_james_cookie_fredericks",
+      "bullet_type": "none",
+      "text": "<b>If James \"Cookie\" Fredericks is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "status": ["alive", "safe"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takado_hiroko"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_cookie_fredericks_safe_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "james_cookie_fredericks_effect",
+      "text": "If James \"Cookie\" Fredericks is chosen to accompany an investigator this game, he enters play with 1 additional ammo."
+    },
+    {
+      "id": "check_takado_hiroko",
+      "text": "<b>In addition, if Takado Hiroko is missing:</b>",
+      "bullet_type": "none",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "status": ["mia"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["takado_hiroko_missing_story", "takado_hiroko_effect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "takado_hiroko_missing_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "takado_hiroko_effect",
+      "text": "James \"Cookie\" Fredericks must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "starting_resources",
+      "title": "Investigator Setup",
+      "text": "Each investigator's base starting resources is equal to the shelter value of the camp, instead of 5."
+    },
+    {
+      "id": "choose_partners",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off or marked \"MIA\" to join them. Put the story asset for the chosen character into play in that investigator's play area. Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive", "safe"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_continue",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "continue_ice_and_death_part_2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "setup_locations", "location_layout", "place_clues", "missing_partners", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_locations_scratch", "location_layout",  "missing_partners", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp", "setup_tekeli_li"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "gather_encounter_sets_from_checkpoint",
+      "title": "Scenario Steup (from Checkpoint)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "lost_in_the_night",
+        "left_behind"
+      ]
+    },
+    {
+      "id": "remove_encounter_sets",
+      "text": "Search the encounter deck and all out-of-play areas for all cards from <i>The Crash</i> and <i>Creatures in the Ice</i> encounter sets. Remove each card from these encounter sets from the game.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_crash",
+        "creatures_in_the_ice"
+      ],
+      "remove": true
+    },
+    {
+      "id": "build_agenda_deck",
+      "text": "Build the agenda deck using agendas 4-6 and the act deck using act 2. (These cards can be found in the <i>Lost in the Night</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each remaining set-aside [[Uncharted]] location into play."
+    },
+    {
+      "id": "place_clues",
+      "text": "Place clues on each revealed location equal to its clue value."
+    },
+    {
+      "id": "missing_partners",
+      "text": "Several members of the expedition go missing in the night!"
+    },
+    {
+      "id": "set_aside_partner_enemies",
+      "bullet_type": "small",
+      "text": "Find each [[Possessed]] enemy from the <i>Lost in the Night</i> encounter set whose title matches one of the Expedition Team members marked \"MIA\" in your Campaign Log. Set each of these enemies aside, facedown. Remove the rest from the game.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "partner_missing",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "encounter",
+                "masculine_text": "#name# is MIA.",
+                "feminine_text": "#name# is MIA.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_story_cards",
+      "bullet_type": "small",
+      "text": "Find the story cards from the <i>Lost in the Night</i> encounter set and shuffle them. One at a time, add one of these cards facedown to the previously set-aside enemies, until there are a total of exactly nine enemy and story cards set aside in this way. Remove the unused story cards from the game."
+    },
+    {
+      "id": "shuffle_missing_story",
+      "bullet_type": "small",
+      "text": "Shuffle these nine set-aside cards and place one facedown beneach each of the nine [[Uncharted]] locations in play."
+    },
+    {
+      "id": "begin_play_at_camp",
+      "text": "Each investigator begins play at the camp."
+    },
+
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup (from Scratch)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "ice_and_death",
+        "lost_in_the_night",
+        "left_behind",
+        "deadly_weather",
+        "hazards_of_antarctica",
+        "silence_and_mystery",
+        "tekeli_li",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "setup_locations_scratch",
+      "text": "In the \"Ice and Death\" section of the Campaign Log, find each location under Locations Revealed. Put each of those locations into play, revealed <i>(with clues equal to its clue value)</i>.",
+      "bullets": [
+        {
+          "text": "Put each other location into play, unrevealed."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "Note: At the start of Part 1, only Crash Site, Treacherous Path, Frozen Shores, and Precarious Ice Sheet are in play. Each other location starts play set-aside and is put into play when an investigator enters one of the connecting locations, as per the ability on agendas 1-3.",
+      "locations": [
+        [
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "crash_site",
+          "blank"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "frozen_shores",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "precarious_ice_sheet",
+          "name": "Precarious Ice Sheet"
+        },
+        {
+          "code": "treacherous_path",
+          "name": "Treacherous Path"
+        },
+        {
+          "code": "crash_site",
+          "name": "Crash Site"
+        },
+        {
+          "code": "frozen_shores",
+          "name": "Frozen Shores"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+
+
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "record_partner_trauma",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to camp's shelter value (to a minimum of 3) plus the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "+ Camp's shelter value experience",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+
+      }
+    },
+    {
+      "id": "do_not_clean_up_yet",
+      "text": "Do not clean up the game yet."
+    },
+    {
+      "id": "rescue_mia_in_victory_display",
+      "text": "Find each enemy in the victory display whose title matches a character who is not crossed off in the \"Expedition Team\" section of the Campaign Log. These characters have been rescued! Cross off \"MIA\" next to each of those character's names.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Rescued",
+        "choices": [
+          {
+            "id": "08720",
+            "text": "Dr. Amy Kensler",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08720",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08720",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08714",
+            "text": "Prof. William Dyer",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08714",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08714",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08715",
+            "text": "Danforth",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08715",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08715",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08721",
+            "text": "Roald Ellsworth",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08721",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08721",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08722",
+            "text": "Takado Hiroko",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08722",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08722",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08718",
+            "text": "Avery Claypool",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08718",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08718",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08717",
+            "text": "Dr. Mala Sinha",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08717",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08717",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08719",
+            "text": "James \"Cookie\" Fredericks",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08719",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08719",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08716",
+            "text": "Eliyah Ashevak",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08716",
+              "status": ["alive", "mia"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08716",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "kill_remaining_mia",
+      "text": "Each missing team member who was not found surely could not have survived the night. In the \"Expedition Team\" section of the Campaign Log, cross the name of each character who is still marked \"MIA\"",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["eliminated", "safe"],
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "eliminate_partners",
+        "earn_xp",
+        "record_partner_trauma",
+        "rescue_mia_in_victory_display",
+        "kill_remaining_mia",
+        "do_not_clean_up_yet",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

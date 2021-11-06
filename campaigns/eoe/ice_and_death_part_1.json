@@ -1,0 +1,737 @@
+{
+  "id": "ice_and_death_part_1",
+  "scenario_name": "Ice and Death, Part I",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Ice and Death, Part I",
+  "chaos_bag_card": "02041",
+  "icon": "the_crash",
+  "setup": [
+    "intro",
+    "intro_1",
+    "check_wini",
+    "intro_4",
+    "plane_crash",
+    "choose_plane_crash",
+    "find_crashed_person",
+    "choose_partners",
+    "gather_encounter_sets",
+    "set_aside_creatures_in_the_ice",
+    "setup_locations",
+    "location_layout",
+    "set_aside_skittering_nonsense",
+    "set_aside_terror_of_the_stars",
+    "check_difficulty",
+    "setup_tekeli_li",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_wini",
+      "text": "If Winifred Habbamock is one of the investigators in the campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "60301",
+            "steps": ["intro_2"]
+          }
+        ],
+        "default_option": {
+          "steps": ["intro_3"]
+        }
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "plane_crash",
+      "bullet_type": "none",
+      "text": "Gather the nine story assets from the <i>Expedition Team</i> encounter set, shuffle them, and choose one of them at random. The chosen character was killed in the plane crash. In the Expedition Team section of the Campaign Log, cross of their name. Record in the Campaign Log <i>(character's name) was killed in the plane crash.</i>\n"
+    },
+    {
+      "id": "choose_plane_crash",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": true,
+        "quantity": {
+          "type": "constant",
+          "value": 1
+        },
+        "prompt": "Killed in plane crash:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "eliminated"
+          },
+          {
+            "type": "campaign_log_cards",
+            "section": "campaign_notes",
+            "id": "killed_in_plane_crash",
+            "cards": "$input_value",
+            "masculine_text": "#name# was killed in the plane crash.",
+            "feminine_text": "#name# was killed in the plane crash."
+          }
+        ]
+      }
+    },
+    {
+      "id": "find_crashed_person",
+      "text": "Find and read the passage that corresponds to the character killed in the plane crash.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards_switch",
+        "section": "campaign_notes",
+        "id": "killed_in_plane_crash",
+        "options": [
+          {
+            "condition": "08714",
+            "border": true,
+            "steps": ["william_dyer_crashed"]
+          },
+          {
+            "condition": "08721",
+            "border": true,
+            "steps": ["roald_ellsworth_crashed"]
+          },
+          {
+            "condition": "08719",
+            "border": true,
+            "steps": ["eliyah_ashevak_crashed"]
+          },
+          {
+            "condition": "08715",
+            "border": true,
+            "steps": ["danforth_crashed"]
+          },
+          {
+            "condition": "08719",
+            "border": true,
+            "steps": ["james_cookie_fredericks_crashed"]
+          },
+          {
+            "condition": "08718",
+            "border": true,
+            "steps": ["avery_claypool_crashed"]
+          },
+          {
+            "condition": "08722",
+            "border": true,
+            "steps": ["takado_hiroko_crashed"]
+          },
+          {
+            "condition": "08717",
+            "border": true,
+            "steps": ["mala_sinha_crashed"]
+          },
+          {
+            "condition": "08720",
+            "border": true,
+            "steps": ["amy_kensler_crashed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "roald_ellsworth_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "eliyah_ashevak_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "danforth_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "james_cookie_fredericks_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "avery_claypool_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "takado_hiroko_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "mala_sinha_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "amy_kensler_crashed",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "choose_partners",
+      "title": "Investigator Setup",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set.)",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "ice_and_death",
+        "the_crash",
+        "creatures_in_the_ice",
+        "deadly_weather",
+        "hazards_of_antarctica",
+        "silence_and_mystery",
+        "tekeli_li",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "set_aside_creatures_in_the_ice",
+      "text": "Set aside the <i>Creatures in the Ice</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Crash Site, Precarious Ice Sheet, Treacherous Path, and Frozen Shores. <i>See Location Layout below.)</i>",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at the Crash Site."
+        },
+        {
+          "text": "Set each [[Uncharted]] location aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "Note: At the start of Part 1, only Crash Site, Treacherous Path, Frozen Shores, and Precarious Ice Sheet are in play. Each other location starts play set-aside and is put into play when an investigator enters one of the connecting locations, as per the ability on agendas 1-3.",
+      "locations": [
+        [
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "crash_site",
+          "blank"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "frozen_shores",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "precarious_ice_sheet",
+          "name": "Precarious Ice Sheet"
+        },
+        {
+          "code": "treacherous_path",
+          "name": "Treacherous Path"
+        },
+        {
+          "code": "crash_site",
+          "name": "Crash Site"
+        },
+        {
+          "code": "frozen_shores",
+          "name": "Frozen Shores"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_skittering_nonsense",
+      "text": "Set each Skittering Nonsense enemy aside, out of play."
+    },
+    {
+      "id": "set_aside_terror_of_the_stars",
+      "text": "Set the Terror of the Stars enemy aside, out of play."
+    },
+    {
+      "id": "check_difficulty",
+      "text": "Check the difficulty level.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "hard_1_doom"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "expert_2_doom"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_changes",
+      "bullet_type": "small",
+      "text": "No changes are made."
+    },
+    {
+      "id": "hard_1_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Hard difficulty, add 1 doom to agenda 1a."
+    },
+    {
+      "id": "expert_2_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Expert difficulty, add 2 doom to agenda 1a."
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "record_partner_trauma",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to camp's shelter value (to a minimum of 3) plus the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "+ Camp's shelter value experience",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+
+      }
+    },
+    {
+      "id": "do_not_clean_up_yet",
+      "text": "Do not clean up the game yet."
+    },
+    {
+      "id": "record_camp_location",
+      "text": "Choose a location in play with no clues on it. In your Campaign Log, write \"Camp -,\" and next to it, record that location's name. This location is referred to as the investigators' camp for the remainder of <i>Ice and Death</i>."
+    },
+    {
+      "id": "actually_record_camp_location",
+      "text": "Camp Location:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "icebreaker_landing",
+            "text": "Icebreaker Landing",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_icebreaker_landing",
+                "text": "Camp - Icebreaker Landing (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "icy_wastes",
+            "text": "Icy Wastes",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_icy_wastes",
+                "text": "Camp - Icy Wastes (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "barrier_camp",
+            "text": "Barrier Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_barrier_camp",
+                "text": "Camp - Barrier Camp (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "rocky_crags",
+            "text": "Rocky Crags",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_rocky_crags",
+                "text": "Camp - Rocky Crags (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "frigid_cave",
+            "text": "Frigid Cave",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_frigid_cave",
+                "text": "Camp - Frigid Cave (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "precarious_ice_sheet",
+            "text": "Precarious Ice Sheet",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_precarious_ice_sheet",
+                "text": "Camp - Precarious Ice Sheet (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "treacherous_path",
+            "text": "Treacherous Path",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_treacherous_path",
+                "text": "Camp - Treacherous Path (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "crash_site",
+            "text": "Crash Site",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_crash_site",
+                "text": "Camp - Crash Site (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "remnants_of_lukes_camp",
+            "text": "Remnants of Luke's Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_remnants_of_lukes_camp",
+                "text": "Camp - Remnants of Luke's Camp (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "frozen_shores",
+            "text": "Frozen Shores",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_frozen_shores",
+                "text": "Camp - Frozen Shores"
+              }
+            ]
+          },
+          {
+            "id": "crystalline_cavern",
+            "text": "Crystalline Cavern",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_crystalline_cavern",
+                "text": "Camp - Crystalline Cavern (X)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "broad_snowdrifts",
+            "text": "Broad Snowdrifts",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "broad_snowdrifts",
+                "text": "Camp - Broad Snowdrifts (X)"
+              }
+            ]
+          },
+          {
+            "id": "snow_graves",
+            "text": "Snow Graves",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "snow_graves",
+                "text": "Camp - Snow Graves"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_camp_resigned_location",
+      "text": "In your Campaign Log, write \"Camp -,\" and next to it, record the name of the location the investigators resigned at. This location is referred to as the investigators' camp for the remainder of <i>Ice and Death</i>."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "eliminate_partners",
+        "record_camp_location",
+        "actually_record_camp_location",
+        "earn_xp",
+        "do_not_clean_up_yet",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "eliminate_partners",
+        "record_camp_resigned_location",
+        "actually_record_camp_location",
+        "earn_xp",
+        "record_partner_trauma",
+        "do_not_clean_up_yet",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
