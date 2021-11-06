@@ -305,7 +305,7 @@
     },
     {
       "id": "setup_tekeli_li",
-      "text": "Shuffle each Tekeli-li! weakness card together to form the Tekeli-li deck. Place this deck near the agenda deck."
+      "text": "Shuffle each Tekeli-li! weakness card that is not already part of an investigator's deck together to form the Tekeli-li deck. Place this deck near the agenda deck."
     },
     {
       "id": "gather_encounter_sets_from_checkpoint",
@@ -465,6 +465,21 @@
       "id": "resolution_1",
       "type": "resolution",
       "resolution": "R1"
+    },
+    {
+      "id": "maybe_record_partner_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["record_partner_trauma"]
+          }
+        ]
+      }
     },
     {
       "id": "record_partner_trauma",
@@ -814,7 +829,7 @@
       "steps": [
         "eliminate_partners",
         "earn_xp",
-        "record_partner_trauma",
+        "maybe_record_partner_trauma",
         "rescue_mia_in_victory_display",
         "kill_remaining_mia",
         "do_not_clean_up_yet",

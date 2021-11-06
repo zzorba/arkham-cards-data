@@ -1,0 +1,1071 @@
+{
+  "id": "ice_and_death_part_3",
+  "scenario_name": "Ice and Death, Part III",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Ice and Death, Part III",
+  "chaos_bag_card": "02041",
+  "icon": "seeping_nightmares",
+  "setup": [
+    "intro",
+    "add_frost",
+    "choose_partners",
+    "check_continue",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "add_frost",
+      "text": "Add 1 [frost] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
+    },
+    {
+      "id": "choose_partners",
+      "title": "Investigator Setup",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area (These story assets can be found in the <i>Expedition Team</i> encounter set.). Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_continue",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "continue_ice_and_death_part_3",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "setup_locations", "location_layout", "place_clues", "find_seeping_nightmares", "place_seeping_nightmares", "remove_remaining_seeping_nightmares", "setup_eidolon", "begin_play_at_camp"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_locations_scratch", "location_layout",   "begin_play_at_camp", "find_seeping_nightmares", "place_seeping_nightmares", "remove_remaining_seeping_nightmares", "setup_eidolon", "setup_tekeli_li"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card that is not already part of an investigator's deck together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "gather_encounter_sets_from_checkpoint",
+      "title": "Scenario Steup (from Checkpoint)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "seeping_nightmares",
+        "creatures_in_the_ice"
+      ]
+    },
+    {
+      "id": "remove_encounter_sets",
+      "text": "Search the encounter deck and all out-of-play areas for all cards from <i>The Crash</i>, <i>Lost in the Night</i> and <i>Left Behind</i> encounter sets. Remove each card from these encounter sets from the game.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_crash",
+        "lost_in_the_night",
+        "left_behind"
+      ],
+      "remove": true
+    },
+    {
+      "id": "build_agenda_deck",
+      "text": "Build the agenda deck using agendas 7-8 and the act deck using act 3. (These cards can be found in the <i>Seeping Nightmares</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each remaining set-aside [[Uncharted]] location into play."
+    },
+    {
+      "id": "place_clues",
+      "text": "Place clues on each revealed location equal to its clue value."
+    },
+    {
+      "id": "find_seeping_nightmares",
+      "text": "Find 1 [per_investigator] Seeping Nightmare enemies. These enemies can be found in the <i>Seeping Nightmares</i> encounter set."
+    },
+    {
+      "id": "remove_remaining_seeping_nightmares",
+      "bullet_type": "small",
+      "text": "Remove all remaining Seeping Nightmares enemies from the game."
+    },
+    {
+      "id":"place_seeping_nightmares",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_crash_site",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_treacherous_path",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_precarious_ice_shelf",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_frozen_shores",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_spawn_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_1_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_1_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_1_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_1_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_1_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Crash Site, Treacherous Path, Precarious Ice Sheet, or Frozen Shores</b>: Spawn a Seeping Nightmare at Icy Wastes."
+    },
+    {
+      "id": "spawn_1_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Crash Site, Treacherous Path, Precarious Ice Sheet, or Frozen Shores</b>: Spawn Seeping Nightmares at Icy Wastes and Broad Snowdrifts."
+    },
+    {
+      "id": "spawn_1_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Crash Site, Treacherous Path, Precarious Ice Sheet, or Frozen Shores</b>: Spawn Seeping Nightmares at Icy Wastes, Broad Snowdrifts, and  Rocky Crags."
+    },
+    {
+      "id": "spawn_1_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Crash Site, Treacherous Path, Precarious Ice Sheet, or Frozen Shores</b>: Spawn Seeping Nightmares at Icy Wastes, Broad Snowdrifts, Rocky Crags, and Icebreaker Landing."
+    },
+    {
+      "id": "check_spawn_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_icy_wastes",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_icebreaker_landing",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_spawn_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_2_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_2_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_2_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_2_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_2_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Ice Wastes or Icebreaker Landing</b>: Spawn a Seeping Nightmare at Snow Graves"
+    },
+    {
+      "id": "spawn_2_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Ice Wastes or Icebreaker Landing</b>: Spawn Seeping Nightmares at Snow Graves and Frigid Cave."
+    },
+    {
+      "id": "spawn_2_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Ice Wastes or Icebreaker Landing</b>: Spawn Seeping Nightmares at Snow Graves, Frigid Cave, and Remnants of Lake's Camp."
+    },
+    {
+      "id": "spawn_2_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Ice Wastes or Icebreaker Landing</b>: Spawn Seeping Nightmares at Snow Graves, Frigid Cave, Remnants of Lake's Camp, and Barrier Camp."
+    },
+    {
+      "id": "check_spawn_3",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_broad_snowdrifts",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_snow_graves",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_spawn_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_3",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_3_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_3_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_3_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_3_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_3_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Broad Snowdrifts or Snow Graves</b>: Spawn a Seeping Nightmare at Icebreaker Landing."
+    },
+    {
+      "id": "spawn_3_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Broad Snowdrifts or Snow Graves</b>: Spawn Seeping Nightmares at Icebreaker Landing and Frigid Cave."
+    },
+    {
+      "id": "spawn_3_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Broad Snowdrifts or Snow Graves</b>: Spawn Seeping Nightmares at Icebreaker Landing, Frigid Cave, and Remnants of Lake's Camp."
+    },
+    {
+      "id": "spawn_3_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Broad Snowdrifts or Snow Graves</b>: Spawn Seeping Nightmares at Icebreaker Landing, Frigid Cave, Remnants of Lake's Camp, and Crystalline Cavern."
+    },
+    {
+      "id": "check_spawn_4",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_frigid_cave",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_rocky_crags",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_spawn_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_4",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_4_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_4_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_4_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_4_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_4_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Frigid Cave or Rocky Crags</b>: Spawn a Seeping Nightmare at Icebreaker Landing."
+    },
+    {
+      "id": "spawn_4_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Frigid Cave or Rocky Crags</b>: Spawn Seeping Nightmares at Icebreaker Landing, and Snow Graves."
+    },
+    {
+      "id": "spawn_4_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Frigid Cave or Rocky Crags</b>: Spawn Seeping Nightmares at Icebreaker Landing, Snow Graves, and Barrier Camp."
+    },
+    {
+      "id": "spawn_4_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at either Frigid Cave or Rocky Crags</b>: Spawn Seeping Nightmares at Icebreaker Landing, Snow Graves, Barrier Camp, and Crystalline Cavern."
+    },
+    {
+      "id": "check_spawn_5",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_crystalline_cavern",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_rocky_crags",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_spawn_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_5",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_5_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_5_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_5_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_5_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_5_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Crystalline Cavern</b>: Spawn a Seeping Nightmare at Remnants of Lake's Camp."
+    },
+    {
+      "id": "spawn_5_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Crystalline Cavern</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp and Barrier Camp."
+    },
+    {
+      "id": "spawn_5_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Crystalline Cavern</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp, Barrier Camp, and Icebreaker Landing."
+    },
+    {
+      "id": "spawn_5_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Crystalline Cavern</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp, Barrier Camp, Icebreaker Landing, and Crash Site."
+    },
+    {
+      "id": "check_spawn_6",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_crystalline_cavern",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "camp_rocky_crags",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_6"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["spawn_7"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_6",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_6_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_6_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_6_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_6_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_6_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Barrier Camp</b>: Spawn a Seeping Nightmare at Remnants of Lake's Camp."
+    },
+    {
+      "id": "spawn_6_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Barrier Camp</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp and Crystalline Cavern."
+    },
+    {
+      "id": "spawn_6_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Barrier Camp</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp, Crystalline Cavern, and Snow Graves."
+    },
+    {
+      "id": "spawn_6_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Barrier Camp</b>: Spawn Seeping Nightmares at Remnants of Lake's Camp, Crystalline Cavern, Snow Graves, Crash Site."
+    },
+    {
+      "id": "spawn_7",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "spawn_7_1"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "spawn_7_2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "spawn_7_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "spawn_7_4"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_7_1",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Remnants of Lake's Camp</b>: Spawn a Seeping Nightmare at Barrier Camp."
+    },
+    {
+      "id": "spawn_7_2",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Remnants of Lake's Camp</b>: Spawn Seeping Nightmares at Barrier Camp and Crystalline Cavern,."
+    },
+    {
+      "id": "spawn_7_3",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Remnants of Lake's Camp</b>: Spawn Seeping Nightmares at Barrier Camp, Crystalline Cavern, and Frigid Cave."
+    },
+    {
+      "id": "spawn_7_4",
+      "bullet_type": "small",
+      "text": "<b>Because you are camped at Remnants of Lake's Camp</b>: Spawn Seeping Nightmares at Barrier Camp, Crystalline Cavern, Frigid Cave, and Crash Site."
+    },
+
+    {
+      "id": "setup_eidolon",
+      "text": "Find the eight [[Eidolon]] enemies from the <i>Ice and Death</i> and <i>Creatures in the Ice</i> encounter sets. Shuffle them and place them facedown beneath each Seeping Nightmare enemy in play, divided as evenly as possible."
+    },
+    {
+      "id": "begin_play_at_camp",
+      "text": "Each investigator begins play at the camp.",
+      "bullets": [
+        {
+          "text": "Remove all clues from the camp. It begins the game with no clues on it."
+        }
+      ]
+    },
+
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup (from Scratch)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "ice_and_death",
+        "seeping_nightmares",
+        "creatures_in_the_ice",
+        "deadly_weather",
+        "hazards_of_antarctica",
+        "silence_and_mystery",
+        "tekeli_li",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "setup_locations_scratch",
+      "text": "In the \"Ice and Death\" section of the Campaign Log, find each location under Locations Revealed. Put each of those locations into play, revealed <i>(with clues equal to its clue value)</i>.",
+      "bullets": [
+        {
+          "text": "Put each other location into play, unrevealed."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "Note: At the start of Part 1, only Crash Site, Treacherous Path, Frozen Shores, and Precarious Ice Sheet are in play. Each other location starts play set-aside and is put into play when an investigator enters one of the connecting locations, as per the ability on agendas 1-3.",
+      "locations": [
+        [
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "crash_site",
+          "blank"
+        ],
+        [
+          "blank","blank","blank"
+        ],
+        [
+          "blank",
+          "frozen_shores",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "precarious_ice_sheet",
+          "name": "Precarious Ice Sheet"
+        },
+        {
+          "code": "treacherous_path",
+          "name": "Treacherous Path"
+        },
+        {
+          "code": "crash_site",
+          "name": "Crash Site"
+        },
+        {
+          "code": "frozen_shores",
+          "name": "Frozen Shores"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "record_partner_trauma",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+
+      }
+    },
+    {
+      "id": "team_barely_escaped_the_ice_shelf",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_barely_escaped_the_ice_shelf",
+          "text": "the team barely escaped the ice shelf."
+        }
+      ]
+    },
+    {
+      "id": "ask_seeping_nightmare_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cheat",
+            "text": "Is there at least one Seeping Nightmare in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "killed_seeping_nightmare",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_maybe_bonus",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "killed_seeping_nightmare",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_xp_no_bonus"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["earn_xp_bonus_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_bonus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Because at least one Seeping Nightmare weas defeated, each investigator earns 2 bonus experience as they have gained insight into the entities that dwell in Antarctica.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_no_bonus",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "team_defeated_the_hunting_creatures",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_defeated_the_hunting_creatures",
+          "text": "the team defeated the hunting creatures."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_bonus_5",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience as they have gained insight into the entities that dwell in Antarctica.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_up_game",
+      "text": "Clean up the game. You will not return to this scenario for the remainder of the campaign."
+    },
+    {
+      "id": "team_fled_to_the_mountains",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_fled_to_the_mountains",
+          "text": "the team fled to the mountains."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "eliminate_partners",
+        "team_barely_escaped_the_ice_shelf",
+        "ask_seeping_nightmare_in_victory_display",
+        "earn_xp_maybe_bonus",
+        "clean_up_game",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "eliminate_partners",
+        "team_defeated_the_hunting_creatures",
+        "earn_xp_bonus_5",
+        "record_partner_trauma",
+        "clean_up_game",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "team_fled_to_the_mountains",
+        "ask_seeping_nightmare_in_victory_display",
+        "earn_xp_maybe_bonus",
+        "record_partner_trauma",
+        "clean_up_game",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
