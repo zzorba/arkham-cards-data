@@ -420,9 +420,9 @@ async function validateErrata() {
 }
 
 async function main() {
+  await validateScenarios();
   await validateCampaigns();
   await validateChaosTokens();
-  await validateScenarios();
   await validateErrata();
   //
 }
