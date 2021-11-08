@@ -1220,6 +1220,60 @@
     {
       "id": "cross_off_memories_discovered",
       "text": "Cross off each location recorded under \"Memories Discovered\" for which the corresponding story card is also recorded under \"Memories Banished.\""
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["add_frost"],
+        "branches": [
+          {
+            "id": "add_frost",
+            "text": "Add Frost token to chaos bag",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["add_1_frost"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_frost",
+      "text": "Add 1 [frost] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
     }
   ],
   "resolutions": [
