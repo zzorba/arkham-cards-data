@@ -1,0 +1,272 @@
+{
+  "id": "the_other_side",
+  "scenario_name": "The Other Side",
+  "full_name": "Checkpoint III: The Other Side",
+  "header": "Checkpoint III",
+  "type": "interlude",
+  "icon": "stirring_in_the_deep",
+  "setup": [
+    "other_side_1",
+    "choose_continue_now"
+  ],
+  "steps": [
+    {
+      "id": "other_side_1",
+      "type": "story",
+      "text": "You awaken in a haze on the other side. You have no idea how long it's been since you crossed the threshold of the gateway."
+    },
+    {
+      "id": "choose_continue_now",
+      "text": "Do you wish to proceed to <b>The Heart of Madness, Part II</b> immediately, or take a break?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "now",
+            "text": "Play immediately.",
+            "steps": ["other_side_2", "remove_locations", "adjust_seals", "return_seals", "reset_decks"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "continue_the_heard_of_madness_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "later",
+            "text": "Take a break.",
+            "steps": ["other_side_3", "record_seals_placed", "record_seals_recovered", "clean_up_game"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "reset_decks",
+      "text": "Reset each investigator's deck and the encounter deck."
+    },
+    {
+      "id": "other_side_2",
+      "type": "story",
+      "text": "It is time to end this—once and for all."
+    },
+    {
+      "id": "remove_locations",
+      "text": "Remove each location from play except for The Gate of Y'quaa. Do not remove any seal tokens on The Gate of Y'quaa. <i>(Remove all other tokens on The Gate of Y'quaa and discard all cards at that location, as normal.)</i>"
+    },
+    {
+      "id": "adjust_seals",
+      "text": "Each investigator who controls a seal keeps it on their investigator card. <i>(They will begin the next game in control of it.)</i> However, it seems to have lost any charge it might have had. If it is activated, flip it to its dormant side."
+    },
+    {
+      "id": "return_seals",
+      "text": "Each seal not controlled by an investigator or on the Gate of Y'quaa is removed from the game."
+    },
+    {
+      "id": "other_side_3",
+      "type": "story",
+      "text": "You rest and gather your strength. Soon, you will end this—once and for all."
+    },
+    {
+      "id": "record_seals_placed",
+      "type": "input",
+      "text": "In \"The Heart of Madness\" section of the Campaign Log, under \"Seals Placed,\" draw each activated seal that was on The Gate of Y'quaa when the game ended.",
+      "input": {
+        "type": "checklist",
+        "text": "On the Gate",
+        "choices": [
+          {
+            "id": "seal_a",
+            "text": "The [seal_a] seal.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_placed",
+                "id": "seal_a",
+                "text": "The [seal_a] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_b",
+            "text": "The [seal_b] seal.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_placed",
+                "id": "seal_b",
+                "text": "The [seal_b] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_c",
+            "text": "The [seal_c] seal.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_placed",
+                "id": "seal_c",
+                "text": "The [seal_c] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_d",
+            "text": "The [seal_d] seal.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_placed",
+                "id": "seal_d",
+                "text": "The [seal_d] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_e",
+            "text": "The [seal_e] seal.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_placed",
+                "id": "seal_e",
+                "text": "The [seal_e] seal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "record_seals_recovered",
+      "type": "input",
+      "text": "In \"The Heart of Madness\" section of the Campaign Log, under \"Seals Recovered,\" draw each activated seal that was controlled by an investigator when the game ended.",
+      "input": {
+        "type": "checklist",
+        "text": "Controlled by investigator",
+        "choices": [
+          {
+            "id": "seal_a",
+            "text": "The [seal_a] seal.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "seals_placed",
+              "id": "seal_a",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_recovered",
+                "id": "seal_a",
+                "text": "The [seal_a] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_b",
+            "text": "The [seal_b] seal.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "seals_placed",
+              "id": "seal_b",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_recovered",
+                "id": "seal_b",
+                "text": "The [seal_b] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_c",
+            "text": "The [seal_c] seal.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "seals_placed",
+              "id": "seal_c",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_recovered",
+                "id": "seal_c",
+                "text": "The [seal_c] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_d",
+            "text": "The [seal_d] seal.",
+
+            "condition": {
+              "type": "campaign_log",
+              "section": "seals_placed",
+              "id": "seal_d",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_recovered",
+                "id": "seal_d",
+                "text": "The [seal_d] seal"
+              }
+            ]
+          },
+          {
+            "id": "seal_e",
+            "text": "The [seal_e] seal.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "seals_placed",
+              "id": "seal_e",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "seals_recovered",
+                "id": "seal_e",
+                "text": "The [seal_e] seal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_up_game",
+      "text": "Clean up the game as normal."
+    }
+  ]
+}

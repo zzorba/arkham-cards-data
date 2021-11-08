@@ -1,0 +1,1113 @@
+{
+  "id": "restful_night",
+  "scenario_name": "Restful Night",
+  "full_name": "Interlude I: Restful Night",
+  "header": "Interlude I",
+  "type": "interlude",
+  "icon": "armitages_fate",
+  "setup": [
+    "intro",
+    "check_in_explanation",
+    "compute_conversation_count",
+    "conversation",
+    "restful_night_2",
+    "check_eliminated_partners"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Safe at last, you and the remaining members of the expedition take stock of your situation. You have lost several members of the team, but your members remain strong. Part of you knows that staying any longer would prove foolish or deadly. But a great many questions crowd your thoughts, demanding answers despite your worries. What were those uncanny, Phantasmal creatures? What happened here after Dyer’s expedition left the icy wastes behind?\nYou and the others discuss the situation at length and consider various plans. Some believe in the total abandonment of the expedition. But to return empty-handed now would prove disastrous for the university, frustrate the scientific community, and possibly cost the remaining crew their careers. After all, very few believed Dyer’s outlandish claims --who would believe this?\nIn the end, you decide to press onward. Another flight is out of the question, of course. That thing in the sky must still be out there. It was a miracle you survived one aeroplane crash, let alone two. No, there’s only one way to reach the site described in Dyer’s report now: you must travel on foot.\nThe decision made, you retire to get what meager rest you can before the grueling trek ahead."
+    },
+    {
+      "id": "check_in_explanation",
+      "bullet_type": "none",
+      "text": "You only have enough time to check on a few team members (regardless of whether they are alive or crossed out). One at a time, choose and read three of the sections below (four instead if <i>the team fled to the mountains</i>). If the game effect of the chosen section cannot be performed, it does not count toward this total and you may choose a new section instead."
+    },
+    {
+      "id": "compute_conversation_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "team_fled_to_the_mountains",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "set",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "set",
+                "value": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "conversation",
+      "type": "loop",
+      "hidden": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "restful_night_conversations"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1
+          },
+          {
+            "numCondition": 0
+          }
+        ]
+      },
+      "steps": ["choose_conversation"]
+    },
+    {
+      "id": "choose_conversation",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "william_dyer",
+            "text": "Professor William Dyer",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_william_dyer",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_william_dyer"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_william_dyer",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "danforth",
+            "text": "Danforth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_danforth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_danforth"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_danforth",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "amy_kensler",
+            "text": "Dr. Amy Kensler",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_amy_kensler",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_amy_kensler"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_amy_kensler",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "mala_sinha",
+            "text": "Dr. Mala Sinha",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_mala_sinha",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_mala_sinha"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_mala_sinha",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "james_fredericks",
+            "text": "James \"Cookie\" Fredericks",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_james_fredericks",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_james_fredericks"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_james_fredericks",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "avery_claypool",
+            "text": "Avery Claypool",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_avery_claypool",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_avery_claypool"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_avery_claypool",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "roald_ellsworth",
+            "text": "Roald Ellsworth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_roald_ellsworth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_roald_ellsworth"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_roald_ellsworth",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "takada_hiroko",
+            "text": "Takada Hiroko",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_takada_hiroko",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_takada_hiroko"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_takada_hiroko",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "eliyah_ashevak",
+            "text": "Eliyah Ashevak",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_eliyah_ashevak",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_eliyah_ashevak"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_eliyah_ashevak",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer",
+      "text": "If William Dyer is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_alive_story", "check_william_dyer_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["william_dyer_dead_story", "william_dyer_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_william_dyer_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08723",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08724",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08725",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08726",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08727",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08728",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "each",
+            "card": "08729",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["william_dyer_alive_effects_skipped"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_alive_effects",
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>."
+    },
+    {
+      "id": "william_dyer_alive_effects_skipped",
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>.",
+      "bullets": [
+        {
+          "text": "Because no investigator's deck contains any Tekeli-li! weaknesses, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "william_dyer_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "william_dyer_dead_effects",
+      "text": "Any one investigator may choose to add the Dyer's Sketches story event to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08733"
+        }
+      ]
+    },
+    {
+      "id": "check_danforth",
+      "text": "If Danforth is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["danforth_alive_story", "danforth_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["danforth_dead_story", "danforth_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "danforth_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "danforth_alive_effects",
+      "text": "Listening to Danforth gives you further insight into the madness of this place. Any one investigator may begin <b>Scenario II: To the Forbidden Peaks</b> with two additional cards drawn in their opening hand."
+    },
+    {
+      "id": "danforth_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "danforth_dead_effects",
+      "text": "Any one investigator may choose to add the Collected Works of Poe story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08731"
+        }
+      ]
+    },
+    {
+      "id": "check_amy_kensler",
+      "text": "If Dr. Amy Kensler is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_alive_story", "amy_kensler_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["amy_kensler_dead_story", "amy_kensler_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "amy_kensler_alive_effects",
+      "text": "Dr. Kensler's research allows you to view the situation with greater clarity. In your Campaign Log, record <i>Dr. Kensler is sharing her research with you.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_kensler_is_sharing_her_research_with_you",
+          "text": "Dr. Kensler is sharing her research with you."
+        }
+      ]
+    },
+    {
+      "id": "amy_kensler_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "amy_kensler_dead_effects",
+      "text": "Any one investigator may choose to add the Kensler's Log story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08735"
+        }
+      ]
+    },
+    {
+      "id": "check_mala_sinha",
+      "text": "If Dr. Mala Sinha is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mala_sinha_alive_story", "mala_sinha_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["mala_sinha_dead_story", "mala_sinha_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "mala_sinha_alive_effects",
+      "text": "Dr. Sinha's expertise allows you to recover from your injuries. Any one investigator may either heal 1 physical trauma or erase 1 damage from a partner asset recorded in the Campaign Log."
+    },
+    {
+      "id": "mala_sinha_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "mala_sinha_dead_effects",
+      "text": "Any one investigator may choose to add the Sinha's Medical Kit story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08736"
+        }
+      ]
+    },
+    {
+      "id": "check_james_fredericks",
+      "text": "If James \"Cookie\" Fredericks is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_fredericks_alive_story", "james_fredericks_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["james_fredericks_dead_story", "james_fredericks_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_fredericks_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "james_fredericks_alive_effects",
+      "text": "Cookie's advice helps you prepare for the journey ahead. Any one investigator earns 1 bonus experience.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "bonus_xp",
+            "text": "Earn 1 bonus experience",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_fredericks_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "james_fredericks_dead_effects",
+      "text": "Any one investigator may choose to add the Cookie's Custom .32 story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08732"
+        }
+      ]
+    },
+
+
+
+    {
+      "id": "check_avery_claypool",
+      "text": "If Avery Claypool is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_alive_story", "check_avery_claypool_alive_effects", "check_avery_claypool_roald_ellsworth"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["avery_claypool_dead_story", "avery_claypool_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_avery_claypool_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "frost"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["avery_claypool_alive_effects_skip"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["avery_claypool_alive_effects"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["avery_claypool_alive_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_alive_effects",
+      "text": "Claypool's predictions help you stay safe from the inclement weather. Remove 1 [frost] token from the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
+    },
+    {
+      "id": "avery_claypool_alive_effects_skip",
+      "text": "Claypool's predictions help you stay safe from the inclement weather. Remove 1 [frost] token from the chaos bag.",
+      "bullets": [
+        {
+          "text": "Because there are no [frost] tokens in the chaos bag, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "check_avery_claypool_roald_ellsworth",
+      "text": "In addition, if Roald Ellsworth is still alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_and_roald_ellsworth_alive_story"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_and_roald_ellsworth_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "avery_claypool_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "avery_claypool_dead_effects",
+      "text": "Any one investigator may choose to add the Claypool's Furs story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08730"
+        }
+      ]
+    },
+    {
+      "id": "check_roald_ellsworth",
+      "text": "If Roald Ellsworth is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["roald_ellsworth_alive_story", "roald_ellsworth_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["roald_ellsworth_dead_story", "roald_ellsworth_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "roald_ellsworth_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "roald_ellsworth_alive_effects",
+      "text": "Scouting with Ellsworth gives you insight into the journey ahead. In your Campaign Log, record <i>the investigators scouted the mountain pass.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "scouted_the_mountain_pass",
+          "text": "the investigators scouted the mountain pass."
+        }
+      ]
+    },
+    {
+      "id": "roald_ellsworth_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "roald_ellsworth_dead_effects",
+      "text": "Any one investigator may choose to add the Ellsworth's Boots story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08734"
+        }
+      ]
+    },
+    {
+      "id": "check_takada_hiroko",
+      "text": "If Takada Hiroko is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["takada_hiroko_alive_story", "takada_hiroko_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["takada_hiroko_dead_story", "takada_hiroko_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "takada_hiroko_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "takada_hiroko_alive_effects",
+      "text": "Takada ensures you are better equipped for the next leg of the journey. Any one investigator may begin <b>Scenario II: To the Forbidden Peaks</b> with 3 additional resources drawn in their resource pool."
+    },
+    {
+      "id": "takada_hiroko_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "takada_hiroko_dead_effects",
+      "text": "Any one investigator may choose to add the Takada's Cache story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08737"
+        }
+      ]
+    },
+
+
+
+    {
+      "id": "check_eliyah_ashevak",
+      "text": "If Eliyah Ashevak is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08716",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliyah_ashevak_alive_story", "eliyah_ashevak_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["eliyah_ashevak_dead_story", "eliyah_ashevak_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_ashevak_alive_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "eliyah_ashevak_alive_effects",
+      "text": "Bonding with Eliyah and Anyu makes things just a little better. Any one investigator may either heal 1 mental trauma or erase 1 horror from a partner asset recorded in the Campaign Log."
+    },
+    {
+      "id": "eliyah_ashevak_dead_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "eliyah_ashevak_dead_effects",
+      "text": "Any one investigator may choose to add the Anyu story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08738"
+        }
+      ]
+    },
+    {
+      "id": "restful_night_2",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_eliminated_partners",
+      "type": "branch",
+      "text": "Check the \"Expedition Team\" section of the Campaign Log. If there are three or more names crossed out:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "constant",
+              "value": 3
+            },
+            "opB": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "any",
+              "operation": "all",
+              "status": ["eliminated"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["restful_night_3", "choose_fatal_mirage"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "restful_night_3",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "choose_fatal_mirage",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fatal_mirage",
+            "text": "<i>Open the door and venture into the mirage.</i>",
+            "description": "Proceed to <b>Scenario ???: Fatal Mirage</b>.",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "fatal_mirage"
+              }
+            ]
+          },
+          {
+            "id": "ignore",
+            "text": "<i>Ignore the door and allow it to vanish.</i>",
+            "description": "Proceed to <b>Scenario II: To the Forbidden Peaks</b>. <i>(You will get this chance again later.)</i>"
+          }
+
+        ]
+      }
+    }
+  ]
+}
