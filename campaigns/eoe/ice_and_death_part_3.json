@@ -4,7 +4,7 @@
   "header": "Scenario I",
   "full_name": "Scenario I: Ice and Death, Part III",
   "chaos_bag_card": "02041",
-  "icon": "seeping_nightmares",
+  "icon": "creatures_in_the_ice",
   "setup": [
     "intro",
     "add_frost",
@@ -861,6 +861,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -869,6 +870,26 @@
     },
     {
       "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
       "hidden": true,
       "type": "branch",
       "condition": {
@@ -887,12 +908,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {
@@ -1028,40 +1048,13 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
-        "chaos_bag_branches": ["add_frost"],
+        "chaos_bag_branches": ["adjust_frost"],
         "branches": [
           {
-            "id": "add_frost",
-            "text": "Add 1 frost token",
-            "condition": {
-              "type": "multi",
-              "count": 1,
-              "conditions": [
-                {
-                  "type": "math",
-                  "opA": {
-                    "type": "chaos_bag",
-                    "token": "frost"
-                  },
-                  "opB": {
-                    "type": "constant",
-                    "value": 8
-                  },
-                  "operation": "compare",
-                  "options": [
-                    {
-                      "numCondition": -1
-                    }
-                  ]
-                }
-              ],
-              "options": [
-                {
-                  "boolCondition": true
-                }
-              ]
-            },
-            "steps": ["add_1_frost"]
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
           },
           {
             "id": "recover_supplies",
@@ -1103,16 +1096,91 @@
       }
     },
     {
-      "id": "add_1_frost",
-      "text": "Add 1 [frost] token to the chaos bag.",
-      "effects": [
-        {
-          "type": "add_chaos_token",
-          "tokens": ["frost"]
-        }
-      ]
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
     },
-
     {
       "id": "recover_supplies",
       "type": "input",
@@ -1301,8 +1369,7 @@
         "team_barely_escaped_the_ice_shelf",
         "ask_seeping_nightmare_in_victory_display",
         "earn_xp_maybe_bonus",
-        "clean_up_game",
-        "$upgrade_decks"
+        "clean_up_game"
       ]
     },
     {
@@ -1314,8 +1381,7 @@
         "team_defeated_the_hunting_creatures",
         "earn_xp_bonus_5",
         "record_partner_trauma",
-        "clean_up_game",
-        "$upgrade_decks"
+        "clean_up_game"
       ]
     },
     {
@@ -1327,8 +1393,7 @@
         "ask_seeping_nightmare_in_victory_display",
         "earn_xp_maybe_bonus",
         "record_partner_trauma",
-        "clean_up_game",
-        "$upgrade_decks"
+        "clean_up_game"
       ]
     }
   ]

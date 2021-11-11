@@ -69,37 +69,47 @@
       "text": "If every surviving member of the expedition team is safe:",
       "type": "branch",
       "condition": {
-        "type": "math",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "camp_shelter"
-        },
-        "opB": {
-          "type": "partner_status",
-          "section": "expedition_team",
-          "partner": "any",
-          "operation": "all",
-          "status": ["alive"],
-          "options": [
-            {
-              "boolCondition": true
-            }
-          ]
-        },
-        "operation": "compare",
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "camp_shelter"
+            },
+            "opB": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "any",
+              "operation": "all",
+              "status": ["alive"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
         "options": [
           {
-            "numCondition": -1,
+            "boolCondition": true,
+            "steps": ["disappearance_2", "do_not_clean_game", "skip_ice_and_death_part_2"]
+          },
+          {
+            "boolCondition": false,
             "steps": ["some_missing", "choose_rescue"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["disappearance_2", "do_not_clean_game", "skip_ice_and_death_part_2"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["disappearance_2", "do_not_clean_game", "skip_ice_and_death_part_2"]
           }
         ]
       }
@@ -113,8 +123,8 @@
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
-        "operation": "all",
-        "status": ["safe"],
+        "operation": "any",
+        "status": ["safe", "eliminated"],
         "options": [
           {
             "boolCondition": false,
@@ -131,7 +141,10 @@
                 "type": "campaign_log_cards",
                 "section": "hidden",
                 "id": "partner_missing",
-                "cards": "$input_value"
+                "cards": "$input_value",
+                "text": "#name# is MIA.",
+                "masculine_text": "#name# is MIA.",
+                "feminine_text": "#name# is MIA."
               }
             ]
           }
@@ -215,7 +228,7 @@
           {
             "id": "now",
             "text": "Play immediately.",
-            "steps": ["disappearance_3", "do_not_remove_locations", "reset_decks"],
+            "steps": ["disappearance_3", "do_not_remove_locations", "reset_decks", "$upgrade_decks"],
             "effects": [
               {
                 "type": "campaign_log",
@@ -228,7 +241,7 @@
           {
             "id": "later",
             "text": "Take a break.",
-            "steps": ["disappearance_3", "record_locations", "clean_up_game"]
+            "steps": ["disappearance_3", "record_locations", "clean_up_game", "$upgrade_decks"]
           }
         ]
       }

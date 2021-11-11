@@ -3,7 +3,8 @@
   "scenario_name": "Fatal Mirage",
   "header": "Scenario ???",
   "full_name": "Scenario ???: Fatal Mirage",
-  "chaos_bag_card": "02041",
+  "chaos_bag_card_text": "[skull]: -X. X is the number of story cards in the victory display.\n[cultist]: -2. If you fail, place one of your clues on your location.\n[tablet]: -3. If you fail, you must either move to the Prison of Memories, or shuffle the top card of the Tekeli-li deck into your deck without looking at it.\n[elder_thing]: -4. If you fail, place 1 doom on an [[Eidolon]] enemy in play.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the current agenda number plus the number of story cards in the victory display.\n[cultist]: -2. If you do not succeed by at least 2, place 1 of your clues on your location.\n[tablet]: -4. If you fail, you must either move to the Prison of Memories, or shuffle the top card of the Tekeli-li deck into your deck without looking at it (if you fail by 2 or more, do both instead).\n[elder_thing]: -5. If you fail, place 1 doom on an [[Eidolon]] enemy in play.",
   "icon": "fatal_mirage",
   "setup": [
     "intro_1",
@@ -272,6 +273,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -280,11 +282,10 @@
     },
     {
       "id": "earn_xp",
-      "text": "If there are other non-story cards in  investigator earns experience equal to camp's shelter value (to a minimum of 3) plus the Victory X value of each card in the victory display.",
+      "text": "If there are other non-story cards in the victory display worth Victory X, each investigator earns experience equal to that amount.",
       "type": "input",
       "input": {
         "type": "counter",
-        "confirm_text": "+ Camp's shelter value experience",
         "text": "Victory display:",
         "effects": [
           {
@@ -299,11 +300,31 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
-        "status": ["investigator_defeated"],
         "operation": "all",
+        "status": ["investigator_defeated"],
         "options": [
           {
             "boolCondition": true,
@@ -314,12 +335,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {
@@ -697,6 +717,258 @@
                 "cross_out": true
               }
             ]
+          },
+          {
+            "id": "alien_translation",
+            "text": "Memory of an Alien Translation",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "alien_translation",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "alien_translation",
+                "text": "Memory of an Alien Translation"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_ellsworth_resolute"]
+          },
+          {
+            "id": "hunt_gone_awry",
+            "text": "Memory of a Hunt Gone Awry",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "hunt_gone_awry",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "hunt_gone_awry",
+                "text": "Memory of a Hunt Gone Awry"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_eliyah_resolute"]
+          },
+          {
+            "id": "lost_patient",
+            "text": "Memory of a Lost Patient",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "lost_patient",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "lost_patient",
+                "text": "Memory of a Lost Patient"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_sinha_resolute"]
+          },
+          {
+            "id": "missing_father",
+            "text": "Memory of a Missing Father",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "missing_father",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "missing_father",
+                "text": "Memory of a Missing Father"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_takada_resolute"]
+          },
+          {
+            "id": "ravaged_country",
+            "text": "Memory of a Ravaged Country",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "ravaged_country",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "ravaged_country",
+                "text": "Memory of a Ravaged Country"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_cookie_resolute"]
+          },
+          {
+            "id": "regretful_voyage",
+            "text": "Memory of a Regretful Voyage",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "regretful_voyage",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "regretful_voyage",
+                "text": "Memory of a Regretful Voyage"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_dyer_resolute"]
+          },
+          {
+            "id": "terrible_discovery",
+            "text": "Memory of a Terrible Discovery",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "terrible_discovery",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "terrible_discovery",
+                "text": "Memory of a Terrible Discovery"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_claypool_resolute"]
+          },
+          {
+            "id": "unrequited_love",
+            "text": "Memory of an Unrequited Love",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "unrequited_love",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "unrequited_love",
+                "text": "Memory of an Unrequited Love"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_kensler_resolute"]
+          },
+          {
+            "id": "unspeakable_evil",
+            "text": "Memory of an Unspeakable Evil",
+            "condition": {
+              "type": "campaign_log",
+              "section": "memories_banished",
+              "id": "unspeakable_evil",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "memories_banished",
+                "id": "unspeakable_evil",
+                "text": "Memory of an Unspeakable Evil"
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["maybe_danforth_resolute"]
           }
         ]
       }
@@ -1228,6 +1500,71 @@
       "input": {
         "type": "play_scenario",
         "chaos_bag_branches": ["add_frost"],
+        "campaign_log": [
+          {
+            "id": "claypool",
+            "text": "Claypool has confronted his demons.",
+            "steps": [
+              "claypool_resolute"
+            ]
+          },
+          {
+            "id": "cookie",
+            "text": "Cookie has confronted his demons.",
+            "steps": [
+              "cookie_resolute"
+            ]
+          },
+          {
+            "id": "danforth",
+            "text": "Danforth has confronted his demons.",
+            "steps": [
+              "danforth_resolute"
+            ]
+          },
+          {
+            "id": "dyer",
+            "text": "Dyer has confronted his demons.",
+            "steps": [
+              "dyer_resolute"
+            ]
+          },
+          {
+            "id": "eliyah",
+            "text": "Eliyah has confronted his demons.",
+            "steps": [
+              "eliyah_resolute"
+            ]
+          },
+          {
+            "id": "ellsworth",
+            "text": "Ellsworth has confronted his demons.",
+            "steps": [
+              "ellsworth_resolute"
+            ]
+          },
+          {
+            "id": "kensler",
+            "text": "Dr. Kensler has confronted her demons.",
+            "steps": [
+              "kensler_resolute"
+            ]
+          },
+          {
+            "id": "sinha",
+            "text": "Dr. Sinha has confronted her demons.",
+            "steps": [
+              "sinha_resolute"
+            ]
+          },
+          {
+            "id": "takada",
+            "text": "Takada has confronted her demons.",
+            "steps": [
+              "takada_resolute"
+            ]
+          }
+        ],
         "branches": [
           {
             "id": "add_frost",
@@ -1264,6 +1601,323 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_cookie_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cookie_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cookie_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cookie_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cookie_has_confronted_his_demons",
+          "text": "Cookie has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08719",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+
+    {
+      "id": "maybe_danforth_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "danforth_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["danforth_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "danforth_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "danforth_has_confronted_his_demons",
+          "text": "Danforth has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08715",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_dyer_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dyer_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["dyer_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dyer_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dyer_has_confronted_his_demons",
+          "text": "Dyer has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08714",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_eliyah_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "eliyah_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["eliyah_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "eliyah_has_confronted_his_demons",
+          "text": "Eliyah has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08716",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_ellsworth_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "elsworth_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ellsworth_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ellsworth_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ellsworth_has_confronted_his_demons",
+          "text": "Ellsworth has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08721",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+
+    {
+      "id": "maybe_kensler_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dr_kensler_has_confronted_her_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["kensler_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "kensler_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_kensler_has_confronted_her_demons",
+          "text": "Dr. Kensler has confronted her demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08720",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_sinha_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dr_sinha_has_confronted_her_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["sinha_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sinha_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_sinha_has_confronted_her_demons",
+          "text": "Dr. Sinha has confronted her demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08717",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_takada_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "takada_has_confronted_her_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["takada_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "takada_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "takada_has_confronted_her_demons",
+          "text": "Takada has confronted her demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08722",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
+    },
+    {
+      "id": "maybe_claypool_resolute",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "claypool_has_confronted_his_demons",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["claypool_resolute"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "claypool_resolute",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "claypool_has_confronted_his_demons",
+          "text": "Claypool has confronted his demons."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08718",
+          "operation": "add",
+          "status": "resolute"
+        }
+      ]
     },
     {
       "id": "add_1_frost",

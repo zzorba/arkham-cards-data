@@ -65,8 +65,7 @@
     },
     {
       "id": "check_dr_mala_singh",
-      "text": "<b>In addition, if Dr. Mala Sinha is missing:</b>",
-      "bullet_type": "none",
+      "text": "In addition, if Dr. Mala Sinha is missing:",
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -123,8 +122,7 @@
     },
     {
       "id": "check_danforth",
-      "text": "<b>In addition, if Danforth is missing:</b>",
-      "bullet_type": "none",
+      "text": "In addition, if Danforth is missing:",
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -181,8 +179,7 @@
     },
     {
       "id": "check_roald_ellsworth",
-      "text": "<b>In addition, if Roald Ellsworth is missing:</b>",
-      "bullet_type": "none",
+      "text": "In addition, if Roald Ellsworth is missing:",
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -239,8 +236,7 @@
     },
     {
       "id": "check_takada_hiroko",
-      "text": "<b>In addition, if Takada Hiroko is missing:</b>",
-      "bullet_type": "none",
+      "text": "In addition, if Takada Hiroko is missing:",
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -367,6 +363,7 @@
               {
                 "type": "check_campaign_log_cards",
                 "card_type": "encounter",
+                "text": "#name# is MIA.",
                 "masculine_text": "#name# is MIA.",
                 "feminine_text": "#name# is MIA.",
                 "bullet_type": "small"
@@ -492,6 +489,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -500,11 +498,10 @@
     },
     {
       "id": "earn_xp",
-      "text": "Each investigator earns experience equal to camp's shelter value (to a minimum of 3) plus the Victory X value of each card in the victory display.",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
       "type": "input",
       "input": {
         "type": "counter",
-        "confirm_text": "+ Camp's shelter value experience",
         "text": "Victory display:",
         "effects": [
           {
@@ -516,6 +513,26 @@
     },
     {
       "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
       "hidden": true,
       "type": "branch",
       "condition": {
@@ -534,12 +551,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {
@@ -802,14 +818,17 @@
     },
     {
       "id": "kill_remaining_mia",
-      "text": "Each missing team member who was not found surely could not have survived the night. In the \"Expedition Team\" section of the Campaign Log, cross the name of each character who is still marked \"MIA\"",
+      "text": "Each missing team member who was not found surely could not have survived the night. In the \"Expedition Team\" section of the Campaign Log, cross the name of each character who is still marked \"MIA\""
+    },
+    {
+      "id": "actually_kill_mia",
       "type": "branch",
       "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
         "status": ["eliminated", "safe"],
-        "operation": "all",
+        "operation": "any",
         "options": [
           {
             "boolCondition": false,
@@ -826,46 +845,24 @@
         ]
       }
     },
-
     {
       "id": "$play_scenario",
       "type": "input",
       "input": {
         "type": "play_scenario",
-        "chaos_bag_branches": ["add_frost"],
+        "chaos_bag_branches": ["adjust_frost"],
         "branches": [
           {
-            "id": "add_frost",
-            "text": "Add 1 frost token",
-            "condition": {
-              "type": "multi",
-              "count": 1,
-              "conditions": [
-                {
-                  "type": "math",
-                  "opA": {
-                    "type": "chaos_bag",
-                    "token": "frost"
-                  },
-                  "opB": {
-                    "type": "constant",
-                    "value": 8
-                  },
-                  "operation": "compare",
-                  "options": [
-                    {
-                      "numCondition": -1
-                    }
-                  ]
-                }
-              ],
-              "options": [
-                {
-                  "boolCondition": true
-                }
-              ]
-            },
-            "steps": ["add_1_frost"]
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
+          },
+          {
+            "id": "eliminate_partners",
+            "text": "Eliminate partners",
+            "repeatable": true,
+            "steps": ["choose_eliminated_partner"]
           },
           {
             "id": "recover_supplies",
@@ -907,16 +904,126 @@
       }
     },
     {
-      "id": "add_1_frost",
-      "text": "Add 1 [frost] token to the chaos bag.",
-      "effects": [
-        {
-          "type": "add_chaos_token",
-          "tokens": ["frost"]
-        }
-      ]
+      "id": "choose_eliminated_partner",
+      "type": "input",
+      "text": "Which partners should be eliminated:",
+      "input": {
+        "type": "partner_choice",
+        "random": false,
+        "quantity": {
+          "type": "constant",
+          "value": 9
+        },
+        "prompt": "Eliminated",
+        "condition": {
+          "type": "partner_status",
+          "partner": "any",
+          "section": "expedition_team",
+          "operation": "all",
+          "status": ["alive", "mia"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "eliminated"
+          }
+        ]
+      }
     },
-
+    {
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "recover_supplies",
       "type": "input",
@@ -1114,8 +1221,8 @@
         "maybe_record_partner_trauma",
         "rescue_mia_in_victory_display",
         "kill_remaining_mia",
-        "do_not_clean_up_yet",
-        "$upgrade_decks"
+        "actually_kill_mia",
+        "do_not_clean_up_yet"
       ]
     }
   ]

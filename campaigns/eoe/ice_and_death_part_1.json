@@ -3,7 +3,8 @@
   "scenario_name": "Ice and Death, Part I",
   "header": "Scenario I",
   "full_name": "Scenario I: Ice and Death, Part I",
-  "chaos_bag_card": "02041",
+  "chaos_bag_card_text": "[skull]: -X. X is half the shelter value of your location (rounded up).\n[cultist]: -2. If you fail, shuffle the top card of the Tekeli-li deck into your deck without looking at it (if you cannot, take 1 horror).\n[tablet]: -3. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the shelter value of your location.\n[cultist]: -2. For each point you fail by, shuffle the top card of the Tekeli-li deck into your deck without looking at it (for each card you cannot shuffle, take 1 horror).\n[tablet]: -4. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
   "icon": "the_crash",
   "setup": [
     "intro_1",
@@ -67,7 +68,7 @@
     {
       "id": "plane_crash",
       "bullet_type": "none",
-      "text": "Gather the nine story assets from the <i>Expedition Team</i> encounter set, shuffle them, and choose one of them at random. The chosen character was killed in the plane crash. In the Expedition Team section of the Campaign Log, cross of their name. Record in the Campaign Log <i>(character's name) was killed in the plane crash.</i>\n"
+      "text": "Gather the nine story assets from the <i>Expedition Team</i> encounter set, shuffle them, and choose one of them at random. The chosen character was killed in the plane crash.\n"
     },
     {
       "id": "choose_plane_crash",
@@ -379,6 +380,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -406,6 +408,26 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
@@ -421,12 +443,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {
@@ -786,45 +807,19 @@
         }
       ]
     },
+
     {
       "id": "$play_scenario",
       "type": "input",
       "input": {
         "type": "play_scenario",
-        "chaos_bag_branches": ["add_frost"],
+        "chaos_bag_branches": ["adjust_frost"],
         "branches": [
           {
-            "id": "add_frost",
-            "text": "Add 1 frost token",
-            "condition": {
-              "type": "multi",
-              "count": 1,
-              "conditions": [
-                {
-                  "type": "math",
-                  "opA": {
-                    "type": "chaos_bag",
-                    "token": "frost"
-                  },
-                  "opB": {
-                    "type": "constant",
-                    "value": 8
-                  },
-                  "operation": "compare",
-                  "options": [
-                    {
-                      "numCondition": -1
-                    }
-                  ]
-                }
-              ],
-              "options": [
-                {
-                  "boolCondition": true
-                }
-              ]
-            },
-            "steps": ["add_1_frost"]
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
           },
           {
             "id": "recover_supplies",
@@ -866,14 +861,90 @@
       }
     },
     {
-      "id": "add_1_frost",
-      "text": "Add 1 [frost] token to the chaos bag.",
-      "effects": [
-        {
-          "type": "add_chaos_token",
-          "tokens": ["frost"]
-        }
-      ]
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "recover_supplies",
@@ -1063,8 +1134,7 @@
         "record_camp_location",
         "actually_record_camp_location",
         "earn_xp",
-        "do_not_clean_up_yet",
-        "$upgrade_decks"
+        "do_not_clean_up_yet"
       ]
     },
     {
@@ -1077,8 +1147,7 @@
         "actually_record_camp_location",
         "earn_xp",
         "record_partner_trauma",
-        "do_not_clean_up_yet",
-        "$upgrade_decks"
+        "do_not_clean_up_yet"
       ]
     }
   ]

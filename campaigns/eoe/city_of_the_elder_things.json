@@ -3,7 +3,8 @@
   "scenario_name": "City of the Elder Things",
   "header": "Scenario III",
   "full_name": "Scenario III: City of the Elder Things",
-  "chaos_bag_card": "02041",
+  "chaos_bag_card_text": "",
+  "chaos_bag_card_back_text": "[skull]: -X. X is 2 plus the number of keys you control.\n[cultist]: -2. Place a key you control on your location.\n[tablet]: -4. If a [frost] token was revealed during this test, take 1 damage and you automatically fail, instead.\n[elder_thing]: -5. If you fail, the nearest enemy moves once toward you. If it is engaged with you, it attacks.",
   "icon": "city_of_the_elder_things",
   "setup": [
     "check_campaign_log",
@@ -50,11 +51,30 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["mala_yes_story", "no_ill_effects"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["mala_yes_story", "no_ill_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["mala_no_story", "earn_frostbitten"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["mala_no_story", "earn_frostbitten"]
+              },
+              {
+                "type": "add_card",
+                "investigator": "all",
+                "card": "08646"
+              }
+            ]
           }
         ]
       }
@@ -75,14 +95,7 @@
     },
     {
       "id": "earn_frostbitten",
-      "text": "Each investigator adds a Frostbitten weakness to their deck. It does not count toward that investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "all",
-          "card": "08646"
-        }
-      ]
+      "text": "Each investigator adds a Frostbitten weakness to their deck. It does not count toward that investigator's deck size."
     },
     {
       "id": "intro_2",
@@ -100,7 +113,14 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["scouted_yes_story", "scouted_yes_effects"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["scouted_yes_story", "scouted_yes_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,
@@ -132,11 +152,30 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["dyer_yes_story", "no_ill_effects"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["dyer_yes_story", "no_ill_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["dyer_no_story", "earn_possessed"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["dyer_no_story", "earn_possessed"]
+              },
+              {
+                "type": "add_card",
+                "investigator": "all",
+                "card": "08647"
+              }
+            ]
           }
         ]
       }
@@ -153,14 +192,7 @@
     },
     {
       "id": "earn_possessed",
-      "text": "Each investigator adds a Possessed weakness to their deck. It does not count toward that investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "all",
-          "card": "08647"
-        }
-      ]
+      "text": "Each investigator adds a Possessed weakness to their deck. It does not count toward that investigator's deck size."
     },
     {
       "id": "intro_3",
@@ -203,11 +235,29 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["cookie_yes_story", "no_ill_effects"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["cookie_yes_story", "no_ill_effects"]
+              }
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["cookie_no_story", "add_frost"]
+            "border": true,
+            "border_color": "interlude",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["cookie_no_story", "add_frost"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
           }
         ]
       }
@@ -224,13 +274,7 @@
     },
     {
       "id": "add_frost",
-      "text": "Add 1 [frost] token to the chaos bag.",
-      "effects": [
-        {
-          "type": "add_chaos_token",
-          "tokens": ["frost"]
-        }
-      ]
+      "text": "Add 1 [frost] token to the chaos bag."
     },
     {
       "id": "intro_4",
@@ -919,7 +963,15 @@
     {
       "id": "setup_v1",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v1", "set_aside_shoggoths", "create_act_v1", "setup_locations_v1", "location_layout_v1", "gather_keys", "add_elder_thing", "remove_benign_elder_things", "set_aside_terror_of_the_stars"]
+      "steps": ["gather_encounter_sets_v1", "set_aside_shoggoths", "create_act_v1", "setup_locations_v1", "location_layout_v1", "gather_keys", "add_elder_thing", "remove_benign_elder_things", "set_aside_terror_of_the_stars"],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "city_of_the_elder_things_v1",
+          "text": "dummy"
+        }
+      ]
     },
     {
       "id": "gather_encounter_sets_v1",
@@ -1010,7 +1062,15 @@
     {
       "id": "setup_v2",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v2", "set_aside_creatures_in_the_ice", "create_act_v2", "setup_locations_v2", "location_layout_v2", "gather_keys", "add_elder_thing", "remove_terror_of_the_stars_and_benign_elder_things"]
+      "steps": ["gather_encounter_sets_v2", "set_aside_creatures_in_the_ice", "create_act_v2", "setup_locations_v2", "location_layout_v2", "gather_keys", "add_elder_thing", "remove_terror_of_the_stars_and_benign_elder_things"],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "city_of_the_elder_things_v2",
+          "text": "dummy"
+        }
+      ]
     },
 
     {
@@ -1079,7 +1139,15 @@
     {
       "id": "setup_v3",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v3", "set_aside_shoggoths", "create_act_v3", "setup_locations_v3", "location_layout_v3", "gather_keys", "remove_terror_of_the_stars_and_reawakened_elder_things"]
+      "steps": ["gather_encounter_sets_v3", "set_aside_shoggoths", "create_act_v3", "setup_locations_v3", "location_layout_v3", "gather_keys", "remove_terror_of_the_stars_and_reawakened_elder_things"],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "city_of_the_elder_things_v3",
+          "text": "dummy"
+        }
+      ]
     },
     {
       "id": "gather_encounter_sets_v3",
@@ -1229,7 +1297,98 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_chaos_bag"],
+        "campaign_log": [
+          {
+            "id": "photographed_the_astronomical_charts",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "photographed_the_astronomical_charts",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The team photographed the astronomical charts.",
+            "steps": [
+              "photographed_the_astronomical_charts"
+            ]
+          },
+          {
+            "id": "discovered_an_ancient_vessel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "discovered_an_ancient_vessel",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The team discovered an ancient vessel.",
+            "steps": [
+              "discovered_an_ancient_vessel"
+            ]
+          },
+          {
+            "id": "studied_the_mural_carvings",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "studied_the_mural_carvings",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The team studied the mural carvings.",
+            "steps": [
+              "studied_the_mural_carvings",
+              "ask_remove_2_frost"
+            ]
+          },
+          {
+            "id": "read_the_map",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "read_the_map",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The team read the map.",
+            "steps": ["read_the_map"]
+          }
+        ],
         "branches": [
+          {
+            "id": "adjust_chaos_bag",
+            "text": "Adjust chaos tokens",
+            "repeatable": true,
+            "steps": ["adjust_chaos_tokens"]
+          },
+          {
+            "id": "heal_trauma",
+            "text": "Heal trauma",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "city_of_the_elder_things_v1",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["heal_trauma_choice"]
+          },
           {
             "id": "gaze_into_madness",
             "condition": {
@@ -1258,6 +1417,186 @@
           }
         ]
       }
+    },
+    {
+      "id": "heal_trauma_choice",
+      "text": "Each investigator may heal one trauma:",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental_or_physical": -1
+        }
+      ]
+    },
+    {
+      "id": "adjust_chaos_tokens",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_elder_things",
+            "text": "Remove all [elder_thing] tokens.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "city_of_the_elder_things_v3",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["elder_thing", "elder_thing", "elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "photographed_the_astronomical_charts",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "photographed_the_astronomical_charts",
+          "text": "The team photographed the astronomical charts."
+        }
+      ]
+    },
+    {
+      "id": "discovered_an_ancient_vessel",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "discovered_an_ancient_vessel",
+          "text": "The team discovered an ancient vessel."
+        }
+      ]
+    },
+    {
+      "id": "studied_the_mural_carvings",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "studied_the_mural_carvings",
+          "text": "the team studied the mural carvings."
+        }
+      ]
+    },
+    {
+      "id": "ask_remove_2_frost",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Should 2 [frost] tokens be removed from the chaos bag?",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost", "frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "read_the_map",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "read_the_map",
+          "text": "the team read the map."
+        }
+      ]
     },
     {
       "id": "check_gaze_into_madness",
@@ -1415,6 +1754,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -1441,6 +1781,26 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
@@ -1456,7 +1816,7 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
@@ -1529,8 +1889,7 @@
         "eliminate_partners",
         "team_found_the_hidden_tunnel",
         "earn_xp",
-        "record_partner_trauma",
-        "$upgrade_decks"
+        "record_partner_trauma"
       ]
     },
     {
@@ -1541,8 +1900,7 @@
         "eliminate_partners",
         "team_was_guided_to_the_hidden_tunnel",
         "earn_xp",
-        "maybe_record_partner_trauma",
-        "$upgrade_decks"
+        "maybe_record_partner_trauma"
       ]
     }
   ]

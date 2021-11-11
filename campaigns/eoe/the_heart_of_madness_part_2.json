@@ -3,7 +3,8 @@
   "scenario_name": "Part II",
   "header": "The Heart of Madness",
   "full_name": "The Heart of Madness, Part II",
-  "chaos_bag_card": "02041",
+  "chaos_bag_card_text": "[skull]: -1. (-3 instead if there is an [[Ancient One]] enemy at your location).\n[cultist]: -1. If there is a seal at your location, or if your location is a Mist-Pylon, treat this token as a [frost] token, instead.\n[tablet]: -3. If you fail, draw the top card of the Tekeli-li deck.\n[elder_thing]: -4. If you fail by 3 or more, place 1 doom on the current agenda. This can cause the current agenda to advance.",
+  "chaos_bag_card_back_text": "[skull]: -2. (-4 instead if there is an [[Ancient One]] enemy at your location).\n[cultist]: -1. If there is a seal at your location, or if your location is a Mist-Pylon, treat this token as a [frost] token in addition to its modifier.\n[tablet]: -3. Draw the top card of the Tekeli-li deck.\n[elder_thing]: -5. If you fail by 3 or more, place 1 doom on the current agenda. This can cause the current agenda to advance.",
   "icon": "agents_of_the_unknown",
   "setup": [
     "intro",
@@ -396,6 +397,7 @@
 
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -544,6 +546,26 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
@@ -559,12 +581,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {

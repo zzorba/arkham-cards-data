@@ -3,8 +3,9 @@
   "scenario_name": "To the Forbidden Peaks",
   "header": "Scenario II",
   "full_name": "Scenario II: To the Forbidden Peaks",
-  "chaos_bag_card": "02041",
-  "icon": "to_the_forbidden_peaks",
+
+  "chaos_bag_card_text": "[skull]: -X. X is the level of your location.\n[cultist]: -1. If you fail, move to the location directly below you.\n[tablet]: -3. If you fail, lose control of an [[Expedition]] asset and place it at your location.\n[elder_thing]: -4. If you fail, the nearest [[Elder Thing]] enemy moves once toward you. If it is engaged with you, it attacks.",
+  "chaos_bag_card_back_text": "[skull]: -X (X is the shelter value of your location.\n[cultist]: -2. For each point you fail by, shuffle the top card of the Tekeli-li deck into your deck without looking at it (for each card you cannot shuffle, take 1 horror).\n[tablet]: -4. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",  "icon": "to_the_forbidden_peaks",
   "setup": [
     "intro",
     "check_campaign_log",
@@ -71,31 +72,49 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["eliyah_and_sledge_yes_story", "no_ill_effects"]
+            "steps": ["eliyah_and_sledge_yes"]
           },
           {
             "boolCondition": false,
-            "steps": ["eliyah_and_sledge_no_story", "add_frost"]
+            "steps": ["eliyah_and_sledge_no"]
           }
         ]
       }
     },
     {
+      "id": "eliyah_and_sledge_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["eliyah_and_sledge_yes_story", "no_ill_effects"]
+    },
+    {
       "id": "eliyah_and_sledge_yes_story",
+      "border_only": true,
       "type": "story",
       "text": "\"It is not large or sturdy enough to carry all of us,\" Eliyah explains as he hauls the last crate of supplies onto the old sledge, \"but it should be able to carry our provisions and equipment, at least.\" He makes sure the lines are taut and all of the dogs' harnesses are properly fastened before giving Anyu, at the head of the pack, a scratch behind her ears. \"Not looking forward to having to lug this thing up those mountains, but… we'll cross that bridge when we get to it. All right, girl. You ready?\" Anyu barks once. \"Yeah, I know you are.\""
     },
     {
       "id": "no_ill_effects",
+      "border_only": true,
       "text": "The investigators suffer no ill effects."
+    },
+    {
+      "id": "eliyah_and_sledge_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["eliyah_and_sledge_no_story", "add_frost"]
     },
     {
       "id": "eliyah_and_sledge_no_story",
       "type": "story",
+      "border_only": true,
       "text": "You groan as you heft an enormous, heavy backpack full of equipment onto your back. You're definitely not looking forward to trekking across the snow with an extra forty pounds, but there's no avoiding it. You have no idea how long you're going to be where you're headed, and you'll need everything in that backpack if you want to survive."
     },
     {
       "id": "add_frost",
+      "border_only": true,
       "text": "Add 1 [frost] token to the chaos bag.",
       "effects": [
         {
@@ -118,27 +137,44 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["avery_yes_story", "no_ill_effects"]
+            "steps": ["avery_yes"]
           },
           {
             "boolCondition": false,
-            "steps": ["avery_no_story", "choose_frost_or_physical_trauma"]
+            "steps": ["avery_no"]
           }
         ]
       }
     },
     {
+      "id": "avery_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["avery_yes_story", "no_ill_effects"]
+    },
+    {
       "id": "avery_yes_story",
+      "border_only": true,
       "type": "story",
       "text": "\"Weather might look clear right now,\" Claypool explains, \"but it could turn on a dime. We'll be on ice for most of the journey, so be on the lookout for cracks. We need ice about 60 centimeters thick in order to walk across, so stay behind me at all times and I'll use this augur to make sure it's safe.\" He holds up a spiral-tipped drilling device and leads the way."
     },
     {
+      "id": "avery_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["avery_no_story", "choose_frost_or_physical_trauma"]
+    },
+    {
       "id": "avery_no_story",
       "type": "story",
+      "border_only": true,
       "text": "You venture out when the sky looks clear, but it only takes an hour for the weather to take a sudden turn for the worse. The heavy snowfall is bad enough, but it's the ice that truly slows you down. Without Claypool to safely guide you, you have to proceed slowly and cautiously to ensure you even make it to the mountains alive."
     },
     {
       "id": "choose_frost_or_physical_trauma",
+      "border_only": true,
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -160,7 +196,8 @@
               {
                 "type": "trauma",
                 "physical": 1,
-                "investigator": "all"
+                "investigator": "all",
+                "hidden": true
               }
             ]
           }
@@ -181,27 +218,44 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["takada_yes_story", "no_ill_effects"]
+            "steps": ["takada_yes"]
           },
           {
             "boolCondition": false,
-            "steps": ["takada_no_story", "choose_frost_or_mental_trauma"]
+            "steps": ["takada_no"]
           }
         ]
       }
     },
     {
+      "id": "takada_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["takada_yes_story", "no_ill_effects"]
+    },
+    {
       "id": "takada_yes_story",
       "type": "story",
+      "border_only": true,
       "text": "As you set out, you hear Takada singing something under her breath—just quiet enough that you can't tell what it is. One of the others, however, seems to recognize it. \"That song again,\" they say. \"Heard you singing it on the Theodosia on the way over.\"\nTakada sighs. \"It is a song my father taught me. Helps me pass the time,\" she explains.\nYou ask if she would like to teach it to you, and she gives you the first smile you've seen from her since the trek began: \"Yes. Yes, I would.\" You spend the remainder of the journey singing and bonding together; whittling the time away."
+    },
+    {
+      "id": "takada_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["takada_no_story", "choose_frost_or_mental_trauma"]
     },
     {
       "id": "takada_no_story",
       "type": "story",
+      "border_only": true,
       "text": "The party suffers through the cold in unbearable silence. Each footstep is as lonely as it is harrowing."
     },
     {
       "id": "choose_frost_or_mental_trauma",
+      "border_only": true,
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -223,7 +277,8 @@
               {
                 "type": "trauma",
                 "mental": 1,
-                "investigator": "all"
+                "investigator": "all",
+                "hidden": true
               }
             ]
           }
@@ -241,27 +296,44 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["scouted_yes_story", "scouted_yes_effects"]
+            "steps": ["scouted_yes"]
           },
           {
             "boolCondition": false,
-            "steps": ["scouted_no_story", "no_ill_effects"]
+            "steps": ["scouted_no"]
           }
         ]
       }
     },
     {
+      "id": "scouted_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["scouted_yes_story", "scouted_yes_effects"]
+    },
+    {
       "id": "scouted_yes_story",
       "type": "story",
+      "border_only": true,
       "text": "You seek out the safe pass that you and Ellsworth scouted last night, guiding the rest of the team onward. Sheer cliffs flank you as you approach the foothills, blocking the chill wind. The shortcut gives you swift passage as you begin your trek up to the peaks…"
     },
     {
       "id": "scouted_yes_effects",
+      "border_only": true,
       "text": "During setup, when you reveal the starting location, reduce its clue value by half (rounded up)."
+    },
+    {
+      "id": "scouted_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["scouted_no_story", "no_ill_effects"]
     },
     {
       "id": "scouted_no_story",
       "type": "story",
+      "border_only": true,
       "text": "The frozen tundra leading up to the foothills of the jagged mountains is hard terrain to traverse. Even prepared as you are with snowshoes and warm clothes to fight the cold, the going is slow and rough. The wind fights you at every turn, its gusts strong enough to knock you over. But you continue onward, undeterred."
     },
     {
@@ -350,7 +422,192 @@
     },
     {
       "id": "check_supplies_recovered",
-      "text": "Check the \"Supplies Recovered\" section of the Campaign Log and put each [[Expedition]] story asset listed there into play at the level-0 location. Remove each other [[Expedition]] story asset from the game."
+      "text": "Check the \"Supplies Recovered\" section of the Campaign Log and put each [[Expedition]] story asset listed there into play at the level-0 location.",
+      "steps": [
+        "maybe_gather_green_soapstone",
+        "maybe_gather_wooden_sledge",
+        "maybe_gather_dynamite",
+        "maybe_gather_miasmic_crystal",
+        "maybe_gather_mineral_specimen",
+        "maybe_gather_small_radio",
+        "maybe_gather_spare_parts",
+        "maybe_remove_unrecovered_supplies"
+      ]
+    },
+    {
+      "id": "maybe_gather_green_soapstone",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "green_soapstone",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_green_soapstone"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_green_soapstone",
+      "bullet_type": "small",
+      "text": "Green Soapstone"
+    },
+    {
+      "id": "maybe_gather_wooden_sledge",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "wooden_sledge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_wooden_sledge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_wooden_sledge",
+      "bullet_type": "small",
+      "text": "Wooden Sledge"
+    },
+    {
+      "id": "maybe_gather_dynamite",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "dynamite",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_dynamite"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_dynamite",
+      "bullet_type": "small",
+      "text": "Dynamite"
+    },
+    {
+      "id": "maybe_gather_miasmic_crystal",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "miasmic_crystal",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_miasmic_crystal"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_miasmic_crystal",
+      "bullet_type": "small",
+      "text": "Miasmic Crystal"
+    },
+    {
+      "id": "maybe_gather_mineral_specimen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "mineral_specimen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_mineral_specimen"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_mineral_specimen",
+      "bullet_type": "small",
+      "text": "Mineral Specimen"
+    },
+    {
+      "id": "maybe_gather_small_radio",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "small_radio",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_small_radio"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_small_radio",
+      "bullet_type": "small",
+      "text": "Small Radio"
+    },
+    {
+      "id": "maybe_gather_spare_parts",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "spare_parts",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_spare_parts"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_spare_parts",
+      "bullet_type": "small",
+      "text": "Spare Parts"
+    },
+    {
+      "id": "maybe_remove_unrecovered_supplies",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "supplies_recovered"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 7
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["remove_unrecovered_supplies"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_unrecovered_supplies",
+      "bullet_type": "small",
+      "text": "Remove each other [[Expedition]] story asset from the game."
     },
     {
       "id": "set_aside_terror_of_the_stars",
@@ -426,7 +683,14 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_frost"],
         "branches": [
+          {
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
+          },
           {
             "id": "tragedy_strikes",
             "condition": {
@@ -450,6 +714,92 @@
                 "section": "hidden",
                 "id": "tragedy_strikes",
                 "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
               }
             ]
           }
@@ -561,18 +911,26 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["cookie_victim_story", "cookie_victim_effect"]
+            "steps": ["cookie_victim"]
           }
         ]
       }
     },
     {
+      "id": "cookie_victim",
+      "type": "border",
+      "border": true,
+      "steps": ["cookie_victim_story", "cookie_victim_effect"]
+    },
+    {
       "id": "cookie_victim_story",
       "type": "story",
+      "border_only": true,
       "text": "The hardened veteran spits out a curse and manages to slip his right arm out of the thing's grasp. It's enough for him to take a single shot with his colt. The gunshot thunders across the mountain and rips through the thing's grotesque, formless mass."
     },
     {
       "id": "cookie_victim_effect",
+      "border_only": true,
       "text": "Deal 2 damage to The Terror of the Stars."
     },
     {
@@ -612,6 +970,7 @@
     },
     {
       "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
       "type": "input",
       "input": {
         "type": "partner_trauma",
@@ -638,6 +997,26 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "partner_status",
         "section": "expedition_team",
         "partner": "any",
@@ -653,12 +1032,11 @@
                 "partner": "$input_value",
                 "operation": "add",
                 "status": "eliminated",
-                "hidden": true
+                "bullet_type": "small"
               }
             ]
           }
         ]
-
       }
     },
     {
@@ -1325,8 +1703,7 @@
         "ask_expedition_assets",
         "award_asset_xp",
         "cross_off_missing_expedition_assets",
-        "record_partner_trauma",
-        "$upgrade_decks"
+        "record_partner_trauma"
       ]
     },
     {
@@ -1338,8 +1715,7 @@
         "team_found_another_way_through_the_mountains",
         "earn_xp",
         "lose_all_supplies_recovered",
-        "maybe_record_partner_trauma",
-        "$upgrade_decks"
+        "maybe_record_partner_trauma"
       ]
     }
   ]
