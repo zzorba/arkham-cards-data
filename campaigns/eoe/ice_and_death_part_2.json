@@ -38,6 +38,29 @@
     },
     {
       "id": "check_amy_kensler",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_amy_kensler_mala_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_amy_kensler_mala_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_amy_kensler_mala_missing",
       "bullet_type": "none",
       "text": "<b>If Dr. Amy Kensler is alive and not missing:</b>",
       "type": "branch",
@@ -51,23 +74,60 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh"]
+            "steps": ["amy_kensler_with_mala_missing"]
           }
         ]
       }
     },
     {
+      "id": "amy_kensler_with_mala_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh", "mala_sinha_missing_story", "mala_sinha_effect"]
+    },
+    {
+      "id": "check_amy_kensler_mala_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Dr. Amy Kensler is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_with_mala_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_with_mala_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh"]
+    },
+    {
       "id": "amy_kensler_safe_story",
+      "border_only": true,
       "type": "story",
       "text": "\"This is a complete mess,\" Dr. Kensler says with an exasperated sharpness to her voice. \"Where in the hell could they have gone? And how is it that none of us noticed?\" You reach out to assure her, but she is already gathering her things, getting ready to lead the search.\nIf Dr. Amy Kensler is chosen to accompany an investigator this game, she enters play with 1 additional secret."
     },
     {
       "id": "amy_kensler_effect",
+      "border_only": true,
       "text": "If Dr. Amy Kensler is chosen to accompany an investigator this game, she enters play with 1 additional secret."
     },
     {
       "id": "check_dr_mala_singh",
       "text": "In addition, if Dr. Mala Sinha is missing:",
+      "border_only": true,
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -78,23 +138,47 @@
         "operation": "all",
         "options": [
           {
-            "boolCondition": true,
-            "steps": ["mala_sinha_missing_story", "mala_sinha_effect"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
       "id": "mala_sinha_missing_story",
+      "border_only": true,
       "type": "story",
       "text": "\"Mala, you… you idiot…!\" she mutters as she stuffs supplies into her tote bag. \"Why would you do this…?\""
     },
     {
       "id": "mala_sinha_effect",
+      "border_only": true,
       "text": "Dr. Amy Kensler must be chosen to accompany an investigator this game, if able."
     },
     {
       "id": "check_william_dyer",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_william_dyer_danforth_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_william_dyer_danforth_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer_danforth_missing",
       "bullet_type": "none",
       "text": "<b>If Professor William Dyer is alive and not missing:</b>",
       "type": "branch",
@@ -108,23 +192,60 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth"]
+            "steps": ["william_dyer_danforth_missing"]
           }
         ]
       }
     },
     {
+      "id": "check_william_dyer_danforth_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Professor William Dyer is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_danforth_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_danforth_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth", "danforth_missing_story", "danforth_effect"]
+    },
+    {
+      "id": "william_dyer_danforth_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth"]
+    },
+    {
       "id": "william_dyer_safe_story",
+      "border_only": true,
       "type": "story",
       "text": "\"This is Professor Lake's team all over again,\" Dyer grumbles. \"When we first lost contact with them, we assumed it was the weather. But…\" his gaze, cold and dead, meets yours. \"We know better now, don't we? At least, I thought we did.\""
     },
     {
       "id": "william_dyer_effect",
+      "border_only": true,
       "text": "If Professor William Dyer is chosen to accompany an investigator this game, he enters play with 1 additional secret."
     },
     {
       "id": "check_danforth",
       "text": "In addition, if Danforth is missing:",
+      "border_only": true,
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -135,8 +256,7 @@
         "operation": "all",
         "options": [
           {
-            "boolCondition": true,
-            "steps": ["danforth_missing_story", "danforth_effect"]
+            "boolCondition": true
           }
         ]
       }
@@ -144,14 +264,39 @@
     {
       "id": "danforth_missing_story",
       "type": "story",
+      "border_only": true,
       "text": "\"Danforth, he… he always talked about returning,\" Dyer admits, clenching a weary, wrinkled fist. \"What if he… what if this is what he meant? I should have paid more attention, I should have taken him more seriously…\""
     },
     {
       "id": "danforth_effect",
+      "border_only": true,
       "text": "Professor William Dyer must be chosen to accompany an investigator this game, if able."
     },
     {
       "id": "check_avery_claypool",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_avery_claypool_roald_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_avery_claypool_roald_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_avery_claypool_roald_missing",
       "bullet_type": "none",
       "text": "<b>If Avery Claypool is alive and not missing:</b>",
       "type": "branch",
@@ -165,23 +310,60 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth"]
+            "steps": ["avery_claypool_roald_missing"]
           }
         ]
       }
     },
     {
+      "id": "check_avery_claypool_roald_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Avery Claypool is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_roald_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_roald_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth", "roald_ellsworth_missing_story", "roald_ellsworth_effect"]
+    },
+    {
+      "id": "avery_claypool_roald_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth"]
+    },
+    {
       "id": "avery_claypool_safe_story",
       "type": "story",
+      "border_only": true,
       "text": "Claypool takes inventory of your remaining supplies, shaking his head as he counts. \"Nothing's missing,\" he confesses in disbelief. \"They took nothing with them. Nobody saw them leave, and there's no evidence they were taken. It makes no sense.\" You ask Claypool how long one could survive out there without supplies. \"In this weather? And with those…things still out there?\" His knowing eyes flee from yours. \"They won't survive the night.\""
     },
     {
       "id": "avery_claypool_effect",
+      "border_only": true,
       "text": "If Avery Claypool is chosen to accompany an investigator this game, he enters play with 1 additional supply."
     },
     {
       "id": "check_roald_ellsworth",
       "text": "In addition, if Roald Ellsworth is missing:",
+      "border_only": true,
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -192,8 +374,7 @@
         "operation": "all",
         "options": [
           {
-            "boolCondition": true,
-            "steps": ["roald_ellsworth_missing_story", "roald_ellsworth_effect"]
+            "boolCondition": true
           }
         ]
       }
@@ -201,14 +382,39 @@
     {
       "id": "roald_ellsworth_missing_story",
       "type": "story",
+      "border_only": true,
       "text": "Claypool-usually something of a chatterbox—is grim and silent for the remainder of the preparations. You have never seen him so determined."
     },
     {
       "id": "roald_ellsworth_effect",
+      "border_only": true,
       "text": "Roald Ellsworth must be chosen to accompany an investigator this game, if able."
     },
     {
       "id": "check_james_cookie_fredericks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_james_cookie_fredericks_takada_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_james_cookie_fredericks_takada_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_james_cookie_fredericks_takada_missing",
       "bullet_type": "none",
       "text": "<b>If James \"Cookie\" Fredericks is alive and not missing:</b>",
       "type": "branch",
@@ -222,23 +428,60 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takada_hiroko"]
+            "steps": ["james_cookie_fredericks_takada_missing"]
           }
         ]
       }
     },
     {
+      "id": "check_james_cookie_fredericks_takada_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If James \"Cookie\" Fredericks is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_cookie_fredericks_takada_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_cookie_fredericks_takada_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takada_hiroko", "takada_hiroko_missing_story", "takada_hiroko_effect"]
+    },
+    {
+      "id": "james_cookie_fredericks_takada_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takada_hiroko"]
+    },
+    {
       "id": "james_cookie_fredericks_safe_story",
+      "border_only": true,
       "type": "story",
       "text": "Cookie loads bullets into his revolver with a faraway gaze. You get the sense this isn't the first time he's woken to such trauma. \"We're gonna find 'em,\" he intones over and over under his breath. \"We're gonna find 'em.\" You're unsure who he is trying to convince."
     },
     {
       "id": "james_cookie_fredericks_effect",
+      "border_only": true,
       "text": "If James \"Cookie\" Fredericks is chosen to accompany an investigator this game, he enters play with 1 additional ammo."
     },
     {
       "id": "check_takada_hiroko",
       "text": "In addition, if Takada Hiroko is missing:",
+      "border_only": true,
       "type": "branch",
       "condition": {
         "type": "partner_status",
@@ -249,19 +492,20 @@
         "operation": "all",
         "options": [
           {
-            "boolCondition": true,
-            "steps": ["takada_hiroko_missing_story", "takada_hiroko_effect"]
+            "boolCondition": true
           }
         ]
       }
     },
     {
       "id": "takada_hiroko_missing_story",
+      "border_only": true,
       "type": "story",
       "text": "\"Dammit, Roko- I'm not losing you,\" Cookie mutters angrily. \"Yer comin' back alive. Yeh damn well better.\""
     },
     {
       "id": "takada_hiroko_effect",
+      "border_only": true,
       "text": "James \"Cookie\" Fredericks must be chosen to accompany an investigator this game, if able."
     },
     {
@@ -301,11 +545,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "setup_locations", "location_layout", "place_clues", "missing_partners", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp"]
+            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "setup_locations", "location_layout", "place_clues", "missing_partners", "set_aside_partner_enemies_intro", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp"]
           },
           {
             "boolCondition": false,
-            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_locations_scratch", "location_layout",  "missing_partners", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp", "setup_tekeli_li"]
+            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_locations_scratch", "location_layout",  "missing_partners", "set_aside_partner_enemies_intro", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp", "setup_tekeli_li"]
           }
         ]
       }
@@ -350,9 +594,13 @@
       "text": "Several members of the expedition go missing in the night!"
     },
     {
-      "id": "set_aside_partner_enemies",
+      "id": "set_aside_partner_enemies_intro",
       "bullet_type": "small",
-      "text": "Find each [[Possessed]] enemy from the <i>Lost in the Night</i> encounter set whose title matches one of the Expedition Team members marked \"MIA\" in your Campaign Log. Set each of these enemies aside, facedown. Remove the rest from the game.",
+      "text": "Find each [[Possessed]] enemy from the <i>Lost in the Night</i> encounter set whose title matches one of the Expedition Team members marked \"MIA\" in your Campaign Log. Set each of these enemies aside, facedown. Remove the rest from the game."
+    },
+    {
+      "id": "set_aside_partner_enemies",
+      "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log_cards",
@@ -423,24 +671,78 @@
       "note": "Note: At the start of Part 1, only Crash Site, Treacherous Path, Frozen Shores, and Precarious Ice Sheet are in play. Each other location starts play set-aside and is put into play when an investigator enters one of the connecting locations, as per the ability on agendas 1-3.",
       "locations": [
         [
-          "precarious_ice_sheet",
-          "blank",
-          "treacherous_path"
-        ],
-        [
-          "blank","blank","blank"
+          "icebreaker_landing","blank","blank","blank","blank","blank","frigid_cave"
         ],
         [
           "blank",
-          "crash_site",
+          "blank",
+          "blank",
+          "barrier_camp",
+          "blank",
+          "blank",
           "blank"
         ],
         [
-          "blank","blank","blank"
+          "blank","icy_wastes","blank","blank","blank","rocky_crags","blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
         ],
         [
           "blank",
+          "blank",
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "crash_site",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","remnants_of_lakes_camp","blank","blank","blank","crystalline_cavern","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
           "frozen_shores",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "broad_snowdrifts",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "snow_graves",
+          "blank",
+          "blank",
           "blank"
         ]
       ],
@@ -460,6 +762,42 @@
         {
           "code": "frozen_shores",
           "name": "Frozen Shores"
+        },
+        {
+          "code": "remnants_of_lakes_camp",
+          "name": "Remnants of Lake's Camp"
+        },
+        {
+          "code": "crystalline_cavern",
+          "name": "Crystalline Cavern"
+        },
+        {
+          "code": "broad_snowdrifts",
+          "name": "Broad Snowdrifts"
+        },
+        {
+          "code": "snow_graves",
+          "name": "Snow Graves"
+        },
+        {
+          "code": "icy_wastes",
+          "name": "Icy Wastes"
+        },
+        {
+          "code": "rocky_crags",
+          "name": "Rocky Crags"
+        },
+        {
+          "code": "barrier_camp",
+          "name": "Barrier Camp"
+        },
+        {
+          "code": "icebreaker_landing",
+          "name": "Icebreaker Landing"
+        },
+        {
+          "code": "frigid_cave",
+          "name": "Frigid Cave"
         }
       ]
     },
@@ -896,7 +1234,7 @@
                 }
               ]
             },
-            "text": "Recover Supplies",
+            "text": "Recover supplies",
             "repeatable": true,
             "steps": [
               "recover_supplies"
