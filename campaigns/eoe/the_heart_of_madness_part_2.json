@@ -627,21 +627,44 @@
                 "section": "campaign_notes",
                 "id": "surviving_partners",
                 "cards": "$input_value",
-                "text": "- #name#"
+                "text": "- #name#",
+                "hidden": true
               }
             ]
           }
         ]
       }
     },
-
+    {
+      "id": "list_surviving_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "surviving_partners",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "encounter",
+                "text": "#name#",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "record_surviving_investigators",
       "hidden": true,
       "type": "branch",
       "condition": {
         "type": "trauma",
-        "investigator": "all",
+        "investigator": "each",
         "trauma": "alive",
         "options": [
           {
@@ -652,13 +675,37 @@
                 "section": "campaign_notes",
                 "id": "surviving_investigators",
                 "cards": "$input_value",
-                "text": "- #name#"
+                "text": "- #name#",
+                "hidden": true
               },
               {
                 "type": "campaign_log",
                 "section": "hidden",
                 "id": "investigator_survived",
                 "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "list_surviving_investigators",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "surviving_investigators",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name#",
+                "bullet_type": "small"
               }
             ]
           }
@@ -728,7 +775,9 @@
         "record_partner_trauma",
         "record_surviving_members",
         "record_surviving_partners",
+        "list_surviving_partners",
         "record_surviving_investigators",
+        "list_surviving_investigators",
         "earn_xp_plus_10",
         "1_physical_and_mental_trauma",
         "win_campaign",
@@ -745,7 +794,9 @@
         "record_partner_trauma",
         "record_surviving_members",
         "record_surviving_partners",
+        "list_surviving_partners",
         "record_surviving_investigators",
+        "list_surviving_investigators",
         "earn_xp_plus_5",
         "2_physical_and_mental_trauma",
         "maybe_win_campaign",
