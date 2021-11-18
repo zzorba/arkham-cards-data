@@ -1578,15 +1578,20 @@
           {
             "id": "yes",
             "text": "Should 2 [frost] tokens be removed from the chaos bag?",
-            "effects": [
-              {
-                "type": "remove_chaos_token",
-                "tokens": ["frost", "frost"]
-              }
-            ]
+            "steps": ["remove_two_frost"]
           }
         ]
       }
+    },
+    {
+      "id": "remove_two_frost",
+      "text": "Remove 2 [frost] tokens from the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["frost", "frost"]
+        }
+      ]
     },
     {
       "id": "read_the_map",
@@ -1704,18 +1709,27 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["danforth_victim_story", "danforth_victim_effect"]
+            "steps": ["danforth_victim"]
           }
         ]
       }
     },
     {
+      "id": "danforth_victim",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["danforth_victim_story", "danforth_victim_effect"]
+    },
+    {
       "id": "danforth_victim_story",
       "type": "story",
+      "border_only": true,
       "text": "The student opens his eyes wide, letting in every inch of the nightmarish sight. Every insidious whisper. Every shred of madness. The ice pick in his hand drops to the floor. \"It is… beautiful,\" he proclaims at last. \"The black pit…the carven rim… the moon-ladder… \"His words grow more and more feverish. \"The original—the eternal—the undying!\" A terrible smile spreads across his lips."
     },
     {
       "id": "danforth_victim_effect",
+      "border_only": true,
       "text": "The investigator who controls Danforth discovers one clue from the nearest location with one or more clues. (If no investigator controls Danforth, the lead investigator discovers it instead.)"
     },
     {
