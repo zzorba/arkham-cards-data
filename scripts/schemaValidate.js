@@ -419,7 +419,47 @@ async function validateErrata() {
   });
 }
 
+
+async function validateTaboos() {
+  console.log('****Validating Taboos****');
+  const taboosSchema = fs
+    .readFileSync('./schema/taboo.schema.json')
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(taboosSchema), (err, schema) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        try {
+          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+          // including referenced files, combined into a single object
+          const ajv = new Ajv({ verbose: true });
+          const validator = ajv.addSchema(schema, "tabooSets");
+          const QUIET = false;
+
+          const data = fs.readFileSync("taboos.json", "utf-8").toString();
+          if (!QUIET) {
+            console.log("Validating taboos");
+          }
+          try {
+            const json = jsonlint.parse(data);
+            validate(validator, "taboos.json", json, "tabooSets");
+          } catch (e) {
+            console.log(`JSON Error(taboos.json)\n${e.message || e}\n\n`);
+          }
+        } catch (e) {
+          reject(e);
+          return;
+        }
+      }
+      resolve();
+    });
+  });
+}
+
 async function main() {
+  await validateTaboos();
   await validateScenarios();
   await validateCampaigns();
   await validateChaosTokens();

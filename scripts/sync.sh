@@ -18,15 +18,9 @@ if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/campaignLogs.json"
   cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/encounterSets.json"
   cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/campaignErrata.json"
-  cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/rules.json"
-  cp ./rules/fr/rules.json "$ARKHAM_CARDS/assets/rules_fr.json"
-  cp ./rules/es/rules.json "$ARKHAM_CARDS/assets/rules_es.json"
-  cp ./rules/ru/rules.json "$ARKHAM_CARDS/assets/rules_ru.json"
-  cp ./rules/de/rules.json "$ARKHAM_CARDS/assets/rules_de.json"
-  cp ./rules/ko/rules.json "$ARKHAM_CARDS/assets/rules_ko.json"
-  cp ./rules/zh/rules.json "$ARKHAM_CARDS/assets/rules_zh.json"
-  
+  cp ./taboos.json "$ARKHAM_CARDS/assets/taboos.json"
   cp ./chaos_tokens.json "$ARKHAM_CARDS/assets/chaosOdds.json"
+
   # I18N files
   LANGS=(es ko it fr ru de zh pt)
   for lang in ${LANGS[@]}; do
@@ -35,6 +29,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
     cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/encounterSets_$lang.json"
     cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/campaignErrata_$lang.json"
     cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/chaosOdds_$lang.json"
+    cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/taboos_$lang.json"
   done
 else
   echo "Folder $ARKHAM_CARDS does not exist."
