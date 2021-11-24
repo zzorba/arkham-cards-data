@@ -320,6 +320,18 @@ async function generateLocale(localeCode) {
     "build/i18n/" + localeCode + "/encounter_sets.json"
   );
 
+  // Translate the taboos
+  const taboos = await readJSON('taboos.json');
+
+  const taboosPoFileName = "i18n/" + localeCode + "/taboos.po";
+  const taboosPoFile = await getOrCreatePOFile(taboosPoFileName, localeCode, "taboos.json");
+  await translate(taboos, taboosPoFile, allPoEntries, corePoEntries, localeCode);
+  await writeJSON(
+    taboos,
+    "build/i18n/" + localeCode + "/taboos.json"
+  )
+  taboosPoFile.save(taboosPoFileName, printErr);
+
   // Translate all the scenarios.
   for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
