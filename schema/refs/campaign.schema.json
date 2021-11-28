@@ -2,6 +2,31 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/campaign.schema.json",
   "definitions": {
+    "campaignLogSectionDefinition": {
+      "$id": "#campaignLogSectionDefinition",
+      "title": "CampaignLogSectionDefinition",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["investigator_count", "count", "supplies", "header", "partner", "hidden"]
+        },
+        "partners": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/partner"
+          }
+        }
+      },
+      "required": ["id", "title"],
+      "additionalProperties": false
+    },
     "campaign": {
       "$id": "#campaign",
       "title": "Campaign",
@@ -51,27 +76,7 @@
         "campaign_log": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": ["investigator_count", "count", "supplies", "header", "partner", "hidden"]
-              },
-              "partners": {
-                "type": "array",
-                "items": {
-                  "$ref": "types.schema.json#/definitions/partner"
-                }
-              }
-            },
-            "required": ["id", "title"],
-            "additionalProperties": false
+            "$ref": "#/definitions/campaignLogSectionDefinition"
           }
         },
         "scenarios": {
