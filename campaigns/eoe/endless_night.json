@@ -499,7 +499,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["william_dyer_alive_story", "check_william_dyer_alive_effects"]
+            "steps": ["william_dyer_alive_story", "ask_william_dyer_alive_effects", "check_william_dyer_alive_effects"]
           },
           {
             "boolCondition": false,
@@ -514,84 +514,34 @@
       "text": "The professor paces back and forth, running his fingers through his graying hair. “They are connected. They must be connected,” he rambles to himself as you approach. “The Elder Things and these manifestations, these ‘mirages’,” he continues, as if to answer your unspoken question. “When we were here last, I saw images of the Elder Things in conflict with other species, other ... alien beings. But what if the true source of their fear lies here on Earth?” His gaze meets yours. “What if this wasn't their true home? What if ... what if they were guarding something?”"
     },
     {
+      "id": "ask_william_dyer_alive_effects",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Does any investigator's deck contain one or more Tekeli-li weaknesses?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "endless_night_dyer_yes",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_william_dyer_alive_effects",
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "multi",
-        "count": 1,
-        "conditions": [
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08723",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08724",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08725",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08726",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08727",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08728",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08729",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          }
-        ],
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "endless_night_dyer_yes",
         "options": [
           {
             "boolCondition": true,
@@ -615,7 +565,12 @@
     },
     {
       "id": "william_dyer_alive_effects",
-      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>."
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>.",
+      "bullets": [
+        {
+          "text": "Note this change in the app when upgrading decks at the end of this interlude."
+        }
+      ]
     },
     {
       "id": "william_dyer_alive_effects_skipped",

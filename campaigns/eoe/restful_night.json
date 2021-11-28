@@ -384,7 +384,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["william_dyer_alive_story", "check_william_dyer_alive_effects"]
+            "steps": ["william_dyer_alive_story", "ask_william_dyer_alive_effects", "check_william_dyer_alive_effects"]
           },
           {
             "boolCondition": false,
@@ -399,84 +399,34 @@
       "text": "The professor jumps as you approach, startled by your sudden presence. “Oh! My apologies. I thought—I thought perhaps you were…” he trails off, but he doesn’t need to finish his sentence. You know exactly how he feels. “I am a man of science, as you know. And as a man of science, I find myself struggling to…to come to terms with what we have seen thus far.” You nod and ask Dyer to explain his current working theory. “Well,” he begins, “these spectral creatures, they seem to possess some kind of ethereal physiology, very unlike the Elder Things that Lake and his team discovered and dissected the last time I was here. Those creatures might have been of alien origin, but they were…like us, in more ways than one. Flesh and organs, you see. But these…” he ponders in silence for some time. “And yet, I cannot help but wonder what the connection between the two might be?”"
     },
     {
+      "id": "ask_william_dyer_alive_effects",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Does any investigator's deck contain one or more Tekeli-li weaknesses?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_dyer_yes",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_william_dyer_alive_effects",
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "multi",
-        "count": 1,
-        "conditions": [
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08723",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08724",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08725",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08726",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08727",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08728",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          },
-          {
-            "type": "has_card",
-            "investigator": "each",
-            "card": "08729",
-            "options": [
-              {
-                "boolCondition": true
-              }
-            ]
-          }
-        ],
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "restful_night_dyer_yes",
         "options": [
           {
             "boolCondition": true,
@@ -500,7 +450,12 @@
     },
     {
       "id": "william_dyer_alive_effects",
-      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>."
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>.",
+      "bullets": [
+        {
+          "text": "Note this change in the app when upgrading decks at the end of this interlude."
+        }
+      ]
     },
     {
       "id": "william_dyer_alive_effects_skipped",
