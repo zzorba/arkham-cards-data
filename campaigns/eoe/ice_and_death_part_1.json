@@ -1,0 +1,1263 @@
+{
+  "id": "ice_and_death_part_1",
+  "scenario_name": "Ice and Death, Part I",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Ice and Death, Part I",
+  "chaos_bag_card": "08501",
+  "chaos_bag_card_text": "[skull]: -X. X is half the shelter value of your location (rounded up).\n[cultist]: -2. If you fail, shuffle the top card of the Tekeli-li deck into your deck without looking at it (if you cannot, take 1 horror).\n[tablet]: -3. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the shelter value of your location.\n[cultist]: -2. For each point you fail by, shuffle the top card of the Tekeli-li deck into your deck without looking at it (for each card you cannot shuffle, take 1 horror).\n[tablet]: -4. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
+  "icon": "the_crash",
+  "setup": [
+    "intro_1",
+    "check_wini",
+    "intro_4",
+    "plane_crash",
+    "choose_plane_crash",
+    "find_crashed_person",
+    "choose_partners",
+    "gather_encounter_sets",
+    "set_aside_creatures_in_the_ice",
+    "setup_locations",
+    "location_layout",
+    "set_aside_skittering_nonsense",
+    "set_aside_terror_of_the_stars",
+    "check_difficulty",
+    "setup_tekeli_li",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "After two weeks and many hours of hard work, the expedition is ready to make its first foray into the cold, dead continent of Antarctica. Ms. Takada, along with two other mechanics, have fully assembled three aeroplanes along the flat ice shelf—a perfect place for takeoffs and landings. Your team congregates by the aeroplanes, along with several days' worth of camping equipment. The plan is to fly two of the planes over the vast jagged peaks, taking aerial photographs of the stone city mentioned in Dyer's account… that is, if such a thing really exists.\n\"If we can find a safe landing zone, we will set up a temporary outpost,\" Dr. Kensler explains. \"Dyer, Danforth, Fredericks, and Claypool will stick around while the rest of us head back to base camp. We can use the sledges to ferry supplies to and from the camps. Otherwise, we'll simply scout out the area and head back to base camp.\" The team nods in agreement and begins boarding the planes."
+    },
+    {
+      "id": "check_wini",
+      "text": "If Winifred Habbamock is one of the investigators in the campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "60301",
+            "steps": ["intro_2"]
+          }
+        ],
+        "default_option": {
+          "steps": ["intro_3"]
+        }
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "\"Buckle up,\" you tell the others as you spin the propeller and hop into the pilot's seat. You motion to the pilot of the other plane, and both of you start your engines. One at a time, you take off from the ice shelf and soar into the opaque fog. You have never flown a plane of this size, but but it's no match for your piloting skills. Within moments you have a handle on the beast's clunky controls. The weather is another matter entirely. The rough Antarctic winds and harsh fog make for poor flying conditions. The deeper you head through the beautiful and deceptive polar mirages, the more you struggle to keep a handle on the aeroplane.\nDr. Kensler peers out a window as you pass a magnificent view of distant mountains like vibrant, enchanted castles floating above the clouds. \"They're beautiful,\" she remarks quietly.\n\"These are nothing,\" Dyer begins, \"Wait until you see-\" And then the storm hits. The winter winds are so sudden and fierce that they almost force you out of your seat. Both planes shunt to and fro in the horrid winds, and you hear several of the passengers shouting behind you.\n\"What in the hell?\" Fredericks grunts.\n\"We have to head back!\" Claypool shouts. \"These winds will force us down if we keep going!\"\n\"We're so close!\" Dr. Kensler growls bitterly.\n\"We don't have a choice!\" he yells back, but it's too late. The plane lurches toward the ground, and you struggle in vain to regain control. All of the passengers notice the dark shape in the sky at the same time you do. It is a massive shadow, like a curtain drawn across the mountains, or perhaps the tattered wings of an antediluvian behemoth. It scowls at you with dreadful, hollow eyes. Then it reaches out, and—"
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "\"Buckle up,\" your pilot says. You climb into your seat and get ready for the flight. One at a time, the two planes take off from the ice shelf and soar into the opaque fog. The rough Antarctic winds and low visibility make for poor flying conditions, but nonetheless you venture through the beautiful and deceptive polar mirages, over miles of icy wastes and barren snowdrifts.\nDr. Kensler peers out a window as you pass a magnificent view of distant mountains like vibrant, enchanted castles floating above the clouds. \"They're beautiful,\" she remarks quietly.\n\"These are nothing,\" Dyer begins, \"Wait until you see—\"\nAnd then the storm hits. The winter winds are so sudden and fierce that they almost force you out of your seat. Both planes shunt to and fro in the horrid winds, and you hear several of the passengers shouting behind you.\n\"What in the hell?\" Fredericks grunts. \n\"We have to head back!\" Claypool shouts. \"These winds will force us down if we keep going!\"\n\"We're so close!\" Dr. Kensler growls bitterly.\n\"We don't have a choice!\" he yells back, but it's too late. The plane lurches toward the ground, and the pilot struggles in vain to regain control. All of the other passengers notice the dark shape in the sky at the same time you do. It is a massive shadow, like a curtain drawn across the mountains, or perhaps the tattered wings of an antediluvian behemoth.It scowls at you with dreadful, hollow eyes. Then it reaches out, and—"
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "As you regain consciousness, intense pain sears through your blistering skin. Through the haze, you can barely hear muffled shouting outside the burning husk of the aeroplane. Somebody grips your arm, pulls you from the wreckage, and hurls you onto the soft snow. More shouts erupt all around you. \"There's another!\" \"Quickly!\" \"Grab my hand!\"\nYou rise to your feet with a world of effort. Miraculously, you are only bruised and winded. Most of the other team members are similarly unharmed, except…"
+    },
+    {
+      "id": "plane_crash",
+      "bullet_type": "none",
+      "text": "Gather the nine story assets from the <i>Expedition Team</i> encounter set, shuffle them, and choose one of them at random. The chosen character was killed in the plane crash.\n"
+    },
+    {
+      "id": "choose_plane_crash",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": true,
+        "quantity": {
+          "type": "constant",
+          "value": 1
+        },
+        "prompt": "Killed in plane crash:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "all",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "eliminated"
+          },
+          {
+            "type": "campaign_log_cards",
+            "section": "campaign_notes",
+            "id": "killed_in_plane_crash",
+            "cards": "$input_value",
+            "masculine_text": "#name# was killed in the plane crash.",
+            "feminine_text": "#name# was killed in the plane crash."
+          }
+        ]
+      }
+    },
+    {
+      "id": "find_crashed_person",
+      "text": "Find and read the passage that corresponds to the character killed in the plane crash.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards_switch",
+        "section": "campaign_notes",
+        "id": "killed_in_plane_crash",
+        "options": [
+          {
+            "condition": "08714",
+            "border": true,
+            "steps": ["william_dyer_crashed"]
+          },
+          {
+            "condition": "08721",
+            "border": true,
+            "steps": ["roald_ellsworth_crashed"]
+          },
+          {
+            "condition": "08716",
+            "border": true,
+            "steps": ["eliyah_ashevak_crashed"]
+          },
+          {
+            "condition": "08715",
+            "border": true,
+            "steps": ["danforth_crashed"]
+          },
+          {
+            "condition": "08719",
+            "border": true,
+            "steps": ["james_cookie_fredericks_crashed"]
+          },
+          {
+            "condition": "08718",
+            "border": true,
+            "steps": ["avery_claypool_crashed"]
+          },
+          {
+            "condition": "08722",
+            "border": true,
+            "steps": ["takada_hiroko_crashed"]
+          },
+          {
+            "condition": "08717",
+            "border": true,
+            "steps": ["mala_sinha_crashed"]
+          },
+          {
+            "condition": "08720",
+            "border": true,
+            "steps": ["amy_kensler_crashed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Danforth drops to his knees as he examines the elderly man's mangled body. \"I… I should have…\" he begins, but the words aren't there.\nDr. Kensler places a hand on his shoulder. \"This is my fault, not yours,\" she offers. \"I shouldn't have dismissed his concerns. That shape in the sky… it wasn't natural.\" But the horrible look in Danforth's eyes doesn't fade.\n\"C'mon, kid,\" Fredericks motions to Danforth. \"I know it hurts. But we gotta get moving. Gonna be night sooner than yeh think. Then we're all hosed.\"\nDanforth nods slowly, but you have to physically pull him away from his mentor before his eyes snap away from Dyer's."
+    },
+    {
+      "id": "roald_ellsworth_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "\"Dammit,\" Cookie grunts as they pull Ellsworth's lifeless body out of the wreckage. \"Dammit all to hell. Damn this damned expedition and all you damned people!\" Dr. Kensler and Professor Dyer take the brunt of his rage, but they aren't looking at Cookie—their eyes are fixed on Ellsworth 's corpse. You spot Claypool turning away, unable to even look upon his friend 's cold, dead eyes. \"What in the hell was that damned thing in the sky? Do you even know? Of Course yeh don't know. Dammit!\" Cookie continues swearing for some time before marching off to the snow by himself.\n\"Mr. Fredericks, where are you going?\" Dr. Kensler shouts over the raging wind.\n\"Where do you think?\" He yells back. \"We gotta find camp for the night or we'll all end up like Ellsworth, won't we?\"\nAfter a moment of thought, Dr. Kensler nods coldly. \"He is right. Come on.\""
+    },
+    {
+      "id": "eliyah_ashevak_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Anyu lays by Eliyah's side, nudging him over and over in a vain attempt to get him to stop playing dead. The dog's whines are the only sound that any of you dare to make for some time.\nFinally, Takada sits down beside Anyu and begins to run her gloved fingers through the dog's fur soothingly. \"Come on, girl. We gotta get moving.\"\n\"Oh, just leave the damned dog,\" Cookie says. The glares of the rest of the team quickly shut him up.\nIt's several more minutes before Takada is able to coax Anyu from Eliyah's body. Even as you trudge along the snow, the dog glances over her shoulder and whines, hoping that any second he'll stop playing pretend and run to catch up with you. Only once the body has faded into the opaque fog does the realization of his death set in for all of you."
+    },
+    {
+      "id": "danforth_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "\"No… No…!\" Professor Dyer tugs at Danforth's lifeless arm with a single shaking hand. \"Why did I allow him to come? Why was I so foolish? Why?\" he berates himself.\nDr. Kensler places a hand on his shoulder. \"I am the one who let him come, not you. The blame rests with me,\" she offers.\nProfessor Dyer lowers his head in resignation. \"Perhaps… perhaps now he will be able to truly rest. His troubles and his daemonic visions are finally at an end.\" He reaches out to touch the student's cold forehead, but is pulled away by Claypool and Fredericks.\n\"Come on,\" Claypool says. \"We don't have long before nightfall. We have to get a move on.\"Dyer nods grimly, but you see dark thoughts swirling behind the veil of his wide, horrified eyes."
+    },
+    {
+      "id": "james_cookie_fredericks_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Claypool and Ellsworth kneel over Cookie's mangled corpse.\n\"He was a good man,\" Claypool utters at last.\nEllsworth nods. \"Despite his many attempts to fool us otherwise,\" he adds.\nClaypool risks the slightest of smiles, though you can tell his lip is quivering.\nThe two stay silent for some time before Dr. Kensler interrupts their mourning. \"I'm sorry, but we have to get moving.\"\n\"Let them grieve, would you?\" Eliyah interjects, but despite the situation, both of the explorers stand and snap to attention.\n\"No, she's right,\" Claypool says. \"Cookie wouldn't want us to dawdle. He'd be the first person telling everyone to keep moving.\""
+    },
+    {
+      "id": "avery_claypool_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Dr. Sinha looks up at the rest of the team and shakes her head, lowering Claypool's arm back into the snow.\nEllsworth places a hand on Cookie's shoulder, but the gruff man only shakes it off. He points an accusatory finger at Takada. \"This is all your fault!\" he shouts, trudging forward and pushing her onto the ground. \"If you hadn't built this damned plane like a deathtrap, Claypool would still be alive!\"\nTakada glares up at him. \"There was nothing wrong with the plane! You saw that thing in the sky, didn't you?\"\nEliyah and Ellsworth pull Cookie back by his elbows. Dr. Kensler helps Takada to her feet. \"Ms. Takada is right,\" the scientist says. \"The plane did not malfunction. Something else forced it to the ground. And we are going to find out what.\"\nAs the party begins to depart, you see Ellsworth's gaze linger on Claypool's corpse. \"I… I'm sorry, Avery,\" he says."
+    },
+    {
+      "id": "takada_hiroko_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Like some kind of cruel, morbid joke, Takada lies contorted and dead in a contraption of her own making. The team is silent for some time as the realization sets in.\nEliyah looks the sky in confusion. \"What the hell was that thing? That shadow? It was like nothing I have ever seen.\"\nDanforth responds with a quiet mutter, only barely audible over the howling wind. \"The wings. The eyes in darkness. A windowless solid with five dimensions…\" He looks up when he realizes the rest of the team is staring blankly at him.\n\"We have no time to mourn,\" Dr. Kensler declares. \"It will be nightfall soon enough.\"\nEliyah shakes his head in protest. \"Come on, Kensler. Takada is dead. Give us a half-second, would you?\"\n\"No, she is right,\" Professor Dyer chimes in. \"If we do not want to end up like her, we have to move.\""
+    },
+    {
+      "id": "mala_sinha_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Dr. Kensler kneels over Dr. Sinha's body in complete silence. It's only when you approach that you realize tears are streaming down her face. \"Mala… I never told you…\" she whispers in between sobs.\nClaypool kneels next to her and tugs on her shoulder. \"Wipe your cheeks. Your tears will freeze—\"\nDr. Kensler pushes Claypool aside and turns away as she composes herself. When she turns back, herface is stone-cold in more ways than one. \"This is my fault. This is all my fault. \"\n\"She knew the risks,\" Cookie mutters.\nDr. Kensler shoots him a glare that could freeze tears, too. She rises to her feet and trudges away. The remainder of the team follows in complete silence. Nobody dares speak for some time."
+    },
+    {
+      "id": "amy_kensler_crashed",
+      "type": "story",
+      "border": true,
+      "border_color": "interlude",
+      "text": "Dr. Sinha kneels in front of Dr. Kensler's body, desperately attempting to resuscitate her. Minutes pass in complete silence as she performs her grim duty. It is clear no life is returning to her colleague, and yet she continues. The only thing you hear is her whispered pleas and quiet sobs in between each repetition.\nCookie is the first to break the silence. \"Well, shit,\" he says eloquently. \"What the hell do we do now?\"\n\"She would want the expedition to continue,\" Claypool replies.\n\"To hell with the expedition!\" Dr. Sinha cries.\nProfessor Dyer interjects, placing a hand on Dr. Sinha's shoulder. \"No, Claypool is right. If we stop here, she'll have given her life for nothing.\" Dr. Sinha relents, collapsing into Dyer's arms in a fit of sobs. \"We have to go on—for Amy's sake.\""
+    },
+    {
+      "id": "choose_partners",
+      "title": "Investigator Setup",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set.)",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "all",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "ice_and_death",
+        "the_crash",
+        "creatures_in_the_ice",
+        "deadly_weather",
+        "hazards_of_antarctica",
+        "silence_and_mystery",
+        "tekeli_li",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "set_aside_creatures_in_the_ice",
+      "text": "Set aside the <i>Creatures in the Ice</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Crash Site, Precarious Ice Sheet, Treacherous Path, and Frozen Shores. <i>See Location Layout below.)</i>",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at the Crash Site."
+        },
+        {
+          "text": "Set each [[Uncharted]] location aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "Note: At the start of Part 1, only Crash Site, Treacherous Path, Frozen Shores, and Precarious Ice Sheet are in play. Each other location starts play set-aside and is put into play when an investigator enters one of the connecting locations, as per the ability on agendas 1-3.",
+      "locations": [
+        [
+          "icebreaker_landing","blank","blank","blank","blank","blank","frigid_cave"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "barrier_camp",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","icy_wastes","blank","blank","blank","rocky_crags","blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "crash_site",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","remnants_of_lakes_camp","blank","blank","blank","crystalline_cavern","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "frozen_shores",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "broad_snowdrifts",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "snow_graves",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "precarious_ice_sheet",
+          "name": "Precarious Ice Sheet"
+        },
+        {
+          "code": "treacherous_path",
+          "name": "Treacherous Path"
+        },
+        {
+          "code": "crash_site",
+          "name": "Crash Site"
+        },
+        {
+          "code": "frozen_shores",
+          "name": "Frozen Shores"
+        },
+        {
+          "code": "remnants_of_lakes_camp",
+          "name": "Remnants of Lake's Camp"
+        },
+        {
+          "code": "crystalline_cavern",
+          "name": "Crystalline Cavern"
+        },
+        {
+          "code": "broad_snowdrifts",
+          "name": "Broad Snowdrifts"
+        },
+        {
+          "code": "snow_graves",
+          "name": "Snow Graves"
+        },
+        {
+          "code": "icy_wastes",
+          "name": "Icy Wastes"
+        },
+        {
+          "code": "rocky_crags",
+          "name": "Rocky Crags"
+        },
+        {
+          "code": "barrier_camp",
+          "name": "Barrier Camp"
+        },
+        {
+          "code": "icebreaker_landing",
+          "name": "Icebreaker Landing"
+        },
+        {
+          "code": "frigid_cave",
+          "name": "Frigid Cave"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_skittering_nonsense",
+      "text": "Set each Skittering Nonsense enemy aside, out of play."
+    },
+    {
+      "id": "set_aside_terror_of_the_stars",
+      "text": "Set the Terror of the Stars enemy aside, out of play."
+    },
+    {
+      "id": "check_difficulty",
+      "text": "Check the difficulty level.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "hard_1_doom"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "expert_2_doom"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_changes",
+      "bullet_type": "small",
+      "text": "No changes are made."
+    },
+    {
+      "id": "hard_1_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Hard difficulty, add 1 doom to agenda 1a."
+    },
+    {
+      "id": "expert_2_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Expert difficulty, add 2 doom to agenda 1a."
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "Each investigator earns additional experience equal to the camp's shelter value (to a minimum of 3)",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "all",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "do_not_clean_up_yet",
+      "text": "Do not clean up the game yet."
+    },
+    {
+      "id": "record_camp_location",
+      "text": "Choose a location in play with no clues on it. In your Campaign Log, write \"Camp -,\" and next to it, record that location's name. This location is referred to as the investigators' camp for the remainder of <i>Ice and Death</i>.",
+      "bullets": [
+        {
+          "text": "Record the camp's shelter value in parentheses next to its name."
+        }
+      ]
+    },
+    {
+      "id": "actually_record_camp_location",
+      "text": "Camp Location:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "icebreaker_landing",
+            "text": "Icebreaker Landing",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_icebreaker_landing",
+                "text": "Camp - Icebreaker Landing (5)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 5
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 5
+              }
+            ]
+          },
+          {
+            "id": "icy_wastes",
+            "text": "Icy Wastes",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_icy_wastes",
+                "text": "Camp - Icy Wastes (4)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 4
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 4
+              }
+            ]
+          },
+          {
+            "id": "barrier_camp",
+            "text": "Barrier Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_barrier_camp",
+                "text": "Camp - Barrier Camp (7)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 7
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 7
+              }
+            ]
+          },
+          {
+            "id": "rocky_crags",
+            "text": "Rocky Crags",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_rocky_crags",
+                "text": "Camp - Rocky Crags (3)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 3
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 3
+              }
+            ]
+          },
+          {
+            "id": "frigid_cave",
+            "text": "Frigid Cave",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_frigid_cave",
+                "text": "Camp - Frigid Cave (6)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 6
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 6
+              }
+            ]
+          },
+          {
+            "id": "precarious_ice_sheet",
+            "text": "Precarious Ice Sheet",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_precarious_ice_sheet",
+                "text": "Camp - Precarious Ice Sheet (2)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 2
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 3
+              }
+            ]
+          },
+          {
+            "id": "treacherous_path",
+            "text": "Treacherous Path",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_treacherous_path",
+                "text": "Camp - Treacherous Path (1)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 1
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 3
+              }
+            ]
+          },
+          {
+            "id": "crash_site",
+            "text": "Crash Site",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_crash_site",
+                "text": "Camp - Crash Site (0)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 0
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 3
+              }
+            ]
+          },
+          {
+            "id": "remnants_of_lakes_camp",
+            "text": "Remnants of Lake's Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_remnants_of_lakes_camp",
+                "text": "Camp - Remnants of Lake's Camp (7)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 7
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 7
+              }
+            ]
+          },
+          {
+            "id": "frozen_shores",
+            "text": "Frozen Shores",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_frozen_shores",
+                "text": "Camp - Frozen Shores (2)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 2
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 3
+              }
+            ]
+          },
+          {
+            "id": "crystalline_cavern",
+            "text": "Crystalline Cavern",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "camp_crystalline_cavern",
+                "text": "Camp - Crystalline Cavern (8)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 8
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 8
+              }
+            ]
+          },
+          {
+            "id": "broad_snowdrifts",
+            "text": "Broad Snowdrifts",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "broad_snowdrifts",
+                "text": "Camp - Broad Snowdrifts (4)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 4
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 4
+              }
+            ]
+          },
+          {
+            "id": "snow_graves",
+            "text": "Snow Graves",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "snow_graves",
+                "text": "Camp - Snow Graves (5)"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "camp_shelter",
+                "text": "#X#",
+                "operation": "set",
+                "value": 5
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 5
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_camp_resigned_location",
+      "text": "In your Campaign Log, write \"Camp -,\" and next to it, record the name of the location the investigators resigned at. This location is referred to as the investigators' camp for the remainder of <i>Ice and Death</i>.",
+      "bullets": [
+        {
+          "text": "Record the camp's shelter value in parentheses next to its name."
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_frost"],
+        "branches": [
+          {
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
+          },
+          {
+            "id": "recover_supplies",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "supplies_recovered",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                },
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                },
+                {
+                  "numCondition": 6
+                }
+              ]
+            },
+            "text": "Recover supplies",
+            "repeatable": true,
+            "steps": [
+              "recover_supplies"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "recover_supplies",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Recovered Supplies",
+        "choices": [
+          {
+            "id": "green_soapstone",
+            "text": "Green Soapstone",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "green_soapstone",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "green_soapstone",
+                "text": "Green Soapstone",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "wooden_sledge",
+            "text": "Wooden Sledge",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "wooden_sledge",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "wooden_sledge",
+                "text": "Wooden Sledge",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "dynamite",
+            "text": "Dynamite",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "dynamite",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "dynamite",
+                "text": "Dynamite",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "miasmic_crystal",
+            "text": "Miasmic Crystal",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "miasmic_crystal",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "miasmic_crystal",
+                "text": "Miasmic Crystal",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "mineral_specimen",
+            "text": "Mineral Specimen",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "mineral_specimen",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "mineral_specimen",
+                "text": "Mineral Specimen",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "small_radio",
+            "text": "Small Radio",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "small_radio",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "small_radio",
+                "text": "Small Radio",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "spare_parts",
+            "text": "Spare Parts",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "spare_parts",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "spare_parts",
+                "text": "Spare Parts",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "No amount of preparation could have made your journey through the ice and cold any easier. Your months of training before the expedition kicked in the moment you became stranded, and you were even able to scavenge some supplies while you searched for a safe place to rest for the night… but your thoughts keep returning to the sight of the thing that made your plane crash, the horrifying abominations that pursued you through the snowy wastes, and the sound—that awful sound, that cry! You almost wish you could have been robbed of your senses altogether so as to spare you from the cry that now haunts your every waking moment. As exhaustion settles in and you drift off to sleep, still that sound echoes in your thoughts, over and over again: Tekeli-li! Tekeli-li!",
+      "steps": [
+        "record_camp_location",
+        "actually_record_camp_location",
+        "earn_xp",
+        "eliminate_partners",
+        "do_not_clean_up_yet"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "As you make camp, you are haunted by memories of the creatures you encountered in the icy wilds. Such entities should not exist. Not even Dyer's report mentions anything of the kind. Grim silence settles over the expedition team as you set up shelter. No one speaks of what they saw in the frozen wilderness. No one speaks of the awful sounds those monsters made. You can only hope that this camp is secluded enough to avoid the attention of those things- whatever they may be…",
+      "steps": [
+        "record_camp_resigned_location",
+        "actually_record_camp_location",
+        "earn_xp",
+        "eliminate_partners",
+        "record_partner_trauma",
+        "do_not_clean_up_yet"
+      ]
+    }
+  ]
+}

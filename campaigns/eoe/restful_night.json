@@ -1,0 +1,1465 @@
+{
+  "id": "restful_night",
+  "scenario_name": "Restful Night",
+  "full_name": "Interlude I: Restful Night",
+  "header": "Interlude I",
+  "type": "interlude",
+  "icon": "expedition_team",
+  "setup": [
+    "intro",
+    "check_in_explanation",
+    "compute_conversation_count",
+    "conversation",
+    "$upgrade_decks",
+    "restful_night_2",
+    "check_eliminated_partners"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Safe at last, you and the remaining members of the expedition take stock of your situation. You have lost several members of the team, but your members remain strong. Part of you knows that staying any longer would prove foolish or deadly. But a great many questions crowd your thoughts, demanding answers despite your worries. What were those uncanny, Phantasmal creatures? What happened here after Dyer’s expedition left the icy wastes behind?\nYou and the others discuss the situation at length and consider various plans. Some believe in the total abandonment of the expedition. But to return empty-handed now would prove disastrous for the university, frustrate the scientific community, and possibly cost the remaining crew their careers. After all, very few believed Dyer’s outlandish claims --who would believe this?\nIn the end, you decide to press onward. Another flight is out of the question, of course. That thing in the sky must still be out there. It was a miracle you survived one aeroplane crash, let alone two. No, there’s only one way to reach the site described in Dyer’s report now: you must travel on foot.\nThe decision made, you retire to get what meager rest you can before the grueling trek ahead."
+    },
+    {
+      "id": "check_in_explanation",
+      "bullet_type": "none",
+      "text": "You only have enough time to check on a few team members (regardless of whether they are alive or crossed out). One at a time, choose and read three of the sections below (four instead if <i>the team fled to the mountains</i>). If the game effect of the chosen section cannot be performed, it does not count toward this total and you may choose a new section instead."
+    },
+    {
+      "id": "compute_conversation_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "team_fled_to_the_mountains",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "set",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "set",
+                "value": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "conversation",
+      "type": "branch",
+      "hidden": true,
+      "loop": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "restful_night_conversations"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["choose_conversation"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["choose_conversation"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_conversation",
+      "type": "input",
+      "text": "Who would you like to check on?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "william_dyer",
+            "text": "Professor William Dyer",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_william_dyer",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_william_dyer"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_william_dyer",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "danforth",
+            "text": "Danforth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_danforth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_danforth"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_danforth",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "amy_kensler",
+            "text": "Dr. Amy Kensler",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_amy_kensler",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_amy_kensler"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_amy_kensler",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "mala_sinha",
+            "text": "Dr. Mala Sinha",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_mala_sinha",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_mala_sinha"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_mala_sinha",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "james_fredericks",
+            "text": "James \"Cookie\" Fredericks",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_james_fredericks",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_james_fredericks"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_james_fredericks",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "avery_claypool",
+            "text": "Avery Claypool",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_avery_claypool",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_avery_claypool"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_avery_claypool",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "roald_ellsworth",
+            "text": "Roald Ellsworth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_roald_ellsworth",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_roald_ellsworth"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_roald_ellsworth",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "takada_hiroko",
+            "text": "Takada Hiroko",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_takada_hiroko",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_takada_hiroko"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_takada_hiroko",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "id": "eliyah_ashevak",
+            "text": "Eliyah Ashevak",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "restful_night_eliyah_ashevak",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["check_eliyah_ashevak"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_eliyah_ashevak",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer",
+      "text": "If William Dyer is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_alive_story", "ask_william_dyer_alive_effects", "check_william_dyer_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["william_dyer_dead_story", "william_dyer_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_alive_story",
+      "type": "story",
+      "text": "The professor jumps as you approach, startled by your sudden presence. “Oh! My apologies. I thought—I thought perhaps you were…” he trails off, but he doesn’t need to finish his sentence. You know exactly how he feels. “I am a man of science, as you know. And as a man of science, I find myself struggling to…to come to terms with what we have seen thus far.” You nod and ask Dyer to explain his current working theory. “Well,” he begins, “these spectral creatures, they seem to possess some kind of ethereal physiology, very unlike the Elder Things that Lake and his team discovered and dissected the last time I was here. Those creatures might have been of alien origin, but they were…like us, in more ways than one. Flesh and organs, you see. But these…” he ponders in silence for some time. “And yet, I cannot help but wonder what the connection between the two might be?”"
+    },
+    {
+      "id": "ask_william_dyer_alive_effects",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Does any investigator's deck contain one or more Tekeli-li weaknesses?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "restful_night_dyer_yes",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "restful_night_dyer_yes",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["william_dyer_alive_effects_skipped"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_alive_effects",
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>.",
+      "bullets": [
+        {
+          "text": "Note this change in the app when upgrading decks at the end of this interlude."
+        }
+      ]
+    },
+    {
+      "id": "william_dyer_alive_effects_skipped",
+      "text": "Speaking with Professor Dyer helps you to see reason within this madness. Any one investigator may choose and remove up to five Tekeli-li! weaknesses from their deck <i>(shuffling them with the remainder of the Tekeli-li encounter set)</i>.",
+      "bullets": [
+        {
+          "text": "Because no investigator's deck contains any Tekeli-li! weaknesses, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "william_dyer_dead_story",
+      "type": "story",
+      "text": "You take a moment to pore through some of the professor’s old sketches, which he brought with him in the event they might prove useful. As you suspected, none of the creatures he depicted look anything like the things you saw. But just as you are about to give up, you find several sketches of the city he claims to have found beyond the dark, jagged mountains. These depict an enormous archway emblazoned with five glyphs surrounded by a five-pointed star. Below the archway—or perhaps behind it—looms something grotesque. The lines of the sketch disintegrate into a tangle of light strokes and splotches of ink you can scarcely describe. Several more creatures with barrel-shaped bodies and starfish-like heads—the alien “Elder Things” Dyer described in his report—flank the archway, looking on reverently, their wing-like appendages spread forth in reverence. You wish you could ask Dyer himself what this may mean, but sadly, it’s too late for that. You collect his sketches and bring them with you, hoping they might come in handy later."
+    },
+    {
+      "id": "william_dyer_dead_effects",
+      "text": "Any one investigator may choose to add the Dyer's Sketches story event to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08733"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_william_dyer",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_william_dyer",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_danforth",
+      "text": "If Danforth is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["danforth_alive_story", "danforth_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["danforth_dead_story", "danforth_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "danforth_alive_story",
+      "type": "story",
+      "text": "Danforth mutters to himself over and over as you enter his tent: “‘…There seemed now to be no longer any room for hope…and I could perceive…in the countenances of my companions…that they had made up their minds to perish…’” The cadence of his voice suggests he is reciting something by memory rather than speaking his thoughts aloud. It’s only after you loudly clear your throat that he seems to notice your presence. His eyes are wide and unblinking. “Now you understand,” he says under his breath. “You have seen what I have seen.” You nod. There can be no doubt any longer. Whatever Danforth saw when he and the professor escaped their ill-fated journey is the same entity that smote your aircraft to the ground. “It knows we are here,” he says gloomily. “It sees us.”"
+    },
+    {
+      "id": "danforth_alive_effects",
+      "text": "Listening to Danforth gives you further insight into the madness of this place. Any one investigator may begin <b>Scenario II: To the Forbidden Peaks</b> with two additional cards drawn in their opening hand."
+    },
+    {
+      "id": "danforth_dead_story",
+      "type": "story",
+      "text": "You decide to seek wisdom in Danforth’s belongings, hoping he kept a journal or some evidence from his prior expedition with Dyer. What you find instead is a treasure trove of fiction both macabre and speculative, including a well-worn copy of the works of Edgar Allan Poe. Its pages are punctuated by many makeshift tabs, and its margins inscribed with many notes and jottings—some relevant, others whose true meaning eludes you. You’re not sure why Danforth thought there was any reason to bring such a collection of tales, most especially one so beloved to him. You open it to one of the tabbed pages and read: “He could not be prevailed upon to touch it or go near it, shuddering when we attempted to force him, and shrieking out, ‘Tekeli-li!’” In the margins, Danforth has scribbled: “What could force one out of such paroxysm? How can I leave this dreadful feeling behind?”"
+    },
+    {
+      "id": "danforth_dead_effects",
+      "text": "Any one investigator may choose to add the Collected Works of Poe story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08731"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_danforth",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_danforth",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_amy_kensler",
+      "text": "If Dr. Amy Kensler is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_alive_story", "amy_kensler_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["amy_kensler_dead_story", "amy_kensler_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_alive_story",
+      "type": "story",
+      "text": "The leader of the expedition gives you little heed as you enter her tent. Her eyes are instead glued to the microscope in front of her. She appears to be studying a glob of inky, multicolored ichor in a small petri dish. She must have recovered some of that gunk earlier. You ask if she thinks it’s safe to be studying it so closely. “Of course not,” she responds in dry monotone. “But sometimes, scientific progress requires an element of…jeopardy.” It’s true, in a way—you’re only here at all because the team decided to put themselves at risk in order to confirm the truth behind Dyer’s report. You ask Dr. Kensler what she has discovered. “Frustratingly little. Physiologically speaking, this substance is unlike anything I’ve ever seen. I’m…not even completely sure it is a liquid. It seems to possess qualities of all three states of matter.” She finally sets the microscope aside, covers the petri dish, and meets your gaze. “It would be fascinating, were it not trying to kill us.”"
+    },
+    {
+      "id": "amy_kensler_alive_effects",
+      "text": "Dr. Kensler's research allows you to view the situation with greater clarity. In your Campaign Log, record <i>Dr. Kensler is sharing her research with you.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_kensler_is_sharing_her_research_with_you",
+          "text": "Dr. Kensler is sharing her research with you."
+        }
+      ]
+    },
+    {
+      "id": "amy_kensler_dead_story",
+      "type": "story",
+      "text": "You survey the research notes left behind by the leader of this doomed expedition. Surely, if anyone could make some sense out of what you’ve seen so far, it would be Dr. Kensler. Perhaps she knew more about these creatures than she let on. You scour her tent and filter through her belongings until you come across a thick journal filled with meticulous notes regarding the journey to Antarctica and the first couple days you spent unloading supplies and setting up camp. From there, the notes become less detailed and more jumbled. Her recounting of the days leading up to the plane crash is less a well-kept diary and more a delirious tangent. She wrote of walls dripping with black miasma, an endless void beneath the ice, something evil and alien that dwelled at the core beyond the gateway—and then, nothing.\nDr. Kensler had not been one to recount dreams or author works of fiction. Something had rattled her. Something had made her see the things of which she wrote. But how? And when? You sit and continue her documentation with your own record of events, hoping grimly that if you don’t make it off this continent alive, someone will read this and know what transpired here…"
+    },
+    {
+      "id": "amy_kensler_dead_effects",
+      "text": "Any one investigator may choose to add the Kensler's Log story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08735"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_amy_kensler",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_amy_kensler",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_mala_sinha",
+      "text": "If Dr. Mala Sinha is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mala_sinha_alive_story", "maybe_mala_sinha_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["mala_sinha_dead_story", "mala_sinha_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_alive_story",
+      "type": "story",
+      "text": "Dr. Sinha gives you a hard glare as you approach. “If you tell me that you are ‘too cold to sleep,’ so help me…” she begins, but sighs as you shake your head. “Sorry. I know, I know. Show me your wounds, then. Let me do my job.” She pulls out her medical kit and motions for you to sit on the bedroll nearby. “No signs of frostbite, hypothermia, or gangrene, that is good…” In silence, she studies the bruises and surface injuries you sustained from the crash. Finally, she clicks her tongue and shakes her head. “Uncanny,” she murmurs under her breath. You give her an inquiring stare. “Two aeroplanes,” she explains, “over a dozen of us spread between the two, and yet we sustained more injuries from the journey across the ice shelf than we did in the crash. Except for…” she trails off into harsh silence. As she dresses your wounds, you think about the meaning behind her words, the truth that she doesn’t want to say out loud. Was the entity that forced your plane to the ground really trying to kill you? Or was it simply guiding you? And if so, to what?"
+    },
+    {
+      "id": "maybe_mala_sinha_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "trauma",
+            "investigator": "each",
+            "trauma": "physical",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "any",
+            "status": ["alive", "has_damage"],
+            "operation": "all",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mala_sinha_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["mala_sinha_alive_effects_skipped"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_alive_effects",
+      "text": "Dr. Sinha's expertise allows you to recover from your injuries. Any one investigator may either heal 1 physical trauma or erase 1 damage from a partner asset recorded in the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "heal_trauma",
+            "text": "Heal 1 physical trauma",
+            "steps": ["ask_heal_1_physical_trauma"]
+          },
+          {
+            "id": "heal_partner_damage",
+            "text": "Heal 1 partner damage",
+            "steps": ["ask_heal_partners_damage"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_heal_1_physical_trauma",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "condition": {
+          "type": "trauma",
+          "investigator": "each",
+          "trauma": "physical",
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "source": "campaign",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "heal",
+            "text": "Heal physical trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_heal_partners_damage",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": false,
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive", "has_damage"],
+          "operation": "all",
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "quantity": {
+          "type": "constant",
+          "value": 1
+        },
+        "prompt": "Heal damage",
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "heal_damage"
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_alive_effects_skipped",
+      "text": "Dr. Sinha's expertise allows you to recover from your injuries. Any one investigator may either heal 1 physical trauma or erase 1 damage from a partner asset recorded in the Campaign Log.",
+      "bullets": [
+        {
+          "text": "Because no investigator has any physical trauma and no partner has recorded damage, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "mala_sinha_dead_story",
+      "type": "story",
+      "text": "You’re not sure what exactly compelled you to seek out Dr. Sinha’s tent, but now that you’re here, you know you won’t find any answers among her belongings. Still, perhaps you can salvage some use out of her old medical kits and cold-weather gear. As you stuff her medical supplies into one of her backpacks, a shiver crawls up your back. You tell yourself it is out of necessity, but helping yourself to the belongings of the dead still weighs heavily on your conscience. You heft the backpack straps onto your shoulders and turn to leave Dr. Sinha’s tent, hoping to put this grim business out of mind. The quiet clatter of something falling out of the backpack’s front pocket catches your attention. You search around your feet for the object and find a small leather wallet containing only a hairpin, a picture of Dr. Sinha with what you can only assume to be her family, and a ticket stub for a show at the Riverview Theatre. Without truly thinking why, you pocket it. If it was important enough for her to keep, it must hold some sentiment."
+    },
+    {
+      "id": "mala_sinha_dead_effects",
+      "text": "Any one investigator may choose to add the Sinha's Medical Kit story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08736"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_mala_sinha",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_mala_sinha",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_james_fredericks",
+      "text": "If James \"Cookie\" Fredericks is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_fredericks_alive_story", "james_fredericks_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["james_fredericks_dead_story", "james_fredericks_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_fredericks_alive_story",
+      "type": "story",
+      "text": "Cookie stares into the campfire as you approach, clearly in a world of his own. His distant eyes reflect the dim, flickering firelight. Who knows what he really sees within? The moment you begin to speak, he startles out of his reverie. “Ah. S’only you,” he mutters, his voice gravelly. “Siddown. Fire’s not just for me.” You do, taking off your gloves and warming up your hands for a moment before asking Cookie what he thinks of the plan. “What do I think?” He almost laughs. “I think yer deluded, the lot of yeh. But what do I know.” You suspect aloud that he knows a lot more than the others think. “That so?” he asks in grim monotone. “’Bout war, maybe,” he growls. “But maybe that’s what this is after all. Right then. You wanna know what I know? Fine.” You listen intently as Cookie tells you his harrowing tales of the Great War, tales that would surely give you nightmares were you not already in one."
+    },
+    {
+      "id": "james_fredericks_alive_effects",
+      "text": "Cookie's advice helps you prepare for the journey ahead. Any one investigator earns 1 bonus experience.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "bonus_xp",
+            "text": "Earn 1 bonus experience",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_fredericks_dead_story",
+      "type": "story",
+      "text": "As you set up camp, one of the other team members approaches holding a satchel of Cookie’s old belongings. “I figure you’re the best person to take these,” the young man says mournfully, handing it to you. You sit by the campfire and examine the items in the satchel one by one. Inside are several of Cookie’s personal effects—a pocketwatch with a cracked face, a matchbook emblazoned with the logo of the Excelsior Hotel, and of course his trusty .32 Colt revolver. It is exceptionally well-maintained, its barrel polished clean and its wooden grip immaculate. Knowing Cookie, it had less to do with his love of the thing and more to do with old habits dying hard. You swing the cylinder out and note that only a few bullets remain. You rotate the cylinder idly and give Cookie a silent promise: Don’t worry. I’ll put these bullets to good use."
+    },
+    {
+      "id": "james_fredericks_dead_effects",
+      "text": "Any one investigator may choose to add the Cookie's Custom .32 story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08732"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_james_fredericks",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_james_fredericks",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_avery_claypool",
+      "text": "If Avery Claypool is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_alive_story", "check_avery_claypool_alive_effects", "check_avery_claypool_roald_ellsworth"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["avery_claypool_dead_story", "avery_claypool_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_alive_story",
+      "type": "story",
+      "text": "Claypool is examining a map of the Ross Ice Shelf as you approach, tracing his fingers over topographical lines. “We were supposed to have better weather conditions,” he explains as you hunch over next to him. “I don’t know how or why, but something is messing with the weather patterns here. We’re getting hit with storms too sudden even for Antarctica, and the temperature variance is closer to what we would find in winter.” You ask Claypool if there’s anything that can be done to prevent further hardship. “The inclination might be to hunker down,” he replies, “and surely there are some among us who are too exhausted to go on. There are others who feel the opposite: that we should leave immediately and find safety elsewhere. I believe the best course of action is somewhere in between.” He taps the map in front of him again, beckoning you closer. “These storms are hitting fast and hard. We have to find our opening and move out the moment this one lets up,” he explains. You nod in approval."
+    },
+    {
+      "id": "check_avery_claypool_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "frost",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["avery_claypool_alive_effects_skip"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "default_option": {
+          "steps": ["avery_claypool_alive_effects"]
+        }
+      }
+    },
+    {
+      "id": "avery_claypool_alive_effects",
+      "text": "Claypool's predictions help you stay safe from the inclement weather. Remove 1 [frost] token from the chaos bag.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
+    },
+    {
+      "id": "avery_claypool_alive_effects_skip",
+      "text": "Claypool's predictions help you stay safe from the inclement weather. Remove 1 [frost] token from the chaos bag.",
+      "bullets": [
+        {
+          "text": "Because there are no [frost] tokens in the chaos bag, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "check_avery_claypool_roald_ellsworth",
+      "text": "In addition, if Roald Ellsworth is also alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_and_roald_ellsworth_alive_story"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_and_roald_ellsworth_alive_story",
+      "type": "story",
+      "text": "Curious, you pry a bit, asking Claypool what the deal is between him and Ellsworth. “Huh? Oh, Roald? We—that—” he stammers, avoiding your gaze. “He is just so damn stubborn. And hard to read.” You raise an eyebrow. “Okay, it is more than that. He is a loner. By his very nature. Getting close to somebody like that…” he sighs, trying to muster up the words. “…is difficult. For both parties.”\nBut worth it, you observe aloud.\n“Yes, I suppose it can be,” he replies with a smile. “Sometimes.”"
+    },
+    {
+      "id": "avery_claypool_dead_story",
+      "type": "story",
+      "text": "Claypool’s belongings lay scattered about the encampment’s main tent, including a map of the Ross Ice Shelf he’d marked with various annotations you don’t quite understand. A cold wind blows open the flaps of the tent and fills the space with frigid air. You wrap your arms around your chest to keep warm. Without Claypool, you are defenseless against the dangerous weather. Being caught out in a polar storm would be deadly, and he was the only one with the expertise to accurately predict them. You sigh and make to leave, stopping momentarily to glance at the heavy fur coat bundled with the remainder of Claypool’s things. Then you glance down at your own: worn and ragged from your arduous journey. You pick up Claypool’s and leave your old coat behind. Maybe he isn’t leaving you defenseless against the weather, after all."
+    },
+    {
+      "id": "avery_claypool_dead_effects",
+      "text": "Any one investigator may choose to add the Claypool's Furs story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08730"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_avery_claypool",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_avery_claypool",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_roald_ellsworth",
+      "text": "If Roald Ellsworth is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["roald_ellsworth_alive_story", "roald_ellsworth_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["roald_ellsworth_dead_story", "roald_ellsworth_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "roald_ellsworth_alive_story",
+      "type": "story",
+      "text": "Ellsworth throws you a pocket telescope as you meander through the camp, searching for a task. “You look free. Follow me,” he demands. You roll your eyes and follow begrudgingly as he leads you out into the snowy wilds. Over the howling winds, you ask loudly where he is taking you. “Higher,” Ellsworth responds simply. For nearly an hour, you follow him up a treacherous trail through rocky crags to an icy precipice overlooking the ice shelf. Black, jagged mountains loom in the distance, barely visible through the harsh snowfall. “There,” he says, pointing between two of the peaks. “What does that look like, to you?” You raise the telescope up to your eyes, careful not to press the cold glass against your skin lest it freeze there. Magnified by the device’s lens, you can just make out a narrow pass between the peaks. Perhaps this would be the optimal route to take tomorrow? You convey your thoughts to Ellsworth, and he nods along. “I agree. I’ll mark it on our map when we get back to camp.”"
+    },
+    {
+      "id": "roald_ellsworth_alive_effects",
+      "text": "Scouting with Ellsworth gives you insight into the journey ahead. In your Campaign Log, record <i>the investigators scouted the mountain pass.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "scouted_the_mountain_pass",
+          "text": "the investigators scouted the mountain pass."
+        }
+      ]
+    },
+    {
+      "id": "roald_ellsworth_dead_story",
+      "type": "story",
+      "text": "If you didn’t know any better, you’d assume Ellsworth had been preparing for the apocalypse. Despite his reputation as a light‑footed explorer and expert backpacker, a cursory glance at the belongings he left behind provides a wealth of provisions, supplies, and cold-weather gear. As the team mournfully divides his things so as to put them to good use, you spot an extra pair of water-resistant boots he must have brought along as backup. You don’t know if any of you could truly follow in his footsteps, but at least with these you might be able to walk in his shoes."
+    },
+    {
+      "id": "roald_ellsworth_dead_effects",
+      "text": "Any one investigator may choose to add the Ellsworth's Boots story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08734"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_roald_ellsworth",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_roald_ellsworth",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_takada_hiroko",
+      "text": "If Takada Hiroko is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["takada_hiroko_alive_story", "takada_hiroko_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["takada_hiroko_dead_story", "takada_hiroko_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "takada_hiroko_alive_story",
+      "type": "story",
+      "text": "Takada has all of your remaining supplies and provisions laid out before her in organized rows. “Before you ask: yes, I am serving as our quartermaster for the time being,” she explains. “We are down two planes and separated from the rest of our crew. We will have to be smart about our supplies if we are to continue this folly.” She spits that last word out like a curse, leaving you to ponder her feelings about the expedition. “Well, come on, don’t just stand there. Help me with this,” she scolds. You nod and get to work."
+    },
+    {
+      "id": "takada_hiroko_alive_effects",
+      "text": "Takada ensures you are better equipped for the next leg of the journey. Any one investigator may begin <b>Scenario II: To the Forbidden Peaks</b> with 3 additional resources drawn in their resource pool."
+    },
+    {
+      "id": "takada_hiroko_dead_story",
+      "type": "story",
+      "text": "For somebody who supposedly took pride in her organizational skills, Takada’s mechanical supplies are an absolute mess. If you didn’t know any better, you would think there was no rhyme or reason whatsoever to how she stored her things—but with Takada, you suspect that she had a system of some kind. You spend several minutes poring through her belongings in search of anything that might be of value to the remaining members of the expedition. Without Takada, you won’t be able to put the final aeroplane in flying shape. In fact, you imagine you’ll be forced to leave most of her things behind when you make for the mountains tomorrow. Still, you think you can make use of some of the supplies she had tucked away."
+    },
+    {
+      "id": "takada_hiroko_dead_effects",
+      "text": "Any one investigator may choose to add the Takada's Cache story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08737"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_takada_hiroko",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_takada_hiroko",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_eliyah_ashevak",
+      "text": "If Eliyah Ashevak is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08716",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliyah_ashevak_alive_story", "maybe_eliyah_ashevak_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["eliyah_ashevak_dead_story", "eliyah_ashevak_dead_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_ashevak_alive_story",
+      "type": "story",
+      "text": "You find Eliyah on the outskirts of the camp, tending to the dogs and making sure they are ready for tomorrow’s journey. His trusty companion Anyu is by his side as always. The dog’s tail slaps back and forth rapidly as you approach. “Oh, hey there,” Eliyah says over his shoulder when he realizes Anyu’s spotted you. “Calm down, will you, Anyu?” he scolds playfully, reaching down to ruffle her ears. You ponder aloud if she realizes the danger you’re all in. “Oh, she knows,” Eliyah responds. “She is rather good at making all the troubles of the world fade away. It wouldn’t be the first time.” You wonder with a bit of curiosity what other adventures Eliyah and Anyu might have been on in the past. But before you can ask, a cold flask hits you square in the chest and tumbles into your hands. “Drink,” Eliyah offers. “It’ll warm you up.” He sits down and drinks from a flask of his own, motioning for you to join him. You do, gulping down a large swallow. It burns on its way down. Anyu lies between the two of you, nudging your hand pleadingly. No more words are spoken, but Eliyah is right. For just a moment, everything is okay."
+    },
+
+    {
+      "id": "maybe_eliyah_ashevak_alive_effects",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "trauma",
+            "investigator": "each",
+            "trauma": "mental",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "any",
+            "status": ["alive", "has_horror"],
+            "operation": "all",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliyah_ashevak_alive_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["eliyah_ashevak_alive_effects_skipped"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "restful_night_conversations",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_ashevak_alive_effects",
+      "text": "Bonding with Eliyah and Anyu makes things just a little better. Any one investigator may either heal 1 mental trauma or erase 1 horror from a partner asset recorded in the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "heal_trauma",
+            "text": "Heal 1 mental trauma",
+            "steps": ["ask_heal_1_mental_trauma"]
+          },
+          {
+            "id": "heal_partner_damage",
+            "text": "Heal 1 partner horror",
+            "steps": ["ask_heal_partners_horror"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_heal_1_mental_trauma",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "condition": {
+          "type": "trauma",
+          "investigator": "each",
+          "trauma": "mental",
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "source": "campaign",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "heal",
+            "text": "Heal mental trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_heal_partners_horror",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": false,
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive", "has_horror"],
+          "operation": "all",
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "quantity": {
+          "type": "constant",
+          "value": 1
+        },
+        "prompt": "Heal horror",
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "heal_horror"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_ashevak_alive_effects_skipped",
+      "text": "Bonding with Eliyah and Anyu makes things just a little better. Any one investigator may either heal 1 mental trauma or erase 1 horror from a partner asset recorded in the Campaign Log.",
+      "bullets": [
+        {
+          "text": "Because no investigator has any mental trauma and no partner has recorded horror, you may choose an additional conversation."
+        }
+      ]
+    },
+    {
+      "id": "eliyah_ashevak_dead_story",
+      "type": "story",
+      "text": "As you sit at the edge of camp and ponder what fate might have in store for you in the coming days, a gentle nudge stirs you from your thoughts. You turn in shock, prepared to see another one of those horrid creatures emerging from the ice—but it’s only Anyu, Eliyah’s loyal companion. The big gray dog looks up at you with pleading eyes. You shake your head and rise, heavy, to your feet. That’s enough mourning for one night. As you venture back to camp, soft footfalls trail through the snow just behind you. You stop and glance at Anyu. Once again, she looks up to meet your gaze. Is she looking for comfort, or guidance? You kneel and run your gloved fingers through her thick fur, speaking soothingly to reassure the both of you. Yes, Eliyah is gone. No, I don’t know if we are safe, either. Do you want to stick with me? Anyu wags her tail. All right, then."
+    },
+    {
+      "id": "eliyah_ashevak_dead_effects",
+      "text": "Any one investigator may choose to add the Anyu story asset to their deck. This card can be found in the <i>Memorials of the Lost</i> encounter set. It does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08738"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "endless_night_eliyah_ashevak",
+          "text": "dummy"
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "final_night_eliyah_ashevak",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "restful_night_2",
+      "type": "story",
+      "text": "Silence falls over the camp as, one by one, the team falls into deep slumber. You try your damnedest to get some rest yourself, but every time you close your eyes, the image of those phantasmal creatures comes seeping behind your eyelids, and you shoot awake. You wonder morbidly if death is the only way you will ever rest on this journey."
+    },
+    {
+      "id": "check_eliminated_partners",
+      "type": "branch",
+      "text": "Check the \"Expedition Team\" section of the Campaign Log. If there are three or more names crossed out:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "constant",
+              "value": 3
+            },
+            "opB": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "any",
+              "operation": "all",
+              "status": ["eliminated"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["restful_night_3", "choose_fatal_mirage"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "restful_night_3",
+      "type": "story",
+      "text": "You awaken with a start and immediately reach for a weapon to defend yourself. The sound that pierced through your dreams and shook you back into reality was not one any earthly creature could make, and yet, when you awaken, nothing is out of place. In fact…\nYou rise to your feet, shocked, and examine your surroundings. Your makeshift camp was protected from the harsh elements, but still deep in the Antarctic wilderness. And yet, you find yourself indoors, in a hall you cannot place despite a strange familiarity. You brush aside some of the snow that still lingers on the ground around your sleeping bag, noting a tiled floor that wasn’t there before. A dream?\nAs you doubt the truth of this mysterious place, the walls and the tiled floor shimmer and fade. You are left back in the freezing cold of your camp, surrounded by your companions—except the door leading out of that hall still remains. Thick gray mist swirls around you, guiding you onward.\nThis is no natural refraction of light. Something supernatural is at work here. The thick miasma that churns around your camp is not unlike the substance that makes up the nightmarish creatures you encountered after your plane crashed. Do you really want to know what it wants you to see?"
+    },
+    {
+      "id": "choose_fatal_mirage",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fatal_mirage",
+            "text": "<i>Open the door and venture into the mirage.</i>",
+            "description": "Proceed to <b>Scenario ???: Fatal Mirage</b>.",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "fatal_mirage"
+              }
+            ]
+          },
+          {
+            "id": "ignore",
+            "text": "<i>Ignore the door and allow it to vanish.</i>",
+            "description": "Proceed to <b>Scenario II: To the Forbidden Peaks</b>. <i>(You will get this chance again later.)</i>"
+          }
+
+        ]
+      }
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "story_cards": [
+          "08723",
+          "08724",
+          "08725",
+          "08726",
+          "08727",
+          "08728",
+          "08729"
+        ]
+      }
+    }
+  ]
+}

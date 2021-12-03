@@ -29,6 +29,9 @@
         },
         {
           "$ref": "#/definitions/multiCondition"
+        },
+        {
+          "$ref": "#/definitions/partnerStatusCondition"
         }
       ]
     },
@@ -72,8 +75,11 @@
               { "$ref": "#/definitions/campaignDataVersionCondition" },
               { "$ref": "#/definitions/campaignDataScenarioCondition" },
               { "$ref": "#/definitions/scenarioDataResolutionCondition" },
+              { "$ref": "#/definitions/investigatorCardCondition" },
               { "$ref": "#/definitions/binaryCardCondition" },
-              { "$ref": "#/definitions/mathCondition" }
+              { "$ref": "#/definitions/mathCondition" },
+              { "$ref": "#/definitions/partnerStatusCondition" },
+              { "$ref": "#/definitions/basicTraumaCondition" }
             ]
           }
         },
@@ -113,7 +119,8 @@
         "trauma": {
           "type": "string",
           "enum": [
-            "killed"
+            "killed",
+            "insane"
           ]
         },
         "options": {
@@ -152,7 +159,8 @@
           "type": "string",
           "enum": [
             "physical",
-            "mental"
+            "mental",
+            "alive"
           ]
         },
         "options": {
@@ -236,6 +244,54 @@
       "required": [
         "type",
         "scenario_data",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "partnerStatusCondition": {
+      "$id": "#partnerStatusCondition",
+      "title": "PartnerStatusCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_status"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string",
+          "enum": ["any", "$fixed_partner"]
+        },
+        "fixed_partner": {
+          "type": "string"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/partnerStatus"
+          }
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["any", "all"]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "partner",
+        "status",
+        "operation",
         "options"
       ],
       "additionalProperties": false
@@ -458,6 +514,9 @@
           "items": {
             "$ref": "option.schema.json#/definitions/numOption"
           }
+        },
+        "default_option": {
+          "$ref": "option.schema.json#/definitions/option"
         }
       },
       "required": [
@@ -825,6 +884,38 @@
       ],
       "additionalProperties": false
     },
+    "campaignLogCardsSwitchCondition": {
+      "$id": "#campaignLogCardsSwitchCondition",
+      "title": "CampaignLogCardsSwitchCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_cards_switch"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stringOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "campaignLogCountCondition": {
       "$id": "#campaignLogCountCondition",
       "title": "CampaignLogCountCondition",
@@ -981,6 +1072,9 @@
         },
         {
           "$ref": "#/definitions/constantOperand"
+        },
+        {
+          "$ref": "#/definitions/partnerStatusCondition"
         }
       ]
     },
@@ -1146,13 +1240,19 @@
           "$ref": "#/definitions/scenarioDataCondition"
         },
         {
-          "$ref": "#/definitions/killedTraumaCondition"
+          "$ref": "#/definitions/traumaCondition"
         },
         {
           "$ref": "#/definitions/checkSuppliesCondition"
         },
         {
           "$ref": "#/definitions/campaignLogCardsCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogCardsSwitchCondition"
+        },
+        {
+          "$ref": "#/definitions/partnerStatusCondition"
         }
       ]
     }

@@ -2,6 +2,48 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/types.schema.json",
   "definitions": {
+    "borderColor": {
+      "$id": "#borderColor",
+      "title": "BorderColor",
+      "type": "string",
+      "enum": ["setup", "resolution", "interlude"]
+    },
+    "partner": {
+      "$id": "#partner",
+      "title": "Partner",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "health": {
+          "type": "number"
+        },
+        "sanity": {
+          "type": "number"
+        },
+        "resolute_health": {
+          "type": "number"
+        },
+        "resolute_sanity": {
+          "type": "number"
+        }
+      },
+      "required": ["code", "name", "health", "sanity"],
+      "additionalProperties": false
+    },
+    "partnerStatus": {
+      "$id": "#partnerStatus",
+      "title": "PartnerStatus",
+      "type": "string",
+      "enum": ["eliminated", "alive", "has_damage", "has_horror", "mia", "safe", "resolute", "investigator_defeated", "investigator_selected", "victim", "cannot_take"]
+    },
     "achievement": {
       "$id": "#achievement",
       "title": "Achievement",
@@ -349,6 +391,9 @@
         "border": {
           "type": "boolean"
         },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
+        },
         "pre_border_effects": {
           "type": "array",
           "items": {
@@ -386,7 +431,7 @@
         "tokens": {
           "type": "array",
           "items": {
-            "$ref": "types.schema.json#/definitions/chaosToken"
+            "$ref": "#/definitions/chaosToken"
           }
         },
         "description": {
@@ -400,6 +445,9 @@
         },
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
         },
         "pre_border_effects": {
           "type": "array",
@@ -599,7 +647,7 @@
       "type": "object",
       "properties": {
         "icon": {
-          "$ref": "types.schema.json#/definitions/choiceIcon"
+          "$ref": "#/definitions/choiceIcon"
         },
         "id": {
           "type": "string"
@@ -621,6 +669,9 @@
         },
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
         },
         "pre_border_effects": {
           "type": "array",

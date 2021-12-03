@@ -146,6 +146,77 @@
       "required": ["type"],
       "additionalProperties": false
     },
+    "investigatorPartnerChoiceInput": {
+      "$id": "#investigatorPartnerChoiceInput",
+      "title": "InvestigatorPartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice_partner"
+          ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
+        },
+        "prompt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "condition",
+        "prompt"
+      ],
+      "additionalProperties": false
+    },
+    "partnerChoiceInput": {
+      "$id": "#partnerChoiceInput",
+      "title": "PartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_choice"
+          ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
+        },
+        "random": {
+          "type": "boolean"
+        },
+        "quantity": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "condition",
+        "random",
+        "prompt",
+        "effects"
+      ],
+      "additionalProperties": false
+    },
     "investigatorChoiceWithSuppliesInput": {
       "$id": "#investigatorChoiceWithSuppliesInput",
       "title": "InvestigatorChoiceWithSuppliesInput",
@@ -247,6 +318,9 @@
             "any",
             "resigned"
           ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
         },
         "special_mode": {
           "type": "string",
@@ -563,6 +637,27 @@
       ],
       "additionalProperties": false
     },
+    "partnerTraumaInput": {
+      "$id": "#partnerTraumaInput",
+      "title": "PartnerTraumaInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_trauma"
+          ]
+        },
+        "section": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section"
+      ],
+      "additionalProperties": false
+    },
     "upgradeDecksInput": {
       "$id": "#upgradeDecksInput",
       "title": "UpgradeDecksInput",
@@ -582,14 +677,22 @@
         },
         "counter": {
           "type": "string"
+        },
+        "story_cards": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
         }
       },
       "required": ["type"],
       "additionalProperties": false
     },
-    "tarotReading": {
-      "$id": "#tarotReading",
-      "title": "TarotReading",
+    "tarotReadingInput": {
+      "$id": "#tarotReadingInput",
+      "title": "TarotReadingInput",
       "type": "object",
       "properties": {
         "type": {
@@ -743,7 +846,16 @@
           "$ref": "#/definitions/saveDecksInput"
         },
         {
-          "$ref": "#/definitions/tarotReading"
+          "$ref": "#/definitions/tarotReadingInput"
+        },
+        {
+          "$ref": "#/definitions/partnerTraumaInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorPartnerChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/partnerChoiceInput"
         }
       ]
     }

@@ -182,12 +182,45 @@
         },
         "show_prompt": {
           "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
         "type",
         "investigator",
         "card"
+      ],
+      "additionalProperties": false
+    },
+    "setCardCountEffect": {
+      "$id": "#setCardCountEffect",
+      "title": "SetCardCountEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "set_card_count"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": ["$input_value"]
+        },
+        "card": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "card",
+        "quantity"
       ],
       "additionalProperties": false
     },
@@ -649,6 +682,12 @@
         },
         "index": {
           "type": "number"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -680,6 +719,9 @@
         "cross_out": {
           "type": "boolean"
         },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
         "decorate": {
           "type": "string",
           "enum": [
@@ -687,6 +729,9 @@
           ]
         },
         "remove": {
+          "type": "boolean"
+        },
+        "hidden": {
           "type": "boolean"
         }
       },
@@ -744,6 +789,12 @@
         },
         "remove": {
           "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
         }
       },
       "required": [
@@ -839,11 +890,72 @@
         },
         "non_story": {
           "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
         "type",
         "card"
+      ],
+      "additionalProperties": false
+    },
+    "partnerStatusEffect": {
+      "$id": "#partnerStatusEffect",
+      "title": "PartnerStatusEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_status"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string",
+          "enum": [
+            "$input_value",
+            "$fixed_partner"
+          ]
+        },
+        "fixed_partner": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["add", "remove"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "eliminated",
+            "resolute",
+            "mia",
+            "safe",
+            "victim",
+            "cannot_take",
+            "the_entity",
+            "heal_damage",
+            "heal_horror"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "partner",
+        "operation",
+        "status"
       ],
       "additionalProperties": false
     },
@@ -910,10 +1022,12 @@
         { "$ref": "#/definitions/storyStepEffect" },
         { "$ref": "#/definitions/earnXpEffect" },
         { "$ref": "#/definitions/addCardEffect" },
+        { "$ref": "#/definitions/setCardCountEffect" },
         { "$ref": "#/definitions/addWeaknessEffect" },
         { "$ref": "#/definitions/removeCardEffect" },
         { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
+        { "$ref": "#/definitions/partnerStatusEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },
@@ -936,6 +1050,9 @@
       "properties": {
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "types.schema.json#/definitions/borderColor"
         },
         "effects": {
           "type": "array",

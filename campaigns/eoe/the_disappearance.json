@@ -1,0 +1,453 @@
+{
+  "id": "the_disapperance",
+  "scenario_name": "The Disapperance",
+  "full_name": "Checkpoint I: The Disapperance",
+  "header": "Checkpoint I",
+  "type": "interlude",
+  "icon": "left_behind",
+  "setup": [
+    "checkpoint_1",
+    "explain_missing",
+    "choose_missing",
+    "check_everybody_safe"
+  ],
+  "steps": [
+    {
+      "id": "checkpoint_1",
+      "type": "story",
+      "text": "Your sleep is anything but pleasant. The maddening cold bites at your flesh and the ever-howling wind plays tricks on your mind, conjuring images of misshapen inky forms bursting out of the ground and rending your party whole.\nJust as you are finally beginning to leave such horrid thoughts behind, your rest is shattered by a startled cry. You awaken to find your camp in shambles, and several of your companions missing. To your dismay, footsteps lead away from the relative safety or your camp and into the frozen wilds beyond."
+    },
+    {
+      "id": "explain_missing",
+      "text": "Find and gather the story assets corresponding to the surviving members of the Expedition Team. Shuffle them and randomly select a number of them equal to your camp's shelter value. Those characters are safe."
+    },
+    {
+      "id": "choose_missing",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": true,
+        "quantity": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "camp_shelter"
+        },
+        "prompt": "Safe",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "all",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "partner_safe",
+            "cards": "$input_value"
+          },
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "safe",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_everybody_safe",
+      "text": "If every surviving member of the expedition team is safe:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "camp_shelter"
+            },
+            "opB": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "any",
+              "operation": "all",
+              "status": ["alive"],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["disappearance_2", "do_not_clean_game", "skip_ice_and_death_part_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["some_missing_explanation", "some_missing", "choose_rescue"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "some_missing_explanation",
+      "bullet_type": "none",
+      "text": "The rest of the expedition team went missing in the night. In the Expedition Team section of the Campaign Log, write \"MIA\" next to the name of each character who went missing."
+    },
+    {
+      "id": "some_missing",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "any",
+        "status": ["safe", "eliminated"],
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "mia",
+                "bullet_type": "small"
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "partner_missing",
+                "cards": "$input_value",
+                "text": "#name# is MIA.",
+                "masculine_text": "#name# is MIA.",
+                "feminine_text": "#name# is MIA."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_rescue",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "abandon",
+            "text": "<i>They're on their own.</i> You will skip the next part of the scenario.",
+            "steps": ["disappearance_2", "do_not_clean_game", "kill_missing_partners", "skip_ice_and_death_part_2"]
+          },
+          {
+            "id": "rescue",
+            "text": "<i>Go after the missing team members.</i> You will play the next part of the scenario.",
+            "steps": ["choose_continue_now"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "disappearance_2",
+      "type": "story",
+      "text": "You spend the next day resting and preparing for the next leg of your journey…"
+    },
+    {
+      "id": "do_not_clean_game",
+      "text": "Do not clean up the game yet."
+    },
+
+    {
+      "id": "kill_missing_partners",
+      "text": "The missing team members surely could not have survived the night. In the \"Expedition Team\" section of the Campaign Log, cross off the name of each character who is marked as \"MIA.\"",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "all",
+        "status": ["mia"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skip_ice_and_death_part_2",
+      "text": "Skip <b>Ice and Death: Part II</b> in its entirety.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "ice_and_death_part_2"
+        }
+      ]
+    },
+    {
+      "id": "choose_continue_now",
+      "text": "Do you wish to proceed to <b>Ice and Death, Part II</b> immediately, or take a break?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "now",
+            "text": "Play immediately.",
+            "steps": ["disappearance_3", "do_not_remove_locations", "reset_decks", "$upgrade_decks"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "continue_ice_and_death_part_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "later",
+            "text": "Take a break.",
+            "steps": ["disappearance_3", "record_locations", "clean_up_game", "$upgrade_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "disappearance_3",
+      "type": "story",
+      "text": "You've decided to go after your missing team members…"
+    },
+    {
+      "id": "do_not_remove_locations",
+      "text": "Do not remove any locations from play. <i>(All tokens on these locations are removed and all cards at these locations are discarded, as normal.)</i>"
+    },
+    {
+      "id": "reset_decks",
+      "text": "Reset each investigator's deck and the encounter deck."
+    },
+    {
+      "id": "record_locations",
+      "text": "In the \"Ice and Death\" section of the Campaign Log, under \"Locations Revealed\", record each location you have revealed. <i>(These locations will start in play and revealed the next time you play.)</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Revealed",
+        "choices": [
+          {
+            "id": "icebreaker_landing",
+            "text": "Icebreaker Landing",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "icebreaker_landing",
+                "text": "Icebreaker Landing"
+              }
+            ]
+          },
+          {
+            "id": "icy_wastes",
+            "text": "Icy Wastes",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "icy_wastes",
+                "text": "Icy Wastes"
+              }
+            ]
+          },
+          {
+            "id": "barrier_camp",
+            "text": "Barrier Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "barrier_camp",
+                "text": "Barrier Camp"
+              }
+            ]
+          },
+          {
+            "id": "rocky_crags",
+            "text": "Rocky Crags",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "rocky_crags",
+                "text": "Rocky Crags"
+              }
+            ]
+          },
+          {
+            "id": "frigid_cave",
+            "text": "Frigid Cave",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "frigid_cave",
+                "text": "Frigid Cave"
+              }
+            ]
+          },
+          {
+            "id": "precarious_ice_sheet",
+            "text": "Precarious Ice Sheet",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "precarious_ice_sheet",
+                "text": "Precarious Ice Sheet"
+              }
+            ]
+          },
+          {
+            "id": "treacherous_path",
+            "text": "Treacherous Path",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "treacherous_path",
+                "text": "Treacherous Path"
+              }
+            ]
+          },
+          {
+            "id": "crash_site",
+            "text": "Crash Site",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "crash_site",
+                "text": "Crash Site"
+              }
+            ]
+          },
+          {
+            "id": "remnants_of_lakes_camp",
+            "text": "Remnants of Lake's Camp",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "remnants_of_lakes_camp",
+                "text": "Remnants of Lake's Camp"
+              }
+            ]
+          },
+          {
+            "id": "frozen_shores",
+            "text": "Frozen Shores",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "frozen_shores",
+                "text": "Frozen Shores"
+              }
+            ]
+          },
+          {
+            "id": "crystalline_cavern",
+            "text": "Crystalline Cavern",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "crystalline_cavern",
+                "text": "Crystalline Cavern"
+              }
+            ]
+          },
+          {
+            "id": "broad_snowdrifts",
+            "text": "Broad Snowdrifts",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "broad_snowdrifts",
+                "text": "Broad Snowdrifts"
+              }
+            ]
+          },
+          {
+            "id": "snow_graves",
+            "text": "Snow Graves",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "locations_revealed",
+                "id": "snow_graves",
+                "text": "Snow Graves"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_up_game",
+      "text": "Clean up the game as normal."
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "story_cards": [
+          "08723",
+          "08724",
+          "08725",
+          "08726",
+          "08727",
+          "08728",
+          "08729"
+        ]
+      }
+    }
+  ]
+}
