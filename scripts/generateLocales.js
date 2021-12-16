@@ -1,6 +1,7 @@
 const promisify = require("util").promisify;
 const fs = require("fs");
 const path = require("path");
+const { keys, forEach } = require('lodash');
 const PO = require("pofile");
 const shell = require('shelljs')
 const getFilePaths = require("./utils/getFilePaths");
@@ -83,7 +84,7 @@ async function writeJSON(object, filePath) {
 
 const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
 
-function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender) {
+function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender, starter) {
   const normalized = unorm.nfc(object[prop]);
   let context = gender;
   if (prop === 'masculine_text') {
@@ -106,6 +107,9 @@ function translateField(object, prop, poFile, allPoEntries, corePoEntries, gende
       const item = new PO.Item();
       item.msgid = object[prop];
       item.msgctxt = context;
+      if (starter) {
+        item.msgstr = [starter];
+      }
       poFile.items.push(item);
     }
   }
@@ -196,7 +200,7 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario, quiet) {
  * @param {string} localeCode  - Locale code (en, es, ...)
  */
 async function readEncounterSets(localeCode) {
-  const json = await readJSON(`encounter_sets/${localeCode}.json`);
+  const json = await readJSON(localeCode === 'en' ? 'encounter_sets.json' : `encounter_sets/${localeCode}.json`);
   const encounter_sets = {};
   for(let i = 0; i < json.length; i++) {
     const entry = json[i];
@@ -289,37 +293,46 @@ async function generateLocale(localeCode) {
 
   // Translate the custom card packs
   const packsPoFile = "i18n/" + localeCode + "/packs.po";
-  const poFile = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
+  const packsPo = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
   const packsJson = await readJSON("packs/packs.json");
   for (let i = 0; i< packsJson.length; i++) {
-    await translate(packsJson[i], poFile, allPoEntries, corePoEntries, localeCode);
+    await translate(packsJson[i], packsPo, allPoEntries, corePoEntries, localeCode);
   }
   await writeJSON(
     packsJson,
     "build/i18n/" + localeCode + "/packs.json"
   );
-  poFile.save(packsPoFile, printErr);
+  packsPo.save(packsPoFile, printErr);
 
-
-  for (const item of poFile.items) {
+  for (const item of packsPo.items) {
     allPoEntries[itemMessageId(item)] = item;
   }
 
   // Translate the encounter_sets
   const encounter_sets = await readEncounterSets('en');
-  await writeJSON(
-    encounter_sets,
-    "encounter_sets.json"
-  );
-  const lang_encounter_sets = await readEncounterSets(localeCode);
-  for (const code of Object.keys(lang_encounter_sets)) {
-    encounter_sets[code] = lang_encounter_sets[code];
-  }
-  await writeJSON(
-    encounter_sets,
-    "build/i18n/" + localeCode + "/encounter_sets.json"
-  );
+  await writeJSON(encounter_sets, `build/encounterSets.json`);
 
+  const encounterSetsJson = await readJSON('encounter_sets.json');
+  const encounterPoFile = `i18n/${localeCode}/encounter_sets.po`;
+  const encountersPo = await getOrCreatePOFile(encounterPoFile, localeCode, "encounter_sets");
+  // const oldEncounters = await readEncounterSets(localeCode);
+  // forEach(oldEncounters, (name, key) => {
+  //  if (name !== encounter_sets[key]) {
+  //   translateField({ name: encounter_sets[key] }, 'name', encountersPo, allPoEntries, corePoEntries, undefined, name);
+  //  }
+  // });
+  await translate(encounterSetsJson, encountersPo, allPoEntries, corePoEntries, localeCode);
+  const result_encounter_sets = {};
+  for (let i = 0; i < encounterSetsJson.length; i++) {
+    const entry = encounterSetsJson[i];
+    result_encounter_sets[entry.code] = entry.name;
+  }
+  await writeJSON(result_encounter_sets, `build/i18n/${localeCode}/encounterSets.json`);
+  encountersPo.save(encounterPoFile, printErr)
+
+  for (const item of encountersPo.items) {
+    allPoEntries[itemMessageId(item)] = item;
+  }
   // Translate the taboos
   const taboos = await readJSON('taboos.json');
 
