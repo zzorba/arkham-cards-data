@@ -315,12 +315,6 @@ async function generateLocale(localeCode) {
   const encounterSetsJson = await readJSON('encounter_sets.json');
   const encounterPoFile = `i18n/${localeCode}/encounter_sets.po`;
   const encountersPo = await getOrCreatePOFile(encounterPoFile, localeCode, "encounter_sets");
-  // const oldEncounters = await readEncounterSets(localeCode);
-  // forEach(oldEncounters, (name, key) => {
-  //  if (name !== encounter_sets[key]) {
-  //   translateField({ name: encounter_sets[key] }, 'name', encountersPo, allPoEntries, corePoEntries, undefined, name);
-  //  }
-  // });
   await translate(encounterSetsJson, encountersPo, allPoEntries, corePoEntries, localeCode);
   const result_encounter_sets = {};
   for (let i = 0; i < encounterSetsJson.length; i++) {
