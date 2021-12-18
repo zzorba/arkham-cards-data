@@ -321,7 +321,7 @@ async function generateLocale(localeCode) {
     const entry = encounterSetsJson[i];
     result_encounter_sets[entry.code] = entry.name;
   }
-  await writeJSON(result_encounter_sets, `build/i18n/${localeCode}/encounterSets.json`);
+  await writeJSON(result_encounter_sets, `build/i18n/${localeCode}/encounter_sets.json`);
   encountersPo.save(encounterPoFile, printErr)
 
   for (const item of encountersPo.items) {
