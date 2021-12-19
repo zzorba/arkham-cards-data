@@ -602,7 +602,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_one_wins", "choose_partners", "setup_v1"]
+            "steps": ["group_one_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v1"]
           },
           {
             "boolCondition": false,
@@ -665,7 +665,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_two_wins", "choose_partners", "setup_v2"]
+            "steps": ["group_two_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v2"]
           },
           {
             "boolCondition": false,
@@ -728,7 +728,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_three_wins", "choose_partners", "setup_v3"]
+            "steps": ["group_three_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v3"]
           },
           {
             "boolCondition": false,
@@ -807,7 +807,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "setup_v1"]
+            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v1"]
           },
           {
             "id": "group_2",
@@ -868,7 +868,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "setup_v2"]
+            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v2"]
           },
           {
             "id": "group_3",
@@ -929,7 +929,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "setup_v3"]
+            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v3"]
           }
         ]
       }
@@ -960,6 +960,46 @@
           ]
         }
       }
+    },
+    {
+      "id": "check_interlude_danforth",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "city_elder_things_danforth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_danforth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_danforth",
+      "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
+    },
+    {
+      "id": "check_interlude_takada",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "city_elder_things_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
     },
     {
       "id": "setup_v1",
