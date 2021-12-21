@@ -409,16 +409,31 @@
     },
     {
       "id": "resupply_point_explanation",
-      "text": "When spending experience points during this section, experience earned from completing acts will be spent first. You may also convert up to 10 points of experience to supply points, at a rate of 1 supply point for every 2 experience converted."
+      "text": "When spending experience points during this section, experience earned from completing acts will be spent first.",
+      "bullets": [
+        {
+          "text": "You may also convert up to 10 points of experience to supply points, at a rate of 1 supply point for every 2 experience converted."
+        }
+      ]
     },
+
     {
-      "id": "choose_to_heal_trauma",
-      "bullet_type": "small",
-      "text": "Each investigator may spend 5 experience points to remove physical or mental trauma from their investigator."
+      "id": "visit_hospital",
+      "text": "Before departing from Arkham, it might be a good idea to take a visit to St. Mary’s Hospital.",
+      "bullets": [
+        {
+          "text": "Each investigator who has a Poisoned weakness in their deck may spend 3 experience points to remove that weakness from their deck."
+        },
+        {
+          "text": "Each investigator may spend 5 experience points to remove physical or mental trauma from their investigator."
+        }
+      ]
     },
     {
       "id": "show_resupply_xp",
       "type": "xp_count",
+      "title": "Available experience:",
+      "bullet_type": "none",
       "special_xp": "resupply_points"
     },
     {
@@ -472,9 +487,73 @@
       }
     },
     {
+      "id": "explain_resupply",
+      "text": "Each investigator may spend supply points to purchase one or more of the supplies listed below. The number of supply points available to each investigator is based on the number of investigators in the campaign."
+    },
+    {
+      "id": "show_resupply_points",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "show_8_supplies"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "show_5_supplies"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "show_4_supplies"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "show_3_supplies"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "show_8_supplies",
+      "bullet_type": "small",
+      "text": "Each investigator can purchase 8 points worth of supplies."
+    },
+    {
+      "id": "show_5_supplies",
+      "bullet_type": "small",
+      "text": "Each investigator can purchase 5 points worth of supplies."
+    },
+    {
+      "id": "show_4_supplies",
+      "bullet_type": "small",
+      "text": "Each investigator can purchase 4 points worth of supplies."
+    },
+    {
+      "id": "show_3_supplies",
+      "bullet_type": "small",
+      "text": "Each investigator can purchase 3 points worth of supplies."
+    },
+    {
       "id": "choose_to_buy_supply_points",
       "bullet_type": "small",
-      "text": "Each investigator may convert additional experience into supply points, at a rate of 1 supply point for every 2 experience converted. Any unspent resupply experience will be lost."
+      "text": "Each investigator may convert up to 10 of their experience into supply points, at a rate of 1 supply point for every 2 experience converted. This is the last opportunity to spend the experience earmarked for \"resupply\" which was earned by completing act cards in this scenario."
+    },
+    {
+      "id": "really_explain_supply_points",
+      "bullet_type": "small",
+      "text": "Note that experience will <b>not</b> be automatically converted into supply points, it must be chosen to be spent."
     },
     {
       "id": "buy_supply_points",
@@ -482,7 +561,7 @@
       "type": "input",
       "input": {
         "type": "investigator_counter",
-        "text": "Supply points to purchase (2 experience each)",
+        "text": "Supply points to purchase (2 XP each)",
         "max": 5,
         "show_special_xp": "resupply_points",
         "effects": [
@@ -503,7 +582,6 @@
     {
       "id": "buy_supplies",
       "type": "input",
-      "text": "Each investigator may spend supply points to purchase one or more of the supplies listed below. The number of supply points available to each investigator is based on the number of investigators in the campaign.",
       "input": {
         "type": "supplies",
         "section": "supplies",
@@ -710,14 +788,16 @@
         "earn_act_xp",
         "resupply_point",
         "resupply_point_explanation",
-        "show_resupply_xp",
         "visit_hospital",
+        "show_resupply_xp",
         "choose_to_heal_poison",
-        "choose_to_heal_trauma",
         "choose_to_heal_physical_trauma",
         "choose_to_heal_mental_trauma",
-        "choose_to_buy_supply_points",
         "show_resupply_xp",
+        "explain_resupply",
+        "show_resupply_points",
+        "choose_to_buy_supply_points",
+        "really_explain_supply_points",
         "buy_supply_points",
         "buy_supplies",
         "$upgrade_decks"
