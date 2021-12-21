@@ -1,0 +1,116 @@
+{
+  "id": "introspection_continued",
+  "scenario_name": "Introspection (continued)",
+  "full_name": "Interlude II: Introspection (continued)",
+  "header": "Interlude II",
+  "allow_side_scenario": true,
+  "type": "interlude",
+  "icon": "deep_space",
+  "setup": [
+    "clear_experience_redirect",
+    "add_chaos_token",
+    "check_uncovered_the_cultists_inhuman_methods"
+  ],
+  "steps": [
+    {
+      "id": "clear_experience_redirect",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "redirect_experience",
+          "investigator_count": ""
+        }
+      ]
+    },
+    {
+      "id": "add_chaos_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-6",
+                  "elder_thing"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-7",
+                  "elder_thing"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_uncovered_the_cultists_inhuman_methods",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "uncovered_the_cultists_inhuman_methods",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "introspection_1",
+                  "additional_resource_card"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "introspection_1",
+      "type": "story",
+      "text": "Memories of your past life come flooding back to you — horrible visions of launching missiles onto mining outposts, spreading memetic biological viruses, and other unspeakable evils upon humanity. The cultist that you used to be must answer for their atrocities — and you are more than ready to finally extinguish their presence within you."
+    },
+    {
+      "id": "additional_resource_card",
+      "text": "Each investigator begins the following scenario with 1 additional resource and 1 additional card in their starting hand."
+    }
+  ]
+}

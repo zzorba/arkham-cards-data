@@ -93,9 +93,11 @@ function validate(validator, file, json, schemaName) {
     json.steps.map(step => {
       if (step.input) {
         const allChoices = [
+          ...(step.input.options ? step.input.options : []),
           ...(step.input.choices ? step.input.choices : []),
           ...(step.input.branches ? step.input.branches : []),
-          ...(step.input.campaign_log ? step.input.campaign_log : [])
+          ...(step.input.campaign_log ? step.input.campaign_log : []),
+          ...(step.input.default_option ? [step.input.default_option] : []),
         ];
         allChoices.map(choice => {
           if (choice.steps) {
@@ -108,8 +110,8 @@ function validate(validator, file, json, schemaName) {
               }
             });
           }
-          if (choice.effects) {
-            choice.effects.map(effect => {
+          if (choice.pre_border_effects) {
+            choice.pre_border_effects.map(effect => {
               if (effect.type === "story_step" && effect.steps.length) {
                 effect.steps.map(step => {
                   if (!steps[step] && !magicSteps[step]) {
@@ -117,6 +119,20 @@ function validate(validator, file, json, schemaName) {
                     error = true;
                   } else {
                     delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
+          if (choice.effects) {
+            choice.effects.map(effect => {
+              if (effect.type === "story_step" && effect.steps.length) {
+                effect.steps.map(s => {
+                  if (!steps[s] && !magicSteps[s]) {
+                    console.log(`MISSING_STEP (${file}) - ${s}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[s];
                   }
                 });
               }
@@ -151,8 +167,36 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
-      if (step.condition && step.condition.options) {
-        step.condition.options.map(option => {
+      if (step.input && step.input.type === 'scenario_investigators' && step.input.choose_none_steps) {
+        step.input.choose_none_steps.map(step => {
+          if (!steps[step] && !magicSteps[step]) {
+            console.log(`MISSING_STEP (${file}) - ${step}`);
+            error = true;
+          } else {
+            delete unusedSteps[step];
+          }
+        });
+      }
+      if (step.condition && (step.condition.options || step.condition.default_option)) {
+        const allOptions = [
+          ...(step.condition.options ? step.condition.options : []),
+          ...(step.condition.default_option ? [step.condition.default_option] : []),
+        ];
+        allOptions.map(option => {
+          if (option.pre_border_effects) {
+            option.pre_border_effects.map(effect => {
+              if (effect.type === "story_step") {
+                effect.steps.map(step => {
+                  if (!steps[step] && !magicSteps[step]) {
+                    console.log(`MISSING_STEP (${file}) - ${step}`);
+                    error = true;
+                  } else {
+                    delete unusedSteps[step];
+                  }
+                });
+              }
+            });
+          }
           if (option.effects) {
             option.effects.map(effect => {
               if (effect.type === "story_step") {
@@ -178,19 +222,6 @@ function validate(validator, file, json, schemaName) {
             });
           }
         });
-      }
-      if (step.condition && step.condition.defaultOption) {
-        const option = step.condition.defaultOption;
-        if (option.steps) {
-          option.steps.map(step => {
-            if (!steps[step] && !magicSteps[step]) {
-              console.log(`MISSING_STEP (${file}) - ${step}`);
-              error = true;
-            } else {
-              delete unusedSteps[step];
-            }
-          });
-        }
       }
     });
   }
@@ -218,106 +249,224 @@ function validate(validator, file, json, schemaName) {
   }
 }
 
-const scenarioSchema = fs
-  .readFileSync("./schema/scenario.schema.json")
-  .toString();
-$RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
-  if (err) {
-    console.error(err);
-  } else {
-    // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-    // including referenced files, combined into a single object
-    const ajv = new Ajv({ verbose: true });
-    const validator = ajv.addSchema(schema, "scenario");
-    const QUIET = false;
-    [
-      ...getFilePaths("./campaigns").sort(),
-      ...getFilePaths("./build/return_campaigns").sort()
-    ]
-      .sort()
-      .map(file => {
-        if (
-          !file.endsWith(".schema.json") &&
-          !file.endsWith("campaign.json") &&
-          file.endsWith(".json")
-        ) {
-          const data = fs.readFileSync(file, "utf-8").toString();
+async function validateChaosTokens() {
+  const chaosTokensSchema = fs
+    .readFileSync('./schema/chaosTokens.schema.json')
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(chaosTokensSchema), (err, schema) => {
+      if (err) {
+        reject(err);
+        console.error(err);
+      } else {
+        // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+        // including referenced files, combined into a single object
+        const ajv = new Ajv({ verbose: true });
+        const validator = ajv.addSchema(schema, "chaosTokens");
+        const QUIET = false;
+
+        const data = fs.readFileSync("./chaos_tokens.json", "utf-8").toString();
+        if (!QUIET) {
+          console.log("Validating chaos_tokens");
+        }
+        try {
+          const json = jsonlint.parse(data);
+          validate(validator, "chaos_tokens.json", json, "chaosTokens");
+        } catch (e) {
+          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+          reject(e);
+          return;
+        }
+        resolve();
+      }
+    });
+  });
+}
+
+async function validateScenarios() {
+  console.log('****Validating Scenarios****');
+  const scenarioSchema = fs
+    .readFileSync("./schema/scenario.schema.json")
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        try {
+          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+          // including referenced files, combined into a single object
+          const ajv = new Ajv({ verbose: true });
+          const validator = ajv.addSchema(schema, "scenario");
+          const QUIET = false;
+          [
+            ...getFilePaths("./campaigns").sort(),
+            ...getFilePaths("./build/return_campaigns").sort()
+          ]
+            .sort()
+            .map(file => {
+              if (
+                !file.endsWith(".schema.json") &&
+                !file.endsWith("campaign.json") &&
+                file.endsWith(".json")
+              ) {
+                const data = fs.readFileSync(file, "utf-8").toString();
+                if (!QUIET) {
+                  console.log("Validating: " + file);
+                }
+                try {
+                  const json = jsonlint.parse(data);
+                  validate(validator, file, json, "scenario");
+                } catch (e) {
+                  console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+                }
+              }
+            });
+        } catch (e) {
+          reject(e);
+          return;
+        }
+        resolve();
+      }
+    });
+  });
+}
+
+async function validateCampaigns() {
+  console.log('****Validating Campaigns****');
+  const campaignSchema = fs
+    .readFileSync("./schema/campaign.schema.json")
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        try {
+          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+          // including referenced files, combined into a single object
+          const ajv = new Ajv({ verbose: true, allErrors: true  });
+          const validator = ajv.addSchema(schema, "campaign");
+          const QUIET = true;
+          [
+            ...getFilePaths("./campaigns").sort(),
+            ...getFilePaths("./build/return_campaigns").sort()
+          ].map(file => {
+            if (file.endsWith("campaign.json")) {
+              const data = fs.readFileSync(file, "utf-8").toString();
+              if (!QUIET) {
+                console.log("Validating: " + file);
+              }
+              try {
+                const json = jsonlint.parse(data);
+                validate(validator, file, json, "campaign");
+              } catch (e) {
+                console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+              }
+            }
+          });
+        } catch(e) {
+          reject(e);
+          return;
+        }
+        resolve();
+      }
+    });
+  });
+}
+
+async function validateErrata() {
+  console.log('****Validating Errata****');
+  const errataSchema = fs
+    .readFileSync('./schema/errata.schema.json')
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        try {
+          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+          // including referenced files, combined into a single object
+          const ajv = new Ajv({ verbose: true });
+          const validator = ajv.addSchema(schema, "errata");
+          const QUIET = false;
+
+          getFilePaths("./errata").sort().map(file => {
+            if (file.endsWith('errata.json')) {
+              const data = fs.readFileSync(file, "utf-8").toString();
+              if (!QUIET) {
+                console.log("Validating errata: " + file);
+              }
+              try {
+                const json = jsonlint.parse(data);
+                validate(validator, file, json, "errata");
+              } catch (e) {
+                console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+              }
+            }
+          });
+        } catch (e) {
+          reject(e);
+          return;
+        }
+      }
+      resolve();
+    });
+  });
+}
+
+
+async function validateTaboos() {
+  console.log('****Validating Taboos****');
+  const taboosSchema = fs
+    .readFileSync('./schema/taboo.schema.json')
+    .toString();
+  return await new Promise((resolve, reject) => {
+    $RefParser.dereference(jsonlint.parse(taboosSchema), (err, schema) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        try {
+          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+          // including referenced files, combined into a single object
+          const ajv = new Ajv({ verbose: true });
+          const validator = ajv.addSchema(schema, "tabooSets");
+          const QUIET = false;
+
+          const data = fs.readFileSync("taboos.json", "utf-8").toString();
           if (!QUIET) {
-            console.log("Validating: " + file);
+            console.log("Validating taboos");
           }
           try {
             const json = jsonlint.parse(data);
-            validate(validator, file, json, "scenario");
+            validate(validator, "taboos.json", json, "tabooSets");
           } catch (e) {
-            console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+            console.log(`JSON Error(taboos.json)\n${e.message || e}\n\n`);
           }
-        }
-      });
-  }
-});
-
-const campaignSchema = fs
-  .readFileSync("./schema/campaign.schema.json")
-  .toString();
-$RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
-  if (err) {
-    console.error(err);
-  } else {
-    // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-    // including referenced files, combined into a single object
-    const ajv = new Ajv({ verbose: true });
-    const validator = ajv.addSchema(schema, "campaign");
-    const QUIET = true;
-    [
-      ...getFilePaths("./campaigns").sort(),
-      ...getFilePaths("./build/return_campaigns").sort()
-    ].map(file => {
-      if (file.endsWith("campaign.json")) {
-        const data = fs.readFileSync(file, "utf-8").toString();
-        if (!QUIET) {
-          console.log("Validating: " + file);
-        }
-        try {
-          const json = jsonlint.parse(data);
-          validate(validator, file, json, "campaign");
         } catch (e) {
-          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+          reject(e);
+          return;
         }
       }
+      resolve();
     });
-  }
-});
+  });
+}
 
-const errataSchema = fs
-  .readFileSync('./schema/errata.schema.json')
-  .toString();
-$RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
-  if (err) {
-    console.error(err);
-  } else {
-     // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-    // including referenced files, combined into a single object
-    const ajv = new Ajv({ verbose: true });
-    const validator = ajv.addSchema(schema, "errata");
-    const QUIET = false;
-   
-    getFilePaths("./errata").sort().map(file => {
-      if (file.endsWith('errata.json')) {
-        const data = fs.readFileSync(file, "utf-8").toString();
-        if (!QUIET) {
-          console.log("Validating: " + file);
-        }
-        try {
-          const json = jsonlint.parse(data);
-          validate(validator, file, json, "errata");
-        } catch (e) {
-          console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
-      }
-    });
-  }
-});
-
+async function main() {
+  await validateTaboos();
+  await validateScenarios();
+  // await validateCampaigns();
+  await validateChaosTokens();
+  await validateErrata();
+  //
+}
+main();
 /*
 const rulesSchema = fs
   .readFileSync('./schema/rules.schema.json')
@@ -331,7 +480,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
     const ajv = new Ajv({ verbose: true });
     const validator = ajv.addSchema(schema, "rules");
     const QUIET = false;
-   
+
     getFilePaths("./rules").sort().map(file => {
       if (file.endsWith('foo.json')) {
         const data = fs.readFileSync(file, "utf-8").toString();
@@ -343,7 +492,7 @@ $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
           validate(validator, file, json, "rules");
         } catch (e) {
           console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-        }   
+        }
       }
     });
   }

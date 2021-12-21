@@ -28,6 +28,13 @@
         "bullet_type": {
           "$ref": "types.schema.json#/definitions/bulletType"
         },
+        "prompt_type": {
+          "type": "string",
+          "enum": ["header", "setup"]
+        },
+        "border_only": {
+          "type": "boolean"
+        },
         "narration": {
           "$ref": "types.schema.json#/definitions/narration"
         }
@@ -49,7 +56,13 @@
             "branch"
           ]
         },
+        "border_only": {
+          "type": "boolean"
+        },
         "hidden": {
+          "type": "boolean"
+        },
+        "loop": {
           "type": "boolean"
         },
         "text": {
@@ -89,6 +102,9 @@
             "encounter_sets"
           ]
         },
+        "border_only": {
+          "type": "boolean"
+        },
         "title": {
           "type": "string"
         },
@@ -112,6 +128,9 @@
         },
         "narration": {
           "$ref": "types.schema.json#/definitions/narration"
+        },
+        "remove": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -134,6 +153,9 @@
           "enum": [
             "table"
           ]
+        },
+        "border_only": {
+          "type": "boolean"
         },
         "title": {
           "type": "string"
@@ -182,6 +204,9 @@
         "title": {
           "type": "string"
         },
+        "border_only": {
+          "type": "boolean"
+        },
         "text": {
           "type": "string"
         },
@@ -224,6 +249,9 @@
             "rule_reminder"
           ]
         },
+        "border_only": {
+          "type": "boolean"
+        },
         "text": {
           "type": "string"
         },
@@ -259,8 +287,61 @@
       ],
       "additionalProperties": false
     },
+    "borderStep": {
+      "$id": "#borderStep",
+      "title": "BorderStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "border_only": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "border"
+          ]
+        },
+        "border": {
+          "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "types.schema.json#/definitions/borderColor"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "type": "null"
+        },
+        "bullets": {
+          "type": "null"
+        },
+        "bullet_type": {
+          "type": "null"
+        },
+        "narration": {
+          "$ref": "types.schema.json#/definitions/narration"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "border",
+        "steps"
+      ],
+      "additionalProperties": false
+    },
     "storyStep": {
-     "$id": "#storyStep",
+      "$id": "#storyStep",
       "title": "StoryStep",
       "type": "object",
       "properties": {
@@ -274,6 +355,12 @@
           ]
         },
         "border": {
+          "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "types.schema.json#/definitions/borderColor"
+        },
+        "border_only": {
           "type": "boolean"
         },
         "title": {
@@ -314,6 +401,9 @@
       "title": "GenericStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -371,6 +461,9 @@
       "title": "CampaignLogCountStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -424,6 +517,9 @@
       "title": "XpCountStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -461,6 +557,9 @@
       "title": "ResolutionStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -507,6 +606,9 @@
       "title": "LocationSetupStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -609,6 +711,9 @@
       "title": "InternalStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -645,6 +750,9 @@
       "title": "EffectsStep",
       "type": "object",
       "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
         "id": {
           "type": "string"
         },
@@ -732,6 +840,9 @@
         },
         {
           "$ref": "#/definitions/internalStep"
+        },
+        {
+          "$ref": "#/definitions/borderStep"
         }
       ]
     }

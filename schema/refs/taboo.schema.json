@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "$id": "schema/taboo.schema.json",
+  "definitions": {
+    "tabooSets": {
+      "$id": "#tabooSets",
+      "title": "TabooSets",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/tabooSet"
+      }
+    },
+    "tabooSet": {
+      "$id": "#tabooSet",
+      "title": "TabooSet",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "active": {
+          "type": "number"
+        },
+        "date_start": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/taboo"
+          }
+        }
+      },
+      "required": ["id", "code", "name", "active", "date_start", "cards"],
+      "additionalProperties": false
+    },
+    "taboo": {
+      "$id": "#taboo",
+      "title": "Taboo",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "xp": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "exceptional": {
+          "type": "number"
+        },
+        "deck_limit": {
+          "type": "number"
+        }
+      },
+      "required": ["code"],
+      "additionalProperties": false
+    }
+  }
+}

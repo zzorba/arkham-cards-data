@@ -2,6 +2,31 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/campaign.schema.json",
   "definitions": {
+    "campaignLogSectionDefinition": {
+      "$id": "#campaignLogSectionDefinition",
+      "title": "CampaignLogSectionDefinition",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["investigator_count", "count", "supplies", "header", "partner", "hidden"]
+        },
+        "partners": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/partner"
+          }
+        }
+      },
+      "required": ["id", "title"],
+      "additionalProperties": false
+    },
     "campaign": {
       "$id": "#campaign",
       "title": "Campaign",
@@ -13,33 +38,54 @@
         "name": {
           "type": "string"
         },
+        "tarot": {
+          "type": "boolean"
+        },
+        "campaign_length": {
+          "type": "number"
+        },
         "version": {
           "type": "number"
         },
         "position": {
           "type": "integer"
         },
-        "campaign_log": {
+        "cards": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "id": {
+              "code": {
                 "type": "string"
               },
-              "title": {
+              "name": {
                 "type": "string"
               },
-              "type": {
+              "gender": {
                 "type": "string",
-                "enum": ["count", "supplies", "hidden"]
+                "enum": ["male", "female"]
+              },
+              "description": {
+                "type": "string"
               }
             },
-            "required": ["id", "title"],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "required": ["code", "name"]
+          }
+        },
+        "campaign_log": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campaignLogSectionDefinition"
           }
         },
         "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hidden_scenarios": {
           "type": "array",
           "items": {
             "type": "string"
@@ -67,6 +113,9 @@
           "type": "string",
           "enum": ["standalone", "campaign"]
         },
+        "custom": {
+          "$ref": "types.schema.json#/definitions/customData"
+        },
         "achievements": {
           "type": "array",
           "items": {
@@ -83,7 +132,9 @@
         "campaign_log",
         "scenarios",
         "setup",
-        "steps"
+        "steps",
+        "tarot",
+        "campaign_length"
       ],
       "additionalProperties": false
     }

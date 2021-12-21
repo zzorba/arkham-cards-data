@@ -1,0 +1,574 @@
+{
+  "id": "wild_snark_chase",
+  "scenario_name": "Wild Snark Chase",
+  "full_name": "Scenario II-D: Wild Snark Chase",
+  "header": "Scenario II-D",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "gather_boons_and_banes",
+    "gather_jabberwocky",
+    "set_aside_cards",
+    "create_trail_deck",
+    "setup_locations",
+    "location_layout",
+    "bellman",
+    "chesire_cat",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The forest around you grows darker and more tangled with each step.  It reminds you of the witch-haunted woods on the outskirts of Arkham in several respects.  Each echoing sound might be some eerie creature stalking your steps, or another of Gurathnaka's shadows hungering for your essence.  Your worries escalate as the clear path you'd been following dead-ends in a bramble patch.  You scan the tangle for any sign of a way through or around, but without any promise.  Your eyes return to the path you arrived by, only to find that the forest has swallowed it without any trace.  It's almost as if the woods themselves were actively working to confuse you, like many of Wonderland's other denizens.  Now at a loss for direction, you stumble forward through the rough terrain as long as the fading light allows.  Each passing moment gradually amplifies your fear of being ambushed out from the darkness.  You press on until finally, at the foot of a gnarled tree, you make a campfire from the fallen branches to wait out the night.\nNot an hour into your rest, you are awoken by the clanging of a bell and the clamor of nearby voices.  You rouse yourself from sleep and find that your campfire is somehow missing, though a purring chuckle directs your attention above your head.  The Cheshire Cat holds the burning logs in two paws, waving them like signal lanterns.  Noticing that you've awoken, the cat grins and sets the fire back down before disappearing once more.  A crowd of ten figures rushes eagerly into the clearing around the tree, only to stop with groans and sighs.  \"Tisn't a Snark at all!\" a proud looking man cries, waving his bell for attention.  \"Though Snarks are handy for striking a light, this one's been lit by someone or other.\"  The hunters seat themselves around your fire with several shows of exhaustion.  \"At least it wasn't a Boojum…\" a man with a baker's hat mutters as he wipes the sweat from his brow thankfully.\n\"We'd all have vanished away were that the case!\" the Bellman retorts, seating himself beside you.  He looks you over for a moment as if just noticing you and stands once more.  \"By chance, would you also be hunting a Snark?\"  You shake your head and explain that you've gotten lost in the woods here.  \"What luck, we're lost as well!\" he exclaims with a smile, \"but a Snark's the cure for that!  A Snark is useful for a great many things, and finding one's way surely might be one of them.  You're quite welcome to join our search… pending your profession.\"  You look to the hunters and see a banker, a butcher, a beaver, and others all with jobs beginning with \"b.\"  You think for a moment and tell the Bellman that you could be considered a bodyguard, and he leads his fellows in a cheer.  \"Just what we chiefly need!  We'll find the Snark in no time at all now!  The Tulgey Wood may be dense as a dunce and thicker than thieves, but we'll find the Snark in spite of it!\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "wild_snark_chase",
+        "warped_reality",
+        "chesire_cat"
+      ]
+    },
+    {
+      "id": "gather_boons_and_banes",
+      "type": "encounter_sets",
+      "text": "Check the Campaign Log. Gather the cards from the <i>Wonderland Boons</i> encounter set whose names are listed under \"Wonderland Boons\" and the cards from the <i>Wonderland Banes</i> encounter set whose names are listed under \"Wonderland Banes.\"",
+      "encounter_sets": [
+        "wonderland_boons",
+        "wonderland_banes"
+      ]
+    },
+    {
+      "id": "gather_jabberwocky",
+      "type": "encounter_sets",
+      "aside": true,
+      "text": "Place The Jabberwock next to the agenda deck, out of play. Set the rest of the <i>Jabberwocky</i> encounter aside, out of play.",
+      "encounter_sets": [
+        "jabberwocky"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set The Vorpal Blade card aside, out of play."
+    },
+    {
+      "id": "create_trail_deck",
+      "text": "Create the Trail Deck.  From the nine story cards, start with The Baker's Trail, story side up.  Then, choose two of the following four cards at random and add them on top, story side up: The Butcher's Trail, The Beaver's Trail, The Barrister's Trail, The Banker's Trail.  Then, choose two of the following four cards at random and add them on top, story side up: The Broker's Trail, The Billard-Maker's Trail, The Bonnet-Maker's Trail, The Boots' Trail.  Set the remaining story cards aside, out of play.  Do not shuffle the Trail Deck.  The top card of the Trail Deck is considered to be in play for resolving its forced effect."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Tumtum Tree, Field of Chasms, Mound of Crags, Narrow Valley, and The Wabe locations into play.  Each investigator begins play at Tumtum Tree."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Layout",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "mound_of_crags",
+          "blank"
+        ],
+        [
+          "the_wabe",
+          "tumtum_tree",
+          "narrow_valey"
+        ],
+        [
+          "blank",
+          "field_of_chasms",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "mound_of_crags",
+          "name": "Mound of Crags"
+        },
+        {
+          "code": "the_wabe",
+          "name": "The Wabe"
+        },
+        {
+          "code": "tumtum_tree",
+          "name": "Tumtum Tree"
+        },
+        {
+          "code": "narrow_valley",
+          "name": "Narrow Valley"
+        },
+        {
+          "code": "field_of_chasms",
+          "name": "Field of Chasms"
+        }
+      ]
+    },
+    {
+      "id": "bellman",
+      "text": "Put The Bellman into play at Tumtum Tree."
+    },
+    {
+      "id": "chesire_cat",
+      "text": "Put The Cheshire Cat <i>(Grinning Guide)</i> into play in the lead investigator's play area."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "defeated_killed",
+      "text": "Each investigator who was defeated is <b>killed</b>. If there are not enough investigators to continue the campaign, the campaign is over and the players lose.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "defeated",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "check_any_resigned",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "resigned",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "ask_jabberwock",
+              "check_jabberwock",
+              "resolution_1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_jabberwock",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Jabberwock in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "zaw_wsc_jabberwock",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jabberwock",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "zaw_wsc_jabberwock",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "left_it_dead",
+              "add_1_strength_of_wonderland",
+              "took_the_jabberwocks_head",
+              "earn_vorpal_blade"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "burbling_into_the_night",
+              "jabberwock_still_haunts_the_tulgey_wood"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "left_it_dead",
+      "type": "story",
+      "title": "Left it Dead",
+      "text": "Again and again the horrible Jabberwock swoops in to attack you, and each time you beat the monster back.  The beast drips with a foul ichor from its wounds that grow with each skirmish, and yet it continues its assault without any hesitation.  The Jabberwock grasps at you with a furious howl, and you strike back hard and true.  Your final blow separates the creature's head from its body in a fantastic shower of gore, and the hulking body collapses to the forest floor, twitching and spasming.  You recuperate slowly, put off by the monster's death throes, but still alive with a feeling of victory slowly building inside you.  The nearby members of the expedition look to you with surprise and tell themselves that you could certainly use an extra ration of grog for saving them from the beast."
+    },
+    {
+      "id": "burbling_into_the_night",
+      "type": "story",
+      "title": "Burbling Into the Night",
+      "text": "The vile creature relentlessly attacks both you and the other hunters throughout the wood.  Try as you might, you simply cannot find a pattern to its attacks nor pin it down for any decent length of time.  The Jabberwock seems to have a particular hatred for the blade that the Bellman uncovered, striking at your sword arm each time it ambushes you.  In desperation to avoid becoming another victim, you throw down the strange sword, and the Jabberwock seizes it at once.  It focuses its attacks on the blade as you flee to a safer distance, only turning around once you hear the snap of shattering metal.  With a roar of triumph, the monster vanishes once more into the night, leaving you to nurse your wounds with the few members of the expedition who survived its fiery wrath."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "took_the_jabberwocks_head",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "took_the_jabberwocks_head",
+          "text": "the investigators took the Jabberwock's head."
+        }
+      ]
+    },
+    {
+      "id": "jabberwock_still_haunts_the_tulgey_wood",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "jabberwock_still_haunts_the_tulgey_wood",
+          "text": "the Jabberwock still haunts the Tulgey Wood."
+        }
+      ]
+    },
+    {
+      "id": "snark_and_its_hunters_were_never_met_with_again",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "snark_and_its_hunters_were_never_met_with_again",
+          "text": "the Snark and its hunters were never met with again."
+        }
+      ]
+    },
+    {
+      "id": "proceed_interlude",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "went_down_the_rabbit_hole",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "humpty_dumpty"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "gryphon_and_mock_turtle"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_strength_of_wonderland",
+      "text": "In your Campaign Log, record 1 tally mark under \"Strength of Wonderland.\"",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "strength_of_wonderland",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "earn_bellman",
+      "text": "Any one investigator may choose to add the Bellman to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zaw_00181"
+        }
+      ]
+    },
+    {
+      "id": "earn_vorpal_blade",
+      "text": "Any one investigator may choose to add the Vorpal Blade to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zaw_00197"
+        }
+      ]
+    },
+    {
+      "id": "r1_story",
+      "title": "Resolution 1",
+      "type": "story",
+      "text": "Regrets fill your mind as you flee the Tulgey Wood.  You're frustrated by fleeing the woods ungracefully, by not catching the Snark, and by even joining the hunt in the first place.  The echoes of the other hunters gradually reaching their own untimely ends reverberates between the trees.  Each short series of shouts and shrieks inevitably ends in a sudden silence.  The distant sound of the Bellman's ringing is the last thing to fade into the night, bringing an end to the disastrous expedition.\nYou take only a few steps more before a rushing sound of air builds behind you.  You turn in dread to see a blanket of darkness sweeping over the forest, extinguishing every speck of light in its path.  Not wanting to strain your luck any further, you break into a sprint.  Your own lights flicker and begin to fade as you keep just ahead of the advancing wave.  Step by step you maneuver over the rough terrain, daring not look back again, until a ray of morning sun blinds you suddenly.  You collapse down in confusion and exhaustion, expecting the worst, but the wave of darkness has receded once again."
+    },
+    {
+      "id": "maybe_ask_jabberwock",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": [
+              "ask_jabberwock",
+              "check_jabberwock"
+            ]
+          },
+          {
+            "condition": "R2",
+            "steps": [
+              "ask_jabberwock",
+              "check_jabberwock"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "r2_story",
+      "title": "Resolution 2",
+      "type": "story",
+      "text": "The Snark looks up at you meekly, almost tamely, as the other hunters gather around to view their prize up close in the fading darkness.  Questions fly and theories puncture each other until the Bellman gathers everyone's attention once more.  \"We have found success, or rather success has found us, given the circumstances!  Three cheers for the Bodyguard who first laid hands on the beast!\"  The hunters cheer and call for a celebratory feast, but with only the Snark available to cook, they agree it would be a terrible waste.\nThe Snark in the meantime sits quietly in the center of the group.  The many purported uses for the beast seem beyond its capabilities, but for its ability to lead you safely out of the woods.  The Snark - and you by extension - must know every inch of these woods by now, for all that you covered during the chase.  For minutes at a time, it studies each of the hunters in turn before directing its attention back at you.  The creature is observant, another quality that no doubt helped it stay out of harm's way until recently.  You stare into the Snark's eyes, and you lock for several seconds before it speaks to you in perfect English.  \"I've been told it's rude to stare.\""
+    },
+    {
+      "id": "ask_snark",
+      "text": "Resolve whichever of the following is true (choose one):",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "controlled",
+            "text": "There is more than 1 [per_investigator] horror on the Snark.",
+            "description": "In your Campaign Log, record that <i>the investigators controlled the Snark.</i>  Each investigator earns 1 bonus experience.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "controlled_the_snark",
+                "text": "the investigators controlled the Snark."
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "puzzled",
+            "text": "There are more than 1 [per_investigator] clues on the Snark.",
+            "description": "In your Campaign Log, record that <i>the investigators puzzled the Snark.</i>  Each investigator earns 1 bonus experience.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "puzzled_the_snark",
+                "text": "the investigators puzzled the Snark."
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "intimidated",
+            "text": "There is more than 1 [per_investigator] damage on the Snark.",
+            "description": "In your Campaign Log, record that <i>the investigators intimidated the Snark.</i>  Each investigator earns 1 bonus experience.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "intimidated_the_snark",
+                "text": "the investigators intimidated the Snark."
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "tricked",
+            "text": "There are more than 1 [per_investigator] resources on the Snark.",
+            "description": "In your Campaign Log, record that <i>the investigators tricked the Snark.</i>  Each investigator earns 1 bonus experience.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "tricked_the_snark",
+                "text": "the investigators tricked the Snark."
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "other",
+            "text": "None of the above are true.",
+            "description": "In your Campaign Log, record that <i>the investigators intrigued the Snark.</i> Each investigator earns 2 bonus experience.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "intrigued_the_snark",
+                "text": "the investigators intrigued the Snark."
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "intuition",
+            "condition": {
+              "type": "campaign_log",
+              "section": "fragments_of_alice",
+              "id": "courage",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Fragments of Alice: Courage.",
+            "steps": [
+              "fragments_of_alice_courage"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fragments_of_alice_courage",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "fragments_of_alice",
+          "id": "courage",
+          "text": "Courage"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "Badly beaten and half-mad, you stumble deeper into the Tulgey Wood.  Now even more lost than before, you hope that you can last out the night before the shadows close in on you.  Moments pass fearfully until you spot movement out of the corner of your eye.  At first, the form looks like one of the shadows, but as it grows closer, there can be no doubt.  It's a Snark!  You start to call for the hunters when you notice a hint of malice in the creature's eyes.  The Bellman didn't mention anything like this about the Snark.  You rapidly rack your brain until you recall a comment about something called a Boojum.  From what the hunters discussed, it's a creature that resembles a Snark, but should you meet it, you will softly and suddenly vanish away.  You look up and realize too late that it's a Boo-",
+      "steps": [
+        "defeated_killed"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "check_any_resigned"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "maybe_ask_jabberwock",
+        "r1_story",
+        "snark_and_its_hunters_were_never_met_with_again",
+        "earn_xp",
+        "proceed_interlude"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "maybe_ask_jabberwock",
+        "r2_story",
+        "earn_xp",
+        "ask_snark",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Before you can respond or put the Snark to use, the Bellman returns from the discussion with a bottle in one hand and his bell in the other.  He offers you the bell to drink from and sloshes the bottle around as if ringing it.  You politely decline.  \"I'll celebrate your diligence another time, after we've celebrated the catching of the Snark,\" he posits.  You urge the Bellman to save any partying at all for after you've left the increasingly darkening woods.  \"Quite sage,\" the Bellman muses, \"were I not the leader of this venture, you'd make a fine one indeed.  Your duty and honor should now be the first use of Snark!\"  He gathers the hunters around you and the creature, watching expectantly.  You ask the Snark to take you all out of the Tulgey Wood, if it can.  It nods, shrugs, twitches, twirls, and suddenly-\nYou stand at the forest's edge, with the first rays of sunlight beginning to weave through the trees.  The hunters all clap and cheer and call for grog as they marvel at the sudden change.  You look down to the Snark, but the creature has vanished away completely during the transition.  \"Masterful once again!\" the Bellman applauds.  \"We'll save the rest of it for a rainy day - or snowy, should the seasons permit - but in any case, I call an end to the hunting of the Snark!\"  The various hunters all congratulate each other and wander away from the clearing by themselves or in pairs, seemingly unconcerned about the sudden disappearance of the Snark.  Finally, only the Bellman remains standing next to you.  \"Through all the months and weeks of hunting, it never occurred what might proceed the finding of the Snark.  Should you have another expedition in mind, I would gladly pass the days as its leader.\"  Another ally would be welcome as you traverse the rest of Wonderland to save both Arkham and Alice, and so you tell the Bellman just enough about your journey to recruit him without any fuss.",
+      "steps": [
+        "add_1_strength_of_wonderland",
+        "earn_bellman",
+        "proceed_interlude"
+      ]
+    }
+  ]
+}

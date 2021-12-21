@@ -25,6 +25,12 @@
             "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
           }
         },
+        "chaos_bag_branches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "no_resolutions": {
           "type": "boolean"
         }
@@ -100,6 +106,9 @@
             "text_box"
           ]
         },
+        "undo": {
+          "type": "boolean"
+        },
         "effects": {
           "type": "array",
           "items": {
@@ -126,9 +135,86 @@
           "items": {
             "type": "string"
           }
+        },
+        "lead_investigator_effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         }
       },
       "required": ["type"],
+      "additionalProperties": false
+    },
+    "investigatorPartnerChoiceInput": {
+      "$id": "#investigatorPartnerChoiceInput",
+      "title": "InvestigatorPartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_choice_partner"
+          ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
+        },
+        "prompt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "condition",
+        "prompt"
+      ],
+      "additionalProperties": false
+    },
+    "partnerChoiceInput": {
+      "$id": "#partnerChoiceInput",
+      "title": "PartnerChoiceInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_choice"
+          ]
+        },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/partnerStatusCondition"
+        },
+        "random": {
+          "type": "boolean"
+        },
+        "quantity": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "condition",
+        "random",
+        "prompt",
+        "effects"
+      ],
       "additionalProperties": false
     },
     "investigatorChoiceWithSuppliesInput": {
@@ -151,6 +237,9 @@
         "prompt": {
           "type": "string"
         },
+        "name": {
+          "type": "string"
+        },
         "investigator": {
           "type": "string",
           "enum": [
@@ -171,7 +260,8 @@
         "prompt",
         "investigator",
         "positiveChoice",
-        "negativeChoice"
+        "negativeChoice",
+        "name"
       ],
       "additionalProperties": false
     },
@@ -217,6 +307,9 @@
             "scenario"
           ]
         },
+        "optional": {
+          "type": "boolean"
+        },
         "investigator": {
           "type": "string",
           "enum": [
@@ -226,12 +319,18 @@
             "resigned"
           ]
         },
+        "condition": {
+          "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
+        },
         "special_mode": {
           "type": "string",
           "enum": [
             "detailed",
             "sequential"
           ]
+        },
+        "confirm_text": {
+          "type": "string"
         },
         "choices": {
           "type": "array",
@@ -432,11 +531,11 @@
             "choose_one"
           ]
         },
-        "style": {
-          "type": "string",
-          "enum": [
-            "picker"
-          ]
+        "default_choice": {
+          "type": "string"
+        },
+        "confirm_text": {
+          "type": "string"
         },
         "choices": {
           "type": "array",
@@ -467,6 +566,12 @@
         },
         "text": {
           "type": "string"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
         }
       },
       "required": ["type", "choices", "text"],
@@ -486,6 +591,9 @@
         "text": {
           "type": "string"
         },
+        "negative": {
+          "type": "boolean"
+        },
         "effects": {
           "type": "array",
           "items": {
@@ -498,6 +606,9 @@
             "physical_trauma",
             "mental_trauma"
           ]
+        },
+        "investigator_count_min": {
+          "type": "string"
         },
         "max": {
           "type": "number"
@@ -526,6 +637,27 @@
       ],
       "additionalProperties": false
     },
+    "partnerTraumaInput": {
+      "$id": "#partnerTraumaInput",
+      "title": "PartnerTraumaInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_trauma"
+          ]
+        },
+        "section": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section"
+      ],
+      "additionalProperties": false
+    },
     "upgradeDecksInput": {
       "$id": "#upgradeDecksInput",
       "title": "UpgradeDecksInput",
@@ -536,9 +668,83 @@
           "enum": [
             "upgrade_decks"
           ]
+        },
+        "skip_decks": {
+          "type": "boolean"
+        },
+        "special_xp": {
+          "$ref": "types.schema.json#/definitions/specialXp"
+        },
+        "counter": {
+          "type": "string"
+        },
+        "story_cards": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
         }
       },
       "required": ["type"],
+      "additionalProperties": false
+    },
+    "tarotReadingInput": {
+      "$id": "#tarotReadingInput",
+      "title": "TarotReadingInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "tarot_reading"
+          ]
+        },
+        "randomized": {
+          "type": "boolean"
+        },
+        "reading": {
+          "type": "string",
+          "enum": [
+            "chaos",
+            "balance",
+            "choice",
+            "destiny"
+          ]
+        }
+      },
+      "required": ["type", "randomized", "reading"],
+      "additionalProperties": false
+    },
+    "prologueRandomizer": {
+      "$id": "#prologueRandomizer",
+      "title": "PrologueRandomizer",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "prologue_randomizer"
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/stringOption"
+          }
+        }
+      },
+      "required": ["type", "prompt", "choices", "options"],
       "additionalProperties": false
     },
     "counterInput": {
@@ -634,7 +840,22 @@
           "$ref": "#/definitions/randomLocationInput"
         },
         {
+          "$ref": "#/definitions/prologueRandomizer"
+        },
+        {
           "$ref": "#/definitions/saveDecksInput"
+        },
+        {
+          "$ref": "#/definitions/tarotReadingInput"
+        },
+        {
+          "$ref": "#/definitions/partnerTraumaInput"
+        },
+        {
+          "$ref": "#/definitions/investigatorPartnerChoiceInput"
+        },
+        {
+          "$ref": "#/definitions/partnerChoiceInput"
         }
       ]
     }

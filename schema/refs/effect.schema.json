@@ -139,6 +139,9 @@
         },
         "standalone": {
           "type": "boolean"
+        },
+        "choose_only": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -176,12 +179,48 @@
         },
         "non_story": {
           "type": "boolean"
+        },
+        "show_prompt": {
+          "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
         "type",
         "investigator",
         "card"
+      ],
+      "additionalProperties": false
+    },
+    "setCardCountEffect": {
+      "$id": "#setCardCountEffect",
+      "title": "SetCardCountEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "set_card_count"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": ["$input_value"]
+        },
+        "card": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "investigator",
+        "card",
+        "quantity"
       ],
       "additionalProperties": false
     },
@@ -216,7 +255,9 @@
       "oneOf": [
         { "$ref": "#/definitions/campaignDataResultEffect" },
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
-        { "$ref": "#/definitions/campaignDataNextScenarioEffect" }
+        { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
+        { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" },
+        { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" }
       ]
     },
     "campaignDataResultEffect": {
@@ -237,12 +278,7 @@
           ]
         },
         "value": {
-          "type": "string",
-          "enum": [
-            "win",
-            "lose",
-            "survived"
-          ]
+          "$ref": "types.schema.json#/definitions/campaignResult"
         }
       },
       "required": [
@@ -277,6 +313,62 @@
         "type",
         "setting",
         "value"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataSwapChaosBagEffect": {
+      "$id": "#campaignDataSwapChaosBagEffect",
+      "title": "CampaignDataSwapChaosBagEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "swap_chaos_bag"
+          ]
+        },
+        "initialize": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "setting"
+      ],
+      "additionalProperties": false
+    },
+
+    "campaignDataRedirectExperienceEffect": {
+      "$id": "#campaignDataRedirectExperienceEffect",
+      "title": "CampaignDataRedirectExperienceEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "redirect_experience"
+          ]
+        },
+        "investigator_count": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator_count"
       ],
       "additionalProperties": false
     },
@@ -486,10 +578,61 @@
         "section": {
           "type": "string"
         },
-        "investigator": {
+        "id": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": [
+            "set_input",
+            "set",
+            "add_input",
+            "add",
+            "subtract_input"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "operation"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogInvestigatorCountEffect": {
+      "$id": "#campaignLogInvestigatorCountEffect",
+      "title": "CampaignLogInvestigatorCountEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_investigator_count"
+          ]
+        },
+        "section": {
           "type": "string"
         },
         "id": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "all",
+            "defeated",
+            "$input_value",
+            "lead_investigator",
+            "$fixed_investigator"
+          ]
+        },
+        "fixed_investigator": {
           "type": "string"
         },
         "operation": {
@@ -511,6 +654,8 @@
       "required": [
         "type",
         "section",
+        "id",
+        "investigator",
         "operation"
       ],
       "additionalProperties": false
@@ -531,6 +676,18 @@
           "enum": [
             "campaign_notes"
           ]
+        },
+        "scenario_id": {
+          "type": "string"
+        },
+        "index": {
+          "type": "number"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -562,6 +719,9 @@
         "cross_out": {
           "type": "boolean"
         },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        },
         "decorate": {
           "type": "string",
           "enum": [
@@ -569,6 +729,9 @@
           ]
         },
         "remove": {
+          "type": "boolean"
+        },
+        "hidden": {
           "type": "boolean"
         }
       },
@@ -609,20 +772,94 @@
           "type": "string",
           "enum": [
             "$lead_investigator",
+            "$all_investigators",
             "$defeated_investigators",
-            "$input_value"
+            "$input_value",
+            "$fixed_codes"
           ]
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "cross_out": {
           "type": "boolean"
         },
         "remove": {
           "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
         }
       },
       "required": [
         "type",
         "section"
+      ],
+      "additionalProperties": false
+    },
+    "checkCampaignLogCardsEffect": {
+      "$id": "#checkCampaignLogCardsEffect",
+      "title": "CheckCampaignLogCardsEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_campaign_log_cards"
+          ]
+        },
+        "card_type": {
+          "type": "string",
+          "enum": [
+            "player", "encounter"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "masculine_text": {
+          "type": "string"
+        },
+        "feminine_text": {
+          "type": "string"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        }
+      },
+      "required": [
+        "type",
+        "card_type"
+      ],
+      "additionalProperties": false
+    },
+    "checkCampaignLogCountEffect": {
+      "$id": "#checkCampaignLogCountEffect",
+      "title": "CheckCampaignLogCountEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "check_campaign_log_count"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        }
+      },
+      "required": [
+        "type",
+        "text"
       ],
       "additionalProperties": false
     },
@@ -653,11 +890,72 @@
         },
         "non_story": {
           "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
         }
       },
       "required": [
         "type",
         "card"
+      ],
+      "additionalProperties": false
+    },
+    "partnerStatusEffect": {
+      "$id": "#partnerStatusEffect",
+      "title": "PartnerStatusEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "partner_status"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "partner": {
+          "type": "string",
+          "enum": [
+            "$input_value",
+            "$fixed_partner"
+          ]
+        },
+        "fixed_partner": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string",
+          "enum": ["add", "remove"]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "eliminated",
+            "resolute",
+            "mia",
+            "safe",
+            "victim",
+            "cannot_take",
+            "the_entity",
+            "heal_damage",
+            "heal_horror"
+          ]
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "bullet_type": {
+          "$ref": "types.schema.json#/definitions/bulletType"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "partner",
+        "operation",
+        "status"
       ],
       "additionalProperties": false
     },
@@ -724,20 +1022,25 @@
         { "$ref": "#/definitions/storyStepEffect" },
         { "$ref": "#/definitions/earnXpEffect" },
         { "$ref": "#/definitions/addCardEffect" },
+        { "$ref": "#/definitions/setCardCountEffect" },
         { "$ref": "#/definitions/addWeaknessEffect" },
         { "$ref": "#/definitions/removeCardEffect" },
         { "$ref": "#/definitions/replaceCardEffect" },
         { "$ref": "#/definitions/traumaEffect" },
+        { "$ref": "#/definitions/partnerStatusEffect" },
         { "$ref": "#/definitions/campaignLogEffect" },
         { "$ref": "#/definitions/campaignLogCardsEffect" },
         { "$ref": "#/definitions/campaignLogCountEffect" },
+        { "$ref": "#/definitions/campaignLogInvestigatorCountEffect" },
         { "$ref": "#/definitions/campaignDataEffect" },
         { "$ref": "#/definitions/scenarioDataEffect" },
         { "$ref": "#/definitions/addRemoveChaosTokenEffect" },
         { "$ref": "#/definitions/freeformCampaignLogEffect" },
         { "$ref": "#/definitions/upgradeDecksEffect" },
         { "$ref": "#/definitions/saveDecksEffect" },
-        { "$ref": "#/definitions/gainSuppliesEffect" }
+        { "$ref": "#/definitions/gainSuppliesEffect" },
+        { "$ref": "#/definitions/checkCampaignLogCardsEffect" },
+        { "$ref": "#/definitions/checkCampaignLogCountEffect" }
       ]
     },
     "effectsWithInput": {
@@ -747,6 +1050,9 @@
       "properties": {
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "types.schema.json#/definitions/borderColor"
         },
         "effects": {
           "type": "array",

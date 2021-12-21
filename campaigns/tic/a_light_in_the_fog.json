@@ -2,6 +2,9 @@
   "id": "a_light_in_the_fog",
   "scenario_name": "A Light in the Fog",
   "full_name": "Scenario VI: A Light in the Fog",
+  "header": "Scenario VI",
+  "chaos_bag_card_text": "[skull]: -1. If your location is flooded, reveal an additional chaos token.\n[cultist]: -2. If you fail, after this test ends, increase the flood level of your location.\n[tablet]: -3. If you fail this test and your location is flooded, take 1 damage.\n[elder_thing]: -4. If you fail, move the nearest ready unengaged enemy once toward your location. It loses aloof during this movement.",
+  "chaos_bag_card_back_text": "[skull]: -2. If your location is flooded, reveal an additional chaos token.\n[cultist]: -2. If you fail, after this test ends, increase the flood level of your location (if you cannot, take 1 horror instead).\n[tablet]: -3. If you fail this test and your location is flooded, take 2 damage.\n[elder_thing]: -4. Move the nearest unengaged enemy once toward your location. It loses aloof during this movement.",
   "setup": [
     "intro",
     "gather_encounter_sets",
@@ -26,6 +29,13 @@
   "steps": [
     {
       "id": "intro",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.intro",
+        "name": "Intro",
+        "lang": [
+          "dv"
+        ]
+      },
       "type": "story",
       "text": "Crimson-tinted fog bathes the sky as you reach the gatehouse of Falcon Point. Atop the cliffs above you, the lighthouse beacon pierces through the mist. Considering the state of Innsmouth, you wonder what purpose the signal serves now. You doubt there are any ships out at sea given the inclement weather.\nSomewhere inside is the evidence you found weeks ago. You suspect that Oceiros—the man who captured you and left you in that pit to die—also resides within. \"Are you ready?\" Agent Harper asks. \"We have no real escape route here, should things go south. Be prepared for anything.\"\nYou nod. It's too late to turn back now. Steadily, you make your way toward the cliffs. One way or another, this ends today."
     },
@@ -40,7 +50,7 @@
         "rising_tide",
         "syzygy",
         "striking_fear"
-     ]
+      ]
     },
     {
       "id": "setup_locations",
@@ -65,30 +75,18 @@
       "vertical": "normal",
       "note": "Note: The order of the locations in this row does not matter, so long as Lantern Room is directly above Lighthouse Stairwell.",
       "locations": [
-        ["blank", "blank", "lantern_room", "blank"],
-        ["gatehouse", "cliff", "lighthouse_stairwell", "keepers_cottage"]
-      ],
-      "location_names": [
-        {
-          "code": "lantern_room",
-          "name": "Lantern Room"
-        },
-        {
-          "code": "gatehouse",
-          "name": "Falcon Point Gatehouse"
-        },
-        {
-          "code": "cliff",
-          "name": "Falcon Point Cliffside"
-        },
-        {
-          "code": "lighthouse_stairwell",
-          "name": "Lighthouse Stairwell"
-        },
-        {
-          "code": "keepers_cottage",
-          "name": "Lighthouse Keeper's Cottage"
-        }
+        [
+          "blank",
+          "blank",
+          "07241_back",
+          "blank"
+        ],
+        [
+          "07239_back",
+          "07242_back",
+          "07240_back",
+          "07243_back"
+        ]
       ]
     },
     {
@@ -99,45 +97,36 @@
       "vertical": "normal",
       "note": "Note: The order of the locations on each row does not matter, so long as Lantern Room, Lighthouse Stairwell, and each Sunken Grotto are on the same column, as depicted.",
       "locations": [
-        ["blank", "blank", "lantern_room", "blank"],
-        ["gatehouse", "cliff", "lighthouse_stairwell", "keepers_cottage"],
-        ["07052_back", "07052_back", "sunken_grotto_upper_depths", "07052_back"],
-        ["07052_back", "07052_back", "sunken_grotto_lower_depths", "07052_back"],
-        ["07052_back", "07052_back", "sunken_grotto_final_depths", "07052_back"]
-      ],
-      "location_names": [
-        {
-          "code": "lantern_room",
-          "name": "Lantern Room"
-        },
-        {
-          "code": "gatehouse",
-          "name": "Falcon Point Gatehouse"
-        },
-        {
-          "code": "cliff",
-          "name": "Falcon Point Cliffside"
-        },
-        {
-          "code": "lighthouse_stairwell",
-          "name": "Lighthouse Stairwell"
-        },
-        {
-          "code": "keepers_cottage",
-          "name": "Lighthouse Keeper's Cottage"
-        },
-        {
-          "code": "sunken_grotto_upper_depths",
-          "name": "Sunken Grotto (Upper Depths)"
-        },
-        {
-          "code": "sunken_grotto_lower_depths",
-          "name": "Sunken Grotto (Lower Depths)"
-        },
-        {
-          "code": "sunken_grotto_final_depths",
-          "name": "Sunken Grotto (Final Depths)"
-        }
+        [
+          "blank",
+          "blank",
+          "07241_back",
+          "blank"
+        ],
+        [
+          "07239_back",
+          "07242_back",
+          "07240_back",
+          "07243_back"
+        ],
+        [
+          "07052_back",
+          "07052_back",
+          "07244_back",
+          "07052_back"
+        ],
+        [
+          "07052_back",
+          "07052_back",
+          "07245_back",
+          "07052_back"
+        ],
+        [
+          "07052_back",
+          "07052_back",
+          "07246_back",
+          "07052_back"
+        ]
       ]
     },
     {
@@ -181,7 +170,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["set_aside_idol"]
+            "steps": [
+              "set_aside_idol"
+            ]
           }
         ]
       }
@@ -203,7 +194,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["set_aside_mantle"]
+            "steps": [
+              "set_aside_mantle"
+            ]
           }
         ]
       }
@@ -225,7 +218,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["set_aside_headdress"]
+            "steps": [
+              "set_aside_headdress"
+            ]
           }
         ]
       }
@@ -251,7 +246,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["add_falcon_point_doom"]
+            "steps": [
+              "add_falcon_point_doom"
+            ]
           }
         ]
       }
@@ -273,7 +270,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["add_tide_doom"]
+            "steps": [
+              "add_tide_doom"
+            ]
           }
         ]
       }
@@ -283,7 +282,6 @@
       "bullet_type": "small",
       "text": "Place 1 doom on Agenda 1."
     },
-
     {
       "id": "add_flood_tokens",
       "text": "Add the flood tokens to the token pool."
@@ -301,7 +299,9 @@
           {
             "id": "keys",
             "text": "Keys",
-            "steps": ["ask_keys"]
+            "steps": [
+              "ask_keys"
+            ]
           },
           {
             "id": "flashback_12",
@@ -372,37 +372,51 @@
           {
             "id": "red",
             "text": "Red",
-            "steps": ["red_key"]
+            "steps": [
+              "red_key"
+            ]
           },
           {
             "id": "blue",
             "text": "Blue",
-            "steps": ["blue_key"]
+            "steps": [
+              "blue_key"
+            ]
           },
           {
             "id": "green",
             "text": "Green",
-            "steps": ["green_key"]
+            "steps": [
+              "green_key"
+            ]
           },
           {
             "id": "yellow",
             "text": "Yellow",
-            "steps": ["yellow_key"]
+            "steps": [
+              "yellow_key"
+            ]
           },
           {
             "id": "purple",
             "text": "Purple",
-            "steps": ["purple_key"]
+            "steps": [
+              "purple_key"
+            ]
           },
           {
             "id": "black",
             "text": "Black",
-            "steps": ["black_key"]
+            "steps": [
+              "black_key"
+            ]
           },
           {
             "id": "white",
             "text": "White",
-            "steps": ["white_key"]
+            "steps": [
+              "white_key"
+            ]
           }
         ]
       }
@@ -437,9 +451,16 @@
     },
     {
       "id": "flashback_12_story",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.flashback_12",
+        "name": "Flashback XII",
+        "lang": [
+          "dv"
+        ]
+      },
       "title": "Flashback XII",
       "type": "story",
-      "text": "You peer up at Falcon Point lighthouse, but from much further below. You are aboard Mr. Moore's fishing vessel, during your voyage to Devil Reef several weeks earlier. The ship sways back and forth as angry waves thrash against its hull. \"'Fraid it's gon' be a bit rocky,\" the ship captain shouts over the crashing of the tumultuous sea. \"Weather's been awful wild of late. Strange tides an' stranger winds.\"\nBut still you stare up at the ominous lighthouse, its beacon a guiding light, a warning sign, or both. Curious what knowledge he might have, you ask Mr. Moore about the lighthouse. \"That ol' thing? Been there longer'n Innsmouth itself. Marsh family's kept it runnin' as long as I remember. Oceiros is keeper now. Strange fella, that Oceiros. They say the only place in town he visits is the Order o' Dagon hall by New Church Green.\" He shakes his head.\nYou wonder if there are more secrets inside the lighthouse than meets the eye. Mr. Moore seems to note your curiosity. \"I've heard them Marshes've carved out caverns beneath the lighthouse goin' all the way down to sea level an' beyond,\" he claims. \"Dunno if that's true, but sometimes when I'm out at sea I've seen groups of 'em up by the cliffside, all wavin' an kneelin' like they're prayin' or something. Never really paid it much mind, but...\" his voice grows quieter. \"Jus' thought you oughta know.\"\nYou nod and thank him. If what he's saying is true, perhaps you should give this lighthouse a visit. You make a mental note to research more about Falcon Point once you return to town.\nWhen your mind snaps back to the present, you recall the legwork you'd done after your expedition to Devil Reef, and the information you found on the vast network of tunnels beneath the lighthouse..."
+      "text": "You peer up at Falcon Point lighthouse, but from much further below. You are aboard Mr. Moore's fishing vessel, during your voyage to Devil Reef several weeks earlier. The ship sways back and forth as angry waves thrash against its hull. \"'Fraid it's gon' be a bit rocky,\" the ship captain shouts over the crashing of the tumultuous sea. \"Weather's been awful wild of late. Strange tides an' stranger winds.\"\nBut still you stare up at the ominous lighthouse, its beacon a guiding light, a warning sign, or both. Curious what knowledge he might have, you ask Mr. Moore about the lighthouse. \"That ol' thing? Been there longer'n Innsmouth itself. Marsh family's kept it runnin' as long as I remember. Oceiros is keeper now. Strange fella, that Oceiros. They say the only place in town he visits is the Order o' Dagon hall by New Church Green.\" He shakes his head.\nYou wonder if there are more secrets inside the lighthouse than meets the eye. Mr. Moore seems to note your curiosity. \"I've heard them Marshes've carved out caverns beneath the lighthouse goin' all the way down to sea level an' beyond,\" he claims. \"Dunno if that's true, but sometimes when I'm out at sea I've seen groups of 'em up by the cliffside, all wavin' an kneelin' like they're prayin' or something. Never really paid it much mind, but…\" his voice grows quieter. \"Jus' thought you oughta know.\"\nYou nod and thank him. If what he's saying is true, perhaps you should give this lighthouse a visit. You make a mental note to research more about Falcon Point once you return to town.\nWhen your mind snaps back to the present, you recall the legwork you'd done after your expedition to Devil Reef, and the information you found on the vast network of tunnels beneath the lighthouse…"
     },
     {
       "id": "flashback_12_effects",
@@ -484,7 +505,9 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["cultist"]
+                "tokens": [
+                  "cultist"
+                ]
               }
             ]
           },
@@ -513,7 +536,9 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["tablet"]
+                "tokens": [
+                  "tablet"
+                ]
               }
             ]
           },
@@ -542,7 +567,9 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["elder_thing"]
+                "tokens": [
+                  "elder_thing"
+                ]
               }
             ]
           }
@@ -553,9 +580,15 @@
       "id": "flashback_12_clues",
       "text": "The lead investigator gains 1 [per_investigator] clues from the token pool."
     },
-
     {
       "id": "flashback_13_story",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.flashback_13",
+        "name": "Flashback XIII",
+        "lang": [
+          "dv"
+        ]
+      },
       "title": "Flashback XIII",
       "type": "story",
       "text": "You speak with one of the many sailors who frequent a ramshackle tavern by the docks of Innsmouth, somewhere in the southeastern slums of the decrepit seaport. He's found his own little corner of the pub in which to hide and drown himself in alcohol. So much the better—you'd prefer to keep your investigation quiet.\nYou jot down notes as the drunken man rambles on about the creatures he's seen swimming off the coast and prowling around the reefs. \"Deep Ones,\" he names them. \"Caught one in my net once,\" he blabbers through slurred speach. \"She an' her eggs—tha's right!—'er eggs, bigger'n your fist, an' squirmin' an' wrigglin', too!\"\nAbsorbed in the ritual of telling a tale for his fellow sailors, he elaborates: \"She had one of 'em in her arms. Tiny little devil, with bulgin', hateful eyes. Couldn't stand the sight of it. I threw the net o'er as soon as I realized what I'd caught, an' came right back 'ere. If I had my way I'd never sail 'gain.\"\nYou mull this new information over in your head. If this man speaks the truth, these creatures seem to have a lifecycle similar to that of a fish. But then, what is the purpose of the uncanny hybrid creatures you have seen skulking about the town? Are they but figments of your frightened imagination? Or is there a much more sinister part of this lifecycle that you are missing?"
@@ -603,7 +636,9 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["cultist"]
+                "tokens": [
+                  "cultist"
+                ]
               }
             ]
           },
@@ -632,7 +667,9 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["tablet"]
+                "tokens": [
+                  "tablet"
+                ]
               }
             ]
           },
@@ -661,14 +698,15 @@
             "effects": [
               {
                 "type": "remove_chaos_token",
-                "tokens": ["elder_thing"]
+                "tokens": [
+                  "elder_thing"
+                ]
               }
             ]
           }
         ]
       }
     },
-
     {
       "id": "ask_final_agenda",
       "type": "input",
@@ -679,22 +717,30 @@
           {
             "id": "agenda_1",
             "text": "Agenda 1",
-            "steps": ["resolution_4"]
+            "steps": [
+              "resolution_4"
+            ]
           },
           {
             "id": "agenda_2",
             "text": "Agenda 2",
-            "steps": ["resolution_4"]
+            "steps": [
+              "resolution_4"
+            ]
           },
           {
             "id": "agenda_3",
             "text": "Agenda 3",
-            "steps": ["resolution_4"]
+            "steps": [
+              "resolution_4"
+            ]
           },
           {
             "id": "agenda_4",
             "text": "Agenda 4",
-            "steps": ["resolution_3"]
+            "steps": [
+              "resolution_3"
+            ]
           }
         ]
       }
@@ -768,11 +814,14 @@
               {
                 "type": "campaign_log_cards",
                 "section": "campaign_notes",
-                "id": "possesses_a_diving_suite",
+                "id": "possesses_a_diving_suit",
                 "cards": "$input_value",
                 "masculine_text": "#name# possesses a diving suit.",
                 "feminine_text": "#name# possesses a diving suit."
               }
+            ],
+            "steps": [
+              "earned_diving_suit"
             ]
           },
           {
@@ -781,6 +830,11 @@
           }
         ]
       }
+    },
+    {
+      "id": "earned_diving_suit",
+      "bullet_type": "small",
+      "text": "Each investigator that resigned at the Moon Room records in the Campaign Log that they <i>possess a diving suit</i>."
     },
     {
       "id": "ask_black_key_on_act",
@@ -828,7 +882,6 @@
       "id": "ask_story_relics",
       "text": "For each set-aside [[Relic]] story asset that was added to an investigator's hand during this scenario, any investigator may choose to add that story asset to their deck. It does not count toward that investigator's deck size."
     },
-
     {
       "id": "maybe_ask_idol",
       "hidden": true,
@@ -840,7 +893,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_idol"]
+            "steps": [
+              "ask_idol"
+            ]
           }
         ]
       }
@@ -858,7 +913,8 @@
               {
                 "type": "add_card",
                 "investigator": "choice",
-                "card": "07179"
+                "card": "07179",
+                "show_prompt": true
               }
             ]
           }
@@ -876,7 +932,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_mantle"]
+            "steps": [
+              "ask_mantle"
+            ]
           }
         ]
       }
@@ -894,7 +952,8 @@
               {
                 "type": "add_card",
                 "investigator": "choice",
-                "card": "07180"
+                "card": "07180",
+                "show_prompt": true
               }
             ]
           }
@@ -912,7 +971,9 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_headdress"]
+            "steps": [
+              "ask_headdress"
+            ]
           }
         ]
       }
@@ -930,8 +991,36 @@
               {
                 "type": "add_card",
                 "investigator": "choice",
-                "card": "07181"
+                "card": "07181",
+                "show_prompt": true
               }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "skip_decks": true,
+        "special_xp": "unspect_xp"
+      }
+    },
+    {
+      "id": "maybe_upgrade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$upgrade_decks"
             ]
           }
         ]
@@ -941,31 +1030,62 @@
   "resolutions": [
     {
       "id": "no_resolution_defeated",
-      "title": "No resolution was reached\n(each investigator was defeated)",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.no_resolution",
+        "name": "No Resolution",
+        "lang": [
+          "dv"
+        ]
+      },
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
       "investigator_status": [
         "eliminated",
         "physical",
         "mental"
       ],
-      "steps": ["ask_final_agenda"]
+      "steps": [
+        "ask_final_agenda"
+      ]
     },
     {
       "id": "R1",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.resolution_1",
+        "name": "Resolution 1",
+        "lang": [
+          "dv"
+        ]
+      },
       "investigator_status": [
-        "alive",
         "resigned",
         "eliminated",
         "physical",
         "mental"
       ],
       "title": "Resolution 1",
-      "text": "Exhausted, you throw yourself onto the rocky shore. Waves lap at your ankles as you stare up into the sky. Behind the clouds, deep crimson hues spell on ominous end for all of humankind. Your skull pounds with agony as you struggle to remember why. The moon and sun slide into alignment. A thunderous crash resounds in the distance. Dark, churning clouds swirl and seethe over the hateful ocean. What does it all mean? What is the truth behind the Esoteric Order of Dagon? The truth hidden in Devil Reef? Darkness overtakes your senses once more.",
-      "steps": ["ask_moon_room_resigned", "ask_black_key_on_act", "ask_red_key_on_act",
-        "ask_story_relics", "maybe_ask_idol", "maybe_ask_mantle", "maybe_ask_headdress",
-        "earn_xp"]
+      "text": "Exhausted, you throw yourself onto the rocky shore. Waves lap at your ankles as you stare up into the sky. Behind the clouds, deep crimson hues spell an ominous end for all of humankind. Your skull pounds with agony as you struggle to remember why. The moon and sun slide into alignment. A thunderous crash resounds in the distance. Dark, churning clouds swirl and seethe over the hateful ocean. What does it all mean? What is the truth behind the Esoteric Order of Dagon? The truth hidden in Devil Reef? Darkness overtakes your senses once more.",
+      "steps": [
+        "ask_moon_room_resigned",
+        "ask_black_key_on_act",
+        "ask_red_key_on_act",
+        "ask_story_relics",
+        "maybe_ask_idol",
+        "maybe_ask_mantle",
+        "maybe_ask_headdress",
+        "earn_xp",
+        "maybe_upgrade_decks"
+      ]
     },
     {
       "id": "R2",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.resolution_2",
+        "name": "Resolution 2",
+        "lang": [
+          "dv"
+        ]
+      },
       "investigator_status": [
         "alive",
         "resigned",
@@ -975,12 +1095,26 @@
       ],
       "title": "Resolution 2",
       "text": "Exhaustion and despair eat at your muscles as you escape into the dark woods surrounding Falcon Point. You know it is too dangerous to stop moving, but you can hardly stand. You brace yourself against a nearby tree and stare up into the sky. Behind the clouds, deep crimson hues spell an ominous end for all of humankind. Your skull pounds as you struggle to remember why. The moon and sun slide into alignment. A thunderous crash resounds in the distance. Dark, churning clouds swirl and seethe above the hateful ocean. What does it all mean? What is the truth behind the Esoteric Order of Dagon? The truth hidden in Devil Reef? Darkness overtakes your senses once more.",
-      "steps": ["ask_black_key_on_act", "ask_red_key_on_act",
-        "ask_story_relics", "maybe_ask_idol", "maybe_ask_mantle", "maybe_ask_headdress",
-        "earn_xp"]
+      "steps": [
+        "ask_black_key_on_act",
+        "ask_red_key_on_act",
+        "ask_story_relics",
+        "maybe_ask_idol",
+        "maybe_ask_mantle",
+        "maybe_ask_headdress",
+        "earn_xp",
+        "maybe_upgrade_decks"
+      ]
     },
     {
       "id": "R3",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.resolution_3",
+        "name": "Resolution 3",
+        "lang": [
+          "dv"
+        ]
+      },
       "investigator_status": [
         "alive",
         "resigned",
@@ -990,10 +1124,20 @@
       ],
       "title": "Resolution 3",
       "text": "You panic as the water level rises all the way to the ceiling of the cavern. There is no air left to breathe. You feel the currents pulling you deeper and deeper below the surface, where the bulging, glowing eyes of Deep Ones lie in wait. Desperately, you swim up to the cellar door of the lighthouse. Your only hope is to force it open and crawl up into the buildings above, where sweet oxygen awaits. You shove and push with all of your might, hoping, imagining, praying that any moment now your strength will spring the hatch open. Your lungs are about to burst. No! This cannot be the end! You struggle and fight for survival, but the lock does not budge. Hungry for air, your lungs give. Your throat fills with cold saltwater. The sensation of your ankles being gripped by webbed hands is the last thing you feel.",
-      "steps": ["all_killed", "lose_campaign"]
+      "steps": [
+        "all_killed",
+        "lose_campaign"
+      ]
     },
     {
       "id": "R4",
+      "narration": {
+        "id": "the_innsmouth_conspiracy.a_light_in_the_fog.resolution_4",
+        "name": "Resolution 4",
+        "lang": [
+          "dv"
+        ]
+      },
       "investigator_status": [
         "alive",
         "resigned",
@@ -1003,9 +1147,16 @@
       ],
       "title": "Resolution 4",
       "text": "Coming here was a terrible mistake. Falcon Point is no simple lighthouse, but a headquarter for the Order of Dagon, even more hostile and deadly than the town of Innsmouth you left behind. With danger at every turn and the hateful lighthouse keeper hot on your tail, you leave the secrets of the lighthouse behind and flee into the dark woods.\nBy the time you are too deep into the treeline to see the lighthouse beacon, you are utterly exhausted. You know it is too dangerous to stop moving, but you can hardly stand. You brace yourself against a nearby treeand stare up into the sky. Behind the clouds, deep crimson hues spell an ominous end for all of humankind. Your skull pounds as you struggle to remember why. The moon and sun slide into alignment. A thunderous crash resounds in the distance. Dark, churning clouds swirl and seethe above the hateful ocean. What does it all mean? What is the truth behind the Esoteric Order of Dagon? The truth hidden in Devil Reef? Darkness overtakes you once more.",
-      "steps": ["ask_black_key_on_act", "ask_red_key_on_act",
-        "ask_story_relics", "maybe_ask_idol", "maybe_ask_mantle", "maybe_ask_headdress",
-        "earn_xp"]
+      "steps": [
+        "ask_black_key_on_act",
+        "ask_red_key_on_act",
+        "ask_story_relics",
+        "maybe_ask_idol",
+        "maybe_ask_mantle",
+        "maybe_ask_headdress",
+        "earn_xp",
+        "maybe_upgrade_decks"
+      ]
     }
   ]
 }

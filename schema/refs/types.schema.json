@@ -2,6 +2,48 @@
   "$schema": "http://json-schema.org/schema#",
   "$id": "schema/types.schema.json",
   "definitions": {
+    "borderColor": {
+      "$id": "#borderColor",
+      "title": "BorderColor",
+      "type": "string",
+      "enum": ["setup", "resolution", "interlude"]
+    },
+    "partner": {
+      "$id": "#partner",
+      "title": "Partner",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "health": {
+          "type": "number"
+        },
+        "sanity": {
+          "type": "number"
+        },
+        "resolute_health": {
+          "type": "number"
+        },
+        "resolute_sanity": {
+          "type": "number"
+        }
+      },
+      "required": ["code", "name", "health", "sanity"],
+      "additionalProperties": false
+    },
+    "partnerStatus": {
+      "$id": "#partnerStatus",
+      "title": "PartnerStatus",
+      "type": "string",
+      "enum": ["eliminated", "alive", "has_damage", "has_horror", "mia", "safe", "resolute", "investigator_defeated", "investigator_selected", "victim", "cannot_take"]
+    },
     "achievement": {
       "$id": "#achievement",
       "title": "Achievement",
@@ -61,7 +103,7 @@
           }
         }
       },
-      "required": ["id", "name"],
+      "required": ["id", "name", "lang"],
       "additionalProperties": false
     },
     "locationConnector": {
@@ -91,6 +133,12 @@
         "$input_value",
         "$fixed_investigator"
       ]
+    },
+    "choiceIcon": {
+      "$id": "#choiceIcon",
+      "title": "ChoiceIcon",
+      "type": "string",
+      "enum": ["mental", "physical", "resign", "dismiss", "accept"]
     },
     "border": {
       "$id": "#border",
@@ -148,28 +196,101 @@
         "unspect_xp"
       ]
     },
-    "chaosToken": {
-      "$id": "#chaosToken",
-      "title": "ChaosToken",
+    "specialChaosToken": {
+      "$id": "#specialChaosToken",
+      "title": "SpecialChaosToken",
       "type": "string",
       "enum": [
-        "+1",
-        "0",
-        "-1",
-        "-2",
-        "-3",
-        "-4",
-        "-5",
-        "-6",
-        "-7",
-        "-8",
         "skull",
         "cultist",
         "tablet",
         "elder_thing",
         "elder_sign",
-        "auto_fail"
+        "auto_fail",
+        "bless",
+        "curse",
+        "frost"
       ]
+    },
+    "campaignResult": {
+      "$id": "#campaignResult",
+      "title": "CampaignResult",
+      "type": "string",
+      "enum": [
+        "win",
+        "lose",
+        "survived"
+      ]
+    },
+    "chaosToken": {
+      "$id": "#chaosToken",
+      "title": "ChaosToken",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "+1",
+            "0",
+            "-1",
+            "-2",
+            "-3",
+            "-4",
+            "-5",
+            "-6",
+            "-7",
+            "-8"
+          ]
+        },
+        {
+          "$ref": "#/definitions/specialChaosToken"
+        }
+      ]
+    },
+    "customData": {
+      "$id": "#customData",
+      "title": "CustomData",
+      "type": "object",
+      "properties": {
+        "creator": {
+          "type": "string"
+        },
+        "download_link": {
+          "type": "object",
+          "properties": {
+            "en": {
+              "type": "string"
+            },
+            "ko": {
+              "type": "string"
+            },
+            "de": {
+              "type": "string"
+            },
+            "es": {
+              "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "zh": {
+              "type": "string"
+            },
+            "ru": {
+              "type": "string"
+            },
+            "it": {
+              "type": "string"
+            }
+          },
+          "required": ["en"],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "creator",
+        "download_link"
+      ],
+      "additionalProperties": false
     },
     "cardCodeList": {
       "$id": "#cardCodeList",
@@ -243,7 +364,13 @@
         "id": {
           "type": "string"
         },
+        "large": {
+          "type": "boolean"
+        },
         "text": {
+          "type": "string"
+        },
+        "confirm_text": {
           "type": "string"
         },
         "feminine_text": {
@@ -264,6 +391,15 @@
         "border": {
           "type": "boolean"
         },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
+        },
+        "pre_border_effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
+        },
         "effects": {
           "type": "array",
           "items": {
@@ -282,8 +418,21 @@
         "id": {
           "type": "string"
         },
+        "large": {
+          "type": "boolean"
+        },
         "text": {
           "type": "string"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["masculine", "feminine"]
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/chaosToken"
+          }
         },
         "description": {
           "type": "string"
@@ -296,6 +445,15 @@
         },
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
+        },
+        "pre_border_effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         },
         "steps": {
           "type": "array",
@@ -313,15 +471,194 @@
       "required": ["id", "text"],
       "additionalProperties": false
     },
+    "chaosTokenModifier": {
+      "$id": "#chaosTokenModifier",
+      "title": "ChaosTokenModifier",
+      "type": "object",
+      "properties": {
+        "modifier": {
+          "oneOf": [
+            { "type": "number" },
+            { "type": "string", "enum": ["auto_fail", "auto_succeed"] }
+          ]
+        },
+        "reveal_another": {
+          "type": "boolean"
+        },
+        "cancel_modifiers": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["modifier"]
+    },
+    "simpleChaosTokenValue": {
+      "$id": "#simpleChaosTokenValue",
+      "title": "SimpleChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "null"
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
+        },
+        "text": {
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/chaosTokenModifier"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["token", "value"]
+    },
+    "counterChaosTokenValue": {
+      "$id": "#counterChaosTokenValue",
+      "title": "CounterChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["counter"]
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
+        },
+        "text": {
+          "type": "string"
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "type": "string"
+            },
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "reveal_another": {
+              "type": "boolean"
+            },
+            "adjustment": {
+              "type": "number"
+            },
+            "initial_value": {
+              "type": "number"
+            },
+            "negate": {
+              "type": "boolean"
+            }
+          },
+          "required": ["prompt"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "token", "counter"]
+    },
+    "conditionChaosTokenValue": {
+      "$id": "#conditionChaosTokenValue",
+      "title": "ConditionChaosTokenValue",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["condition"]
+        },
+        "token": {
+          "$ref": "#/definitions/specialChaosToken"
+        },
+        "text": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "object",
+          "properties": {
+            "prompt": {
+              "type": "string"
+            },
+            "default_value": {
+              "$ref": "#/definitions/chaosTokenModifier"
+            },
+            "modified_value": {
+              "$ref": "#/definitions/chaosTokenModifier"
+            }
+          },
+          "required": ["default_value", "prompt", "modified_value"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": ["type", "token", "condition"]
+    },
+    "singleChaosTokenValue": {
+      "$id": "#singleChaosTokenValue",
+      "title": "SingleChaosTokenValue",
+      "type": "object",
+      "oneOf": [
+        {
+          "$ref": "#/definitions/simpleChaosTokenValue"
+        },
+        {
+          "$ref": "#/definitions/counterChaosTokenValue"
+        },
+        {
+          "$ref": "#/definitions/conditionChaosTokenValue"
+        }
+      ]
+    },
+    "scenarioChaosTokens": {
+      "$id": "#scenarioChaosTokens",
+      "title": "ScenarioChaosTokens",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/singleChaosTokenValue"
+          }
+        },
+        "hard": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/singleChaosTokenValue"
+          }
+        }
+      },
+      "required": ["code", "scenario", "standard", "hard"],
+      "additionalProperties": false
+    },
     "investigatorConditionalChoice": {
       "$id": "#investigatorConditionalChoice",
       "title": "InvestigatorConditionalChoice",
       "type": "object",
       "properties": {
+        "icon": {
+          "$ref": "#/definitions/choiceIcon"
+        },
         "id": {
           "type": "string"
         },
         "text": {
+          "type": "string"
+        },
+        "selected_text": {
+          "type": "string"
+        },
+        "selected_text_feminine": {
           "type": "string"
         },
         "description": {
@@ -332,6 +669,15 @@
         },
         "border": {
           "type": "boolean"
+        },
+        "border_color": {
+          "$ref": "#/definitions/borderColor"
+        },
+        "pre_border_effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         },
         "steps": {
           "type": "array",
@@ -409,7 +755,8 @@
       "type": "string",
       "enum": [
         "none",
-        "small"
+        "small",
+        "default"
       ]
     }
   }

@@ -1,0 +1,849 @@
+{
+  "id": "the_heart_of_madness_part_2",
+  "scenario_name": "The Heart of Madness, Part II",
+  "header": "Scenario IV",
+  "full_name": "Scenario IV: The Heart of Madness, Part II",
+  "chaos_bag_card": "08648",
+  "chaos_bag_card_text": "[skull]: -1. (-3 instead if there is an [[Ancient One]] enemy at your location).\n[cultist]: -1. If there is a seal at your location, or if your location is a Mist-Pylon, treat this token as a [frost] token, instead.\n[tablet]: -3. If you fail, draw the top card of the Tekeli-li deck.\n[elder_thing]: -4. If you fail by 3 or more, place 1 doom on the current agenda. This can cause the current agenda to advance.",
+  "chaos_bag_card_back_text": "[skull]: -2. (-4 instead if there is an [[Ancient One]] enemy at your location).\n[cultist]: -1. If there is a seal at your location, or if your location is a Mist-Pylon, treat this token as a [frost] token in addition to its modifier.\n[tablet]: -3. Draw the top card of the Tekeli-li deck.\n[elder_thing]: -5. If you fail by 3 or more, place 1 doom on the current agenda. This can cause the current agenda to advance.",
+  "icon": "agents_of_the_unknown",
+  "setup": [
+    "intro",
+    "check_kensler_understands",
+    "choose_partners",
+    "check_interlude_danforth",
+    "check_interlude_takada",
+    "check_continue",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The facility is even older—and stranger—beyond the threshold of the ancient gateway. Who knows how many eons this place has slept undisturbed while the Earth changed and developed on the other side? Perhaps it would have remained so forever, had the site not been disturbed. But it's too late to change the past. All you can do now is work to prevent a terrible future.\nDim luminescence fills the eerie halls, powered by some form of advanced energy, like electricity. Behind you, a kaleidoscopic wall of miasma stitches itself together to block your escape. You are trapped here, perhaps forever. A web of expansive halls extends outward from the gateway, carved from smooth stone and covered in ancient murals and alien heiroglyphs. The air here feels thinner. The light bends and oscillates, distorting your vision like an optical illusion. Is this reality… or a mirage?\nYour party studies the murals along the walls for many hours. They depict an ancient, unfamiliar history. An alternative history of the Earth. A very different history than any you could have possibly imagined."
+    },
+    {
+      "id": "check_kensler_understands",
+      "text": "If Dr. Kensler is still alive and <i>Dr. Kensler understands the true nature of the miasma</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "dr_kensler_understands_the_true_nature_of_the_miasma",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$fixed_partner",
+            "fixed_partner": "08720",
+            "status": ["alive"],
+            "operation": "all",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "dr_kensler_has_a_plan"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "truth_of_the_mirage_eludes_you"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Dr. Kensler explains everything as she studies the ancient murals. \"The Elder Things were travelers. Colonizers. They came to the Earth over a billion years ago,\" she says, citing Professor Dyer's own notes. \"But they were not the first ones here. This place, all of this—it was ancient even then.\" She runs her hands along the mural as she explains what she has learned. \"But it is not an entity trapped within.\"\nYou ask what she means, alarmed by this new understanding. She turns to face you, her eyes aflame with inspiration. \"I had been studying their physiology, attempting to discern how they could exist the way they do, without shape, without matter, without state. But I was going about it all wrong. One cannot study the biology of something inorganic. See, it is not a creature, not truly. It is more akin to…\" she hesitates, attempting to find the right words. \"It is an alternate dimension. Another reality, superimposed on ours. A sentient microcosm of all that is. Not composed of organic life, but a mockery of it.\"\nThis newfound understanding of the phantasms you have encountered and the mirages you have seen put everything into context. They were not monsters you were slaying, they were figments of a false reality. One that may yet come to pass. You ask Dr. Kensler if there is any hope to stop such a force from escaping.\n\"It is not a living thing. It cannot be killed. Only contained. The Elder Thing's facility held five pylons that used its essence to power their civilization, but after this long, I cannot imagine they still function. But perhaps…\" she trails off, formulating a plan. Finally, her eyes widen with realization. \"I know what must be done. I know how to stop it. You must find these pylons and destroy them—doing so will bring the entire compound down. In the meantime…\" she hefts her backpack off of her shoulder, dropping it to the ground. \"I… I must be off now. There is no time to spare.\"\nYou object to her sudden departure, but her mind is made up. She backs away, giving one last lingering glance at her companions, before sprinting away. You hope she knows what she's doing… for all of your sakes."
+    },
+    {
+      "id": "dr_kensler_has_a_plan",
+      "text": "In your Campaign Log, record <i>Dr. Kensler has a plan.</i> Dr. Amy Kensler cannot be chosen to accompany an investigator this game.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_kensler_has_a_plan",
+          "text": "Dr. Kensler has a plan."
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08720",
+          "operation": "add",
+          "status": "cannot_take"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You can glean only a fraction of the truth hidden within these ancient murals, but what you discover is almost too impossible to believe. When the Elder Things came to the Earth over a billion years ago, they colonized not just Antarctica, but the entirety of the planet. And when they did, this place—and the entity that dwells within—was already here.\nThey built their complex around it, to study the primordial being within, to greater understand it, and in doing so, attracted forces beyond even their ken. The gateway and its seals were constructed to contain it, but ages of disrepair have left it weak and ineffective. You suspect it was the presence of intelligent life on Antarctica—the humans who began to explore its long-dead peaks and icy plains—that stirred the entity within.\nThe murals tell of the facility's structure, of five pylons created not only to contain the creature's essence, but to power the whole of Elder Thing civilization. You can only imagine that destroying these pylons would reduce the entire compound—perhaps even the entirety of the mountain it is built beneath—to rubble. You don't know if you can truly destroy or contain this nameless horror, but you have no choice but to try. If it continues to escape, the very concept of reality will be rewritten to its whim. There will be nothing left but the mirage. Nothing left but twisted, horrid imagination. A nightmare from which there is no awakening."
+    },
+    {
+      "id": "truth_of_the_mirage_eludes_you",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "truth_of_the_mirage_eludes_you",
+          "text": "the truth of the mirage eludes you."
+        }
+      ]
+    },
+    {
+      "id": "choose_partners",
+      "title": "Investigator Setup",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set. If there is a checkmark next to the character's name, instead use the [[Resolute]] version found in the <i>Fatal Mirage</i> encounter set.) Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "any",
+          "status": ["eliminated", "cannot_take"],
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_interlude_danforth",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "heart_of_madness_danforth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_danforth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_danforth",
+      "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
+    },
+    {
+      "id": "check_interlude_takada",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "heart_of_madness_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
+    },
+    {
+      "id": "check_continue",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "continue_the_heard_of_madness_2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "flip_gate", "setup_locations", "location_layout", "set_aside_cards", "place_seals"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_gate", "setup_locations_scratch", "location_layout",  "set_aside_cards", "check_played_part_1", "setup_tekeli_li"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card that is not already part of an investigator's deck together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "gather_encounter_sets_from_checkpoint",
+      "title": "Scenario Steup (from Checkpoint)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "stirring_in_the_deep",
+        "agents_of_the_unknown",
+        "chilling_cold",
+        "striking_fear"
+      ],
+      "subtext": "When gathering the <i>Striking Fear</i> encounter set, only gather 2x Dissonant Voices and 2x Frozen in Fear (do not gather 3x Rotting Remains)."
+    },
+    {
+      "id": "remove_encounter_sets",
+      "text": "Search the encounter deck and all out-of-play areas for all cards from <i>The Great Seal</i>, <i>Shoggoths</i>, and <i>Locked Doors</i> encounter sets (including the five \"Ancient Facility\" locations from <i>The Great Seal</i> encounter set). Remove each card from these encounter sets from the game.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_great_seal",
+        "shoggoths",
+        "locked_doors"
+      ],
+      "remove": true
+    },
+    {
+      "id": "build_agenda_deck",
+      "text": "Build the agenda deck using agendas 4-5 and the act deck using act 3. (These cards can be found in the <i>Stirrings in the Deep</i> encounter set."
+    },
+    {
+      "id": "flip_gate",
+      "text": "Flip The Gate of Y'quaa to its unrevealed side."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Take the five Mist-Pylon locations and the ten remaining Ancient Facility locations (from <i>The Heart of Madness</i> encounter set), shuffle them together, and put them into play at random using the <b>Location Setup</b>, except that five of the randomly placed Ancient Facility locations will instead be Mist-Pylon locations.",
+      "bullets": [
+        {
+          "text": "<b>Note: If all five locations in the innermost ring are Mist-Pylons, start this process over.</b>"
+        },
+        {
+          "text": "The lead investigator chooses an Ancient Facility location nearest to the Gate of Y'quaa. Each investigator begins play at the chosen location."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: All fifteen copies of The Nameless Madness enemy, The Final Mirage act, the four Titanic Ramp locations, and the Hidden Tunnel location."
+    },
+    {
+      "id": "place_seals",
+      "text": "Place the seal tokens, as follows:",
+      "bullets": [
+        {
+          "text": "For each activated seal on The Gate of Y'quaa, chose an investigator to take control of it."
+        },
+        {
+          "text": "Each investigator with a dormant seal begins the game with it under their control."
+        },
+        {
+          "text": "Remove each other seal from the game."
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup (from Scratch)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_heart_of_madness",
+        "agents_of_the_unknown",
+        "miasma",
+        "nameless_horrors",
+        "penguins",
+        "stirring_in_the_deep",
+        "tekeli_li",
+        "ancient_evils",
+        "chilling_cold",
+        "striking_fear"
+      ],
+      "subtext": "When gathering the <i>Striking Fear</i> encounter set, only gather 2x Dissonant Voices and 2x Frozen in Fear (do not gather 3x Rotting Remains)."
+    },
+
+    {
+      "id": "setup_gate",
+      "text": "Put The Gate of Y'quaa into play, unrevealed side faceup."
+    },
+    {
+      "id": "setup_locations_scratch",
+      "text": "Take the five Mist-Pylon locations and the ten remaining Ancient Facility locations (from <i>The Heart of Madness</i> encounter set), shuffle them together, and put them into play at random using the <b>Location Setup</b>, except that five of the randomly placed Ancient Facility locations will instead be Mist-Pylon locations.",
+      "bullets": [
+        {
+          "text": "<b>Note: If all five locations in the innermost ring are Mist-Pylons, start this process over.</b>"
+        },
+        {
+          "text": "The locations in this scenario are organized into five spokes that branch out from The Gate of Y'quaa, and three rings that surround The Gate of Y'quaa."
+        },
+        {
+          "text": "The lead investigator chooses an Ancient Facility location nearest to the Gate of Y'quaa. Each investigator begins play at the chosen location."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "Note: During part 2, five of these locations, chosen at random, are Mist-Pylon locations instead of Ancient Facility locations.",
+      "locations": [
+        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
+        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"],
+        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
+        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
+        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
+        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
+        ["blank", "blank", "blank", "gate_of_yquaa", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
+        ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
+        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
+        ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
+        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"]
+      ],
+      "location_names": [
+        {
+          "code": "gate_of_yquaa",
+          "name": "The Gate of Y'quaa"
+        },
+        {
+          "code": "ancient_facility",
+          "name": "Ancient Facility"
+        }
+      ]
+    },
+    {
+      "id": "check_played_part_1",
+      "text": "If the investigators played Part I:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "played_the_heart_of_madness_part_1",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["restore_seals_from_log", "restore_seals_placed", "restore_seals_recovered", "remove_other_seals"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_all_seals"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "restore_seals_from_log",
+      "bullet_type": "small",
+      "text": "Place each of the five seal tokens as follows:"
+    },
+    {
+      "id": "restore_seals_placed",
+      "bullet_type": "small",
+      "text": "Check which seals are drawn under \"Seals Placed.\" For each one there, choose an investigator to take control of that seal, activated side faceup."
+    },
+    {
+      "id": "restore_seals_recovered",
+      "bullet_type": "small",
+      "text": "Check which seals are drawn under \"Seals Recovered.\" For each one there, choose an investigator to take control of that seal, dormant side faceup."
+    },
+    {
+      "id": "remove_other_seals",
+      "bullet_type": "small",
+      "text": "Remove each other seal from the game."
+    },
+    {
+      "id": "remove_all_seals",
+      "text": "Remove all five seals from the game."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+
+
+    {
+      "id": "nameless_madness_escaped",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "nameless_madness_escaped",
+          "text": "the nameless madness escaped."
+        }
+      ]
+    },
+    {
+      "id": "nameless_madness_is_contained_safely_within_its_host_for_now",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "nameless_madness_is_contained_safely_within_its_host_for_now",
+          "text": "the nameless madness is contained safely within its host… for now."
+        }
+      ]
+    },
+    {
+      "id": "team_escaped_the_facility",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_escaped_the_facility",
+          "text": "the team escaped the facility."
+        }
+      ]
+    },
+    {
+      "id": "facility_was_destroyed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "facility_was_destroyed",
+          "text": "the facility was destroyed."
+        }
+      ]
+    },
+
+    {
+      "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "insane": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "eoe_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "maybe_win_campaign",
+      "text": "The investigators win the campaign…?",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_plus_10",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "Each investigator earns 10 bonus experience, as they have saved reality from an unspeakable fate.",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_5",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "Each investigator earns 5 bonus experience, as they have survived ancient horrors and lived to tell the tale.",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "2_physical_and_mental_trauma",
+      "text": "Each investigator suffers 2 physical trauma and 2 mental trauma as they never truly recover from their ordeal.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 2,
+          "mental": 2
+        }
+      ]
+    },
+    {
+      "id": "1_physical_and_mental_trauma",
+      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma as they never truly recover from their ordeal.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 1,
+          "mental": 1
+        }
+      ]
+    },
+    {
+      "id": "kill_expedition_team",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, cross off every name."
+    },
+    {
+      "id": "actually_kill_expedition_team",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["alive"],
+        "operation": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "status": "eliminated",
+                "operation": "add"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "all",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "replace_amy_with_entity",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, cross off Dr. Amy Kensler's name. In its place, write \"The Entity.\"",
+      "effects": [
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08720",
+          "status": "the_entity",
+          "operation": "add"
+        },
+        {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "$fixed_partner",
+          "fixed_partner": "08720",
+          "status": "eliminated",
+          "operation": "add",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "record_surviving_members",
+      "text": "In your Campaign Log, record <i>the survivors of the expedition were…</i>and list the names of each member of the Expedition Team who is not crossed off, along with each surviving investigator's name.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "surviving_members_header",
+          "text": "the survivors of the expedition were:"
+        }
+      ]
+    },
+    {
+      "id": "record_surviving_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["alive"],
+        "operation": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "surviving_partners",
+                "cards": "$input_value",
+                "text": "- #name#",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "list_surviving_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "surviving_partners",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "encounter",
+                "text": "#name#",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_surviving_investigators",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "trauma",
+        "investigator": "each",
+        "trauma": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "surviving_investigators",
+                "cards": "$input_value",
+                "text": "- #name#",
+                "hidden": true
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "investigator_survived",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "list_surviving_investigators",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "surviving_investigators",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name#",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "story_cards": [
+          "08723",
+          "08724",
+          "08725",
+          "08726",
+          "08727",
+          "08728",
+          "08729"
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "When you awaken, the facility is dark and quiet once more. You pull your companions to their feet and retreat back to the surface, wondering if you are too late to stop the entity beyond the gate from escaping.It is quiet. Peaceful. There are no more signs of icy phantasms, eerie mirages, or alien entities.\nBack in the city nestled within the mountains, you take notes, photographs, and rubbings. The trip back to the ice shelf is swift and easy. Not even the cold weather fights you as you make your way back to the barrier camp. It is as if the entire continent of Antarctica has given itself over to you. You consider taking this time to continue studying the environment, but in the end, you decide to head back with your extensive findings. The sky is clear and beautiful as your ship departs from the ice shelf, heading north.\nStill, you are troubled. The entity that was once sealed beyond the Elder Thing's gateway was gone. There was almost no trace of it when you fled. Which can only mean it escaped, and could be anywhere. Or everywhere. Your thoughts turn dreadful. You remind yourself of the strange, vivid mirages the creature seemed to control. The lifelike hallucinations. You examine your palms and wonder if they are the same shape they always were, or a close facsimile. The air around you shimmers.\n…Is any of this real?",
+      "steps": [
+        "nameless_madness_escaped",
+        "kill_expedition_team",
+        "actually_kill_expedition_team",
+        "all_insane",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Suddenly, there is blast of warm air, and a sound like a tremendous exhalation. The air shimmers with the distortion of a mirage, and you watch in shock as the rushing miasma suddenly recoils. It collapses upon itself and retreats back into the mountainside just as the avalanche begins. Bright blue cracks spread rapidly along the walls. Without the pylons, the integrity of not just the facility within the mountain, but the entire city, is compromised. The icy floor cracks open. The cyclopean architecture of the alien city begins to sink into the snow.\nThen you hear it: the roaring engine of an aeroplane overhead. The last of Takada's three planes soars over the city, and familiar shouts echo throughout the ancient, ruinous streets. \"There they are! By that tunnel! Quickly!\" Two sledges slide into view, pulled by the remainder of the dogs Eliyah left at the barrier camp, and manned by several members of the crew of the Theodosia. You cannot hold back your surprise or joy at the sight. They motion frantically for you to join them, their gazes fixed on the collapsing mountain.\nAt the last possible second, you hear another voice emanating from within the tunnel. \"Wait!\" Dr. Kensler emerges from the darkness, waving and hollering. \"Wait for me!\" She hops onto the sledge, and together, you race off into the foothills as the city collapses into the ice behind you.\nOne of the crewmates explains that they fixed up the last of the aeroplanes and decided to use it to look it for you, even knowing the risks. \"When we spotted you entering that huge cavern without most of your gear, we thought you might need a rescue. Didn't expect that to be quite this literal,\" he says. You tell him his timing couldn't be more perfect.\nThe moment you make it back to the ice shelf, Dr. Kensler instructs the crew to prepare for departure. You barely even break down the barrier camp. It doesn't matter anymore. All that matters is getting out of this place with your lives intact—and with all the evidence you have found, of course.\nBut still, you have questions. Once safely aboard the Theodosia, you confront Dr. Kensler and ask her what she did back in the facility. The entity was chasing you, and then, suddenly… \"I told you, it is not a living creature,\" she explains. \"As such, it cannot be killed. At least, not by our standards. But it has some semblance of sentience, yes? It knows our desires. Our hopes. Our fears.\" You note aloud that Dr. Kensler is using the present tense. She clenches her jaw. The slightest hint of distortion wavers in the air around her. \"I… I made a deal,\" she whispers. \"It was the only way.\"",
+      "steps": [
+        "nameless_madness_is_contained_safely_within_its_host_for_now",
+        "replace_amy_with_entity",
+        "eliminate_partners",
+        "record_partner_trauma",
+        "record_surviving_members",
+        "record_surviving_partners",
+        "record_surviving_investigators",
+        "earn_xp_plus_10",
+        "win_campaign",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Suddenly, a droning hum emerges.from the tunnel, and hope renews in your heart. You take flight from beneath the archway as bright blue cracks spread rapidly along the walls. Without the pylons, the integrity of not just the facility within the mountain, but the entire city, is compromised. The icy floor cracks open. The cyclopean architecture of the alien city begins to sink into the snow. This might be your burial place, but at least you will take this entity and the rest of this damnable city with you.\nThen you hear it: the roaring engine of an aeroplane overhead. The last of Takada's three planes soars over the city, and familiar shouts echo throughout the ancient, ruinous streets. \"There they are! By that tunnel! Quickly!\" Two sledges slide into view, pulled by the remainder of the dogs Eliyah left at the barrier camp, and manned by several members of the crew of the Theodosia. You cannot hold back your surprise or joy at the sight. They motion frantically for you to join them, their gazes fixed on the collapsing mountain.\nOne of the crewmates explains that they fixed up the last of the aeroplanes and decided to use it to look it for you, even knowing the risks. \"When we spotted you entering that huge cavern without most of your gear, we thought you might need a rescue. Didn't expect that to be quite this literal,\" he says. You tell him his timing couldn't be more perfect. Together, you race off into the foothills as the city collapses into the ice behind you.\nThe moment you make it back to the ice shelf, you tell the crew to prepare for departure. You barely even break down the barrier camp. It doesn't matter anymore. All that matters is getting out of this place with your lives intact—and with all the evidence you have found, of course.\nThe voyage home is quiet and peaceful, but your thoughts are anything but. To this day, you wonder about the true nature of the entity you encountered within the ancient Elder Thing facility. You have no idea what you are going to tell the greater academic community when you return. Your actions have ensured none can study or explore that nightmarish city ever again. But what of the Elder Things? Will those that survived remain in hiding? Or will they—like you—choose to learn more about this new age they find themselves in?\nOnly time will tell. Until then, you can rest easy knowing that the creature that dwelled beneath the ice cannot possibly have survived. The air shimmers around your pen hand as you put the final touches on your notes regarding the expedition. Yes—it is finally over.\n…Right?",
+      "steps": [
+        "facility_was_destroyed",
+        "eliminate_partners",
+        "record_partner_trauma",
+        "record_surviving_members",
+        "record_surviving_partners",
+        "list_surviving_partners",
+        "record_surviving_investigators",
+        "list_surviving_investigators",
+        "earn_xp_plus_10",
+        "1_physical_and_mental_trauma",
+        "win_campaign",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You take flight from beneath the archway as the mountain begins to groan and rumble. You managed to collapse enough pylons to threaten the structural integrity of the facility deep beneath the city, but it is not enough. You are going to die here, and worse, you have only aided in the entity's escape.\nThen you hear it: the roaring engine of an aeroplane overhead. The last of Takada's three planes soars over the city, and familiar shouts echo throughout the ancient, ruinous streets. \"There they are! By that tunnel! Quickly!\" Two sledges slide into view, pulled by the remainder of the dogs Eliyah left at the barrier camp, and manned by several members of the crew of the Theodosia. You cannot hold back your relief at the sight. They motion frantically for you to join them, their gazes fixed on the encroaching miasmic horror. \"What in the hell is that thing? One of them shouts. But there is no time for explanations. The moment you are on board one of the sledges, you instruct him to flee.\nYour escape from the city is a frenzied blur. You have vague recollections of weaving through ancient snow-covered streets, dodging the creeping mist around buildings of smooth, slate gray, of narrowly avoiding a deluge of kaleidoscopic ooze as you make your way through the mountains.\nOnce the creature is out of sight, one of the crewmates explains that they fixed up the last of the aeroplanes and decided to use it to look it for you, even knowing the risks. \"When we spotted you entering that huge cavern without most of your gear, we thought you might need a rescue. Didn't expect that to be quite this literal,\" he says.\nYou are relieved to see that the pilot has landed the last aeroplane just on the other side of the mountain range. With haste, you and your rescuers board the plane as soon as you reach it, along with the remaining dogs. In the distance, you can see the entity looming, climbing up the jagged peaks, reaching into the sky.\nYou leave the sledge and all of your supplies behind. The engine roars to life, and together you leave the mountains of madness behind. You dare not turn and glimpse that which has haunted Danforth these many months, but still you hear it to this day: echoing shrieks and fathomless cries, winds too shrill and piercing to be natural, and whispers that beckon you to return.\nIt has been years since that fateful day. You have not told the greater scientific community anything of your journey. And yet, still, there is no sign of the escaped entity. Is its reach limited to that cryptic,frozen continent? Is it simply biding its time?\nOr is it already here, in the very air you breathe? Inside your mind? Showing you a false reality? A mirage?",
+      "steps": [
+        "team_escaped_the_facility",
+        "eliminate_partners",
+        "record_partner_trauma",
+        "record_surviving_members",
+        "record_surviving_partners",
+        "list_surviving_partners",
+        "record_surviving_investigators",
+        "list_surviving_investigators",
+        "earn_xp_plus_5",
+        "2_physical_and_mental_trauma",
+        "maybe_win_campaign",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

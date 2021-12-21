@@ -2,6 +2,7 @@
   "id": "tfa_interlude1",
   "scenario_name": "Restless Nights",
   "full_name": "Interlude I: Restless Nights",
+  "header": "Interlude I",
   "type": "interlude",
   "icon": "deadly_traps",
   "setup": [
@@ -22,7 +23,10 @@
       "id": "check_blanket",
       "narration": {
         "id": "the_forgotten_age.interlude_1.blanket_check",
-        "name": "Blanket Check"
+        "name": "Blanket Check",
+        "lang": [
+          "dv"
+        ]
       },
       "type": "branch",
       "text": "Check your supplies to see which investigators have a blanket.",
@@ -40,7 +44,10 @@
             "effects": [
               {
                 "type": "story_step",
-                "steps": ["restful_sleep", "no_ill_effects"]
+                "steps": [
+                  "restful_sleep",
+                  "no_ill_effects"
+                ]
               }
             ]
           },
@@ -51,7 +58,9 @@
             "effects": [
               {
                 "type": "story_step",
-                "steps": ["tossing_and_turning"]
+                "steps": [
+                  "tossing_and_turning"
+                ]
               },
               {
                 "type": "trauma",
@@ -67,21 +76,29 @@
       "id": "tossing_and_turning",
       "narration": {
         "id": "the_forgotten_age.interlude_1.tossing_and_turning",
-        "name": "Tossing and Turning"
+        "name": "Tossing and Turning",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "type": "story",
       "title": "Tossing and Turning",
-      "text": "Those nights in the jungle, I barely slept. A strange fog rolled through the camp each night, plunging the area in an intense and peculiar cold. My bedroll offered some protection against the elements, but we hadn’t been prepared for this unnatural weather. Flies and mosquitoes buzzed in my ears every time I began to drift off. Even when I finally slept, I would soon be startled awake by the crawling of an insect or lizard across my face. I wager I’ll get very little sleep on this journey..."
+      "text": "Those nights in the jungle, I barely slept. A strange fog rolled through the camp each night, plunging the area in an intense and peculiar cold. My bedroll offered some protection against the elements, but we hadn’t been prepared for this unnatural weather. Flies and mosquitoes buzzed in my ears every time I began to drift off. Even when I finally slept, I would soon be startled awake by the crawling of an insect or lizard across my face. I wager I’ll get very little sleep on this journey…"
     },
     {
       "id": "restful_sleep",
       "narration": {
         "id": "the_forgotten_age.interlude_1.restful_sleep",
-        "name": "Restful Sleep"
+        "name": "Restful Sleep",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "title": "Restful Sleep",
       "type": "story",
-      "text": "Mercifully, I was able to sleep through each night. However, while my body rested, my mind was plagued by nightmares. A cavern like a gaping maw, bathed in dim red light...the walls slithering with the glimmering scales of a hundred vipers...it might have been better had I not slept at all."
+      "text": "Mercifully, I was able to sleep through each night. However, while my body rested, my mind was plagued by nightmares. A cavern like a gaping maw, bathed in dim red light…the walls slithering with the glimmering scales of a hundred vipers…it might have been better had I not slept at all."
     },
     {
       "id": "no_ill_effects",
@@ -91,7 +108,10 @@
       "id": "eat_provisions",
       "narration": {
         "id": "the_forgotten_age.interlude_1.provisions_check",
-        "name": "Provisions Check"
+        "name": "Provisions Check",
+        "lang": [
+          "dv"
+        ]
       },
       "text": "Check your supplies. The investigators, as a group, must cross off one provisions per investigator from their supplies. For each provisions they cannot cross off, choose an investigator to read <b>Low on Rations</b>.",
       "type": "input",
@@ -107,10 +127,23 @@
             "boolCondition": false,
             "border": true,
             "prompt": "Low on Rations",
-            "effects": [{
-              "type": "story_step",
-              "steps": ["low_on_rations", "fewer_resources"]
-             }]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "low_on_rations",
+                  "fewer_resources"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "eztli_fewer_resources",
+                "cards": "$input_value",
+                "masculine_text": "#name# starts with 3 fewer resources.",
+                "feminine_text": "#name# starts with 3 fewer resources."
+              }
+            ]
           }
         ]
       }
@@ -119,7 +152,11 @@
       "id": "low_on_rations",
       "narration": {
         "id": "the_forgotten_age.interlude_1.low_on_rations",
-        "name": "Low on Rations"
+        "name": "Low on Rations",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "type": "story",
       "title": "Low on Rations",
@@ -133,7 +170,10 @@
       "id": "choose_lookout",
       "narration": {
         "id": "the_forgotten_age.interlude_1.binoculars_check",
-        "name": "Binoculars Check"
+        "name": "Binoculars Check",
+        "lang": [
+          "dv"
+        ]
       },
       "text": "The lead investigator must choose one investigator to be the group’s lookout. Then, that investigator checks their supplies to see if they have binoculars.",
       "type": "input",
@@ -141,6 +181,7 @@
         "type": "investigator_choice_supplies",
         "section": "supplies",
         "id": "binoculars",
+        "name": "(has binoculars)",
         "investigator": "choice",
         "prompt": "Group's lookout",
         "positiveChoice": {
@@ -150,7 +191,10 @@
           "effects": [
             {
               "type": "story_step",
-              "steps": ["shapes_in_the_tress", "bonus_binoculars_xp"]
+              "steps": [
+                "shapes_in_the_tress",
+                "bonus_binoculars_xp"
+              ]
             },
             {
               "type": "earn_xp",
@@ -166,7 +210,9 @@
           "effects": [
             {
               "type": "story_step",
-              "steps": ["eyes_in_the_dark"]
+              "steps": [
+                "eyes_in_the_dark"
+              ]
             },
             {
               "type": "trauma",
@@ -181,7 +227,11 @@
       "id": "eyes_in_the_dark",
       "narration": {
         "id": "the_forgotten_age.interlude_1.eyes_in_the_dark",
-        "name": "Eyes in the Dark"
+        "name": "Eyes in the Dark",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "type": "story",
       "title": "Eyes in the Dark",
@@ -191,11 +241,15 @@
       "id": "shapes_in_the_tress",
       "narration": {
         "id": "the_forgotten_age.interlude_1.shapes_in_the_trees",
-        "name": "Shapes in the Trees"
+        "name": "Shapes in the Trees",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "type": "story",
       "title": "Shapes in the Trees",
-      "text": "Most of the nights passed without incident, but on this night, I was startled by the rustling of tree branches along the southern border of our camp’s clearing. Despite the darkness, I was able to use my binoculars to see shapes moving in the trees. The shapes appeared human, but...why? Why do they only watch us from afar? What is their purpose?"
+      "text": "Most of the nights passed without incident, but on this night, I was startled by the rustling of tree branches along the southern border of our camp’s clearing. Despite the darkness, I was able to use my binoculars to see shapes moving in the trees. The shapes appeared human, but…why? Why do they only watch us from afar? What is their purpose?"
     },
     {
       "id": "bonus_binoculars_xp",
@@ -205,7 +259,10 @@
       "id": "use_medicine",
       "narration": {
         "id": "the_forgotten_age.interlude_1.medicine_check",
-        "name": "Medicine Check"
+        "name": "Medicine Check",
+        "lang": [
+          "dv"
+        ]
       },
       "text": "Check your supplies. Each investigator with medicine may cross it off from their supplies to choose and remove a Poisoned weakness from any investigator’s deck. Each investigator who still has a Poisoned weakness in their deck reads <b>The Poison Spreads</b>.",
       "type": "input",
@@ -247,7 +304,9 @@
             "effects": [
               {
                 "type": "story_step",
-                "steps": ["poison_spreads"]
+                "steps": [
+                  "poison_spreads"
+                ]
               },
               {
                 "type": "trauma",
@@ -263,7 +322,11 @@
       "id": "poison_spreads",
       "narration": {
         "id": "the_forgotten_age.interlude_1.the_poison_spreads",
-        "name": "The Poison Spreads"
+        "name": "The Poison Spreads",
+        "lang": [
+          "dv",
+          "es"
+        ]
       },
       "type": "story",
       "title": "The Poison Spreads",

@@ -1,0 +1,125 @@
+{
+  "id": "return_to_at_deaths_doorstep",
+  "original_id": "at_deaths_doorstep",
+  "scenario_name": "Return to At Death's Doorstep",
+  "full_name": "Scenario II: Return to At Death's Doorstep",
+  "setup": [
+    "intro_article",
+    "intro",
+    "gather_encounter_sets",
+    "gather_set_aside",
+    "set_aside_cards",
+    "set_aside_josef",
+    "setup_locations",
+    "location_layout",
+    "setup_senator",
+    "check_missing_persons",
+    "check_gavriella_clues",
+    "check_jerome_clues",
+    "check_valentino_clues",
+    "check_penny_clues",
+    "remove_pieces_of_evidence",
+    "list_pieces_of_evidence",
+    "check_campaign_reading_reminder",
+    "encounter_deck",
+    "act_b_note",
+    "extra_rule",
+    "replacing_locations",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "at_deaths_doorstep",
+        "return_to_at_deaths_doorstep",
+        "silver_twilight_lodge",
+        "spectral_predators",
+        "bloodthirsty_spirits",
+        "unspeakable_fate",
+        "chilling_mists"
+      ]
+    },
+    {
+      "id": "gather_set_aside",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "unstable_realm",
+        "the_watcher"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the eight [[Spectral]] locations aside, out of play."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each of the eight non-[[Spectral]] locations into play (Entry Hall, Victorian Halls, Trophy Room, Billiards Room, Master Bedroom, Balcony, Office, and Wine Cellar). Each investigator begins play in the Entry Hall."
+    },
+    {
+      "id": "setup_senator",
+      "text": "Put the Senator Nathaniel Rhodes enemy into play in the Entry Hall, with 1 [per_investigator] clues on him."
+    },
+    {
+      "id": "act_b_note",
+      "text": "When act 1b instructs the players to shuffle the <i>Realm of Death</i> encounter set into the encounter deck, shuffle in the <i>Unstable Realm</i> encounter set instead."
+    },
+    {
+      "id": "extra_rule",
+      "text": "For the duration of this scenario, the following additional rule applies:\n\"While resolving The Watcher's Grasp treachery, The Spectral Watcher does not exhaust after it attacks.\"\nAttach the Return to At Death's Doorstep card to the scenario reference card as a reminder."
+    },
+    {
+      "id": "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "check_scenario_campaign_reading_reminder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_justice_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "campaign_reading_reversed"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "campaign_reading_upright"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "As part of the tarot campaign reading you performed, place \"Justice · XI\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "As part of the tarot campaign reading you performed, place \"Justice · XI\" in the upright position."
+    }
+  ]
+}

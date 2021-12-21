@@ -1,0 +1,107 @@
+{
+  "id": "return_to_in_the_clutches_of_chaos",
+  "original_id": "in_the_clutches_of_chaos",
+  "scenario_name": "Return to In the Clutches of Chaos",
+  "full_name": "Scenario VII: Return to In the Clutches of Chaos",
+  "setup": [
+    "intro_1",
+    "check_never_seen_again",
+    "intro_4",
+    "gather_encounter_sets",
+    "setup_locations",
+    "check_anette_mason_is_possessed_by_evil",
+    "set_aside_cards",
+    "choose_random_breaches",
+    "check_players_random_breaches",
+    "check_campaign_reading_reminder",
+    "encounter_deck",
+    "choosing_a_random_location",
+    "breaches_and_incursions",
+    "placing_breaches",
+    "resolving_incursions",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "in_the_clutches_of_chaos",
+        "return_to_in_the_clutches_of_chaos",
+        "agents_of_azathoth",
+        "nightgaunts"
+      ]
+    },
+    {
+      "id": "gather_anette_cards",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "music_of_the_damned",
+        "anettes_coven",
+        "city_of_the_damned",
+        "hexcraft"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Choose at random one of the three copies of each of the following locations: French Hill, Rivertown, Southside, South Church, Uptown, and Merchant District. Place each of these locations into play and remove the other copies from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play in Southside."
+        }
+      ]
+    },
+    {
+      "id": "check_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "check_scenario_campaign_reading_reminder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scenario_campaign_reading_reminder",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "campaign_reading_chariot_reversed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "campaign_reading_reversed"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "campaign_reading_upright"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "campaign_reading_reversed",
+      "text": "As part of the tarot campaign reading you performed, place \"The Chariot · VII\" in the reversed position."
+    },
+    {
+      "id": "campaign_reading_upright",
+      "text": "As part of the tarot campaign reading you performed, place \"The Chariot · VII\" in the upright position."
+    }
+  ]
+}

@@ -18,7 +18,7 @@ if [ ! -d "$ARKHAMDB_DATA" ]; then
   exit 1
 fi
 
-cp $ARKHAMDB_DATA/encounters.json encounter_sets/en.json
+cp $ARKHAMDB_DATA/encounters.json encounter_sets.json
 
 LANGS=(es de it fr ru)
 for lang in ${LANGS[@]}; do

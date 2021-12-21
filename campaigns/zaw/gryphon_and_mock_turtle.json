@@ -1,0 +1,441 @@
+{
+  "id": "gryphon_and_mock_turtle",
+  "scenario_name": "Gryphon and Mock Turtle",
+  "full_name": "Interlude: Gryphon and Mock Turtle",
+  "header": "Interlude",
+  "type": "interlude",
+  "icon": "gryphon_and_mock_turtle",
+  "setup": [
+    "intro",
+    "check_strength_of_wonderland",
+    "lobster_quadrile",
+    "decide_situation",
+    "guidance_from_alice",
+    "$upgrade_decks",
+    "proceed_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The shadows have kept you on edge for too long already in your journey.  Even in an open field where the sun beams down on you from above, you scan the horizon in constant search for any sign of approaching darkness.  Have the shadows been curbed at all by your efforts, or are they unstoppable while their master prepares to feast on Arkham?  The questions tax your psyche further as you continue your trek through Wonderland.\nYour vigilance finally pays off as you spot an airborne figure moving toward you at great speed.  You brace for a fight, but it wheels up high above you, circling like a vulture around a dying animal.  You remain still on the sunny field, dreading what the strange entity might be all the while.  Tense moments pass before the figure descends in a surprising burst of speed and lands in the tall grass before you.  The strange beast before you is equally split between eagle and lion: a gryphon in the flesh if ever there was one, and it regards you curiously as it settles its wings.\n\"Another visitor to Wonderland?  How very peculiar!\"  It leans uncomfortably close to you and strokes the underside of its beak with one claw pensively.  \"You've chosen a poor time for sight-seeing, I'm sorry to say.  The stability of the place has been lacking, and those shadowy beasts have been gnawing about like termites!\"  Your relief at meeting a more congenial resident of Wonderland is quickly replaced by your unease at the Gryphon's statements.  The Gryphon takes note of your concern and nods sagely.  \"Curious to see the trouble yourself?  My, but you're a morbid sort, but it just might take such a sort to sort through it all!\"  The Gryphon chuckles and puffs up a bit at his own play on words, reveling for a moment before turning his side to you.  \"Come, come, don't shy away now!  The only way to see the state of things is from the air!\"  Again you find yourself with conflicting feelings.  On the one hand, this could help you gather information easily, and even assist in your travels.  On the other hand, however, being hundreds of feet up in the air on the back of one of Wonderland's capricious creatures could prove fatal.  Your curiosity wins out in the end, however, and you climb onto the Gryphon's back gingerly."
+    },
+    {
+      "id": "check_strength_of_wonderland",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "strength_of_wonderland",
+        "id": "$count",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "shadows_wane",
+              "shadows_weakened_by_wonderlands_instability",
+              "wane_token"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "shadows_wane",
+              "shadows_weakened_by_wonderlands_instability",
+              "wane_token"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "shadows_wane",
+              "shadows_weakened_by_wonderlands_instability",
+              "wane_token"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "shadows_wane",
+              "shadows_weakened_by_wonderlands_instability",
+              "wane_token"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "shadows_loom",
+              "shadows_maintain_their_grip_on_alices_dreams",
+              "loom_token"
+            ]
+          },
+          {
+            "numCondition": 5,
+            "steps": [
+              "shadows_loom",
+              "shadows_maintain_their_grip_on_alices_dreams",
+              "loom_token"
+            ]
+          },
+          {
+            "numCondition": 6,
+            "steps": [
+              "shadows_loom",
+              "shadows_maintain_their_grip_on_alices_dreams",
+              "loom_token"
+            ]
+          }
+        ],
+        "default_option": {
+          "steps": [
+            "shadows_churn",
+            "shadows_grow_stronger_with_each_passing_moment",
+            "churn_token"
+          ]
+        }
+      }
+    },
+    {
+      "id": "shadows_wane",
+      "title": "Shadows Wane",
+      "type": "story",
+      "text": "The Gryphon ascends with a half-cry half-roar, and you grip into its feathers for dear life.  Your view changes rapidly as you rise above the treetops and can see for miles in every direction.  Wonderland appears to be coming apart at the seams, but for all the damage done, the darkness is scattered and weak."
+    },
+    {
+      "id": "shadows_weakened_by_wonderlands_instability",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "shadows_weakened_by_wonderlands_instability",
+          "text": "the shadows have been weakened by Wonderland's instability."
+        }
+      ]
+    },
+    {
+      "id": "wane_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-2"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "shadows_loom",
+      "title": "Shadows Loom",
+      "type": "story",
+      "text": "The Gryphon ascends with a half-cry half-roar, and you grip into its feathers for dear life.  Your view changes rapidly as you rise above the treetops and can see for miles in every direction.  Your exploits have struck a tenuous balance between the stability of Alice's dreams and the shadows' grip on both worlds."
+    },
+    {
+      "id": "shadows_maintain_their_grip_on_alices_dreams",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "shadows_maintain_their_grip_on_alices_dreams",
+          "text": "the shadows maintain their grip on Alice's dreams."
+        }
+      ]
+    },
+    {
+      "id": "loom_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-6"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "shadows_churn",
+      "title": "Shadows Churn",
+      "type": "story",
+      "text": "The Gryphon ascends with a half-cry half-roar, and you grip into its feathers for dear life.  Your view changes rapidly as you rise above the treetops and can see for miles in every direction.  By your reckoning, Wonderland is very nearly pristine, though the darkness roils on the horizon no matter where you look."
+    },
+    {
+      "id": "shadows_grow_stronger_with_each_passing_moment",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "shadows_grow_stronger_with_each_passing_moment",
+          "text": "the shadows grow stronger with each passing moment."
+        }
+      ]
+    },
+    {
+      "id": "churn_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-6"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-7"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lobster_quadrile",
+      "type": "story",
+      "title": "The Lobster Quadrile",
+      "text": "\"Satisfied?\" the Gryphon probes, \"The view is much less dismal from the ground.\"  You consider the state of Wonderland and the shadows once more briefly before you nod.  At once, the Gryphon wheels back down to earth, swooping this time toward a quiet lagoon on the edge of a vast body of water.  \"Come, I know just the thing to liven your spirits after such a sight!  My friend the Mock Turtle is quite a songster, to say nothing of his education!\"  You try to envision just what a mock turtle might look like, but the creature the Gryphon lands next to doesn't match any of your ideas.  The Mock Turtle resembles a sea turtle but with the head of a cow.  He sits at the water's edge, staring down into the pools with a smile on his face, but tears leaking from his eyes.  \"Ahoy and what ho!\" the Gryphon calls out, \"enjoying the dance?\"\n\"It's a sight for sore feet,\" the Mock Turtle murmurs with a nod.  You give the creature a hesitant hello and he waves a flipper at you without looking.  His attention is firmly fixed on the waves in front of him.  You stand beside the Mock Turtle and look into the water, seeing at once a bizarre spectacle.  Sea creatures of a hundred varieties dance together in a complicated but stately fashion just under the water's surface.  The Mock Turtle splashes his flippers in the surf in time with the muffled music, still sniffling but enjoying himself.\nNot wanting to ask the Mock Turtle bluntly, you take the Gryphon aside and quietly question why the creature is in such an emotional state.  \"The poor fellow knows the state of Wonderland as well as I do,\" the Gryphon responds with a pitying glance at its friend, \"he often used to cry in his spare time, but now that he's found something serious to give him sorrow, he's doing all he can to distract himself.\"  The Mock Turtle hums to himself as the dancing continues, utterly enthralled.  \"It's for the best, don't you know!\" the Gryphon chuckles, \"no sense dwelling on such grim matters\"\nYou frown at the Gryphon's statement.  Sitting by idly is only going to help Gurathnaka in its conquest.  You warn the two creatures of the dangers the hungry shadows could pose if left unchecked.  The Mock Turtle covers his ears with two flippers and shakes his head, while the Gryphon scowls at your stories.  \"Such topics aren't polite, not one jot!\" the Gryphon scolds you.  The Mock Turtle nods with a whimper and chimes in after.  \"There's so much misery to be had, only let us ration it!  Let us sing of soup and schools, and join the lobsters in their quadrille!\""
+    },
+    {
+      "id": "decide_situation",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "accept",
+            "text": "<i>\"Get up!  This is your chance to make a difference.\"</i>",
+            "steps": [
+              "sadder_but_wiser",
+              "add_1_strength_of_wonderland",
+              "boons_gryphon_and_mock_turtle"
+            ]
+          },
+          {
+            "id": "reject",
+            "text": "<i>\"Fine.  When your world falls apart, don't come crying to me.\"</i>",
+            "steps": [
+              "ignorance_is_bliss",
+              "banes_gryphon_and_mock_turtle",
+              "earn_bonus_xp"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sadder_but_wiser",
+      "type": "story",
+      "title": "Sadder but Wiser",
+      "text": "The task of opposing Gurathnaka is too important for you to allow this apathy.  You go to great lengths to explain the threat of the shadows, ignoring their protests.  You spare no detail in the power, the relentlessness, and the wanton destruction the shadows are capable of.  The Gryphon brushes off each grim retelling, and the Mock Turtle shakes his head woefully, trying not to listen.  It is only when you begin talking about Arkham's destruction that the conversation seems to affect them.\nYou describe the chaos and madness that engulfed the city when last you saw it.  Each place and person you once held dear will be lost forever if you can't find a way to root Gurathnaka out of Alice's dreams.  The Mock Turtle bursts into a fresh cascade of tears while the Gryphon draws upward indignantly.  \"That is quite enough!\" he bellows, \"the poor fellow has delicate sensibilities, you know!  And now that you've-\"\n\"No…\" the Mock Turtle blubbers, placing a flipper between the two of you, \"what's made me sad is that… is that I've been so intolerably selfish… we both have…\" the Gryphon's beak opens in shock and he stumbles over his words, but can't voice any protest to the statement.  \"To think that such sorrow was inside you… we simply must help.\"  The Gryphon regains his composure quickly, and though he still looks irritated at being made to look callous, he nods with a grumbling agreement."
+    },
+    {
+      "id": "add_1_strength_of_wonderland",
+      "text": "In your Campaign Log, record 1 tally mark under \"Strength of Wonderland.\"",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "strength_of_wonderland",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "boons_gryphon_and_mock_turtle",
+      "text": "In your Campaign Log under \"Wonderland Boons,\" record <i>the Gryphon and the Mock Turtle.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "wonderland_boons",
+          "id": "gryphon_and_mock_turtle",
+          "text": "The Gryphon and the Mock Turtle"
+        }
+      ]
+    },
+    {
+      "id": "ignorance_is_bliss",
+      "title": "Ignorance is Bliss",
+      "type": "story",
+      "text": "\"There's no need to be impertinent!\" the Gryphon snaps as it shelters the Mock Turtle under one wing, \"if you don't enjoy the ways that we handle our affairs, then you're welcome to exclude yourself from them!\"  The two delusional creatures return to watching the strange dance in the surf, refusing to acknowledging you any further.  With a resigned sigh, you turn away to rediscover the path, when you notice the daylight around you beginning to dim.\nWisps of shadow creep along the ground toward the Gryphon and the Mock Turtle, seeping inside them like water to a sponge.  You back away cautiously, hoping that they will continue to ignore you even as the shadows begin to corrupt them.  The tears that drip down the Mock Turtle's face darken until he cries dark liquid rivulets, while the Gryphon swells in size to match its overflowing pride.  Not wanting to risk another attack, you make a swift retreat from the darkening scene.\nYour steps are suddenly halted as you feel a tug at your back, as if you had been leashed.  You look down and discover that your shadow stretches far behind you, as if tethered to the Gryphon and the Mock Turtle.  They turn to you, the one with a predatory eye and the other with trickling darkness on his.  \"You musn't go…\" the Mock Turtle moans with a distorted tone.  \"There is only sorrow out there… come and sit…\" the Gryphon echoes hollowly.  You struggle forward desperately as you feel yourself being reeled back toward them, until at last you jerk forward with a snap.  With the tether gone, you waste no time in making your escape."
+    },
+    {
+      "id": "banes_gryphon_and_mock_turtle",
+      "text": "In your Campaign Log under \"Wonderland Banes,\" record <i>the Gryphon and the Mock Turtle.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "wonderland_banes",
+          "id": "gryphon_and_mock_turtle",
+          "text": "The Gryphon and the Mock Turtle"
+        }
+      ]
+    },
+    {
+      "id": "earn_bonus_xp",
+      "text": "Each investigator earns 1 bonus experience as the investigators have witnessed a shadow transformation firsthand.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "guidance_from_alice",
+      "title": "Guidance from Alice",
+      "type": "story",
+      "text": "You feel more than a little drained from dealing with the two hodgepodge creatures as you set back on the journey through Wonderland.  You try to orient yourself from what you recall of the landscape from the back of the Gryphon, but it's all somehow wrong.  Once again, Wonderland seems to be shifting to keep you out - or at this point, in.\nAs you stare about the jumbled countryside, a single feather drifts into view, much like one from the Gryphon's own coat.  You look up to see hundreds of feathers floating on the breeze, slowly shifting into a long line that winds through the trees and over the rolling hills.  You have a feeling that you have Alice to thank once again for helping you navigate this madcap world.\nYou march forward, following the feather trail while it lasts, but your thoughts drift backward to the view from the Gryphon's back.  The balance between Wonderland's stability and Gurathnaka's advance is more precarious than you first imagined.  Questions and fears mix in your mind with each step forward.  Will the discoveries and insights you've gained be enough to beat back the shadows from Arkham?  Has Arkham already been reduced to irreversible ruin?  Or will you even be able to escape from Wonderland back into the real world at all?  Each question returns you the same answer: you won't know until you've tried.  With everything else in Wonderland so uncertain, the one thing you have to trust is your own decisions, come what may.  You press on, for better or worse, braced for the consequences."
+    },
+    {
+      "id": "proceed_scenario",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "went_down_the_rabbit_hole",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "wild_snark_chase"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "bleeding_hearts"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

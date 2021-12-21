@@ -1,0 +1,207 @@
+{
+  "id": "twist_of_fate",
+  "original_id": "twist_of_fate",
+  "setup": [
+    "tof_1",
+    "path_winds_before_you",
+    "check_accept_fate",
+    "check_asked_anette_for_assistance",
+    "check_asked_sanford_for_assistance",
+    "check_mementos",
+    "check_black_book",
+    "check_doom_draws_ever_closer",
+    "check_arrested_anette",
+    "check_anette_taught_you_the_spells_of_old",
+    "check_arrested_sanford",
+    "check_assumed_control_of_the_silver_twilight_lodge",
+    "tof_2",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "check_arrested_anette",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "arrested_anette",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "remove_skull"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_skull",
+      "narration": {
+        "id": "the_circle_undone.interlude_4.if_the_investigators_arrested_anette_return_to",
+        "name": "If the investigators arrested Anette",
+        "lang": [
+          "dv"
+        ]
+      },
+      "bullet_type": "small",
+      "text": "Erase 1 tally mark. Remove 1 [skull] from the chaos bag.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "path_winds_before_you",
+          "operation": "add",
+          "value": -1
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "skull"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "check_anette_taught_you_the_spells_of_old",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "anette_taught_you_the_spells_of_old",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "ask_trade_weakness_for_xp"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_trade_weakness_for_xp",
+      "narration": {
+        "id": "the_circle_undone.interlude_4.if_anette_taught_you_the_spells_of_old_return_to",
+        "name": "If Anette taught you the spells of old",
+        "lang": [
+          "dv"
+        ]
+      },
+      "bullet_type": "small",
+      "text": "Each investigator may search the collection for a basic [[Pact]], [[Curse]], [[Omen]], or [[Silver Twilight]] weakness of their choice and add it to their deck. Each investigator who does earns 4 bonus experience, which can only be spent to purchase or upgrade [[Spell]], [[Ritual]], [[Sorcerer]], or [[Witch]] cards.\n<i>(Note: the app will not enforce what the XP is spent on.)</i>",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "accept_magic",
+            "text": "Accept the knowledge",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [
+                  "Pact",
+                  "Curse",
+                  "Omen",
+                  "Silver Twilight"
+                ],
+                "choose_only": true
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 4
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_arrested_sanford",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "arrested_sanford",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "remove_neg_one_token"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_neg_one_token",
+      "narration": {
+        "id": "the_circle_undone.interlude_4.if_the_investigators_arrested_sanford_return_to",
+        "name": "If the investigators arrested Sanford",
+        "lang": [
+          "dv"
+        ]
+      },
+      "bullet_type": "small",
+      "text": "Erase 1 tally mark. Add a \"-1\" token to the chaos bag.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "campaign_notes",
+          "id": "path_winds_before_you",
+          "operation": "add",
+          "value": -1
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "check_assumed_control_of_the_silver_twilight_lodge",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "assumed_control_of_the_silver_twilight_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "add_cultist_tokens"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_cultist_tokens",
+      "narration": {
+        "id": "the_circle_undone.interlude_4.if_the_investigators_assumed_control_of_the_silver_twilight_lodge_return_to",
+        "name": "If the investigators assumed control of the Silver Twilight Lodge",
+        "lang": [
+          "dv"
+        ]
+      },
+      "bullet_type": "small",
+      "text": "Add 2 [cultist] tokens to the chaos bag. Each investigator begins the next scenario with 2 additional resources and 2 additional cards on their starting hand.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist",
+            "cultist"
+          ]
+        }
+      ]
+    }
+  ]
+}

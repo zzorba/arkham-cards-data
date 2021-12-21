@@ -1,0 +1,466 @@
+{
+  "id": "the_fallen",
+  "scenario_name": "The Fallen",
+  "full_name": "Chapter III: The Fallen",
+  "header": "Chapter III",
+  "setup": [
+    "check_did_not_find_the_ritual_site",
+    "check_photographed_one_location",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_saga",
+    "setup_locations_intro",
+    "check_thingvellir",
+    "check_gulfoss",
+    "check_long_glacier",
+    "check_kerio",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_did_not_find_the_ritual_site",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "did_not_find_the_ritual_site",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "intro_1",
+              "place_2_doom"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "intro_2",
+              "2_additional_resources"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You spend much of the next morning trying to understand the purpose of these runic sites. Without any photographic evidence, you have to piece together what you saw with Professor Day Morris. The relics felt more like treasures to be guarded than keys to the ritual.\nAround noon, you hear a commotion from outside. Villagers in Borgarnes have gathered in the town square, petrified and pointing toward the east. An unusual, pale mist has begun to blanket the town, rolling in from the mountainside.\nThe professor chimes in, \"Snæfellsjökull. It all makes sense…\""
+    },
+    {
+      "id": "place_2_doom",
+      "text": "Place 2 doom on agenda 1A."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "A pale mist is beginning to cover the Snæfellsnes peninsula, almost completely obscuring your feet. Your companions give the eerie impression of floating atop it, untethered from the physical world. As strange as it seems, you feel no fear."
+    },
+    {
+      "id": "2_additional_resources",
+      "text": "Each investigator begins with 2 additional resources."
+    },
+    {
+      "id": "check_photographed_one_location",
+      "text": "If the investigators photographed at least one location:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "photographs",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "intro_3"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "intro_3"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "intro_3"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "intro_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The photographs you took on the Golden Circle correlate to landmarks on the peninsula. They may not lead you to the ritual site, but they could shed some light on the cultists' plans. You mark them on your map and head out into the mist."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_fallen",
+        "draugar",
+        "glacial_mists",
+        "hudulfolk",
+        "chilling_cold"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: each copy of Bridge to Valhalla, each copy of One Good Turn, Ravenous Polar Bear, Bárðr's Gate, Dragvandil, Egil's Hood, Protective Runes, and Thorolf's Bracelet."
+    },
+    {
+      "id": "set_aside_saga",
+      "text": "Set aside each of the four double-sided [[Saga]] story cards."
+    },
+    {
+      "id": "setup_locations_intro",
+      "bullet_type": "none",
+      "text": "Gather each other location, Eerie Mist side up. Check Campaign Log. If you photographed…"
+    },
+    {
+      "id": "check_thingvellir",
+      "text": "Thingvellir",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "photographed_thingvellir",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "flip_thingvellir"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flip_thingvellir",
+      "bullet_type": "small",
+      "text": "Flip Lóndrangar to its revealed side and return it to the gathered locations."
+    },
+    {
+      "id": "check_gulfoss",
+      "text": "Gulfoss",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "photographed_gulfoss",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "flip_gulfoss"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flip_gulfoss",
+      "bullet_type": "small",
+      "text": "Flip Saxholl to its revealed side and return it to the gathered locations."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "ce_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "check_long_glacier",
+      "text": "Long Glacier",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "photographed_glacier",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "flip_long_glacier"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flip_long_glacier",
+      "bullet_type": "small",
+      "text": "Flip Kirkjufell to its revealed side and return it to the gathered locations."
+    },
+    {
+      "id": "check_kerio",
+      "text": "Kerið",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "photographed_kerio",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "flip_kerio"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flip_kerio",
+      "bullet_type": "small",
+      "text": "Flip Gatklettur to its revealed side and return it to the gathered locations."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Shuffle all other locations except Eldborg without looking at them, then distribute them to complete a 4x4 grid with Eldborg at the lower left.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Eldborg."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "on_their_own",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "on_their_own",
+          "text": "the investigators are on their own."
+        }
+      ]
+    },
+    {
+      "id": "became_sentinels_of_the_mist",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "became_sentinels_of_the_mist",
+          "text": "the investigators became sentinels of the mist."
+        }
+      ]
+    },
+    {
+      "id": "earned_barors_trust",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "earned_barors_trust",
+          "text": "the investigators have earned Bárðr's trust."
+        }
+      ]
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "insane": true,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "ask_proven",
+      "text": "Which of the following is true?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "strength",
+            "text": "You have proven your strength.",
+            "steps": [
+              "must_defeat_egil"
+            ]
+          },
+          {
+            "id": "wisdom",
+            "text": "You have proven your wisdom.",
+            "steps": [
+              "must_banish_egil"
+            ]
+          },
+          {
+            "id": "compassion",
+            "text": "You have proven your compassion.",
+            "steps": [
+              "must_restore_egil"
+            ]
+          },
+          {
+            "id": "cunning",
+            "text": "You have proven your cunning.",
+            "steps": [
+              "must_deceive_egil"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "must_defeat_egil",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "must_defeat_egil",
+          "text": "the investigators must defeat Egil."
+        }
+      ]
+    },
+    {
+      "id": "must_banish_egil",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "must_banish_egil",
+          "text": "the investigators must banish Egil."
+        }
+      ]
+    },
+    {
+      "id": "must_restore_egil",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "must_restore_egil",
+          "text": "the investigators must restore Egil."
+        }
+      ]
+    },
+    {
+      "id": "must_deceive_egil",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "must_deceive_egil",
+          "text": "the investigators must deceive Egil."
+        }
+      ]
+    },
+    {
+      "id": "skip_interlude_3",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "barors_gifts"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "alive",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You feel the dense fog thicken in your lungs until you simply breathe mist. Your lungs loosen and every shred of fear leaves your body. You remember old Norway, faithful King Harald, the sudden raid, and the loathesome Egil himself invading your farmland and cutting you down.\nYou survey the peninsula and envision yourself throttling the wretched Viking who had stolen your family's riches centuries ago. The northern lights shine above you, and you swear upon them that you will have vengeance.",
+      "steps": [
+        "became_sentinels_of_the_mist",
+        "all_insane",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The half-troll eyes you suspiciously as you writhe on the outcropping next to the gate.\n\"You… are weak… But you have suffered… to come here.\"\nThe gate opens inward with a loud grinding of stone and you feel warm air escape the dark recesses of the cave. You gasp it in greedily, grateful to breathe something other than the foul mist.\n\"You aren't like… the hateful ones who came… before. You will prove yourselves… within… or die… as so many of the fallen… who cross Egil.\"",
+      "steps": [
+        "on_their_own",
+        "earn_xp",
+        "$upgrade_decks",
+        "skip_interlude_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "\"So be it.\"\nBárðr leads you to an ancient stone gate, the thick walrus-rope dragging behind him in the snow. He begins to tap the rock methodically with his staff.\n\"Egil Skallagrímsson was always the dark brother… bent by rage… greed… ambition… But even he had… a heart… Those who have come… to raise him… know only hatred.\"\nYou ask about the Crown of Egil, the motif you have seen across each of the runic sites.\n\"Egil? A crown?\" A wry smile slowly spreads across the half-troll's face. \"No Icelander would bow to a king… nor would Egil dream of becoming… what he has always hated.\"\nThe gate opens inward with a loud grinding of stone and you feel warm air escape the dark recesses of the cave.\n\"I trust… you will know what to do… when you meet him.\"",
+      "steps": [
+        "earned_barors_trust",
+        "ask_proven",
+        "earn_xp"
+      ]
+    }
+  ]
+}

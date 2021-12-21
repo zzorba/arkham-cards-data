@@ -1,9 +1,11 @@
 {
   "id": "tcu",
   "position": 4,
-  "version": 3,
+  "version": 4,
   "name": "The Circle Undone",
   "campaign_type": "campaign",
+  "tarot": true,
+  "campaign_length": 8,
   "campaign_log": [
     {
       "id": "campaign_notes",
@@ -12,6 +14,11 @@
     {
       "id": "mementos",
       "title": "Mementos Discovered"
+    },
+    {
+      "id": "missing_persons",
+      "title": "Missing Persons",
+      "type": "header"
     },
     {
       "id": "05046",
@@ -72,75 +79,189 @@
       "text": "Choose difficulty level:",
       "input": {
         "type": "choose_one",
-        "choices": [{
-          "id": "easy",
-          "text": "Easy <i>(I want to experience the story)</i>",
-          "description": "+1, +1, 0, 0, 0, -1, -1, -2, -3, [skull], [skull], [auto_fail], [elder_sign]",
-          "effects": [
-            {
-              "type": "campaign_data",
-              "setting": "difficulty",
-              "value": "easy"
-            },
-            {
-              "type": "add_chaos_token",
-              "tokens": [
-                "+1", "+1", "0", "0", "0", "-1", "-1", "-2", "-3", "skull", "skull", "auto_fail", "elder_sign"
-              ]
-            }
-          ]
-        },{
-          "id": "standard",
-          "text": "Standard <i>(I want a challenge)</i>",
-          "description": "+1, 0, 0, -1, -1, -2, -2, -3, -4, [skull], [skull], [auto_fail], [elder_sign]",
-          "effects": [
-            {
-              "type": "campaign_data",
-              "setting": "difficulty",
-              "value": "standard"
-            },
-            {
-              "type": "add_chaos_token",
-              "tokens": [
-                "+1", "0", "0", "-1", "-1", "-2", "-2", "-3", "-4", "skull", "skull", "auto_fail", "elder_sign"
-              ]
-            }
-          ]
-        },{
-          "id": "hard",
-          "text": "Hard <i>(I want a true nightmare)</i>",
-          "description": "0, 0, -1, -1, -2, -2, -3, -4, -5, [skull], [skull], [auto_fail], [elder_sign]",
-          "effects": [
-            {
-              "type": "campaign_data",
-              "setting": "difficulty",
-              "value": "hard"
-            },
-            {
-              "type": "add_chaos_token",
-              "tokens": [
-                "0", "0", "-1", "-1", "-2", "-2", "-3", "-4", "-5", "skull", "skull", "auto_fail", "elder_sign"
-              ]
-            }
-          ]
-        },{
-          "id": "expert",
-          "text": "Expert <i>(I want Arkham Horror)</i>",
-          "description": "0, -1, -1, -2, -2, -3, -4, -6, -8, [skull], [skull], [auto_fail], [elder_sign]",
-          "effects": [
-            {
-              "type": "campaign_data",
-              "setting": "difficulty",
-              "value": "expert"
-            },
-            {
-              "type": "add_chaos_token",
-              "tokens": [
-                "0", "-1", "-1", "-2", "-2", "-3", "-4", "-6", "-8", "skull", "skull", "auto_fail", "elder_sign"
-              ]
-            }
-          ]
-        }]
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "<i>I want to experience the story</i>",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-3",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "<i>I want a challenge</i>",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "<i>I want a true nightmare</i>",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "<i>I want Arkham Horror</i>",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-6",
+              "-8",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-6",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
       }
     }
   ]

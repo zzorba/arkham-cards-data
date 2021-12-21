@@ -1,0 +1,1975 @@
+{
+  "id": "to_the_forbidden_peaks",
+  "scenario_name": "To the Forbidden Peaks",
+  "header": "Scenario II",
+  "full_name": "Scenario II: To the Forbidden Peaks",
+  "chaos_bag_card": "08596",
+  "chaos_bag_card_text": "[skull]: -X. X is the level of your location.\n[cultist]: -1. If you fail, move to the location directly below you.\n[tablet]: -3. If you fail, lose control of an [[Expedition]] asset and place it at your location.\n[elder_thing]: -4. If you fail, the nearest [[Elder Thing]] enemy moves once toward you. If it is engaged with you, it attacks.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is 2 plus the level of your location.\n[cultist]: -1. Move to the location directly below you.\n[tablet]: -4. If you fail, lose control of an [[Expedition]] asset and place it at your location.\n[elder_thing]: -5. If you fail, the nearest [[Elder Thing]] enemy moves once toward you. If it is engaged with you, it attacks.",
+  "setup": [
+    "intro",
+    "check_campaign_log",
+    "check_eliyah_and_sledge",
+    "check_avery_claypool",
+    "check_takada",
+    "check_scouted_the_mountain_pass",
+    "intro_2",
+    "choose_partners",
+    "check_interlude_danforth",
+    "check_interlude_takada",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "add_elder_thing",
+    "check_supplies_recovered",
+    "set_aside_terror_of_the_stars",
+    "check_difficulty",
+    "setup_tekeli_li",
+    "encounter_deck",
+    "location_adjacency",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The wind howls as your party prepares for the long journey ahead. There is very little conversation. Even if you could hear each other's muffled voices through your earmuffs and scarves, what would you say? The silence of your shared terror is loud enough.\nYour destination is many miles ahead of you. The jagged peaks loom far on the horizon, taunting you. You run a mental checklist of your situation…"
+    },
+    {
+      "id": "check_campaign_log",
+      "text": "Check your Campaign Log and read each passage below that corresponds to your situation."
+    },
+    {
+      "id": "check_eliyah_and_sledge",
+      "text": "If Eliyah Ashevak is alive and Wooden Sledge is listed under \"Supplies Recovered:\"",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$fixed_partner",
+            "fixed_partner": "08716",
+            "operation": "all",
+            "status": ["alive"],
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "wooden_sledge",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliyah_and_sledge_yes"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["eliyah_and_sledge_no"],
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliyah_and_sledge_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["eliyah_and_sledge_yes_story", "no_ill_effects"]
+    },
+    {
+      "id": "eliyah_and_sledge_yes_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"It is not large or sturdy enough to carry all of us,\" Eliyah explains as he hauls the last crate of supplies onto the old sledge, \"but it should be able to carry our provisions and equipment, at least.\" He makes sure the lines are taut and all of the dogs' harnesses are properly fastened before giving Anyu, at the head of the pack, a scratch behind her ears. \"Not looking forward to having to lug this thing up those mountains, but… we'll cross that bridge when we get to it. All right, girl. You ready?\" Anyu barks once. \"Yeah, I know you are.\""
+    },
+    {
+      "id": "no_ill_effects",
+      "border_only": true,
+      "text": "The investigators suffer no ill effects."
+    },
+    {
+      "id": "eliyah_and_sledge_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["eliyah_and_sledge_no_story", "add_frost"]
+    },
+    {
+      "id": "eliyah_and_sledge_no_story",
+      "type": "story",
+      "border_only": true,
+      "text": "You groan as you heft an enormous, heavy backpack full of equipment onto your back. You're definitely not looking forward to trekking across the snow with an extra forty pounds, but there's no avoiding it. You have no idea how long you're going to be where you're headed, and you'll need everything in that backpack if you want to survive."
+    },
+    {
+      "id": "add_frost",
+      "border_only": true,
+      "text": "Add 1 [frost] token to the chaos bag."
+    },
+    {
+      "id": "check_avery_claypool",
+      "text": "If Avery Claypool is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_yes"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["avery_no"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["avery_yes_story", "no_ill_effects"]
+    },
+    {
+      "id": "avery_yes_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"Weather might look clear right now,\" Claypool explains, \"but it could turn on a dime. We'll be on ice for most of the journey, so be on the lookout for cracks. We need ice about 60 centimeters thick in order to walk across, so stay behind me at all times and I'll use this augur to make sure it's safe.\" He holds up a spiral-tipped drilling device and leads the way."
+    },
+    {
+      "id": "avery_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["avery_no_story", "choose_frost_or_physical_trauma"]
+    },
+    {
+      "id": "avery_no_story",
+      "type": "story",
+      "border_only": true,
+      "text": "You venture out when the sky looks clear, but it only takes an hour for the weather to take a sudden turn for the worse. The heavy snowfall is bad enough, but it's the ice that truly slows you down. Without Claypool to safely guide you, you have to proceed slowly and cautiously to ensure you even make it to the mountains alive."
+    },
+    {
+      "id": "choose_frost_or_physical_trauma",
+      "border_only": true,
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "frost",
+            "text": "Add 1 [frost] token to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "trauma",
+            "text": "Each investigator suffers 1 physical trauma.",
+            "effects": [
+              {
+                "type": "trauma",
+                "physical": 1,
+                "investigator": "all",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_takada",
+      "text": "If Takada Hiroko is alive:",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "operation": "all",
+        "status": ["alive"],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["takada_yes"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["takada_no"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "takada_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["takada_yes_story", "no_ill_effects"]
+    },
+    {
+      "id": "takada_yes_story",
+      "type": "story",
+      "border_only": true,
+      "text": "As you set out, you hear Takada singing something under her breath—just quiet enough that you can't tell what it is. One of the others, however, seems to recognize it. \"That song again,\" they say. \"Heard you singing it on the Theodosia on the way over.\"\nTakada sighs. \"It is a song my father taught me. Helps me pass the time,\" she explains.\nYou ask if she would like to teach it to you, and she gives you the first smile you've seen from her since the trek began: \"Yes. Yes, I would.\" You spend the remainder of the journey singing and bonding together; whittling the time away."
+    },
+    {
+      "id": "takada_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["takada_no_story", "choose_frost_or_mental_trauma"]
+    },
+    {
+      "id": "takada_no_story",
+      "type": "story",
+      "border_only": true,
+      "text": "The party suffers through the cold in unbearable silence. Each footstep is as lonely as it is harrowing."
+    },
+    {
+      "id": "choose_frost_or_mental_trauma",
+      "border_only": true,
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "frost",
+            "text": "Add 1 [frost] token to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "trauma",
+            "text": "Each investigator suffers 1 mental trauma.",
+            "effects": [
+              {
+                "type": "trauma",
+                "mental": 1,
+                "investigator": "all",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scouted_the_mountain_pass",
+      "type": "branch",
+      "text": "<i>If the investigators scouted the mountain pass:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "scouted_the_mountain_pass",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["scouted_yes"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["scouted_no"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "scouted_yes",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["scouted_yes_story", "scouted_yes_effects"]
+    },
+    {
+      "id": "scouted_yes_story",
+      "type": "story",
+      "border_only": true,
+      "text": "You seek out the safe pass that you and Ellsworth scouted last night, guiding the rest of the team onward. Sheer cliffs flank you as you approach the foothills, blocking the chill wind. The shortcut gives you swift passage as you begin your trek up to the peaks…"
+    },
+    {
+      "id": "scouted_yes_effects",
+      "border_only": true,
+      "text": "During setup, when you reveal the starting location, reduce its clue value by half (rounded up)."
+    },
+    {
+      "id": "scouted_no",
+      "type": "border",
+      "border_color": "interlude",
+      "border": true,
+      "steps": ["scouted_no_story", "no_ill_effects"]
+    },
+    {
+      "id": "scouted_no_story",
+      "type": "story",
+      "border_only": true,
+      "text": "The frozen tundra leading up to the foothills of the jagged mountains is hard terrain to traverse. Even prepared as you are with snowshoes and warm clothes to fight the cold, the going is slow and rough. The wind fights you at every turn, its gusts strong enough to knock you over. But you continue onward, undeterred."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You hike through the ice and snow for many grueling hours. Luckily, you encounter no more of the creatures from the previous two days, leaving you to ponder if it was all some cruel mirage. But as you draw closer to the base of the jagged snow-tipped mountains, you find another manner of creature altogether.\nIt lies frozen and half-buried in the snow, like a macabre waymarker guiding you onward. Its body is shaped like a drum, with thick hide and a pair of torn, leathery wings. A starfish-shaped appendage sticks out of the snow from its top half, adorned with five dead eyes and a set of prismatic cilia. Five sets of tentacles lie frozen in the ice. The sight of the thing chills you more than the Antarctic weather possibly could.\nThere can be no doubt: this is one of the \"Elder Things\" that Professor Dyer and Danforth encountered the last time they ventured into the heart of Antarctica. But what killed it? Surely it was not just the cold?"
+    },
+    {
+      "id": "choose_partners",
+      "title": "Investigator Setup",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set. If there is a checkmark next to the character's name, instead use the [[Resolute]] version found in the <i>Fatal Mirage</i> encounter set.) Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "all",
+          "status": ["alive"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_interlude_danforth",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "forbidden_peaks_danforth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_danforth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_danforth",
+      "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
+    },
+    {
+      "id": "check_interlude_takada",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "forbidden_peaks_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "to_the_forbidden_peaks",
+        "deadly_weather",
+        "elder_things",
+        "hazards_of_antarctica",
+        "nameless_horrors",
+        "tekeli_li"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Shuffle the seven Mountainside locactions and put five of them into play in a diagonal line. Set the remaining two locations aside, out of play. Put The Summit location into play at the top of the diagonal line. The position of each location has its own level from 0-5, beginning at the bottommost location at level 0 and ascending to The Summit at level 5",
+      "bullets": [
+        {
+          "text": "Reveal the level-0 location. Each investigator begins play at that location."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        ["blank", "blank", "blank", "blank", "blank", "the_summit"],
+        ["blank", "blank", "blank", "blank", "mountainside", "blank"],
+        ["blank", "blank", "blank", "mountainside", "blank", "blank"],
+        ["blank", "blank", "mountainside", "blank", "blank", "blank"],
+        ["blank", "mountainside", "blank", "blank", "blank", "blank"],
+        ["mountainside", "blank", "blank", "blank", "blank", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "mountainside",
+          "name": "Mountainside"
+        },
+        {
+          "code": "the_summit",
+          "name": "The Summit"
+        }
+      ]
+    },
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "check_supplies_recovered",
+      "text": "Check the \"Supplies Recovered\" section of the Campaign Log and put each [[Expedition]] story asset listed there into play at the level-0 location.",
+      "steps": [
+        "maybe_gather_green_soapstone",
+        "maybe_gather_wooden_sledge",
+        "maybe_gather_dynamite",
+        "maybe_gather_miasmic_crystal",
+        "maybe_gather_mineral_specimen",
+        "maybe_gather_small_radio",
+        "maybe_gather_spare_parts",
+        "maybe_remove_unrecovered_supplies"
+      ]
+    },
+    {
+      "id": "maybe_gather_green_soapstone",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "green_soapstone",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_green_soapstone"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_green_soapstone",
+      "bullet_type": "small",
+      "text": "Green Soapstone"
+    },
+    {
+      "id": "maybe_gather_wooden_sledge",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "wooden_sledge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_wooden_sledge"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_wooden_sledge",
+      "bullet_type": "small",
+      "text": "Wooden Sledge"
+    },
+    {
+      "id": "maybe_gather_dynamite",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "dynamite",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_dynamite"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_dynamite",
+      "bullet_type": "small",
+      "text": "Dynamite"
+    },
+    {
+      "id": "maybe_gather_miasmic_crystal",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "miasmic_crystal",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_miasmic_crystal"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_miasmic_crystal",
+      "bullet_type": "small",
+      "text": "Miasmic Crystal"
+    },
+    {
+      "id": "maybe_gather_mineral_specimen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "mineral_specimen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_mineral_specimen"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_mineral_specimen",
+      "bullet_type": "small",
+      "text": "Mineral Specimen"
+    },
+    {
+      "id": "maybe_gather_small_radio",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "small_radio",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_small_radio"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_small_radio",
+      "bullet_type": "small",
+      "text": "Small Radio"
+    },
+    {
+      "id": "maybe_gather_spare_parts",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "supplies_recovered",
+        "id": "spare_parts",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_spare_parts"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_spare_parts",
+      "bullet_type": "small",
+      "text": "Spare Parts"
+    },
+    {
+      "id": "maybe_remove_unrecovered_supplies",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "supplies_recovered"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 7
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["remove_unrecovered_supplies"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_unrecovered_supplies",
+      "bullet_type": "small",
+      "text": "Remove each other [[Expedition]] story asset from the game."
+    },
+    {
+      "id": "set_aside_terror_of_the_stars",
+      "text": "Set the Terror of the Stars enemy aside, out of play."
+    },
+    {
+      "id": "check_difficulty",
+      "text": "Check the difficulty level.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["no_changes"]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "hard_1_doom"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "expert_2_doom"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_changes",
+      "bullet_type": "small",
+      "text": "No changes are made."
+    },
+    {
+      "id": "hard_1_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Hard difficulty, add 1 doom to agenda 1a."
+    },
+    {
+      "id": "expert_2_doom",
+      "bullet_type": "small",
+      "text": "Because you are playong on Expert difficulty, add 2 doom to agenda 1a."
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card that is not already part of an investigator's deck together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "location_adjacency",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in To the Forbidden Peaks",
+      "text": "During this scenario, locations are arranged in a diagonal line, with each location above or below the locations next to it.",
+      "bullets": [
+        {
+          "text": "<b>During this scenario, each location is connected to the location below it and the location above it.</b>"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_frost"],
+        "branches": [
+          {
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
+          },
+          {
+            "id": "tragedy_strikes",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tragedy_strikes",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "Tragedy Strikes",
+            "steps": [
+              "check_tragedy_strikes"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tragedy_strikes",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tragedy_strikes",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "any",
+            "status": ["eliminated", "resolute"],
+            "operation": "any",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["tragedy_strikes", "choose_victim", "tragedy_strikes_story", "check_cookie_victim", "tragedy_strikes_story_2", "tragedy_strikes_effect", "remove_victim"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["tragedy_strikes", "skip_tragedy_strikes"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tragedy_strikes",
+      "title": "Scenario Interlude: Tragedy Strikes",
+      "text": "Find each surviving expedition member (including those currently under an investigator's control) who do not have a checkmark drawn next to their name in the \"Expedition Team\" section of the Campaign Log, and choose one of them at random."
+    },
+    {
+      "id": "skip_tragedy_strikes",
+      "bullet_type": "small",
+      "text": "Because there are no such expedition members, skip the rest of this interlude."
+    },
+    {
+      "id": "choose_victim",
+      "type": "input",
+      "input": {
+        "type": "partner_choice",
+        "random": true,
+        "quantity": {
+          "type": "constant",
+          "value": 1
+        },
+        "prompt": "Victim",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "operation": "any",
+          "status": ["eliminated", "resolute"],
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "eliminated",
+            "hidden": true
+          },
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "victim",
+            "hidden": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "tragedy_strikes_story",
+      "type": "story",
+      "text": "It all happens in the blink of an eye. You have only enough time to scream your companion's name before they are seized. Its many, shifting shapes coil around their body. They struggle to escape, but it is hopeless."
+    },
+    {
+      "id": "check_cookie_victim",
+      "type": "branch",
+      "text": "If the victim is James \"Cookie\" Fredericks:",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "status": ["victim"],
+        "operation": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cookie_victim"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cookie_victim",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["cookie_victim_story", "cookie_victim_effect"]
+    },
+    {
+      "id": "cookie_victim_story",
+      "type": "story",
+      "border_only": true,
+      "text": "The hardened veteran spits out a curse and manages to slip his right arm out of the thing's grasp. It's enough for him to take a single shot with his colt. The gunshot thunders across the mountain and rips through the thing's grotesque, formless mass."
+    },
+    {
+      "id": "cookie_victim_effect",
+      "border_only": true,
+      "text": "Deal 2 damage to The Terror of the Stars."
+    },
+    {
+      "id": "tragedy_strikes_story_2",
+      "type": "story",
+      "text": "Then, without a moment of consideration, it shoves its tendrils into its victim's body and yanks them apart like a piece of uncooked meat. A spray of blood stains the snow crimson. It drops what remains of your companion unceremoniously onto the ground and turns its attention to you."
+    },
+    {
+      "id": "tragedy_strikes_effect",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, cross off the chosen character's name. If they were in play, they are defeated and removed from the game."
+    },
+    {
+      "id": "remove_victim",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["victim"],
+        "operation": "any",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "status": "victim",
+                "operation": "remove"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "all",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_soapstone",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Green Soapstone to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08614"
+        }
+      ]
+    },
+
+    {
+      "id": "earn_wooden_sledge",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Wooden Sledge to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08615"
+        }
+      ]
+    },
+    {
+      "id": "earn_dynamite",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Dynamite to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08616"
+        }
+      ]
+    },
+    {
+      "id": "earn_miasmic_crystal",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Miasmic Crystal to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08617"
+        }
+      ]
+    },
+    {
+      "id": "earn_mineral_specimen",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Mineral Specimen to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08618"
+        }
+      ]
+    },
+    {
+      "id": "earn_small_radio",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Small Radio to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08619"
+        }
+      ]
+    },
+    {
+      "id": "earn_spare_parts",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add Spare Parts to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "08620"
+        }
+      ]
+    },
+    {
+      "id": "ask_expedition_assets",
+      "text": "For each [[Expedition]] asset in the victory display, an investigator may choose to add that asset to their deck. It does not count toward their deck size. For each [[Expedition]] asset added to an investigator's deck this way, that investigator earns 1 bonus experience.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "In victory display",
+        "choices": [
+          {
+            "id": "green_soapstone",
+            "text": "Green Soapstone",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "green_soapstone",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_soapstone"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "green_soapstone_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wooden_sledge",
+            "text": "Wooden Sledge",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "wooden_sledge",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_wooden_sledge"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wooden_sledge_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "dynamite",
+            "text": "Dynamite",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "dynamite",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_dynamite"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "dynamite_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "miasmic_crystal",
+            "text": "Miasmic Crystal",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "miasmic_crystal",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_miasmic_crystal"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "miasmic_crystal_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "mineral_specimen",
+            "text": "Mineral Specimen",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "mineral_specimen",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_mineral_specimen"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "mineral_specimen_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "small_radio",
+            "text": "Small Radio",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "small_radio",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_small_radio"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "small_radio_recovered",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "spare_parts",
+            "text": "Spare Parts",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "spare_parts",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": ["earn_spare_parts"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "spare_parts_recovered",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "award_asset_xp",
+      "hidden": true,
+      "steps": [
+        "check_green_soapstone", "check_wooden_sledge", "check_dynamite", "check_miasmic_crystal", "check_mineral_specimen", "check_small_radio", "check_spare_parts"
+      ]
+    },
+    {
+      "id": "check_green_soapstone",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08614",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_wooden_sledge",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08615",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_dynamite",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08616",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_miasmic_crystal",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08617",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_mineral_specimen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08618",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_small_radio",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08619",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_spare_parts",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "08620",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_off_missing_expedition_assets",
+      "text": "For each [[Expedition]] asset that is not in the victory display, cross off its title in the \"Supplies Recovered\" section of the Campaign Log.",
+      "steps": [
+        "check_lost_green_soapstone", "check_lost_wooden_sledge", "check_lost_dynamite", "check_lost_miasmic_crystal", "check_lost_mineral_specimen", "check_lost_small_radio", "check_lost_spare_parts"
+
+      ]
+    },
+
+    {
+      "id": "check_lost_green_soapstone",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "green_soapstone_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "green_soapstone",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "green_soapstone",
+                "text": "Green Soapstone",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_wooden_sledge",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "wooden_sledge_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "wooden_sledge",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "wooden_sledge",
+                "text": "Wooden Sledge",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_dynamite",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "dynamite_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "dynamite",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "dynamite",
+                "text": "Dynamite",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_miasmic_crystal",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "miasmic_crystal_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "miasmic_crystal",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "miasmic_crystal",
+                "text": "Miasmic Crystal",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_mineral_specimen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "mineral_specimen_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "mineral_specimen",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "mineral_specimen",
+                "text": "Mineral Specimen",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_small_radio",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "small_radio_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "small_radio",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "small_radio",
+                "text": "Small Radio",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_spare_parts",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "spare_parts_recovered",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "supplies_recovered",
+            "id": "spare_parts",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "spare_parts",
+                "text": "Spare Parts",
+                "bullet_type": "small",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_all_supplies_recovered",
+      "text": "Cross off each card title in the \"Supplies Recovered\" section of the Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "green_soapstone",
+          "text": "Green Soapstone",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "wooden_sledge",
+          "text": "Wooden Sledge",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "dynamite",
+          "text": "Dynamite",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "miasmic_crystal",
+          "text": "Miasmic Crystal",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "mineral_specimen",
+          "text": "Mineral Specimen",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "small_radio",
+          "text": "Small Radio",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "supplies_recovered",
+          "id": "spare_parts",
+          "text": "Spare Parts",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "team_climbed_to_the_summit",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_climbed_to_the_summit",
+          "text": "the team climbed to the summit."
+        }
+      ]
+    },
+    {
+      "id": "team_found_another_way_through_the_mountains",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "team_found_another_way_through_the_mountains",
+          "text": "the team found another way through the mountains."
+        }
+      ]
+    },
+
+    {
+      "id": "maybe_record_partner_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R2",
+            "steps": ["record_partner_trauma"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The remainder of your journey across the peaks is a whirlwind of snow and fear. You climb higher and higher, pushing yourself to extremes you never thought possible. Still the summit remains ever out of reach. As nightfalls and the weather grows even deadlier, desperation forces you to look elsewhere to survive.",
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The view from the summit is breathtaking, but you are in no mood to enjoy the spectacle. Sprawled before you, on the other side of these accursed peaks, lies the city described in Dyer's report. Its haunting visage is unmistakable. Dozens of conical and pyramidal buildings of dark slate and sandstone are honeycombed throughout the region like a labyrinth of perfect geometric shapes. Though weathered by the ages, the city still stands, hidden by the jagged peaks and the heavy snow.\nFor a while, you stand in silence and take in the wondrous sight. If it weren't for the many trials you faced along the way, it would be a moment of triumph . But after the sacrifices made to get here, the victory rings hollow.\nA freezing wind blows across the peaks. The air is too thin for you to linger here. After a moment's rest, you begin the long trek down into the alien city. You will have to make camp before you reach the bottom. With any luck, you'll be hidden from the dreadful creatures that dwell there…",
+      "steps": [
+        "team_climbed_to_the_summit",
+        "earn_xp",
+        "ask_expedition_assets",
+        "award_asset_xp",
+        "cross_off_missing_expedition_assets",
+        "eliminate_partners",
+        "record_partner_trauma"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Just as you are beginning to lose hope, you.find a dark cave embedded in the mountainside. The wind howls outside the cave entrance, bringing with it a sudden deluge of snow. You're not sure what would be worse—a slow death trapped inside an icy cavern, or an equally slow one failing to reach the summit. But when one of your companions switches on their flashlight, you realize there may be a third option.\nThe walls of this narrow tunnel are covered in strange hieroglyphs, the likes of which you've never seen. The ancient writings of an alien language, you presume. Possibly even that of the Elder Things who once called this region home. More importantly, the cavern continues deeper and deeper into the side of the mountain, far beyond the reach of your light.\nYou take a vote and decide to press onward, hoping beyond hope that the tunnel might take you to another exit. To your surprise, the journey is smooth, although the ever-present darkness, the frightening echoes of uncanny groans, and the muffled voices of something deep below wear upon your sanity. For hours you continue on, until finally, mercifully, you see light in the distance.\nYou emerge once more onto the side of the mountain, this time to a breathtaking vista. Sprawled before you lies the city described in Dyer's report. Its haunting visage is unmistakable. Dozens of conical and pyramidal buildings of dark slate and sandstone are honeycombed throughout the region like a labyrinth of perfect geometric shapes. Though weathered by the ages, the city still stands, hidden by the jagged peaks and the heavy snow.\nFor a while, you stand in silence and take in the wondrous sight. Somehow, you have managed to find a way through the mountain. If it weren't for the many trials you faced along the way, it would be a moment of triumph. But after the sacrifices made to get here, the victory rings hollow. After a moment's rest, you begin the long trek down into the alien city. You will have to make camp before you reach the bottom. With any luck, you'll be hidden from the dreadful creatures that dwell there…",
+      "steps": [
+        "team_found_another_way_through_the_mountains",
+        "earn_xp",
+        "lose_all_supplies_recovered",
+        "eliminate_partners",
+        "maybe_record_partner_trauma"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1565 @@
+{
+  "id": "ice_and_death_part_2",
+  "scenario_name": "Ice and Death, Part II",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Ice and Death, Part II",
+  "chaos_bag_card": "08501",
+  "chaos_bag_card_text": "[skull]: -X. X is half the shelter value of your location (rounded up).\n[cultist]: -2. If you fail, shuffle the top card of the Tekeli-li deck into your deck without looking at it (if you cannot, take 1 horror).\n[tablet]: -3. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the shelter value of your location.\n[cultist]: -2. For each point you fail by, shuffle the top card of the Tekeli-li deck into your deck without looking at it (for each card you cannot shuffle, take 1 horror).\n[tablet]: -4. For each point you fail by, discard the top card of your deck. Draw each weakness discarded by this effect.",
+  "icon": "lost_in_the_night",
+  "setup": [
+    "intro",
+    "add_frost",
+    "check_amy_kensler",
+    "check_william_dyer",
+    "check_avery_claypool",
+    "check_james_cookie_fredericks",
+    "starting_resources",
+    "choose_partners",
+    "check_continue",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Your team scrambles in preparation to search for those who went missing in the night. You hate the idea of venturing back out into the freezing cold so soon after taking refuge, but you have no choice if you are to find your companions."
+    },
+    {
+      "id": "add_frost",
+      "text": "Add 1 [frost] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["frost"]
+        }
+      ]
+    },
+    {
+      "id": "check_amy_kensler",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_amy_kensler_mala_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_amy_kensler_mala_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_amy_kensler_mala_missing",
+      "bullet_type": "none",
+      "text": "<b>If Dr. Amy Kensler is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_with_mala_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_with_mala_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh", "mala_sinha_missing_story", "mala_sinha_effect"]
+    },
+    {
+      "id": "check_amy_kensler_mala_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Dr. Amy Kensler is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08720",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["amy_kensler_with_mala_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "amy_kensler_with_mala_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["amy_kensler_safe_story", "amy_kensler_effect", "check_dr_mala_singh"]
+    },
+    {
+      "id": "amy_kensler_safe_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"This is a complete mess,\" Dr. Kensler says with an exasperated sharpness to her voice. \"Where in the hell could they have gone? And how is it that none of us noticed?\" You reach out to assure her, but she is already gathering her things, getting ready to lead the search.\nIf Dr. Amy Kensler is chosen to accompany an investigator this game, she enters play with 1 additional secret."
+    },
+    {
+      "id": "amy_kensler_effect",
+      "border_only": true,
+      "text": "If Dr. Amy Kensler is chosen to accompany an investigator this game, she enters play with 1 additional secret."
+    },
+    {
+      "id": "check_dr_mala_singh",
+      "text": "In addition, if Dr. Mala Sinha is missing:",
+      "border_only": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08717",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "mala_sinha_missing_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"Mala, you… you idiot…!\" she mutters as she stuffs supplies into her tote bag. \"Why would you do this…?\""
+    },
+    {
+      "id": "mala_sinha_effect",
+      "border_only": true,
+      "text": "Dr. Amy Kensler must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_william_dyer",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_william_dyer_danforth_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_william_dyer_danforth_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer_danforth_missing",
+      "bullet_type": "none",
+      "text": "<b>If Professor William Dyer is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_danforth_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_william_dyer_danforth_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Professor William Dyer is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08714",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dyer_danforth_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dyer_danforth_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth", "danforth_missing_story", "danforth_effect"]
+    },
+    {
+      "id": "william_dyer_danforth_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["william_dyer_safe_story", "william_dyer_effect", "check_danforth"]
+    },
+    {
+      "id": "william_dyer_safe_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"This is Professor Lake's team all over again,\" Dyer grumbles. \"When we first lost contact with them, we assumed it was the weather. But…\" his gaze, cold and dead, meets yours. \"We know better now, don't we? At least, I thought we did.\""
+    },
+    {
+      "id": "william_dyer_effect",
+      "border_only": true,
+      "text": "If Professor William Dyer is chosen to accompany an investigator this game, he enters play with 1 additional secret."
+    },
+    {
+      "id": "check_danforth",
+      "text": "In addition, if Danforth is missing:",
+      "border_only": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08715",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "danforth_missing_story",
+      "type": "story",
+      "border_only": true,
+      "text": "\"Danforth, he… he always talked about returning,\" Dyer admits, clenching a weary, wrinkled fist. \"What if he… what if this is what he meant? I should have paid more attention, I should have taken him more seriously…\""
+    },
+    {
+      "id": "danforth_effect",
+      "border_only": true,
+      "text": "Professor William Dyer must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_avery_claypool",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_avery_claypool_roald_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_avery_claypool_roald_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_avery_claypool_roald_missing",
+      "bullet_type": "none",
+      "text": "<b>If Avery Claypool is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_roald_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_avery_claypool_roald_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If Avery Claypool is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08718",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["avery_claypool_roald_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "avery_claypool_roald_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth", "roald_ellsworth_missing_story", "roald_ellsworth_effect"]
+    },
+    {
+      "id": "avery_claypool_roald_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["avery_claypool_safe_story", "avery_claypool_effect", "check_roald_ellsworth"]
+    },
+    {
+      "id": "avery_claypool_safe_story",
+      "type": "story",
+      "border_only": true,
+      "text": "Claypool takes inventory of your remaining supplies, shaking his head as he counts. \"Nothing's missing,\" he confesses in disbelief. \"They took nothing with them. Nobody saw them leave, and there's no evidence they were taken. It makes no sense.\" You ask Claypool how long one could survive out there without supplies. \"In this weather? And with those…things still out there?\" His knowing eyes flee from yours. \"They won't survive the night.\""
+    },
+    {
+      "id": "avery_claypool_effect",
+      "border_only": true,
+      "text": "If Avery Claypool is chosen to accompany an investigator this game, he enters play with 1 additional supply."
+    },
+    {
+      "id": "check_roald_ellsworth",
+      "text": "In addition, if Roald Ellsworth is missing:",
+      "border_only": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08721",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "roald_ellsworth_missing_story",
+      "type": "story",
+      "border_only": true,
+      "text": "Claypool-usually something of a chatterbox—is grim and silent for the remainder of the preparations. You have never seen him so determined."
+    },
+    {
+      "id": "roald_ellsworth_effect",
+      "border_only": true,
+      "text": "Avery Claypool must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "check_james_cookie_fredericks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_james_cookie_fredericks_takada_missing"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_james_cookie_fredericks_takada_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_james_cookie_fredericks_takada_missing",
+      "bullet_type": "none",
+      "text": "<b>If James \"Cookie\" Fredericks is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_cookie_fredericks_takada_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_james_cookie_fredericks_takada_not_missing",
+      "bullet_type": "none",
+      "text": "<b>If James \"Cookie\" Fredericks is alive and not missing:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08719",
+        "status": ["alive", "safe"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["james_cookie_fredericks_takada_not_missing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "james_cookie_fredericks_takada_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takada_hiroko", "takada_hiroko_missing_story", "takada_hiroko_effect"]
+    },
+    {
+      "id": "james_cookie_fredericks_takada_not_missing",
+      "type": "border",
+      "border": true,
+      "border_color": "interlude",
+      "steps": ["james_cookie_fredericks_safe_story", "james_cookie_fredericks_effect", "check_takada_hiroko"]
+    },
+    {
+      "id": "james_cookie_fredericks_safe_story",
+      "border_only": true,
+      "type": "story",
+      "text": "Cookie loads bullets into his revolver with a faraway gaze. You get the sense this isn't the first time he's woken to such trauma. \"We're gonna find 'em,\" he intones over and over under his breath. \"We're gonna find 'em.\" You're unsure who he is trying to convince."
+    },
+    {
+      "id": "james_cookie_fredericks_effect",
+      "border_only": true,
+      "text": "If James \"Cookie\" Fredericks is chosen to accompany an investigator this game, he enters play with 1 additional ammo."
+    },
+    {
+      "id": "check_takada_hiroko",
+      "text": "In addition, if Takada Hiroko is missing:",
+      "border_only": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "$fixed_partner",
+        "fixed_partner": "08722",
+        "status": ["mia"],
+        "operation": "all",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "takada_hiroko_missing_story",
+      "border_only": true,
+      "type": "story",
+      "text": "\"Dammit, Roko- I'm not losing you,\" Cookie mutters angrily. \"Yer comin' back alive. Yeh damn well better.\""
+    },
+    {
+      "id": "takada_hiroko_effect",
+      "border_only": true,
+      "text": "James \"Cookie\" Fredericks must be chosen to accompany an investigator this game, if able."
+    },
+    {
+      "id": "starting_resources",
+      "title": "Investigator Setup",
+      "text": "Each investigator's base starting resources is equal to the shelter value of the camp, instead of five."
+    },
+    {
+      "id": "choose_partners",
+      "text": "Each investigator may choose one available member of the expedition team who is not crossed off or marked \"MIA\" to join them. Put the story asset for the chosen character into play in that investigator's play area. Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice_partner",
+        "prompt": "Choose partners:",
+        "condition": {
+          "type": "partner_status",
+          "section": "expedition_team",
+          "partner": "any",
+          "status": ["alive", "safe"],
+          "operation": "all",
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_continue",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "continue_ice_and_death_part_2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "setup_locations", "location_layout", "place_clues", "missing_partners", "set_aside_partner_enemies_intro", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_locations_scratch", "location_layout",  "missing_partners", "set_aside_partner_enemies_intro", "set_aside_partner_enemies", "add_story_cards", "shuffle_missing_story", "begin_play_at_camp", "setup_tekeli_li"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_tekeli_li",
+      "text": "Shuffle each Tekeli-li! weakness card that is not already part of an investigator's deck together to form the Tekeli-li deck. Place this deck near the agenda deck."
+    },
+    {
+      "id": "gather_encounter_sets_from_checkpoint",
+      "title": "Scenario Steup (from Checkpoint)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "lost_in_the_night",
+        "left_behind"
+      ]
+    },
+    {
+      "id": "remove_encounter_sets",
+      "text": "Search the encounter deck and all out-of-play areas for all cards from <i>The Crash</i> and <i>Creatures in the Ice</i> encounter sets. Remove each card from these encounter sets from the game.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_crash",
+        "creatures_in_the_ice"
+      ],
+      "remove": true
+    },
+    {
+      "id": "build_agenda_deck",
+      "text": "Build the agenda deck using agendas 4-6 and the act deck using act 2. (These cards can be found in the <i>Lost in the Night</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each remaining set-aside [[Uncharted]] location into play."
+    },
+    {
+      "id": "place_clues",
+      "text": "Place clues on each revealed location equal to its clue value."
+    },
+    {
+      "id": "missing_partners",
+      "text": "Several members of the expedition go missing in the night!"
+    },
+    {
+      "id": "set_aside_partner_enemies_intro",
+      "bullet_type": "small",
+      "text": "Find each [[Possessed]] enemy from the <i>Lost in the Night</i> encounter set whose title matches one of the Expedition Team members marked \"MIA\" in your Campaign Log. Set each of these enemies aside, facedown. Remove the rest from the game."
+    },
+    {
+      "id": "set_aside_partner_enemies",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "partner_missing",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "encounter",
+                "text": "#name# is MIA.",
+                "masculine_text": "#name# is MIA.",
+                "feminine_text": "#name# is MIA.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_story_cards",
+      "bullet_type": "small",
+      "text": "Find the story cards from the <i>Lost in the Night</i> encounter set and shuffle them. One at a time, add one of these cards facedown to the previously set-aside enemies, until there are a total of exactly nine enemy and story cards set aside in this way. Remove the unused story cards from the game."
+    },
+    {
+      "id": "shuffle_missing_story",
+      "bullet_type": "small",
+      "text": "Shuffle these nine set-aside cards and place one facedown beneach each of the nine [[Uncharted]] locations in play."
+    },
+    {
+      "id": "begin_play_at_camp",
+      "text": "Each investigator begins play at the camp."
+    },
+
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup (from Scratch)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "ice_and_death",
+        "lost_in_the_night",
+        "left_behind",
+        "deadly_weather",
+        "hazards_of_antarctica",
+        "silence_and_mystery",
+        "tekeli_li",
+        "ancient_evils"
+      ]
+    },
+    {
+      "id": "setup_locations_scratch",
+      "text": "In the \"Ice and Death\" section of the Campaign Log, find each location under Locations Revealed. Put each of those locations into play, revealed <i>(with clues equal to its clue value)</i>.",
+      "bullets": [
+        {
+          "text": "Put each other location into play, unrevealed."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "icebreaker_landing","blank","blank","blank","blank","blank","frigid_cave"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "barrier_camp",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","icy_wastes","blank","blank","blank","rocky_crags","blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "precarious_ice_sheet",
+          "blank",
+          "treacherous_path",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "crash_site",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","remnants_of_lakes_camp","blank","blank","blank","crystalline_cavern","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "frozen_shores",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "broad_snowdrifts",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank","blank","blank","blank","blank","blank","blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "snow_graves",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "precarious_ice_sheet",
+          "name": "Precarious Ice Sheet"
+        },
+        {
+          "code": "treacherous_path",
+          "name": "Treacherous Path"
+        },
+        {
+          "code": "crash_site",
+          "name": "Crash Site"
+        },
+        {
+          "code": "frozen_shores",
+          "name": "Frozen Shores"
+        },
+        {
+          "code": "remnants_of_lakes_camp",
+          "name": "Remnants of Lake's Camp"
+        },
+        {
+          "code": "crystalline_cavern",
+          "name": "Crystalline Cavern"
+        },
+        {
+          "code": "broad_snowdrifts",
+          "name": "Broad Snowdrifts"
+        },
+        {
+          "code": "snow_graves",
+          "name": "Snow Graves"
+        },
+        {
+          "code": "icy_wastes",
+          "name": "Icy Wastes"
+        },
+        {
+          "code": "rocky_crags",
+          "name": "Rocky Crags"
+        },
+        {
+          "code": "barrier_camp",
+          "name": "Barrier Camp"
+        },
+        {
+          "code": "icebreaker_landing",
+          "name": "Icebreaker Landing"
+        },
+        {
+          "code": "frigid_cave",
+          "name": "Frigid Cave"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+
+
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "maybe_record_partner_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["record_partner_trauma"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_partner_trauma",
+      "text": "In the \"Expedition Team\" section of the Campaign Log, record the amount of damage and horror on each partner asset in play.",
+      "type": "input",
+      "input": {
+        "type": "partner_trauma",
+        "section": "expedition_team"
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["eliminate_partners_explanation", "actually_eliminate_partners"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "eliminate_partners_explanation",
+      "text": "Each defeated investigator's chosen partner is eliminated:"
+    },
+    {
+      "id":  "actually_eliminate_partners",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "operation": "all",
+        "status": ["investigator_defeated"],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "do_not_clean_up_yet",
+      "text": "Do not clean up the game yet."
+    },
+    {
+      "id": "rescue_mia_in_victory_display",
+      "text": "Find each enemy in the victory display whose title matches a character who is not crossed off in the \"Expedition Team\" section of the Campaign Log. These characters have been rescued! Cross off \"MIA\" next to each of those character's names.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Rescued",
+        "choices": [
+          {
+            "id": "08720",
+            "text": "Dr. Amy Kensler",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08720",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08720",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08714",
+            "text": "Prof. William Dyer",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08714",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08714",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08715",
+            "text": "Danforth",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08715",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08715",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08721",
+            "text": "Roald Ellsworth",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08721",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08721",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08722",
+            "text": "Takada Hiroko",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08722",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08722",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08718",
+            "text": "Avery Claypool",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08718",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08718",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08717",
+            "text": "Dr. Mala Sinha",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08717",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08717",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08719",
+            "text": "James \"Cookie\" Fredericks",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08719",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08719",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          },
+          {
+            "id": "08716",
+            "text": "Eliyah Ashevak",
+            "condition": {
+              "type": "partner_status",
+              "section": "expedition_team",
+              "partner": "$fixed_partner",
+              "fixed_partner": "08716",
+              "status": ["alive", "mia"],
+              "operation": "all",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$fixed_partner",
+                "fixed_partner": "08716",
+                "operation": "add",
+                "status": "safe"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "kill_remaining_mia",
+      "text": "Each missing team member who was not found surely could not have survived the night. In the \"Expedition Team\" section of the Campaign Log, cross the name of each character who is still marked \"MIA\""
+    },
+    {
+      "id": "actually_kill_mia",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "partner_status",
+        "section": "expedition_team",
+        "partner": "any",
+        "status": ["eliminated", "safe"],
+        "operation": "any",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "partner_status",
+                "section": "expedition_team",
+                "partner": "$input_value",
+                "operation": "add",
+                "status": "eliminated"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_frost"],
+        "branches": [
+          {
+            "id": "adjust_frost",
+            "text": "Adjust frost tokens",
+            "repeatable": true,
+            "steps": ["adjust_frost"]
+          },
+          {
+            "id": "eliminate_partners",
+            "text": "Eliminate partners",
+            "repeatable": true,
+            "steps": ["choose_eliminated_partner"]
+          },
+          {
+            "id": "recover_supplies",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "supplies_recovered",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                },
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                },
+                {
+                  "numCondition": 6
+                }
+              ]
+            },
+            "text": "Recover supplies",
+            "repeatable": true,
+            "steps": [
+              "recover_supplies"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_eliminated_partner",
+      "type": "input",
+      "text": "Which partners should be eliminated:",
+      "input": {
+        "type": "partner_choice",
+        "random": false,
+        "prompt": "Eliminated",
+        "condition": {
+          "type": "partner_status",
+          "partner": "any",
+          "section": "expedition_team",
+          "operation": "all",
+          "status": ["alive", "mia"],
+          "options": [
+            {
+              "boolCondition": true
+            }
+          ]
+        },
+        "effects": [
+          {
+            "type": "partner_status",
+            "section": "expedition_team",
+            "partner": "$input_value",
+            "operation": "add",
+            "status": "eliminated"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adjust_frost",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_frost",
+            "text": "Add 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 8
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          },
+          {
+            "id": "remove_frost",
+            "text": "Remove 1 [frost] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "frost"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["frost"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "recover_supplies",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Recovered Supplies",
+        "choices": [
+          {
+            "id": "green_soapstone",
+            "text": "Green Soapstone",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "green_soapstone",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "green_soapstone",
+                "text": "Green Soapstone",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "wooden_sledge",
+            "text": "Wooden Sledge",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "wooden_sledge",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "wooden_sledge",
+                "text": "Wooden Sledge",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "dynamite",
+            "text": "Dynamite",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "dynamite",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "dynamite",
+                "text": "Dynamite",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "miasmic_crystal",
+            "text": "Miasmic Crystal",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "miasmic_crystal",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "miasmic_crystal",
+                "text": "Miasmic Crystal",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "mineral_specimen",
+            "text": "Mineral Specimen",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "mineral_specimen",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "mineral_specimen",
+                "text": "Mineral Specimen",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "small_radio",
+            "text": "Small Radio",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "small_radio",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "small_radio",
+                "text": "Small Radio",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "spare_parts",
+            "text": "Spare Parts",
+            "condition": {
+              "type": "campaign_log",
+              "section": "supplies_recovered",
+              "id": "spare_parts",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "supplies_recovered",
+                "id": "spare_parts",
+                "text": "Spare Parts",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "As the night ends, the storm arrives in its full ferocity. Raging, icy winds and dense snowfall make your task impossible. You'll never find the remaining team members in these conditions, and even if you did…\nA hard lump of guilt and despair forms in your throat. There's no way they would survive in this storm, not without supplies or shelter. That you are forced to choose between your life and theirs is a burden you will surely carry with you for the rest of your life. And you'll be lucky if that's more than a couple of days.",
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "It is clear that something compelled your teammates to venture away from the safety of your camp. Something alien and mysterious. Something that defies your understanding of Antarctica. None of those who wandered off remember why they did so or what they were doing. It is almost as if their memories were wiped clean. Or perhaps their consciousness was supplanted by another…\nIn any event, they seem to have recovered. You mourn those you've lost and prepare for the day ahead. Rest or no rest, you have only one chance if you are to survive.",
+      "steps": [
+        "earn_xp",
+        "eliminate_partners",
+        "maybe_record_partner_trauma",
+        "rescue_mia_in_victory_display",
+        "kill_remaining_mia",
+        "actually_kill_mia",
+        "do_not_clean_up_yet"
+      ]
+    }
+  ]
+}

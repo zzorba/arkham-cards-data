@@ -47,7 +47,7 @@ A typical workflow for editing the data is :
 
 
 ## Translation
-Translationn files live in the `i18n/` folder and are grouped by language. There are many programs that are capable of editing them, but I've found that a program called [PoEdit](https://poedit.net/), which has a free version that is totally serviceable. Using this program, you can edit the .po files in the `i18n` folder and submit the changes via Pull Request (or by opening an issue and I will provide contact information on how to submit changes).
+Translation files live in the `i18n/` folder and are grouped by language. There are many programs that are capable of editing them, but I've found that a program called [PoEdit](https://poedit.net/), which has a free version that is totally serviceable. Using this program, you can edit the .po files in the `i18n` folder and submit the changes via Pull Request (or by opening an issue and I will provide contact information on how to submit changes).
 
 A couple notes about translation.
 
