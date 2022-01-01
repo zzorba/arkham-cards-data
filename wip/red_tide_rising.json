@@ -1,0 +1,940 @@
+{
+  "id": "red_tide_rising",
+  "scenario_name": "Red Tide Rising",
+  "full_name": "Red Tide Rising",
+  "header": "",
+  "chaos_bag_card": "90041",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "investigator": "01005",
+    "xp_cost": 2,
+    "requirements": []
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "new_scenario_card",
+    "new_act_agenda",
+    "setup_locations",
+    "location_layout",
+    "setup_leads_deck",
+    "draw_leads",
+    "set_aside_monsters",
+    "set_aside_angry_mob",
+    "check_difficulty",
+    "remove_misc",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "intro",
+    "gather_encounter_sets",
+    "new_scenario_card",
+    "new_act_agenda",
+    "setup_locations",
+    "location_layout",
+    "setup_leads_deck",
+    "draw_leads",
+    "set_aside_monsters",
+    "set_aside_angry_mob",
+    "check_difficulty",
+    "remove_misc",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "tokens": [
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "-7",
+              "-8",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-7",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "01005",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "People don’t care about the ones who get left behind. That’s the first thing you learned on the street, after you left the orphanage. You’ve had to fend for yourself, do whatever you can to scrape by. So far, with just your wits and the amulet Mama left you before they took her away, you’ve managed to survive. Occasionally, someone will show some compassion and throw a coin or two into your cup. One glorious morning, a nice lady leaving Velma’s gave you her leftover sausage and eggs. But for the most part, you’ve only had yourself to rely on. The other street rats might be in the same boat as you, but you would hesitate to call any of them friends, save for maybe James, and that is a stretch. No—hunger, loneliness, boredom, and doubt are your best and only friends. And despite all that, it’s still somehow better than the orphanage.\nThen the fateful day arrived. It began like any other, with you and James working your way through Rivertown, “collecting” anything you might be able to sell to Oliver Thomas. The rest would surely go to Marvin’s gang—a bunch of street kids who banded together to bully the rest—but there is one trinket among your earnings that sparks your eye: a photograph. Not just any photograph, but one of your father.\nIt is unmistakable. There is no doubt in your mind. In the photo, your father stands in front of a building you don’t recognize. The sign behind him looks to be in a different language, so probably someplace far, far away. There’s no way of telling how recently the photo was taken. It is worn, dirty, and nicked in several places. You turn it over and there, scrawled in familiar handwriting, you read: “Soon the Red Tide rises. Stay safe, my little girl.”\nYou beg James to tell you where the photo came from, and he claims a man in a long wool coat and a dark brown derby dropped it in your cup sometime before you ran into Marvin’s gang. You set off at once, asking around to find the man in the derby. Your only lead is that he hopped on a bus near Easttown. The decrepit, unmarked bus that runs to the harbor town of Innsmouth. You scrounge up as many coins as you can and board the only bus to the old, forsaken seaport. If Dad is still out there, you have to find him. You have to!"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "red_tide_rising",
+        "the_vanishing_of_elina_harper",
+        "agents_of_dagon",
+        "fog_over_innsmouth",
+        "the_locals",
+        "chilling_cold",
+        "locked_doors",
+        "nightgaunts",
+        "arkham"
+      ],
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the five treachery cards (2x False Lead and 3x Hunting Shadow). Do not gather any other cards from that encounter set."
+
+    },
+    {
+      "id": "new_scenario_card",
+      "text": "Remove the scenario reference card from the <i>The Vanishing of Elina Harper</i> encounter set from the game. Use the new scenario reference card provided in the <i>Red Tide Rising</i> encounter set."
+    },
+    {
+      "id": "new_act_agenda",
+      "text": "Remove all of the acts and agendas from <i>The Vanishing of Elina Harper</i> encounter set from the game. Build the act and agenda decks using only the new act and agenda cards provided in the <i>Red Tide Rising</i> encounter set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Innsmouth Square, Marsh Refinery, Innsmouth Harbour, Fish Street Bridge, First National Grocery, Gilman House, and The Little Bookshop."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "note": "<i><b>Note</b>: Locations in this diagram with dotted-line borders represent the six possible [[Hideout]] locations. They do not begin in play. They may or may not enter play during the course of the scenario, depending on the actions of the investigators.</i>",
+      "locations": [
+        [
+          "placeholder",
+          "blank",
+          "placeholder",
+          "blank",
+          "placeholder"
+        ],
+        [
+          "blank",
+          "07067_back",
+          "blank",
+          "07063_back",
+          "blank"
+        ],
+        [
+          "07069_back",
+          "blank",
+          "07065_back",
+          "blank",
+          "07066_back"
+        ],
+        [
+          "blank",
+          "07064_back",
+          "blank",
+          "07068_back",
+          "blank"
+        ],
+        [
+          "placeholder",
+          "blank",
+          "placeholder",
+          "blank",
+          "placeholder"
+        ]
+      ]
+    },
+
+    {
+      "id": "setup_leads_deck",
+      "text": "Prepare the Leads deck. This is done by performing the following steps:",
+      "bullets": [
+        {
+          "text": "Find the six unique enemies with the [[Suspect]] trait and the six single-sided locations with the [[Hideout]] trait."
+        },
+        {
+          "text": "Shuffle these twelve cards together to form a deck. This deck is called the Leads deck. Place it near the scenario reference card."
+        }
+      ]
+    },
+    {
+      "id": "draw_leads",
+      "text": "Draw the top card of the Leads deck, resolving its revelation ability.",
+      "bullets": [
+        {
+          "text": "If it is a location, Wendy Adams begins play at that location."
+        },
+        {
+          "text": "If it is an enemy, Wendy Adams begins play at that enemy’s location."
+        },
+        {
+          "text": "Each other investigator begins play at Innsmouth Square."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_monsters",
+      "text": "Set each of the following [[Monster]] enemies aside, out of play: Winged One and both copies of Hunting Nightgaunt."
+    },
+    {
+      "id": "set_aside_angry_mob",
+      "text": "Set Angry Mob aside, out of play <i>(can be found on the other side of the Finding Agent Harper reference card)</i>."
+    },
+    {
+      "id": "check_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["check_players_standard"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["check_players_standard"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["check_players_hard"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["check_players_expert"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_players_standard",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["standard_1"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["standard_2"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["standard_3"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["standard_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_1",
+      "text": "Because there is exactly 1 investigator, no changes are made."
+    },
+    {
+      "id": "standard_2",
+      "text": "Because there are exactly 2 investigators, begin wih 1 doom on agenda 1."
+    },
+    {
+      "id": "standard_3",
+      "text": "Because there are exactly 3 investigators, begin wih 2 doom on agenda 1."
+    },
+    {
+      "id": "standard_4",
+      "text": "Because there are exactly 4 investigators, shuffle 1 set-aside [[Monster]] enemy into the Leads deck."
+    },
+    {
+      "id": "check_players_hard",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["hard_2"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["hard_3"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["hard_4"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["hard_5"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "hard_2",
+      "text": "Because there is exactly 1 investigator and you are playing on <b>Hard</b> difficulty, begin wih 1 doom on agenda 1."
+    },
+    {
+      "id": "hard_3",
+      "text": "Because there are exactly 2 investigators and you are playing on <b>Hard</b> difficulty, begin wih 2 doom on agenda 1."
+    },
+    {
+      "id": "hard_4",
+      "text": "Because there are exactly 3 investigators and you are playing on <b>Hard</b> difficulty, shuffle 1 set-aside [[Monster]] enemy into the Leads deck."
+    },
+    {
+      "id": "hard_5",
+      "text": "Because there are exactly 4 investigators and you are playing on <b>Hard</b> difficulty, shuffle 1 set-aside [[Monster]] enemy into the Leads deck and begin with 1 doom on agenda 1."
+    },
+    {
+      "id": "check_players_expert",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["expert_3"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["expert_4"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["expert_5"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["expert_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "expert_3",
+      "text": "Because there is exactly 1 investigator and you are playing on <b>Expert</b> difficulty, begin wih 2 doom on agenda 1."
+    },
+    {
+      "id": "expert_4",
+      "text": "Because there are exactly 2 investigators and you are playing on <b>Expert</b> difficulty, shuffle 1 set-aside [[Monster]] enemy into the Leads deck."
+    },
+    {
+      "id": "expert_5",
+      "text": "Because there are exactly 3 investigators and you are playing on <b>Expert</b> difficulty, shuffle 1 set-aside [[Monster]] enemy into the Leads deck and begin with 1 doom on agenda 1."
+    },
+    {
+      "id": "expert_6",
+      "text": "Because there are exactly 4 investigators and you are playing on <b>Expert</b> difficulty, shuffle 1 set-aside [[Monster]] enemy into the Leads deck and begin with 2 doom on agenda 1."
+    },
+    {
+      "id": "remove_misc",
+      "text": "Remove the Thomas Dawson and Elina Harper story assets from the game."
+    },
+    {
+      "id": "mysterious_photo",
+      "text": "Put the double-sided Mysterious Photo story asset (provided in the <i>Red Tide Rising encounter</i> set) into play, under the control of Wendy Adams.",
+      "bullets": [
+        {
+          "text": "Wendy Adams may choose which side it enters play on."
+        },
+        {
+          "text": "Mysterious Photo cannot leave play except if Wendy Adams is eliminated. <i>(If Mysterious Photo leaves play in this way, each surviving investigator should resign, as they have no method by which to continue their objective.)</i>"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the 24 remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "wendy_bad_swap",
+      "text": "Wendy Adams must either upgrade Abandoned and Alone to its advanced version, or downgrade the advanced version of Wendy’s Amulet to its original version.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "abandoned",
+            "text": "Upgrade to advanced advanced Abandoned and Alone",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01015"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90040"
+              }
+            ]
+          },
+          {
+            "id": "amulet",
+            "text": "Downgrade from advanced Wendy's Amulet",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90039"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01014"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "wendy_bad_swap_small",
+      "text": "Wendy Adams must either upgrade Abandoned and Alone to its advanced version, or downgrade the advanced version of Wendy’s Amulet to its original version.",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "abandoned",
+            "text": "Upgrade to advanced advanced Abandoned and Alone",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01015"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90040"
+              }
+            ]
+          },
+          {
+            "id": "amulet",
+            "text": "Downgrade from advanced Wendy's Amulet",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90039"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01014"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "wendy_good_swap",
+      "text": "She may either upgrade Wendy’s Amulet to its advanced version, or downgrade the advanced version of Abandoned and Alone to its original version.",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "amulet",
+            "text": "Upgrade to advanced Wendy's Amulet",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01014"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90039"
+              }
+            ]
+          },
+          {
+            "id": "abandoned",
+            "text": "Downgrade advanced Abandoned and Alone",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "90040"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "non_story": true,
+                "card": "01015"
+              }
+            ]
+          },
+          {
+            "id": "neither",
+            "text": "No change"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ignore_victory_xp",
+      "text": "Ignore the Victory X value of each [[Suspect]] and [[Hideout]] card in the victory display. Instead...",
+      "bullets": [
+        {
+          "text": "...Wendy Adams earns 1 experience for each card in the victory display beyond the 3rd."
+        },
+        {
+          "text": "...Each other investigator earns 1 experience for each card in the victory display beyond the 5th."
+        }
+      ]
+    },
+    {
+      "id": "ask_victory_cards",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Cards in victory display:",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "rtr_victory_cards",
+            "operation": "set_input"
+          },
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "rtr_victory_cards",
+        "options": [
+          {
+            "numCondition": 0
+          },
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -1
+              }
+            ]
+          },
+          {
+            "numCondition": 2,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -2
+              }
+            ]
+          },
+          {
+            "numCondition": 3,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -3
+              }
+            ]
+          },
+          {
+            "numCondition": 4,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -4
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "numCondition": 5,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -5
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "01005",
+                "bonus": 2
+              }
+            ]
+          }
+        ],
+        "default_option": {
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all",
+              "bonus": -5
+            },
+            {
+              "type": "earn_xp",
+              "investigator": "$fixed_investigator",
+              "fixed_investigator": "01005",
+              "bonus": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_wendy_defeated",
+      "text": "If Wendy Adams was defeated:",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "fixed_investigator_status",
+        "fixed_investigator": "01005",
+        "status": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["wendy_bad_swap_small"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["wendy_good_swap"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned",
+      "investigator_status": [
+        "resigned"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "resigned"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You didn’t find Dad, but you were able to find the next best thing: the man in the brown derby. You approach casually, hoping he’ll ignore you like everyone else tends to do, so you can confront him. You follow him into a dark alley and immediately realize he’s leading you somewhere hidden away from prying eyes. “Didn’t think you’d follow me,” he says once you’re alone.\nThe questions come pouring out of you. Does he know your father? Where is he? Why the photo? What is the Red Tide? But he simply holds up a finger to his lips. “Shhh, kid. You’re gonna get me killed.” He sighs, removes his cap, and runs his trembling fingers through oily hair. “Look, all I can tell you is...your Dad, he fell in with some bad people. Some real scary people. But he wanted out. And the only way out...” he grimaces and shakes his head. “You gotta understand. He can’t come home. You’d be in danger. So would he. But...he still wanted you to know that he loves you. So...”\nYou wipe a stray tear that threatens to crawl down your cheek. The man looks terrified. He’s either a world-class actor, or he’s telling the truth. You ask him one last question—who are the bad people Dad fell in with?—but the moment you ask, he shakes his head and backs away. “I’ve already said too much!” is the last thing he says before he flees.",
+      "steps": [
+        "ignore_victory_xp",
+        "c",
+        "earn_xp",
+        "check_wendy_defeated",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You wait for your pursuers to round the corner before making your way stealthily back to the bus stop and getting on the next bus to Arkham. You crumple the sides of Dad’s photo in anger. A stray teardrop trails down your cheek. You still have no real leads. Who was the man in the derby and the wool coat that morning? What have you gotten yourself mixed up with? But, glancing once more at the photo, one hope still lingers in your mind: Dad is alive. He has to be.",
+      "steps": [
+        "ignore_victory_xp",
+        "ask_victory_cards",
+        "earn_xp",
+        "wendy_bad_swap",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

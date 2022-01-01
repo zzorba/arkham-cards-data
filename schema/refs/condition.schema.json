@@ -335,13 +335,57 @@
       ],
       "additionalProperties": false
     },
+    "scenarioDataFixedInvestigatorStatusCondition": {
+      "$id": "#scenarioDataFixedInvestigatorStatusCondition",
+      "title": "ScenarioDataFixedInvestigatorStatusCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "scenario_data": {
+          "type": "string",
+          "enum": [
+            "fixed_investigator_status"
+          ]
+        },
+        "fixed_investigator": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "defeated",
+            "resigned"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "scenario_data",
+        "fixed_investigator",
+        "status",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "scenarioDataCondition": {
       "$id": "#scenarioDataCondition",
       "title": "ScenarioDataCondition",
       "oneOf": [
         { "$ref": "#/definitions/scenarioDataResolutionCondition" },
         { "$ref": "#/definitions/scenarioDataInvestigatorStatusCondition" },
-        { "$ref": "#/definitions/scenarioDataPlayerCountCondition" }
+        { "$ref": "#/definitions/scenarioDataPlayerCountCondition" },
+        { "$ref": "#/definitions/scenarioDataFixedInvestigatorStatusCondition" }
       ]
     },
     "campaignDataCondition": {
