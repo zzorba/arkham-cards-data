@@ -202,7 +202,7 @@ function messageId(msgId, context) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateNarration(localeCode) {
-  const allCampaigns = await readJSON(`${argv.arkham_cards}/build/allCampaigns_${localeCode}.json`);
+  const allCampaigns = await readJSON(localeCode === 'en' ? `${argv.arkham_cards}/build/allCampaigns.json` : `${argv.arkham_cards}/build/allCampaigns_${localeCode}.json`);
   const printErr = (err) => {
     if (err) {
       console.log(err);
@@ -296,7 +296,7 @@ async function getAvailableLocales() {
 
 async function run() {
   const localeCodes = await getAvailableLocales();
-  for (const localeCode of localeCodes) {
+  for (const localeCode of ['en', ...localeCodes]) {
     console.log("Generating narration script for " + localeCode);
     await generateNarration(localeCode);
   }
