@@ -4,7 +4,7 @@
   "full_name": "Machinations Through Time",
   "header": "",
   "chaos_bag_card": "87001",
-  "xp_cost": 3,
+  "xp_cost": 2,
   "standalone_setup": [
     "choose_difficulty",
     "ask_epic_multiplayer",
@@ -16,13 +16,11 @@
     "patrol_rule",
     "global_values_rule",
     "intro",
-    "gather_encounter_sets",
-    "setup_locations",
-    "location_layout",
-    "spawn_cultists",
-    "set_aside_assets",
+    "do_setup",
+    "add_doom",
+    "check_difficulty_doom",
     "encounter_deck",
-    "$play_scenario_standalone"
+    "$play_scenario"
   ],
   "setup": [
     "xp_cost",
@@ -35,11 +33,9 @@
     "patrol_rule",
     "global_values_rule",
     "intro",
-    "gather_encounter_sets",
-    "setup_locations",
-    "location_layout",
-    "spawn_cultists",
-    "set_aside_assets",
+    "do_setup",
+    "add_doom",
+    "check_difficulty_doom",
     "encounter_deck",
     "$play_scenario"
   ],
@@ -390,22 +386,21 @@
       "text": "The newspaper headline reads, \"Local scientists win Nobel Prize!\" Below it, two elderly physicists are pictured standing proudly in front of a large telescope. You glance at the newspaper's date, your jaw agape. This issue of the <i>Arkham Advertiser</i> is dated December S, 1956. But how is this possible?\nSurprised and curious, you eagerly read the entire newspaper and learn of two remarkable scientists and their journey to winning a Nobel Prize in physics.\nBorn in 1877 in Arkham to Irish immigrants, Thomas Corrigan's earliest memory is when his crayons, left on an outdoor table, melted together under the hot summer sun. From then on, his curiosity and thirst for knowledge grew more rapidly than his height. His wonder at the world around him, from fierce New England thunderstorms to the canvas of stars in the night sky, fueled his passion for the sciences.\nThomas' desire to attend Miskatonic University is almost as old as his love for learning, as its acclaimed College of Sciences and close proximity made it a natural choice. After getting degrees in undergraduate physics and graduate astrophysics at Miskatonic, he began working at the University's Warren Observatory researching astronomical objects and phenomena.\nBorn in 1877 in Warsaw, Poland, Mary Zielinski is the youngest child of two teachers. She has fond memories as a little girl helping her mother with cooking and baking, using cups and teaspoons to measure a variety of ingredients, then mixing those ingredients together to create something entirely new. Thereafter, she began experimenting on her own, which propelled her down the path of chemistry and physics.\nImpressed with Mary's credentials, Miskatonic University offered her a full scholarship. Quiet and introverted, she spent much of her time in the laboratories of the Science building doing various experiments. Her hard work and dedication earned her an undergraduate chemistry degree, and she stayed on at the University to achieve a graduate degree in physics.\nHaving common interests, Thomas and Mary eventually became acquainted and a relationship followed. Their shared passion for the sciences encouraged and motivated each other, and they collaborated on several projects.\nYears later, one of their most intriguing projects took off: the possibility of a whole new paradigm based on general relativity, which connects the curvature of spacetime to gravity. They began testing the theory that spacetime could be warped, resulting in a discontinuity. Such a warping could result in portals that lead to distant places across the universe, or even to their own location in another era-in effect, time travel.\nThis type of groundbreaking work drew the attention of colleagues from campus and beyond. One of these associates was the brilliant and eccentric Edwin Bennet. A rapidly rising star in the field of quantum physics, Edwin became a professor at his alma mater, Miskatonic University. Young and unpublished, he was eager to prove his knowledge would be invaluable to their project, but others on campus expressed substantial concerns, labeling him as \"reckless\" and \"unstable.\"\nAfter hitting multiple barriers and looking for inspiration, Thomas and Mary welcomed Edwin's offer to collaborate, and the team was confident they were on the verge of a breakthrough-but it never came. It's unclear what exactly transpired next, though some sort of disagreement or conflict resulted in Edwin being replaced by an even more eccentric scientist, Ezra Graves. Thomas and Mar acknowledged and thanked Edwin for his role in their research.\nEzra's boundless creativity was integral to Thomas and Mary's new approach to their problems, and this fresh perspective allowed them to overcome the barriers. While Ezra soon moved on to his own projects, his contributions were invaluable and greatly appreciated.\nOver the years, Thomas and Mary's research progressed with success after success, culminating in the discovery of teleportation. They published their remarkable findings on February 23, 1955, to much acclaim. And now-or rather, thirty years from now-they are being awarded with the Nobel Prize in Physics.\nThough suspect, your intuition tells you this mysterious newspaper is real. In awe of the future notoriety two local scientists will eventually receive, you go to Miskatonic University to meet them. However, you're informed they are not affiliated with the University and, tragically, both of them disappeared years ago.\nUnbeknownst to the rest of the world, a momentous change has occurred. Prominent scientists have vanished without a trace. Notable inventions have become un-invented. A historic discovery has suddenly been undiscovered. Humanity may never be the same.\nYou believe you know the truth, even if it's stranger than fiction. You're quite familiar with the notion of portals-you've been through them yourself. For unknown reasons, Arkham, Massachusetts is rife with such portals, but traveling through them is dangerous and not for the faint of heart.\nWithin these portals lies the realm of Tindalos, where countless suspended paths, angular and curved, above and below, wind away in all directions. Here and there, they intersect with ramps and spirals. Prowling along these paths are malevolent minions: ghastly satyrs and Hounds of Tindalos, among other monstrosities. The beasts are eager to savage their prey, or, perhaps worse, abduct and imprison them in Tindalos.\nThere has been a distortion in time, and its effects have rippled across the ensuing years. These scientists are two such unfortunate souls, and you'll have to find them and repair the broken timeline. Just remember: traveling through time may cause unintended consequences, some of which will have severe repercussions."
     },
     {
-      "id": "gather_encounter_sets",
+      "id": "do_setup",
       "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
         "id": "epic_multiplayer",
-        "text": "dummy",
         "options": [
           {
             "boolCondition": true,
             "steps": ["gather_epic_multiplayer_encounter_sets", "ask_epic_group"]
           },
           {
-            "boolCondition": true,
-            "steps": ["gather_single_group_encounter_sets", "setup_locations_single_group"]
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets_sg", "setup_locations_sg", "location_layout_sg", "setup_story_sg", "choose_machination_sg", "choose_plot_sg"]
           }
         ]
       }
@@ -420,7 +415,7 @@
       ]
     },
     {
-      "id": "gather_single_group_encounter_sets",
+      "id": "gather_encounter_sets_sg",
       "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
@@ -429,7 +424,7 @@
       ]
     },
     {
-      "id": "setup_locations_single_group",
+      "id": "setup_locations_sg",
       "text": "Set the Corrigan Industries location aside, out of play. Put the Tindalos location into play, using the side with the Single Group Mode encounter set icon. Put the remaining fourteen locations into play",
       "bullets": [
         {
@@ -438,136 +433,370 @@
       ]
     },
     {
-      "id": "ask_epic_group",
-    },
-    {
-      "id": "location_layout",
+      "id": "location_layout_past",
       "type": "location_setup",
       "text": "Location Placement",
-      "horizontal": "half",
-      "vertical": "half",
+      "horizontal": "normal",
+      "vertical": "normal",
       "locations": [
         [
-          "blank",
-          "blank",
-          "blank",
-          "86019_back",
-          "blank",
-          "86020_back",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
+          "blank", "arkham_gazette", "blank"
+        ],
+        [ "river_docks", "tindalos", "watch_shop"
         ],
         [
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
+          "blank","miskatonic_university","blank"
         ],
         [
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "86018_back",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
-        ],
-        [
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
-        ],
-        [
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "86014_back",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
-        ],
-        [
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank"
-        ],
-        [
-          "blank",
-          "blank",
-          "86021_back",
-          "blank",
-          "blank",
-          "blank",
-          "86015_back",
-          "blank",
-          "blank",
-          "blank"
-        ],
-        [
-          "86022_back",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "blank",
-          "86016_back",
-          "blank"
-        ],
-        [
-          "blank",
-          "blank",
-          "86023_back",
-          "blank",
-          "blank",
-          "blank",
-          "86017_back",
-          "blank",
-          "blank",
-          "blank"
+          "blank","childhood_home","blank"
         ]
+      ],
+      "location_names": [
+        {
+          "code": "tindalos",
+          "name": "Tindalos"
+        },
+        {
+          "code": "arkham_gazette",
+          "name": "Arkham Gazette"
+        },
+        {
+          "code": "river_docks",
+          "name": "River Docks"
+        },
+        {
+          "code": "watch_shop",
+          "name": "O'Malley's Watch Shop"
+        },
+        {
+          "code": "miskatonic_university",
+          "name": "Miskatonic University"
+        },
+        {
+          "code": "childhood_home",
+          "name": "Childhood Home"
+        }
       ]
     },
     {
-      "id": "spawn_cultists",
-      "text": "Search the <i>War of the Outer Gods</i> encounter set for 1 copy of Disciple of the Swarm, 1 copy of Nihilistic Stargazer, and 1 copy of Zealot of Paradise. Spawn each of those enemies (as directed by their \"<b>Spawn</b> - \" instructions)."
+      "id": "location_layout_present",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank", "arkham_advertiser", "blank"
+        ],
+        [ "river_docks", "tindalos", "tick_tock_club"],
+        [
+          "blank", "miskatonic_university", "blank"
+        ],
+        [
+         "blank", "magick_shop", "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "tindalos",
+          "name": "Tindalos"
+        },
+        {
+          "code": "river_docks",
+          "name": "River Docks"
+        },
+        {
+          "code": "arkham_advertiser",
+          "name": "Arkham Advertiser"
+        },
+        {
+          "code": "miskatonic_university",
+          "name": "Miskatonic University"
+        },
+        {
+          "code": "tick_tock_club",
+          "name": "Tick Tock Club"
+        },
+        {
+          "code": "magick_shop",
+          "name": "Ye Olde Magick Shoppe"
+        }
+      ]
     },
     {
-      "id": "set_aside_assets",
-      "text": "Set the 5 following story assets aside, out of play: Cloak of the Outer Realms, Pocker Portal, Dreaded End, Blade of Ark'at, and Enchanted Skull."
+      "id": "location_layout_future",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank", "arkham_advertiser", "blank"
+        ],
+        [ "river_docks", "tindalos", "tick_tock_club"],
+        [
+          "blank", "miskatonic_university", "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "tindalos",
+          "name": "Tindalos"
+        },
+        {
+          "code": "river_docks",
+          "name": "River Docks"
+        },
+        {
+          "code": "arkham_advertiser",
+          "name": "Arkham Advertiser"
+        },
+        {
+          "code": "miskatonic_university",
+          "name": "Miskatonic University"
+        },
+        {
+          "code": "tick_tock_club",
+          "name": "Tick Tock Club"
+        }
+      ]
+    },
+    {
+      "id": "location_layout_sg",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank", "arkham_gazette", "blank", "blank", "blank", "arkham_advertiser_present", "blank", "blank", "blank", "arkham_advertiser_future", "blank"
+        ],
+        [ "river_docks_past", "blank", "watch_shop", "blank", "river_docks_present", "blank", "tick_tock_club_present", "blank", "river_docks_future", "blank", "tick_tock_club_future"
+        ],
+        [
+          "blank","miskatonic_university_past","blank", "blank", "blank", "miskatonic_university_present", "blank", "blank", "blank", "miskatonic_university_future"
+        ],
+        [
+          "blank","childhood_home","blank", "blank", "blank", "magick_shop", "blank", "blank", "blank", "blank", "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "arkham_gazette",
+          "name": "Arkham Gazette"
+        },
+        {
+          "code": "river_docks_past",
+          "name": "River Docks (Past)"
+        },
+        {
+          "code": "river_docks_present",
+          "name": "River Docks (Present)"
+        },
+        {
+          "code": "river_docks_future",
+          "name": "River Docks (Future)"
+        },
+        {
+          "code": "watch_shop",
+          "name": "O'Malley's Watch Shop"
+        },
+        {
+          "code": "miskatonic_university_past",
+          "name": "Miskatonic University (Past)"
+        },
+        {
+          "code": "childhood_home",
+          "name": "Childhood Home"
+        },
+        {
+          "code": "arkham_advertiser_present",
+          "name": "Arkham Advertiser (Present)"
+        },
+        {
+          "code": "arkham_advertiser_future",
+          "name": "Arkham Advertiser (Future)"
+        },
+        {
+          "code": "miskatonic_university_present",
+          "name": "Miskatonic University (Present)"
+        },
+        {
+          "code": "miskatonic_university_future",
+          "name": "Miskatonic University (Future)"
+        },
+        {
+          "code": "tick_tock_club_present",
+          "name": "Tick Tock Club (Present)"
+        },
+        {
+          "code": "tick_tock_club_future",
+          "name": "Tick Tock Club (Future)"
+        },
+        {
+          "code": "magick_shop",
+          "name": "Ye Olde Magick Shoppe"
+        }
+      ]
+    },
+    {
+      "id": "setup_story_sg",
+      "text": "Put the A Noble Legacy (Past), A Noble Legacy (Present), and A Noble Legacy (Future) story cards into play, one at a time, and resolve the <b>Setup</b> text on each of them. <i>(Hint-When playing, first focus on completing A Noble Legacy (Past), then focus on A Noble Legacy (Present), and, lastly, A Noble Legacy (Future).)</i>"
+    },
+    {
+      "id": "choose_machination_sg",
+      "text": "Choose one of the three [[Machination]] story cards at random, put it into play, and resolve its <b>Setup</b> text. Remove the other two [[Machination]] story cards from the game."
+    },
+    {
+      "id": "choose_plot_sg",
+      "text": "Choose one of the three [[Plot]] story cards at random, put it into play, and resolve its <b>Setup</b> text. Remove the other two [[Plot]] story cards from the game."
+    },
+    {
+      "id": "add_doom",
+      "text": "Add 1 [per_investigator] doom to agenda 1a."
+    },
+    {
+      "id": "check_difficulty_doom",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_remove_1_doom"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_add_1_doom"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["expert_add_2_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_remove_1_doom",
+      "bullet_type": "small",
+      "text": "Because you are playing on <b>Easy</b> difficulty, remove 1 doom from agenda 1a."
+    },
+    {
+      "id": "hard_add_1_doom",
+      "bullet_type": "small",
+      "text": "Because you are playing on <b>Hard</b> difficulty, add 1 doom to agenda 1a."
+    },
+    {
+      "id": "expert_add_2_doom",
+      "bullet_type": "small",
+      "text": "Because you are playing on <b>Expert</b> difficulty, add 2 doom to agenda 1a."
+    },
+    {
+      "id": "ask_epic_group",
+      "text": "Which eras's setup instruction do you want to read:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "past",
+            "text": "Past",
+            "steps": ["setup_locations_past", "location_layout_past", "setup_story_past",  "remove_eras_past", "choose_machination_past", "choose_plot_past"]
+          },
+          {
+            "id": "present",
+            "text": "Present",
+            "steps": ["setup_locations_present", "location_layout_present", "setup_story_present", "remove_eras_present", "machination_present", "plot_present"]
+          },
+          {
+            "id": "future",
+            "text": "Future",
+            "steps": ["setup_locations_future", "location_layout_future", "setup_story_future", "remove_eras_future", "machination_future", "plot_future"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_locations_past",
+      "text": "Put the Tindalos location into play, using the side with the <i>Epic Multiplayer Mode</i> encounter set icon. Put the five [[Past]] locations into play. Remove the remaining locations from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Tindalos."
+        }
+      ]
+    },
+    {
+      "id": "setup_story_past",
+      "text": "Put the A Noble Legacy (Past) story card into play and resolve its <b>Setup</b> text. Remove the other two A Noble Legacy story cards from the game."
+    },
+    {
+      "id": "remove_eras_past",
+      "text": "Remove all [[Present]] and [[Future]] story assets from the game."
+    },
+    {
+      "id": "choose_machination_past",
+      "text": "Choose one of the three [[Machination]] story cards at random, announce its title, put it into play, and resolve its <b>Setup</b> text. Remove the other two [[Machination]] story cards from the game."
+    },
+    {
+      "id": "choose_plot_past",
+      "text": "Choose one of the three [[Plot]] story cards at random, announce its title, put it into play, and resolve its <b>Setup</b> text. Remove the other two [[Plot]] story cards from the game."
+    },
+    {
+      "id": "setup_locations_present",
+      "text": "Put the Tindalos location into play, using the side with the <i>Epic Multiplayer Mode</i> encounter set icon. Put the five [[Present]] locations into play. Remove the remaining locations from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Tindalos."
+        }
+      ]
+    },
+    {
+      "id": "setup_story_present",
+      "text": "Put the A Noble Legacy (Present) story card into play and resolve its <b>Setup</b> text. Remove the other two A Noble Legacy story cards from the game."
+    },
+    {
+      "id": "remove_eras_present",
+      "text": "Remove all [[Past]] and [[Future]] story assets from the game."
+    },
+    {
+      "id": "machination_present",
+      "text": "Put the announced [[Machination]] story card into play and resolve its <b>Setup</b> text. Remove the other two [[Machination]] story cards from the game."
+    },
+    {
+      "id": "plot_present",
+      "text": "Put the announced [[Plot]] story card into play and resolve its <b>Setup</b> text. Remove the other two [[Plot]] story cards from the game."
+    },
+
+    {
+      "id": "setup_locations_future",
+      "text": "Put the Tindalos location into play, using the side with the <i>Epic Multiplayer Mode</i> encounter set icon. Set the Corrigan Industries location aside, out of play. Put the four [[Future]] locations into play. Remove the remaining locations from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Tindalos."
+        }
+      ]
+    },
+    {
+      "id": "setup_story_future",
+      "text": "Put the A Noble Legacy (Future) story card into play and resolve its <b>Setup</b> text. Remove the other two A Noble Legacy story cards from the game."
+    },
+    {
+      "id": "remove_eras_future",
+      "text": "Remove all [[Past]] and [[Present]] story assets from the game."
+    },
+    {
+      "id": "machination_future",
+      "text": "Put the announced [[Machination]] story card into play and resolve its <b>Setup</b> text. Remove the other two [[Machination]] story cards from the game."
+    },
+    {
+      "id": "plot_future",
+      "text": "Put the announced [[Plot]] story card into play and resolve its <b>Setup</b> text. Remove the other two [[Plot]] story cards from the game."
     },
     {
       "id": "encounter_deck",
-      "text": "Shuffle the remaining 19 encounter cards to form the encounter deck."
+      "text": "Shuffle the remaining 33 encounter cards to form the encounter deck."
     },
     {
       "id": "earn_xp",
@@ -585,255 +814,107 @@
       }
     },
     {
-      "id": "earn_xp_bonus_2",
-      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "id": "all_mental_trauma",
+      "text": "Each remaining investigator in all eras is defeated and suffers 1 mental trauma."
+    },
+    {
+      "id": "ask_edwin_bennet_in_play",
+      "text": "Which of the following is in play (in any era)?",
       "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Victory display:",
-        "confirm_text": "Each investigator earns 2 bonus experience as they have prevented all of the Outer Gods from completing their schemes",
-        "effects": [
-          {
-            "type": "earn_xp",
-            "investigator": "all",
-            "bonus": 2
-          }
-        ]
-      }
-    },
-    {
-      "id": "lose",
-      "text": "The investigators lose the campaign.",
-      "effects": [
-        {
-          "type": "campaign_data",
-          "setting": "result",
-          "value": "lose"
-        }
-      ]
-    },
-    {
-      "id": "all_killed",
-      "text": "Each investigator is <b>killed</b>.",
-      "effects": [
-        {
-          "type": "trauma",
-          "investigator": "all",
-          "killed": true
-        }
-      ]
-    },
-    {
-      "id": "ask_faction_in_lead",
-      "type": "input",
-      "text": "Find the faction that is in the lead and proceed accordingly:",
       "input": {
         "type": "choose_one",
         "choices": [
           {
-            "id": "red",
-            "text": "Red faction was in the lead",
-            "steps": [
-              "resolution_5"
-            ]
+            "id": "asset",
+            "text": "Edwin Bennet asset.",
+            "steps": ["resolution_2"]
           },
           {
-            "id": "blue",
-            "text": "Blue faction was in the lead",
-            "steps": [
-              "resolution_6"
-            ]
+            "id": "enemy",
+            "text": "Edwin Bennet enemy.",
+            "steps": ["resolution_3"]
           },
           {
-            "id": "green",
-            "text": "Green faction was in the lead",
-            "steps": [
-              "resolution_7"
-            ]
+            "id": "neither",
+            "text": "Neither",
+            "steps": ["resolution_4"]
           }
         ]
       }
     },
     {
-      "id": "resolution_5",
+      "id": "resolution_2",
       "type": "resolution",
-      "resolution": "R5"
+      "resolution": "R2"
     },
     {
-      "id": "resolution_6",
+      "id": "resolution_3",
       "type": "resolution",
-      "resolution": "R6"
+      "resolution": "R3"
     },
     {
-      "id": "resolution_7",
+      "id": "resolution_4",
       "type": "resolution",
-      "resolution": "R7"
+      "resolution": "R4"
     },
     {
-      "id": "earn_cloak",
-      "text": "Any one investigator may choose to add the Cloak of the Outer Realms story asset to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "86051"
-        }
-      ]
-    },
-    {
-      "id": "earn_pocket_portal",
-      "text": "Any one investigator may choose to add the Pocket Portal story asset to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "86052"
-        }
-      ]
-    },
-    {
-      "id": "earn_enchanted_skull",
-      "text": "Any one investigator may choose to add the Enchanted Skull story asset to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "86055"
-        }
-      ]
-    },
-    {
-      "id": "earn_dreaded_end",
-      "text": "Any one investigator may choose to add the Dreaded End story asset to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "86053"
-        }
-      ]
-    },
-    {
-      "id": "earn_blade",
-      "text": "Any one investigator may choose to add the Blade of Ark'at story asset to their deck. This card does not count toward that investigator’s deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "86054"
-        }
-      ]
-    },
-    {
-      "id": "$play_scenario_standalone",
+      "id": "ask_assets_in_play",
+      "text": "Which of the following are in play?",
       "type": "input",
       "input": {
-        "type": "play_scenario",
-        "branches": [
-          {
-            "id": "add_chaos_token",
-            "text": "Adjust chaos bag",
-            "steps": [
-              "add_chaos_token"
-            ],
-            "repeatable": true
-          }
-        ]
-      }
-    },
-    {
-      "id": "add_chaos_token",
-      "type": "input",
-      "text": "Which chaos token should be added to the bag?",
-      "input": {
-        "type": "choose_one",
+        "type": "checklist",
+        "text": "In play",
         "choices": [
           {
-            "id": "cultist",
-            "text": "Cultist ([cultist])",
-            "condition": {
-              "type": "campaign_data",
-              "campaign_data": "chaos_bag",
-              "token": "cultist",
-              "options": [
-                {
-                  "numCondition": 0
-                },
-                {
-                  "numCondition": 1
-                },
-                {
-                  "numCondition": 2
-                }
-              ]
-            },
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": [
-                  "cultist"
-                ]
-              }
-            ]
+            "id": "tesla",
+            "text": "Nikola Tesla",
+            "steps": ["earn_nikola_tesla"]
           },
           {
-            "id": "tablet",
-            "text": "Tablet ([tablet])",
-            "condition": {
-              "type": "campaign_data",
-              "campaign_data": "chaos_bag",
-              "token": "tablet",
-              "options": [
-                {
-                  "numCondition": 0
-                },
-                {
-                  "numCondition": 1
-                },
-                {
-                  "numCondition": 2
-                }
-              ]
-            },
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": [
-                  "tablet"
-                ]
-              }
-            ]
+            "id": "graves",
+            "text": "Ezra Graves",
+            "steps": ["earn_ezra_graves"]
           },
           {
-            "id": "elder_thing",
-            "text": "Elder-Thing ([elder_thing])",
-            "condition": {
-              "type": "campaign_data",
-              "campaign_data": "chaos_bag",
-              "token": "elder_thing",
-              "options": [
-                {
-                  "numCondition": 0
-                },
-                {
-                  "numCondition": 1
-                },
-                {
-                  "numCondition": 2
-                }
-              ]
-            },
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": [
-                  "elder_thing"
-                ]
-              }
-            ]
+            "id": "beam_machine",
+            "text": "Dimensional Beam Machine",
+            "steps": ["earn_dimensional_beam_machine"]
           }
         ]
       }
+    },
+    {
+      "id": "earn_nikola_tesla",
+      "text": "Any one investigator may choose to add the Nikola Tesla story asset to their deck. It does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "87014"
+        }
+      ]
+    },
+    {
+      "id": "earn_ezra_graves",
+      "text": "Any one investigator may choose to add the Ezra Graves story asset to their deck. It does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "87023"
+        }
+      ]
+    },
+    {
+      "id": "earn_dimensional_beam_machine",
+      "text": "Any one investigator may choose to add the Dimensional Beam Machine story asset to their deck. It does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "87032"
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -841,33 +922,33 @@
       "id": "no_resolution",
       "title": "No resolution was reached",
       "description": "Each investigator was defeated",
+      "text": "Countless Hounds burst through the portals and angles of space, cornering you. Bewildered and terrified, you stare down your demise...",
       "investigator_status": [
         "eliminated",
         "physical",
         "mental"
       ],
       "steps": [
-        "ask_faction_in_lead"
+        "all_mental_trauma",
+        "ask_edwin_bennet_in_play"
       ]
     },
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "The hub's many doorways are now sealed tight under your stern control. With the hub sealed, the cults fighting over its ownership should hopefully return to operating in secrecy—perhaps waiting for a time when the hub reopens and they can use it to advance their cruel agendas. Until then, the Earth is safe… relatively speaking",
+      "text": "The discoveries of Thomas Corrigan and Mary Zielinski are highly influential to the advancement of the Sciences. With their help, you're able to seal all portals leading to Tindalos from Arkham, and Edwin Bennet and his machinations are no longer a threat to the world. You purchase a copy of the newspaper depicting the two scientists, and realization strikes you: there is still one thing left to do. You fire up the machine and place the newspaper on the platform. You have to close the loop, or all of this will have been in vain...",
       "steps": [
-        "earn_cloak",
-        "earn_pocket_portal",
-        "earn_xp_bonus_2",
+        "ask_assets_in_play",
+        "earn_xp",
         "$upgrade_decks"
       ]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "The swarm of Ezel is too countless to defeat through normal means. But there is a trick! Otherworldly though they may be, the insects are insects nonetheless, and many hives have among them a queen. Using all of your ingenuity, you devise a plan to crush the queen and thereby scatter the swarm.\nTo your surprise, your plan works. With the queen dispatched, the swarm is aimless, its hunger replaced by a sense of desperation and panic. It is not long before the myriad creatures descend once more into the pit whence they came. Perhaps another queen will come to unite them, but you will seal that accursed pit long before that happens. For now, Earth is safe.",
+      "text": "Against all odds, you manage to escape the clutches of the beasts, but with them pursuing you, it is impossible for you to repair the broken timeline. Hope is not forsaken. Although leery, you place your trust in Edwin Bennet to repair all that was broken. He has the ability, but does he have the integrity?",
       "steps": [
-        "earn_cloak",
-        "earn_enchanted_skull",
+        "ask_assets_in_play",
         "earn_xp",
         "$upgrade_decks"
       ]
@@ -875,10 +956,9 @@
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "The shape of Silenus is formless, perhaps even devoid of matter altogether, but not without weakness. Using the rituals of its own cult against it, you devise a spell of such incandescent heat that not even the emptiness of space can devour it. When your rite is unleashed, the mists retreat in anguish, letting out no sound but the shrill hiss of air being sucked through a vacuum.\nYou observe the sky in fear, hoping that the mist does not return the moment your ritual has ended. Minutes pass. Then hours. Familiar stars once more fill the night sky. Perhaps the entity is gone for good. If the notes of the creature's many observers are true, it will likely return in the future—maybe hundreds or thousands of years from now. You may have saved the Earth this day, but the understanding of the entity's true nature haunts you still.",
+      "text": "Paralyzed with fear and nauseated by the stench of the baying beasts, you faint. When you next open your eyes, you find yourself in a sickly gloom under a green moon, buried to your neck in fetid soil as permanent residents of Tindalos. Humanity has suffered a profound loss. Thomas Corrigan and Mary Zielinski are also imprisoned on Tindalos, and their lifelong works disappear along with them. Worse still, the conniving Edwin Bennet and his machinations ripple through time, unimpeded. You're repulsed by the thought of what the psychopath is scheming next.",
       "steps": [
-        "earn_cloak",
-        "earn_dreaded_end",
+        "ask_assets_in_play",
         "earn_xp",
         "$upgrade_decks"
       ]
@@ -886,39 +966,11 @@
     {
       "id": "R4",
       "title": "Resolution 4",
-      "text": "Green blood and sticky pus erupts from the beast's carapace as it collapses, groaning with such force that it rumbles through the Earth. Thanks to your haste, you have felled the beast before it could grow too powerful to stop. Even in its infancy, it was a tremendous foe.\nYou watch in revulsion as its body dissolves into sallow ichor. Some \"paradise\" this thing turned out to be. With the egg hatched and the thing inside destroyed, you hope that the cult of Ark'at will disperse, though you fear that retribution may someday come in return for your meddling.",
+      "text": "Against all odds, you manage to escape the clutches of the beasts, but with them pursuing you, it is impossible for you to repair the broken timeline. Humanity has suffered a profound loss. Thomas Corrigan and Mary Zielinski are imprisoned on Tindalos, and their lifelong works disappear along with them. The only saving grace is Edwin Bennet is nowhere to be found. His machinations have ceased and the world is for the better. But deep down, one thought lingers: the possibility of his return.",
       "steps": [
-        "earn_cloak",
-        "earn_blade",
+        "ask_assets_in_play",
         "earn_xp",
         "$upgrade_decks"
-      ]
-    },
-    {
-      "id": "R5",
-      "title": "Resolution 5",
-      "text": "Little by little, the swarm deconstructs all matter on Earth, transforming each and every molecule to resemble their own. Your consciousness remains, trapped eternally in the awful, buzzing swarm. But all is well. You are with the queen now. A strange hunger gnaws at you. Your only desire is to assimilate. The swarm must grow!",
-      "steps": [
-        "all_killed",
-        "lose"
-      ]
-    },
-    {
-      "id": "R6",
-      "title": "Resolution 6",
-      "text": "The Earth is just the first planet to be engulfed by Silenus, embodiment of the Empty Sky, the ravenous end of all things. As the planet's core plunges to absolute zero, all life is instantly snuffed out. From the opening made by the nexus on Earth, the entity then stretches out to all corners of the solar system, devouring all warmth along the way. Nothing can stop it now.",
-      "steps": [
-        "all_killed",
-        "lose"
-      ]
-    },
-    {
-      "id": "R7",
-      "title": "Resolution 7",
-      "text": "The beast's rampage is impossible to stop. You were the only ones with any knowledge of how to defeat the thing. One by one, as it makes its way across continents and through the oceans, cities fall. Armies are obliterated. Governments collapse. The monstrous creatures hatched by the cult of Ark'at continue their ravenous war until there is nothing left to rule over but the vast wastes of Earth and the crumbling ruins of human civilization. The \"paradise\" they so willingly killed for has come.",
-      "steps": [
-        "all_killed",
-        "lose"
       ]
     }
   ]
