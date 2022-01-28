@@ -122,6 +122,30 @@
       "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
+      "id": "check_any_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "defeated_story",
+              "defeated_killed"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "defeated_story",
+      "type": "story",
+      "text": "Badly beaten and half-mad, you stumble deeper into the Tulgey Wood.  Now even more lost than before, you hope that you can last out the night before the shadows close in on you.  Moments pass fearfully until you spot movement out of the corner of your eye.  At first, the form looks like one of the shadows, but as it grows closer, there can be no doubt.  It's a Snark!  You start to call for the hunters when you notice a hint of malice in the creature's eyes.  The Bellman didn't mention anything like this about the Snark.  You rapidly rack your brain until you recall a comment about something called a Boojum.  From what the hunters discussed, it's a creature that resembles a Snark, but should you meet it, you will softly and suddenly vanish away.  You look up and realize too late that it's a Boo-"
+    },
+    {
       "id": "defeated_killed",
       "text": "Each investigator who was defeated is <b>killed</b>. If there are not enough investigators to continue the campaign, the campaign is over and the players lose.",
       "effects": [
@@ -514,14 +538,6 @@
   ],
   "resolutions": [
     {
-      "id": "investigator_defeat",
-      "title": "Investigator Defeat",
-      "text": "Badly beaten and half-mad, you stumble deeper into the Tulgey Wood.  Now even more lost than before, you hope that you can last out the night before the shadows close in on you.  Moments pass fearfully until you spot movement out of the corner of your eye.  At first, the form looks like one of the shadows, but as it grows closer, there can be no doubt.  It's a Snark!  You start to call for the hunters when you notice a hint of malice in the creature's eyes.  The Bellman didn't mention anything like this about the Snark.  You rapidly rack your brain until you recall a comment about something called a Boojum.  From what the hunters discussed, it's a creature that resembles a Snark, but should you meet it, you will softly and suddenly vanish away.  You look up and realize too late that it's a Boo-",
-      "steps": [
-        "defeated_killed"
-      ]
-    },
-    {
       "id": "no_resolution",
       "title": "No resolution was reached",
       "description": "Each investigator resigned or was defeated",
@@ -533,6 +549,7 @@
       ],
       "text": "",
       "steps": [
+        "check_any_defeated",
         "check_any_resigned"
       ]
     },
