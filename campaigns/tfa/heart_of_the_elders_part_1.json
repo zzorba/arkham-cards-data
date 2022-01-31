@@ -5,11 +5,37 @@
   "header": "Scenario V-A",
   "chaos_bag_card": "04205",
   "setup": [
-    "intro_1",
-    "choose_who_to_consult",
+    "maybe_do_intro",
     "check_paths_known"
   ],
   "steps": [
+    {
+      "id": "maybe_do_intro",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_replayed",
+        "scenario": "heart_of_the_elders_part_1",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "intro_1",
+              "choose_who_to_consult"
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": [
+              "maybe_consult_ichtaca",
+              "maybe_consult_alejandro",
+              "maybe_consult_journal"
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "intro_1",
       "narration": {
@@ -43,6 +69,14 @@
                 }
               ]
             },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hote_consult_ichtaca",
+                "text": "dummy"
+              }
+            ],
             "steps": [
               "intro_2",
               "start_with_ichtaca"
@@ -62,6 +96,14 @@
                 }
               ]
             },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hote_consult_alejandro",
+                "text": "dummy"
+              }
+            ],
             "steps": [
               "intro_3",
               "start_with_alejandro"
@@ -81,6 +123,14 @@
                 }
               ]
             },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hote_consult_journal",
+                "text": "dummy"
+              }
+            ],
             "steps": [
               "intro_4",
               "start_with_expedition_journal"
@@ -106,6 +156,54 @@
       },
       "type": "story",
       "text": "“The entrance is warded against intruders,” Ichtaca says cryptically, her eyes closed as though probing the cavern with unnatural senses. “These pillars are the key. Each is a test of wit and will.” She steps toward one of them and touches it with her palm, and its glow brightens. You notice now that the grooves along the pillar’s foundation depict a pattern you have seen somewhere before. If Ichtaca believes this place to be warded, you trust her opinion—there must be some way to break these wards…"
+    },
+    {
+      "id": "maybe_consult_ichtaca",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "hote_consult_ichtaca",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_ichtaca"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_consult_alejandro",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "hote_consult_alejandro",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_alejandro"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_consult_journal",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "hote_consult_journal",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_expedition_journal"]
+          }
+        ]
+      }
     },
     {
       "id": "start_with_ichtaca",
@@ -225,7 +323,24 @@
     },
     {
       "id": "check_replay",
-      "text": "If you have played this scenario before during this campaign and have reached act 2 before, flip act 1a over and place it in the Mouth of K’n-yan."
+      "type": "branch",
+      "text": "If you have played this scenario before:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "scenario_replayed",
+        "scenario": "heart_of_the_elders_part_1",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["replay_maybe_flip_act_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "replay_maybe_flip_act_2",
+      "bullet_type": "small",
+      "text": "If you have reached act 2 before, flip act 1a over and place it in the Mouth of K’n-yan."
     },
     {
       "id": "create_exploration_deck",
