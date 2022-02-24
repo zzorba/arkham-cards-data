@@ -1,0 +1,233 @@
+{
+  "id": "night_on_the_town",
+  "scenario_name": "Night on the Town",
+  "full_name": "Scenario II: Night on the Town",
+  "header": "Scenario II",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "defend_rule",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>7:21 PM:</i>\nHibbs stares as you wolf down a plate of greasy breakfast food. The burly man takes a moment, then speaks:\n\"It started about three days back. These strange fogs started rolling through town. Arkham being what it is, most people just assumed something had gone wrong at a factory downriver and went about their business. But then folks started getting sick. Gave folks weird rashes, some sort of disgusting skin thing. Folks by then were starting to get a bit wary, but business kept up.\nThen, yesterday, Doc Pickman wandered into Providence Square with a deer's head fused to his neck. Both heads were screaming.\nGovernment types showed up to put a stop to it, but the word was out. By the time we realized the mists were spreading from folks who were badly infected, the suits had already let a lot of troops get too close. Now there's a bunch of those things wandering around town. Attacking people. And even more of that terrible miasma.\nThe word on the street is to hole up somewhere safe tonight. Lots of folks practically live here at my roadhouse, so I thought I'd open up and let em gather. Honestly, though, I'm worried how much we'll be able to defend the place.\" Hibbs quiets for a beat, thinking.\n\"You seem like hardy people, friend. If you're really concerned about the monsters, best thing you can do is help get folks safe. Arkham's full of places where people might be holing up. If you could round people up and help to shore up some safe havens... well, tomorrow, I'm sure there'll be plenty of folks happy to help you figure out your memory lapse.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "night_on_the_town",
+        "fallen_arkham",
+        "haze_of_miasma",
+        "ancient_evils",
+        "arkham"
+      ],
+      "subtext": "When gathering cards from <i>The Midnight Masks</i>, use only the copies of \"Hunting Shadow\". When gathering cards from <i>Fallen Arkham</i>, use only the locations and each copy of \"Grinning Victim\"."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Hibbs Roadhouse (Spirits and Success), General Store (Anything and Everything), Orne Library (Repository of Knowledge), and Bank of Arkham (Investing In Our Future) locations into play. The investigators begin at Hibbs Roadhouse.",
+      "bullets": [
+        {
+          "text": "Choose either River Docks (Skilled Labor) or Arkham Advertiser (Current Events). Put that location into play."
+        },
+        {
+          "text": "Choose either Ma's Boarding House (Friendly Comforts) or Ye Olde Magick Shoppe (Power at a Price). Put that location into play."
+        },
+        {
+          "text": "Put 4 clues on each location."
+        },
+        {
+          "text": "Of the two locations not in play, choose one at random. When the game begins, find the set aside story asset referred to on the  revealed location and resolve the text on the back of that asset as though it flipped <b>due to the agenda</b>."
+        }
+      ]
+    },
+    {
+      "id": "defend_rule",
+      "type": "rule_reminder",
+      "title": "Defend",
+      "text": "Some cards in this scenario have a <b>Defend</b> action on them. When you <b>Defend</b>, rather than testing an investigator skill, you test the numeric value, relative to your investigator, that the card specifies. For example, if a location instructs you to test \"Resources in pool\", you would make a test, treating the number of resources in your resource pool as your skill value for that test. The testing investigator's value is used regardless of the presence of other investigators.",
+      "bullets": [
+        {
+          "text": "You cannot commit cards to <b>Defend</b> tests or use player card effects that increase your skill value on <b>Defend</b> tests."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tailors_contained_the_problem",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tailors_contained_the_problem",
+          "text": "the Tailors contained the problem."
+        }
+      ]
+    },
+    {
+      "id": "ask_put_out_a_fire",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "options": [
+          {
+            "id": "fire",
+            "text": "Did the investigators <i>put out a fire</i>?",
+            "steps": [
+              "collection_was_saved"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "collection_was_saved",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "collection_was_saved",
+          "text": "the colleciton was saved."
+        }
+      ]
+    },
+    {
+      "id": "ask_agent_grayson_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "options": [
+          {
+            "id": "fire",
+            "text": "Is <i>Agent Grayson</i> in the victory display?",
+            "steps": [
+              "the_first_claimed_the_facility"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_first_claimed_the_facility",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_first_claimed_the_facility",
+          "text": "the First claimed The Facility."
+        }
+      ]
+    },
+    {
+      "id": "investigators_learned_the_secrets_of_the_roadhouse",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "investigators_learned_the_secrets_of_the_roadhouse",
+          "text": "the investigators learned the secrets of the roadhouse."
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution was reached",
+      "description": "At least one investigator resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You feel a heavy arm shake you from unconsciousness. \"Buddy? Buddy, you alright?\"\nThe portly man standing above you has a look of concern on his face. Seeing you wake, he smiles broadly. \"Thank goodness. Dead customers tend to be bad for business.\"\nHe flips a rag over his shoulder and sticks out a hand. \"Hibbs. Seems like you got a bit overserved, friend.\"\nYou protest. The facility. The monsters. The agents. The gas!\n\"Don't know what you're talking about. You're in my establishment- Hibbs' Roadhouse, best speakeasy you can afford. You probably had too much to drink. Found you passed out in one of the booths. Simple as that.\"\nYou press him. If this is a speakeasy, where are the customers? \"Funny thing. That gas you mentioned? That's the one thing you said that makes any sense. But before that, I think you need something to eat.\"",
+      "steps": [
+        "earn_xp",
+        "tailors_contained_the_problem",
+        "ask_put_out_a_fire"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You fling open the hatch and pull yourself up into some sort of storage room. You run forward, flinging open the door to... a dingy bar. Startled, you stare about the place. Could this really be on top of that strange facility?\nYou hear someone clearing their throat and turn to find yourself face to face with an aproned man gripping a shotgun. \"I don't recognize you, friend. And they say I'm supposed to deal with anyone I don't recognize.\"\nAfter a tense moment, he lowers the weapon. \"Heck, it ain't loaded. I'm no killer. Never had the nerve. Just... anyone from the Tailor Agency asks, I tried to stop you, okay?\"\nHe offers you a burly hand, which you tentatively accept. \"Name's Hibbert. Call me Hibbs. This here's my roadhouse.\"\nYou inquire as to the facility below. \"Brook facility- where the Tailors research some of the local weirdness. They pays me to provide a cover and not to talk about it. So I'm not gonna talk about it.\"\nYou insist. The monsters! The gas! \"Got some bad news for you, friend. That's not just down there. Come sit. You look like you could use something to eat.\"",
+      "steps": [
+        "earn_xp",
+        "ask_agent_grayson_in_victory",
+        "investigators_learned_the_secrets_of_the_roadhouse",
+        "ask_put_out_a_fire",
+        "ask_suspicious_brief_case"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "As you climb a rickety stair, Greyson explains. \"I work for an agency called the Tailors. We deal with the things that go bump in the night. This facility is the Brook, our research base. Not sure how you wound up down there, but if you're not one of them, we're on the same side.\"\n\"It's bad out there, in Arkham. Whatever this fog is, it's spreading. I've been cleaning up down below, but our doorman and resident local can tell you more about the situation.\"\nGreyson throws open the door at the top of the stairs, revealing a dingy barhouse. \"Hibbs? We have visitors. Mind fixing them a bite to eat?\"\nThe portly man smiles, offers a handshake, then gets to work.",
+      "steps": [
+        "earn_xp",
+        "earned_graysons_respect",
+        "investigators_learned_the_secrets_of_the_roadhouse",
+        "ask_put_out_a_fire",
+        "ask_suspicious_brief_case"
+      ]
+    }
+  ]
+}
