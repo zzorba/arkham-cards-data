@@ -1,0 +1,787 @@
+{
+  "id": "death_at_sundown",
+  "scenario_name": "Death at Sundown",
+  "full_name": "Scenario VII: Death at Sundown",
+  "header": "Scenario VII",
+  "setup": [
+    "intro",
+    "check_west_has_recovered_the_reagant",
+    "intro_6",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "form_ritual_deck",
+    "check_learned_the_killing_words",
+    "floor_level",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>7:37 PM:</i>\nYou are snapped from your momentary lapse by the telltale rat-a-tat of tommy guns. A contingent of Tailors hanging out of speeding cars fire an excessive amount of rounds behind them. You feel the breath leave your lungs as their target comes into view behind them. Though the mass of flesh is now the size of a small building, it can only be the First Among Many."
+    },
+    {
+      "id": "check_west_has_recovered_the_reagant",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "west_has_recovered_the_reagant",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_greyson_cut_ties"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_greyson_cut_ties",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "greyson_cut_ties",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3", "intro_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4", "intro_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "\"Quickly!\" West shouts, pointing at the agents. \"They've already started. Remember my plan? The Tailors should have gathered the necessary materials, and are drawing the beast to Town Hall. We need to get there before it arrives!\"\nYou find an unattended motorcar, and get moving. Though your route is difficult in Arkham's damaged state, you pull up to Independence Square without any serious fights. A group of Tailors look around nervously, hands on their sidearms as you exit the vehicle. West clears his throat."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "\"That doesn't make sense...\" Greyson looks pensively. \"Wait. They must be working on a trap. They're luring it somewhere  - maybe West found the answer? We should follow them. Come on- we'll take my car!\""
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "The Tailors are panicky and disorganized, but they're not suicidal. If they're drawing the monster's attention, it must be for a reason.\nYou find an unattended motorcar and follow the sounds of gunfire."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "You make your way across town, tailing the agents as best you can. While the cars serving as \"bait\" continue to draw the creature's rage, you see a small group running across Independence Square. You recognize the diminutive shape of Herbert West among them. You pull the car aside and yell to the doctor, who turns to face you."
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "\"Well, glad we could all make it.\" West says loudly, motioning to you to walk with him. \"That creature - Pickman - is the source of all this. We destroy it, and we stand a sliver of a chance of putting an end to the madness. That won't be easy. It's proved frustratingly difficult to end permanently.\nFortunately, my associates were both experts in the eldritch sciences. There is a ritual, detailed in Robison's notes, that could \"enter the memories of a tormented soul\" where, if prepared, one could \"purify a host and lay it to rest\". It should serve our purposes as far as removing both the offending infection and whatever is keeping it alive. Without either, it's merely a bundle of useless flesh that can't support its own growth. We'll have this monster dead by sundown!\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "death_at_sundown",
+        "agency_troubleshooters",
+        "life_and_death",
+        "the_plaguebearers_commands"
+      ],
+      "subtext": "When gathering cards from the <i>Agency Troubleshooters</i> set, do not include any enemies."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the First Among Many, Tendrils of the First, and Dr. Elias Pickman cards aside, out of play."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each location into play in a vertical layout, with the [[Floor 0]] location on the bottom and the [[Floor 5]] location at the top.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Independence Square."
+        }
+      ]
+    },
+    {
+      "id": "form_ritual_deck",
+      "text": "Take the EX.O.L, Hedge Mage's Bag, and Blessing of Tomorrow story assets and shuffle them together. Place those cards facedown on top of the Binding Runes asset to form the Ritual Deck."
+    },
+    {
+      "id": "check_learned_the_killing_words",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "learned_the_killing_words",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_killing_words"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["no_killing_words"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "start_with_killing_words",
+      "bullet_type": "small",
+      "text": "The lead investigator starts with the Killing Words asset under their control, and places the Rusted Blade asset on the top of the  ritual deck."
+    },
+    {
+      "id": "no_killing_words",
+      "bullet_type": "small",
+      "text": "Take the Rusted Blade and Killing Words asset and shuffle them together, then place them on top of the ritual deck."
+    },
+    {
+      "id": "floor_level",
+      "text": "Some encounter cards in this scenario refer to the Floor value of your location. This value is X, where X is the [[Floor X]] trait of your current location. If your location lacks that trait, X is 0."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp_plus_in_play",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display <b>and each card in play</b>.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory points:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "ask_messenger_of_flame_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Messenger of Flame in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "messenger_of_flame_defeated",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_messenger_of_flame_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "messenger_of_flame_defeated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["record_flame_touched"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_flame_touched",
+      "bullet_type": "small",
+      "type": "input",
+      "text": "Find the non-[[Unbinding]] location with the most damage on it (Lead investigator decides ties). Record \"Flame-Touched\" under its entry in the campaign guide.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_messenger_of_the_king_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Messenger of The King in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "messenger_of_the_king_defeated",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "check_messenger_of_the_king_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "messenger_of_the_king_defeated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["record_madness_touched"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_madness_touched",
+      "bullet_type": "small",
+      "type": "input",
+      "text": "Find the non-[[Unbinding]] location with the most horror on it (Lead investigator decides ties). Record \"Madness-Touched\" under its entry in the campaign guide.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_campaign",
+      "bullet_type": "small",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+
+
+    {
+      "id": "record_eliminated_elites",
+      "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminated",
+        "choices": [
+          {
+            "id": "priest_of_plagues",
+            "text": "Priest of Plagues",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "priest_of_plagues",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "priest_of_plagues",
+                "text": "Priest of Plagues"
+              }
+            ]
+          },
+          {
+            "id": "doyle",
+            "text": "Doyle Jeffries",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "doyle",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "doyle",
+                "text": "Doyle Jeffries"
+              }
+            ]
+          },
+          {
+            "id": "armitage",
+            "text": "Henry Armitage",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "armitage",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "armitage",
+                "text": "Henry Armitage"
+              }
+            ]
+          },
+          {
+            "id": "hibbs",
+            "text": "Hibbs",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "hibbs",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "hibbs",
+                "text": "Hibbs"
+              }
+            ]
+          },
+          {
+            "id": "ma",
+            "text": "Ma Matheson",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "ma",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "ma",
+                "text": "Ma Matheson"
+              }
+            ]
+          },
+          {
+            "id": "beecher",
+            "text": "Miram Beecher",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "beecher",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "beecher",
+                "text": "Miram Beecher"
+              }
+            ]
+          },
+          {
+            "id": "the_loving_couple",
+            "text": "The Loving Couple",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "the_loving_couple",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "the_loving_couple",
+                "text": "The Loving Couple"
+              }
+            ]
+          },
+          {
+            "id": "thing_in_water",
+            "text": "The Thing in the Water",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "the_thing_in_the_water",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "thing_in_water",
+                "text": "The Thing in the Water"
+              }
+            ]
+          },
+          {
+            "id": "vice_president",
+            "text": "The Vice President",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "vice_president",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "vice_president",
+                "text": "The Vice President"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "defeated_killed",
+      "text": "Each defeated investigator is <b>killed</b>."
+    },
+    {
+      "id": "check_any_defeated",
+      "text": "If at least one investigator was defeated:",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "defeated_story",
+              "defeated_not_killed",
+              "swap_defeated_cards",
+              "defeated_injected_cardinal_reagant"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "defeated_story",
+      "type": "story",
+      "title": "Investigator Defeat",
+      "text": "When you were overcome by the First, in a way, it was a relief.It was incredibly painful, of course. But there's something calming about being dead. The dead don't need to worry about Baalshandor, or the fate of the world.\nBut as you drift away in your reverie, you feel a sudden rush of gravity...\nYour eyes burst open, and you see your companions watching nervously. \"Keep an eye on that one!\" West shouts from across the room. \"The serum may leave them somewhat unstable for the time being.\""
+    },
+    {
+      "id": "defeated_not_killed",
+      "text": "Each investigator defeated during or as a result of this scenario is no longer <b>Killed</b>."
+    },
+    {
+      "id": "swap_defeated_cards",
+      "text": "If any investigators who are no longer killed in this way control the \"Unbreakable Will\" asset, remove it and the \"Folly of Man\" weakness from their deck. They must add the \"Strength of Flesh\" and \"Death's Hold\" cards to their deck.",
+      "effects": [
+        {
+          "type": "replace_card",
+          "investigator": "defeated",
+          "old_card": "zcp_00069",
+          "new_card": "zcp_00068"
+        },
+        {
+          "type": "replace_card",
+          "investigator": "defeated",
+          "old_card": "zcp_00067",
+          "new_card": "zcp_00066"
+        }
+      ]
+    },
+    {
+      "id": "defeated_injected_cardinal_reagant",
+      "text": "Check Campaign Log. For each investigator no longer killed in this way who has not <i>injected a cardinal reagent</i>, record in your Campaign log that they have <i>injected a cardinal reagent.</i>",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "cards": "$defeated_investigators",
+          "feminine_text": "#name# has injected a cardinal reagant.",
+          "masculine_text": "#name# has injected a cardinal reagant."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Though a sense of victory fills your heart, your mind spins. Pickman's memory is fading with his life. You have to get out before you die with him. But something deep within you compels you to stop for a moment. You feel a sudden throbbing in your temples, and black out.\n<right>It was troubling when the subject escaped. His advanced infection stage could spread to local fauna, which could quickly get out of hand. It was fortunate that West offered his assistance - surprisingly mature of the little egomaniac, given the board handing over control of his serum research to you. His awful Re-Animated are poor soldiers, but make acceptable hunters.</right>\n<right>The target died fairly easily, but a group of local deer were infected. Culling them has made for an irritating evening. But now, only the one remains. You speak the call and it draws near, mistaking you for a fellow infected. Just a step closer and...</right>\n<right>A shot rings out in the forest, but not yours. The deer falls. You feel a sudden rush of cold. You instinctively pat at your torso and when you raise your hand from your chest, they are wet with something warm and sticky.</right>\n<right>You fall to your knees, grasping at the dying animal for support. It kicks in its death throes, and you fall to the ground in a pool of the creature's blood. Your eyes begin to unfocus as you stare into the night sky. Though your body is failing, your mind burns with rage - after all your achievements, this cannot be how you die!</right>\n<right>A figure loosely gripping a rifle walks into your vision. \"Well. This does not look good for you, Elias. In our line of work, we cannot afford to be so cavalier with our safety. Fortunately, I am well prepared for such an eventuality. You'll be alright shortly - a contribution to the advances of science.\" The figure reaches into his coat, and produces a needle filled with a glowing green substance. As you stare into his eyes, you feel a stinging pain.</right>\nYou are shaken awake by a hand on your shoulder. You open your eyes to Herbert West, staring at you with concern. \"You're alive? The monster is dead - we've done it.\"",
+      "steps": [
+        "earn_xp_plus_in_play",
+        "defeated_killed",
+        "check_any_defeated"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "As the creature scales the building, West desperately fumbles to complete the ritual. You watch him step through the portal- and directly into the waiting hands of Pickman. \"Dr. West. I'm so pleased you could make it.\" The tendrils of the First shoot forward into the portal, and a blood-curdling scream rattles your bones. But you don't have to live with the fear for long, as the ever expanding mass of the First finally claims your body as well.",
+      "steps": [
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "As you close the second portal, a furious scream shakes the sky. You brace for impact, but none comes. The alien monsters that wander the city, no longer linked to their realms, begin to burn away, and the cultists that remain flee in panic.\nYou've done it. The hordes have been fought back and the city is saved... for now.",
+      "steps": [
+        "earn_xp",
+        "ask_messenger_of_flame_in_victory",
+        "check_messenger_of_flame_defeated",
+        "ask_messenger_of_the_king_in_victory",
+        "check_messenger_of_the_king_defeated",
+        "record_eliminated_elites",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
