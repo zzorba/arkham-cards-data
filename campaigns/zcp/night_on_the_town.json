@@ -1,0 +1,779 @@
+{
+  "id": "night_on_the_town",
+  "scenario_name": "Night on the Town",
+  "full_name": "Scenario II: Night on the Town",
+  "header": "Scenario II",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "defend_rule",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>7:21 PM:</i>\nHibbs stares as you wolf down a plate of greasy breakfast food. The burly man takes a moment, then speaks:\n\"It started about three days back. These strange fogs started rolling through town. Arkham being what it is, most people just assumed something had gone wrong at a factory downriver and went about their business. But then folks started getting sick. Gave folks weird rashes, some sort of disgusting skin thing. Folks by then were starting to get a bit wary, but business kept up.\nThen, yesterday, Doc Pickman wandered into Providence Square with a deer's head fused to his neck. Both heads were screaming.\nGovernment types showed up to put a stop to it, but the word was out. By the time we realized the mists were spreading from folks who were badly infected, the suits had already let a lot of troops get too close. Now there's a bunch of those things wandering around town. Attacking people. And even more of that terrible miasma.\nThe word on the street is to hole up somewhere safe tonight. Lots of folks practically live here at my roadhouse, so I thought I'd open up and let em gather. Honestly, though, I'm worried how much we'll be able to defend the place.\" Hibbs quiets for a beat, thinking.\n\"You seem like hardy people, friend. If you're really concerned about the monsters, best thing you can do is help get folks safe. Arkham's full of places where people might be holing up. If you could round people up and help to shore up some safe havens... well, tomorrow, I'm sure there'll be plenty of folks happy to help you figure out your memory lapse.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "night_on_the_town",
+        "fallen_arkham",
+        "haze_of_miasma",
+        "ancient_evils",
+        "arkham"
+      ],
+      "subtext": "When gathering cards from <i>The Midnight Masks</i>, use only the copies of \"Hunting Shadow\". When gathering cards from <i>Fallen Arkham</i>, use only the locations and each copy of \"Grinning Victim\"."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Hibbs Roadhouse (Spirits and Success), General Store (Anything and Everything), Orne Library (Repository of Knowledge), and Bank of Arkham (Investing In Our Future) locations into play. The investigators begin at Hibbs Roadhouse.",
+      "bullets": [
+        {
+          "text": "Choose either River Docks (Skilled Labor) or Arkham Advertiser (Current Events). Put that location into play."
+        },
+        {
+          "text": "Choose either Ma's Boarding House (Friendly Comforts) or Ye Olde Magick Shoppe (Power at a Price). Put that location into play."
+        },
+        {
+          "text": "Put 4 clues on each location."
+        },
+        {
+          "text": "Of the two locations not in play, choose one at random. When the game begins, find the set aside story asset referred to on the  revealed location and resolve the text on the back of that asset as though it flipped <b>due to the agenda</b>."
+        }
+      ]
+    },
+    {
+      "id": "defend_rule",
+      "type": "rule_reminder",
+      "title": "Defend",
+      "text": "Some cards in this scenario have a <b>Defend</b> action on them. When you <b>Defend</b>, rather than testing an investigator skill, you test the numeric value, relative to your investigator, that the card specifies. For example, if a location instructs you to test \"Resources in pool\", you would make a test, treating the number of resources in your resource pool as your skill value for that test. The testing investigator's value is used regardless of the presence of other investigators.",
+      "bullets": [
+        {
+          "text": "You cannot commit cards to <b>Defend</b> tests or use player card effects that increase your skill value on <b>Defend</b> tests."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "ask_six_locations",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "six",
+            "text": "Are there six locations with a resource on them?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "late_risers_six_locations",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_six_locations",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "late_risers_six_locations",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_stands_united",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "arkham_stands_united",
+          "text": "Arkham stands united."
+        }
+      ]
+    },
+    {
+      "id": "record_defended",
+      "text": "In your Campaign Log, under the heading for each location, record <i>Defended</i> under the name of each location that has \"Survivors\".",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Has \"Survivors\"",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_infected",
+      "text": "In your Campaign Log, under the heading for each location, record <i>Infected</i> under the name of each location that has a \"Ruin\".",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Has a \"Ruin\"",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "condition": {
+              "type": "campaign_log",
+              "section": "arkham_advertiser",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "condition": {
+              "type": "campaign_log",
+              "section": "bank_of_arkham",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "condition": {
+              "type": "campaign_log",
+              "section": "general_store",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hibbs_roadhouse",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "condition": {
+              "type": "campaign_log",
+              "section": "mas_boarding_house",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "condition": {
+              "type": "campaign_log",
+              "section": "orne_library",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "condition": {
+              "type": "campaign_log",
+              "section": "river_docks",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "condition": {
+              "type": "campaign_log",
+              "section": "ye_olde_magick_shoppe",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_record_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "defended",
+        "options": [
+          {
+            "numCondition": 8
+          }
+        ],
+        "default_option": {
+          "steps": ["record_infected"]
+        }
+      }
+    },
+    {
+      "id": "check_three_defended",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "defended"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "locations",
+            "id": "hibbs_roadhouse_defended",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_has_your_back"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_has_your_back",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "hibbs_has_your_back",
+          "text": "Hibbs has your back."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "investigator_status": [
+        "alive",
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_six_locations",
+        "check_six_locations"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Things are getting bad out there. You had hoped that your experiences in the facility were exceptional, but it seems as though all of Arkham is swiftly moving in the same direction. It's possible that no matter what action you take to keep people safe, it won't be enough against the spreading tide of miasmic corruption.\nUnless, of course, you can cut it off at the source. Find where this evil spreads from and stop it. The strange disease-ridden monster that appeared by the general store leaves you thinking - perhaps there's something around there that serves as the source of it all...",
+      "steps": [
+        "earn_xp",
+        "record_defended",
+        "maybe_record_infected",
+        "check_three_defended"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You've done it. Thanks to you, countless citizens of Arkham will survive the night to come. These creatures, dangerous as they may be, won't defeat this city. Not tonight.\nDespite your victory, you can't stop the sinking feeling that no matter how many people make it through, it won't be enough against the spreading tide of miasmic corruption.\nUnless, of course, you can cut it off at the source. Find where this evil spreads from and stop it. The strange disease-ridden monster that appeared by the general store leaves you thinking - perhaps there's something around there that serves as the source of it all...",
+      "steps": [
+        "earn_xp",
+        "arkham_stands_united",
+        "record_defended",
+        "maybe_record_infected"
+      ]
+    }
+  ]
+}
