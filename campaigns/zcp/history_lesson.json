@@ -1,0 +1,292 @@
+{
+  "id": "history_lesson",
+  "type": "interlude",
+  "scenario_name": "History Lesson",
+  "full_name": "Interlude IV: History Lesson",
+  "header": "Interlude IV",
+  "icon": "chilling_mists",
+  "setup": [
+    "intro",
+    "ask_questions",
+    "intro_2",
+    "question_punishment",
+    "check_lurker_questions",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Robison walks you along a twisting path, and begins to elaborate. \"Let me start with a history lesson. Reality is far more complicated than you or I ever believed. There are beings and species of such magnitude and power that humanity pales in comparison. But, all life shares the same propensity for conflict. Aeons ago, there was a being - a Great Old One known as Baalshandor. Think of him as a twisted god of life. While many of the Old Ones created beings in their image, Baalshandor found his niche in evolutionary chaos. Germs, viruses, bacteria - they were all his children.\nThe diseases were as much tools as children.  Any lesser being infected, will find themselves serving the whims of the Plaguebearer in their idle moments. Many Old Ones abhorred these creations. A being known as Cthugha, obsessed with purity, was particularly offended - Offended enough to war against Baalshandor.\nThey were evenly matched. Baalshandor could corrupt almost anything, and the fire of Cthugha could burn away any impurity. So clever Cthugha sought aid. An ancient deal was struck, with an entity whose name I dare not speak- I will call him The King. Cthugha would see his ancient enemy destroyed, and the King would gain control over the pestilence of Baalshandor. Together, Cthugha and the King destroyed Baalshandor's armies.\nBut Baalshandor could not be destroyed. So a prison was crafted, beyond all known dimensions. It would bind Baalshandor outside of reality - even in all his power, only shades of his virulence were able to seep through. To unbind Baalshandor, he would need a mass sacrifice of followers. As his creations could be culled before this occurred, the Old Ones believed this prison unbreakable.\nBut I am afraid that to aid my colleague's search for knowledge, I passed along dangerous rituals to draw upon Baalshandor's power. Trust me when I say I truly regret it. Not only did it corrupt him, it somehow brought him back from his destruction by Cthugha's kin. He became a walking extension of Baalshandor, and the bacteria that he spawned spread to the city. It is small comfort that that city is about to burn.\nThroughout the ages, whenever Baalshandor's blood has flowed into our reality, The King and the Flame have been there to destroy all that it tainted. Even now, they prepare a last attack to destroy Arkham and prevent his unbinding. The city will fall, but it will not stop him.\nIn the hours to come, Baalshandor will emerge from the ashes of Arkham. His children will be endless. In a matter of hours, the earth will be his. And only you can stop it.\"\nYou lose yourself in thought for a moment, then stagger back in shock, terrified of what you see. You stand on a stone ring surrounding a terrifying mass of spheres and eyes.\n\"An aspect of my master. As a gesture of apology from me, you may ask of him any one question. He may choose to answer more, but beware- few of his offers come without a cost.\""
+    },
+    {
+      "id": "ask_questions",
+      "type": "branch",
+      "hidden": true,
+      "loop": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "lurker_questions"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": -1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "finished_history_lesson",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["actually_ask_question"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_ask_question",
+      "text": "You may ask any of the following questions of the Lurker at the Threshold:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "chance",
+            "text": "<i>What chance do we stand against the Flame and the King?</i>",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "saw_a_vision_of_the_portals",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["chance_story", "chance_effect"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "saw_a_vision_of_the_portals",
+                "text": "you saw a vision of the portals."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "lurker_questions",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "kill",
+            "text": "<i>How do we kill the First for good?</i>",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "learned_the_killing_words",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["kill_story", "kill_effect"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "learned_the_killing_words",
+                "text": "you learned the killing words."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "lurker_questions",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "stop",
+            "text": "<i>How do we stop Baalshandor?</i>",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "received_a_cryptic_riddle",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": ["stop_story", "stop_effect"]
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "received_a_cryptic_riddle",
+                "text": "you received a cryptic riddle."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "lurker_questions",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "done",
+            "text": "Finished asking questions.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "finished_history_lesson",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chance_story",
+      "type": "story",
+      "text": "<b><i>What chance do we stand against the Flame and the King?:</i></b>Yog-Sothoth is the key and guardian of the gate. He knows where the Old Ones broke through of old, and where They shall break through again."
+    },
+    {
+      "id": "chance_effect",
+      "text": "Record in your campaign log that you <i>saw a vision of the portals</i>."
+    },
+    {
+      "id": "kill_story",
+      "type": "story",
+      "text": "<b><i>How do we kill the First for good?</i></b>: There was a formula for evoking such a shade, and another for putting it down; and it had now been so perfected that it could be taught successfully."
+    },
+    {
+      "id": "kill_effect",
+      "text": "Record in your campaign log that you <i>learned the killing words</i>."
+    },
+    {
+      "id": "stop_story",
+      "type": "story",
+      "text": "<b><i>How do we stop Baalshandor?</i></b>: That is not dead which can eternal lie. And in strange aeons, <u>even death may die</u>."
+    },
+    {
+      "id": "stop_effect",
+      "text": " Record in your campaign log that you <i>received a cryptic riddle</i>."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "\"I hope you have the answers you seek. Your time here draws short - unless you would prefer to abandon this folly and dwell with me amongst the endless for eternity?\"\nYou shake your head. Arkham's in more danger than ever. Only you have the knowledge to stop what's coming.\nRobison speaks a few words, and the stars fade from the sky, followed by the rest of the light in this realm."
+    },
+    {
+      "id": "question_punishment",
+      "text": "For each question asked after your first choice, each investigator must search the collection for a random [[Madness]] or [[Pact]] weakness and add it to their deck."
+    },
+    {
+      "id": "check_lurker_questions",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "lurker_questions",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["no_weakness"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["no_weakness"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["add_weakness"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["add_weakness_two"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_weakness",
+      "bullet_type": "small",
+      "text": "No weaknesses are added."
+    },
+    {
+      "id": "add_weakness",
+      "bullet_type": "small",
+      "text": "Each investigator searches the collection for a random basic [[Madness]] or [[Pact]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": [
+            "Madness",
+            "Pact"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_weakness_two",
+      "bullet_type": "small",
+      "text": "Each investigator searches the collection for a random basic [[Madness]] or [[Pact]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": [
+            "Madness",
+            "Pact"
+          ]
+        }
+      ]
+    }
+  ]
+}

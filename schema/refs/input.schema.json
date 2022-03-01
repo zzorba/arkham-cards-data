@@ -320,7 +320,7 @@
           ]
         },
         "condition": {
-          "$ref": "condition.schema.json#/definitions/basicTraumaCondition"
+          "$ref": "condition.schema.json#/definitions/investigatorChoiceCondition"
         },
         "special_mode": {
           "type": "string",
@@ -577,6 +577,33 @@
       "required": ["type", "choices", "text"],
       "additionalProperties": false
     },
+    "choicelistInput": {
+      "$id": "#choicelistInput",
+      "title": "ChoicelistInput",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "choicelist"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/binaryConditionalChoice"
+          }
+        }
+      },
+      "required": ["type", "items", "choices"],
+      "additionalProperties": false
+    },
     "investigatorCounterInput": {
       "$id": "#investigatorCounterInput",
       "title": "InvestigatorCounterInput",
@@ -811,6 +838,9 @@
         },
         {
           "$ref": "#/definitions/checklistInput"
+        },
+        {
+          "$ref": "#/definitions/choicelistInput"
         },
         {
           "$ref": "#/definitions/counterInput"
