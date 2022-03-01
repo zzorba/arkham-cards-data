@@ -34,6 +34,94 @@
   ],
   "steps": [
     {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "intro",
       "type": "story",
       "text": "<i>6:11 AM:</i>\nYou make your way across town as quickly as you can. The first rays of morning alight a town huddling in quiet fear. It is eerily silent. No early risers leaving their homes. Not even bird songs disturb the stillness. You focus inward, and relax for a moment.\nThen the first horrible note breaks the air.\nSomewhere, nearby, a voice sings out a dark and compelling melody. A song of hate and sorrow, resounding through the empty streets. A melody quickly joined by a second voice, then a third. In short order, the song is repeated all across the town of Arkham.\nBut no matter how you adjust, you can always hear that first voice, above the din. Leading the chorus in its eldritch invocations.\nYou feel a sting at the base of your skull, and your head goes momentarily fuzzy.\n<center>\"Rejoice!</center>\n<center><strike><red>Rejoice</red></strike></center>\n<center>\"Rebirth!</center>\n<center><strike><red>Disease</red></strike></center>\n<center>We will all</center>\n<center><strike><red>They gather</red></strike></center>\n<center>hear the Call!</center>\n<center><strike><red>I call you forth</red></strike></center>\n<center>of The Bloody Unbinding</center>\n<center><strike><red>They will break the Seal</red></strike></center>\n<center>Freedom!</center>\n<center><strike><red>Freedom</red></strike></center>\n<center>Justice!</center>\n<center><strike><red>Revenge</red></strike></center>\n<center>Though He dies</center>\n<center><strike><red>It betrayed me.</red></strike></center>\n<center>he will rise!</center>\n<center><strike><red>It failed.</red></strike></center>\n<center>with The Bloody Unbinding</center>\n<center><strike><red>They will break the Seal</red></strike></center>\n\"The Bloody Unbinding.\" You don't know what it means. But it has to be stopped."
