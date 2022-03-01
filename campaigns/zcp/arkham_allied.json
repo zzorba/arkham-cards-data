@@ -14,6 +14,7 @@
     "check_bank_of_arkham",
     "check_orne_library",
     "check_mas_boarding_house",
+    "plaguebearer_trap",
     "check_ye_olde_magick_shoppe",
     "check_arkham_advertiser",
     "check_river_docks",
@@ -201,6 +202,56 @@
       "type": "story",
       "title": "Ma's Boarding House",
       "text": "The elderly Ma Matheson says very little, but shakes your hand and gives you a tin filled with homemade pastries. Several onlookers eye you with surprise."
+    },
+    {
+      "id": "plaguebearer_trap",
+      "border": true,
+      "type": "border",
+      "title": "Plaguebearer",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_text": "I read this section",
+      "confirmation_steps": ["choose_who_read"]
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<i><red><strike>Your time is nearly up. Even now, my prison</strike> fails. When the midnight hour arrives, prepare for your end.</red></i>"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "Each investigator reading this gains 2 experience and 1 mental trauma."
+    },
+    {
+      "id": "choose_who_read",
+      "type": "input",
+      "border_only": true,
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "read",
+            "text": "Read the statement",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "earn_mas_approval",

@@ -7,11 +7,15 @@
   "icon": "fallen_arkham",
   "setup": [
     "check_hibbs_has_back_or_arkham_stands_united",
-    "$upgrade_decks"
+    "$upgrade_decks",
+    "$proceed",
+    "spacer",
+    "trap"
   ],
   "steps": [
     {
       "id": "check_hibbs_has_back_or_arkham_stands_united",
+      "text": "If <i>Hibbs has your back</i> or <i>Arkham stands united</i>:",
       "type": "branch",
       "condition": {
         "type": "multi",
@@ -146,7 +150,7 @@
     {
       "id": "cannot_stop_me",
       "type": "story",
-      "text": "<strike><red>I grant you this because you cannot stop me</red></strike>"
+      "text": "<center><strike><red>I grant you this because you cannot stop me</red></strike></center>"
     },
     {
       "id": "add_tablet",
@@ -157,6 +161,30 @@
           "tokens": ["tablet"]
         }
       ]
+    },
+    {
+      "id": "spacer",
+      "type": "story",
+      "text": "\n\n\n\n\n\n\n"
+    },
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<center><strike><red>How can you expect to contain me when you cannot even contain your curiosity</red></strike></center>"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "Each investigator who reads this begins the next scenario with a horror (in addition to any mental trauma) and an additional card in hand."
     }
   ]
 }
