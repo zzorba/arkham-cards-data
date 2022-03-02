@@ -19,6 +19,14 @@
     "check_river_docks_defended",
     "check_ye_olde_magick_shoppe_defended",
     "replace_infected_locations",
+    "check_arkham_advertiser_infected",
+    "check_bank_of_arkham_infected",
+    "check_general_store_infected",
+    "check_hibbs_roadhouse_infected",
+    "check_mas_boarding_house_infected",
+    "check_orne_library_infected",
+    "check_river_docks_infected",
+    "check_ye_olde_magick_shoppe_infected",
     "check_site_of_the_unbinding",
     "add_portal_locations",
     "remove_eliminated_enemies",
@@ -33,6 +41,7 @@
     "check_ye_olde_magick_shoppe_rallied",
     "check_hibbs_roadhouse_rallied",
     "place_miasma_damage",
+    "check_miasma_player_count",
     "encounter_deck",
     "shuffle_set_aside_elite_infected",
     "defend_rule",
@@ -101,7 +110,7 @@
         "unbound_power",
         "agents_of_hastur"
       ],
-      "subtext": "When gathering cards from <i>Mourning Chorus</i> encounter set, only include the locations."
+      "subtext": "- When gathering cards from <i>Mourning Chorus</i> encounter set, only include the locations."
     },
     {
       "id": "set_aside_cards",
@@ -284,6 +293,174 @@
     {
       "id": "replace_infected_locations",
       "text": "Check your campaign log. For each location in play that is \"Infected\", replace the current location with the location of the same name from the <i>Fallen Arkham</i> set."
+    },
+    {
+      "id": "check_arkham_advertiser_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_infected",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser"
+    },
+    {
+      "id": "check_bank_of_arkham_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_infected",
+      "bullet_type": "small",
+      "text": "Bank of Arkham"
+    },
+    {
+      "id": "check_general_store_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_infected",
+      "bullet_type": "small",
+      "text": "General Store"
+    },
+    {
+      "id": "check_hibbs_roadhouse_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_infected",
+      "bullet_type": "small",
+      "text": "Hibbs Roadhouse"
+    },
+    {
+      "id": "check_mas_boarding_house_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_infected",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House"
+    },
+    {
+      "id": "check_orne_library_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_infected",
+      "bullet_type": "small",
+      "text": "Orne Library"
+    },
+    {
+      "id": "check_river_docks_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_infected",
+      "bullet_type": "small",
+      "text": "River Docks"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_infected",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe"
     },
     {
       "id": "check_site_of_the_unbinding",
@@ -571,7 +748,39 @@
     },
     {
       "id": "place_miasma_damage",
-      "text": "Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Miasma</b> locations, divided as evenly as possible. Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Stable</b> locations, divided as evenly as possible. Spawn a copy of Infernal Acolyte (If there are 3 or 4 players in the game, alsospawn a copy of Delusional Protagonist)."
+      "text": "Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Miasma</b> locations, divided as evenly as possible.",
+      "bullets": [
+        {
+          "text": "Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Stable</b> locations, divided as evenly as possible."
+        },
+        {
+          "text": "Spawn a copy of Infernal Acolyte"
+        }
+      ]
+    },
+    {
+      "id": "check_miasma_player_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 3,
+            "steps": ["spawn_delusional_protagonist"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["spawn_delusional_protagonist"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_delusional_protagonist",
+      "bullet_type": "small",
+      "text": "Becuase there are 3 or 4 players in the game, also spawn a copy of Delusional Protagonist."
     },
     {
       "id": "encounter_deck",
@@ -909,6 +1118,7 @@
         {
           "type": "trauma",
           "investigator": "all",
+          "hidden": true,
           "killed": true
         }
       ]
@@ -920,13 +1130,13 @@
         {
           "type": "trauma",
           "investigator": "all",
+          "hidden": true,
           "insane": true
         }
       ]
     },
     {
       "id": "lose_campaign",
-      "bullet_type": "small",
       "text": "The investigators lose the campaign.",
       "effects": [
         {
@@ -1204,6 +1414,140 @@
           }
         ]
       }
+    },
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "title": "Insidious Whispers",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_steps": ["ask_swap_token"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<red>Amusing. You work so hard to stray from the path that has been laid. Do you feel powerful? Destroying the champions of my enemies. My champion will prove indestructible.\nThe Midnight Hour approaches. I grant you this one final chance to die before them."
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "The first investigator who reads this section may swap one of the [skull] or [tablet] symbols (whichever is more common) in the chaos bag for a [cultist]. If they do so, each investigator heals 1 trauma of their choice."
+    },
+    {
+      "id": "ask_swap_token",
+      "border_only": true,
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "swap",
+            "text": "Do you want to swap a chaos token to let all investigators heal one trauma?",
+            "steps": ["swap_token", "heal_trauma_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_token",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "skull"
+        },
+        "opB": {
+          "type": "chaos_bag",
+          "token": "tablet"
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["swap_tablet"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["swap_choice"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["swap_skull"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_choice",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Which chaos token should be removed?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "skull",
+            "text": "[skull]",
+            "steps": ["swap_skull"]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "steps": ["swap_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_skull",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Replace a [skull] token with a [cultist] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["skull"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "swap_tablet",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Replace a [tablet] token with a [cultist] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "heal_trauma_choice",
+      "border_only": true,
+      "effects": [
+        {
+          "type": "trauma",
+          "bullet_type": "small",
+          "investigator": "all",
+          "mental_or_physical": -1
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -1249,7 +1593,9 @@
         "ask_messenger_of_the_king_in_victory",
         "check_messenger_of_the_king_defeated",
         "record_eliminated_elites",
-        "$upgrade_decks"
+        "$upgrade_decks",
+        "$proceed",
+        "trap"
       ]
     }
   ]
