@@ -70,8 +70,7 @@
               "encounter_deck",
               "return_placeholder",
               "no_way_out",
-              "maybe_agenda_1_results",
-              "maybe_ask_being_hunted",
+              "check_latest_campaign_version",
               "resolution_1"
             ]
           }
@@ -141,8 +140,7 @@
               "encounter_deck",
               "return_placeholder",
               "no_way_out",
-              "maybe_agenda_1_results",
-              "maybe_ask_being_hunted",
+              "check_latest_campaign_version",
               "resolution_1"
             ]
           }
@@ -722,6 +720,217 @@
       }
     },
     {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "fixed_resolution": "no_resolution",
+        "branches": [
+          {
+            "id": "05046",
+            "text": "Record Gavriella's fate",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "05046",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "05046_fate_decided",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "choose_05046_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05046_fate_decided",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "05046",
+            "text": "Record Jerome's fate",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "05047",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "05047_fate_decided",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "choose_05047_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05047_fate_decided",
+                "text": "dummy"
+              }
+            ]
+          },
+
+          {
+            "id": "05048",
+            "text": "Record Valentino's fate",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "05048",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "05048_fate_decided",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "choose_05048_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05048_fate_decided",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "05049",
+            "text": "Record Penny's fate",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "05049",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "05049_fate_decided",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "choose_05049_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05049_fate_decided",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_latest_campaign_version",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 5,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$play_scenario"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["maybe_agenda_1_results"]
+          }
+        ]
+      }
+    },
+    {
       "id": "maybe_agenda_1_results",
       "type": "branch",
       "hidden": true,
@@ -939,6 +1148,14 @@
             },
             "steps": [
               "choose_05046_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05046_fate_decided",
+                "text": "dummy"
+              }
             ]
           },
           {
@@ -955,6 +1172,14 @@
             },
             "steps": [
               "choose_05047_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05047_fate_decided",
+                "text": "dummy"
+              }
             ]
           },
           {
@@ -971,6 +1196,14 @@
             },
             "steps": [
               "choose_05048_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05048_fate_decided",
+                "text": "dummy"
+              }
             ]
           },
           {
@@ -987,6 +1220,14 @@
             },
             "steps": [
               "choose_05049_fate"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "05049_fate_decided",
+                "text": "dummy"
+              }
             ]
           }
         ]
@@ -2973,6 +3214,7 @@
         "no_experience",
         "pieces_of_evidence",
         "return_player_cards",
+        "maybe_ask_being_hunted",
         "choose_investigators"
       ]
     }
