@@ -373,14 +373,15 @@
         {
           "type": "trauma",
           "investigator": "all",
-          "set_physical": 0
+          "set_physical": 0,
+          "hidden": true
         }
       ]
     },
     {
       "id": "you_are_mine_now",
       "type": "story",
-      "text": "<strike>You are mine, now.</strike>"
+      "text": "<center><strike><red>You are mine, now.</red></strike></center>"
     },
 
     {
@@ -397,11 +398,11 @@
     {
       "id": "dead_alive_quip",
       "type": "story",
-      "text": "<strike>Dead? Alive? It does not matter.</strike>"
+      "text": "<center><strike><red>Dead? Alive? It does not matter.</red></strike></center>"
     },
     {
       "id": "earn_folly_of_man_and_deaths_hold",
-      "text": "Each investigator adds a copy of the \"Folly of Man\" and \"Death's Hold\" weaknesses to their deck.",
+      "text": "Each investigator adds a copy of \"The Folly of Man\" and \"Death's Hold\" weaknesses to their deck.",
       "effects": [
         {
           "type": "add_card",
@@ -418,7 +419,7 @@
     {
       "id": "soul_quip",
       "type": "story",
-      "text": "<strike>Your soul and humanity persist at my whim.</strike>"
+      "text": "<center><strike><red>Your soul and humanity persist at my whim.</red></strike></center>"
     },
     {
       "id": "treat_each_cultist_as_autofail",
@@ -434,6 +435,94 @@
           "scenario": "dead_or_alive"
         }
       ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -504,7 +593,7 @@
     {
       "id": "R5",
       "title": "Resolution 5",
-      "text": "<center><strike>Dead.</strike></center>\n<center><strike>That won't do.</strike></center>\n<center><strike>My unbinding needs opposition.</strike></center>\n<center><strike>The sorcerer's folly will be your kind's undoing.</strike></center>\n<center><strike>Do what is asked of you.</strike></center>\n<center><strike>Rise.</strike></center>\nThe first rays of the morning sun stream across your corpse. As you feel the warmth on your skin, you jolt awake. You are lying on the floor of the manor, surrounded by long-cooled carnage. How are you alive?\nYou need answers, now. The agents have West, and a handle on all this. Which means there's only one place to go. Back to the facility.",
+      "text": "<center><strike><red>Dead.</red></strike></center>\n<center><strike><red>That won't do.</red></strike></center>\n<center><strike><red>My unbinding needs opposition.</red></strike></center>\n<center><strike><red>The sorcerer's folly will be your kind's undoing.</red></strike></center>\n<center><strike><red>Do what is asked of you.</red></strike></center>\n<center><strike><red>Rise.</red></strike></center>\nThe first rays of the morning sun stream across your corpse. As you feel the warmth on your skin, you jolt awake. You are lying on the floor of the manor, surrounded by long-cooled carnage. How are you alive?\nYou need answers, now. The agents have West, and a handle on all this. Which means there's only one place to go. Back to the facility.",
       "steps": [
         "heal_trauma",
         "you_are_mine_now",
@@ -514,6 +603,7 @@
         "soul_quip",
         "treat_each_cultist_as_autofail",
         "earn_xp",
+        "$upgrade_decks",
         "skip_dead_or_alive"
       ]
     }

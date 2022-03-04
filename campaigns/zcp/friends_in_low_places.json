@@ -4,14 +4,17 @@
   "scenario_name": "Friends in Low Places",
   "full_name": "Interlude I: Friends in Low Places",
   "header": "Interlude I",
-  "icon": "chilling_mists",
+  "icon": "fallen_arkham",
   "setup": [
     "check_hibbs_has_back_or_arkham_stands_united",
-    "$upgrade_decks"
+    "$upgrade_decks",
+    "$proceed",
+    "trap"
   ],
   "steps": [
     {
       "id": "check_hibbs_has_back_or_arkham_stands_united",
+      "text": "If <i>Hibbs has your back</i> or <i>Arkham stands united</i>:",
       "type": "branch",
       "condition": {
         "type": "multi",
@@ -129,7 +132,7 @@
     {
       "id": "intro_4",
       "type": "story",
-      "text": "Rivertown is quiet. With most of the remaining citizens of Arkham holed up, the streets have only flickering street lamps to keep you company. Strangely, the creatures have also vanished, along with most of the choking fogs.\nAn hour into your exploration in the Rivertown neighborhood, you round a corner and walk directly into a cloud of the glowing haze. Your eyes lose focus, and for a moment, you see through many eyes at once. You see one self weaving robes of flesh and reciting twisted chants. Another howls, and slowly drags itself arm over arm from a deep tunnel into dark woods. Another stares over a corpse and curses fate.\nThe <i><strike>Plaguebearer</strike></i> stares through darkness at a small blue sphere, dangling below a colossal red palm that drips green ichor from a stigmata.\n<center><strike>My return draws near</strike></center>\nThe miasma recedes, and your self returns."
+      "text": "Rivertown is quiet. With most of the remaining citizens of Arkham holed up, the streets have only flickering street lamps to keep you company. Strangely, the creatures have also vanished, along with most of the choking fogs.\nAn hour into your exploration in the Rivertown neighborhood, you round a corner and walk directly into a cloud of the glowing haze. Your eyes lose focus, and for a moment, you see through many eyes at once. You see one self weaving robes of flesh and reciting twisted chants. Another howls, and slowly drags itself arm over arm from a deep tunnel into dark woods. Another stares over a corpse and curses fate.\nThe <i><strike><red>Plaguebearer</red></strike></i> stares through darkness at a small blue sphere, dangling below a colossal red palm that drips green ichor from a stigmata.\n<center><strike><red>My return draws near</red></strike></center>\nThe miasma recedes, and your self returns."
     },
 
     {
@@ -146,7 +149,7 @@
     {
       "id": "cannot_stop_me",
       "type": "story",
-      "text": "<strike>I grant you this because you cannot stop me</strike>"
+      "text": "<center><strike><red>I grant you this because you cannot stop me</red></strike></center>"
     },
     {
       "id": "add_tablet",
@@ -157,6 +160,25 @@
           "tokens": ["tablet"]
         }
       ]
+    },
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<center><strike><red>How can you expect to contain me when you cannot even contain your curiosity</red></strike></center>"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "Each investigator who reads this begins the next scenario with a horror (in addition to any mental trauma) and an additional card in hand."
     }
   ]
 }

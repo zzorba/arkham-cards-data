@@ -167,6 +167,16 @@ function validate(validator, file, json, schemaName) {
           }
         });
       }
+      if (step.confirmation_steps) {
+        step.confirmation_steps.map(step => {
+          if (!steps[step] && !magicSteps[step]) {
+            console.log(`MISSING_STEP (${file}) - ${step}`);
+            error = true;
+          } else {
+            delete unusedSteps[step];
+          }
+        });
+      }
       if (step.input && step.input.type === 'scenario_investigators' && step.input.choose_none_steps) {
         step.input.choose_none_steps.map(step => {
           if (!steps[step] && !magicSteps[step]) {

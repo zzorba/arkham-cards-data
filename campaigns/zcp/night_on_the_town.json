@@ -28,7 +28,7 @@
         "ancient_evils",
         "arkham"
       ],
-      "subtext": "When gathering cards from <i>The Midnight Masks</i>, use only the copies of \"Hunting Shadow\". When gathering cards from <i>Fallen Arkham</i>, use only the locations and each copy of \"Grinning Victim\"."
+      "subtext": "- When gathering cards from <i>The Midnight Masks</i>, use only the copies of \"Hunting Shadow\".\n- When gathering cards from <i>Fallen Arkham</i>, use only the locations and each copy of \"Grinning Victim\"."
     },
     {
       "id": "setup_locations",
@@ -680,6 +680,7 @@
     {
       "id": "check_three_defended",
       "type": "branch",
+      "text": "If there are three or more locations recorded as <i>Defended</i>, and Hibb's Roadhouse is recorded as <i>Defended</i>:",
       "condition": {
         "type": "multi",
         "conditions": [
@@ -706,8 +707,8 @@
           },
           {
             "type": "campaign_log",
-            "section": "locations",
-            "id": "hibbs_roadhouse_defended",
+            "section": "hibbs_roadhouse",
+            "id": "defended",
             "options": [
               {
                 "boolCondition": true
@@ -735,6 +736,94 @@
           "text": "Hibbs has your back."
         }
       ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [

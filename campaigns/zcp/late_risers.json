@@ -97,7 +97,7 @@
           "type": "campaign_log",
           "section": "campaign_notes",
           "id": "collection_was_saved",
-          "text": "the colleciton was saved."
+          "text": "the collection was saved."
         }
       ]
     },
@@ -184,6 +184,112 @@
           "card": "zcp_00017a"
         }
       ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "tripped_the_facility_alarms",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "tripped_the_facility_alarms",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You tripped the Facility alarms.",
+            "steps": [
+              "tripped_the_facility_alarms"
+            ]
+          },
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tripped_the_facility_alarms",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tripped_the_facility_alarms",
+          "text": "you tripped the Facility alarms."
+        }
+      ]
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -221,7 +327,8 @@
       "steps": [
         "earn_xp",
         "tailors_contained_the_problem",
-        "ask_put_out_a_fire"
+        "ask_put_out_a_fire",
+        "$upgrade_decks"
       ]
     },
     {
@@ -233,7 +340,8 @@
         "ask_agent_greyson_in_victory",
         "investigators_learned_the_secrets_of_the_roadhouse",
         "ask_put_out_a_fire",
-        "ask_suspicious_brief_case"
+        "ask_suspicious_brief_case",
+        "$upgrade_decks"
       ]
     },
     {
@@ -245,7 +353,8 @@
         "earned_greysons_respect",
         "investigators_learned_the_secrets_of_the_roadhouse",
         "ask_put_out_a_fire",
-        "ask_suspicious_brief_case"
+        "ask_suspicious_brief_case",
+        "$upgrade_decks"
       ]
     }
   ]

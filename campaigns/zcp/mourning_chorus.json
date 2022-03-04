@@ -20,6 +20,14 @@
     "check_ye_olde_magick_shoppe_defended",
     "remove_other_treacheries",
     "replace_infected_locations",
+    "check_arkham_advertiser_infected",
+    "check_bank_of_arkham_infected",
+    "check_general_store_infected",
+    "check_hibbs_roadhouse_infected",
+    "check_mas_boarding_house_infected",
+    "check_orne_library_infected",
+    "check_river_docks_infected",
+    "check_ye_olde_magick_shoppe_infected",
     "place_priest_of_plagues",
     "start_at_stable",
     "set_aside_worshipful_thrall",
@@ -34,9 +42,97 @@
   ],
   "steps": [
     {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "intro",
       "type": "story",
-      "text": "<i>6:11 AM:</i>\nYou make your way across town as quickly as you can. The first rays of morning alight a town huddling in quiet fear. It is eerily silent. No early risers leaving their homes. Not even bird songs disturb the stillness. You focus inward, and relax for a moment.\nThen the first horrible note breaks the air.\nSomewhere, nearby, a voice sings out a dark and compelling melody. A song of hate and sorrow, resounding through the empty streets. A melody quickly joined by a second voice, then a third. In short order, the song is repeated all across the town of Arkham.\nBut no matter how you adjust, you can always hear that first voice, above the din. Leading the chorus in its eldritch invocations.\nYou feel a sting at the base of your skull, and your head goes momentarily fuzzy.\n<center>\"Rejoice!</center>\n<center>\"Rebirth!</center>\n<center>We will all</center>\n<center>hear the Call!</center>\n<center>of The Bloody Unbinding</center>\n<center>Freedom!</center>\n<center>Justice!</center>\n<center>Though He dies</center>\n<center>he will rise!</center>\n<center>with The Bloody Unbinding</center>\n<center><strike>Rejoice</strike></center>\n<center><strike>Disease</strike></center>\n<center><strike>They gather</strike></center>\n<center><strike>I call you forth</strike></center>\n<center><strike>They will break the Seal</strike></center>\n<center><strike>Freedom</strike></center>\n<center><strike>Revenge</strike></center>\n<center><strike>It betrayed me.</strike></center>\n<center><strike>It failed.</strike></center>\n<center><strike>They will break the Seal</strike></center>\n\"The Bloody Unbinding.\" You don't know what it means. But it has to be stopped."
+      "text": "<i>6:11 AM:</i>\nYou make your way across town as quickly as you can. The first rays of morning alight a town huddling in quiet fear. It is eerily silent. No early risers leaving their homes. Not even bird songs disturb the stillness. You focus inward, and relax for a moment.\nThen the first horrible note breaks the air.\nSomewhere, nearby, a voice sings out a dark and compelling melody. A song of hate and sorrow, resounding through the empty streets. A melody quickly joined by a second voice, then a third. In short order, the song is repeated all across the town of Arkham.\nBut no matter how you adjust, you can always hear that first voice, above the din. Leading the chorus in its eldritch invocations.\nYou feel a sting at the base of your skull, and your head goes momentarily fuzzy.\n<center>\"Rejoice!</center>\n<center><strike><red>Rejoice</red></strike></center>\n<center>\"Rebirth!</center>\n<center><strike><red>Disease</red></strike></center>\n<center>We will all</center>\n<center><strike><red>They gather</red></strike></center>\n<center>hear the Call!</center>\n<center><strike><red>I call you forth</red></strike></center>\n<center>of The Bloody Unbinding</center>\n<center><strike><red>They will break the Seal</red></strike></center>\n<center>Freedom!</center>\n<center><strike><red>Freedom</red></strike></center>\n<center>Justice!</center>\n<center><strike><red>Revenge</red></strike></center>\n<center>Though He dies</center>\n<center><strike><red>It betrayed me.</red></strike></center>\n<center>he will rise!</center>\n<center><strike><red>It failed.</red></strike></center>\n<center>with The Bloody Unbinding</center>\n<center><strike><red>They will break the Seal</red></strike></center>\n\"The Bloody Unbinding.\" You don't know what it means. But it has to be stopped."
     },
     {
       "id": "gather_encounter_sets",
@@ -49,7 +145,7 @@
         "the_plaguebearers_commands",
         "locked_doors"
       ],
-      "subtext": "When gathering cards from <i>Fallen Arkham</i>, set all cards other than Grinning Victim aside."
+      "subtext": "- When gathering cards from <i>Fallen Arkham</i>, set all cards other than Grinning Victim aside."
     },
     {
       "id": "setup_locations",
@@ -946,7 +1042,174 @@
       "id": "replace_infected_locations",
       "text": "Check your campaign log. For each location in play that is \"Infected\", replace the current location with the location of the same name from the <i>Fallen Arkham</i> set."
     },
-
+    {
+      "id": "check_arkham_advertiser_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_infected",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser"
+    },
+    {
+      "id": "check_bank_of_arkham_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_infected",
+      "bullet_type": "small",
+      "text": "Bank of Arkham"
+    },
+    {
+      "id": "check_general_store_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_infected",
+      "bullet_type": "small",
+      "text": "General Store"
+    },
+    {
+      "id": "check_hibbs_roadhouse_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_infected",
+      "bullet_type": "small",
+      "text": "Hibbs Roadhouse"
+    },
+    {
+      "id": "check_mas_boarding_house_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_infected",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House"
+    },
+    {
+      "id": "check_orne_library_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_infected",
+      "bullet_type": "small",
+      "text": "Orne Library"
+    },
+    {
+      "id": "check_river_docks_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_infected",
+      "bullet_type": "small",
+      "text": "River Docks"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_infected",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe"
+    },
     {
       "id": "place_priest_of_plagues",
       "text": "Place the Priest of Plagues at a random [[Miasma]] location and a Minister of Sickness (ignoring its <b>Forced</b> condition) with 1 doom on it at the next clockwise location. These will form the initial <b>Procession</b>. <i>(Note: see below)</i>"
@@ -961,12 +1224,12 @@
     },
     {
       "id": "form_procession_deck",
-      "text": "Shuffle one of the set aside [[Elite]] Fallen Arkham enemies and each <t>Infected</t> enemy to form the <b>Procession</b> deck."
+      "text": "Shuffle one of the set aside [[Elite]] <i>Fallen Arkham</i> enemies and each [[Infected]] enemy to form the <b>Procession</b> deck."
     },
     {
       "id": "rejoice_quip",
       "type": "story",
-      "text": "<strike>Rejoice in fear. I live again. It is only a matter of time.</strike>"
+      "text": "<center><strike><red>Rejoice in fear. I live again. It is only a matter of time.</red></strike></center>"
     },
     {
       "id": "add_1_elder_thing",
@@ -1028,7 +1291,7 @@
     },
     {
       "id": "defeated_investigators_have_heeded_the_call",
-      "text": "In your Campaign Log, record the name of each defeated investigator as <i>*Investigator* has heeded the call</i>.",
+      "text": "In your Campaign Log, record the name of each defeated investigator as <i>\\*Investigator\\* has heeded the call</i>.",
       "effects": [
         {
           "type": "campaign_log_cards",
