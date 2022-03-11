@@ -1,0 +1,1602 @@
+{
+  "id": "the_afternoon_war",
+  "scenario_name": "The Afternoon War",
+  "full_name": "Scenario VI: The Afternoon War",
+  "header": "Scenario VI",
+  "setup": [
+    "intro",
+    "check_west_has_recovered_the_reagant",
+    "intro_3",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "check_defended_locations",
+    "check_arkham_advertiser_defended",
+    "check_bank_of_arkham_defended",
+    "check_general_store_defended",
+    "check_hibbs_roadhouse_defended",
+    "check_mas_boarding_house_defended",
+    "check_orne_library_defended",
+    "check_river_docks_defended",
+    "check_ye_olde_magick_shoppe_defended",
+    "replace_infected_locations",
+    "check_arkham_advertiser_infected",
+    "check_bank_of_arkham_infected",
+    "check_general_store_infected",
+    "check_hibbs_roadhouse_infected",
+    "check_mas_boarding_house_infected",
+    "check_orne_library_infected",
+    "check_river_docks_infected",
+    "check_ye_olde_magick_shoppe_infected",
+    "check_site_of_the_unbinding",
+    "add_portal_locations",
+    "remove_eliminated_enemies",
+    "check_saw_vision_of_the_portals",
+    "check_rallied_locations",
+    "check_arkham_advertiser_rallied",
+    "check_bank_of_arkham_rallied",
+    "check_general_store_rallied",
+    "check_mas_boarding_house_rallied",
+    "check_orne_library_rallied",
+    "check_river_docks_rallied",
+    "check_ye_olde_magick_shoppe_rallied",
+    "check_hibbs_roadhouse_rallied",
+    "place_miasma_damage",
+    "check_miasma_player_count",
+    "encounter_deck",
+    "shuffle_set_aside_elite_infected",
+    "defend_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>3:02 PM:</i>"
+    },
+    {
+      "id": "check_west_has_recovered_the_reagant",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "west_has_recovered_the_reagant",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1", "earn_herbert_west"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You stir under a sheet. You bolt upright, half expecting the telltale bodies of the morgue. Instead, you are lying on a sofa, watched by a square-jawed adolescent. \"West? They're up!\"\nFrom an adjacent room, Herbert West enters scribbling on a notepad. \"Thank you, Dan. Good to see you up and about. We found you just outside the facility. Very <i>lucky</i> of you to make it out. Apologies for my absence. I became sidetracked - I believe I have found a way to destroy that creature that seems to be pursuing you.\"\nYou give West the bad news. His emotions are hard to read, but you could swear he's almost amused. \"Well. The monster will have to wait. We've a city to save.\""
+    },
+    {
+      "id": "earn_herbert_west",
+      "text": "Any investigator may add the Herbert West card to their deck. This card does not count against deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00065"
+        }
+      ]
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You feel the rain hitting softly against your legs, as the wet mud starts to seep into your clothes. Pulling yourself up from the mire, you look about the alleyway. You're back in Arkham. Somewhere in Easttown."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "It's a dreary afternoon. The sky is a blanket of grey and every footstep you take sticks in the squelching ground below you. The exhaustion weighing on your mind and body tempts you to give in to the pull - but you don't have that luxury.\nYou mull over what you've learned. The Plaguebearer- Baalshandor - infected or created the First, that horrid monster that has chased you throughout the city. All the terrors that have plagued Arkham over the past twenty-four hours are the spawn of this herald. Each twisted killer stalking the streets is a sliver of the Plaguebearer's consciousness, controlled through the microscopic organisms found in the miasma.\nAnd now the twin forces of the Flame and the King, prepare to descend upon Arkham and destroy every trace of life in hopes of preventing what has already occurred. It strikes you that it would almost be worth it. Arkham would be a small price to pay if all of Earth is threatened. But if the doctor spoke true, then their drastic gesture would barely delay the disease-god's plan.\nWhich means it's up to you. If you want to stop Baalshandor, you'll have to live till midnight. And if you want that, you'll have to stop the assault. To thwart whatever destruction the Old Ones plan for Arkham.\nYou climb the crest of a hill, and turn to look out over Arkham. It's a dark, dangerous place. A city full of desperate last stands and terrible sacrifices. But there is warmth here, and camaraderie, and even love. So many people live here, and you have come to care for Arkham, despite its faults. And now, for this city - for these people - you are the only hope.\nYou steel yourself.\nThe sky opens up."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_afternoon_war",
+        "agents_of_cthugha",
+        "fallen_arkham",
+        "mourning_chorus",
+        "unbound_power",
+        "agents_of_hastur"
+      ],
+      "subtext": "- When gathering cards from <i>Mourning Chorus</i> encounter set, only include the locations."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set each copy of the following cards aside: Fire Vampire, Lumbering Candlejack, Messenger of Flame, Messenger of the King, Molten Murder, Screeching Byhakee."
+    },
+
+    {
+      "id": "check_defended_locations",
+      "text": "Check your campaign log. For each location recorded as \"Defended\", remove the following set aside cards from the game:"
+    },
+    {
+      "id": "check_arkham_advertiser_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_defended",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser: Bad News, Doyle Jeffries"
+    },
+    {
+      "id": "check_bank_of_arkham_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_defended",
+      "bullet_type": "small",
+      "text": "Bank of Arkham: Bankrupture, The Vice President"
+    },
+    {
+      "id": "check_general_store_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_defended",
+      "bullet_type": "small",
+      "text": "General Store: Damaged Goods, The Loving Couple"
+    },
+    {
+      "id": "check_hibbs_roadhouse_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_defended",
+      "bullet_type": "small",
+      "text": "Hibbs Roadhouse: Intoxicating Vapors, Hibbs (Just Gutted)"
+    },
+    {
+      "id": "check_mas_boarding_house_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_defended",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House: Broken Trust, Ma Matheson"
+    },
+    {
+      "id": "check_orne_library_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_defended",
+      "bullet_type": "small",
+      "text": "Orne Library: You Know Too Much, Henry Armitage"
+    },
+    {
+      "id": "check_river_docks_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_defended",
+      "bullet_type": "small",
+      "text": "River Docks: Worked to the Bone, The Thing in the Water"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "defended",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_defended",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe: Whispers of Power, Miriam Beecher"
+    },
+
+    {
+      "id": "replace_infected_locations",
+      "text": "Check your campaign log. For each location in play that is \"Infected\", replace the current location with the location of the same name from the <i>Fallen Arkham</i> set."
+    },
+    {
+      "id": "check_arkham_advertiser_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_infected",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser"
+    },
+    {
+      "id": "check_bank_of_arkham_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_infected",
+      "bullet_type": "small",
+      "text": "Bank of Arkham"
+    },
+    {
+      "id": "check_general_store_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_infected",
+      "bullet_type": "small",
+      "text": "General Store"
+    },
+    {
+      "id": "check_hibbs_roadhouse_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_infected",
+      "bullet_type": "small",
+      "text": "Hibbs Roadhouse"
+    },
+    {
+      "id": "check_mas_boarding_house_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_infected",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House"
+    },
+    {
+      "id": "check_orne_library_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_infected",
+      "bullet_type": "small",
+      "text": "Orne Library"
+    },
+    {
+      "id": "check_river_docks_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_infected",
+      "bullet_type": "small",
+      "text": "River Docks"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_infected",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "infected",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_infected"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_infected",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe"
+    },
+    {
+      "id": "check_site_of_the_unbinding",
+      "text": "Check Campaign Log. If a location is marked as the \"Site of the Unbinding\":",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "arkham_advertiser",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "bank_of_arkham",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "general_store",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hibbs_roadhouse",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "mas_boarding_house",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "orne_library",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "river_docks",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "ye_olde_magick_shoppe",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["attach_site_of_the_unbinding"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_site_of_the_unbinding"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "attach_site_of_the_unbinding",
+      "bullet_type": "small",
+      "text": "Attach the Site of Unbinding encounter card to that location and remove the Crater of Unbinding location from the game."
+    },
+    {
+      "id": "remove_site_of_the_unbinding",
+      "bullet_type": "small",
+      "text": "Remove the location marked as the \"Crater of Unbinding\" from the game along with the Site of Unbinding card, and put the Crater of Unbinding location into play."
+    },
+    {
+      "id": "add_portal_locations",
+      "text": "Put the Portal of the Flame and Portal of the King locations into play. Each investigator begins play at Hibbs Roadhouse (Crater of Unbinding if the Roadhouse is not in play)."
+    },
+
+
+    {
+      "id": "remove_eliminated_enemies",
+      "text": "Check your campaign log. For each remaining set aside enemy that is marked as \"Eliminated\", remove them from play."
+    },
+    {
+      "id": "check_saw_vision_of_the_portals",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "saw_a_vision_of_the_portals",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gain_2_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gain_2_clues",
+      "bullet_type": "small",
+      "text": "Each investigator gains 2 clues from the token bank."
+    },
+    {
+      "id": "check_rallied_locations",
+      "text": "Check your campaign log. For each location recorded as \"Rallied\", put the corresponding story asset into play at that:"
+    },
+
+
+    {
+      "id": "check_arkham_advertiser_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_rallied",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser: Doyle Jeffries"
+    },
+    {
+      "id": "check_bank_of_arkham_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_rallied",
+      "bullet_type": "small",
+      "text": "Bank of Arkham: The Vice President"
+    },
+    {
+      "id": "check_general_store_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_rallied",
+      "bullet_type": "small",
+      "text": "General Store: The Loving Couple"
+    },
+    {
+      "id": "check_mas_boarding_house_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_rallied",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House: Ma Matheson"
+    },
+    {
+      "id": "check_orne_library_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_rallied",
+      "bullet_type": "small",
+      "text": "Orne Library: Henry Armitage"
+    },
+    {
+      "id": "check_river_docks_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_rallied",
+      "bullet_type": "small",
+      "text": "River Docks: Abner Weems"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_rallied",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe: Miriam Beecher"
+    },
+
+    {
+      "id": "check_hibbs_roadhouse_rallied",
+      "text": "If Hibbs Roadhouse is rallied:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_rallied",
+      "bullet_type": "small",
+      "text": "Each investigator may search their deck for Hibbs (Here to Help). They may put it into play. If they did not, place the set aside Hibbs (He's Had Enough) at the Roadhouse (Note that each version of Hibbs is unique)."
+    },
+    {
+      "id": "place_miasma_damage",
+      "text": "Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Miasma</b> locations, divided as evenly as possible.",
+      "bullets": [
+        {
+          "text": "Place 1 [per_investigator] horror and 1 [per_investigator] damage on <b>Stable</b> locations, divided as evenly as possible."
+        },
+        {
+          "text": "Spawn a copy of Infernal Acolyte"
+        }
+      ]
+    },
+    {
+      "id": "check_miasma_player_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 3,
+            "steps": ["spawn_delusional_protagonist"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["spawn_delusional_protagonist"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_delusional_protagonist",
+      "bullet_type": "small",
+      "text": "Becuase there are 3 or 4 players in the game, also spawn a copy of Delusional Protagonist."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "shuffle_set_aside_elite_infected",
+      "text": "Shuffle two of the remaining set-aside [[Elite]], [[Infected]] enemies into the encounter deck. For each you cannot, either shuffle in a copy of Fire Vampire or a copy of Shrieking Byhakhee."
+    },
+    {
+      "id": "defend_rule",
+      "type": "rule_reminder",
+      "title": "Defend",
+      "text": "Some cards in this scenario have a <b>Defend</b> action on them. When you <b>Defend</b>, rather than testing an investigator skill, you test the numeric value, relative to your investigator, that the card specifies. For example, if a location instructs you to test \"Resources in pool\", you would make a test, treating the number of resources in your resource pool as your skill value for that test. The testing investigator's value is used regardless of the presence of other investigators.",
+      "bullets": [
+        {
+          "text": "You cannot commit cards to <b>Defend</b> tests or use player card effects that increase your skill value on <b>Defend</b> tests."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "ask_messenger_of_flame_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Messenger of Flame in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "messenger_of_flame_defeated",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_messenger_of_flame_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "messenger_of_flame_defeated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["record_flame_touched"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_flame_touched",
+      "bullet_type": "small",
+      "type": "input",
+      "text": "Find the non-[[Unbinding]] location with the most damage on it (Lead investigator decides ties). Record \"Flame-Touched\" under its entry in the campaign guide.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "flame_touched",
+                "text": "Flame-Touched"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_messenger_of_the_king_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is the Messenger of The King in the victory display?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "messenger_of_the_king_defeated",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "check_messenger_of_the_king_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "messenger_of_the_king_defeated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["record_madness_touched"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_madness_touched",
+      "bullet_type": "small",
+      "type": "input",
+      "text": "Find the non-[[Unbinding]] location with the most horror on it (Lead investigator decides ties). Record \"Madness-Touched\" under its entry in the campaign guide.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "madness_touched",
+                "text": "Madness-Touched"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "hidden": true,
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "hidden": true,
+          "insane": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+
+
+    {
+      "id": "record_eliminated_elites",
+      "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminated",
+        "choices": [
+          {
+            "id": "priest_of_plagues",
+            "text": "Priest of Plagues",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "priest_of_plagues",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "priest_of_plagues",
+                "text": "Priest of Plagues"
+              }
+            ]
+          },
+          {
+            "id": "doyle",
+            "text": "Doyle Jeffries",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "doyle",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "doyle",
+                "text": "Doyle Jeffries"
+              }
+            ]
+          },
+          {
+            "id": "armitage",
+            "text": "Henry Armitage",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "armitage",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "armitage",
+                "text": "Henry Armitage"
+              }
+            ]
+          },
+          {
+            "id": "hibbs",
+            "text": "Hibbs",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "hibbs",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "hibbs",
+                "text": "Hibbs"
+              }
+            ]
+          },
+          {
+            "id": "ma",
+            "text": "Ma Matheson",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "ma",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "ma",
+                "text": "Ma Matheson"
+              }
+            ]
+          },
+          {
+            "id": "beecher",
+            "text": "Miram Beecher",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "beecher",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "beecher",
+                "text": "Miram Beecher"
+              }
+            ]
+          },
+          {
+            "id": "the_loving_couple",
+            "text": "The Loving Couple",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "the_loving_couple",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "the_loving_couple",
+                "text": "The Loving Couple"
+              }
+            ]
+          },
+          {
+            "id": "thing_in_water",
+            "text": "The Thing in the Water",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "the_thing_in_the_water",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "thing_in_water",
+                "text": "The Thing in the Water"
+              }
+            ]
+          },
+          {
+            "id": "vice_president",
+            "text": "The Vice President",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "vice_president",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "vice_president",
+                "text": "The Vice President"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "title": "Insidious Whispers",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_steps": ["ask_swap_token"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<red>Amusing. You work so hard to stray from the path that has been laid. Do you feel powerful? Destroying the champions of my enemies. My champion will prove indestructible.\nThe Midnight Hour approaches. I grant you this one final chance to die before them."
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "The first investigator who reads this section may swap one of the [skull] or [tablet] symbols (whichever is more common) in the chaos bag for a [cultist]. If they do so, each investigator heals 1 trauma of their choice."
+    },
+    {
+      "id": "ask_swap_token",
+      "border_only": true,
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "swap",
+            "text": "Do you want to swap a chaos token to let all investigators heal one trauma?",
+            "steps": ["swap_token", "heal_trauma_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_token",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "skull"
+        },
+        "opB": {
+          "type": "chaos_bag",
+          "token": "tablet"
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["swap_tablet"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["swap_choice"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["swap_skull"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_choice",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Which chaos token should be removed?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "skull",
+            "text": "[skull]",
+            "steps": ["swap_skull"]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "steps": ["swap_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_skull",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Replace a [skull] token with a [cultist] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["skull"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "swap_tablet",
+      "border_only": true,
+      "bullet_type": "small",
+      "text": "Replace a [tablet] token with a [cultist] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "heal_trauma_choice",
+      "border_only": true,
+      "effects": [
+        {
+          "type": "trauma",
+          "bullet_type": "small",
+          "investigator": "all",
+          "mental_or_physical": -1
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "For a moment - just a moment - something exists in Arkham. Something ancient and immense. It rips open the sky. It dominates the landscape. Within moments, it is all you can see. All you can think of. It is impossible. Beautiful. Perfect. The end of everything. And certainly the end of you.",
+      "steps": [
+        "all_insane",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The flames and screams build to a fever pitch. A sudden blaze burns into the sky, twirling higher and higher. Within moments it has reached the sigil that floats above the town. The sigil begins to burn. But not only the sigil. The sky begins to brown and tear, like the edges of a photograph held to flame. Soon, all above is ash. And then the city. And then you.",
+      "steps": [
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "As you close the second portal, a furious scream shakes the sky. You brace for impact, but none comes. The alien monsters that wander the city, no longer linked to their realms, begin to burn away, and the cultists that remain flee in panic.\nYou've done it. The hordes have been fought back and the city is saved... for now.",
+      "steps": [
+        "earn_xp",
+        "ask_messenger_of_flame_in_victory",
+        "check_messenger_of_flame_defeated",
+        "ask_messenger_of_the_king_in_victory",
+        "check_messenger_of_the_king_defeated",
+        "record_eliminated_elites",
+        "$upgrade_decks",
+        "$proceed",
+        "trap"
+      ]
+    }
+  ]
+}

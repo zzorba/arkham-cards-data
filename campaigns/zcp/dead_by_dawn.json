@@ -1,0 +1,611 @@
+{
+  "id": "dead_by_dawn",
+  "scenario_name": "Dead by Dawn",
+  "full_name": "Scenario III: Dead by Dawn",
+  "header": "Scenario III",
+  "setup": [
+    "intro",
+    "check_earned_greysons_respect",
+    "gather_encounter_sets",
+    "setup_locations",
+    "create_reanimated_deck",
+    "check_hibbs_is_here_to_help",
+    "set_aside_cards",
+    "check_setup_earned_greysons_respect",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>12:54 AM:</i>\nMidnight comes and goes with little progress. The quiet streets of Rivertown seem to hold no signs as to the source of the monstrosities you've been fighting against. Just as you're considering finding somewhere to catch some sleep, your attention is caught by the sound of wheels rattling on unpaved stones. You peer into a nearby alley, and see a man in a doctor's coat trying to push a wobbling gurney through a side door. A man whose face you recognize.\nIt takes you a moment to place him, but the mousy figure can only be Doctor West - one of your two attending physicians at St. Mary's. What is he doing here? At this time of night? With a dead body?\nBefore you can answer, several cars come barreling down the street. By the time they've passed, West is nowhere to be seen."
+    },
+    {
+      "id": "check_earned_greysons_respect",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "earned_greysons_respect",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_the_first_claimed_the_facility"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_the_first_claimed_the_facility",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_first_claimed_the_facility",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You look down the street, and see a band of armed agents pouring out of the cars. To your surprise, Agent Greyson exits the lead car. Before she can turn to address the gathered agents, you run out and flag her down.\n\"Certainly didn't expect to see you all here. Can't be a coincidence, though. We're looking for Asset Delta-Two. He's an expert. Might know how to stop all this. Goes by Herbert West. He-\"\nYou interrupt, explaining your connection to the man, as well as what you just saw. Greyson eyes you with surprise.\n\"Aren't you full of the unexpected? Well, if you're up to it, we're going in after him. What do you say - feel like joining the cavalry?\""
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You look down the street, and see a band of armed  agents pouring out of the cars. A cruel looking man in a vest exits the lead car, throwing a cigarette onto the ground and grinding it out. He turns to address the gathered agents.\n\"Listen up, boys. We've tracked Asset Delta-Two back to this location. You want payback for all the good men these freaks have killed? For Greyson? Well, Delta-Two knows how to get it. He's not gonna come easy, so any force short of lethal on the target is authorized. Anyone else could be infected, so kill on sight.\" The man grins like a shark.\nEither Delta-Two is West, or the doctor is in real danger. Regardless, you need to get to him before these agents do - he might know how you got into this whole mess!"
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You look down the street, and see a band of armed agents pouring out of the cars. To your surprise, Agent Greyson exits the lead car. You sneak closer as she addresses the gathered agents.\n\"Alright, Tailors. We've tracked Asset Delta-Two back to this condemned brownstone. We believe Delta-Two knows how we might put a stop to all this. However, he should be considered extremely dangerous in his own right, and is unlikely to come with us willingly. Do what you have to do. Finally, anyone else you run into isn't cleared for Delta-Two's experiments. Terminate any civilians you find.\"\nEither Delta-Two is West, or the doctor is in real danger. Regardless, you need to get to him before these agents do - he might know how you got into this whole mess!"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "dead_by_dawn",
+        "agency_survivors",
+        "gifts_of_the_plaguebearer",
+        "tenuous_allies",
+        "chilling_cold"
+      ],
+      "subtext": "- When gathering the cards from <i>Gifts of the Plaguebearer</i>, do not include \"Twisted Supplicant\".\n- When gathering cards from the <i>Tenuous Allies</i> set, include only each copy of \"Tenuous Allies\"."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Set the West's Laboratory location aside, out of play. Put each other location into play."
+    },
+    {
+      "id": "create_reanimated_deck",
+      "text": "Shuffle each one sided [[Re-Animated]] enemy together to form the Re-Animated deck. Set the top card of the deck aside."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Herbert West, First Among Many (Growing Horror)."
+    },
+
+    {
+      "id": "check_setup_earned_greysons_respect",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "earned_greysons_respect",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["use_friendly_act", "remove_agency_survivors", "place_ichabod", "remove_virgil", "search_agency_backup", "start_at_grand_hall"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["use_unexpected_attack_act", "place_virgil", "remove_ichabod", "start_at_servants_entry"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "use_friendly_act",
+      "bullet_type": "small",
+      "text": "When constructing the act deck use Act 1a \"Friendly Doorman\", and remove Act 1a \"Unexpected Attack\" from the game."
+    },
+    {
+      "id": "remove_agency_survivors",
+      "bullet_type": "small",
+      "text": "Remove all copies of \"Suppressing Fire\" and \"Agency Troubleshooter\" from the game (these are part of the <i>Agency Survivors</i> encounter set)."
+    },
+    {
+      "id": "place_ichabod",
+      "bullet_type": "small",
+      "text": "Place the \"Ichabod\" enemy at the Grand Hall, Mindless Drone side up."
+    },
+    {
+      "id": "remove_virgil",
+      "bullet_type": "small",
+      "text": "Remove the \"Virgil\" enemy from the game."
+    },
+    {
+      "id": "search_agency_backup",
+      "bullet_type": "small",
+      "text": "Search your player cards for a copy of the Guardian card \"Agency Backup\" (Level 5). Attach a copy of \"Tenuous Allies\" to it. It begins play under any investigator's control. "
+    },
+    {
+      "id": "start_at_grand_hall",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at the Grand Hall."
+    },
+    {
+      "id": "use_unexpected_attack_act",
+      "bullet_type": "small",
+      "text": "When constructing the act deck use Act 1a - \"Unexpected Attack\", and remove Act 1a - \"Friendly Doorman\" from the game."
+    },
+    {
+      "id": "place_virgil",
+      "bullet_type": "small",
+      "text": "Place the \"Virgil\" enemy at the Servant's Entry, Lurking at the Threshold side up."
+    },
+    {
+      "id": "remove_ichabod",
+      "bullet_type": "small",
+      "text": "Remove the \"Ichabod\" enemy from the game."
+    },
+    {
+      "id": "start_at_servants_entry",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at the Servant's Entry."
+    },
+    {
+      "id": "check_hibbs_is_here_to_help",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "hibbs_is_here_to_help",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["put_hibbs_in_play"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "put_hibbs_in_play",
+      "bullet_type": "small",
+      "text": "Search each player's deck and the set aside cards for Hibbs (Here to Help). If it was in a deck, put it into play under that player's control. Otherwise, put it under any player's control and attach a copy of \"Tenuous Allies\" to it."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp_delayed",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display but does not spend it yet.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "special_xp": "unspect_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "ask_herbert_west",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "herbert_west",
+            "text": "Did an investigator resign with Herbert West under their control?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "resigned_herbert_west",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resigned_herbert_west",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "resigned_herbert_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_fate",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "continue",
+            "text": "<i>This can't be the end. I'll pay any cost.</i>",
+            "steps": ["resolution_5"]
+          },
+          {
+            "id": "die",
+            "text": "<i>We all die sometime.</i>",
+            "steps": ["lose_campaign"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "all",
+                "hidden": true,
+                "killed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>."
+    },
+    {
+      "id": "lose_campaign",
+      "bullet_type": "small",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "herbert_west_is_leading_the_way",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "herbert_west_is_leading_the_way",
+          "text": "Herbert West is leading the way."
+        }
+      ]
+    },
+    {
+      "id": "herbert_west_was_taken_against_his_will",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "herbert_west_was_taken_against_his_will",
+          "text": "Herbert West was taken against his will."
+        }
+      ]
+    },
+    {
+      "id": "made_sure_the_first_was_dead",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "made_sure_the_first_was_dead",
+          "text": "you made sure the First was dead."
+        }
+      ]
+    },
+    {
+      "id": "heal_trauma",
+      "text": "Something has given your investigators a second chance. Heal all physical trauma from your investigators. They are no longer <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "set_physical": 0,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "you_are_mine_now",
+      "type": "story",
+      "text": "<center><strike><red>You are mine, now.</red></strike></center>"
+    },
+
+    {
+      "id": "the_blood_runs_in_your_veins",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_blood_runs_in_your_veins",
+          "text": "the blood runs in your veins."
+        }
+      ]
+    },
+    {
+      "id": "dead_alive_quip",
+      "type": "story",
+      "text": "<center><strike><red>Dead? Alive? It does not matter.</red></strike></center>"
+    },
+    {
+      "id": "earn_folly_of_man_and_deaths_hold",
+      "text": "Each investigator adds a copy of \"The Folly of Man\" and \"Death's Hold\" weaknesses to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "zcp_00066"
+        },
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "zcp_00067"
+        }
+      ]
+    },
+    {
+      "id": "soul_quip",
+      "type": "story",
+      "text": "<center><strike><red>Your soul and humanity persist at my whim.</red></strike></center>"
+    },
+    {
+      "id": "treat_each_cultist_as_autofail",
+      "text": "For the remainder of the campaign, treat each [cultist] token in the bag as an additional [auto_fail]."
+    },
+    {
+      "id": "skip_dead_or_alive",
+      "text": "Skip <b>Interlude II: Dead or Alive.</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "dead_or_alive"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution was reached",
+      "description": "At least one investigator resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_herbert_west",
+        "check_resigned_herbert_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "As two agents pull a furious West out the door, a woman stands above you and points the muzzle of a gun directly at your midsection. \"Nothing personal. But you weren't cleared for any of this.\"\nYour last moment of life is a flash of gunfire.",
+      "steps": [
+        "all_killed",
+        "choose_fate"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You bolt out the front door of the manor, pulling the doctor with you. \"What's the meaning of all this? Did you lead that monstrosity to me? Did Greyson? God, what incompetence.\"\nYou protest. You're not an agent. You're one of his patients, and he has a lot of explaining to do. West stops, and stares you up and down, squinting in the light of the sunrise. \"Ah. Impressive. One of my </i>patients<i>? I suppose I'm going to have to fill you in on exactly what's going on.\"",
+      "steps": [
+        "earn_xp_delayed",
+        "herbert_west_is_leading_the_way"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You bolt out the front door of the manor, desperate to escape the horrors inside. Screaming and gunfire rings out as the sun breaks above the horizon. You watch from a side street as several agents drag West from the manor, bound, bloodied, and unconscious. \"Where we taking him?\"\n\"Back to the Brook Facility. He's got a lotta work to do and questions to answer.\"\nYou need answers, now. The agents have West, and a handle on all this. Which means there's only one place to go. Back to the facility.",
+      "steps": [
+        "earn_xp_delayed",
+        "herbert_west_was_taken_against_his_will"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The terrifying monstrosity gives one last howl, then falls limp to the floor. Looking around, you find an agent's sidearm. You fire off a round directly into both sides of the creature's merged heads, just to be sure. West quickly moves to examine the corpse, and you explain you've seen this thing dead before, at an agency facility.\n\"Ah. Pickman, then. His work has certainly borne strange fruit. But I'm sure you government stooges know all about that...\" You protest. You're not an agent. You're one of his patients, and he has a lot of explaining to do.\nWest stops, and stares you up and down, squinting in the light of the sunrise. \"Impressive. One of my </i>patients<i>? I suppose I'm going to have to fill you in on exactly what's going on, then.\"",
+      "steps": [
+        "earn_xp_delayed",
+        "made_sure_the_first_was_dead"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "<center><strike><red>Dead.</red></strike></center>\n<center><strike><red>That won't do.</red></strike></center>\n<center><strike><red>My unbinding needs opposition.</red></strike></center>\n<center><strike><red>The sorcerer's folly will be your kind's undoing.</red></strike></center>\n<center><strike><red>Do what is asked of you.</red></strike></center>\n<center><strike><red>Rise.</red></strike></center>\nThe first rays of the morning sun stream across your corpse. As you feel the warmth on your skin, you jolt awake. You are lying on the floor of the manor, surrounded by long-cooled carnage. How are you alive?\nYou need answers, now. The agents have West, and a handle on all this. Which means there's only one place to go. Back to the facility.",
+      "steps": [
+        "heal_trauma",
+        "you_are_mine_now",
+        "the_blood_runs_in_your_veins",
+        "dead_alive_quip",
+        "earn_folly_of_man_and_deaths_hold",
+        "soul_quip",
+        "treat_each_cultist_as_autofail",
+        "earn_xp",
+        "$upgrade_decks",
+        "skip_dead_or_alive"
+      ]
+    }
+  ]
+}

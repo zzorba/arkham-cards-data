@@ -1,0 +1,361 @@
+{
+  "id": "late_risers",
+  "scenario_name": "Late Risers",
+  "full_name": "Scenario I: Late Risers",
+  "header": "Scenario I",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "place_barricades",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>3:40 PM:</i>\nThe clock ticks idly away on the wall. Your mind rests in the trench between consciousness and idle slumber. You roll your head to the side, and chance the opening of an eye.\nA disfigured corpse lies on the table across from you.\nYou bolt upright, taking in your surroundings. A large room. A pickled smell. A few hanging lights. Corpses. Several. And the loud clock, ticking away, reading 3:42pm.\nYou realize, with some concern, that you are in a morgue.\nYou tear yourself off a cold stone table, and take a moment to catch your breath and make sure you are not merely in a nightmare. Unfortunately, this is all too real.]\nSitting just by your table are your belongings, haphazardly laid out on trays labeled with your name and a date. As you find some small comfort in dressing, your eyes wander to the other tables.\nThe corpses are in terrible shape. Their veins are a sickly emerald hue, and their flesh is... warped. Limbs at odd angles, features displaced. The worst, a huge and grotesque thing, seems to have been mixed up with parts from a deer. You shiver to think of what might have damaged the human body in this way.\nBefore you have the chance to consider further, a gunshot fires off from a nearby room. You whip your head around and see, to your dismay, that the door has several pieces of furniture piled against it. Worse, a strange gas swirls slowly in from under the door. A gas the same green shade as the veins of the bodies.\nThis is going to be one of those days."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "late_risers",
+        "agency_survivors",
+        "gifts_of_the_plaguebearer",
+        "haze_of_miasma",
+        "the_plaguebearers_commands",
+        "striking_fear"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Agent Greyson, First Among Many, Suspicious Briefcase, both copies of Agency Troubleshooter, both copies of Twisted Supplicant"
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Morgue and Lab Omega locations into play. Set each other location aside, out of play. Each investigator begins play at the Morgue."
+    },
+    {
+      "id": "place_barricades",
+      "text": "Place resources on Lab Omega corresponding to its \"Barricade\" value, as Barricades. (<i>Note: it has a [per_investigator] value</i>)"
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tailors_contained_the_problem",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tailors_contained_the_problem",
+          "text": "the Tailors contained the problem."
+        }
+      ]
+    },
+    {
+      "id": "ask_put_out_a_fire",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fire",
+            "text": "Did the investigators <i>put out a fire</i>?",
+            "steps": [
+              "collection_was_saved"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "collection_was_saved",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "collection_was_saved",
+          "text": "the collection was saved."
+        }
+      ]
+    },
+    {
+      "id": "ask_agent_greyson_in_victory",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "greyson",
+            "text": "Is <i>Agent Greyson</i> in the victory display?",
+            "steps": ["the_first_claimed_the_facility"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_first_claimed_the_facility",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_first_claimed_the_facility",
+          "text": "the First claimed The Facility."
+        }
+      ]
+    },
+    {
+      "id": "earned_greysons_respect",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "earned_greysons_respect",
+          "text": "you earned Greyson's respect."
+        }
+      ]
+    },
+    {
+      "id": "investigators_learned_the_secrets_of_the_roadhouse",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "investigators_learned_the_secrets_of_the_roadhouse",
+          "text": "the investigators learned the secrets of the roadhouse."
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "ask_suspicious_brief_case",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "briefcase",
+            "text": "Did an investigator finish the scenario with the Suspicious Briefcase asset under their control?",
+            "steps": ["take_suspicious_briefcase"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "take_suspicious_briefcase",
+      "bullet_type": "small",
+      "text": "That investigator must add Suspicious Briefcase to their deck. It does not count against their deck size. For the remainder of the campaign, the current controller of Suspicious Briefcase gains: \"Additional Setup: You begin each game with Suspicious Briefcase in play.\"",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "zcp_00017a"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "tripped_the_facility_alarms",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "tripped_the_facility_alarms",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "You tripped the Facility alarms.",
+            "steps": [
+              "tripped_the_facility_alarms"
+            ]
+          },
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tripped_the_facility_alarms",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tripped_the_facility_alarms",
+          "text": "you tripped the Facility alarms."
+        }
+      ]
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution was reached",
+      "description": "At least one investigator resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You feel a heavy arm shake you from unconsciousness. \"Buddy? Buddy, you alright?\"\nThe portly man standing above you has a look of concern on his face. Seeing you wake, he smiles broadly. \"Thank goodness. Dead customers tend to be bad for business.\"\nHe flips a rag over his shoulder and sticks out a hand. \"Hibbs. Seems like you got a bit overserved, friend.\"\nYou protest. The facility. The monsters. The agents. The gas!\n\"Don't know what you're talking about. You're in my establishment- Hibbs' Roadhouse, best speakeasy you can afford. You probably had too much to drink. Found you passed out in one of the booths. Simple as that.\"\nYou press him. If this is a speakeasy, where are the customers? \"Funny thing. That gas you mentioned? That's the one thing you said that makes any sense. But before that, I think you need something to eat.\"",
+      "steps": [
+        "earn_xp",
+        "tailors_contained_the_problem",
+        "ask_put_out_a_fire",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You fling open the hatch and pull yourself up into some sort of storage room. You run forward, flinging open the door to... a dingy bar. Startled, you stare about the place. Could this really be on top of that strange facility?\nYou hear someone clearing their throat and turn to find yourself face to face with an aproned man gripping a shotgun. \"I don't recognize you, friend. And they say I'm supposed to deal with anyone I don't recognize.\"\nAfter a tense moment, he lowers the weapon. \"Heck, it ain't loaded. I'm no killer. Never had the nerve. Just... anyone from the Tailor Agency asks, I tried to stop you, okay?\"\nHe offers you a burly hand, which you tentatively accept. \"Name's Hibbert. Call me Hibbs. This here's my roadhouse.\"\nYou inquire as to the facility below. \"Brook facility- where the Tailors research some of the local weirdness. They pays me to provide a cover and not to talk about it. So I'm not gonna talk about it.\"\nYou insist. The monsters! The gas! \"Got some bad news for you, friend. That's not just down there. Come sit. You look like you could use something to eat.\"",
+      "steps": [
+        "earn_xp",
+        "ask_agent_greyson_in_victory",
+        "investigators_learned_the_secrets_of_the_roadhouse",
+        "ask_put_out_a_fire",
+        "ask_suspicious_brief_case",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "As you climb a rickety stair, Greyson explains. \"I work for an agency called the Tailors. We deal with the things that go bump in the night. This facility is the Brook, our research base. Not sure how you wound up down there, but if you're not one of them, we're on the same side.\"\n\"It's bad out there, in Arkham. Whatever this fog is, it's spreading. I've been cleaning up down below, but our doorman and resident local can tell you more about the situation.\"\nGreyson throws open the door at the top of the stairs, revealing a dingy barhouse. \"Hibbs? We have visitors. Mind fixing them a bite to eat?\"\nThe portly man smiles, offers a handshake, then gets to work.",
+      "steps": [
+        "earn_xp",
+        "earned_greysons_respect",
+        "investigators_learned_the_secrets_of_the_roadhouse",
+        "ask_put_out_a_fire",
+        "ask_suspicious_brief_case",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

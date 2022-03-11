@@ -1,0 +1,502 @@
+{
+  "id": "death_at_sundown",
+  "scenario_name": "Death at Sundown",
+  "full_name": "Scenario VII: Death at Sundown",
+  "header": "Scenario VII",
+  "setup": [
+    "intro",
+    "check_west_has_recovered_the_reagant",
+    "intro_6",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "form_ritual_deck",
+    "check_learned_the_killing_words",
+    "floor_level",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>7:37 PM:</i>\nYou are snapped from your momentary lapse by the telltale rat-a-tat of tommy guns. A contingent of Tailors hanging out of speeding cars fire an excessive amount of rounds behind them. You feel the breath leave your lungs as their target comes into view behind them. Though the mass of flesh is now the size of a small building, it can only be the First Among Many."
+    },
+    {
+      "id": "check_west_has_recovered_the_reagant",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "west_has_recovered_the_reagant",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_greyson_cut_ties"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_greyson_cut_ties",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "greyson_cut_ties",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3", "intro_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4", "intro_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "\"Quickly!\" West shouts, pointing at the agents. \"They've already started. Remember my plan? The Tailors should have gathered the necessary materials, and are drawing the beast to Town Hall. We need to get there before it arrives!\"\nYou find an unattended motorcar, and get moving. Though your route is difficult in Arkham's damaged state, you pull up to Independence Square without any serious fights. A group of Tailors look around nervously, hands on their sidearms as you exit the vehicle. West clears his throat."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "\"That doesn't make sense...\" Greyson looks pensively. \"Wait. They must be working on a trap. They're luring it somewhere  - maybe West found the answer? We should follow them. Come on- we'll take my car!\""
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "The Tailors are panicky and disorganized, but they're not suicidal. If they're drawing the monster's attention, it must be for a reason.\nYou find an unattended motorcar and follow the sounds of gunfire."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "You make your way across town, tailing the agents as best you can. While the cars serving as \"bait\" continue to draw the creature's rage, you see a small group running across Independence Square. You recognize the diminutive shape of Herbert West among them. You pull the car aside and yell to the doctor, who turns to face you."
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "\"Well, glad we could all make it.\" West says loudly, motioning to you to walk with him. \"That creature - Pickman - is the source of all this. We destroy it, and we stand a sliver of a chance of putting an end to the madness. That won't be easy. It's proved frustratingly difficult to end permanently.\nFortunately, my associates were both experts in the eldritch sciences. There is a ritual, detailed in Robison's notes, that could \"enter the memories of a tormented soul\" where, if prepared, one could \"purify a host and lay it to rest\". It should serve our purposes as far as removing both the offending infection and whatever is keeping it alive. Without either, it's merely a bundle of useless flesh that can't support its own growth. We'll have this monster dead by sundown!\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "death_at_sundown",
+        "agency_survivors",
+        "life_and_death",
+        "the_plaguebearers_commands"
+      ],
+      "subtext": "- When gathering cards from the <i>Agency Survivors</i> set, do not include any enemies."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the First Among Many, Tendrils of the First, and Dr. Elias Pickman cards aside, out of play."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each location into play in a vertical layout, with the [[Floor 0]] location on the bottom and the [[Floor 5]] location at the top.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Independence Square."
+        }
+      ]
+    },
+    {
+      "id": "form_ritual_deck",
+      "text": "Take the EX.O.L, Hedge Mage's Bag, and Blessing of Tomorrow story assets and shuffle them together. Place those cards facedown on top of the Binding Runes asset to form the Ritual Deck."
+    },
+    {
+      "id": "check_learned_the_killing_words",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "learned_the_killing_words",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_killing_words"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["no_killing_words"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "start_with_killing_words",
+      "bullet_type": "small",
+      "text": "The lead investigator starts with the Killing Words asset under their control, and places the Rusted Blade asset on the top of the  ritual deck."
+    },
+    {
+      "id": "no_killing_words",
+      "bullet_type": "small",
+      "text": "Take the Rusted Blade and Killing Words asset and shuffle them together, then place them on top of the ritual deck."
+    },
+    {
+      "id": "floor_level",
+      "text": "Some encounter cards in this scenario refer to the Floor value of your location. This value is X, where X is the [[Floor X]] trait of your current location. If your location lacks that trait, X is 0."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp_plus_in_play",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display <b>and each card in play</b>.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory points:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "defeated_killed",
+      "text": "Each defeated investigator is <b>killed</b>."
+    },
+    {
+      "id": "check_any_defeated",
+      "text": "If at least one investigator was defeated:",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "defeated_story",
+              "defeated_not_killed",
+              "swap_defeated_cards",
+              "defeated_injected_cardinal_reagant"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "defeated_story",
+      "type": "story",
+      "title": "Investigator Defeat",
+      "text": "When you were overcome by the First, in a way, it was a relief.It was incredibly painful, of course. But there's something calming about being dead. The dead don't need to worry about Baalshandor, or the fate of the world.\nBut as you drift away in your reverie, you feel a sudden rush of gravity...\nYour eyes burst open, and you see your companions watching nervously. \"Keep an eye on that one!\" West shouts from across the room. \"The serum may leave them somewhat unstable for the time being.\""
+    },
+    {
+      "id": "defeated_not_killed",
+      "text": "Each investigator defeated during or as a result of this scenario is no longer <b>Killed</b>."
+    },
+    {
+      "id": "swap_defeated_cards",
+      "text": "If any investigators who are no longer killed in this way control the \"Unbreakable Will\" asset, remove it and the \"Folly of Man\" weakness from their deck. They must add the \"Strength of Flesh\" and \"Death's Hold\" cards to their deck.",
+      "effects": [
+        {
+          "type": "replace_card",
+          "investigator": "defeated",
+          "has_card": "zcp_00069",
+          "old_card": "zcp_00069",
+          "new_card": "zcp_00068"
+        },
+        {
+          "type": "replace_card",
+          "investigator": "defeated",
+          "has_card": "zcp_00069",
+          "old_card": "zcp_00067",
+          "new_card": "zcp_00066"
+        }
+      ]
+    },
+    {
+      "id": "defeated_injected_cardinal_reagant",
+      "text": "Check Campaign Log. For each investigator no longer killed in this way who has not <i>injected a cardinal reagent</i>, record in your Campaign log that they have <i>injected a cardinal reagent.</i>",
+      "effects": [
+        {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "cards": "$defeated_investigators",
+          "feminine_text": "#name# has injected a cardinal reagant.",
+          "masculine_text": "#name# has injected a cardinal reagant."
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "title": "Resolution [tablet]",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_steps": ["you_have_been_warned", "add_difficulty_token"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<center><red>No.</red></center>\n<center><red>Impossible.</red></center>\n<center><red>I have been too lenient with you.</red></center>\n<center><red>I will deal with you myself.</red></center>\n"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "The first investigator to read this records in the Campaign Log that <i>You have been warned</i>. Then, depending on your difficulty level, add a chaos token to the campaign bag."
+    },
+    {
+      "id": "you_have_been_warned",
+      "bullet_type": "small",
+      "border_only": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_have_been_warned",
+          "text": "you have been warned."
+        }
+      ]
+    },
+    {
+      "id": "add_difficulty_token",
+      "hidden": true,
+      "border_only": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["add_easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["add_standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["add_hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["add_expert_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_easy_token",
+      "bullet_type": "small",
+      "border_only": true,
+      "text": "Because you are playing on <b>Easy</b>, add a -3 token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "-3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_standard_token",
+      "bullet_type": "small",
+      "border_only": true,
+      "text": "Because you are playing on <b>Standard</b>, add a -5 token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "-5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_hard_token",
+      "bullet_type": "small",
+      "border_only": true,
+      "text": "Because you are playing on <b>Hard</b>, add a -6 token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "-6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_expert_token",
+      "bullet_type": "small",
+      "border_only": true,
+      "text": "Because you are playing on <b>Expert</b>, add a -7 token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "-7"
+          ]
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Though a sense of victory fills your heart, your mind spins. Pickman's memory is fading with his life. You have to get out before you die with him. But something deep within you compels you to stop for a moment. You feel a sudden throbbing in your temples, and black out.\n<right>It was troubling when the subject escaped. His advanced infection stage could spread to local fauna, which could quickly get out of hand. It was fortunate that West offered his assistance - surprisingly mature of the little egomaniac, given the board handing over control of his serum research to you. His awful Re-Animated are poor soldiers, but make acceptable hunters.</right>\n<right>The target died fairly easily, but a group of local deer were infected. Culling them has made for an irritating evening. But now, only the one remains. You speak the call and it draws near, mistaking you for a fellow infected. Just a step closer and...</right>\n<right>A shot rings out in the forest, but not yours. The deer falls. You feel a sudden rush of cold. You instinctively pat at your torso and when you raise your hand from your chest, they are wet with something warm and sticky.</right>\n<right>You fall to your knees, grasping at the dying animal for support. It kicks in its death throes, and you fall to the ground in a pool of the creature's blood. Your eyes begin to unfocus as you stare into the night sky. Though your body is failing, your mind burns with rage - after all your achievements, this cannot be how you die!</right>\n<right>A figure loosely gripping a rifle walks into your vision. \"Well. This does not look good for you, Elias. In our line of work, we cannot afford to be so cavalier with our safety. Fortunately, I am well prepared for such an eventuality. You'll be alright shortly - a contribution to the advances of science.\" The figure reaches into his coat, and produces a needle filled with a glowing green substance. As you stare into his eyes, you feel a stinging pain.</right>\nYou are shaken awake by a hand on your shoulder. You open your eyes to Herbert West, staring at you with concern. \"You're alive? The monster is dead - we've done it.\"",
+      "steps": [
+        "earn_xp_plus_in_play",
+        "defeated_killed",
+        "trap",
+        "check_any_defeated"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "As the creature scales the building, West desperately fumbles to complete the ritual. You watch him step through the portal- and directly into the waiting hands of Pickman. \"Dr. West. I'm so pleased you could make it.\" The tendrils of the First shoot forward into the portal, and a blood-curdling scream rattles your bones. But you don't have to live with the fear for long, as the ever expanding mass of the First finally claims your body as well.",
+      "steps": [
+        "lose_campaign"
+      ]
+    }
+  ]
+}

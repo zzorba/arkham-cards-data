@@ -519,9 +519,33 @@
                 "investigator": "$input_value",
                 "card": "04102"
               }
-            ]
+            ],
+            "steps": ["maybe_save_decks"]
           }
         ]
+      }
+    },
+    {
+      "id": "maybe_save_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks"
       }
     },
     {

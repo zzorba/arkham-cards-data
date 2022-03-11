@@ -10,9 +10,7 @@
   "setup": [
     "intro",
     "check_kensler_understands",
-    "choose_partners",
     "check_interlude_danforth",
-    "check_interlude_takada",
     "check_continue",
     "encounter_deck",
     "$play_scenario"
@@ -110,7 +108,6 @@
     },
     {
       "id": "choose_partners",
-      "title": "Investigator Setup",
       "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set. If there is a checkmark next to the character's name, instead use the [[Resolute]] version found in the <i>Fatal Mirage</i> encounter set.) Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
       "type": "input",
       "input": {
@@ -141,13 +138,18 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["interlude_danforth"]
+            "steps": ["interlude_danforth", "check_interlude_takada"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_interlude_takada_with_title"]
           }
         ]
       }
     },
     {
       "id": "interlude_danforth",
+      "title": "Investigator Setup",
       "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
     },
     {
@@ -171,6 +173,27 @@
       "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
     },
     {
+      "id": "check_interlude_takada_with_title",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "heart_of_madness_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada_with_title"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada_with_title",
+      "title": "Investigator Setup",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
+    },
+    {
       "id": "check_continue",
       "hidden": true,
       "type": "branch",
@@ -181,11 +204,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["gather_encounter_sets_from_checkpoint", "remove_encounter_sets", "build_agenda_deck", "flip_gate", "setup_locations", "location_layout", "set_aside_cards", "place_seals"]
+            "steps": ["gather_encounter_sets_from_checkpoint", "choose_partners", "remove_encounter_sets", "build_agenda_deck", "flip_gate", "setup_locations", "location_layout", "set_aside_cards", "place_seals"]
           },
           {
             "boolCondition": false,
-            "steps": ["gather_encounter_sets", "build_agenda_deck", "setup_gate", "setup_locations_scratch", "location_layout",  "set_aside_cards", "check_played_part_1", "setup_tekeli_li"]
+            "steps": ["gather_encounter_sets", "choose_partners", "build_agenda_deck", "setup_gate", "setup_locations_scratch", "location_layout",  "set_aside_cards", "check_played_part_1", "setup_tekeli_li"]
           }
         ]
       }
@@ -196,7 +219,7 @@
     },
     {
       "id": "gather_encounter_sets_from_checkpoint",
-      "title": "Scenario Steup (from Checkpoint)",
+      "title": "Scenario Setup (from Checkpoint)",
       "type": "encounter_sets",
       "encounter_sets": [
         "stirring_in_the_deep",
@@ -302,29 +325,19 @@
       "vertical": "half",
       "note": "Note: During part 2, five of these locations, chosen at random, are Mist-Pylon locations instead of Ancient Facility locations.",
       "locations": [
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"],
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
-        ["blank", "blank", "blank", "gate_of_yquaa", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["08650_back", "blank", "blank", "blank", "blank", "blank", "08650_back"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["blank", "08650_back", "blank", "blank", "blank", "08650_back", "blank"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["blank", "blank", "08650_back", "blank", "08650_back", "blank", "blank"],
+        ["blank", "blank", "blank", "08649_back", "blank", "blank", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
+        ["blank", "blank", "08650_back", "blank", "08650_back", "blank", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
+        ["blank", "08650_back", "blank", "blank", "blank", "08650_back", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"]
-      ],
-      "location_names": [
-        {
-          "code": "gate_of_yquaa",
-          "name": "The Gate of Y'quaa"
-        },
-        {
-          "code": "ancient_facility",
-          "name": "Ancient Facility"
-        }
+        ["08650_back", "blank", "blank", "blank", "blank", "blank", "08650_back"]
       ]
     },
     {

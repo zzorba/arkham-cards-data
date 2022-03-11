@@ -1,0 +1,289 @@
+{
+  "id": "dead_or_alive",
+  "type": "interlude",
+  "scenario_name": "Dead or Alive",
+  "full_name": "Interlude II: Dead or Alive",
+  "header": "Interlude II",
+  "icon": "life_and_death",
+  "setup": [
+    "check_earned_greysons_respect",
+    "decide_fate",
+    "spend_xp",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "spend_xp",
+      "text": "Investigators may now spend the experience they gained from <b>Dead by Dawn</b>.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "check_earned_greysons_respect",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "earned_greysons_respect",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1", "check_greyson_herbert_west_taken", "intro_6", "check_suspicious_briefcase", "intro_7"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_2", "check_herbert_west_taken"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You watch as the agents pile into cars and peel off across town, headed back to the facility to lick their wounds and plan."
+    },
+    {
+      "id": "check_greyson_herbert_west_taken",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "herbert_west_was_taken_against_his_will",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "As you leave the manor, Greyson flags you down. \"We're headed back across town, to the facility. Come on, we'll  give you a ride.\""
+    },
+    {
+      "id": "check_herbert_west_taken",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "herbert_west_was_taken_against_his_will",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_8"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_5", "intro_6", "check_suspicious_briefcase", "intro_7"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You step into the back seat, where West is sitting bound, as Greyson takes the wheel. You introduce yourself to West, who seems highly uninterested in anything you have to say right up until you mention how you know him..."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You step into the back seat, where West is sitting and staring daggers at Greyson as she takes the wheel. He turns to you with a self-satisfied smile, and begins to speak..."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "\"Unfortunately, we'll be heading to the same location. The Brook Facility - hidden beneath the city. Startling, I know.\"\nYou explain that you've already been, and West looks at you, bemused. \"And they let you leave without filling you with holes? Well done. We have quite the walk back across town, so I suppose you deserve your answers.\""
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "\"Let me start from the beginning. You know me as Dr. West. The world will know me as the man who cured death. I have spent the entirety of my life in pursuit of a process to reverse the flaw of mortality. Some time ago, I was approached by a research consortium about moving my process to their underground facility. Legitimizing my crucial work from its somewhat squalid origins. Of course, I jumped at the chance.\nUnfortunately, a week or so back, some of the less scrupulous physicians grew jealous of my startling advances. Dr. Pickman, in particular, talked the imbeciles on the board into appropriating my proprietary serum for his... occult rituals. You've seen firsthand how hardy those revitalized by my reagents can be. He and Dr. Robison likely went too far in folding my work into theirs and created a monster. It escaped after multiple attempts, and has managed to infect a good portion of the city with whatever strange substance it derived from. Hence, the intense mutations spreading throughout Arkham. I quit the facility entirely due to disagreements about the use of my serum, and attempted to leave with my remaining pure reagents and notes. I will admit, those reagents didn't make it out of the facility with me. I hope they are still somewhere within - they may prove highly useful.\""
+    },
+    {
+      "id": "check_suspicious_briefcase",
+      "type": "branch",
+      "text": "If an investigator's deck contains the Suspicious Briefcase asset:",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "zcp_00017a",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_briefcase"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "hand_over",
+            "text": "Hand over the briefcase.",
+            "steps": ["remove_briefcase", "west_has_recovered_the_reagant", "earn_herbert_west"]
+          },
+          {
+            "id": "hide",
+            "text": "You don't know Dr. West, and you don't trust him.",
+            "steps": ["you_hid_the_briefcase"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_briefcase",
+      "bullet_type": "small",
+      "text": "Remove the Suspicious Briefcase asset from the controlling investigator's deck.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "zcp_00017a"
+        }
+      ]
+    },
+    {
+      "id": "west_has_recovered_the_reagant",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "west_has_recovered_the_reagant",
+          "text": "West has recoverred the reagant."
+        }
+      ]
+    },
+    {
+      "id": "earn_herbert_west",
+      "bullet_type": "small",
+      "text": "Any one investigator may add Herbert West to their deck for the remainder of the campaign. This card does not count against deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00065"
+        }
+      ]
+    },
+    {
+      "id": "you_hid_the_briefcase",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_hid_the_briefcase",
+          "text": "you hid the briefcase."
+        }
+      ]
+    },
+    {
+      "id": "intro_7",
+      "type": "story",
+      "text": "\"Which brings me to where you fit into all of this. My research required a steady supply of those close to death. I 'worked' in the intensive care ward of St Mary's for this purpose. And I must say, you proved ideal specimens.\"\nYou fearfully ask West what he is implying.\n\"Your worsening condition led to a complicated surgery. When things went wrong, I wasted no time in applying my reagent. It was notable that your corpses didn't react - I requested your storage in the facility morgue, just in case. I am hesitant to declare success so early, but you may be the most coherent experiments I've performed to date!\"\nThis is ridiculous. You point out to West that you were likely in a coma!\n\"Ah, and I'm sure you've exhibited none of the common behaviors of the re-animated. A compulsive curiosity? Intense fortitude - say, surviving gunfire? And certainly not a startling propensity for violence...\""
+    },
+    {
+      "id": "intro_8",
+      "type": "story",
+      "text": "\"Your mind focuses on the events of the past day, and your memories prior to waking in the morgue. West was your surgeon in the hospital. You recall seeing a strange green vial on a table during the operation - The same liquid that was pouring into West's creations.\nAnd then you woke up in a morgue. In a body bag, no less.\nWere you... are you... dead?\""
+    },
+    {
+      "id": "decide_fate",
+      "text": "The investigators must each decide individually:",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "accept",
+            "text": "The Perks of Being Re-Animated",
+            "description": "Accept the <u>horror</u> of your condition. It can only make you stronger.",
+            "steps": [
+              "the_perks_of_being_reanimated",
+              "the_perks_of_being_reanimated_effect"
+            ],
+            "border": true,
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "zcp_00068",
+                "investigator": "$input_value"
+              },
+              {
+                "type": "add_card",
+                "card": "zcp_00066",
+                "investigator": "$input_value"
+              }
+            ]
+          },
+          {
+            "id": "reject",
+            "text": "The Good of Humanity",
+            "description": "West is wrong. You know you're still human, despite the <u>damage</u>. You have your sanity, and that's what matters.",
+            "condition": {
+              "type": "campaign_log_cards",
+              "section": "campaign_notes",
+              "id": "injected_a_cardinal_reagant",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "border": true,
+            "steps": ["the_good_of_humanity", "the_good_of_humanity_effect"],
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "zcp_00069",
+                "investigator": "$input_value"
+              },
+              {
+                "type": "add_card",
+                "card": "zcp_00067",
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_perks_of_being_reanimated",
+      "title": "The Perks of Being Re-Animated",
+      "type": "story",
+      "text": "You know. You've known for a while. What you've seen with West just confirmed the suspicions you had. But just because you've died, doesn't mean you won't be able to put a stop to this madness - heck, with everything happening, being dead might be a plus!"
+    },
+    {
+      "id": "the_perks_of_being_reanimated_effect",
+      "text": "Each investigator who chose this option must add the \"Strength of Flesh\" story asset and \"Death's Hold\" weakness to their deck for the remainder of the campaign. These cards do not count against deck size."
+    },
+    {
+      "id": "the_good_of_humanity",
+      "title": "The Perks of Being Re-Animated",
+      "type": "story",
+      "text": "The Good of Humanity</b>:<i> It doesn't matter how things appear. You're alive. Though your body may not be in great shape, you still have your mind - which is more than can be said of the monsters in that house. And it's that same mind that will get to the bottom of the horrors plaguing this city."
+    },
+    {
+      "id": "the_good_of_humanity_effect",
+      "text": "Each investigator who chose this option must add the \"Unbreakable Will\" story asset and \"The Folly of Man\" weakness to their deck for the remainder of the campaign. These cards do not count against deck size."
+    }
+  ]
+}

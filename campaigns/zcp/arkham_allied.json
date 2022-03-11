@@ -1,0 +1,372 @@
+{
+  "id": "arkham_allied",
+  "type": "interlude",
+  "scenario_name": "Arkham Allied",
+  "full_name": "Interlude III: Arkham Allied",
+  "header": "Interlude III",
+  "icon": "tenuous_allies",
+  "setup": [
+    "intro",
+    "gather_tenuous_allies",
+    "check_rallied",
+    "check_hibbs_roadhouse",
+    "check_general_store",
+    "check_bank_of_arkham",
+    "check_orne_library",
+    "check_mas_boarding_house",
+    "plaguebearer_trap",
+    "check_ye_olde_magick_shoppe",
+    "check_arkham_advertiser",
+    "check_river_docks",
+    "agents_swarming",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "As you ponder the meaning of the strange sigil emblazoned on the sky, you hear someone calling your name..."
+    },
+    {
+      "id": "agents_swarming",
+      "type": "story",
+      "text": "You note agents swarming the Roadhouse. It's time to go back."
+    },
+    {
+      "id": "check_rallied",
+      "text": "Check your campaign log. For each location you have \"Rallied\", read the corresponding section."
+    },
+    {
+      "id": "gather_tenuous_allies",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "tenuous_allies"
+      ],
+      "subtext": "- When gathering these cards, do not gather each copy of \"Tenuous Allies\"."
+    },
+    {
+      "id": "check_hibbs_roadhouse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["hibbs_roadhouse_story", "earn_excessive_spirits"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_story",
+      "type": "story",
+      "title": "Hibb's Roadhouse",
+      "text": "A group of patrons, half seas over, sing a drinking song with your name awkwardly inserted into it. You can't help but feel a camaraderie with this motley crew."
+    },
+    {
+      "id": "earn_excessive_spirits",
+      "text": "Any player may add Excessive Spirits to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00096"
+        }
+      ]
+    },
+    {
+      "id": "check_general_store",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["general_store_story", "earn_handshake_deal"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_story",
+      "type": "story",
+      "title": "General Store",
+      "text": "Davy, the shopkeep of the general store meekly calls you over, and hands you a ratty punchcard. \"As far as I'm concerned, you get the best price I can give you on anything you need.\" He eyes the sigil with fear. \"I'm sure you'll need it.\""
+    },
+    {
+      "id": "earn_handshake_deal",
+      "text": "Any player may add Handshake Deal to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00098"
+        }
+      ]
+    },
+    {
+      "id": "check_bank_of_arkham",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["bank_of_arkham_story", "earn_extended_loan"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_story",
+      "type": "story",
+      "title": "Bank of Arkham",
+      "text": "Before you can react, the Vice President of the bank has shoved a case into your hands. You crack it open as he looks nervously at the sigil in the sky, and find it stuffed with cash. \"An investment in Arkham's future.\""
+    },
+    {
+      "id": "earn_extended_loan",
+      "text": "Any player may add Extended Loan to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00097"
+        }
+      ]
+    },
+    {
+      "id": "check_orne_library",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["orne_library_story", "earn_reliquary_tome"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_story",
+      "type": "story",
+      "title": "Orne Library",
+      "text": "Professor Armitage produces a tome with gilded pages from a tote bag. \"This is one of the most precious pieces in the forbidden collection. I only hope it will assist you in reversing whatever terrible fate these signs portend.\""
+    },
+    {
+      "id": "earn_reliquary_tome",
+      "text": "Any player may add Reliquary Tome to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00100"
+        }
+      ]
+    },
+    {
+      "id": "check_mas_boarding_house",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["mas_boarding_house_story", "earn_mas_approval"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_story",
+      "type": "story",
+      "title": "Ma's Boarding House",
+      "text": "The elderly Ma Matheson says very little, but shakes your hand and gives you a tin filled with homemade pastries. Several onlookers eye you with surprise."
+    },
+    {
+      "id": "plaguebearer_trap",
+      "border": true,
+      "type": "border",
+      "title": "Plaguebearer",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_text": "I read this section",
+      "confirmation_steps": ["choose_who_read"]
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<i><red><strike>Your time is nearly up. Even now, my prison</strike> fails. When the midnight hour arrives, prepare for your end.</red></i>"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "Each investigator reading this gains 2 experience and 1 mental trauma."
+    },
+    {
+      "id": "choose_who_read",
+      "type": "input",
+      "border_only": true,
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "read",
+            "text": "Read the statement",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_mas_approval",
+      "text": "Any player may add Ma's Approval to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00099"
+        }
+      ]
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["ye_olde_magick_shoppe_story", "earn_ritual"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_story",
+      "type": "story",
+      "title": "Ye Olde Magick Shoppe",
+      "text": "Miriam Beecher coughs, and gestures to the sigil in the sky. \"This is far from over. I don't know what you'll need, but I know a being that may be of some help...\""
+    },
+    {
+      "id": "earn_ritual",
+      "text": "Any player may add Ritual of Yaztaroth to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_00101"
+        }
+      ]
+    },
+    {
+      "id": "check_arkham_advertiser",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["arkham_advertiser_story", "earn_full_coverage"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_story",
+      "type": "story",
+      "title": "Arkham Advertiser",
+      "text": "A camera bulb flashes, and you find yourself surrounded by several reporters. \"Soon as we're in the clear, all of Arkham's gonna want to shake your hand\""
+    },
+    {
+      "id": "earn_full_coverage",
+      "text": "Any player may add Full Coverage to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_000102"
+        }
+      ]
+    },
+
+
+    {
+      "id": "check_river_docks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": ["river_docks_story", "earn_hard_days_work"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_story",
+      "type": "story",
+      "title": "River Docks",
+      "text": "You're lifted off your feet by a group of celebrating dock workers. After some pleading on your part, they drop you, but not before you're made an honorary union member."
+    },
+    {
+      "id": "earn_hard_days_work",
+      "text": "Any player may add Hard Days Work to their deck. This card does not count against their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zcp_000103"
+        }
+      ]
+    }
+  ]
+}

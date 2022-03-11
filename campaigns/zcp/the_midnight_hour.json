@@ -1,0 +1,1179 @@
+{
+  "id": "the_midnight_hour",
+  "scenario_name": "The Midnight Hour",
+  "full_name": "Scenario VIII: The Midnight Hour",
+  "header": "Scenario VIII",
+  "setup": [
+    "intro",
+    "check_received_a_cryptic_riddle",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "gather_unbound_power",
+    "check_start_damage_or_weakness",
+    "check_herbert_west",
+    "check_rallied_locations",
+    "check_arkham_advertiser_rallied",
+    "check_bank_of_arkham_rallied",
+    "check_general_store_rallied",
+    "check_hibbs_roadhouse_rallied",
+    "check_mas_boarding_house_rallied",
+    "check_orne_library_rallied",
+    "check_river_docks_rallied",
+    "check_ye_olde_magick_shoppe_rallied",
+    "check_crater_of_the_unbinding",
+    "check_greyson_cut_ties",
+    "start_location",
+    "encounter_deck",
+    "location_enemies_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<i>12:01 AM:</i>\nBaalshandor walks the streets of Arkham. At first, the monstrous figure seems to have destroyed all of Independence Square - but as you look closer, you realize it IS Independence Square. Bits and pieces of the park and surrounding buildings form the bones of the creature you see before you, as though the flesh simply grew around them and knit itself together. This sinous evil now pursues you across the city.  Your bones ache with exhaustion. Everything that's happened over this past endless day - the facility, the procession, the First Among Many - it's all lead up to this. You steady yourself, and prepare for one last desperate fight."
+    },
+    {
+      "id": "check_received_a_cryptic_riddle",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "received_a_cryptic_riddle",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "remember_that_you_know_the_binding"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You've puzzled over the being's message for hours. But now, as you look upon your destruction, the words twist in your mind. Their message is the same, but amongst them lies an incantation - the same incantation that once bound the Plaguebearer. Somehow, in your head, you know that it could prove a failsafe if there are no other paths to stop his carnage."
+    },
+    {
+      "id": "remember_that_you_know_the_binding",
+      "text": "After this scenario begins, the investigators remember that they <i>know of the binding.</i>"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_midnight_hour",
+        "gifts_of_the_plaguebearer",
+        "haze_of_miasma",
+        "life_and_death",
+        "the_plaguebearers_commands",
+        "tenuous_allies"
+      ],
+      "subtext": "- When gathering cards from the <i>Tenuous Allies</i> set, include only each copy of \"Tenuous Allies\"."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Messenger of Flame, Messenger of the King, Body of Baalshandor, Mind of Baalshandor, Soul of Baalshandor, Flesh Unbound, Growing Destruction, Fear the Writhing Life, One of Many."
+    },
+
+    {
+      "id": "gather_unbound_power",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": [
+        "unbound_power"
+      ]
+    },
+    {
+      "id": "check_start_damage_or_weakness",
+      "text": "Check your campaign log. If <i>Baalshandor struck the first blow</i> or <i>Death conquered Herbert West</i>",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "baalshandor_struck_the_first_blow",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "death_conquered_herbert_west",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_damage_or_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_damage_or_weakness",
+      "text": "Each investigator must either start the scenario with 2 damage and 2 horror, or search the collection for a random [[Injury]], [[Flaw]], [[Curse]], or [[Endtimes]] weakness and add it to their deck",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "choice",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "damage",
+            "text": "Damage and Horror"
+          },
+          {
+            "id": "weakness",
+            "text": "Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [
+                  "Injury",
+                  "Flaw",
+                  "Curse",
+                  "Endtimes"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_herbert_west",
+      "text": "If an investigator's deck contains the Herbert West asset:",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "zcp_00065",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["start_with_herbert_west"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_herbert_west_not_dead"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "start_with_herbert_west",
+      "bullet_type": "small",
+      "text": "Search the deck for the Herbert West asset and put it into play, under their control."
+    },
+    {
+      "id": "check_herbert_west_not_dead",
+      "bullet_type": "small",
+      "text": "Check Campaign Log. If <i>Death conquered Herbert West</i> is <b>not</b> recorded:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "death_conquered_herbert_west",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["start_with_tenuous_herbert_west"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "start_with_tenuous_herbert_west",
+      "bullet_type": "small",
+      "text": "Put the Herbert West asset into play under any player's control, with a copy of Tenuous Allies attached."
+    },
+    {
+      "id": "check_rallied_locations",
+      "text": "Check your campaign log. For each location, put the listed location into play depending on if it is \"<i>Rallied</i>\" or not. Otherwise, place the \"Normal:\" location into play. Remove all other locations from the game. "
+    },
+    {
+      "id": "check_arkham_advertiser_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "arkham_advertiser",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_advertiser_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["arkham_advertiser_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_advertiser_rallied",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser (Rallied): Final Edition"
+    },
+    {
+      "id": "arkham_advertiser_not_rallied",
+      "bullet_type": "small",
+      "text": "Arkham Advertiser (Normal): Word of Mouth"
+    },
+    {
+      "id": "check_bank_of_arkham_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "bank_of_arkham",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["bank_of_arkham_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["bank_of_arkham_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bank_of_arkham_rallied",
+      "bullet_type": "small",
+      "text": "Bank of Arkham (Rallied): Market Close"
+    },
+    {
+      "id": "bank_of_arkham_not_rallied",
+      "bullet_type": "small",
+      "text": "Bank of Arkham (Normal): The War Chest"
+    },
+    {
+      "id": "check_general_store_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "general_store",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["general_store_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["general_store_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "general_store_rallied",
+      "bullet_type": "small",
+      "text": "General Store (Rallied): Everything Must Go"
+    },
+    {
+      "id": "general_store_not_rallied",
+      "bullet_type": "small",
+      "text": "General Store (Normal): Lend a Hand"
+    },
+    {
+      "id": "check_mas_boarding_house_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "mas_boarding_house",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mas_boarding_house_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["mas_boarding_house_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mas_boarding_house_rallied",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House (Rallied): Friends to the End"
+    },
+    {
+      "id": "mas_boarding_house_not_rallied",
+      "bullet_type": "small",
+      "text": "Ma's Boarding House (Normal): Heart of Arkham"
+    },
+    {
+      "id": "check_orne_library_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "orne_library",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["orne_library_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["orne_library_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "orne_library_rallied",
+      "bullet_type": "small",
+      "text": "Orne Library (Rallied): Past Due"
+    },
+    {
+      "id": "orne_library_not_rallied",
+      "bullet_type": "small",
+      "text": "Orne Library (Normal): The Brain's Paradise"
+    },
+    {
+      "id": "check_river_docks_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "river_docks",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_docks_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["river_docks_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_docks_rallied",
+      "bullet_type": "small",
+      "text": "River Docks (Rallied): Quitting Time"
+    },
+    {
+      "id": "river_docks_not_rallied",
+      "bullet_type": "small",
+      "text": "River Docks (Normal): Take to Arms"
+    },
+    {
+      "id": "check_ye_olde_magick_shoppe_rallied",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "ye_olde_magick_shoppe",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ye_olde_magick_shoppe_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ye_olde_magick_shoppe_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ye_olde_magick_shoppe_rallied",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe (Rallied): The End of Days"
+    },
+    {
+      "id": "ye_olde_magick_shoppe_not_rallied",
+      "bullet_type": "small",
+      "text": "Ye Olde Magick Shoppe (Normal): With Eyes Unseen"
+    },
+
+    {
+      "id": "check_hibbs_roadhouse_rallied",
+      "text": "If Hibbs Roadhouse is rallied:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hibbs_roadhouse",
+        "id": "rallied",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["hibbs_roadhouse_rallied"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["hibbs_roadhouse_not_rallied"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hibbs_roadhouse_rallied",
+      "bullet_type": "small",
+      "text": "Hibb's Roadhouse (Rallied): Last Call"
+    },
+    {
+      "id": "hibbs_roadhouse_not_rallied",
+      "bullet_type": "small",
+      "text": "Hibb's Roadhouse (Normal): Seedy Underbelly"
+    },
+    {
+      "id": "check_crater_of_the_unbinding",
+      "text": "Check Campaign Log. If a location is marked as the \"Site of the Unbinding\":",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "arkham_advertiser",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "bank_of_arkham",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "general_store",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hibbs_roadhouse",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "mas_boarding_house",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "orne_library",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "river_docks",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "ye_olde_magick_shoppe",
+            "id": "site_of_unbinding",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["place_baalshandor_at_site"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["replace_crater_of_unbinding"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "replace_crater_of_unbinding",
+      "bullet_type": "small",
+      "text": "Replace it with the Crater of Unbinding and remove the original location from the game. Put the Baalshandor enemy into play at that location."
+    },
+    {
+      "id": "place_baalshandor_at_site",
+      "bullet_type": "small",
+      "text": "Put the Baalshandor enemy into play at the location recorded as the <i>Site of Unbinding</i>."
+    },
+    {
+      "id": "check_greyson_cut_ties",
+      "text": "Check Campaign Log. If <i>Greyson cut ties</i> and a Hibb's Roadhouse location is in play:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "greyson_cut_ties",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hibbs_roadhouse",
+            "id": "crater_of_unbinding",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_greysons_loyalists"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_greysons_loyalists"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_greysons_loyalists",
+      "bullet_type": "small",
+      "text": "Put the Greyson's Loyalists asset into play."
+    },
+    {
+      "id": "remove_greysons_loyalists",
+      "bullet_type": "small",
+      "text": "Remove the Greyson's Loyalists asset from the game."
+    },
+    {
+      "id": "start_location",
+      "text": "The investigators begins play at the location of the lead investigator's choice."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "location_enemies_rule",
+      "type": "rule_reminder",
+      "title": "Location Enemies & Flipping",
+      "text": "This scenario contains enemies that are so large that they are also locations. The following rules apply to enemies that are locations:",
+      "bullets": [
+        {
+          "text": "All location enemies automatically gain massive."
+        },
+        {
+          "text": "Location enemies cannot move or be moved."
+        },
+        {
+          "text": "<b>Investigate</b> actions do not trigger opportunity attacks from location enemies."
+        },
+        {
+          "text": "When you reveal or flip to a location enemy, place clues on it until it has clues equal to its clue value."
+        },
+        {
+          "text": "When a location enemy is defeated or otherwise flipped, instead of placing it in the discard: Remove all non-horror tokens from it, then flip it."
+        },
+        {
+          "text": "When you deal damage to a location enemy from a player effect, discover X clues from it, where X is half the damage you dealt, rounded up."
+        },
+        {
+          "text": "When you discover clues from a location enemy using a player effect, deal X damage to it, where X is half the clues you discovered, rounded up."
+        },
+        {
+          "text": "When you flip a location, all enemies and investigators at that location are considered to be at the flipped side without moving."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "resolution_6",
+      "type": "resolution",
+      "resolution": "R6"
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "insane": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign_red",
+      "text": "<red>The investigators lose the campaign.</red>",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "skip_epilogue",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cp_epilogue"
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!"
+    },
+    {
+      "id": "actually_win",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "check_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": [
+              "trap",
+              "resolution_1"
+            ]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": [
+              "trap",
+              "resolution_1"
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": [
+              "trap",
+              "resolution_1"
+            ]
+          },
+          {
+            "id": "act_4",
+            "text": "Act 4",
+            "steps": [
+              "trap",
+              "resolution_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "trap",
+      "border": true,
+      "type": "border",
+      "title": "Resolution 0",
+      "border_color": "resolution",
+      "steps": ["trap_story", "trap_effect"],
+      "confirmation_steps": ["you_have_received_a_twisted_gift"],
+      "confirmation_text": "I read this section"
+    },
+    {
+      "id": "trap_story",
+      "type": "story",
+      "border_only": true,
+      "text": "<center><red><strike>And this is why I will never be truly undone.</strike></red></center>\n<center><red><strike>Because my curious children will always seek where they should not.</strike></red></center>\n<center><red><strike>They will always let the driving urges of their idle selves overtake their thinking minds.</strike></red></center>\n<center><red><strike>And in this way, all life serves me.</strike></red></center>\n"
+    },
+    {
+      "id": "trap_effect",
+      "border_only": true,
+      "text": "The first investigator who reads this records in their campaign log that <i>you have received a twisted gift</i>"
+    },
+    {
+      "id": "you_have_received_a_twisted_gift",
+      "bullet_type": "small",
+      "border_only": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_have_received_a_twisted_gift",
+          "text": "you have received a twisted gift."
+        }
+      ]
+    },
+    {
+      "id": "ask_body_belongs_to_cthughua",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "belongs",
+            "text": "Does <i>your body belong to Cthughua</i>?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "body_belongs_to_cthughua",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_body_belongs_to_cthughua",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "body_belongs_to_cthughua",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_owe_hastur_your_life", "check_owe_hastur_your_life"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "ask_owe_hastur_your_life",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "owe",
+            "text": "Do <i>you owe Hastur your life</i>?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "owe_hastur_your_life",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_owe_hastur_your_life",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "owe_hastur_your_life",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_plaguebearer_was_bound_anew",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_plaguebearer_was_bound_anew",
+          "text": "the Plaguebearer was bound anew."
+        }
+      ]
+    },
+    {
+      "id": "the_plaguebearer_was_destroyed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_plaguebearer_was_destroyed",
+          "text": "the Plaguebearer was destroyed."
+        }
+      ]
+    },
+    {
+      "id": "you_conquered_death",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "you_conquered_death",
+          "text": "you conquered Death."
+        }
+      ]
+    },
+    {
+      "id": "west_conquered_death",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "west_conquered_death",
+          "text": "West conquered Death."
+        }
+      ]
+    },
+    {
+      "id": "driven_insane_by_living_flame",
+      "text": "Each investigator is driven <b>insane</b> by the hateful experiments of the Living Flame.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "insane": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "killed_in_service_of_king",
+      "text": "Each investigator is <b>killed</b> in service of the King.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "two_physical_trauma",
+      "text": "Each investigator takes 2 physical trauma as the exhaustion of the ordeal has finally caught up to them.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 2,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "two_mental_trauma",
+      "text": "Each investigator takes 2 mental trauma as the squabbles of humanity will always seem beneath them.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 2,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "two_mental_trauma_no_one_believes",
+      "text": "Each investigator takes 2 mental trauma as no one will ever believe the truth of what occurred.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 2,
+          "hidden": true
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "injected_a_cardinal_reagant",
+            "repeatable": true,
+            "text": "You have injected a cardinal reagant.",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zcp_00017a",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "injected_a_cardinal_reagant",
+              "ask_transfer_briefcase"
+            ],
+            "effects": [
+              {
+                "type": "remove_card",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "injected_a_cardinal_reagant",
+      "text": "Which investigator <i>injected a cardinal reagant</i>?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "injected_a_cardinal_reagant",
+          "options": [
+            {
+              "boolCondition": false
+            }
+          ]
+        },
+        "choices": [
+          {
+            "id": "injected",
+            "text": "Injected",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "injected_a_cardinal_reagant",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_transfer_briefcase",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "transfer",
+            "text": "Would you like to give the Suspicious Briefcase to another investigator?",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "any",
+                "card": "zcp_00017a"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "check_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "<center><red>Rejoice.</red></center>\n<center><red>It is as foretold.</red></center>\n<center><red>The Bearer of Plagues is mourned no longer.</red></center>\n<center><red>This wretched city heeds the call.</red></center>\n<center><red>As the midnight hour stretches ever on.</red></center>\n<center><red>As my new reign extends past any bounds.</red></center>\n<center><red>This worthless species heeds the call.</red></center>\n<center><red>Each living thing falls to my sway.</red></center>\n<center><red>All is mine, and all is me.</red></center>\n<center><red>This pitiful planet heeds the call.</red></center>\n<center><red>But the war is not won.</red></center>\n<center><red>The flesh of my new servants will fuel the demise of those who opposed me.</red></center>\n<center><red>And all realities will become my domain.</red></center>\n<center><red>Heed the call.</red></center>",
+      "steps": [
+        "lose_campaign_red"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "<center><red><strike>You.</strike></red></center>\n<center><red><strike>You have thwarted me.</strike></red></center>\n<center><red><strike>Prevented what was promised.</strike></red></center>\n<center><red><strike>My hatred for you is unknowable.</strike></red></center>\n<center><red><strike>But you will have an eternity to learn.</strike></red></center>\n<center><red><strike>For we are bound together.</strike></red></center>\n<center><red><strike>And death is my dominion.</strike></red></center>",
+      "steps": [
+        "all_killed",
+        "all_killed",
+        "all_killed",
+        "all_insane",
+        "all_killed",
+        "win_campaign",
+        "all_killed",
+        "skip_epilogue",
+        "actually_win"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The massive form of Baalshandor seizes up, then begins to rapidly rise in temperature. You feel both the flesh of the Ancient One and your own begin to bubble and burst. Before you can even scream, your consciousness leaves you.",
+      "steps": [
+        "ask_body_belongs_to_cthughua",
+        "check_body_belongs_to_cthughua"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You jolt awake in a pool of your own sweat. The vampires hate it when you sit idle - but then again, they hate it when you do anything. Your skin, long since burned to ash, is proof of that. Cthugha will not let you die. It is his gift, for binding the plaguebearer anew. Of course, the punishment for helping release that enemy in the first place is an eternity of study at the hands of servants of the Living Flame. But this fate is acceptable, if it is the cost you pay to save all of humanity.",
+      "steps": [
+        "the_plaguebearer_was_bound_anew",
+        "driven_insane_by_living_flame",
+        "skip_epilogue",
+        "win_campaign",
+        "trap",
+        "actually_win"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "You stir awake at the sound of pounding on the door. They've found you again. These fools don't understand - the King! The Plaguebearer may have been bound by your previous actions. But he is not truly defeated. Humanity will never be safe until its proper leader has entered our world. You've taken steps to help - the manuscripts, signed in blood and sent to individuals of note. It's not your fault if their minds could not handle the second act. Only the strong will serve at the throne of the Tattered King. These are the thoughts that flash through your mind as the door splinters off its hinges. In moments, you will die. But this fate is acceptable, if it is the cost you pay to save all of humanity.",
+      "steps": [
+        "the_plaguebearer_was_bound_anew",
+        "killed_in_service_of_king",
+        "skip_epilogue",
+        "win_campaign",
+        "trap",
+        "actually_win"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Resolution 6",
+      "text": "Your mind rests in the trench between consciousness and idle slumber. Are you dead? Alive? Does it truly matter? Baalshandor has been bound anew. You can feel it in your soul. The miasmic plague that descended upon Arkham, drawn into its god's new flesh, has been eradicated entirely. You have saved not just the city, but the entirety of humanity.\nYou chance the opening of an eye.\nArkham is chaos. But the chaos of a bewildered military force, trying to make sense of a deeply harried populace is a balm compared to what you've just been through. As you're ordered around by men in fatigues, you grin quietly to yourself and continue forward. How could you even begin to explain?You're quarantined in a massive tent with many other citizens. Though some recognize you, you doubt any are aware of the trials you've been through, and what you've done for them. Which suits you just fine. As you sit down on the sparse cot, you realize that all you've wanted for the past 30 hours is to sleep like you're dead. And that's exactly what you're going to do.\n",
+      "steps": [
+        "earn_xp",
+        "the_plaguebearer_was_bound_anew",
+        "two_physical_trauma",
+        "win_campaign",
+        "$upgrade_decks",
+        "trap",
+        "actually_win"
+      ]
+    },
+    {
+      "id": "R7",
+      "title": "Resolution 7",
+      "text": "As you complete the incantation, Baalshandor seizes up. You watch the flesh of the Ancient One begins to unravel - to tear itself away in strips that spiral upwards into the atmosphere. You watch as the form that has haunted your idle thoughts is torn, piece by piece, from existence.\nYou take a shallow breath. But for once, your mind does not wander. Nothing lies at the edge of your awareness. Baalshandor is no longer bound. He is unmade. With the reagent and your own unbreakable will, you have slain the Plaguebearer. An ancient one - a God. Undone at your own hands.\nArkham is chaos. But the chaos of a bewildered military force, trying to make sense of a deeply harried populace is a petty problem compared to what you've just been through. The men in fatigues try to order you around, as though their authority means anything to you.\nThe soldiers and citizens are too struck with awe and terror to stop you as you make your way home. Which suits you just fine. As you sit upon your bed, you realize that all you've wanted for the past 30 hours is to sleep like you're dead. And that's exactly what you're going to do.",
+      "steps": [
+        "earn_xp",
+        "the_plaguebearer_was_destroyed",
+        "you_conquered_death",
+        "two_mental_trauma",
+        "win_campaign",
+        "$upgrade_decks",
+        "trap",
+        "actually_win"
+      ]
+    },
+    {
+      "id": "R8",
+      "title": "Resolution 8",
+      "text": "As you strike at the last of the corrupted flesh, Baalshandor seizes up. You watch the flesh of the Ancient One begins to unravel - to tear itself away in strips that spiral upwards into the atmosphere. You watch as the form that has haunted your idle thoughts is torn, piece by piece, from existence.\nYou take a shallow breath. But for once, your mind does not wander. Nothing lies at the edge of your awareness. Baalshandor is no longer bound. He is unmade. With West's brilliance and your own strength of flesh, you have slain the Plaguebearer. An ancient one - a God. Undone at the hands of a mad scientist.\nYou look for West to no avail. The man is simply gone. Doubtless consumed by the Plaguebearer in both of their final moments. But part of you will always wonder.\nArkham is chaos. But for once, it is not your problem. You simply walk through the quarantine line and make your way home. The soldiers and citizens are too disorganized to stop you. Which suits you just fine. As you sit upon your bed, you realize that all you've wanted for the past 30 hours is to sleep like you're dead. And that's exactly what you're going to do.",
+      "steps": [
+        "earn_xp",
+        "the_plaguebearer_was_destroyed",
+        "west_conquered_death",
+        "two_mental_trauma_no_one_believes",
+        "win_campaign",
+        "$upgrade_decks",
+        "trap",
+        "actually_win"
+      ]
+    }
+  ]
+}

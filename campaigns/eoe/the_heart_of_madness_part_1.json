@@ -10,10 +10,9 @@
   "setup": [
     "intro",
     "played_part_1",
-    "choose_partners",
     "check_interlude_danforth",
-    "check_interlude_takada",
     "gather_encounter_sets",
+    "choose_partners",
     "setup_gate",
     "setup_ancient_facilities",
     "location_layout",
@@ -46,7 +45,6 @@
     },
     {
       "id": "choose_partners",
-      "title": "Investigator Setup",
       "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set. If there is a checkmark next to the character's name, instead use the [[Resolute]] version found in the <i>Fatal Mirage</i> encounter set.) Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
       "type": "input",
       "input": {
@@ -77,7 +75,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["interlude_danforth"],
+            "steps": ["interlude_danforth", "check_interlude_takada"],
             "effects": [
               {
                 "type": "campaign_log",
@@ -87,12 +85,17 @@
                 "cross_out": true
               }
             ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_interlude_takada_with_title"]
           }
         ]
       }
     },
     {
       "id": "interlude_danforth",
+      "title": "Investigator Setup",
       "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
     },
     {
@@ -122,6 +125,37 @@
     },
     {
       "id": "interlude_takada",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
+    },
+
+    {
+      "id": "check_interlude_takada_with_title",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "heart_of_madness_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada_with_title"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "heart_of_madness_takada",
+                "text": "dummy",
+                "cross_out": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada_with_title",
+      "title": "Investigator Setup",
       "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
     },
     {
@@ -168,29 +202,19 @@
       "horizontal": "normal",
       "vertical": "half",
       "locations": [
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"],
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
-        ["blank", "blank", "blank", "ancient_facility", "blank", "blank", "blank"],
-        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
-        ["blank", "blank", "blank", "gate_of_yquaa", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["08650_back", "blank", "blank", "blank", "blank", "blank", "08650_back"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["blank", "08650_back", "blank", "blank", "blank", "08650_back", "blank"],
+        ["blank", "blank", "blank", "08650_back", "blank", "blank", "blank"],
+        ["blank", "blank", "08650_back", "blank", "08650_back", "blank", "blank"],
+        ["blank", "blank", "blank", "08649_back", "blank", "blank", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["blank", "blank", "ancient_facility", "blank", "ancient_facility", "blank", "blank"],
+        ["blank", "blank", "08650_back", "blank", "08650_back", "blank", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["blank", "ancient_facility", "blank", "blank", "blank", "ancient_facility", "blank"],
+        ["blank", "08650_back", "blank", "blank", "blank", "08650_back", "blank"],
         ["blank", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["ancient_facility", "blank", "blank", "blank", "blank", "blank", "ancient_facility"]
-      ],
-      "location_names": [
-        {
-          "code": "gate_of_yquaa",
-          "name": "The Gate of Y'quaa"
-        },
-        {
-          "code": "ancient_facility",
-          "name": "Ancient Facility"
-        }
+        ["08650_back", "blank", "blank", "blank", "blank", "blank", "08650_back"]
       ]
     },
     {
@@ -299,8 +323,9 @@
                 }
               ]
             },
-            "text": "The Final Straw",
-            "description": "Scenario Interlude",
+            "text": "Scenario Interlude",
+            "description": "The Final Straw",
+            "style": "interlude",
             "steps": [
               "check_the_final_straw"
             ],

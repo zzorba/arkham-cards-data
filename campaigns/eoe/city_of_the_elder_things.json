@@ -607,7 +607,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_one_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v1"]
+            "steps": ["group_one_wins", "check_interlude_danforth", "setup_v1"]
           },
           {
             "boolCondition": false,
@@ -670,7 +670,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_two_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v2"]
+            "steps": ["group_two_wins", "check_interlude_danforth", "setup_v2"]
           },
           {
             "boolCondition": false,
@@ -733,7 +733,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["group_three_wins", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v3"]
+            "steps": ["group_three_wins", "check_interlude_danforth", "setup_v3"]
           },
           {
             "boolCondition": false,
@@ -812,7 +812,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v1"]
+            "steps": ["partner_bonus",  "check_interlude_danforth", "setup_v1"]
           },
           {
             "id": "group_2",
@@ -873,7 +873,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v2"]
+            "steps": ["partner_bonus", "check_interlude_danforth", "setup_v2"]
           },
           {
             "id": "group_3",
@@ -934,7 +934,7 @@
                 }
               ]
             },
-            "steps": ["partner_bonus", "choose_partners", "check_interlude_danforth", "check_interlude_takada", "setup_v3"]
+            "steps": ["partner_bonus", "check_interlude_danforth", "setup_v3"]
           }
         ]
       }
@@ -946,7 +946,6 @@
     },
     {
       "id": "choose_partners",
-      "title": "Investigator Setup",
       "text": "Each investigator may choose one available member of the expedition team who is not crossed off to join them. Put the story asset for the chosen character into play in that investigator's play area. (These story assets can be found in the <i>Expedition Team</i> encounter set. If there is a checkmark next to the character's name, instead use the [[Resolute]] version found in the <i>Fatal Mirage</i> encounter set.) Place damage and horror on that character as indicated in the \"Expedition Team\" section of the Campaign Log.",
       "type": "input",
       "input": {
@@ -977,13 +976,18 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["interlude_danforth"]
+            "steps": ["interlude_danforth", "check_interlude_takada"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_interlude_takada_with_title"]
           }
         ]
       }
     },
     {
       "id": "interlude_danforth",
+      "title": "Investigator Setup",
       "text": "Because you talked to Danforth during the interlude, any one investigator gets two additional cards drawn in their opening hand."
     },
     {
@@ -1006,10 +1010,32 @@
       "id": "interlude_takada",
       "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
     },
+
+    {
+      "id": "check_interlude_takada_with_title",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "city_elder_things_takada",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["interlude_takada_with_title"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "interlude_takada_with_title",
+      "title": "Investigator Setup",
+      "text": "Because you talked to Hiroko Takada during the interlude, any one investigator gets 3 additional starting resources."
+    },
     {
       "id": "setup_v1",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v1", "set_aside_shoggoths", "create_act_v1", "setup_locations_v1", "location_layout_v1", "gather_keys", "add_elder_thing", "remove_benign_elder_things", "set_aside_terror_of_the_stars"],
+      "steps": ["gather_encounter_sets_v1", "choose_partners", "set_aside_shoggoths", "create_act_v1", "setup_locations_v1", "location_layout_v1", "gather_keys", "add_elder_thing", "remove_benign_elder_things", "set_aside_terror_of_the_stars"],
       "effects": [
         {
           "type": "campaign_log",
@@ -1061,21 +1087,11 @@
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
-        ["blank", "city_landscape", "city_landscape", "blank", "blank"],
-        ["blank", "city_landscape", "city_landscape", "city_landscape", "city_landscape"],
-        ["city_landscape", "city_landscape", "hidden_tunnel", "city_landscape", "city_landscape"],
-        ["city_landscape", "city_landscape", "city_landscape", "city_landscape", "blank"],
-        ["blank", "blank", "city_landscape", "city_landscape", "blank"]
-      ],
-      "location_names": [
-        {
-          "code": "city_landscape",
-          "name": "City Landscape"
-        },
-        {
-          "code": "hidden_tunnel",
-          "name": "Hidden Tunnel"
-        }
+        ["blank", "08631_back", "08631_back", "blank", "blank"],
+        ["blank", "08631_back", "08631_back", "08631_back", "08631_back"],
+        ["08631_back", "08631_back", "08630_back", "08631_back", "08631_back"],
+        ["08631_back", "08631_back", "08631_back", "08631_back", "blank"],
+        ["blank", "blank", "08631_back", "08631_back", "blank"]
       ]
     },
     {
@@ -1108,7 +1124,7 @@
     {
       "id": "setup_v2",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v2", "set_aside_creatures_in_the_ice", "create_act_v2", "setup_locations_v2", "location_layout_v2", "gather_keys", "add_elder_thing", "remove_terror_of_the_stars_and_benign_elder_things"],
+      "steps": ["gather_encounter_sets_v2", "choose_partners", "set_aside_creatures_in_the_ice", "create_act_v2", "setup_locations_v2", "location_layout_v2", "gather_keys", "add_elder_thing", "remove_terror_of_the_stars_and_benign_elder_things"],
       "effects": [
         {
           "type": "campaign_log",
@@ -1161,21 +1177,11 @@
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
-        ["blank", "blank", "blank", "blank", "hidden_tunnel", "blank", "blank", "blank", "blank"],
-        ["blank", "blank", "blank", "city_landscape", "city_landscape", "city_landscape", "blank", "blank", "blank"],
-        ["blank", "blank", "city_landscape", "city_landscape", "city_landscape", "city_landscape", "city_landscape", "blank", "blank"],
-        ["blank", "city_landscape", "city_landscape", "blank", "blank", "blank", "city_landscape", "city_landscape", "blank"],
-        ["city_landscape", "city_landscape", "blank", "blank", "blank", "blank", "blank", "city_landscape", "city_landscape"]
-      ],
-      "location_names": [
-        {
-          "code": "city_landscape",
-          "name": "City Landscape"
-        },
-        {
-          "code": "hidden_tunnel",
-          "name": "Hidden Tunnel"
-        }
+        ["blank", "blank", "blank", "blank", "08630_back", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "08631_back", "08631_back", "08631_back", "blank", "blank", "blank"],
+        ["blank", "blank", "08631_back", "08631_back", "08631_back", "08631_back", "08631_back", "blank", "blank"],
+        ["blank", "08631_back", "08631_back", "blank", "blank", "blank", "08631_back", "08631_back", "blank"],
+        ["08631_back", "08631_back", "blank", "blank", "blank", "blank", "blank", "08631_back", "08631_back"]
       ]
     },
     {
@@ -1185,7 +1191,7 @@
     {
       "id": "setup_v3",
       "hidden": true,
-      "steps": ["gather_encounter_sets_v3", "set_aside_shoggoths", "create_act_v3", "setup_locations_v3", "location_layout_v3", "gather_keys", "remove_terror_of_the_stars_and_reawakened_elder_things"],
+      "steps": ["gather_encounter_sets_v3", "choose_partners", "set_aside_shoggoths", "create_act_v3", "setup_locations_v3", "location_layout_v3", "gather_keys", "remove_terror_of_the_stars_and_reawakened_elder_things"],
       "effects": [
         {
           "type": "campaign_log",
@@ -1233,21 +1239,11 @@
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
-        ["city_landscape", "city_landscape", "blank", "blank", "blank", "blank", "blank", "blank"],
-        ["city_landscape", "city_landscape", "city_landscape", "city_landscape", "blank", "blank", "blank", "blank"],
-        ["blank", "blank", "city_landscape", "city_landscape", "city_landscape", "city_landscape", "blank", "blank"],
-        ["blank", "blank", "blank", "city_landscape", "city_landscape", "city_landscape", "city_landscape", "blank"],
-        ["blank", "blank", "blank", "blank", "blank", "city_landscape", "city_landscape", "hidden_tunnel"]
-      ],
-      "location_names": [
-        {
-          "code": "city_landscape",
-          "name": "City Landscape"
-        },
-        {
-          "code": "hidden_tunnel",
-          "name": "Hidden Tunnel"
-        }
+        ["08631_back", "08631_back", "blank", "blank", "blank", "blank", "blank", "blank"],
+        ["08631_back", "08631_back", "08631_back", "08631_back", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "08631_back", "08631_back", "08631_back", "08631_back", "blank", "blank"],
+        ["blank", "blank", "blank", "08631_back", "08631_back", "08631_back", "08631_back", "blank"],
+        ["blank", "blank", "blank", "blank", "blank", "08631_back", "08631_back", "08630_back"]
       ]
     },
     {
@@ -1447,8 +1443,9 @@
                 }
               ]
             },
-            "text": "Gaze into Madness",
-            "description": "Scenario Interlude",
+            "text": "Scenario Interlude",
+            "description": "Gaze into Madness",
+            "style": "interlude",
             "steps": [
               "check_gaze_into_madness"
             ],
@@ -1659,16 +1656,6 @@
         {
           "type": "add_chaos_token",
           "tokens": ["0"]
-        }
-      ]
-    },
-    {
-      "id": "remove_two_frost",
-      "text": "Remove 2 [frost] tokens from the chaos bag.",
-      "effects": [
-        {
-          "type": "remove_chaos_token",
-          "tokens": ["frost", "frost"]
         }
       ]
     },
