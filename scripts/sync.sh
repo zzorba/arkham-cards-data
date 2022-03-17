@@ -32,7 +32,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
     cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/generated/chaosOdds_$lang.json"
     cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/generated/taboos_$lang.json"
   done
-  LANGS=(es fr ko ru zh)
+  LANGS=(es fr ko ru zh pl)
   for lang in ${LANGS[@]}; do
     cp ./rules/$lang/rules.json "$ARKHAM_CARDS/assets/generated/rules_$lang.json"
   done
