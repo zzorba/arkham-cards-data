@@ -7,6 +7,7 @@
     "intro",
     "gather_encounter_sets",
     "gather_boons_and_banes",
+    "check_boons_and_banes_direction",
     "gather_jabberwocky",
     "set_aside_cards",
     "create_trail_deck",
@@ -41,6 +42,365 @@
         "wonderland_boons",
         "wonderland_banes"
       ]
+    },
+
+    {
+      "id": "check_boons_and_banes_direction",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "went_down_the_rabbit_hole",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "check_dodo_boon",
+              "check_caterpillar_boon",
+              "check_duchess_boon",
+              "check_gryphon_and_mock_turtle_boon",
+              "check_humpty_dumpty_boon",
+              "check_lion_and_unicorn_boon",
+              "check_white_queen_boon"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "check_white_queen_boon",
+              "check_lion_and_unicorn_boon",
+              "check_humpty_dumpty_boon",
+              "check_gryphon_and_mock_turtle_boon",
+              "check_duchess_boon",
+              "check_caterpillar_boon",
+              "check_dodo_boon"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_dodo_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "the_dodo",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_dodo_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_dodo_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_dodo_boon",
+      "bullet_type": "small",
+      "text": "Boon: The Dodo"
+    },
+    {
+      "id": "check_dodo_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "the_dodo",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_dodo_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_dodo_bane",
+      "bullet_type": "small",
+      "text": "Bane: The Dodo"
+    },
+    {
+      "id": "check_caterpillar_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "the_caterpillar",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_caterpillar_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_caterpillar_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_caterpillar_boon",
+      "bullet_type": "small",
+      "text": "Boon: The Caterpillar"
+    },
+    {
+      "id": "check_caterpillar_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "the_caterpillar",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_caterpillar_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_caterpillar_bane",
+      "bullet_type": "small",
+      "text": "Bane: The Caterpillar"
+    },
+    {
+      "id": "check_duchess_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "the_duchess",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_duchess_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_duchess_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_duchess_boon",
+      "bullet_type": "small",
+      "text": "Boon: The Duchess"
+    },
+    {
+      "id": "check_duchess_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "the_duchess",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_duchess_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_duchess_bane",
+      "bullet_type": "small",
+      "text": "Bane: The Duchess"
+    },
+    {
+      "id": "check_gryphon_and_mock_turtle_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "gryphon_and_mock_turtle",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_gryphon_and_mock_turtle_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_gryphon_and_mock_turtle_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_gryphon_and_mock_turtle_boon",
+      "bullet_type": "small",
+      "text": "Boon: The Gryphon and the Mock Turtle"
+    },
+    {
+      "id": "check_gryphon_and_mock_turtle_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "gryphon_and_mock_turtle",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_gryphon_and_mock_turtle_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_gryphon_and_mock_turtle_bane",
+      "bullet_type": "small",
+      "text": "Bane: The Gryphon and the Mock Turtle"
+    },
+    {
+      "id": "check_humpty_dumpty_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "humpty_dumpty",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_humpty_dumpty_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_humpty_dumpty_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_humpty_dumpty_boon",
+      "bullet_type": "small",
+      "text": "Boon: Humpty Dumpty"
+    },
+    {
+      "id": "check_humpty_dumpty_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "humpty_dumpty",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_humpty_dumpty_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_humpty_dumpty_bane",
+      "bullet_type": "small",
+      "text": "Bane: Humpty Dumpty"
+    },
+    {
+      "id": "check_lion_and_unicorn_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "lion_and_unicorn",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_lion_and_unicorn_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_lion_and_unicorn_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_lion_and_unicorn_boon",
+      "bullet_type": "small",
+      "text": "Boon: The Lion and the Unicorn"
+    },
+    {
+      "id": "check_lion_and_unicorn_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "lion_and_unicorn",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_lion_and_unicorn_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_lion_and_unicorn_bane",
+      "bullet_type": "small",
+      "text": "Bane: The Lion and the Unicorn"
+    },
+    {
+      "id": "check_white_queen_boon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_boons",
+        "id": "the_white_queen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_white_queen_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_white_queen_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_white_queen_boon",
+      "bullet_type": "small",
+      "text": "Boon: The White Queen"
+    },
+    {
+      "id": "check_white_queen_bane",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "wonderland_banes",
+        "id": "the_white_queen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_white_queen_bane"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_white_queen_bane",
+      "bullet_type": "small",
+      "text": "Bane: The White Queen"
     },
     {
       "id": "gather_jabberwocky",
