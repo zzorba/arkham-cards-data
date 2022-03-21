@@ -412,6 +412,7 @@
       ],
       "additionalProperties": false
     },
+
     "gainSuppliesEffect": {
       "$id": "#gainSuppliesEffect",
       "title": "GainSuppliesEffect",
@@ -440,6 +441,33 @@
         }
       },
       "required": ["type", "section", "supplies", "investigator"],
+      "additionalProperties": false
+    },
+    "loseSuppliesEffect": {
+      "$id": "#loseSuppliesEffect",
+      "title": "LoseSuppliesEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "lose_supplies"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "supply": {
+          "type": "string"
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "all"
+          ]
+        }
+      },
+      "required": ["type", "section", "supply", "investigator"],
       "additionalProperties": false
     },
     "scenarioDataEffect": {
@@ -651,7 +679,8 @@
             "set_input",
             "set",
             "add_input",
-            "add"
+            "add",
+            "cross_out"
           ]
         },
         "value": {
@@ -1054,6 +1083,7 @@
         { "$ref": "#/definitions/upgradeDecksEffect" },
         { "$ref": "#/definitions/saveDecksEffect" },
         { "$ref": "#/definitions/gainSuppliesEffect" },
+        { "$ref": "#/definitions/loseSuppliesEffect" },
         { "$ref": "#/definitions/checkCampaignLogCardsEffect" },
         { "$ref": "#/definitions/checkCampaignLogCountEffect" }
       ]
