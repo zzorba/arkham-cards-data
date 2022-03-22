@@ -891,6 +891,69 @@
       ]
     },
     {
+      "id": "maybe_ask_win_depth",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["record_win_depth", "check_win_depth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_win_depth",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Depth level when the scenario ended:",
+        "min": 5,
+        "max": 6,
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "final_depth",
+            "operation": "set_input",
+            "text": "#X# depth"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_win_depth",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "final_depth",
+        "max": 6,
+        "options": [
+          {
+            "numCondition": 6,
+            "steps": ["earn_depth_6_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_depth_6_xp",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
       "id": "record_final_depth",
       "type": "input",
       "input": {
@@ -1428,6 +1491,7 @@
       "text": "Somehow, despite the odds stacked against you, you’ve reached your destination. The telltale red glow that has enveloped you since you entered Yoth recedes, replaced with an unpierceable inky darkness. The Nexus must be close… You can feel it.",
       "steps": [
         "nexus_is_near",
+        "maybe_ask_win_depth",
         "maybe_check_harbinger",
         "record_yigs_fury",
         "earn_xp_full_depth",
