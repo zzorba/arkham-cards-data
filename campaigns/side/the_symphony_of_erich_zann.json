@@ -1,0 +1,812 @@
+{
+  "id": "the_symphony_of_erich_zann",
+  "scenario_name": "The Symphony of Erich Zann",
+  "full_name": "The Symphony of Erich Zann",
+  "chaos_bag_card": "zez_00001",
+  "header": "",
+  "xp_cost": 2,
+  "custom": {
+    "creator": "Axolotl",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2020/10/16/the-symphony-of-erich-zann/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "check_isabel",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_more_cards",
+    "set_aside_musicians",
+    "set_aside_beyond_the_curtain",
+    "set_aside_backstage_room",
+    "setup_locations",
+    "location_layout",
+    "performer_stuck_in_your_head",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "intro",
+    "check_isabel",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_more_cards",
+    "set_aside_musicians",
+    "set_aside_beyond_the_curtain",
+    "set_aside_backstage_room",
+    "setup_locations",
+    "location_layout",
+    "performer_stuck_in_your_head",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-4",
+              "-5",
+              "-6",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "tokens": [
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "-8",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "<fancy>Sunday, March 12th, 1922. Paris, France.</fancy>\n<fancy>Dearest friend,</fancy>\n<fancy>I heard you've come to Paris and I am quite troubled you did not reach out to meet with me. It has been too long since our last supper. Alas, I am afraid I must ask you to visit the théâtre once more, this time not for our pleasantries. A week ago, I visited a new viol player in our theatre, a German fellow named Erich Zann. He became increasingly absent during the theatre's gatherings. The note which he finally handed me was an appeal for tolerance and forgiveness. Zann said that he was old, lonely, and afflicted with strange fears and nervous disorders connected with his music. Although he seemed genuine in intent, I could sense a horrible fear behind his eyes, and a chilling cold emanating from his window, as if someone—something were listening to use from outside. That was a few days before his disappearance. It may be selfish and irrational, but I now fear for the safety of the remainder of the orchestra. Come by the Auseil Theatre as soon as you have time, I will brief you on the details after our overdue greetings.</fancy>\n<fancy>-Votre vieil ami, Auguste Guadin</fancy>"
+    },
+    {
+      "id": "check_isabel",
+      "text": "If Isabel La Fratta was chosen as an investigator for this scenario:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "zez_00046",
+            "steps": [
+              "isabel_reads",
+              "isabel_prologue"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "isabel_reads",
+      "bullet_type": "small",
+      "text": "The Isabel La Fratta player reads the following:"
+    },
+    {
+      "id": "isabel_prologue",
+      "type": "story",
+      "text": "It has been quite some time since you last returned to the Auseil Theatre. It was always a joy to play for the orchstral group under Monsieur Gaudin. Recently you've been troubled by a recurring dream in which you are playing an impossible sheet written by a certain \"Erich Zann\", playing until your fingers erode to the bones. When Auguste sends you a letter describing the very same person, you are compelled to investigate."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_symphony_of_erich_zann"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following encounter cards aside, out of play: Ears of the Void, Heard by Something and Young Nightingale."
+    },
+    {
+      "id": "set_aside_more_cards",
+      "text": "Set the following cards aside, out of play: Auguste Gaudin, (Maestro of Symphonies), Yin's Drumsticks, Page's Violin, La Fratta's Piano Key, Walker's Trumpet, all copies of the Stuck in Your Head weakness, and The Piano story asset."
+    },
+    {
+      "id": "set_aside_musicians",
+      "text": "Set the following [[Musician]] enemies aside, out of play: Arnold Walker, Isabel La Fratta, Nicole Page, Song Yin."
+    },
+    {
+      "id": "set_aside_beyond_the_curtain",
+      "text": "Set the Beyond the Curtain story card asset aside, out of play."
+    },
+    {
+      "id": "set_aside_backstage_room",
+      "text": "Set each copy of the Backstage Room location aside, out of play, along with the Stage Hall location."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Entrance Hall, Main Lobby, Gallery and Auditorium locations into play. Each investigator begins play at the Entrance Hall."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Layout",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "entrance_hall"
+        ],
+        [
+          "gallery",
+          "main_lobby"
+        ],
+        [
+          "auditorium",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "main_lobby",
+          "name": "Main Lobby"
+        },
+        {
+          "code": "gallery",
+          "name": "Gallery"
+        },
+        {
+          "code": "auditorium",
+          "name": "Auditorium"
+        },
+        {
+          "code": "entrance_hall",
+          "name": "Entrance Hall"
+        }
+      ]
+    },
+    {
+      "id": "performer_stuck_in_your_head",
+      "text": "Each [[Performer]] investigator begins play with a copy of the set aside Stuck in Your Head treacher in their hand. This card is added to their deck and does not count toward their deck size.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          {
+            "condition": "Performer",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zez_00028"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "all_is_quiet",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "zez_all_is_quiet",
+          "text": "all is quiet at Rue d'Auseil... for now."
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "add_cards",
+            "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "has_card",
+                  "investigator": "any",
+                  "card": "zez_00044",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "has_card",
+                  "investigator": "any",
+                  "card": "zez_00024",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "has_card",
+                  "investigator": "any",
+                  "card": "zez_00025",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "has_card",
+                  "investigator": "any",
+                  "card": "zez_00026",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "has_card",
+                  "investigator": "any",
+                  "card": "zez_00027",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Add cards to deck",
+            "steps": [
+              "ask_player_card"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_player_card",
+      "text": "Which card should be added to an investigator's deck?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "maestro",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zez_00044",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Auguste Gaudin",
+            "description": "Maestro of Symphonies",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zez_00044"
+              }
+            ]
+          },
+          {
+            "id": "drumsticks",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zez_00024",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Yin's Drumsticks",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zez_00024"
+              }
+            ]
+          },
+          {
+            "id": "violin",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zez_00025",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Page's Violin",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zez_00025"
+              }
+            ]
+          },
+          {
+            "id": "piano",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zez_00026",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "La Fratta's Piano Key",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zez_00026"
+              }
+            ]
+          },
+          {
+            "id": "trombone",
+            "condition": {
+              "type": "has_card",
+              "investigator": "any",
+              "card": "zez_00027",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Walker's Trombone",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zez_00027"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "stuck_in_your_head",
+      "text": "Each investigator who was defeated and does not already have a copy of the Stuck in Your Head weakness in their deck must add 1 copy of it to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "defeated",
+          "card": "zez_00028"
+        }
+      ]
+    },
+    {
+      "id": "defeated_mental_trauma",
+      "text": "Each investigator who was defeated suffers 1 mental trauma for having listened from within the void.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "defeated",
+          "mental": 1
+        }
+      ]
+    },
+    {
+      "id": "defeated_lose_story_assets",
+      "text": "If an investigator with Auguste Gaudin (Maestro of Symphonies), Yin's Drumsticks, Page's Violin, La Fratta's Piano Key or Walker's Trumpet was defeated, that card must be removed from that investigator's deck.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "defeated",
+          "hidden": true,
+          "card": "zez_00024"
+        },
+        {
+          "type": "remove_card",
+          "investigator": "defeated",
+          "hidden": true,
+          "card": "zez_00025"
+        },
+        {
+          "type": "remove_card",
+          "investigator": "defeated",
+          "hidden": true,
+          "card": "zez_00026"
+        },
+        {
+          "type": "remove_card",
+          "investigator": "defeated",
+          "hidden": true,
+          "card": "zez_00027"
+        },
+        {
+          "type": "remove_card",
+          "investigator": "defeated",
+          "hidden": true,
+          "card": "zez_00044"
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "remove_stuck_in_your_head",
+      "text": "Each investigator who was not defeated may remove the Stuck in Your Head weakness from their deck.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "not_defeated",
+        "choices": [
+          {
+            "id": "remove",
+            "text": "Remove Stuck in Your Head",
+            "condition": {
+              "type": "has_card",
+              "investigator": "each",
+              "card": "zez_00028",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "zez_00028"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_saved_all_musicians",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did you remember that you \"saved all the musicians\"?",
+            "steps": [
+              "heal_trauma_explain",
+              "heal_trauma_or_bonus_xp"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "heal_trauma_explain",
+      "bullet_type": "small",
+      "text": "Each investigator may either heal 1 mental trauma, or earn 1 additional experience."
+    },
+    {
+      "id": "heal_trauma_or_bonus_xp",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "xp",
+            "text": "Earn 1 XP",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "id": "trauma",
+            "text": "Heal 1 mental trauma",
+            "condition": {
+              "type": "trauma",
+              "investigator": "each",
+              "trauma": "mental",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": -1,
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "You are consumed in savage and impenetrable darkness, with chaos and pandemonium before you and the daemon madness of that night-baying orchestra behind you. About to lose grasp within the paradoxical sounds and unknowable shape at the edge of your mind, you stagger backwards in the darkness to find your footing but flail away at nothing for what seems like eternity. Before you know it, you find yourself out in front of the theatre, the rain drowning your ears and beating you awake.",
+      "steps": [
+        "stuck_in_your_head",
+        "defeated_mental_trauma",
+        "defeated_lose_story_assets"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Racing mindlessly out into the narrow, steep, and ancient street of steps and tottering houses; clattering down steps and over cobbles to the lower streets and the putrid canyon-walled river; panting across the great dark bridge to the broader, healthier streets and boulevards we know; all these are terrible impressions that linger with you. And you recall that there was no wind, and that the moon was out, and that all the lights of the city twinkled. Despite your most careful searches and investigations, you have never since been able to find the Auseil Theatre and neither the Rue d'Auseil. No one you've asked has ever seen the Rue d'Auseil or even heard about the orchestra. But you are not wholly sorry; either for this or for the loss in undreamable abysses of the closely written sheets which alone could have explained the music of Erich Zann.",
+      "steps": [
+        "remove_stuck_in_your_head",
+        "all_is_quiet",
+        "earn_xp",
+        "ask_saved_all_musicians",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
