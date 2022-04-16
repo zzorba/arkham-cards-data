@@ -47,6 +47,7 @@ async function run() {
     shell.exec(`./scripts/build.sh -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`)
     shell.exec(`./scripts/generate-campaign-logs.sh -o build/i18n/${localeCode}/build`);
     shell.cp(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`);
+    shell.cp(`./build/i18n/${localeCode}/build/scenarioNames.json`, `./build/scenarioNames_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/campaignLogs.json`, `./build/campaignLogs_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/encounterSets.json`, `./build/encounterSets_${localeCode}.json`);
   }

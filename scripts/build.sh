@@ -90,3 +90,5 @@ for f in campaigns/*; do
     count=1
 done
 echo ']' >> ./allCampaigns.json
+
+jq ".[] | .scenarios | .[] | { id: .id, name: .scenario_name }" ./allCampaigns.json | jq -s "." | jq "unique_by(.id)" > ./scenarioNames.json
