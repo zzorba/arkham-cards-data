@@ -15,6 +15,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/index.d.ts "$ARKHAM_CARDS/src/data/scenario/types.d.ts"
   cp ./build/standalone.json "$ARKHAM_CARDS/assets/generated/standaloneScenarios.json"
   cp ./build/allCampaigns.json "$ARKHAM_CARDS/assets/generated/allCampaigns.json"
+  cp ./build/scenarioNames.json "$ARKHAM_CARDS/assets/generated/scenarioNames.json"
   cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/generated/campaignLogs.json"
   cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/generated/encounterSets.json"
   cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/generated/campaignErrata.json"
@@ -26,6 +27,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
   LANGS=(es ko it fr ru de zh pt pl vi)
   for lang in ${LANGS[@]}; do
     cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/allCampaigns_$lang.json"
+    cp ./build/scenarioNames_$lang.json "$ARKHAM_CARDS/assets/generated/scenarioNames_$lang.json"
     cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/generated/campaignLogs_$lang.json"
     cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/generated/encounterSets_$lang.json"
     cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/generated/campaignErrata_$lang.json"

@@ -41,7 +41,8 @@ function validate(validator, file, json, schemaName) {
   const magicSteps = {
     $proceed: true,
     $upgrade_decks: true,
-    $choose_investigators: true
+    $choose_investigators: true,
+    $check_tarot_reading: true,
   };
   if (
     json.type !== "interlude" &&
