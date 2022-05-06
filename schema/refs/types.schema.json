@@ -522,6 +522,12 @@
           ]
         },
         "reveal_another": {
+          "type": "number"
+        },
+        "increase_difficulty": {
+          "type": "number"
+        },
+        "double_next_modifier": {
           "type": "boolean"
         },
         "cancel_modifiers": {
@@ -583,7 +589,7 @@
               "type": "number"
             },
             "reveal_another": {
-              "type": "boolean"
+              "type": "number"
             },
             "adjustment": {
               "type": "number"
@@ -620,17 +626,27 @@
         "condition": {
           "type": "object",
           "properties": {
-            "prompt": {
-              "type": "string"
-            },
             "default_value": {
               "$ref": "#/definitions/chaosTokenModifier"
             },
-            "modified_value": {
-              "$ref": "#/definitions/chaosTokenModifier"
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["prompt", "modified_value"],
+                "properties": {
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "modified_value": {
+                    "$ref": "#/definitions/chaosTokenModifier"
+                  }
+                }
+              }
             }
           },
-          "required": ["default_value", "prompt", "modified_value"],
+          "required": ["default_value", "options"],
           "additionalProperties": false
         }
       },
