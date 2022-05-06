@@ -242,7 +242,7 @@
             },
             "text": "Adjust chaos bag",
             "steps": [
-              "remove_chaos_token"
+              "check_campaign_version_remove_chaos_token"
             ],
             "effects": [
               {
@@ -274,6 +274,182 @@
             "steps": [
               "know_of_abjuration_of_the_throne"
             ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_campaign_version_remove_chaos_token",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_symbol_chaos_token"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_chaos_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_symbol_chaos_token",
+      "type": "input",
+      "text": "Choose which non-[auto_fail] symbol chaos token to remove from the bag?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "skull",
+            "text": "[skull]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "skull"
+                ]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "skull",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "cultist"
+                ]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "cultist",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "tablet"
+                ]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "tablet",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "elder_thing"
+                ]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "elder_thing",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "elder_sign",
+            "text": "[elder_sign]",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "elder_sign"
+                ]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "elder_sign",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
           }
         ]
       }
