@@ -1,7 +1,7 @@
 const promisify = require("util").promisify;
 const fs = require("fs");
 const path = require("path");
-const { keys, forEach } = require('lodash');
+const { keys, forEach, map } = require('lodash');
 const PO = require("pofile");
 const shell = require('shelljs')
 const getFilePaths = require("./utils/getFilePaths");
@@ -258,11 +258,41 @@ async function generateLocale(localeCode) {
     const translatedFile = "i18n/" + localeCode + "/cards/" + file;
     if ((await exists(translatedFile))) {
       // File already exists, so continue.
-      console.log(`Cards: translation file for ${file} already exists, skipping.`);
+      console.log(`Cards: translation file for ${file} already exists, merging.`);
+
+      const tmpFile = `i18n/${localeCode}/cards/tmp.json`;
+      shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${tmpFile}`);
+      const newTranslations = await readJSON(tmpFile);
+      const newCards = {};
+      forEach(newTranslations, card => {
+        newCards[card.code] = card;
+      });
+
+      const updatedTranslations = map(
+        await readJSON(translatedFile),
+        card => {
+          const updatedCard = { ...card };
+          const newCard = newCards[card.code];
+          forEach(keys(newCard), (field) => {
+            if (updatedCard[field] === undefined) {
+              updatedCard[field] = newCard[field];
+            }
+          });
+          return updatedCard;
+        }
+      );
+      await writeJSON(
+        updatedTranslations,
+        translatedFile
+      );
+
+      shell.rm(tmpFile);
       continue;
+
+    } else {
+      console.log(`Cards: extracting translations for ${file}.`);
+      shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${translatedFile}`);
     }
-    console.log(`Cards: extracting translations for ${file}.`);
-    shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${translatedFile}`);
   }
 
   // First we gather all the known PO entries.
@@ -391,7 +421,7 @@ async function getAvailableLocales() {
 async function run() {
   const localeCodes = await getAvailableLocales();
   for (const localeCode of localeCodes) {
-    console.log("Generating translations for " + localeCode);
+    console.log("***\n***\n***\nGenerating translations for " + localeCode);
     await generateLocale(localeCode);
   }
 }
