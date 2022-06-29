@@ -15,22 +15,13 @@
   "scenarios": [
     "ptc_prologue",
     "return_to_curtain_call",
-    "return_to_the_last_king",
-    "ptc_interlude1",
-    "return_to_echoes_of_the_past",
-    "return_to_the_unspeakable_oath",
-    "ptc_interlude2",
-    "return_to_a_phantom_of_truth",
-    "return_to_the_pallid_mask",
-    "return_to_black_stars_rise",
-    "return_to_dim_carcosa",
-    "ptc_epilogue"
+    "return_to_the_last_king"
   ],
   "achievements": [
     {
       "id": "fair_warning",
       "title": "Fair Warning",
-      "text": " Defeat the Royal Emissary three times during a single playthrough of “Curtain Call.”",
+      "text": "Defeat the Royal Emissary three times during a single playthrough of “Curtain Call.”",
       "type": "binary"
     },
     {
@@ -144,6 +135,117 @@
       "title": "Carcosa Expertise",
       "text": "Win <i>The Path to Carcosa</i> campaign on Expert difficulty.",
       "type": "binary"
+    }
+  ],
+  "steps": [
+    {
+      "id": "check_reprint_version",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_reprint"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "set_scenarios",
+                "scenarios": [
+                  "ptc_prologue",
+                  "return_to_curtain_call",
+                  "return_to_the_last_king",
+                  "ptc_interlude1",
+                  "return_to_echoes_of_the_past",
+                  "return_to_the_unspeakable_oath",
+                  "ptc_interlude2",
+                  "return_to_a_phantom_of_truth",
+                  "return_to_the_pallid_mask",
+                  "return_to_black_stars_rise",
+                  "return_to_dim_carcosa",
+                  "ptc_epilogue"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "describe_reprint",
+      "text": "The reprinted version of this campaign that is packaged in a single box <i>(The Path to Carcosa Campaign Expansion)</i> contains updated names and traits on many encounter cards. To help minimize confusion, this app can provide setup matching either version."
+    },
+    {
+      "id": "ask_reprint",
+      "type": "input",
+      "text": "Which version would you like to use?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "original",
+            "text": "Original",
+            "description": "Deluxe Expansion + 6 Mythos Packs",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "set_scenarios",
+                "scenarios": [
+                  "ptc_prologue",
+                  "return_to_curtain_call",
+                  "return_to_the_last_king",
+                  "ptc_interlude1",
+                  "return_to_echoes_of_the_past",
+                  "return_to_the_unspeakable_oath",
+                  "ptc_interlude2",
+                  "return_to_a_phantom_of_truth",
+                  "return_to_the_pallid_mask",
+                  "return_to_black_stars_rise",
+                  "return_to_dim_carcosa",
+                  "ptc_epilogue"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "reprint",
+            "text": "Reprint",
+            "description": "Single Campaign Expansion",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "reprint_language",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "set_scenarios",
+                "scenarios": [
+                  "ptc_prologue",
+                  "return_to_curtain_call",
+                  "return_to_the_last_king",
+                  "ptc_interlude1_reprint",
+                  "return_to_echoes_of_the_past",
+                  "return_to_the_unspeakable_oath",
+                  "ptc_interlude2",
+                  "return_to_a_phantom_of_truth",
+                  "return_to_the_pallid_mask",
+                  "return_to_black_stars_rise",
+                  "return_to_dim_carcosa",
+                  "ptc_epilogue"
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
