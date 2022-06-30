@@ -47,6 +47,35 @@
           "text": "<i>Note: These cards are double-sided and have encounter cards on their other side. For the best experience, do not look at the other side unless an effect instructs you to do so.</i>"
         }
       ]
+    },
+    {
+      "id": "vips_slain_reprint",
+      "type": "input",
+      "text": "In your Campaign Log, under “VIPs Slain,” record the name of each unique [[Possessed]] or [[Lunatic]] enemy in the victory display.",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "traits": ["lunatic", "possessed"],
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "slain",
+            "text": "Slain",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vips_slain",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
     }
   ]
 }
