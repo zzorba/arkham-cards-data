@@ -336,6 +336,55 @@
       }
     },
     {
+      "id": "check_vips_slain",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "reprint_language",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["vips_slain_reprint"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["vips_slain"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "vips_slain_reprint",
+      "type": "input",
+      "text": "In your Campaign Log, under “VIPs Slain,” record the name of each unique [[Possessed]] enemy in the victory display.",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "traits": ["lunatic", "possessed"],
+            "unique": true,
+            "source": "scenario"
+          }
+        ],
+        "choices": [
+          {
+            "id": "slain",
+            "text": "Slain",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vips_slain",
+                "id": "$input_value",
+                "text": "#name#"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "vips_slain",
       "type": "input",
       "text": "In your Campaign Log, under “VIPs Slain,” record the name of each unique [[Lunatic]] enemy in the victory display.",
@@ -343,7 +392,7 @@
         "type": "card_choice",
         "query": [
           {
-            "trait": "lunatic",
+            "traits": ["lunatic", "possessed"],
             "unique": true,
             "source": "scenario"
           }
@@ -366,12 +415,43 @@
     },
     {
       "id": "skip_lunacys_reward",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "reprint_language",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["skip_skeptics_reward"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["really_skip_lunacys_reward"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "really_skip_lunacys_reward",
       "text": "Skip <b>Interlude I: Lunacy's Reward</b>.",
       "effects": [
         {
           "type": "campaign_data",
           "setting": "skip_scenario",
           "scenario": "ptc_interlude1"
+        }
+      ]
+    },
+    {
+      "id": "skip_skeptics_reward",
+      "text": "Skip <b>Interlude I: Reality's Shadow</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "ptc_interlude1_reprint"
         }
       ]
     },
@@ -455,7 +535,7 @@
       "text": "The brisk autumn air embraces you as you exit the manor. There is no doubt in your mind that the cast and crew of The King in Yellow have become affected by madness. Perhaps it’s getting to you, as well. You feel an encroaching darkness, a presence in your mind not unlike the gaze of the Stranger. Startled, you peer about the front yard for the first time since escaping the manor. The scene is…different. The front windows are not smashed as they were when you first approached. The trail of blood you had noticed on the porch has been wiped clean, and instead of the disturbingly warped music you had heard upon entering, the soothing tones of slow jazz drift out from the courtyard.",
       "steps": [
         "vips_interviewed",
-        "vips_slain",
+        "check_vips_slain",
         "earn_xp",
         "earn_clue_xp"
       ]
@@ -476,7 +556,7 @@
       "text": "“Excuse me, but it’s very late,” you hear a server say as he gently taps you on your shoulder. You realize that you are sitting on a couch in the manor’s living room, and that you have been asleep for some time. The party appears to be winding down. No music fills the halls, the food is all but gone, and only a few guests remain. “Perhaps you would like for me to get your coat?” the server asks with a trained smile. You wobble as you rise to your feet, leaning against the couch’s armrest. Your head pounds with a dizzying intensity, and your vision is spotted. You insist that you are fine, and begin walking toward the foyer.\nYou no longer see any of the guests you were searching for earlier, not even the hostess, Mrs. Dumaine. All traces of the madness and horror you’ve experienced are gone. Even the oddities you witnessed upon entering the manor have vanished—the signs of struggle, the broken windows, the blood trail on the porch… Every piece of evidence has been erased. But you still remember the night’s events, and in your memory you will find your answers.",
       "steps": [
         "vips_interviewed",
-        "vips_slain",
+        "check_vips_slain",
         "earn_xp",
         "earn_clue_xp",
         "adjust_chaos_tokens",
@@ -500,7 +580,7 @@
       "text": "Several days later, you find yourself reminiscing about the party you attended at 1452 Atlantic Avenue. What a roaring good time you had! And yet, your memory is hazy. You can’t help but feel you are forgetting something important. Something about the play you’d watched earlier that night—The King in Yellow. That nagging sensation pursues you in every waking moment. Try as you might to recall the night’s events in full, there remains a gaping hole in your memory. As you strain to remember, your concern grows, almost to the point of obsession. Deciding that you absolutely must know what occurred that night, you head toward the manor of the Historical Society in Southside. Perhaps there you can learn more about <u>The King in Yellow</u> play…",
       "steps": [
         "vips_interviewed",
-        "vips_slain",
+        "check_vips_slain",
         "earn_xp",
         "earn_clue_xp",
         "adjust_chaos_tokens",
