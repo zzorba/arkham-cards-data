@@ -43,11 +43,15 @@ function validate(validator, file, json, schemaName) {
     $upgrade_decks: true,
     $choose_investigators: true,
     $check_tarot_reading: true,
+    // Technically only for TSK, but whatever.
+    $embark: true,
+    $check_status_report: true,
   };
   if (
     json.type !== "interlude" &&
     json.type !== "epilogue" &&
     json.type !== "placeholder" &&
+    json.type !== "core" &&
     json.scenario_name
   ) {
     steps["$play_scenario"] = true;
