@@ -8,6 +8,66 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "location": {
+      "$id": "#location",
+      "title": "Location",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dossier": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "image": {
+                "type": "object",
+                "properties": {
+                  "ratio": {
+                    "type": "number"
+                  },
+                  "uri": {
+                    "type": "string"
+                  }
+                },
+                "required": ["ratio", "uri"],
+                "additionalProperties": false
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["locked", "standard", "side"]
+        },
+        "label": {
+          "type": "string",
+          "enum": ["left", "right"]
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["id", "x", "y", "name", "status", "connections", "label"],
+      "additionalProperties": false
+    },
     "partner": {
       "$id": "#partner",
       "title": "Partner",

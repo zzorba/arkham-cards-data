@@ -27,6 +27,27 @@
       "required": ["id", "title"],
       "additionalProperties": false
     },
+    "campaignMap": {
+      "$id": "#campaignMap",
+      "title": "CampaignMap",
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/location"
+          }
+        }
+      },
+      "required": ["width", "height", "locations"],
+      "additionalProperties": false
+    },
     "campaign": {
       "$id": "#campaign",
       "title": "Campaign",
@@ -49,6 +70,9 @@
         },
         "position": {
           "type": "integer"
+        },
+        "map": {
+          "$ref": "#/definitions/campaignMap"
         },
         "cards": {
           "type": "array",
