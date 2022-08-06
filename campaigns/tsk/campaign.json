@@ -22,7 +22,8 @@
     }
   ],
   "scenarios": [
-    "tsk_prologue"
+    "tsk_prologue",
+    "rain_and_riddles"
   ],
   "map": {
     "width": 700,
@@ -112,7 +113,7 @@
         "name": "San Juan",
         "status": "locked",
         "label": "right",
-        "connections": ["bermuda", "ybor_city", "havana", "quito", "rio_de_janiero", "london", "marrakech"],
+        "connections": ["bermuda", "ybor_city", "havana", "quito", "rio_de_janiero", "london", "marrakesh"],
         "scenario": "san_juan"
       },
       {
@@ -157,7 +158,7 @@
         "name": "Lagos",
         "status": "standard",
         "label": "right",
-        "connections": ["marrakech", "rio_de_janiero", "nairobi", "cairo"],
+        "connections": ["marrakesh", "rio_de_janiero", "nairobi", "cairo"],
         "scenario": "lagos"
       },
       {
@@ -187,18 +188,18 @@
         "name": "Cairo",
         "status": "side",
         "label": "right",
-        "connections": ["alexandria", "lagos", "nairobi"],
+        "connections": ["alexandria", "lagos", "nairobi", "kabul", "bombay"],
         "scenario": "$side_scenario"
       },
       {
-        "id": "marrakech",
+        "id": "marrakesh",
         "x": 311,
         "y": 142,
-        "name": "Marrakech",
+        "name": "Marrakesh",
         "status": "standard",
         "label": "right",
         "connections": ["monte_carlo", "rome", "san_juan", "lagos"],
-        "scenario": "marrakech"
+        "scenario": "marrakesh"
       },
       {
         "id": "reykjavik",
@@ -207,7 +208,7 @@
         "name": "Reykjavik",
         "status": "locked",
         "label": "right",
-        "connections": ["london", "arkham", "stockholm"],
+        "connections": ["arkham", "stockholm"],
         "scenario": "reykjavik"
       },
       {
@@ -217,7 +218,7 @@
         "name": "London",
         "status": "locked",
         "label": "right",
-        "connections": ["reykjavik", "bermuda", "san_juan", "venice", "monte_carlo", "stockholm"],
+        "connections": ["bermuda", "san_juan", "venice", "monte_carlo", "stockholm"],
         "scenario": "london"
       },
       {
@@ -247,7 +248,7 @@
         "name": "Monte Carlo",
         "label": "left",
         "status": "side",
-        "connections": ["london", "marrakech", "rome"],
+        "connections": ["london", "marrakesh", "rome"],
         "scenario": "$side_scenario"
       },
       {
@@ -257,7 +258,7 @@
         "name": "Rome",
         "status": "standard",
         "label": "right",
-        "connections": ["monte_carlo", "venice", "marrakech", "alexandria", "constantinople"],
+        "connections": ["monte_carlo", "venice", "marrakesh", "alexandria", "constantinople"],
         "scenario": "rome"
       },
       {
@@ -267,7 +268,7 @@
         "name": "Constantinople",
         "status": "standard",
         "label": "right",
-        "connections": ["rome", "alexandria", "venice", "moscow", "kabul"],
+        "connections": ["alexandria", "venice", "moscow", "kabul", "rome"],
         "scenario": "constantinople"
       },
       {
@@ -395,7 +396,14 @@
   },
   "setup": [
     "choose_investigators",
-    "difficulty_choice"
+    "difficulty_choice",
+    "move_to_arkham"
+  ],
+  "scenario_setup": [
+    "$check_status_report"
+  ],
+  "side_scenario_resolution": [
+    "$maybe_embark_side_scenario"
   ],
   "steps": [
     {
@@ -404,6 +412,17 @@
       "input": {
         "type": "scenario_investigators"
       }
+    },
+    {
+      "id": "move_to_arkham",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "embark",
+          "location": "arkham"
+        }
+      ]
     },
     {
       "id": "difficulty_choice",

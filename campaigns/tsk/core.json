@@ -5,9 +5,36 @@
   "header": "",
   "type": "core",
   "setup": [
-    "$check_status_report"
+    "$check_status_report",
+    "$maybe_embark_side_scenario"
   ],
   "steps": [
+    {
+      "id": "$maybe_embark_side_scenario",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "next_scenario",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["$embark", "special_proceed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "special_proceed",
+      "text": "You may <b>embark</b>",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
     {
       "id": "$check_status_report",
       "hidden": true,
