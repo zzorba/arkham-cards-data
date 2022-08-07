@@ -8,9 +8,35 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
-    "location": {
-      "$id": "#location",
-      "title": "Location",
+    "mapLabel": {
+      "$id": "#mapLabel",
+      "title": "MapLabel",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["left", "center", "right"]
+        },
+        "type": {
+          "type": "string",
+          "enum": ["connection", "ocean", "small_ocean", "continent", "country"]
+        }
+      },
+      "required": ["x", "y", "name", "direction", "type"],
+      "additionalProperties": false
+    },
+    "mapLocation": {
+      "$id": "#mapLocation",
+      "title": "MapLocation",
       "type": "object",
       "properties": {
         "id": {
@@ -57,7 +83,7 @@
           "type": "string",
           "enum": ["locked", "standard", "side"]
         },
-        "label": {
+        "direction": {
           "type": "string",
           "enum": ["left", "right"]
         },
@@ -68,7 +94,7 @@
           }
         }
       },
-      "required": ["id", "x", "y", "name", "status", "connections", "label", "scenario"],
+      "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario"],
       "additionalProperties": false
     },
     "partner": {
