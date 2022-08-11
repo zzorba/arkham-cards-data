@@ -1,0 +1,425 @@
+{
+  "id": "tomb_of_dead_dreams",
+  "scenario_name": "Tomb of Dead Dreams",
+  "header": "Scenario VIII",
+  "full_name": "Scenario VIII: Tomb of Dead Dreams",
+  "chaos_bag_card": "zcf_00291",
+  "icon": "tomb_of_dead_dreams",
+  "setup": [
+    "intro",
+    "check_architects_project_was_fully_completed",
+    "gather_encounter_sets",
+    "check_notice_countermeasures",
+    "setup_ruins",
+    "set_aside_cards",
+    "add_madness_weakness",
+    "check_architects_project_was_sabotaged",
+    "check_notice",
+    "encounter_deck",
+    "orientation_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The worst has come to pass.  The architects have used their skill and knowledge to bend space and raise R'lyeh to the surface.  In accordance with the cult's prophecies, once R'lyeh has risen, their master Cthulhu will reign over all the world, dooming humanity to death and madness.\nAnd yet Cthulhu sleeps.  The dread apparition that you have seen in dreams and visions has yet to rise from its tomb.  Is this because of the sudden juxtaposition, that the architects have acted so far out of the island's cycle?  You scan the broken landscape in front of you for any sign of life, and see several figures wandering over the soapy stone monoliths.  They appear to be the architects, but they roam aimlessly, apparently euphoric but no longer of sound mind.  The strain of their project must have snapped their psyches."
+    },
+    {
+      "id": "check_architects_project_was_fully_completed",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "architects_project_was_fully_completed",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The cult's ritual on Krakatoa culminated before you could do much to interfere.  This leaves you that much more work to undo if you wish to return R'lyeh back to the bottom of the Pacific.  You can see their carved stone pillars scattered throughout the unreal landscape, though you have no way of gauging their true distance.  The structures grow closer, further, and change angles at random each time you look at them.  Your one recourse is to explore R'lyeh on foot, discover the sites of the unnatural pillars, and destroy them."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Your interference in the cult's project on Krakatoa forced the architects to finish an incomplete ritual.  As you stand atop the ruins of a broken pillar, you can sight three others flitting amid the warped landscape.  These anchors must be the failsafes the cult set up to keep R'lyeh transposed to the surface.  They are the only easily discernible structures on the unnatural island, though they seem to fade and shift with each step you take.  The pillars are hidden by the impossible topography of R'lyeh, leaving you no other option but to scour the island yourself.  You must send R'lyeh back to the bottom of the sea, or else doom awaits the world."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "tomb_of_dead_dreams",
+        "archaic_evils",
+        "awakened_madness",
+        "cult_of_cthulhu",
+        "deep_dreams",
+        "spawn_of_rlyeh",
+        "unnatural_stone"
+      ]
+    },
+    {
+      "id": "check_notice_countermeasures",
+      "text": "Check the Campaign Log. If you have 20 or more <b>Notice</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "notice"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 20
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1,
+                "steps": []
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_countermeasures"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_countermeasures",
+      "bullet_type": "small",
+      "text": "Gather the cards from the <i>Countermeasures</i> encounter set that match the classes of investigators chosen for this scenario.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "countermeasures"
+      ]
+    },
+    {
+      "id": "setup_ruins",
+      "text": "Put the Ruins of R'lyeh location into play oriented Up and the Cyclopean Acropolis location into play oriented Down. <i>(See \"Orientation\" below for further information.)</i> Randomly choose ten of the twelve Warped Island locations and put them into play with the following orientations: Three Left, three Right, two Up, two Down.  The placement of these locations does not matter, as R'lyeh's geography defies logic. Each investigator begins play at Ruins of R'lyeh."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Cthulhu, each copy of Inescapable Reach."
+    },
+    {
+      "id": "add_madness_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Madness]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": ["Madness"]
+        }
+      ]
+    },
+    {
+      "id": "check_architects_project_was_sabotaged",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "architects_project_was_sabotaged",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["three_pillars"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["four_pillars"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "three_pillars",
+      "bullet_type": "small",
+      "text": "Check Campaign Log. Because <i>the architects' project was sabotaged</i>, randomly choose three of the six Impossible Pillar locations and set them aside, out of play.  Remove each other Impossible Pillar from the game."
+    },
+    {
+      "id": "four_pillars",
+      "bullet_type": "small",
+      "text": "Check Campaign Log. Because <i>the architects' project was fully completed</i>, randomly choose four of the six Impossible Pillar locations and set them aside, out of play.  Remove each other Impossible Pillar from the game."
+    },
+    {
+      "id": "check_notice",
+      "text": "Check the Campaign Log.  For every 12 <b>Notice</b> you have, search the collected cards for a copy of Iä! Iä! and put it into play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "orientation_rule",
+      "type": "rule_reminder",
+      "title": "Orientation",
+      "text": "In this scenario, the orientation of cards is referenced by several game effects.  The four orientations are up, left, right, and down.  These orientations are determined by the position of the top of the card relative to the rest of the card, in reference to the bottom of the playing area.\nA card's orientation has no effect on its own but may be referenced by other cards.  When an effect rotates a card (either clockwise or counter-clockwise), turn that card 90 degrees in the appropriate direction."
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience as they have ended the architects' plot and returned R'lyeh to the deep.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "cthulhu_reigns",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cthulhu_reigns",
+          "text": "Cthulhu reigns over all humankind."
+        }
+      ]
+    },
+    {
+      "id": "cthulhu_slumbers",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cthulhu_slumbers",
+          "text": "Cthulhu slumbers in the deep once more."
+        }
+      ]
+    },
+    {
+      "id": "escaped_rlyeh",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "escaped_rlyeh",
+          "text": "the investigators escaped from R'lyeh."
+        }
+      ]
+    },
+    {
+      "id": "take_trauma",
+      "text": "Each investigator takes 1 physical and 2 mental trauma as they never fully recover from escaping Cthulhu and the island of R'lyeh.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 1,
+          "mental": 2
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "all_insane",
+      "text": "Each investigator is driven <b>insane</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "insane": true
+        }
+      ]
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cf_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "win_campaign_and_die",
+      "text": "The investigators win the campaign at the cost of their own lives.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "cf_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "ask_impossible_pillars",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are there 2 or more Impossible Pillar locations in play?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "two_impossible_pillars",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_impossible_pillars",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "two_impossible_pillars",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_3"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Injured and half-mad, you stagger desperately away from the dread god.  You can't hold out any longer, but your task is not yet complete.  Is there any hope left at all?",
+      "steps": [
+        "ask_impossible_pillars",
+        "check_impossible_pillars"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Despair overtakes you as the warped pillars still flit at random through the fractured terrain.  There is too much work to be done, and you can barely comprehend the island or even the mere presence of Cthulhu.  You drop to your knees as the stress and strain press in on your mind.  What reality have you fought for?  What reality is possible when this accursed unnatural island and its master exist?  The world may as well cease for how little it matters now.\nAs your brain fractures and you collapse to the soapy stone landscape, Cthulhu strides onward to the shores of R'lyeh and out into the twisting waves.  The voices of its maddened devotees on the island hail the coming of the new age that they have long awaited.  In every dark corner of the earth, jubilant voices call the same chant again and again: \"Cthulhu fhtagn!  Cthulhu fhtagn!\"  Soon, all voices on earth join in this chant as their dreams drive them mad, and the deep dragon of R'lyeh obliterates any that oppose it.  Humanity's reign over Earth is at an end.",
+      "steps": [
+        "cthulhu_reigns",
+        "all_insane",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The final twisted pillar looms just ahead of you, the lynch pin of the architects' plot.  You scramble forward, emboldened by this fact.  Whether or not in service of something terrible and otherworldly, twisted human ingenuity conceived this mad plan, and your own wits shall undo this conspiracy at last.  Dread Cthulhu lumbers after you ponderously but inevitably.\nNow at the base of the monolith, you cling to the stone structure and await the monster.  Humanity and its creations are far beneath the notice of Cthulhu, and you must hope that the same is true for even the creations of its followers.  The daemon towers above you and its webbed claw falls upon you like a landslide.  Pain lances through your every nerve, but you hear the crack of stone as Cthulhu's powerful hand carves away half of the pillar's base.  Reality unfolds around you as the stone collapses.  The cloudy sky above you shifts suddenly to dim green water, then inky blackness.  R'lyeh has returned beneath the Pacific, and you along with it.  Crushing ocean pressure takes its toll immediately, but your last vision before death overtakes you is the glowing eyes of Cthulhu just above you... slowly closing.",
+      "steps": [
+        "cthulhu_slumbers",
+        "all_killed",
+        "win_campaign_and_die"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Space unfolds around you in a terrifying cascade, stone flowing like water as the dim green glow of R'lyeh illuminates each facet.  The lord of mad dreams towers above you, assailing your mind maliciously as it swings its great arm down.  But the blow never lands.\nYour eyes snap open and you gasp in shock, only to be met with silence and steady rocking.  The light drizzle of rain on glass and the rhythmic creaking of wood sounds dully around you.  You are in a ship's cabin, lying on a small cot.  You sit up and try to recount your last memories as the cabin door opens.  \"By God, you live after all!\" the familiar raspy voice of Sukiman precedes him as he steps down into view.  Still dazed, you fall back to the cot and ask the old sailor just what had happened.\n\"The sea led me to you, as I said it would,\" Sukiman says, crouching beside you, \"I waited for nearly half a day before that strange island disappeared -- and the volcano with it.  You were adrift in the caldera when I found you.  God knows how you survived such a cataclysm, but you are fortunate indeed.\"  He claps your shoulder with a hearty laugh and descends further into the cabin to find you food and drink.\nYou close your eyes as you wait, thinking on the trials and hardships you faced these past two months, of the dark dreams beginning to fade, and of the conspiracy that all began with a simple letter.  Does this evil lurk in every corner of the world, simply waiting for a chance to surface?  If so, you pray that they are not so widespread and organized as the cult of Cthulhu was.  You have a long journey ahead of you back to Arkham, and if any vengeful members of the cult survive, you hope that you escape their notice.",
+      "steps": [
+        "escaped_rlyeh",
+        "cthulhu_slumbers",
+        "take_trauma",
+        "earn_xp",
+        "win_campaign"
+      ]
+    }
+  ]
+}
