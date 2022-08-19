@@ -1,0 +1,1454 @@
+{
+  "id": "crumbling_masonry",
+  "scenario_name": "Crumbling Masonry",
+  "header": "Scenario IV",
+  "full_name": "Scenario IV: Crumbling Masonry",
+  "chaos_bag_card": "zcf_00095",
+  "icon": "crumbling_masonry",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "check_notice_countermeasures",
+    "set_aside_encounter_sets",
+    "traitor_deck",
+    "setup_locations",
+    "location_layout",
+    "spawn_lodge",
+    "spawn_free_masons",
+    "check_notice_act",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You sleep the morning through to make up for the eventful night, but even in daytime your dreams are plagued by monolithic vistas and dissonant words that you cannot recognize.  A vision flashes through your head of a hellish being with piercing eyes, and your body jolts awake before you can fully observe the horror.  Your heartbeat gradually slows and you wipe away cold sweat from your brow.  Only action can stop this insidious madness.  Your next destination is wherever Wycliffe's former associates meet, but to know that, you must know more about Wycliffe himself.  As he only moved to Arkham recently, the city archives and historical society are unlikely to have any information about his past, and his only mention in the papers comes from the expedition articles.  You sit in silent thought at the table until a ray of midday sun reflects up at you.  Wycliffe's silver ring sits on the table where you left it this morning.  You lift the ring and inspect it more closely, noting the occult symbols and the Latin inscription.\nThe imagery on the ring begins to connect to Wycliffe's profession.  Was he a Freemason?  The masonic brotherhoods are well known for their secrecy and penchant for symbolism.  What's more, tall tales of the Freemasons ruling the world from behind the scenes have been told almost as long as the organization has existed.  You try to wave away the superstition, but the pieces fit too well to fully discount.  The enemy is well-supplied, well-prepared, widespread, secretive, and above all else intelligent.  Freemasons are all of these things, and have the exact skill set required to shape the warped stone that you encountered several times last night.  Certain as it may seem, a problem arises.  If Wycliffe was a Freemason, he would have been so for most of his life, but he only discovered this plot some weeks ago.  The entirety of the Freemasons can't be behind this conspiracy, but rather select members who have infiltrated their brotherhood.\nYou rush through food and preparations, leaving for the Northside train station at once.  Wycliffe came from Pennsylvania, as the papers stated, which happens to be the home of the oldest and largest masonic order in the country.  The conspirators will be at the grand lodge in Philadelphia.  With the distance you have to cover, it is well after sunset when you arrive at West Philadelphia Station.  From there, it is only a short walk to the masonic temple.  It looms above Broad Street like a gothic cathedral, but lights shine from inside, the very picture of tranquility to the outside world. The task of exposing the traitors will not be simple, especially as you are a complete outsider, but the stakes are paramount.  These traitors hold all the secrets of the conspiracy.  Through them you may at last discover just why the distorting stone is so important and how they intend to use it."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "crumbling_masonry",
+        "architects_of_chaos",
+        "awakened_madness",
+        "unnatural_stone"
+      ]
+    },
+    {
+      "id": "check_notice_countermeasures",
+      "text": "Check the Campaign Log. If you have 7 or more <b>Notice</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "notice"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 7
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1,
+                "steps": []
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_countermeasures"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_countermeasures",
+      "bullet_type": "small",
+      "text": "Gather the cards from the <i>Countermeasures</i> encounter set that match the classes of investigators chosen for this scenario.",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "countermeasures"
+      ]
+    },
+    {
+      "id": "set_aside_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "cult_of_cthulhu"
+      ],
+      "aside": true
+    },
+    {
+      "id": "traitor_deck",
+      "text": "Create the Traitor Deck.  This is done by randomly taking three of the six [[Traitor]] enemies and shuffling them together.  Remove the other three [[Traitor]] enemies from the game."
+    },
+    {
+      "id": "setup_locations",
+      "text": "ut the Broad Street Entrance, both copies of Grand Staircase, Temple Offices, Grand Banqueting Hall, Oriental Hall, Masonic Library & Museum, Corinthian Hall, and Renaissance Hall locations into play.  Each investigator begins play at Broad Street Entrance."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "corinthian_hall", "blank"],
+        ["blank", "grand_staircase_second", "renaissance_hall", "blank"],
+        ["broad_street_entrance", "grand_staircase_first", "grand_banqueting_hall", "oriental_hall"],
+        ["blank", "temple_offices", "blank", "masonic_library_and_museum"]
+      ],
+      "location_names": [
+        {
+          "code": "corinthian_hall",
+          "name": "Corinthian Hall"
+        },
+        {
+          "code": "grand_staircase_first",
+          "name": "Grand Staircase (First Floor)"
+        },
+        {
+          "code": "grand_staircase_second",
+          "name": "Grand Staircase (Second Floor)"
+        },
+        {
+          "code": "renaissance_hall",
+          "name": "Renaissance Hall"
+        },
+        {
+          "code": "broad_street_entrance",
+          "name": "Broad Street Entrance"
+        },
+        {
+          "code": "grand_banqueting_hall",
+          "name": "Grand Banqueting Hall"
+        },
+        {
+          "code": "oriental_hall",
+          "name": "Oriental Hall"
+        },
+        {
+          "code": "temple_offices",
+          "name": "Temple Offices"
+        },
+        {
+          "code": "masonic_library_and_museum",
+          "name": "Masonic Library and Museum"
+        }
+      ]
+    },
+    {
+      "id": "spawn_lodge",
+      "text": "Put Luther Lynch <i>(Tyler of the Grand Lodge)</i> into play at Grand Staircase <i>(First Floor).</i>"
+    },
+    {
+      "id": "spawn_free_masons",
+      "text": "Shuffle the six [[Freemason]] assets and randomly place one each at Temple Offices, Grand Banqueting Hall, Oriental Hall, Masonic Library & Museum, Corinthian Hall, and Renaissance Hall."
+    },
+    {
+      "id": "check_notice_act",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "notice",
+        "id": "$count",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["low_notice_act"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["low_notice_act"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["low_notice_act"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["low_notice_act"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["mid_notice_act"]
+          },
+          {
+            "numCondition": 5,
+            "steps": ["mid_notice_act"]
+          },
+          {
+            "numCondition": 6,
+            "steps": ["mid_notice_act"]
+          }
+        ],
+        "default_option": {
+          "steps": ["high_notice_act"]
+        }
+      }
+    },
+
+    {
+      "id": "low_notice_act",
+      "text": "Check Campaign Log. Because you have 3 or fewer <b>Notice</b>, shuffle Marked (Possible Threat) into the encounter deck when building it.  Remove all other copies of Marked from the game."
+    },
+    {
+      "id": "mid_notice_act",
+      "text": "Check Campaign Log. Because you have between 4 and 6 <b>Notice</b>, shuffle Marked (Definite Threat) into the encounter deck when building it.  Remove all other copies of Marked from the game."
+    },
+    {
+      "id": "high_notice_act",
+      "bullet_type": "small",
+      "text": "Check Campaign Log. Because you have 7 or more <b>Notice</b>, shuffle Marked (Priority Threat) into the encounter deck when building it.  Remove all other copies of Marked from the game."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_bonus",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience because Luther Lynch <i>(In Defense of the Order</i> was in play at the end of the scenario.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 1
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "alive",
+            "repeatable": true,
+            "text": "Record a name under \"Cultists Alive\"",
+            "steps": ["record_cultist_alive"]
+          },
+          {
+            "id": "killed",
+            "repeatable": true,
+            "text": "Record a name under \"Cultists Killed\"",
+            "steps": ["record_cultist_killed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_cultist_alive",
+      "text": "In your Campaign Log under \"Cultists Alive\", record the name of the enemy that left play:",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Alive",
+        "choices": [
+          {
+            "id": "ulysses",
+            "text": "Ulysses Hill",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "ulysses",
+                "text": "Ulysses Hill"
+              }
+            ]
+          },
+          {
+            "id": "hector",
+            "text": "Hector Sutton",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "hector",
+                "text": "Hector Sutton"
+              }
+            ]
+          },
+          {
+            "id": "wallace",
+            "text": "Wallace Thorpe",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "wallace",
+                "text": "Wallce Thorpe"
+              }
+            ]
+          },
+          {
+            "id": "rodney",
+            "text": "Rodney Duvall",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "rodney",
+                "text": "Rodney Duvall"
+              }
+            ]
+          },
+          {
+            "id": "glen",
+            "text": "Glen Conroy",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "glen",
+                "text": "Glen Conroy"
+              }
+            ]
+          },
+          {
+            "id": "paul",
+            "text": "Paul Kellerman",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "paul",
+                "text": "Paul Kellerman"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_cultist_killed",
+      "text": "In your Campaign Log under \"Cultists Killed\", record the name of the enemy that was defeated:",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Killed",
+        "choices": [
+          {
+            "id": "ulysses",
+            "text": "Ulysses Hill",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "ulysses",
+                "text": "Ulysses Hill"
+              }
+            ]
+          },
+          {
+            "id": "hector",
+            "text": "Hector Sutton",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "hector",
+                "text": "Hector Sutton"
+              }
+            ]
+          },
+          {
+            "id": "wallace",
+            "text": "Wallace Thorpe",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "wallace",
+                "text": "Wallce Thorpe"
+              }
+            ]
+          },
+          {
+            "id": "rodney",
+            "text": "Rodney Duvall",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "rodney",
+                "text": "Rodney Duvall"
+              }
+            ]
+          },
+          {
+            "id": "glen",
+            "text": "Glen Conroy",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "glen",
+                "text": "Glen Conroy"
+              }
+            ]
+          },
+          {
+            "id": "paul",
+            "text": "Paul Kellerman",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_killed",
+                "id": "paul",
+                "text": "Paul Kellerman"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_individual_xp",
+      "text": "If any investigator has earned additional experience from player card effects, record it here:",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Additional XP",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "failed_to_stop_the_traitors_plan",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "failed_to_stop_the_traitors_plan",
+          "text": "the investigators failed to stop the traitors' plan."
+        }
+      ]
+    },
+    {
+      "id": "exposed_the_traitors",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "exposed_the_traitors",
+          "text": "the investigators exposed the traitors."
+        }
+      ]
+    },
+    {
+      "id": "expelled_the_traitors",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "expelled_the_traitors",
+          "text": "the investigators expelled the traitors."
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_2"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          },
+          {
+            "id": "act_4",
+            "text": "Act 4",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "check_3_experience",
+      "text": "If any investigator earned 3 or more experience during this scenario:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_notice_small",
+              "check_6_experience"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_6_experience",
+      "type": "branch",
+      "text": "If any investigator earned 6 or more experience during this scenario:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 6
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_additional_notice_small"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_one_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "mark_one_additional_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one additional <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "remove_one_notice",
+      "text": "Remove one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": -1
+        }
+      ]
+    },
+    {
+      "id": "draw_and_record_cultists_alive",
+      "text": "Draw each remaining card in the Traitor Deck, and record the names in your Campaign Log, under \"Cultists Alive\":",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Alive",
+        "choices": [
+          {
+            "id": "ulysses",
+            "text": "Ulysses Hill",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "ulysses",
+                "text": "Ulysses Hill"
+              }
+            ]
+          },
+          {
+            "id": "hector",
+            "text": "Hector Sutton",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "hector",
+                "text": "Hector Sutton"
+              }
+            ]
+          },
+          {
+            "id": "wallace",
+            "text": "Wallace Thorpe",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "wallace",
+                "text": "Wallce Thorpe"
+              }
+            ]
+          },
+          {
+            "id": "rodney",
+            "text": "Rodney Duvall",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "rodney",
+                "text": "Rodney Duvall"
+              }
+            ]
+          },
+          {
+            "id": "glen",
+            "text": "Glen Conroy",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "glen",
+                "text": "Glen Conroy"
+              }
+            ]
+          },
+          {
+            "id": "paul",
+            "text": "Paul Kellerman",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "paul",
+                "text": "Paul Kellerman"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "draw_and_record_cultists_alive_and_in_play",
+      "text": "Draw each remaining card in the Traitor Deck. In your Campaign Log, under \"Cultists Alive\", record the name of each card drawn and each [[Traitor]] enemy still in play at the end of the scenario:",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Alive",
+        "choices": [
+          {
+            "id": "ulysses",
+            "text": "Ulysses Hill",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "ulysses",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "ulysses",
+                "text": "Ulysses Hill"
+              }
+            ]
+          },
+          {
+            "id": "hector",
+            "text": "Hector Sutton",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "hector",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "hector",
+                "text": "Hector Sutton"
+              }
+            ]
+          },
+          {
+            "id": "wallace",
+            "text": "Wallace Thorpe",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "wallace",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "wallace",
+                "text": "Wallce Thorpe"
+              }
+            ]
+          },
+          {
+            "id": "rodney",
+            "text": "Rodney Duvall",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "rodney",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "rodney",
+                "text": "Rodney Duvall"
+              }
+            ]
+          },
+          {
+            "id": "glen",
+            "text": "Glen Conroy",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "glen",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "glen",
+                "text": "Glen Conroy"
+              }
+            ]
+          },
+          {
+            "id": "paul",
+            "text": "Paul Kellerman",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_alive",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "cultists_killed",
+                  "id": "paul",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "cultists_alive",
+                "id": "paul",
+                "text": "Paul Kellerman"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hidden_notice_for_killed_cultists",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "cultists_killed",
+        "id": "$num_entries",
+        "options": [],
+        "default_option": {
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "notice",
+              "operation": "add_input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "notice_for_killed_cultists",
+      "text": "For each name listed under \"Cultists Killed,\" make one <b>Notice</b> in the Campaign Log."
+    },
+    {
+      "id": "mark_one_notice_plus_killed_cultists",
+      "text": "Mark one <b>Notice</b> in your Campaign Log. For each name listed under \"Cultists Killed,\" make one additional <b>Notice</b> in the Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "ask_luther_in_play",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "luther_alive",
+            "text": "Was Luther Lynch <i>(In Defense of the Order)</i> in play at the end of the scenario?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "luther_alive",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_xp_to_earn",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "luther_alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_xp_bonus"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["earn_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_skip_interlude",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "failed_to_stop_the_traitors_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "skip_interlude",
+              "$upgrade_decks"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skip_interlude",
+      "bullet_type": "small",
+      "text": "Skip <b>Interlude: A House Divided</b>.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "a_house_divided"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "No amount of reason or force could persuade the burly man to grant you entry, and you reluctantly retreat, deciding to ask again during normal visitation hours.\nWhen you return the next morning, you find the front door unlocked, but the halls of the temple utterly silent.  Not a footstep or breath can be heard apart from your own as you traverse the grand lodge.  Where are the traitors, or the other masons for that matter?\nFor minutes you search the building until finally, a weak groan and slight scraping sound from inside one of the lodge offices.  You bust the door in and find the Tyler once again, lying in a pool of his own blood and clutching at a gash in his side.  He looks up to you with narrowed eyes, but his expression drops as he coughs out a spurt of blood.  You crouch to try to assist him, but his wound is clearly fatal.  The Tyler raises his head one last time and looks to you with fading vision, uttering a single word: \"Singapore.\"  His duty fulfilled, he slumps to the ground, groaning his last breath.\nYou rise with frustration in mind.  Another death at the hands of these madmen.  How many more will perish for the sake of their conspiracy?  Your one consolation as you leave the temple behind is that you now know where to find them.",
+      "steps": [
+        "add_tablet",
+        "failed_to_stop_the_traitors_plan",
+        "draw_and_record_cultists_alive",
+        "remove_one_notice",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "For better or worse, you swatted the hornets' nest.  Despite being overwhelmed, you forced the traitors' hands and exposed their identities to the rest of the grand lodge.  You exit the masonic temple and retreat to a safe distance while you compose yourself and keep watch.\nGradually, the other Freemasons make their way outside, dazed and confused, but there is no sign of the infiltrators or their cult allies.  You assume that with their preparations and connections that they had other escape routes.  After an hour of patiently gathering the remaining masons, you head back inside to survey the aftermath.",
+      "steps": [
+        "exposed_the_traitors",
+        "draw_and_record_cultists_alive_and_in_play",
+        "hidden_notice_for_killed_cultists",
+        "notice_for_killed_cultists",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Silence returns in the wake of the cultists' retreat, but for the first time since your adventure started, you feel comforted by it.  After the incidents last night, the conspirators are the ones on their back feet this time.  But there is still work to be done.  You roam the now-quiet halls of the masonic temple, locating and gathering the remaining masons to hold a mass interview.  Most of them are utterly bewildered, especially at seeing their former colleagues side with the crazed cultists and wield such mind-bending power.  Your mind is focused more on the opportunity you now have.  The cultists were forced to flee without covering their trail, meaning you have the chance to sift through the evidence without someone actively trying to kill you.",
+      "steps": [
+        "expelled_the_traitors",
+        "hidden_notice_for_killed_cultists",
+        "mark_one_notice_plus_killed_cultists",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "If nothing else was clarified tonight, you finally have some insight into the agents and madmen who have shadowed your recent actions.  They prey on the unsuspecting, and those vulnerable to influence through strange dreaming, but you can now take steps to guard yourself against their methods.  They will find you more a thorn in their side than ever before.",
+      "steps": [
+        "ask_luther_in_play",
+        "choose_xp_to_earn",
+        "earn_individual_xp",
+        "check_3_experience",
+        "maybe_skip_interlude"
+      ]
+    }
+  ]
+}

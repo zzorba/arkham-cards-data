@@ -1,0 +1,1332 @@
+{
+  "id": "across_dreadful_waters",
+  "scenario_name": "Across Dreadful Waters",
+  "full_name": "Scenario V: Across Dreadful Waters",
+  "header": "Scenario V",
+  "icon": "across_dreadful_waters",
+  "chaos_bag_card": "zcf_00143",
+  "setup": [
+    "intro_1",
+    "choose_route",
+    "check_took_out_loan",
+    "gather_encounter_sets",
+    "check_notice_countermeasures",
+    "setup_locations",
+    "location_layout",
+    "check_chose_the_most_direct_route",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "Singapore, halfway around the world from Arkham.  Whether the city itself is the focus of the cultists' plot or some other place nearby, your course is clear.  You return to Arkham immediately and prepare everything you'll need for the long journey before telephoning the harbor in nearby Kingsport.  There are three ships slated to depart tonight: a light steamer headed for the Canary Islands, a passenger ship en route to Europe, and a cargo ship bound for Panama.  You'll be able to change ships at each port to gradually make your way to Singapore, but which route will improve your odds the most?"
+    },
+    {
+      "id": "choose_route",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cooperate",
+            "text": "<i>\"We need to arrive as quickly as possible, whatever the risk\"</i>",
+            "steps": ["chose_the_most_direct_route", "mark_one_notice_small"]
+          },
+          {
+            "id": "ruckus",
+            "text": "<i>\"We may be safer if we travel with larger crowds.\"</i>",
+            "steps": ["chose_the_most_populous_route"]
+          },
+          {
+            "id": "took_time",
+            "text": "<i>\"We may throw them off if we take a less traveled route.\"</i>",
+            "steps": ["chose_the_least_predictable_route", "remove_one_notice_small"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chose_the_most_populous_route",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "chose_the_most_populous_route",
+          "text": "the investigators chose the most popular route."
+        }
+      ]
+    },
+    {
+      "id": "chose_the_least_predictable_route",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "chose_the_least_predictable_route",
+          "text": "the investigators chose the least predictable route."
+        }
+      ]
+    },
+    {
+      "id": "chose_the_most_direct_route",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "chose_the_most_direct_route",
+          "text": "the investigators chose the most direct route."
+        }
+      ]
+    },
+    {
+      "id": "mark_one_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "mark_one_notice",
+      "text": "Mark one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "check_took_out_loan",
+      "type": "branch",
+      "text": "Check the Campaign Log.  If at least one investigator \"took out a loan\":",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "took_out_a_loan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["time_to_collect", "explain_mob_weakness", "take_mob_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "time_to_collect",
+      "title": "Time to Collect",
+      "type": "story",
+      "text": "You step out the door of your home to find a trio of men waiting patiently on the sidewalk out front.  It's only a slight relief that the cultists haven't caught up with you yet, as you recall Ernie Vickers from the O'Bannions' auction house.  The loan shark takes a step forward and adjusts his glasses, eyes dead set on you.  \"Skip town once, shame on you.  Skip town twice, shame on me.  It would be damaging to my reputation if I let you wander with my money, so why don't we settle your account before you go on your merry way?\"  Ernie gives a small, cruel smile, and his cronies step up alongside him.  They squeeze their fists idly, clearly hoping that you can't or won't pay up."
+    },
+    {
+      "id": "explain_mob_weakness",
+      "text": "Each investigator who \"took out a loan\" must search the collection for a copy of Indebted, Mob Enforcer, or Internal Injury and add it to his or her deck."
+    },
+    {
+      "id": "take_mob_weakness",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "condition": {
+          "type": "campaign_log_cards",
+          "section": "campaign_notes",
+          "id": "took_out_a_loan",
+          "options": [{ "boolCondition": true }]
+        },
+        "choices": [
+          {
+            "id": "indebted",
+            "text": "Indebted",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "02037",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "mob_enforcer",
+            "text": "Mob Enforced",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "01101",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "internal_injury",
+            "text": "Internal Injury",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "02038",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_one_notice_small",
+      "bullet_type": "small",
+      "text": "Remove one <b>Notice</b> from your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": -1
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "across_dreadful_waters",
+        "cult_of_cthulhu",
+        "shadowy_agents",
+        "spawn_of_rlyeh",
+        "storm_and_sea",
+        "unfriendly_ports"
+      ]
+    },
+
+    {
+      "id": "check_notice_countermeasures",
+      "text": "Check the Campaign Log. If you have 11 or more <b>Notice</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "notice"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 11
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1,
+                "steps": []
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_countermeasures"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_countermeasures",
+      "text": "Gather the cards from the <i>Countermeasures</i> encounter set that match the classes of investigators chosen for this scenario.",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "countermeasures"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Central Hill, South Shore, and Harborside locations into play.  Each investigator begins play at Central Hill."
+    },
+
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "blank", "harborside", "blank"],
+        ["central_hill", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "south_shore", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        },
+        {
+          "code": "central_hill",
+          "name": "Central Hill"
+        },
+        {
+          "code": "south_shore",
+          "name": "South Shore"
+        }
+      ]
+    },
+    {
+      "id": "check_chose_the_most_direct_route",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "chose_the_most_direct_route",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "most_direct_act",
+              "set_aside_weakness",
+              "starting_doom_plus_1",
+              "encounter_deck",
+              "stop_rule",
+              "las_palmas_layout",
+              "cape_town_layout",
+              "zanzibar_layout"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_chose_the_most_populous_route"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "most_direct_act",
+      "text": "Because <i>the investigators chose the most direct route</i>, use \"Act 1 - Globetrotting (v.I),\" \"Act 2 - The Las Palmas Problem,\" \"Act 3 - The Cape Town Problem,\" and \"Act 4 - The Zanzibar Problem.\"  Set each [[Las Palmas]], [[Cape Town]], and [[Zanzibar]] location and story card aside, out of play.  Remove each other act, location, and story card from the game."
+    },
+    {
+      "id": "check_chose_the_most_populous_route",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "chose_the_most_populous_route",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "most_populous_act",
+              "set_aside_weakness",
+              "starting_doom",
+              "encounter_deck",
+              "stop_rule",
+              "gibraltar_layout",
+              "port_said_layout",
+              "bombay_layout"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "least_predictable_act",
+              "set_aside_weakness",
+              "starting_doom_minus_1",
+              "encounter_deck",
+              "stop_rule",
+              "colon_layout",
+              "suva_layout",
+              "sydney_layout"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "most_populous_act",
+      "text": "Because <i>the investigators chose the most populous route</i>, use \"Act 1 - Globetrotting (v.II),\" \"Act 2 - The Gibraltar Problem,\" \"Act 3 - The Port Said Problem,\" and \"Act 4 - The Bombay Problem.\"  Set each [[Gibraltar]], [[Port Said]], and [[Bombay]] location and story card aside, out of play.  Remove each other act, location, and story card from the game."
+    },
+    {
+      "id": "least_predictable_act",
+      "text": "Because <i>the investigators chose the least predictable route</i>, use \"Act 1 - Globetrotting (v.III),\" \"Act 2 - The Colón Problem,\" \"Act 3 - The Suva Problem,\" and \"Act 4 - The Sydney Problem.\"  Set each [[Colón]], [[Suva]], and [[Sydney]] location and story card aside, out of play.  Remove each other act, location, and story card from the game."
+    },
+    {
+      "id": "set_aside_weakness",
+      "text": "Set aside each copy of the Lingering Fatigue weakness."
+    },
+    {
+      "id": "starting_doom_plus_1",
+      "text": "For every 4 <b>Notice</b> (rounded down) that you have, place 1 doom on agenda 1a.  Because <i>the investigators chose the most direct route,</i> place 1 additional doom on agenda 1a."
+    },
+    {
+      "id": "starting_doom",
+      "text": "For every 4 <b>Notice</b> (rounded down) that you have, place 1 doom on agenda 1a."
+    },
+    {
+      "id": "starting_doom_minus_1",
+      "text": "For every 4 <b>Notice</b> (rounded down) that you have, place 1 doom on agenda 1a.  Because <i>the investigators chose the least predictable route,</i> remove 1 doom from agenda 1a."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle each of the remaining encounter cards together to form the encounter deck."
+    },
+    {
+      "id": "stop_rule",
+      "type": "rule_reminder",
+      "title": "Stop!",
+      "text": "At this point, you are ready to begin playing <b>Across Dreadful Waters</b>. Ignore the other location placements for now. You will be instructed which to set up at later points in time, during the courseof the scenario."
+    },
+
+    {
+      "id": "las_palmas_layout",
+      "type": "location_setup",
+      "text": "Las Palmas: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["playa_de_las_canteras", "blank", "castillo_de_la_luz"],
+        ["blank", "blank", "harborside"],
+        ["blank", "blank", "catedral_de_canarias"]
+      ],
+      "location_names": [
+        {
+          "code": "playa_de_las_canteras",
+          "name": "Playa de Las Canteras"
+        },
+        {
+          "code": "castillo_de_la_luz",
+          "name": "Castillo de la Luz"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        },
+        {
+          "code": "catedral_de_canarias",
+          "name": "Catedral de Canárias"
+        }
+      ]
+    },
+    {
+      "id": "cape_town_layout",
+      "type": "location_setup",
+      "text": "Cape Town: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "harborside", "blank"],
+        ["castle_of_good_hope", "blank", "university_of_cape_town"],
+        ["blank", "table_mountain", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "castle_of_good_hope",
+          "name": "Castle of Good Hope"
+        },
+        {
+          "code": "university_of_cape_town",
+          "name": "University of Cape Town"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        },
+        {
+          "code": "table_mountain",
+          "name": "Table Mountain"
+        }
+      ]
+    },
+
+    {
+      "id": "zanzibar_layout",
+      "type": "location_setup",
+      "text": "Zanzibar: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "harborside"],
+        ["blank", "sultans_palace", "ithnashiri_dispensary"],
+        ["old_fort", "house_of_wonders", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "sultans_palace",
+          "name": "Sultan's Palace"
+        },
+        {
+          "code": "ithnashiri_dispensary",
+          "name": "Ithnashiri Dispensary"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        },
+        {
+          "code": "house_of_wonders",
+          "name": "House of Wonders"
+        },
+        {
+          "code": "old_fort",
+          "name": "Old Fort"
+        }
+      ]
+    },
+    {
+      "id": "gibraltar_layout",
+      "type": "location_setup",
+      "text": "Gibraltar: Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "blank", "blank", "tower_of_homage", "blank"],
+        ["harborside", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "alameda_gardens", "blank"],
+        ["blank", "blank", "blank", "europa_point", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "tower_of_homage",
+          "name": "Tower of Homage"
+        },
+        {
+          "code": "alameda_gardens",
+          "name": "Alameda Gardens"
+        },
+        {
+          "code": "europa_point",
+          "name": "Europa Point"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        }
+      ]
+    },
+    {
+      "id": "port_said_layout",
+      "type": "location_setup",
+      "text": "Port Said: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["arab_quarter", "blank", "lighthouse_of_port_said"],
+        ["blank", "harborside", "blank"],
+        ["blank", "blank", "suez_canal_company_offices"]
+      ],
+      "location_names": [
+        {
+          "code": "arab_quarter",
+          "name": "Arab Quarter"
+        },
+        {
+          "code": "lighthouse_of_port_said",
+          "name": "Lighthouse of Port Said"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        },
+        {
+          "code": "suez_canal_company_offices",
+          "name": "Suez Canal Company Offices"
+        }
+      ]
+    },
+    {
+      "id": "bombay_layout",
+      "type": "location_setup",
+      "text": "Bombay: Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        ["shree", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "sewri_fort", "blank"],
+        ["victoria", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "harborside", "blank"],
+        ["gateway", "blank", "blank", "blank", "blank"]
+      ],
+      "location_names": [
+        {
+          "code": "shree",
+          "name": "Shree Siddhivinayak"
+        },
+        {
+          "code": "sewri_fort",
+          "name": "Sewri Fort"
+        },
+        {
+          "code": "victoria",
+          "name": "Victoria Terminus"
+        },
+        {
+          "code": "gateway",
+          "name": "Gateway of India"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        }
+      ]
+    },
+    {
+      "id": "colon_layout",
+      "type": "location_setup",
+      "text": "Colón: Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        ["fort_de_lesseps", "blank", "blank", "blank", "blank"],
+        ["harborside", "blank", "blank", "blank", "blank"],
+        ["blank", "blank", "blank", "fort_davis", "blank"],
+        ["gatum_locks", "blank", "blank", "blank", "blank"]
+
+      ],
+      "location_names": [
+        {
+          "code": "fort_de_lesseps",
+          "name": "Fort De Lesseps"
+        },
+        {
+          "code": "fort_davis",
+          "name": "Fort Davis"
+        },
+        {
+          "code": "gatum_locks",
+          "name": "Gatum Locks"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        }
+      ]
+    },
+    {
+      "id": "suva_layout",
+      "type": "location_setup",
+      "text": "Suva: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["harborside", "blank"],
+        ["library", "sacred_heart"],
+        ["gardens", "blank"]
+
+      ],
+      "location_names": [
+        {
+          "code": "sacred_heart",
+          "name": "Sacred Heart Cathedral"
+        },
+        {
+          "code": "library",
+          "name": "Suva City Carnegie Library"
+        },
+        {
+          "code": "gardens",
+          "name": "Suva Botanical Gardens"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        }
+      ]
+    },
+
+    {
+      "id": "sydney_layout",
+      "type": "location_setup",
+      "text": "Sydney: Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "gardens", "blank"],
+        ["harborside", "blank", "barracks"],
+        ["blank", "queen_buildings", "blank"],
+        ["blank", "terminal", "blank"]
+
+      ],
+      "location_names": [
+        {
+          "code": "barracks",
+          "name": "Hyde Park Barracks"
+        },
+        {
+          "code": "queen_buildings",
+          "name": "Queen Victoria Buildings"
+        },
+        {
+          "code": "terminal",
+          "name": "Sydney Terminal"
+        },
+        {
+          "code": "gardens",
+          "name": "Royal Botanic Gardens"
+        },
+        {
+          "code": "harborside",
+          "name": "Harborside"
+        }
+      ]
+    },
+    {
+      "id": "severely_delayed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "severely_delayed",
+          "text": "the investigators were severely delayed."
+        }
+      ]
+    },
+    {
+      "id": "arrived_on_schedule",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "arrived_on_schedule",
+          "text": "the investigators arrived on schedule."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+
+
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": [
+              "remove_act_notice",
+              "check_act_1_chaos_token"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "notice",
+                "operation": "add",
+                "value": -4
+              }
+            ]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": [
+              "remove_act_notice",
+              "check_act_2_chaos_token"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "notice",
+                "operation": "add",
+                "value": -3
+              }
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": [
+              "remove_act_notice",
+              "check_act_3_chaos_token"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "notice",
+                "operation": "add",
+                "value": -2
+              }
+            ]
+          },
+          {
+            "id": "act_4",
+            "text": "Act 4",
+            "steps": [
+              "remove_act_notice",
+              "check_act_4_chaos_token"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "notice",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_act_notice",
+      "text": "Remove one <b>Notice</b> from your Campaign Log for each card remaining in the act deck."
+    },
+    {
+      "id": "lingering_fatigue",
+      "text": "Each investigator who was defeated must add a set-aside copy of Lingering Fatigue to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "defeated",
+          "card": "zcf_00209"
+        }
+      ]
+    },
+    {
+      "id": "check_act_1_chaos_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["act_1_easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["act_1_standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["act_1_hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["act_1_expert_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_2_chaos_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["act_2_easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["act_2_standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["act_2_hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["act_2_expert_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_3_chaos_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["act_3_easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["act_3_standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["act_3_hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["act_3_expert_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_4_chaos_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["act_4_easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["act_4_standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["act_4_hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["act_4_expert_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "act_1_easy_token",
+      "text": "Because it was act 1 when the scenario ended and you are playing on Easy difficulty, add a -6 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-6"]
+        }
+      ]
+    },
+    {
+      "id": "act_1_standard_token",
+      "text": "Because it was act 1 when the scenario ended and you are playing on Standard difficulty, add a -7 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-7"]
+        }
+      ]
+    },
+    {
+      "id": "act_1_hard_token",
+      "text": "Because it was act 1 when the scenario ended and you are playing on Hard difficulty, add a -8 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-8"]
+        }
+      ]
+    },
+    {
+      "id": "act_1_expert_token",
+      "text": "Because it was act 1 when the scenario ended and you are playing on Expert difficulty, add a -8 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-8"]
+        }
+      ]
+    },
+    {
+      "id": "act_2_easy_token",
+      "text": "Because it was act 2 when the scenario ended and you are playing on Easy difficulty, add a -5 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-5"]
+        }
+      ]
+    },
+    {
+      "id": "act_2_standard_token",
+      "text": "Because it was act 2 when the scenario ended and you are playing on Standard difficulty, add a -6 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-6"]
+        }
+      ]
+    },
+    {
+      "id": "act_2_hard_token",
+      "text": "Because it was act 2 when the scenario ended and you are playing on Hard difficulty, add a -7 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-7"]
+        }
+      ]
+    },
+    {
+      "id": "act_2_expert_token",
+      "text": "Because it was act 2 when the scenario ended and you are playing on Expert difficulty, add a -8 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-8"]
+        }
+      ]
+    },
+    {
+      "id": "act_3_easy_token",
+      "text": "Because it was act 3 when the scenario ended and you are playing on Easy difficulty, add a -4 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-4"]
+        }
+      ]
+    },
+    {
+      "id": "act_3_standard_token",
+      "text": "Because it was act 3 when the scenario ended and you are playing on Standard difficulty, add a -5 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-5"]
+        }
+      ]
+    },
+    {
+      "id": "act_3_hard_token",
+      "text": "Because it was act 3 when the scenario ended and you are playing on Hard difficulty, add a -6 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-6"]
+        }
+      ]
+    },
+    {
+      "id": "act_3_expert_token",
+      "text": "Because it was act 3 when the scenario ended and you are playing on Expert difficulty, add a -7 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-7"]
+        }
+      ]
+    },
+    {
+      "id": "act_4_easy_token",
+      "text": "Because it was act 4 when the scenario ended and you are playing on Easy difficulty, add a -3 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-3"]
+        }
+      ]
+    },
+    {
+      "id": "act_4_standard_token",
+      "text": "Because it was act 4 when the scenario ended and you are playing on Standard difficulty, add a -4 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-4"]
+        }
+      ]
+    },
+    {
+      "id": "act_4_hard_token",
+      "text": "Because it was act 4 when the scenario ended and you are playing on Hard difficulty, add a -5 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-5"]
+        }
+      ]
+    },
+    {
+      "id": "act_4_expert_token",
+      "text": "Because it was act 4 when the scenario ended and you are playing on Expert difficulty, add a -6 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-6"]
+        }
+      ]
+    },
+
+
+    {
+      "id": "easy_token",
+      "text": "Because you are playing on Easy difficulty, add a -2 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-2"]
+        }
+      ]
+    },
+    {
+      "id": "standard_token",
+      "text": "Because you are playing on Standard difficulty, add a -3 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-3"]
+        }
+      ]
+    },
+    {
+      "id": "hard_token",
+      "text": "Because you are playing on Hard difficulty, add a -4 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-4"]
+        }
+      ]
+    },
+    {
+      "id": "expert_token",
+      "text": "Because you are playing on Expert difficulty, add a -5 token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["-5"]
+        }
+      ]
+    },
+
+    {
+      "id": "earn_individual_xp",
+      "text": "If any investigator has earned additional experience from player card effects, record it here:",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Additional XP",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_3_experience",
+      "text": "If any investigator earned 3 or more experience during this scenario:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_notice_small",
+              "check_6_experience"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_6_experience",
+      "type": "branch",
+      "text": "If any investigator earned 6 or more experience during this scenario:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 6
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_additional_notice_small"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_one_additional_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one additional <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "add_difficulty_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_token"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_token"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_token"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["expert_token"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "The relentless agents of Cthluhu pursue you at each port, always lurking and always ready to strike from the crowds or shadows.  You barely manage to hold yourself together and escape your pursuers, but the endeavor has taxed your mind and body considerably, and has forced you to miss your connection.  You find a place to hide and lie low, but the delay costs you nearly a week in finding another chance to set sail for Singapore.",
+      "steps": [
+        "lingering_fatigue"
+      ]
+    },
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Regrettably, neither you nor your allies were able to keep pace with your original schedule. As you bide your time until the next ship arrives, you wonder just how much the masonic traitors and their cult allies will be able to press this advantage.  Any minute lost could mean the difference between victory and doom, but until you arrive in Singapore, you must grapple with your doubts and fears patiently.",
+      "steps": [
+        "severely_delayed",
+        "ask_final_act",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Through the many trials and tribulations, you've managed to keep the situation at each port under control and continue your journey as planned.  You collapse onto the bed of your cabin on the final ship to Singapore, grateful for the chance to recover.",
+      "steps": [
+        "arrived_on_schedule",
+        "mark_one_notice",
+        "add_difficulty_token",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "It seems as though the whole world had conspired to stop your journey, but it is an encouraging fact in one regard.  You must pose a very real threat to the cult's plan if they take every opportunity to delay you.  What isn't clear to you however is why the cultists chose Singapore as their rallying point.  Where is their ultimate destination, and why do they need to be there exactly?",
+      "steps": [
+        "earn_xp",
+        "earn_individual_xp",
+        "check_3_experience",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

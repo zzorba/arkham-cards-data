@@ -1,0 +1,556 @@
+{
+  "id": "jennys_choice",
+  "scenario_name": "Jenny's Choice",
+  "full_name": "Jenny's Choice",
+  "header": "",
+  "chaos_bag_card": "zjc_00001",
+  "xp_cost": 0,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "investigator": "02003",
+    "xp_cost": 2,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "Seth Oakman",
+    "download_link": {
+      "en": "http://arkhamcentral.com/index.php/jennys-choice/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_locations",
+    "setup_locations",
+    "encounter_deck",
+    "random_locations_rule",
+    "alert_rule",
+    "resource_test_rule",
+    "story_rule",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "set_aside_locations",
+    "setup_locations",
+    "encounter_deck",
+    "random_locations_rule",
+    "alert_rule",
+    "resource_test_rule",
+    "story_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Several months ago, lzzie's letters to you had become increasingly infrequent and then stopped altogether. Growing worried, you decided to make a trip to Arkham, Massachusetts, to investigate. After arriving, you had followed your instincts, which led you to a case of multiple missing persons, a harvest festival depicting the fertility deity known as the Green Man, and a ritual murder that summoned something so nightmarish that you still see it when you close your eyes. All of the events were seemingly connected to some entity named Shub-Niggurath.\nAlthough the event resulted in the tragic loss of some lives, lzzie was not one of them. She had disappeared in the final moments, pursued or dragged off by the last remaining cult members.\nIt has taken every resource you had left, but at long last you have stumbled upon some evidence-evidence that suggests that lzzie may still be in trouble. You finally know exactly where they have taken her.\nThere ain't nothing that's gonna stop you from finding lzzie now. Those Green Men goons won't know what hit 'em."
+    },
+
+    {
+      "id": "alert_rule",
+      "type": "rule_reminder",
+      "title": "Alert",
+      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the alert keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+    },
+
+    {
+      "id": "resource_test_rule",
+      "type": "rule_reminder",
+      "title": "Resource Test",
+      "text": "Your base skill value for this test is equal to half the number of resources in your resource pool (rounded down).\nThis rule can be found on the rogue card Money Talks released with <i>The Circle Undone</i> deluxe expansion."
+    },
+    {
+      "id": "story_rule",
+      "type": "rule_reminder",
+      "title": "Story Cards",
+      "text": "Story cards are a new cardtype in this scenario. These cards serve as an avenue for additional narrative and game text. When a story card is drawn, read its story text and resolve its <b>Revelation</b> effect. Its game text is considered active for as long as the card is in play. The story cards in this scenario are double sided, with one side entitled “Deep Within the Labyrinth.” Do not flip them to this  until you are instructed to do so."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "bad_luck",
+        "pentagram",
+        "agents_of_shub",
+        "lost_cathedral"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Aimless, Emerald Light, I Killed Her, Isabelle Barnes: Double Trouble, Izzie's Violin, Lost In Thought: Isabelle Barnes Only, Lost in Thought: Jenny Barnes Only, Isabelle Barnes (Investigator Card), Isabelle Barnes: The  Virtuoso at the Gates of Dawn, Isabelle Barnes: Captive, Herald of the Green Man (X3), Amphitheatre."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set aside one of the two versions of the following locations: Organ Room, Wine Cellar, Inner Chamber, Balcony. Set the other copy of each location out of play only to be used to determine 'Random Locations' as noted below."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put all other locations into play.",
+      "bullets": [
+        {
+          "text": "Investigators begin the scenario in Hidden Grove."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "random_locations_rule",
+      "type": "rule_reminder",
+      "title": "Spawing at Random Locations",
+      "text": "During this scenario, you will be instructed to spawn certain cards at separate random locations. This should be done by shuffling together the 4 locations that are out of play and drawing 1 at random. Spawn the indicated card and remove the location from your pool before drawing for the next card so that each card is spawned in a separate location."
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "randomize_locations",
+            "text": "Choose a random location",
+            "steps": [
+              "choose_random_location"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_random_location",
+      "type": "input",
+      "input": {
+        "type": "random_location",
+        "cards": [
+          "zjc_00002",
+          "zjc_00004",
+          "zjc_00006",
+          "zjc_00008"
+        ]
+      }
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 2 bonus experience for putting an end to the Green Man cult.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_with_isabelle",
+      "text": "Each investigator, including Isabelle Barnes, earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "jenny_earns_madness",
+      "text": "Jenny Barnes searches the collection for a random basic [[Madness]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "weakness_traits": ["Madness"]
+        }
+      ]
+    },
+    {
+      "id": "swap_searching_for_izzie_for_aimless",
+      "text": "Jenny Barnes must replace <b>Searching for Izzie</b> with the <b>Aimless</b> weakness.\n<i>Note: if your deck is saved to ArkhamDB, it will show a deckbuilding error as a result of this change.</i>",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "02011"
+        },
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00021"
+        }
+      ]
+    },
+    {
+      "id": "swap_searching_for_izzie_for_double_trouble",
+      "text": "Jenny Barnes must replace <b>Searching for Izzie</b> with the <b>Isabelle Barnes: Double Trouble</b> asset.\n<i>Note: if your deck is saved to ArkhamDB, it will show a deckbuilding error as a result of this change.</i>",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "02011"
+        },
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00024"
+        }
+      ]
+    },
+    {
+      "id": "swap_searching_for_izzie_for_i_killed_her",
+      "text": "Jenny Barnes must replace <b>Searching for Izzie</b> with the <b>I Killer Her</b> weakness.\n<i>Note: if your deck is saved to ArkhamDB, it will show a deckbuilding error as a result of this change.</i>",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "02011"
+        },
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00022"
+        }
+      ]
+    },
+    {
+      "id": "jenny_earns_izzies_violin",
+      "text": "Jenny Barnes must add <b>Izzie's Violin</b> to their deck. This card does not count toward her deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00026"
+        }
+      ]
+    },
+    {
+      "id": "swap_searching_for_izzie_for_emerald_light",
+      "text": "Jenny Barnes must replace <b>Searching for Izzie</b> with the <b>Emerald Light</b> weakness.\n<i>Note: if your deck is saved to ArkhamDB, it will show a deckbuilding error as a result of this change.</i>",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "02011"
+        },
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00023"
+        }
+      ]
+    },
+    {
+      "id": "jenny_barnes_killed",
+      "text": "Jenny Barnes has been killed. Do not return the cards in your deck to the collection. This will be your new investigator's deck."
+    },
+    {
+      "id": "take_izzie",
+      "text": "If you are playing in Campaign mode, the player that was controlling Jenny Barnes must start the next scenario using the Isabelle Barnes investigator included with this scenario. Isabelle has the same deck requirements as Jenny, with the exception of the ability to add level 0-3 [[Blessed]] cards to her deck. Isabelle can include and use <b>Jenny Barnes deck only</b> signature cards."
+    },
+    {
+      "id": "explain_swap_searching_for_izzie_for_lost_in_thought",
+      "text": "Remove <b>Searching for Izzie</b> from Isabelle's deck for the remainder of the campaign. Add the <b>Lost in Thought</b> (Isabelle Barnes deck only) weakness to Isabelle's deck."
+    },
+    {
+      "id": "swap_searching_for_izzie_for_lost_in_thought",
+      "text": "Jenny Barnes must replace <b>Searching for Izzie</b> with the <b>Lost in Thought (Jenny Barnes deck only)</b> weakness.\n<i>Note: if your deck is saved to ArkhamDB, it will show a deckbuilding error as a result of this change.</i>",
+      "effects": [
+        {
+          "type": "remove_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "02011"
+        },
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02003",
+          "non_story": true,
+          "card": "zjc_00025"
+        }
+      ]
+    },
+    {
+      "id": "explain_arkhamdb_jenny",
+      "text": "Because ArkhamDB does not support custom cards, the app can leave Jenny Barnes \"alive\" to allow you to continue using the site for your decks."
+    },
+    {
+      "id": "ask_kill_jenny",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "kill",
+            "text": "Would you like to mark Jenny Barnes as <b>killed</b> in the campaign?",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02003",
+                "hidden": true,
+                "killed": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_resigned",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "text": "All this way only to lose Izzie at the very end. You're not sure whether you are going to be able to go on. This was all for her. To find her and keep her safe. Now what will you do? What you can, you suppose. Farewell, Isabelle, dear.",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "jenny_earns_madness",
+        "swap_searching_for_izzie_for_aimless",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "\"Izzie! Isabelle! Wake up! I'm here, I'm here! I need you, Izzie. Come back to me!\"\n Izzie's face grimaces with strain as she fights whatever hex has her insensate. At last, she opens her eyes with a shocked expression on her face.  \"Jenny!\"\n\"Not now lzzie, there's some trouble and this canceled stamp is trying something funny.\"\nYou turn around, twin .45s at the ready, but Mrs. Olmstead has vanished. With the ritual interrupted, the music has finally stopped, and the cathedral has grown silent. It's time to get of here, with your sister, and find a place that's got some jazz to get this terrible tune out of your head.",
+      "steps": [
+        "swap_searching_for_izzie_for_double_trouble",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You'll never know how the song ends, and it will likely haunt your dreams and waking thoughts for the rest of your living days. Izzie's violin clatters to the floor. The amphitheatre grows quiet. Your friends don't know what to say. You are glad they say nothing. It's over. You were too late. But she is at least at peace. You're sorry you can't say the same for yourself. You spend the next hour crawling through the wreckage of the cathedral that the vibrations from Izzie's-no, the Green Man's-song left in its wake. All you can do is move forward. Maybe next time, for the next girl, you'll get there in time. Maybe.",
+      "steps": [
+        "swap_searching_for_izzie_for_i_killed_her",
+        "jenny_earns_izzies_violin",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You awake surrounded by the devastated cathedral. There is nothing left where Izzie once was. The forest glade looks as if a tornado had swept through the area. You are lucky you were not crushed by the rubble as the cathedral collapsed.\nIzzie is gone for good. Nothing could bring her back from that. Her last moments trapped in torment, bound to the Green Man. The perfect vessel not so perfect in the end, I suppose. But that light, that green light, what did it mean?\nYou close your eyes. All you see is green.",
+      "steps": [
+        "swap_searching_for_izzie_for_emerald_light",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You are not sure you are making the right decision. What else can you do? It's Izzie-the little girl you always used to warn to leave you alone, when all she ever did was look up to you. And then one day, she did leave you alone. This is your fault. You knew it might come to this. How can you fight what you can't even see?\nThe Heralds that you had bribed earlier see to the care of Izzie as she is slowly awakened from her trance. Mrs. Olmstead takes your hand and leads you to the center of the amphiteatre. Your friends move to stop you, but you shake your head, and they understand. It is your choice. You feel a pressure; the pitch of a staccato of measure leaves you reeling. You cannot even focus on the god forsaken music. The last thing that you think is that they probably never needed the music anyway.\nIsabelle wakes up hours later. She does not remember how she got to this place. A strange man in a green cloak explains that Jenny took your place in the ritual.\nYou don't understand why she would do that, but her friends tell you it is true. What happened after, they refuse to say. Some things we are better off not knowing. You're not sure what to do. You consider what Jenny would do. And the answer comes to you, she'd do what she could.",
+      "steps": [
+        "jenny_barnes_killed",
+        "take_izzie",
+        "explain_swap_searching_for_izzie_for_lost_in_thought",
+        "explain_arkhamdb_jenny",
+        "ask_kill_jenny",
+        "earn_xp_with_isabelle",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "Mrs. Olmstead sways to the piping as if she does not even notice the degree of her wounds at first. Then her eyes start to dim, and she looks at you sadly, \"My life is but one. It is my master's loss that is truly the tragedy. The vessel -look- it withers and dies.\" Mrs. Olmstead falters and abruptly leans into the wall. \"The vessel cannot be sustained without my sorcery as the anchor. You've doomed her.\" She coughs, then trips, and falls lifeless to the floor.\nYou rush to Izzie's side, but it is too late. Mrs. Olmstead was not lying. Your sister no longer suffers, and you had not known any better. Bitterly, you wonder what you could have done differently. Which of your many decisions has led you down this path?\nIt is weeks before you realize that the Green Man cult has been eradicated. That, in the end, it was a decision made for the greater good. Maybe Izzie would have wanted it this way. You'll never get to ask.",
+      "steps": [
+        "swap_searching_for_izzie_for_lost_in_thought",
+        "earn_xp_plus_2",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

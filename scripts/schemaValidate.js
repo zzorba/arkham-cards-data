@@ -45,6 +45,7 @@ function validate(validator, file, json, schemaName) {
     $check_tarot_reading: true,
     // Technically only for TSK, but whatever.
     $embark: true,
+    $proceed: true,
     $check_status_report: true,
   };
   if (
@@ -74,6 +75,10 @@ function validate(validator, file, json, schemaName) {
       delete unusedSteps["$play_scenario"];
     }
   }
+  if (unusedSteps["$proceed"]) {
+    delete unusedSteps["$proceed"];
+  }
+
   if (json.setup) {
     json.setup.map(step => {
       if (!steps[step] && !magicSteps[step]) {
