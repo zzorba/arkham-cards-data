@@ -1,0 +1,418 @@
+{
+  "id": "the_fall_of_the_house_of_usher",
+  "scenario_name": "The Fall of the House of Usher",
+  "full_name": "The Fall of the House of Usher",
+  "chaos_bag_card": "zcos_00001",
+  "header": "",
+  "xp_cost": 1,
+  "custom": {
+    "creator": "Joe Ehret",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2021/10/01/the-fall-of-the-house-of-usher/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "spawn_usher",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "spawn_usher",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-4",
+              "-5",
+              "-6",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-4",
+              "-5",
+              "-6",
+              "-8",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Dr. Armitage breathes a sigh through his nose as he thumbs through an occult tome, shaking his head. “I can’t find a shred of evidence, but I know something is dreadfully wrong. For years I have been acquainted with the Usher family — one of the earliest families to have emigrated from England, perhaps. Roderick and his sister Madeline are the last descendants of the Ushers. I haven't heard or talked to them in the better ‘part of two decades, but now, out of the blue, Roderick sends me a letter pleading for my personal help.\nTheir manor — the house of Usher, as it is called — is a morose place to be sure, but there has always been something unnatural about it, something that the Ushers have hidden for centuries. cannot find a single hint as to what that secret might be, but I'd stake my reputation on ere being something evil in that house. Evil enough that after ten generations, Roderick feels that he must act, or ask others to act if he cannot.\nHowever, I am not as fit as I once was, nor is this my area of expertise. Can I rely on you to expose this evil?”"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_fall_of_the_house_of_usher"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Madeline Usher, The Tarn, The Thing From the Tarn, Faded Silhouette, and each copy of The Mad Trist."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each other location into play according to the suggested location placement on the next card ith its [[Decadent]] side revealed. Investigators begin play at Roderick’s Studio"
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "private_library",
+          "studio",
+          "gallery"
+        ],
+        [
+          "banquet",
+          "grand_hall",
+          "chapri"
+        ],
+        [
+          "wine_cellar",
+          "crypt",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "private_library",
+          "name": "Private Library"
+        },
+        {
+          "code": "studio",
+          "name": "Roderick's Studio"
+        },
+        {
+          "code": "gallery",
+          "name": "Portrait Gallery"
+        },
+        {
+          "code": "banquet",
+          "name": "Banquet Hall"
+        },
+        {
+          "code": "grand_hall",
+          "name": "Grand Hall"
+        },
+        {
+          "code": "chapri",
+          "name": "Manor Chapri"
+        },
+        {
+          "code": "wine_cellar",
+          "name": "Wine Cellar"
+        },
+        {
+          "code": "crypt",
+          "name": "Usher Family Crypt"
+        }
+      ]
+    },
+    {
+      "id": "spawn_usher",
+      "text": "Put Roderick Usher into play at Roderick’s Studio."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "house_of_usher_has_fallen",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "zhu_house_of_usher_has_fallen",
+          "text": "the House of Usher has fallen."
+        }
+      ]
+    },
+    {
+      "id": "avenged_the_house_of_usher",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "zhu_avenged_the_house_of_usher",
+          "text": "the investigators avenged the House of Usher."
+        }
+      ]
+    },
+    {
+      "id": "earn_faded_silhoutte",
+      "text": "Any one investigator may choose to add Faded Silhouette to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zhu_00058"
+        }
+      ]
+    },
+    {
+      "id": "ask_mad_trist",
+      "text": "Did an investigator take control of a copy of The Mad Trist during the scenario?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "zhu_00059",
+            "text": "The Mad Trist: <i>Shelter From the Storm</i>",
+            "steps": ["earn_zhu_00059"]
+          },
+          {
+            "id": "zhu_00060",
+            "text": "The Mad Trist: <i>Dragon's Cunning</i>",
+            "steps": ["earn_zhu_00060"]
+          },
+          {
+            "id": "none",
+            "text": "Neither"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_zhu_00059",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add The Mad Trist: <i>Shelter From the Storm</i> to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zhu_00059"
+        }
+      ]
+    },
+    {
+      "id": "earn_zhu_00060",
+      "bullet_type": "small",
+      "text": "Any one investigator may choose to add The Mad Trist: <i>Dragon's Cunning</i> to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zhu_00060"
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You flee across the causeway, not stopping in your escape from the house until a red light reaches your peripheral vision. You turn to see the rays of the red setting sun shining through the great fissure in the manor. Walls and roofs collapse inward, and brick by brick, the house of Usher shakes apart, each piece dropping into the roiling waters of the dark tarn. You watch, transfixed by the sight, until at last the sounds of destruction cease and the waters of the tarn go still once more. The evil that dwells in those dark waters li dormant once more, but for how long?",
+      "steps": [
+        "house_of_usher_has_fallen",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You trudge slowly out the cracked door of the manor and look up at the broken ruin. What little remains of the house stands like skeleton above the still waters of the tarn. There is nothing left here for you - or anyone else, you can only hope. The Usher family is no more, and you pray that no one ever returns to awaken the thing in the tarn. You can take little back to Arkham with you but Madeline's locket as proof of your deed, though you swear you can still feel her silent spirit following you as you depart the grounds.",
+      "steps": [
+        "avenged_the_house_of_usher",
+        "earn_faded_silhoutte",
+        "ask_mad_trist",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
