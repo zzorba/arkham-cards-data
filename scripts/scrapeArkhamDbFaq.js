@@ -16,6 +16,7 @@ const cycles = {
   '06': 'tde',
   '07': 'tic',
   '08': 'eoe',
+  '09': 'tsk',
   '50': 'rtnotz',
   '51': 'rtdwl',
   '52': 'rtptc',

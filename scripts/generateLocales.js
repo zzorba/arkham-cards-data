@@ -325,6 +325,19 @@ async function generateLocale(localeCode) {
     }
   }
 
+  // Translate the custom card cycles
+  const cyclesPoFile = "i18n/" + localeCode + "/cycles.po";
+  const cyclesPo = await getOrCreatePOFile(cyclesPoFile, localeCode, "cycles");
+  const cyclesJson = await readJSON("packs/cycles.json");
+  for (let i = 0; i< cyclesJson.length; i++) {
+    await translate(cyclesJson[i], cyclesPo, allPoEntries, corePoEntries, localeCode);
+  }
+  await writeJSON(
+    cyclesJson,
+    "build/i18n/" + localeCode + "/cycles.json"
+  );
+  cyclesPo.save(cyclesPoFile, printErr);
+
   // Translate the custom card packs
   const packsPoFile = "i18n/" + localeCode + "/packs.po";
   const packsPo = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
