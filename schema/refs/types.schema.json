@@ -8,6 +8,34 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "locationDetails": {
+      "$id": "#locationDetails",
+      "title": "LocationDetails",
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "region": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["region"],
+          "additionalProperties": false
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "mapLabel": {
       "$id": "#mapLabel",
       "title": "MapLabel",
@@ -34,6 +62,52 @@
       "required": ["x", "y", "name", "direction", "type"],
       "additionalProperties": false
     },
+    "dossierElement": {
+      "$id": "#dossierElement",
+      "title": "DossierElement",
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "ratio": {
+              "type": "number"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "alignment": {
+              "type": "string",
+              "enum": ["left", "right"]
+            }
+          },
+          "required": ["ratio", "uri", "alignment"],
+          "additionalProperties": false
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dossier": {
+      "$id": "#dossier",
+      "title": "Dossier",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dossierElement"
+          }
+        }
+      },
+      "required": ["title", "entries"],
+      "additionalProperties": false
+    },
     "mapLocation": {
       "$id": "#mapLocation",
       "title": "MapLocation",
@@ -57,27 +131,11 @@
         "dossier": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "image": {
-                "type": "object",
-                "properties": {
-                  "ratio": {
-                    "type": "number"
-                  },
-                  "uri": {
-                    "type": "string"
-                  }
-                },
-                "required": ["ratio", "uri"],
-                "additionalProperties": false
-              },
-              "text": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
+            "$ref": "#/definitions/dossier"
           }
+        },
+        "details": {
+          "$ref": "#/definitions/locationDetails"
         },
         "status": {
           "type": "string",
@@ -94,7 +152,7 @@
           }
         }
       },
-      "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario"],
+      "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario", "details"],
       "additionalProperties": false
     },
     "partner": {
