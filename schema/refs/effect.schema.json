@@ -541,8 +541,44 @@
       "oneOf": [
         { "$ref": "#/definitions/scenarioDataInvestigatorEffect" },
         { "$ref": "#/definitions/scenarioDataInvestigatorStatusEffect" },
+        { "$ref": "#/definitions/scenarioDataAddInvestigatorEffect" },
         { "$ref": "#/definitions/scenarioDataStatusEffect" }
       ]
+    },
+    "scenarioDataAddInvestigatorEffect": {
+      "$id": "#scenarioDataAddInvestigatorEffect",
+      "title": "ScenarioDataAddInvestigatorEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "add_investigator"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "$fixed_investigator"
+          ]
+        },
+        "fixed_investigator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator",
+        "fixed_investigator"
+      ],
+      "additionalProperties": false
     },
     "scenarioDataInvestigatorStatusEffect": {
       "$id": "#scenarioDataInvestigatorStatusEffect",
@@ -1081,6 +1117,7 @@
             "lead_investigator",
             "defeated",
             "not_resigned",
+            "resigned",
             "$input_value",
             "$fixed_investigator"
           ]

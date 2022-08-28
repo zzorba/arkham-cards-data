@@ -259,10 +259,10 @@
       "input": {
         "type": "random_location",
         "cards": [
-          "zjc_00002",
-          "zjc_00004",
-          "zjc_00006",
-          "zjc_00008"
+          "zjc_00009",
+          "zjc_00011",
+          "zjc_00013",
+          "zjc_00015"
         ]
       }
     },
@@ -466,11 +466,41 @@
             "text": "Would you like to mark Jenny Barnes as <b>killed</b> in the campaign?",
             "effects": [
               {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "zjc_killed_jenny",
+                "text": "dummy"
+              }
+
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_zjc_killed_jenny",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "zjc_killed_jenny",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
                 "type": "trauma",
                 "investigator": "$fixed_investigator",
                 "fixed_investigator": "02003",
                 "hidden": true,
                 "killed": true
+              },
+              {
+                "type": "scenario_data",
+                "setting": "add_investigator",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "zjc_00027"
               }
             ]
           }
@@ -538,6 +568,7 @@
         "explain_swap_searching_for_izzie_for_lost_in_thought",
         "explain_arkhamdb_jenny",
         "ask_kill_jenny",
+        "check_zjc_killed_jenny",
         "earn_xp_with_isabelle",
         "$upgrade_decks"
       ]
