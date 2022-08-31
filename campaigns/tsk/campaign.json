@@ -910,6 +910,7 @@
   "setup": [
     "choose_investigators",
     "difficulty_choice",
+    "draw_weakness",
     "move_to_arkham"
   ],
   "scenario_setup": [
@@ -919,6 +920,45 @@
     "$maybe_embark_side_scenario"
   ],
   "steps": [
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "count": 1,
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks"
+      }
+    },
     {
       "id": "choose_investigators",
       "type": "input",
