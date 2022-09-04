@@ -25,6 +25,7 @@
   ],
   "setup": [
     "intro",
+    "maybe_choose_investigators",
     "difficulty_choice",
     "maybe_draw_weakness",
     "explore_rule",
@@ -34,6 +35,29 @@
   ],
   "steps": [
 
+    {
+      "id": "maybe_choose_investigators",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_investigators"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
     {
       "id": "maybe_draw_weakness",
       "type": "branch",
