@@ -325,35 +325,26 @@ async function generateLocale(localeCode) {
     }
   }
 
-  // Translate the custom card cycles
-  const cyclesPoFile = "i18n/" + localeCode + "/cycles.po";
-  const cyclesPo = await getOrCreatePOFile(cyclesPoFile, localeCode, "cycles");
-  const cyclesJson = await readJSON("packs/cycles.json");
-  for (let i = 0; i< cyclesJson.length; i++) {
-    await translate(cyclesJson[i], cyclesPo, allPoEntries, corePoEntries, localeCode);
-  }
-  await writeJSON(
-    cyclesJson,
-    "build/i18n/" + localeCode + "/cycles.json"
-  );
-  cyclesPo.save(cyclesPoFile, printErr);
+  const SPECIAL_FILES = ['cycles', 'packs', 'factions', 'types', 'subtypes'];
+  for (let i = 0; i < SPECIAL_FILES.length; i++) {
+    const file = SPECIAL_FILES[i];
 
-  // Translate the custom card packs
-  const packsPoFile = "i18n/" + localeCode + "/packs.po";
-  const packsPo = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
-  const packsJson = await readJSON("packs/packs.json");
-  for (let i = 0; i< packsJson.length; i++) {
-    await translate(packsJson[i], packsPo, allPoEntries, corePoEntries, localeCode);
+    const poFile = `i18n/${localeCode}/${file}.po`;
+    const po = await getOrCreatePOFile(poFile, localeCode, file);
+    const json = await readJSON(`packs/${file}.json`);
+    for (let j = 0; j < json.length; j++) {
+      await translate(json[j], po, allPoEntries, corePoEntries, localeCode);
+    }
+    await writeJSON(
+      json,
+      `build/i18n/${localeCode}/${file}.json`
+    );
+    po.save(poFile, printErr);
+    for (const item of po.items) {
+      allPoEntries[itemMessageId(item)] = item;
+    }
   }
-  await writeJSON(
-    packsJson,
-    "build/i18n/" + localeCode + "/packs.json"
-  );
-  packsPo.save(packsPoFile, printErr);
 
-  for (const item of packsPo.items) {
-    allPoEntries[itemMessageId(item)] = item;
-  }
 
   // Translate the encounter_sets
   const encounter_sets = await readEncounterSets('en');
