@@ -119,8 +119,12 @@
           "enum": [
             "all",
             "$input_value",
-            "lead_investigator"
+            "lead_investigator",
+            "$fixed_investigator"
           ]
+        },
+        "fixed_investigator": {
+          "type": "string"
         },
         "weakness_traits": {
           "type": "array",
@@ -268,7 +272,8 @@
         { "$ref": "#/definitions/campaignDataDifficultyEffect" },
         { "$ref": "#/definitions/campaignDataNextScenarioEffect" },
         { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" },
-        { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" }
+        { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" },
+        { "$ref": "#/definitions/campaignDataEmbarkEffect" }
       ]
     },
     "campaignDataResultEffect": {
@@ -380,6 +385,34 @@
         "type",
         "setting",
         "investigator_count"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataEmbarkEffect": {
+      "$id": "#campaignDataEmbarkEffect",
+      "title": "CampaignDataEmbarkEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": ["embark"]
+        },
+        "location": {
+          "type": "string"
+        },
+        "starting_location": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "setting"
       ],
       "additionalProperties": false
     },
@@ -508,8 +541,44 @@
       "oneOf": [
         { "$ref": "#/definitions/scenarioDataInvestigatorEffect" },
         { "$ref": "#/definitions/scenarioDataInvestigatorStatusEffect" },
+        { "$ref": "#/definitions/scenarioDataAddInvestigatorEffect" },
         { "$ref": "#/definitions/scenarioDataStatusEffect" }
       ]
+    },
+    "scenarioDataAddInvestigatorEffect": {
+      "$id": "#scenarioDataAddInvestigatorEffect",
+      "title": "ScenarioDataAddInvestigatorEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "setting": {
+          "type": "string",
+          "enum": [
+            "add_investigator"
+          ]
+        },
+        "investigator": {
+          "type": "string",
+          "enum": [
+            "$fixed_investigator"
+          ]
+        },
+        "fixed_investigator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "setting",
+        "investigator",
+        "fixed_investigator"
+      ],
+      "additionalProperties": false
     },
     "scenarioDataInvestigatorStatusEffect": {
       "$id": "#scenarioDataInvestigatorStatusEffect",
@@ -1048,8 +1117,13 @@
             "lead_investigator",
             "defeated",
             "not_resigned",
-            "$input_value"
+            "resigned",
+            "$input_value",
+            "$fixed_investigator"
           ]
+        },
+        "fixed_investigator": {
+          "type": "string"
         },
         "heal_input": {
           "type": "string",

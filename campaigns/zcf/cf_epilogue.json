@@ -1,0 +1,82 @@
+{
+  "id": "cf_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "header": "",
+  "type": "epilogue",
+  "icon": "shadowy_agents",
+  "setup": [
+    "escaped",
+    "check_notice",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "escaped",
+      "type": "story",
+      "text": "In contrast to your initial journey to Singapore, you take a much slower route back to Arkham.  Though the immediate danger has passed, you still don't know how the cult of Cthulhu coordinates worldwide.  Anyone you pass at the docks could be secretly among their ranks, waiting to strike at any time.  Long tense weeks pass before you finally make berth at Kingsport and return to the snowy streets of Arkham once more."
+    },
+    {
+      "id": "check_notice",
+      "text": "Check the Campaign Log.  If you have less than 20 <b>Notice</b>:",
+      "type": "branch",
+      "condition": {
+
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "notice"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 20
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["still_waters"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["deep_currents", "humanoid_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "still_waters",
+      "type": "story",
+      "title": "Still Waters",
+      "text": "With the blanket of February snow, Arkham seems starkly silent after the months you've spent at sea and in bustling ports.  You let yourself into your home and get the boiler running again before you begin to unpack -- and not just your luggage.  There is a great deal you have discovered, and you must catalog it to be prepared for the cult's future designs."
+    },
+    {
+      "id": "deep_currents",
+      "type": "story",
+      "title": "Deep Currents",
+      "text": "Despite the tranquility, you've never felt more tense walking through Arkham in broad daylight.  You listen carefully for any footsteps but your own, keeping your head down and avoiding stopping until you are safely home with the door bolted.  You peek through the curtains to scan the street, and barely visible through the snow, a lone figure in a trenchcoat stares back at you before dousing a cigarette and striding slowly away."
+    },
+    {
+      "id": "humanoid_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Humanoid]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": ["Humanoid"]
+        }
+      ]
+    }
+  ]
+}

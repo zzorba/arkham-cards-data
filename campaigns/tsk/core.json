@@ -1,0 +1,185 @@
+{
+  "id": "core",
+  "scenario_name": "The Scarlet Keys",
+  "full_name": "The Scarlet Keys",
+  "header": "",
+  "type": "core",
+  "setup": [
+    "$check_status_report",
+    "$maybe_embark_side_scenario"
+  ],
+  "steps": [
+    {
+      "id": "$maybe_embark_side_scenario",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "next_scenario",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["$embark", "special_proceed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "special_proceed",
+      "text": "You may <b>embark</b>",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "$check_status_report",
+      "hidden": true,
+      "steps": ["check_sr_1", "check_sr_2"]
+    },
+    {
+      "id": "check_sr_1",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 7
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_1",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_1",
+                "text": "dummy"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_1"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_1",
+      "title": "Status Report",
+      "text": "dummy"
+    },
+
+    {
+      "id": "check_sr_2",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 12
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_2",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "sr_2_unlocked",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_2",
+                "text": "dummy"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_2"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_2",
+      "title": "Status Report",
+      "text": "dummy"
+    }
+  ]
+}

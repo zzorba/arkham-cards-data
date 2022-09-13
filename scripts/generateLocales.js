@@ -82,7 +82,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender, starter) {
   const normalized = unorm.nfc(object[prop]);
@@ -325,22 +325,26 @@ async function generateLocale(localeCode) {
     }
   }
 
-  // Translate the custom card packs
-  const packsPoFile = "i18n/" + localeCode + "/packs.po";
-  const packsPo = await getOrCreatePOFile(packsPoFile, localeCode, "packs");
-  const packsJson = await readJSON("packs/packs.json");
-  for (let i = 0; i< packsJson.length; i++) {
-    await translate(packsJson[i], packsPo, allPoEntries, corePoEntries, localeCode);
-  }
-  await writeJSON(
-    packsJson,
-    "build/i18n/" + localeCode + "/packs.json"
-  );
-  packsPo.save(packsPoFile, printErr);
+  const SPECIAL_FILES = ['cycles', 'packs', 'factions', 'types', 'subtypes'];
+  for (let i = 0; i < SPECIAL_FILES.length; i++) {
+    const file = SPECIAL_FILES[i];
 
-  for (const item of packsPo.items) {
-    allPoEntries[itemMessageId(item)] = item;
+    const poFile = `i18n/${localeCode}/${file}.po`;
+    const po = await getOrCreatePOFile(poFile, localeCode, file);
+    const json = await readJSON(`packs/${file}.json`);
+    for (let j = 0; j < json.length; j++) {
+      await translate(json[j], po, allPoEntries, corePoEntries, localeCode);
+    }
+    await writeJSON(
+      json,
+      `build/i18n/${localeCode}/${file}.json`
+    );
+    po.save(poFile, printErr);
+    for (const item of po.items) {
+      allPoEntries[itemMessageId(item)] = item;
+    }
   }
+
 
   // Translate the encounter_sets
   const encounter_sets = await readEncounterSets('en');

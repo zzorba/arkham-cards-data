@@ -1,7 +1,7 @@
 {
   "id": "ptc",
   "position": 2,
-  "version": 3,
+  "version": 4,
   "name": "The Path to Carcosa",
   "tarot": [
     "curtain_call",
@@ -53,16 +53,85 @@
     "curtain_call",
     "the_last_king"
   ],
+  "hidden_scenarios": [
+    "ptc_interlude1",
+    "ptc_interlude1_reprint",
+    "echoes_of_the_past",
+    "the_unspeakable_oath",
+    "ptc_interlude2",
+    "a_phantom_of_truth",
+    "the_pallid_mask",
+    "black_stars_rise",
+    "dim_carcosa",
+    "ptc_epilogue"
+  ],
   "setup": [
     "prologue",
     "choose_investigators",
     "difficulty_choice",
+    "maybe_draw_weakness",
     "check_reprint_version",
     "hidden_keyword",
     "doubt_and_conviction",
     "story_cards"
   ],
   "steps": [
+
+    {
+      "id": "maybe_draw_weakness",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 4,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["draw_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "trauma": true
+      }
+    },
     {
       "id": "prologue",
       "type": "story",

@@ -127,31 +127,12 @@ async function readPOFile(scenarioPoFile) {
 }
 
 /**
- * Read the encounter sets.
- * @param {string} localeCode  - Locale code (en, es, ...)
- */
-async function readEncounterSets(localeCode) {
-  const json = await readJSON(`encounter_sets/${localeCode}.json`);
-  const encounter_sets = {};
-  for(let i = 0; i < json.length; i++) {
-    const entry = json[i];
-    encounter_sets[entry.code] = entry.name;
-  }
-  return encounter_sets;
-}
-
-/**
  * Generate localized JSON files for a specific locale.
  *
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function checkLocale(localeCode) {
   const allPoFiles = getFilePaths(`i18n/${localeCode}`);
-  const printErr = (err) => {
-    if (err) {
-      console.log(err);
-    }
-  };
   for (const scenarioPoFile of allPoFiles.sort()) {
     let missing = 0;
     if (scenarioPoFile.indexOf(".DS_Store") !== -1) {

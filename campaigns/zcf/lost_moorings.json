@@ -1,0 +1,584 @@
+{
+  "id": "lost_moorings",
+  "scenario_name": "Lost Moorings",
+  "header": "Scenario I",
+  "full_name": "Scenario I: Lost Moorings",
+  "chaos_bag_card": "zcf_00001",
+  "icon": "lost_moorings",
+  "setup": [
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Your preparations take you a good portion of the day, and by the time you are ready to set out for the Miskatonic riverfront, the gray November skies have begun to trickle rain and the wind has strengthened considerably.  At its current rate, this approaching storm will reach its full strength during your investigations.  Preferable as it would be to wait out the bad weather, each delay only reduces your chances of finding the missing cargo.\nYou step out into the streets of Arkham and pull your coat a little tighter as you review the information from Wycliffe once more.  The Mycenae expedition returned directly from Greece, and offloaded the cargo at Kingsport from the ocean liner to a cargo barge.  This barge was taken up the Miskatonic river by a towboat named the Myra Louise.  This towboat is the same one that delivered the previous expedition findings, and has been operating on the Miskatonic River for over twenty years without incident.  That doesn't change the fact, however, that the Myra Louise missed its scheduled arrival in Arkham last night and has not been seen since its departure from Kingsport.\nThe key to unraveling the cargo's disappearance and your own misgivings about Wycliffe's job for you both lie with finding the missing towboat.  You proceed from your house toward the river, guarding yourself against the elements with a curious feeling growing at the back of your mind.  An atmosphere of unease has settled over Arkham this evening, worse than the usual air of superstition.  Some of the people you pass act like sleepwalkers, barely conscious of their surroundings and talking to themselves in stilted bursts.  Others stare at you with suspicion and fear, only averting their eyes once you notice them.  And perhaps it's your imagination, but are there dark shapes moving in the river?"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "lost_moorings",
+        "awakened_madness",
+        "spawn_of_rlyeh",
+        "storm_and_sea",
+        "unfriendly_ports"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Main Deck, Wheelhouse, Engine Room, Bill Bledsoe, Tomasz Rybicki."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Waterfront, Arkham Quay, Shipping Warehouses, Drydocks, Fishing Piers, and The Gutted Trout locations into play. Each investigator begins play at Waterfront."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        ["blank", "gutted_trout", "fishing_piers"],
+        ["blank", "waterfront", "blank"],
+        ["drydocks", "arkham_quay", "shipping_warehouses"]
+      ],
+      "location_names": [
+        {
+          "code": "gutted_trout",
+          "name": "The Gutted Trout"
+        },
+        {
+          "code": "fishing_piers",
+          "name": "Fishing Piers"
+        },
+        {
+          "code": "waterfront",
+          "name": "Waterfront"
+        },
+        {
+          "code": "drydocks",
+          "name": "Drydocks"
+        },
+        {
+          "code": "arkham_quay",
+          "name": "Arkham Quay"
+        },
+        {
+          "code": "shipping_warehouses",
+          "name": "Shipping Warehouses"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "evidence_on_board",
+            "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "lm_evidence_1",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "lm_evidence_2",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "lm_evidence_3",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "count": 1,
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "Evidence On Board",
+            "style": "interlude",
+            "steps": [
+              "choose_evidence_on_board"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_evidence_on_board",
+      "type": "input",
+      "text": "Which interlude should be read?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "evidence_1",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "lm_evidence_1",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Evidence I",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "lm_evidence_1",
+                "text": "dummy"
+              }
+            ],
+            "border": true,
+            "steps": ["evidence_1_story", "evidence_1_effects"]
+          },
+          {
+            "id": "evidence_2",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "lm_evidence_2",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Evidence II",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "lm_evidence_2",
+                "text": "dummy"
+              }
+            ],
+            "border": true,
+            "steps": ["evidence_2_story", "evidence_2_effects"]
+          },
+          {
+            "id": "evidence_3",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "lm_evidence_3",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Evidence III",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "lm_evidence_3",
+                "text": "dummy"
+              }
+            ],
+            "border": true,
+            "steps": ["evidence_3_story", "evidence_3_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence_1_story",
+      "type": "story",
+      "text": "As you walk the main deck and venture into its cabins, the ship's architecture doesn't seem to come together correctly.  Corners that you expect to join stay apart despite all appearances, and you stumble over seemingly flat boards.  On closer inspection at various spots on the deck, you find small fragments of a soapy green stone embedded in the wood.  Your vision wobbles slightly as you gaze at the stones, focusing the dizzy feeling from earlier.  You're not sure if these stones were placed here on purpose, or merely left behind by whoever attacked the ship, but what is certain is that the fragments are a sign of arcane tampering."
+    },
+    {
+      "id": "evidence_1_effects",
+      "text": "Remember that you \"inspected the ship.\""
+    },
+    {
+      "id": "evidence_2_story",
+      "type": "story",
+      "text": "Though the wheelhouse does seem barren at a glance, you find a strongbox bolted firmly in place near the helm.  The box is solidly locked, and it isn't until you scour the rest of the towboat that you find the body of the Myra Louise's captain, with the matching key still in his coat pocket.  The strongbox contains most of the paperwork concerning the ship's business, among which you find a manifest of the cargo taken for the Mycenae expedition.  When compared with the list that James Wycliffe included in his letter, you find some discrepancies, most notably sealed crates containing several tons of carved stone blocks.  In fact, this stone seems to be the majority of the expedition cargo, making you wonder why Wycliffe didn't mention it at all."
+    },
+    {
+      "id": "evidence_2_effects",
+      "text": "Remember that you \"found the cargo manifest.\""
+    },
+
+
+    {
+      "id": "evidence_3_story",
+      "type": "story",
+      "text": "What at first seemed like a fight between two parties now looks to be three instead.  Corpses in the practical outfits of sailors are grouped together in one corner while bodies in tailored suits and trenchcoats lie mixed with those of horrible fishlike creatures.  Judging from the broken tommy guns and quality of their suits, these men were members of Arkham's infamous O'Bannion gang.  What brought them into conflict with these mutants is anyone's guess, however.  Were they both laying claim to the same prize?  Or were they working together and came to a dispute?"
+    },
+    {
+      "id": "evidence_3_effects",
+      "text": "Remember that you \"examined the corpses.\""
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_individual_xp",
+      "text": "If any investigator has earned additional experience from player card effects, record it here:",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Additional XP",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value"
+          }
+        ]
+      }
+    },
+    {
+      "id": "failed_to_find_the_myra_louise",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "failed_to_find_the_myra_louise",
+          "text": "the investigators failed to find the Myra Louise."
+        }
+      ]
+    },
+    {
+      "id": "found_the_myra_louise",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_the_myra_louise",
+          "text": "the investigators found the Myra Louise."
+        }
+      ]
+    },
+    {
+      "id": "explored_the_myra_louise",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "explored_the_myra_louise",
+          "text": "the investigators explored the Myra Louise."
+        }
+      ]
+    },
+    {
+      "id": "have_been_observed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_been_observed",
+          "text": "the investigators have been observed."
+        }
+      ]
+    },
+    {
+      "id": "mark_one_notice",
+      "text": "Mark one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "ask_evidence_found",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "five",
+            "text": "Did the investigators find all five pieces of evidence?",
+            "steps": ["bonus_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bonus_xp",
+      "bullet_type": "small",
+      "text": "Each investigators gains 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "check_3_experience",
+      "text": "If any investigator earned 3 or more experience during this scenario:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_notice_small",
+              "check_6_experience"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_6_experience",
+      "type": "branch",
+      "text": "If any investigator earned 6 or more experience during this scenario:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "most_xp_earned"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 6
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "mark_one_additional_notice_small"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_one_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "mark_one_additional_notice_small",
+      "bullet_type": "small",
+      "text": "Mark one additional <b>Notice</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "notice",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Everything seemed to conspire against you in your search tonight.  False leads, dead ends and a lack of direct witnesses kept you running in circles long enough for the thugs, monsters, and elements to push you to your limit.  You beat a hasty retreat to Velma's Diner to recuperate and think of a new approach.  Black coffee soothes your body and mind all at once, and you sit silently thinking of where to try next.  Out of all the possibilities, only one checks all the boxes: the O'Bannion gang.  With the amount of riverfront property they control, their armed force to hijack the ship, and their capacity for threatening witnesses into silence, it's a likely – and dangerous – lead to follow.",
+      "steps": [
+        "failed_to_find_the_myra_louise",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Despite finding the lost ship, the constant assaults forced you to withdraw before you were able to fully explore it.  You pull yourself together and retreat to the warmth and relative safety of Velma's Diner.  Black coffee soothes your body and mind all at once, and you sort through what information you were able to gather.  One memory in particular comes to mind, from when you first entered the ship, of the body in the expensive suit being dumped overboard.  The only possibility that reaches your mind is the O'Bannion gang.  Only a gangster would be that well-dressed at the scene of a crime.  Whether or not they were working with or against the other man on the ship, the O'Bannions were definitely involved, and the only way to sort out the mystery is to confront them directly.",
+      "steps": [
+        "found_the_myra_louise",
+        "mark_one_notice",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Satisfied with your examination of the Myra Louise, you return to land before the night can throw any other surprises at you.  From there, you pay a visit to Velma's Diner to refresh yourself and go over the information you gathered.  What you found on the ship provided just as many mysteries as answers, and you still don't feel much closer to recovering the expedition's stolen findings.  You do have an idea of where to search next, however, thanks to the brutish man you first clashed with on the ship.  When you approached, you saw him dumping a body in an expensive suit over the side of the ship.  Only a gangster would be that well-dressed at the scene of a crime, and only the O'Bannion gang would be so bold as to hijack a publicly celebrated expedition.  If anyone knows where the missing cargo is, it's those gangsters.  Your course is clear.",
+      "steps": [
+        "explored_the_myra_louise",
+        "ask_evidence_found",
+        "mark_one_notice",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "As you reach your decision to pursue the gangsters, you glance out the window of the diner by chance.  Through the constant rain, you spot a dark figure in a trenchcoat, just at the edge of your vision.  The glow of a cigarette partially lights its face, looking straight ahead and focused intently on you.  The moment you rise from your seat, the figure turns and strides away.  How long have you been followed?  And by whom?  The O'Bannions?  Someone else?  Some<b>thing</b> else?  You take another sip of warm coffee to counter the fresh chill that rattles down your back.",
+      "steps": [
+        "have_been_observed",
+        "add_cultist",
+        "earn_xp",
+        "earn_individual_xp",
+        "check_3_experience",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

@@ -27,6 +27,39 @@
       "required": ["id", "title"],
       "additionalProperties": false
     },
+    "campaignMap": {
+      "$id": "#campaignMap",
+      "title": "CampaignMap",
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "max_time": {
+          "type": "number"
+        },
+        "final_scenario": {
+          "type": "string"
+        },
+        "locations": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/mapLocation"
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/mapLabel"
+          }
+        }
+      },
+      "required": ["width", "height", "max_time", "final_scenario", "locations", "labels"],
+      "additionalProperties": false
+    },
     "campaign": {
       "$id": "#campaign",
       "title": "Campaign",
@@ -49,6 +82,9 @@
         },
         "position": {
           "type": "integer"
+        },
+        "map": {
+          "$ref": "#/definitions/campaignMap"
         },
         "cards": {
           "type": "array",
@@ -91,6 +127,24 @@
             "type": "string"
           }
         },
+        "scenario_setup": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "side_scenario_steps": {
+          "type": "array",
+          "items": {
+            "$ref": "step.schema.json#/definitions/step"
+          }
+        },
+        "side_scenario_resolution": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "setup": {
           "type": "array",
           "items": {
@@ -98,12 +152,6 @@
           }
         },
         "steps": {
-          "type": "array",
-          "items": {
-            "$ref": "step.schema.json#/definitions/step"
-          }
-        },
-        "side_scenario_steps": {
           "type": "array",
           "items": {
             "$ref": "step.schema.json#/definitions/step"

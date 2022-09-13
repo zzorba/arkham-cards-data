@@ -8,6 +8,154 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "locationDetails": {
+      "$id": "#locationDetails",
+      "title": "LocationDetails",
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "country": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": ["name"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["region"],
+      "additionalProperties": false
+    },
+    "mapLabel": {
+      "$id": "#mapLabel",
+      "title": "MapLabel",
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["left", "center", "right"]
+        },
+        "type": {
+          "type": "string",
+          "enum": ["connection", "ocean", "small_ocean", "continent", "country"]
+        }
+      },
+      "required": ["x", "y", "name", "direction", "type"],
+      "additionalProperties": false
+    },
+    "dossierElement": {
+      "$id": "#dossierElement",
+      "title": "DossierElement",
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "ratio": {
+              "type": "number"
+            },
+            "uri": {
+              "type": "string"
+            },
+            "alignment": {
+              "type": "string",
+              "enum": ["left", "right"]
+            }
+          },
+          "required": ["ratio", "uri", "alignment"],
+          "additionalProperties": false
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dossier": {
+      "$id": "#dossier",
+      "title": "Dossier",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dossierElement"
+          }
+        }
+      },
+      "required": ["title", "entries"],
+      "additionalProperties": false
+    },
+    "mapLocation": {
+      "$id": "#mapLocation",
+      "title": "MapLocation",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scenario": {
+          "type": "string"
+        },
+        "dossier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dossier"
+          }
+        },
+        "details": {
+          "$ref": "#/definitions/locationDetails"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["locked", "standard", "side"]
+        },
+        "direction": {
+          "type": "string",
+          "enum": ["left", "right"]
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario", "details"],
+      "additionalProperties": false
+    },
     "partner": {
       "$id": "#partner",
       "title": "Partner",
@@ -310,6 +458,18 @@
               "type": "string"
             },
             "it": {
+              "type": "string"
+            },
+            "vi": {
+              "type": "string"
+            },
+            "pl": {
+              "type": "string"
+            },
+            "uk": {
+              "type": "string"
+            },
+            "pt": {
               "type": "string"
             }
           },

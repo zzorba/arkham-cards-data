@@ -320,7 +320,28 @@
             "choice",
             "any",
             "resigned",
+            "defeated",
             "not_defeated"
+          ]
+        },
+        "min": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
+          ]
+        },
+        "max": {
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
           ]
         },
         "condition": {
@@ -661,6 +682,9 @@
           "enum": [
             "save_decks"
           ]
+        },
+        "trauma": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -796,10 +820,24 @@
           "type": "string"
         },
         "min": {
-          "type": "number"
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
+          ]
         },
         "max": {
-          "type": "number"
+          "oneOf": [
+            {
+              "$ref": "condition.schema.json#/definitions/constantOperand"
+            },
+            {
+              "$ref": "condition.schema.json#/definitions/campaignLogCountOperand"
+            }
+          ]
         },
         "long_lived": {
           "type": "boolean"
@@ -811,7 +849,6 @@
           "type": "array",
           "items": {
             "$ref": "effect.schema.json#/definitions/effect"
-
           }
         }
       },

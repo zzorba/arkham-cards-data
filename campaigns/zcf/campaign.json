@@ -1,0 +1,372 @@
+{
+  "id": "zcf",
+  "position": 23,
+  "version": 2,
+  "name": "Cyclopean Foundations",
+  "tarot": [
+    "lost_moorings",
+    "going_twice",
+    "private_lives",
+    "crumbling_masonry",
+    "across_dreadful_waters",
+    "blood_from_stones",
+    "pyroclastic_flow",
+    "tomb_of_dead_dreams"
+  ],
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2021/05/29/cyclopean-foundations-campaign/",
+      "ko": "https://cafe.naver.com/arkhamfiles/3804"
+    }
+  },
+  "campaign_type": "campaign",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "notice",
+      "title": "Notice",
+      "type": "count"
+    },
+    {
+      "id": "cultists_alive",
+      "title": "Cultists Alive"
+    },
+    {
+      "id": "cultists_killed",
+      "title": "Cultists Killed"
+    },
+    {
+      "id": "hidden",
+      "title": "hidden",
+      "type": "hidden"
+    }
+  ],
+  "scenarios": [
+    "cf_prologue",
+    "lost_moorings",
+    "going_twice",
+    "private_lives",
+    "crumbling_masonry",
+    "a_house_divided",
+    "across_dreadful_waters",
+    "blood_from_stones",
+    "pyroclastic_flow",
+    "tomb_of_dead_dreams",
+    "cf_epilogue"
+  ],
+  "setup": [
+    "quote",
+    "intro",
+    "choose_investigators",
+    "difficulty_choice",
+    "maybe_draw_weakness",
+    "notice_rule",
+    "non_euclidean_rule"
+  ],
+  "steps": [
+
+    {
+      "id": "maybe_draw_weakness",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["draw_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "trauma": true
+      }
+    },
+    {
+      "id": "quote",
+      "type": "story",
+      "title": "Impossible Angles and Unearthly Stone",
+      "text": "\"…for instead of describing any definite structure or building, he dwells only on broad impressions of vast angles and stone surfaces — surfaces too great to belong to any thing right or proper for this earth, and impious with horrible images and hieroglyphs. I mention his talk about angles because it suggests something Wilcox had told me of his awful dreams. He had said that the geometry of the dream place he saw was abnormal, non-Euclidean, and loathsomely redolent of spheres and dimensions apart from ours.\"\n-- H.P. Lovecraft, The Call of Cthulhu"
+    },
+    {
+      "id": "intro",
+      "text": "<i>Cyclopean Foundations</i> is an eight-part campaign for <i>Arkham Horror: The Card Game</i> for 1 - 4 players.  This campaign is based on <i>The Call of Cthluhu</i> by H. P. Lovecraft and draws from real-life events, conspiracy folklore, and other Arkham properties."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "<i>I want to scratch the surface</i>",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "skull",
+              "tablet",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "<i>I want to delve into mystery</i>",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "skull",
+              "tablet",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "<i>I want to glimpse the impossible</i>",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "skull",
+              "tablet",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "<i>I want to breach a different reality</i>",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "skull",
+              "tablet",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "notice_rule",
+      "type": "rule_reminder",
+      "title": "Notice",
+      "text": "Some resolutions and interludes in the <i>Cyclopean Foundations</i> campaign will instruct players to add or remove <b>Notice</b> to or from the Campaign Log.  This is done by marking on the meter on the second page of the Campaign Log.\nLater in the campaign, some scenarios may be changed or altered depending on how much <b>Notice</b> the investigators have.  <b>Notice</b> is shared among all of the investigators, and it is not tied to any specific investigator.  <b>Notice</b> has no game effect except when explicitly referenced by the Campaign Guide or by a card effect."
+    },
+    {
+      "id": "non_euclidean_rule",
+      "type": "rule_reminder",
+      "title": "Non-Euclidean",
+      "text": "Non-Euclidean is a new ability that appears on some locations.  When an investigator would move from a location, that investigator must resolve all “<b>Non-Euclidean</b> –” abilities on that location.\nA location is “non-Euclidean” for the purposes of other card effects if it has at least one “<b>Non-Euclidean</b> –” ability (printed or otherwise)."
+    }
+  ]
+}
