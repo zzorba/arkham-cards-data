@@ -82,16 +82,23 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'selected_nonbinary_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender, starter) {
   const normalized = unorm.nfc(object[prop]);
-  let context = gender;
+  let context = undefined;
+  if (gender) {
+    if (gender === 'm') {
+      context = 'masculine';
+    } else if (gender === 'f') {
+      context === 'feminine';
+    }
+  }
   if (prop === 'masculine_text') {
     context = 'masculine';
   } else if (prop === 'feminine_text' || prop === 'selected_feminine_text') {
     context = 'feminine';
-  } else if (prop === 'nonbinary_text') {
+  } else if (prop === 'nonbinary_text' || prop === 'selected_nonbinary_text') {
     context = 'nonbinary';
   }
   let foundPoEntry = allPoEntries[messageId(normalized, context)];
