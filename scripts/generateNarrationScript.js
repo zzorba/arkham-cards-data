@@ -2,13 +2,11 @@ const promisify = require("util").promisify;
 const fs = require("fs");
 const path = require("path");
 const PO = require("pofile");
-const getFilePaths = require("./utils/getFilePaths");
 const unorm = require('unorm');
 
 const loadPOFile = promisify(PO.load);
 
 const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
@@ -59,74 +57,6 @@ async function readJSON(filePath) {
     return JSON.parse(rawData);
   } catch (err) {
     throw new Error("Could not load JSON file : " + err);
-  }
-}
-
-/**
- * Write an object to JSON file.
- *
- * @param {object} object - The object to write as JSON in a file
- * @param {string} filePath - The path to write to
- */
-async function writeJSON(object, filePath) {
-  try {
-    console.log(`Creating directory for file: ${filePath} - ${path.dirname(filePath)}`)
-    fs.mkdirSync(path.dirname(filePath), { recursive: true }, err => {
-      console.log(err);
-    });
-    writeFile(filePath, JSON.stringify(object, null, 2));
-  } catch (err) {
-    throw new Error("Could not write JSON file: " + filePath + err);
-  }
-}
-
-const TRANSLATEABLE_KEYS = new Set(['example', 'masculine_text', 'feminine_text', 'text', 'note', 'title', 'subtext', 'prompt', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name']);
-
-/**
- * Recursively translate an object using entries from a PO file.
- * The object is modified in place.
- * It will only translate `text` properties.
- *
- * @param {object} object - The object to translate
- * @param {PO} poFile - The PO file to use for translation
- * @param {object} allPoEntries - All entities we have seen to date
- * @param {object} corePoEntries - Entities from the core app
- */
-async function translate(object, poFile, allPoEntries, corePoEntries) {
-  for (const prop in object) {
-    if (object.hasOwnProperty(prop)) {
-      if (TRANSLATEABLE_KEYS.has(prop) && typeof object[prop] === "string") {
-        const normalized = unorm.nfc(object[prop]);
-        let context = undefined;
-        if (prop === 'masculine_text') {
-          context = 'masculine';
-        } else if (prop === 'feminine_text') {
-          context = 'feminine';
-        }
-        let foundPoEntry = allPoEntries[messageId(normalized, context)];
-        if (!foundPoEntry) {
-          foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
-        }
-        if (foundPoEntry !== undefined && foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
-          object[prop] = foundPoEntry.msgstr[0];
-        } else {
-          const needsCreate = foundPoEntry === undefined;
-          foundPoEntry = corePoEntries[messageId(normalized, context)];
-          if (foundPoEntry && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
-            object[prop] = foundPoEntry.msgstr[0];
-          } else if (needsCreate) {
-            const item = new PO.Item();
-            item.msgid = object[prop];
-            item.msgctxt = context;
-            poFile.items.push(item);
-          }
-        }
-      }
-      if (typeof object[prop] === "object" && prop !== 'narration') {
-        // Recursion
-        translate(object[prop], poFile, allPoEntries, corePoEntries);
-      }
-    }
   }
 }
 
