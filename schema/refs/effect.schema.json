@@ -274,7 +274,7 @@
         { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" },
         { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" },
         { "$ref": "#/definitions/campaignDataEmbarkEffect" },
-        { "$ref": "#/definitions/campaignDataUnlockLocationEffect" }
+        { "$ref": "#/definitions/campaignDataUpdateLocationEffect" }
       ]
     },
     "campaignDataResultEffect": {
@@ -407,7 +407,7 @@
         "location": {
           "type": "string"
         },
-        "starting_location": {
+        "may_return": {
           "type": "boolean"
         }
       },
@@ -417,9 +417,9 @@
       ],
       "additionalProperties": false
     },
-    "campaignDataUnlockLocationEffect": {
-      "$id": "#campaignDataUnlockLocationEffect",
-      "title": "CampaignDataUnlockLocationEffect",
+    "campaignDataUpdateLocationEffect": {
+      "$id": "#campaignDataUpdateLocationEffect",
+      "title": "CampaignDataUpdateLocationEffect",
       "type": "object",
       "properties": {
         "type": {
@@ -430,16 +430,16 @@
         },
         "setting": {
           "type": "string",
-          "enum": ["unlock_location"]
+          "enum": ["unlock_location", "lock_location", "unlock_dossier"]
         },
-        "location": {
+        "value": {
           "type": "string"
         }
       },
       "required": [
         "type",
         "setting",
-        "location"
+        "value"
       ],
       "additionalProperties": false
     },
@@ -1074,6 +1074,44 @@
       ],
       "additionalProperties": false
     },
+    "scarletKeyEffect": {
+      "$id": "#scarletKeyEffect",
+      "title": "ScarletKeyEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scarlet_key"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "scarlet_key": {
+          "type": "string"
+        },
+        "bearer_type": {
+          "type": "string",
+          "enum": [
+            "investigator",
+            "enemy",
+            "steal",
+            "return"
+          ]
+        },
+        "enemy_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "scarlet_key",
+        "bearer_type"
+      ],
+      "additionalProperties": false
+    },
     "partnerStatusEffect": {
       "$id": "#partnerStatusEffect",
       "title": "PartnerStatusEffect",
@@ -1149,6 +1187,7 @@
             "all",
             "lead_investigator",
             "defeated",
+            "not_defeated",
             "not_resigned",
             "resigned",
             "$input_value",
@@ -1225,7 +1264,8 @@
         { "$ref": "#/definitions/gainSuppliesEffect" },
         { "$ref": "#/definitions/loseSuppliesEffect" },
         { "$ref": "#/definitions/checkCampaignLogCardsEffect" },
-        { "$ref": "#/definitions/checkCampaignLogCountEffect" }
+        { "$ref": "#/definitions/checkCampaignLogCountEffect" },
+        { "$ref": "#/definitions/scarletKeyEffect" }
       ]
     },
     "effectsWithInput": {
