@@ -35,6 +35,12 @@
         },
         {
           "$ref": "#/definitions/partnerStatusCondition"
+        },
+        {
+          "$ref": "#/definitions/locationCondition"
+        },
+        {
+          "$ref": "#/definitions/scarletKeyCondition"
         }
       ]
     },
@@ -82,11 +88,13 @@
               { "$ref": "#/definitions/campaignDataVersionCondition" },
               { "$ref": "#/definitions/campaignDataScenarioCondition" },
               { "$ref": "#/definitions/scenarioDataResolutionCondition" },
+              { "$ref": "#/definitions/scenarioDataPlayerCountCondition" },
               { "$ref": "#/definitions/investigatorCardCondition" },
               { "$ref": "#/definitions/binaryCardCondition" },
               { "$ref": "#/definitions/mathCondition" },
               { "$ref": "#/definitions/partnerStatusCondition" },
-              { "$ref": "#/definitions/basicTraumaCondition" }
+              { "$ref": "#/definitions/basicTraumaCondition" },
+              { "$ref": "#/definitions/campaignDataInvestigatorCondition" }
             ]
           }
         },
@@ -676,6 +684,12 @@
             "code"
           ]
         },
+        "exclude_investigators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "options": {
           "type": "array",
           "items": {
@@ -690,6 +704,42 @@
         "type",
         "campaign_data",
         "investigator_data",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "scarletKeyCondition": {
+      "$id": "#scarletKeyCondition",
+      "title": "ScarletKeyCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scarlet_key"
+          ]
+        },
+        "scarlet_key": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "investigator",
+            "enemy"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "scarlet_key",
+        "status",
         "options"
       ],
       "additionalProperties": false
@@ -854,6 +904,41 @@
         "section",
         "id",
         "name",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "locationCondition": {
+      "$id": "#locationCondition",
+      "title": "LocationCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "location"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "visited"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "status",
+        "location",
         "options"
       ],
       "additionalProperties": false
@@ -1256,9 +1341,9 @@
       ],
       "additionalProperties": false
     },
-    "mathSumCondition": {
-      "$id": "#mathSumCondition",
-      "title": "MathSumCondition",
+    "mathOpCondition": {
+      "$id": "#mathOpCondition",
+      "title": "MathOpCondition",
       "type": "object",
       "properties": {
         "type": {
@@ -1275,7 +1360,7 @@
         },
         "operation": {
           "type": "string",
-          "enum": ["sum"]
+          "enum": ["sum", "divide"]
         },
         "options": {
           "type": "array",
@@ -1305,7 +1390,7 @@
           "$ref": "#/definitions/mathCompareCondition"
         },
         {
-          "$ref": "#/definitions/mathSumCondition"
+          "$ref": "#/definitions/mathOpCondition"
         },
         {
           "$ref": "#/definitions/mathEqualsCondition"
@@ -1357,6 +1442,12 @@
         },
         {
           "$ref": "#/definitions/partnerStatusCondition"
+        },
+        {
+          "$ref": "#/definitions/locationCondition"
+        },
+        {
+          "$ref": "#/definitions/scarletKeyCondition"
         }
       ]
     }

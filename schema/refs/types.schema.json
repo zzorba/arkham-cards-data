@@ -87,9 +87,40 @@
         },
         "text": {
           "type": "string"
+        },
+        "reference": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": ["city", "name"],
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
+    },
+    "calendarEntry": {
+      "$id": "#calendarEntry",
+      "title": "CalendarEntry",
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "time": {
+          "type": "number"
+        },
+        "entry": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["symbol"]
     },
     "dossier": {
       "$id": "#dossier",
@@ -104,6 +135,9 @@
           "items": {
             "$ref": "#/definitions/dossierElement"
           }
+        },
+        "locked": {
+          "type": "string"
         }
       },
       "required": ["title", "entries"],
@@ -135,12 +169,19 @@
             "$ref": "#/definitions/dossier"
           }
         },
+        "hidden": {
+          "type": "boolean"
+        },
         "details": {
           "$ref": "#/definitions/locationDetails"
         },
         "status": {
           "type": "string",
           "enum": ["locked", "standard", "side"]
+        },
+        "current": {
+          "type": "string",
+          "enum": ["up", "down"]
         },
         "direction": {
           "type": "string",
@@ -154,6 +195,20 @@
         }
       },
       "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario", "details"],
+      "additionalProperties": false
+    },
+    "scarletKey": {
+      "id": "#scarletKey",
+      "title": "ScarletKey",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"],
       "additionalProperties": false
     },
     "partner": {
