@@ -43,6 +43,8 @@ function validate(validator, file, json, schemaName) {
     $upgrade_decks: true,
     $choose_investigators: true,
     $check_tarot_reading: true,
+    $pr_no_resolution: true,
+    $pr_R1: true,
     // Technically only for TSK, but whatever.
     $embark: true,
     $proceed: true,

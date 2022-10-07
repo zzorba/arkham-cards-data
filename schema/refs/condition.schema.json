@@ -94,7 +94,8 @@
               { "$ref": "#/definitions/mathCondition" },
               { "$ref": "#/definitions/partnerStatusCondition" },
               { "$ref": "#/definitions/basicTraumaCondition" },
-              { "$ref": "#/definitions/campaignDataInvestigatorCondition" }
+              { "$ref": "#/definitions/campaignDataInvestigatorCondition" },
+              { "$ref": "#/definitions/scarletKeyCondition" }
             ]
           }
         },
@@ -263,6 +264,37 @@
       ],
       "additionalProperties": false
     },
+    "scenarioDataHasResolutionCondition": {
+      "$id": "#scenarioDataHasResolutionCondition",
+      "title": "ScenarioDataHasResolutionCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scenario_data"
+          ]
+        },
+        "scenario_data": {
+          "type": "string",
+          "enum": [
+            "has_resolution"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "scenario_data",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "partnerStatusCondition": {
       "$id": "#partnerStatusCondition",
       "title": "PartnerStatusCondition",
@@ -398,6 +430,7 @@
       "title": "ScenarioDataCondition",
       "oneOf": [
         { "$ref": "#/definitions/scenarioDataResolutionCondition" },
+        { "$ref": "#/definitions/scenarioDataHasResolutionCondition" },
         { "$ref": "#/definitions/scenarioDataInvestigatorStatusCondition" },
         { "$ref": "#/definitions/scenarioDataPlayerCountCondition" },
         { "$ref": "#/definitions/scenarioDataFixedInvestigatorStatusCondition" }
