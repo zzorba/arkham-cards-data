@@ -1,0 +1,1175 @@
+{
+  "id": "fortune_and_folly_part_2",
+  "scenario_name": "Fortune and Folly, Part II",
+  "full_name": "Fortune and Folly, Part II",
+  "header": "",
+  "chaos_bag_card": "88001",
+  "side_scenario_type": "side_story",
+  "setup": [
+    "intro",
+    "heist_tasks",
+    "check_continue_part_1",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Only a few hours remain until the heist begins. Isamara paces nervously in front of you before taking a deep breath to calm her nerves. She steps forward to the table where a map of the casino is displayed. With one hand, she gestures toward it. \"I m still not sure exactly how you're going to pull this off, but this is what I know...\""
+    },
+    {
+      "id": "heist_tasks",
+      "type": "rule_reminder",
+      "bullets": [
+        {
+          "text": "The floor manager of the casino enjoys playing high-stakes poker. It's possible that if you sit in on a game with him and do well enough, you may be able to force him to wager his Fortune's Chosen medallion."
+        },
+        {
+          "text": "Abarran keeps a sigil that allows him to tap into the arcane power of the casino and the Wellspring. It's unknown exactly where he keeps it, but it's more than likely held somewhere very close to him."
+        },
+        {
+          "text": "There is an employee that works as a counter that is known to be open to a little action on the side. He can provide a schematic of the ductwork that runs throughout the casino."
+        },
+        {
+          "text": "In the back areas of the casino, there is a staging area for the guards. If you combine an employee uniform with some of the equipment found there, you should be able to pass yourself off as one of them."
+        },
+        {
+          "text": "Surveillance is extensive, but the exact means of keeping an eye on the casino is unknown. If you can turn this surveillance on the security staff, it might help you observe their movement."
+        },
+        {
+          "text": "If you're able to take control of a cash cart, you might be able to hide inside at key moments."
+        },
+        {
+          "text": "The casino provides a service to the most important of patrons: securing their valuables in the vault itself. This is one potential way to get important items close to or inside the vault,"
+        },
+        {
+          "text": "If you were able to find the vent during the stakeout, you should plan on finding it again and accessing it during the heist."
+        },
+        {
+          "text": "<i>Hint: The more tasks you accomplish throughout the course of Part II, the better your chance of finding additional rewards!</i>"
+        }
+      ]
+    },
+    {
+      "id": "check_continue_part_1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "continue_fortune_and_folly_part_2",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "take_stashed_cards_checkpoint",
+              "build_act_agenda_deck",
+              "check_need_time_to_rest",
+              "setup_locations",
+              "location_layout_restricted",
+              "flip_locations",
+              "check_convinced_isamara",
+              "check_cleaned_out_the_house",
+              "add_clues",
+              "setup_package_delivery",
+              "flip_abarran",
+              "setup_casino_guards"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "take_stashed_cards_scratch",
+              "gather_fof",
+              "build_act_agenda_deck_aside",
+              "check_need_time_to_rest",
+              "gather_aside_cards",
+              "check_skipped_part_1_roles",
+              "setup_locations_scratch",
+              "location_layout_public",
+              "location_layout_restricted",
+              "check_convinced_isamara_scratch",
+              "set_aside_cards",
+              "check_cleaned_out_the_house",
+              "setup_casino_guards",
+              "set_alarm_level",
+              "encounter_deck"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: the three Fortune's Disfavor story cards, the Package Delivery story card, the Deck of Possibilities story asset, the Isamara Ordoñez <i>(The Torch Singer)</i> story asset, and Abarran Arrigorriagakoa, <i>(Abarran Unleashed)</i> side faceup. <i>(Package Delivery is on the reverse side of the If the Uniform Fits... story card.)</i>"
+    },
+    {
+      "id": "set_alarm_level",
+      "text": "If you played Part I, set each investigator's alarm level equal to what was recorded in the Checkpoint. Otherwise, set each investigator's alarm level to 1."
+    },
+    {
+      "id": "check_convinced_isamara_scratch",
+      "text": "If you \"convinced Isamara to participate in the heist:\"",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_convinced_isamara",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_isamara"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_isamara"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_isamara",
+      "bullet_type": "small",
+      "text": "Put Isamara Ordoñez <i>(Lounge Singer)</i>, [[Crew]] side faceup, into play at Casino Lounge."
+    },
+    {
+      "id": "setup_locations_scratch",
+      "text": "Put Casino Floor, Casino Lounge, and High Roller's Table into play, <i>(Busy Night)</i> sides faceup. Put all other locations into play. <i>(See Location Placement for both hubs. The restricted hub should be placed above the public hub.)</i>",
+      "bullets": [
+        {
+          "text": "Place The Heist story card next to Vault Door. <i>(The Heist is on the reverse side of The Stakeout story card.)</i>"
+        },
+        {
+          "text": "Attach The Wellspring of Fortune to Relic Room, Stable side faceup. If you played Part I, place the recorded number of clues on it. (Otherwise, place 7[per_investigator] clues on it.)"
+        },
+        {
+          "text": "Each investigator begins play in Casino Floor."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_public",
+      "type": "location_setup",
+      "text": "Location Placement (Public Hub)",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "high_roller",
+          "blank",
+          "casino_lounge"
+        ],
+        [
+          "bacarat",
+          "blank",
+          "roulette"
+        ],
+        [
+          "poker",
+          "casino_floor",
+          "slots"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "high_roller",
+          "name": "High Roller's Table"
+        },
+        {
+          "code": "casino_lounge",
+          "name": "Casino Lounge"
+        },
+        {
+          "code": "bacarat",
+          "name": "Bacarat Table"
+        },
+        {
+          "code": "roulette",
+          "name": "Roulette Wheel"
+        },
+        {
+          "code": "poker",
+          "name": "Poker Table"
+        },
+        {
+          "code": "casino_floor",
+          "name": "Casino Floor"
+        },
+        {
+          "code": "slots",
+          "name": "Slot Machines"
+        }
+      ]
+    },
+    {
+      "id": "take_stashed_cards_scratch",
+      "title": "Setup (from Scratch)",
+      "text": "Before drawing their opening hand for this scenario, each investigator may search their deck for all of their cards that were recorded as \"Stashed\" and set them aside (1 copy for each copy recorded). Each investigator adds each of their set-aside stashed cards to their opening hand after mulligans are taken."
+    },
+    {
+      "id": "gather_fof",
+      "type": "encounter_sets",
+      "encounter_sets": ["fortune_and_folly"]
+    },
+    {
+      "id": "build_act_agenda_deck_aside",
+      "text": "Build the agenda deck using agendas 2-4 and the act deck using acts 2-3. Set the remaining agenda and act cards aside, out of play."
+    },
+    {
+      "id": "take_stashed_cards_checkpoint",
+      "title": "Setup (from Checkpoint)",
+      "text": "Each investigator adds each of their set-aside stashed cards to their opening hands after mulligans are taken."
+    },
+    {
+      "id": "gather_aside_cards",
+      "type": "encounter_sets",
+      "aside": true,
+      "encounter_sets": ["fortunes_chosen", "plan_in_shambles"]
+    },
+    {
+      "id": "check_skipped_part_1_roles",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_skip_part_1",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_roles"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["take_roles"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_roles",
+      "text": "Because you skipped Part I, each investigator chooses any 1 of the [[Role]] story assets and takes control of it, [[Unpracticed]] side faceup. If there is exactly 1 investigator in the game, that investigator chooses and takes control of an additional Role storv asset, [[Unpracticed]] side faceup.",
+      "bullets": [
+        {
+          "text": "Remove each [[Role]] story asset not chosen from the game."
+        }
+      ]
+    },
+    {
+      "id": "take_roles",
+      "text": "Each investigator takes control of the [[Role]] story assets recorded for that investigator in the Campaign Log, [[Unpracticed]] side faceup. If the chosen [[Role]] has been recorded in your Campaign Log as [[Practiced]], then it enters play [[Practiced]] side faceup instead."
+    },
+    {
+      "id": "build_act_agenda_deck",
+      "text": "Build the agenda deck using agendas 2-4 and the act deck using acts 2-3."
+    },
+    {
+      "id": "check_need_time_to_rest",
+      "text": "If \"the investigators need time to rest\":",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_need_time_to_rest",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["place_1_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "place_1_doom",
+      "bullet_type": "small",
+      "text": "Place 1 doom on agenda 2a."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each Restricted location into play. (See Location Placement - Restricted. These locations should be placed just above the public hub.)",
+      "bullets": [
+        {
+          "text": "Flip The Stakeout story card to The Heist side and place it near Vault Door."
+        },
+        {
+          "text": "Attach The Wellspring of Fortune key to the Relic Room, [[Stable]] side faceup, keeping on it the number of clues that were remaining at the end of Part I."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_restricted",
+      "type": "location_setup",
+      "text": "Location Placement (Restricted Hub)",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "relic_room",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "vault_door",
+          "blank"
+        ],
+        [
+          "owners_office",
+          "blank",
+          "counting_room"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "security_office",
+          "blank",
+          "guard_room"
+        ],
+        [
+          "blank",
+          "staff_access_hallway",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "relic_room",
+          "name": "Relic Room"
+        },
+        {
+          "code": "vault_door",
+          "name": "Vault Door"
+        },
+        {
+          "code": "owners_office",
+          "name": "Owner's Office"
+        },
+        {
+          "code": "counting_room",
+          "name": "Counting Room"
+        },
+        {
+          "code": "security_office",
+          "name": "Security Office"
+        },
+        {
+          "code": "guard_room",
+          "name": "Guard Room"
+        },
+        {
+          "code": "staff_access_hallway",
+          "name": "Staff Access Hallway"
+        }
+      ]
+    },
+    {
+      "id": "flip_locations",
+      "text": "Flip Casino Floor, Casino Lounge, and High Roller's Table to their <i>(Busy Night)</i> sides.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Casino Floor."
+        }
+      ]
+    },
+    {
+      "id": "check_convinced_isamara",
+      "text": "If you \"convinced Isamara to participate in the heist:\"",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_convinced_isamara",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["flip_isamara"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_isamara"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flip_isamara",
+      "bullet_type": "small",
+      "text": "Flip Isamara Ordoñez <i>(Lounge Singer)</i> to her [[Crew]] side <i>(discarding any clues trom her)</i> and move her to Casino Lounge."
+    },
+    {
+      "id": "remove_isamara",
+      "bullet_type": "small",
+      "text": "Set Isamara Ordoñez aside, out of play."
+    },
+    {
+      "id": "check_cleaned_out_the_house",
+      "text": "If you \"cleaned out the house:\"",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_cleaned_out_the_house",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_cash_cart"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_cash_cart",
+      "bullet_type": "small",
+      "text": "Put the set-aside Cash Cart into play at High Roller's Table."
+    },
+    {
+      "id": "add_clues",
+      "text": "For each revealed location, add clues to it untilit has clues equal to its clue value."
+    },
+    {
+      "id": "setup_package_delivery",
+      "text": "Set the Package Delivery story card aside, out of play. <i>(Package Delivery is on the reverse side of the If the Uniform Fits... story card. Each other card that was still set aside at the end of Fortune and Hollv Part remains set aside.)</i>"
+    },
+    {
+      "id": "flip_abarran",
+      "text": "Flip the Abarran Arrigorriagakoa enemy to his <i>(Abarran Unleashed)</i> side and set him aside, out of play."
+    },
+    {
+      "id": "setup_casino_guards",
+      "text": "Search the encounter deck for 1 copy of Casino Guard. Spawn it at High Roller's Table. Then, search the encounter deck for 1 copy of Security Patrol. Spawn it at Casino Lounge."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "check_any_resigned",
+      "text": "If any investigator resigned:",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "resigned",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "resolution_2"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "resolution_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fortunes_chosen_bound_you_with_bad_luck",
+      "text": "In your Campaign Log, record that <i>Fortune's Chosen have bound you with bad luck.</i> Choose any number token in the chaos bag. Replace it with a number token of a value 2 lower <i>(e.g. You may replace a 0 token with a -2 token, or a -3 token with a -5 token).</i>"
+    },
+    {
+      "id": "bad_token_swap",
+      "text": "Which token do you want to replace?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "+1",
+            "text": "+1",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["+1"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-1"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "+1",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                }
+              ]
+            }
+          },
+          {
+            "id": "0",
+            "text": "0",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["0"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-2"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "0",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "-1",
+            "text": "−1",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-1"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-3"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-1",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                },
+                {
+                  "numCondition": 5
+                }
+              ]
+            }
+          },
+          {
+            "id": "-2",
+            "text": "−2",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-2"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-4"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-2",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "-3",
+            "text": "−3",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-3"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-5"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-3",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                }
+              ]
+            }
+          },
+          {
+            "id": "-4",
+            "text": "−4",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-4"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-6"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-4",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-5",
+            "text": "−5",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-5"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-7"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-5",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-6",
+            "text": "−6",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-6"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-8"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-6",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_completed_tasks",
+      "title": "Additional Rewards",
+      "text": "Check the number of tasks on The Heist story card that were completed during this scenario.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Completed tasks:",
+        "max": {
+          "type": "constant",
+          "value": 8
+        },
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "fof_heist_tasks",
+            "text": "dummy",
+            "operation": "set_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_skipped_part_1_tasks",
+      "text": "If you skipped part I:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_skip_part_1",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["add_2_completed_tasks"],
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "fof_heist_tasks",
+                "text": "dummy",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_2_completed_tasks",
+      "bullet_type": "small",
+      "text": "Treat the number of tasks completed as two more than what was completed during the scenario <i>(this is handled automatically)</i>."
+    },
+    {
+      "id": "task_bonus_experience",
+      "text": "Each investigator earns 1 bonus experience for each additional task beyond the minimum of 4 completed on The Heist story card.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "fof_heist_tasks",
+        "options": [
+          {
+            "numCondition": 0
+          },
+          {
+            "numCondition": 1
+          },
+          {
+            "numCondition": 2
+          },
+          {
+            "numCondition": 3
+          }
+        ],
+        "default_option": {
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all",
+              "bonus": -4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "check_4_or_fewer_tasks",
+      "text": "If only 4 or fewer tasks were completed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "fof_heist_tasks"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 4
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": -1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["no_additional_rewards"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_5_or_more_tasks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_additional_rewards",
+      "bullet_type": "small",
+      "text": "No additional rewards are granted."
+    },
+    {
+      "id": "check_5_or_more_tasks",
+      "text": "If 5 or more tasks were completed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "fof_heist_tasks"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 5
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_isamara_in_play", "check_6_or_more_tasks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_isamara_in_play",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was Isamara Ordoñez in play at the end of the scenario?",
+            "steps": ["earn_isamara"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_isamara",
+      "bullet_type": "small",
+      "text": "The investigators have earned Isamara Ordoñez. Any one investigator may choose to add Isamara Ordoñez <i>(The Torch Singer)</i> to their deck. This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "88044"
+        }
+      ]
+    },
+    {
+      "id": "check_6_or_more_tasks",
+      "text": "If 6 or more tasks were completed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "fof_heist_tasks"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 6
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 0
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earn_deck_of_possibilities"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "earn_deck_of_possibilities",
+      "bullet_type": "small",
+      "text": "If 6 or more tasks were completed, the investigators have earned the Deck of Possibilities. Any one investigator may choose to add the Deck of Possibilities to their deck. This card does not count toward that investigator's deck size. During the setup of each scenario, that investigator gathers the encounter cards from Fortune and Folly with the following game icons: J♠, J♥, J♦, J♣, Q♦, Q♠, K♣, K♥, A♠. These cards are shuffled into a separate \"possibilities deck.\" <i>(Alternatively, you may use standard playing cards instead of encounter cards from</i> Fortune and Folly.<i>)</i>",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "88043"
+        }
+      ]
+    },
+    {
+      "id": "check_playing_tsk_got_key",
+      "text": "If you are playing <i>The Scarlet Keys</i> campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "cycle",
+            "options": [
+              {
+                "condition": "tskc"
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cell_meddled_in_abarrans_affairs", "choose_bearer_of_the_wellspring_of_fortune"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_playing_tsk_lost_key",
+      "text": "If you are playing <i>The Scarlet Keys</i> campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "cycle",
+            "options": [
+              {
+                "condition": "tskc"
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cell_meddled_in_abarrans_affairs", "abarran_has_wellspring"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cell_meddled_in_abarrans_affairs",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_meddled_in_abarrans_affairs",
+          "text": "the cell meddled in Abarran’s affairs."
+        }
+      ]
+    },
+    {
+      "id": "choose_bearer_of_the_wellspring_of_fortune",
+      "text": "Choose an investigator to be the bearer of The Wellspring of Fortune and update the Campaign Log accordingly.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "bearer",
+            "text": "Bearer of The Wellspring of Fortune",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "wellspring_of_fortune",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "abarran_has_wellspring",
+      "text": "Abarran Arrigorriagakoa is the bearer of The Wellspring of Fortune. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "wellspring_of_fortune",
+          "bearer_type": "enemy",
+          "enemy_code": "88034a"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "check_any_resigned"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Together with Isamara, you examine the relic that was the source of all this trouble. Sometimes it looks just like an ordinary coin, albeit an incredibly ancient one from some long forgotten civilization. At other times, however, the air around it distorts and warps. You also know now from experience the ways in which it can make the seemingly impossible all too real. For the first time, you see a genuine smile on Isamara's face. \"I have to thank you for this. For getting it out of Abarran's hands. And getting it away from this place. I don't know what would have happened if you didn't. Tonight was bad enough, but nothing would have stopped Abarran from holding tight to his prize, no matter how many died along the way.\" You begin to gather your things, as Isamara does the same. You know that you will need to leave Monte Carlo immediately, as any of the Fortune's Chosen who have survived, including Abarran himself, will hunt for you and the Wellspring. \"I saw him one last time, before we escaped,\" Isamara explains, \"The look of rage in his eyes... Without his precious artifact he'll be even more unstable.\" You tell her that maybe he is the one that should be scared instead. After all, she successfully orchestrated his downfall from within. At your words, that same smile crosses her face once more. \"I could get used to that idea.\" With everything ready to go and the Wellspring in hand, you leave Monte Carlo behind, hoping your luck will hold.",
+      "steps": [
+        "check_playing_tsk_got_key",
+        "earn_xp",
+        "ask_completed_tasks",
+        "check_skipped_part_1_tasks",
+        "task_bonus_experience",
+        "check_4_or_fewer_tasks",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "By all accounts, escaping from the clutches of those horrible creatures and an army of casino staff and security could be called a successful night. Yet the Wellspring, the whole purpose for this ill-fated heist, has eluded your grasp. In the days that follow, you wonder if you are courageous or mad enough to try again, but the casino never reopens its doors and there is no further sign of Abarran or the Fortune's Chosen. The newspapers are strangely muted regarding the night's events, making no mention of the fantastical monsters that terrorized casino patrons. More than ever, it seems that some person or group helped Abarran set up his operation here and is protecting him after the fact as well. More importantly, after your attempted heist and the strange dimensional incursion, Abarran has taken the Wellspring somewhere far from here. It is possible that you could track him down and find some other way to obtain the relic, but for now, there are no leads and no sign of where he may have gone. You leave Monte Carlo, licking your wounds and wondering if you will have the fortune, or misfortune, of running into Abarran and the Wellspring again one day.",
+      "steps": [
+        "check_playing_tsk_lost_key",
+        "fortunes_chosen_bound_you_with_bad_luck",
+        "bad_token_swap",
+        "earn_xp",
+        "ask_completed_tasks",
+        "check_skipped_part_1_tasks",
+        "task_bonus_experience",
+        "check_4_or_fewer_tasks",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "When you come to consciousness some me later, you are struck first by the absolute quiet. As you rise to your feet, the casino is completely empty. No cultists. No monsters. No patrons. Not a single soul to be seen. And it doesn't take much to realize that the relic you sought is long gone too. You stumble out into the daylight to find the city going about its business, as if nothing untoward had taken place. In the days that follow, the casino closes its doors for good. There is no further sign of Abarran or the Fortune's Chosen. You leave Monte Carlo, nursing your wounds and wondering if you will have the fortune, or misfortune, of running into Abarran and the Wellspring again one day.",
+      "steps": [
+        "check_playing_tsk_lost_key",
+        "fortunes_chosen_bound_you_with_bad_luck",
+        "bad_token_swap",
+        "earn_xp",
+        "ask_completed_tasks",
+        "check_skipped_part_1_tasks",
+        "task_bonus_experience",
+        "check_4_or_fewer_tasks",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
