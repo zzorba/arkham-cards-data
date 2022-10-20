@@ -6,20 +6,6 @@
   "chaos_bag_card": "88001",
   "xp_cost": 3,
   "side_scenario_type": "side_story",
-  "standalone_setup": [
-    "choose_difficulty",
-    "alarm_level",
-    "isamara_rule",
-    "patrol_rule",
-    "game_icons_rule",
-    "mulligans_rule",
-    "wellspring_of_fortune",
-    "intro",
-    "check_tsk_campaign",
-    "intro_4",
-    "ask_skip_part_1",
-    "check_skip_part_1"
-  ],
   "setup": [
     "xp_cost",
     "alarm_level",
@@ -35,7 +21,6 @@
     "check_skip_part_1"
   ],
   "steps": [
-
     {
       "id": "alarm_level",
       "type": "rule_reminder",
@@ -104,120 +89,6 @@
       "type": "rule_reminder",
       "title": "The Wellspring of Fortune",
       "text": "This scenario includes The Wellspring of Fortune, which is a \"key,\" a new cardtype introduce in <i>The Scarlet Keys</i> campaign. The full rules for the key cardtype can be found in <i>The Scarlet Keys</i> campaign guide. For the purposes of this scenario, The Wellspring of Fortune is only used as a marker for tokens and an objective for investigators to obtain. <b>Treat The Wellspring of Fortune's text box as if it were blank for the duration of this scenario.</b> The full rules for key cards are therefore not required to play this scenario; however, if the investigators are playing this scenario as part of <i>The Scarlet Keys</i> campaign, they cmay be able to earn The Wellspring of Fortune and use it in future scenarios."
-    },
-    {
-      "id": "choose_difficulty",
-      "text": "Choose difficulty level:",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "standard",
-            "text": "Standard",
-            "tokens": [
-              "+1",
-              "0",
-              "0",
-              "-1",
-              "-2",
-              "-2",
-              "-3",
-              "-3",
-              "-4",
-              "-5",
-              "skull",
-              "skull",
-              "cultist",
-              "tablet",
-              "elder_thing",
-              "auto_fail",
-              "elder_sign"
-            ],
-            "effects": [
-              {
-                "type": "campaign_data",
-                "setting": "difficulty",
-                "value": "standard"
-              },
-              {
-                "type": "add_chaos_token",
-                "tokens": [
-                  "+1",
-                  "0",
-                  "0",
-                  "-1",
-                  "-2",
-                  "-2",
-                  "-3",
-                  "-3",
-                  "-4",
-                  "-5",
-                  "skull",
-                  "skull",
-                  "cultist",
-                  "tablet",
-                  "elder_thing",
-                  "auto_fail",
-                  "elder_sign"
-                ]
-              }
-            ]
-          },
-          {
-            "id": "hard",
-            "text": "Hard",
-            "tokens": [
-              "0",
-              "0",
-              "-1",
-              "-1",
-              "-2",
-              "-2",
-              "-3",
-              "-3",
-              "-6",
-              "-7",
-              "skull",
-              "skull",
-              "cultist",
-              "tablet",
-              "elder_thing",
-              "auto_fail",
-              "elder_sign"
-            ],
-            "effects": [
-              {
-                "type": "campaign_data",
-                "setting": "difficulty",
-                "value": "hard"
-              },
-              {
-                "type": "add_chaos_token",
-                "tokens": [
-                  "0",
-                  "0",
-                  "-1",
-                  "-1",
-                  "-2",
-                  "-2",
-                  "-3",
-                  "-3",
-                  "-6",
-                  "-7",
-                  "skull",
-                  "skull",
-                  "cultist",
-                  "tablet",
-                  "elder_thing",
-                  "auto_fail",
-                  "elder_sign"
-                ]
-              }
-            ]
-          }
-        ]
-      }
     },
     {
       "id": "xp_cost",
@@ -317,11 +188,19 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": []
+            "steps": ["$proceed"]
           },
           {
             "boolCondition": false,
-            "steps": ["intro_5", "stakeout_tasks", "gather_encounter_sets", "act_agenda_1", "set_aside_encounter_sets", "setup_locations", "location_layout", "setup_isamara", "setup_abarran", "spawn_casino_guard", "choose_role", "setup_wellspring", "set_aside_cards", "place_alert_doom", "encounter_deck", "$play_scenario"]
+            "steps": ["intro_5", "stakeout_tasks", "gather_encounter_sets", "act_agenda_1", "set_aside_encounter_sets", "setup_locations", "location_layout", "setup_isamara", "setup_abarran", "spawn_casino_guard", "choose_role", "setup_wellspring", "set_aside_cards", "place_alert_doom", "encounter_deck", "$play_scenario"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_play_part_1",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
@@ -335,6 +214,7 @@
       "id": "location_layout",
       "type": "location_setup",
       "text": "Location Placement (Public Hub)",
+      "note": "<b>Clockwise Patrol Route</b>: Casino Lounge → Roulette Wheel → Slot Machines → Casino Floor → Poker Table → Baccarat Table → High Roller's Table → Casino Lounge.\n<b>Counterclockwise Patrol Route</b>: High Roller's Table → Baccarat Table → Poker Table → Casino Floor → Slot Machines → Roulette Wheel → Casino Lounge → High Roller's Table.",
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
@@ -344,7 +224,7 @@
           "casino_lounge"
         ],
         [
-          "bacarat",
+          "baccarat",
           "blank",
           "roulette"
         ],
@@ -364,8 +244,8 @@
           "name": "Casino Lounge"
         },
         {
-          "code": "bacarat",
-          "name": "Bacarat Table"
+          "code": "baccarat",
+          "name": "Baccarat Table"
         },
         {
           "code": "roulette",
@@ -482,11 +362,11 @@
     },
     {
       "id": "set_aside_cards",
-      "text": "Set the following cards aside, out of play: the three Fortune's Distavor story cards, the Cash Cart story asset, the Deck of Possibilities story asset, and the samara Ordoñez <i>(The Torch Singer)</i> story asset."
+      "text": "Set the following cards aside, out of play: the three Fortune's Distavor story cards, the Cash Cart story asset, the Deck of Possibilities story asset, and the Isamara Ordoñez <i>(The Torch Singer)</i> story asset."
     },
     {
       "id": "place_alert_doom",
-      "text": "Place 1 doom next to each investigator card. Ihis doom represents that investigator's current alarm level (see \"Alarm Level\" below). It does not count as doom and does not count toward the current agendas doom threshold."
+      "text": "Place 1 doom next to each investigator card. This doom represents that investigator's current alarm level (see \"Alarm Level\" below). It does not count as doom and does not count toward the current agendas doom threshold."
     },
     {
       "id": "encounter_deck",
@@ -539,7 +419,7 @@
           {
             "id": "later",
             "text": "Take a break.",
-            "steps": ["plan_2", "record_completed_tasks", "ask_damage_and_horror_campaign_log", "tell_clue_choices",  "record_roles", "ask_alarm_level", "record_wellspring_of_fortune_clues", "record_stashed_assets", "clean_up_game"],
+            "steps": ["plan_2", "record_completed_tasks", "ask_damage_and_horror_campaign_log", "tell_clue_choices", "explain_record_roles", "record_roles", "ask_alarm_level", "record_wellspring_of_fortune_clues", "record_stashed_assets", "clean_up_game"],
             "effects": [
               {
                 "type": "campaign_data",
@@ -574,7 +454,7 @@
                 "section": "campaign_notes",
                 "id": "fof_stashed",
                 "cards": "$input_value",
-                "text": "Stashed: #name# x#X#"
+                "text": "Stashed: #name# (#X#)"
               }
             ]
           }
@@ -592,12 +472,11 @@
         "min": 1,
         "effects": [
           {
-            "type": "campaign_log_investigator_count",
-            "section": "campaign_log",
+            "type": "campaign_log_cards",
+            "section": "campaign_notes",
             "id": "fof_alarm_level",
-            "text": "#name# (Alarm level: #X#)",
-            "investigator": "$input_value",
-            "operation": "set_input"
+            "cards": "$input_value",
+            "text": "Alarm level: #name# (#X#)"
           }
         ]
       }
@@ -920,8 +799,12 @@
       ]
     },
     {
+      "id": "explain_record_roles",
+      "text": "Record the name of each [[Role]] card under an investigator's control when the game ended. If you chose to flip any to their [[Practiced]] side, be sure to choose the appropriate option."
+    },
+    {
       "id": "record_roles",
-      "text": "Record the name of each [[Role]] card under an investigator's control when the game ended. If you chose to flip any to their [[Practiced]] side, be sure to choose the appropriate option.",
+      "text": "Record each [[Role]]:",
       "type": "input",
       "input": {
         "type": "investigator_choice",
@@ -1021,7 +904,7 @@
           },
           {
             "id": "grifter_practiced (Practiced)",
-            "text": "The Grifter",
+            "text": "The Grifter (Practiced)",
             "effects": [
               {
                 "type": "campaign_log_cards",

@@ -105,7 +105,33 @@
     },
     {
       "id": "set_alarm_level",
-      "text": "If you played Part I, set each investigator's alarm level equal to what was recorded in the Checkpoint. Otherwise, set each investigator's alarm level to 1."
+      "type": "branch",
+      "text": "If you played Part I:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fof_play_part_1",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_recorded_alarm_level"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["set_alarm_to_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_recorded_alarm_level",
+      "bullet_type": "small",
+      "text": "Set each investigator's alarm level equal to what was recorded in the Checkpoint."
+    },
+    {
+      "id": "set_alarm_to_1",
+      "bullet_type": "small",
+      "text": "Set each investigator's alarm level to 1."
     },
     {
       "id": "check_convinced_isamara_scratch",
@@ -140,7 +166,7 @@
           "text": "Place The Heist story card next to Vault Door. <i>(The Heist is on the reverse side of The Stakeout story card.)</i>"
         },
         {
-          "text": "Attach The Wellspring of Fortune to Relic Room, Stable side faceup. If you played Part I, place the recorded number of clues on it. (Otherwise, place 7[per_investigator] clues on it.)"
+          "text": "Attach The Wellspring of Fortune to Relic Room, Stable side faceup. If you played Part I, place the recorded number of clues on it. (Otherwise, place 7 [per_investigator] clues on it.)"
         },
         {
           "text": "Each investigator begins play in Casino Floor."
@@ -151,6 +177,7 @@
       "id": "location_layout_public",
       "type": "location_setup",
       "text": "Location Placement (Public Hub)",
+      "note": "<b>Clockwise Patrol Route</b>: Casino Lounge → Roulette Wheel → Slot Machines → Casino Floor → Poker Table → Baccarat Table → High Roller's Table → Casino Lounge.\n<b>Counterclockwise Patrol Route</b>: High Roller's Table → Baccarat Table → Poker Table → Casino Floor → Slot Machines → Roulette Wheel → Casino Lounge → High Roller's Table.",
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
@@ -160,7 +187,7 @@
           "casino_lounge"
         ],
         [
-          "bacarat",
+          "baccarat",
           "blank",
           "roulette"
         ],
@@ -180,8 +207,8 @@
           "name": "Casino Lounge"
         },
         {
-          "code": "bacarat",
-          "name": "Bacarat Table"
+          "code": "baccarat",
+          "name": "Baccarat Table"
         },
         {
           "code": "roulette",
@@ -300,6 +327,7 @@
       "id": "location_layout_restricted",
       "type": "location_setup",
       "text": "Location Placement (Restricted Hub)",
+      "note": "<b>Clockwise Patrol Route</b>: Vault Door → Counting Room → Guard Room → Staff Access Hallway → Security Office → Owner's Office → Vault Door.\n<b>Counterclockwise Patrol Route</b>: Vault Door → Owner's Office → Security Office → Staff Access Hallway → Guard Room → Counting Room → Vault Door.",
       "horizontal": "normal",
       "vertical": "half",
       "locations": [
