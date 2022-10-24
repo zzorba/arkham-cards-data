@@ -49,7 +49,7 @@
             "steps": [
               "ask_player_count",
               "explain_skip_prologue",
-              "ask_skip_prologue",
+              "maybe_ask_skip_prologue",
               "check_skip_prologue"
             ]
           },
@@ -85,6 +85,47 @@
     {
       "id": "explain_skip_prologue",
       "text": "As an alternative to playing the Prologue, you may have each character draw a random tarot card to determine their fate."
+    },
+    {
+      "id": "maybe_ask_skip_prologue",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 7,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_skip_prologue_new"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_skip_prologue"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_skip_prologue_new",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Would you like to skip the prologue by drawing tarot cards?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "skip_prologue",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "ask_skip_prologue",
@@ -174,7 +215,7 @@
           {
             "boolCondition": true,
             "steps": [
-              "randomizer",
+              "maybe_randomizer",
               "maybe_ask_being_hunted",
               "choose_investigators",
               "maybe_draw_weakness"
@@ -2340,38 +2381,6 @@
       ]
     },
     {
-      "id": "manual_randomizer",
-      "bullets": [
-        {
-          "text": "0: (character name) disappeared into the mist. 2 pieces of evidence were left behind."
-        },
-        {
-          "text": "I - II: (character name) disappeared into the mist. 0 pieces of evidence were left behind."
-        },
-        {
-          "text": "III - VI: (character name) was claimed by specters. 3 pieces of evidence were left behind."
-        },
-        {
-          "text": "VII - IX: (character name) was claimed by specters. 5 pieces of evidence were left behind."
-        },
-        {
-          "text": "X - XII: (character name) was pulled into the spectral realm. 2 pieces of evidence were left behind."
-        },
-        {
-          "text": "XIII - XVI: (character name) was pulled into the spectral realm. 4 pieces of evidence were left behind."
-        },
-        {
-          "text": "XVII - XIII: (character name) was pulled into the spectral realm. 6 pieces of evidence were left behind."
-        },
-        {
-          "text": "XIX - XX: (character name) was taken by the Watcher. 3 pieces of evidence were left behind."
-        },
-        {
-          "text": "XXI: (character name) was taken by the Watcher. 5 pieces of evidence were left behind."
-        }
-      ]
-    },
-    {
       "id": "0_pieces_of_evidence",
       "text": "0 pieces of evidence were left behind."
     },
@@ -2484,7 +2493,796 @@
       "title": "The World · XXI"
     },
     {
+      "id": "maybe_randomizer",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 7,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["randomizer_new"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["randomizer"]
+          }
+        ]
+      }
+    },
+    {
       "id": "randomizer",
+      "type": "input",
+      "input": {
+        "type": "prologue_randomizer",
+        "random_only": true,
+        "prompt": "Draw tarot cards:",
+        "choices": [
+          {
+            "id": "05046",
+            "text": "Gavriella Mizrah",
+            "condition": {
+              "type": "campaign_log_section_exists",
+              "section": "05046",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "05047",
+            "text": "Jerome Davids",
+            "condition": {
+              "type": "campaign_log_section_exists",
+              "section": "05047",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "05048",
+            "text": "Valentino Rivas",
+            "condition": {
+              "type": "campaign_log_section_exists",
+              "section": "05048",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            }
+          },
+          {
+            "id": "05049",
+            "text": "Penny White",
+            "condition": {
+              "type": "campaign_log_section_exists",
+              "section": "05049",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            }
+          }
+        ],
+        "options": [
+          {
+            "condition": "0",
+            "prompt": "The Fool · 0",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_fool"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "disappeared_into_the_mist",
+                "masculine_text": "#name# disappeared into the mist.",
+                "feminine_text": "#name# disappeared into the mist."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "2_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "1",
+            "prompt": "The Magician · I",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_magician"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "disappeared_into_the_mist",
+                "masculine_text": "#name# disappeared into the mist.",
+                "feminine_text": "#name# disappeared into the mist."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 0
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "0_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "2",
+            "prompt": "The High Priestess · II",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_high_priestess"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "disappeared_into_the_mist",
+                "masculine_text": "#name# disappeared into the mist.",
+                "feminine_text": "#name# disappeared into the mist."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 0
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "0_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "3",
+            "prompt": "The Empress · III",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_empress"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "4",
+            "prompt": "The Emperor · IV",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_emperor"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "5",
+            "prompt": "The Hierophant · V",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_hierophant"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "6",
+            "prompt": "The Lovers · VI",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_lovers"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "7",
+            "prompt": "The Chariot · VII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_chariot"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 5
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "5_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "8",
+            "prompt": "Strength · VIII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "strength"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 5
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "5_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "9",
+            "prompt": "The Hermit · IX",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_hermit"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "claimed_by_specters",
+                "masculine_text": "#name# was claimed by specters.",
+                "feminine_text": "#name# was claimed by specters."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 5
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "5_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "10",
+            "prompt": "Wheel of Fortune · X",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "wheel_of_fortune"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "2_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "11",
+            "prompt": "Justice · XI",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "justice"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "2_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "12",
+            "prompt": "The Hanged Man · XII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_hanged_man"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "2_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "13",
+            "prompt": "Death · XIII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "death"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 4
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "4_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "14",
+            "prompt": "Temperance · XIV",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "temperance"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 4
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "4_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "15",
+            "prompt": "The Devil · XV",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_devil"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 4
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "4_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "16",
+            "prompt": "The Tower · XVI",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_tower"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 4
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "4_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "17",
+            "prompt": "The Star · XVII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_star"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 6
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "6_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "18",
+            "prompt": "The Moon · XVIII",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_moon"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "pulled_into_the_spectral_realm",
+                "masculine_text": "#name# was pulled into the spectral realm.",
+                "feminine_text": "#name# was pulled into the spectral realm."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 6
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "6_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "19",
+            "prompt": "The Sun · XIX",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_sun"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "taken_by_the_watcher",
+                "masculine_text": "#name# was taken by the Watcher.",
+                "feminine_text": "#name# was taken by the Watcher."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "20",
+            "prompt": "Judgement · XX",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "judgement"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "taken_by_the_watcher",
+                "masculine_text": "#name# was taken by the Watcher.",
+                "feminine_text": "#name# was taken by the Watcher."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 3
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "3_pieces_of_evidence"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "21",
+            "prompt": "The World · XXI",
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "the_world"
+                ]
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "id": "taken_by_the_watcher",
+                "masculine_text": "#name# was taken by the Watcher.",
+                "feminine_text": "#name# was taken by the Watcher."
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "campaign_notes",
+                "id": "pieces_of_evidence",
+                "operation": "add",
+                "value": 5
+              },
+              {
+                "type": "story_step",
+                "steps": [
+                  "5_pieces_of_evidence"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "randomizer_new",
       "type": "input",
       "input": {
         "type": "prologue_randomizer",
