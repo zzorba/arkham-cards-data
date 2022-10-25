@@ -3,7 +3,6 @@
   "$id": "schema/effect.schema.json",
   "definitions": {
     "storyStepEffect": {
-      "$id": "#storyStepEffect",
       "title": "StoryStepEffect",
       "type": "object",
       "properties": {
@@ -27,7 +26,6 @@
       "additionalProperties": false
     },
     "saveDecksEffect": {
-      "$id": "#saveDecksEffect",
       "title": "SaveDecksEffect",
       "type": "object",
       "properties": {
@@ -36,6 +34,9 @@
           "enum": [
             "save_decks"
           ]
+        },
+        "adjust_xp": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -44,7 +45,6 @@
       "additionalProperties": false
     },
     "upgradeDecksEffect": {
-      "$id": "#upgradeDecksEffect",
       "title": "UpgradeDecksEffect",
       "type": "object",
       "properties": {
@@ -61,7 +61,6 @@
       "additionalProperties": false
     },
     "earnXpEffect": {
-      "$id": "#earnXpEffect",
       "title": "EarnXpEffect",
       "type": "object",
       "properties": {
@@ -90,6 +89,9 @@
         "input_scale": {
           "type": "number"
         },
+        "side_scenario_cost": {
+          "type": "boolean"
+        },
         "special_xp": {
           "$ref": "types.schema.json#/definitions/specialXp"
         },
@@ -104,7 +106,6 @@
       "additionalProperties": false
     },
     "addWeaknessEffect": {
-      "$id": "#addWeaknessEffect",
       "title": "AddWeaknessEffect",
       "type": "object",
       "properties": {
@@ -156,7 +157,6 @@
       "additionalProperties": false
     },
     "addCardEffect": {
-      "$id": "#addCardEffect",
       "title": "AddCardEffect",
       "type": "object",
       "properties": {
@@ -199,7 +199,6 @@
       "additionalProperties": false
     },
     "setCardCountEffect": {
-      "$id": "#setCardCountEffect",
       "title": "SetCardCountEffect",
       "type": "object",
       "properties": {
@@ -229,7 +228,6 @@
       "additionalProperties": false
     },
     "replaceCardEffect": {
-      "$id": "#replaceCardEffect",
       "title": "ReplaceCardEffect",
       "type": "object",
       "properties": {
@@ -264,7 +262,6 @@
       "additionalProperties": false
     },
     "campaignDataEffect": {
-      "$id": "#campaignDataEffect",
       "title": "CampaignDataEffect",
       "oneOf": [
         { "$ref": "#/definitions/campaignDataSetScenariosEffect" },
@@ -274,11 +271,11 @@
         { "$ref": "#/definitions/campaignDataSwapChaosBagEffect" },
         { "$ref": "#/definitions/campaignDataRedirectExperienceEffect" },
         { "$ref": "#/definitions/campaignDataEmbarkEffect" },
-        { "$ref": "#/definitions/campaignDataUnlockLocationEffect" }
+        { "$ref": "#/definitions/campaignDataUpdateLocationEffect" },
+        { "$ref": "#/definitions/campaignDataUnlockMapEffect" }
       ]
     },
     "campaignDataResultEffect": {
-      "$id": "#campaignDataResultEffect",
       "title": "CampaignDataResultEffect",
       "type": "object",
       "properties": {
@@ -306,7 +303,6 @@
       "additionalProperties": false
     },
     "campaignDataDifficultyEffect": {
-      "$id": "#campaignDataDifficultyEffect",
       "title": "CampaignDataDifficultyEffect",
       "type": "object",
       "properties": {
@@ -334,7 +330,6 @@
       "additionalProperties": false
     },
     "campaignDataSwapChaosBagEffect": {
-      "$id": "#campaignDataSwapChaosBagEffect",
       "title": "CampaignDataSwapChaosBagEffect",
       "type": "object",
       "properties": {
@@ -360,9 +355,7 @@
       ],
       "additionalProperties": false
     },
-
     "campaignDataRedirectExperienceEffect": {
-      "$id": "#campaignDataRedirectExperienceEffect",
       "title": "CampaignDataRedirectExperienceEffect",
       "type": "object",
       "properties": {
@@ -390,7 +383,6 @@
       "additionalProperties": false
     },
     "campaignDataEmbarkEffect": {
-      "$id": "#campaignDataEmbarkEffect",
       "title": "CampaignDataEmbarkEffect",
       "type": "object",
       "properties": {
@@ -407,7 +399,7 @@
         "location": {
           "type": "string"
         },
-        "starting_location": {
+        "may_return": {
           "type": "boolean"
         }
       },
@@ -417,9 +409,8 @@
       ],
       "additionalProperties": false
     },
-    "campaignDataUnlockLocationEffect": {
-      "$id": "#campaignDataUnlockLocationEffect",
-      "title": "CampaignDataUnlockLocationEffect",
+    "campaignDataUnlockMapEffect": {
+      "title": "CampaignDataUnlockMapEffect",
       "type": "object",
       "properties": {
         "type": {
@@ -430,21 +421,41 @@
         },
         "setting": {
           "type": "string",
-          "enum": ["unlock_location"]
+          "enum": ["unlock_map"]
+        }
+      },
+      "required": [
+        "type",
+        "setting"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataUpdateLocationEffect": {
+      "title": "CampaignDataUpdateLocationEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
         },
-        "location": {
+        "setting": {
+          "type": "string",
+          "enum": ["unlock_location", "lock_location", "unlock_dossier"]
+        },
+        "value": {
           "type": "string"
         }
       },
       "required": [
         "type",
         "setting",
-        "location"
+        "value"
       ],
       "additionalProperties": false
     },
     "campaignDataNextScenarioEffect": {
-      "$id": "#campaignDataNextScenarioEffect",
       "title": "CampaignDataNextScenarioEffect",
       "type": "object",
       "properties": {
@@ -474,7 +485,6 @@
       "additionalProperties": false
     },
     "campaignDataSetScenariosEffect": {
-      "$id": "#campaignDataSetScenariosEffect",
       "title": "CampaignDataSetScenariosEffect",
       "type": "object",
       "properties": {
@@ -504,9 +514,7 @@
       ],
       "additionalProperties": false
     },
-
     "gainSuppliesEffect": {
-      "$id": "#gainSuppliesEffect",
       "title": "GainSuppliesEffect",
       "type": "object",
       "properties": {
@@ -536,7 +544,6 @@
       "additionalProperties": false
     },
     "loseSuppliesEffect": {
-      "$id": "#loseSuppliesEffect",
       "title": "LoseSuppliesEffect",
       "type": "object",
       "properties": {
@@ -563,7 +570,6 @@
       "additionalProperties": false
     },
     "scenarioDataEffect": {
-      "$id": "#scenarioDataEffect",
       "title": "ScenarioDataEffect",
       "oneOf": [
         { "$ref": "#/definitions/scenarioDataInvestigatorEffect" },
@@ -573,7 +579,6 @@
       ]
     },
     "scenarioDataAddInvestigatorEffect": {
-      "$id": "#scenarioDataAddInvestigatorEffect",
       "title": "ScenarioDataAddInvestigatorEffect",
       "type": "object",
       "properties": {
@@ -608,7 +613,6 @@
       "additionalProperties": false
     },
     "scenarioDataInvestigatorStatusEffect": {
-      "$id": "#scenarioDataInvestigatorStatusEffect",
       "title": "ScenarioDataInvestigatorStatusEffect",
       "type": "object",
       "properties": {
@@ -643,7 +647,6 @@
       "additionalProperties": false
     },
     "scenarioDataStatusEffect": {
-      "$id": "#scenarioDataStatusEffect",
       "title": "scenarioDataStatusEffect",
       "type": "object",
       "properties": {
@@ -674,7 +677,6 @@
       "additionalProperties": false
     },
     "scenarioDataInvestigatorEffect": {
-      "$id": "#scenarioDataInvestigatorEffect",
       "title": "ScenarioDataInvestigatorEffect",
       "type": "object",
       "properties": {
@@ -706,7 +708,6 @@
       "additionalProperties": false
     },
     "addRemoveChaosTokenEffect": {
-      "$id": "#addRemoveChaosTokenEffect",
       "title": "AddRemoveChaosTokenEffect",
       "type": "object",
       "properties": {
@@ -731,7 +732,6 @@
       "additionalProperties": false
     },
     "campaignLogCountEffect": {
-      "$id": "#campaignLogCountEffect",
       "title": "CampaignLogCountEffect",
       "type": "object",
       "properties": {
@@ -772,7 +772,6 @@
       "additionalProperties": false
     },
     "campaignLogInvestigatorCountEffect": {
-      "$id": "#campaignLogInvestigatorCountEffect",
       "title": "CampaignLogInvestigatorCountEffect",
       "type": "object",
       "properties": {
@@ -828,7 +827,6 @@
       "additionalProperties": false
     },
     "freeformCampaignLogEffect": {
-      "$id": "#freeformCampaignLogEffect",
       "title": "FreeformCampaignLogEffect",
       "type": "object",
       "properties": {
@@ -864,7 +862,6 @@
       "additionalProperties": false
     },
     "campaignLogEffect": {
-      "$id": "#campaignLogEffect",
       "title": "CampaignLogEffect",
       "type": "object",
       "properties": {
@@ -909,7 +906,6 @@
       "additionalProperties": false
     },
     "campaignLogCardsEffect": {
-      "$id": "#campaignLogCardsEffect",
       "title": "CampaignLogCardsEffect",
       "type": "object",
       "properties": {
@@ -973,7 +969,6 @@
       "additionalProperties": false
     },
     "checkCampaignLogCardsEffect": {
-      "$id": "#checkCampaignLogCardsEffect",
       "title": "CheckCampaignLogCardsEffect",
       "type": "object",
       "properties": {
@@ -1012,7 +1007,6 @@
       "additionalProperties": false
     },
     "checkCampaignLogCountEffect": {
-      "$id": "#checkCampaignLogCountEffect",
       "title": "CheckCampaignLogCountEffect",
       "type": "object",
       "properties": {
@@ -1036,7 +1030,6 @@
       "additionalProperties": false
     },
     "removeCardEffect": {
-      "$id": "#removeCardEffect",
       "title": "RemoveCardEffect",
       "type": "object",
       "properties": {
@@ -1074,8 +1067,44 @@
       ],
       "additionalProperties": false
     },
+    "scarletKeyEffect": {
+      "title": "ScarletKeyEffect",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "scarlet_key"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "scarlet_key": {
+          "type": "string"
+        },
+        "bearer_type": {
+          "type": "string",
+          "enum": [
+            "investigator",
+            "enemy",
+            "steal",
+            "return"
+          ]
+        },
+        "enemy_code": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "scarlet_key",
+        "bearer_type"
+      ],
+      "additionalProperties": false
+    },
     "partnerStatusEffect": {
-      "$id": "#partnerStatusEffect",
       "title": "PartnerStatusEffect",
       "type": "object",
       "properties": {
@@ -1133,7 +1162,6 @@
       "additionalProperties": false
     },
     "traumaEffect": {
-      "$id": "#traumaEffect",
       "title": "TraumaEffect",
       "type": "object",
       "properties": {
@@ -1149,6 +1177,7 @@
             "all",
             "lead_investigator",
             "defeated",
+            "not_defeated",
             "not_resigned",
             "resigned",
             "$input_value",
@@ -1200,7 +1229,6 @@
       "additionalProperties": false
     },
     "effect": {
-      "$id": "#effect",
       "title": "Effect",
       "oneOf": [
         { "$ref": "#/definitions/storyStepEffect" },
@@ -1225,11 +1253,11 @@
         { "$ref": "#/definitions/gainSuppliesEffect" },
         { "$ref": "#/definitions/loseSuppliesEffect" },
         { "$ref": "#/definitions/checkCampaignLogCardsEffect" },
-        { "$ref": "#/definitions/checkCampaignLogCountEffect" }
+        { "$ref": "#/definitions/checkCampaignLogCountEffect" },
+        { "$ref": "#/definitions/scarletKeyEffect" }
       ]
     },
     "effectsWithInput": {
-      "$id": "#effectsWithInput",
       "title": "EffectsWithInput",
       "type": "object",
       "properties": {

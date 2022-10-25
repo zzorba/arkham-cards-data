@@ -43,14 +43,24 @@ if (!fs.existsSync(`${output_dir}`)) {
 const input_dir = argv.input || '.';
 const standaloneList = [];
 getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
-  if (file.endsWith('.schema.json') || !file.endsWith('.json') || file.endsWith('campaign.json')) {
+  if (file.endsWith('.schema.json') || !file.endsWith('.json')) {
     return;
   }
   const json = jsonlint.parse(fs.readFileSync(file, 'utf-8').toString());
+  if (file.endsWith('campaign.json')) {
+    if (json.campaign_type === 'standalone') {
+      standaloneList.push({
+        type: 'campaign',
+        campaignId: json.id,
+      });
+    }
+    return;
+  }
   if (json.standalone_setup) {
     const parts = file.split('/');
     const campaignFile =  jsonlint.parse(fs.readFileSync(filter(parts, x => x !== parts[parts.length - 1]).join('/') + '/campaign.json', 'utf-8').toString())
     standaloneList.push({
+      type: 'scenario',
       campaignId: campaignFile.id,
       scenarioId: json.id,
     });

@@ -1,0 +1,552 @@
+{
+  "id": "fortune_and_folly_checkpoint",
+  "main_scenario_id": "fortune_and_folly_part_1",
+  "scenario_name": "Checkpoint: The Plan",
+  "full_name": "Checkpoint: The Plan",
+  "header": "Fortune and Folly",
+  "type": "interlude",
+  "icon": "fortune_and_folly",
+  "setup": [
+    "checkpoint",
+    "ask_continue_now"
+  ],
+  "steps": [
+    {
+      "id": "checkpoint",
+      "type": "story",
+      "text": "With the stakeout completed, the time has come to plan out the actual heist. There are only a few days until Saturday night at Défis de la Roulette, the busiest night of the week and the perfect time to get lost in a crowd. The plan for the heist is simple, at least in theory. With the casino staff and security occupied by the Saturday crowd, you will first enter the public areas, just as you did last time. There, you will try to avoid notice as much as you can while completing any needed tasks. Once that's done, you will slip into the restricted areas in the back of the casino that are reserved for staff. This area holds the vault itself, where the Wellspring of Fortune is located. According to Isamara, the vault door is not only secured by solid steel, but also held shut by some kind of energy. If that wasn't enough, it is constantly monitored by guards, patrols, and the cultists of the Fortune's Chosen. It will take a carefully executed plan, and some improvisation, to succeed against all odds. With only a short time to gather supplies and practice the approach, there may not be enough time to rest and recuperate from your first tangle with the casino."
+    },
+    {
+      "id": "ask_continue_now",
+      "text": "Do you wish to proceed to <b>Fortune and Folly, Part II</b> immediately, or take a break?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "now",
+            "text": "Play immediately.",
+            "steps": ["plan_2", "ask_completed_tasks", "ask_damage_and_horror", "tell_clue_choices", "gather_stashed_assets", "do_not_remove_locations", "reset_decks"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "continue_fortune_and_folly_part_2",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "fortune_and_folly_part_2"
+              }
+            ]
+          },
+          {
+            "id": "later",
+            "text": "Take a break.",
+            "steps": ["plan_2", "record_completed_tasks", "ask_damage_and_horror_campaign_log", "tell_clue_choices",  "explain_record_roles", "record_roles", "ask_alarm_level", "record_wellspring_of_fortune_clues", "record_stashed_assets", "clean_up_game"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "fortune_and_folly_part_2"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_stashed_assets",
+      "type": "input",
+      "text": "Gather the facedown assets from beneath Casino Floor that are part of the \"stash for the heist.\" In your Campaign Log, record \"Stashed:\" and next to this, the names of each gathered asset.",
+      "input": {
+        "type": "card_choice",
+        "include_counts": true,
+        "query": [
+          {
+            "types": ["asset"],
+            "source": "deck"
+          }
+        ],
+        "choices": [
+          {
+            "id": "stashed",
+            "text": "Stashed:",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_stashed",
+                "cards": "$input_value",
+                "text": "Stashed: #name# (#X#)"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_alarm_level",
+      "text": "Record each investigator's alarm level in your Campaign Log.",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Alarm level",
+        "max": 10,
+        "min": 1,
+        "effects": [
+          {
+            "type": "campaign_log_cards",
+            "section": "campaign_notes",
+            "id": "fof_alarm_level",
+            "cards": "$input_value",
+            "text": "Alarm level: #name# (#X#)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_wellspring_of_fortune_clues",
+      "text": "Record the number of clues on The Wellspring of Fortune in your Campaign Log",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Clues:",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "campaign_notes",
+            "id": "fof_wellspring_clues",
+            "text": "Clues on The Wellspring of Fortune: #X#",
+            "operation": "set_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "clean_up_game",
+      "text": "Clean up the game as normal."
+    },
+    {
+      "id": "ask_completed_tasks",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Completed Tasks",
+        "choices": [
+          {
+            "id": "found_a_vent",
+            "text": "Found a vent",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_found_a_vent",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "impersonated_a_high_roller",
+            "text": "Impersonated a high roller",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_impersonated_a_high_roller",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "convinced_isamara",
+            "text": "Convinced Isamara to participate in the heist",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_convinced_isamara",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "obtained_an_uniform",
+            "text": "Obtained an employee uniform",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_obtained_an_uniform",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "stole_keys",
+            "text": "Stole Abarran's keys",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_stole_keys",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "cleaned_out_the_house",
+            "text": "Cleaned out the house",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_cleaned_out_the_house",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "record_completed_tasks",
+      "text": "In your Campaign Log, record each line of text that you were instructed to remember during this scenario. <i>(You will have to remember these for Part II, as well.)</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Completed Tasks",
+        "choices": [
+          {
+            "id": "found_a_vent",
+            "text": "Found a vent",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_found_a_vent",
+                "text": "the investigators found a vent."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_found_a_vent",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "impersonated_a_high_roller",
+            "text": "Impersonated a high roller",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_impersonated_a_high_roller",
+                "text": "the investigators impersonated a high roller."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_impersonated_a_high_roller",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "convinced_isamara",
+            "text": "Convinced Isamara to participate in the heist",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_convinced_isamara",
+                "text": "the investigators convinced Isamara to participate in the heist."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_convinced_isamara",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "obtained_an_uniform",
+            "text": "Obtained an employee uniform",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_obtained_an_uniform",
+                "text": "the investigators obtained an employee uniform."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_obtained_an_uniform",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "stole_keys",
+            "text": "Stole Abarran's keys",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_stole_keys",
+                "text": "the investigators stole Abarran's keys."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_stole_keys",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "cleaned_out_the_house",
+            "text": "Cleaned out the house",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fof_cleaned_out_the_house",
+                "text": "the investigators cleaned out the house."
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_cleaned_out_the_house",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "plan_2",
+      "type": "story",
+      "text": "With a deep breath, you make your final preparations..."
+    },
+    {
+      "id": "ask_damage_and_horror",
+      "text": "Check the total amount of damage and horror on each investigator.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Does any investigator have 6 or more combined damage and horror?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_need_time_to_rest",
+                "text": "dummy"
+              }
+            ],
+            "steps": ["remember_need_time_to_rest"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remember_need_time_to_rest",
+      "bullet_type": "small",
+      "text": "Remember that \"the investigators need time to rest.\""
+    },
+    {
+      "id": "ask_damage_and_horror_campaign_log",
+      "text": "Check the total amount of damage and horror on each investigator.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Does any investigator have 6 or more combined damage and horror?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fof_need_time_to_rest",
+                "text": "dummy"
+              }
+            ],
+            "steps": ["record_need_time_to_rest"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_need_time_to_rest",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fof_need_time_to_rest",
+          "text": "the investigators need time to rest."
+        }
+      ]
+    },
+    {
+      "id": "gather_stashed_assets",
+      "text": "Gather the facedown assets from beneath Casino Floor that are part of the \"stash for the heist.\" Each investigator takes the stashed assets that they own and sets them aside."
+    },
+    {
+      "id": "do_not_remove_locations",
+      "text": "Do not remove any locations from play. (All tokens on these locations are removed and all cards at these locations, except The Wellspring of Fortune, Isamara Ordoñez, and Abarran Arrigorriagakoa, are discarded as normal.)"
+    },
+    {
+      "id": "reset_decks",
+      "text": "Reset each investigator's deck and the encounter deck."
+    },
+    {
+      "id": "tell_clue_choices",
+      "text": "For every 1 [per_investigator] clues on The Stakeout story card at the conclusion of part I, the investigators, as a group, choose one of the following options:",
+      "bullets": [
+        {
+          "text": "Reduce each investigator's alarm level by 1."
+        },
+        {
+          "text": "Choose a [[Role]] card that was under an investigator's control when the game ended. Flip the chosen card to its [[Practiced]] side."
+        }
+      ]
+    },
+    {
+      "id": "explain_record_roles",
+      "text": "Record the name of each [[Role]] card under an investigator's control when the game ended. If you chose to flip any to their [[Practiced]] side, be sure to choose the appropriate option."
+    },
+    {
+      "id": "record_roles",
+      "text": "Record each [[Role]]:",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "unique": true,
+        "choices": [
+          {
+            "id": "face",
+            "text": "The Face",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_face",
+                "cards": "$input_value",
+                "text": "#name#: The Face"
+              }
+            ]
+          },
+          {
+            "id": "muscle",
+            "text": "The Muscle",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_muscle",
+                "cards": "$input_value",
+                "text": "#name#: The Muscle"
+              }
+            ]
+          },
+          {
+            "id": "thief",
+            "text": "The Thief",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_thief",
+                "cards": "$input_value",
+                "text": "#name#: The Thief"
+              }
+            ]
+          },
+          {
+            "id": "grifter",
+            "text": "The Grifter",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_grifter",
+                "cards": "$input_value",
+                "text": "#name#: The Grifter"
+              }
+            ]
+          },
+          {
+            "id": "face_practiced",
+            "text": "The Face (Practiced)",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_face_practiced",
+                "cards": "$input_value",
+                "text": "#name#: The Face (Practiced)"
+              }
+            ]
+          },
+          {
+            "id": "muscle_practiced",
+            "text": "The Muscle (Practiced)",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_muscle_practiced",
+                "cards": "$input_value",
+                "text": "#name#: The Muscle (Practiced)"
+              }
+            ]
+          },
+          {
+            "id": "thief_practiced",
+            "text": "The Thief (Practiced)",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_thief_practiced",
+                "cards": "$input_value",
+                "text": "#name#: The Thief (Practiced)"
+              }
+            ]
+          },
+          {
+            "id": "grifter_practiced (Practiced)",
+            "text": "The Grifter (Practiced)",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "fof_the_grifter_practiced",
+                "cards": "$input_value",
+                "text": "#name#: The Grifter (Practiced)"
+              }
+            ]
+          },
+          {
+            "id": "none",
+            "text": "None"
+          }
+        ]
+      }
+    }
+  ]
+}

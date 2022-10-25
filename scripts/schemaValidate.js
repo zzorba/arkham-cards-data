@@ -2,7 +2,7 @@ const Ajv = require("ajv");
 const fs = require("fs");
 const path = require("path");
 const jsonlint = require("jsonlint");
-const $RefParser = require("json-schema-ref-parser");
+const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
 /** Retrieve file paths from a given folder and its subfolders. */
 const getFilePaths = folderPath => {
@@ -43,6 +43,8 @@ function validate(validator, file, json, schemaName) {
     $upgrade_decks: true,
     $choose_investigators: true,
     $check_tarot_reading: true,
+    $pr_R1: true,
+    $pr_no_resolution: true,
     // Technically only for TSK, but whatever.
     $embark: true,
     $proceed: true,
@@ -305,95 +307,100 @@ async function validateChaosTokens() {
 
 async function validateScenarios() {
   console.log('****Validating Scenarios****');
-  const scenarioSchema = fs
-    .readFileSync("./schema/scenario.schema.json")
-    .toString();
+  const files = [
+    './schema/scenario.schema.json',
+    './schema/refs/scenario.schema.json',
+    './schema/refs/condition.schema.json',
+    './schema/refs/effect.schema.json',
+    './schema/refs/input.schema.json',
+    './schema/refs/option.schema.json',
+    './schema/refs/resolution.schema.json',
+    './schema/refs/step.schema.json',
+    './schema/refs/types.schema.json',
+  ];
+  const schemas = files.map(file => JSON.parse(fs.readFileSync(file).toString()));
   return await new Promise((resolve, reject) => {
-    $RefParser.dereference(jsonlint.parse(scenarioSchema), (err, schema) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        try {
-          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-          // including referenced files, combined into a single object
-          const ajv = new Ajv({ verbose: true });
-          const validator = ajv.addSchema(schema, "scenario");
-          const QUIET = false;
-          [
-            ...getFilePaths("./campaigns").sort(),
-            ...getFilePaths("./build/return_campaigns").sort()
-          ]
-            .sort()
-            .map(file => {
-              if (
-                !file.endsWith(".schema.json") &&
-                !file.endsWith("campaign.json") &&
-                file.endsWith(".json")
-              ) {
-                const data = fs.readFileSync(file, "utf-8").toString();
-                if (!QUIET) {
-                  console.log("Validating: " + file);
-                }
-                try {
-                  const json = jsonlint.parse(data);
-                  validate(validator, file, json, "scenario");
-                } catch (e) {
-                  console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-                }
-              }
-            });
-        } catch (e) {
-          reject(e);
-          return;
-        }
+    try {
+      // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+      // including referenced files, combined into a single object
+      const validator = new Ajv({ verbose: true, allErrors: true, strictTuples: false, inlineRefs: false, schemas });
+      const QUIET = false;
+      [
+        ...getFilePaths("./campaigns").sort(),
+        ...getFilePaths("./build/return_campaigns").sort()
+      ]
+        .sort()
+        .forEach(file => {
+          if (
+            !file.endsWith(".schema.json") &&
+            !file.endsWith("campaign.json") &&
+            file.endsWith(".json")
+          ) {
+            const data = fs.readFileSync(file, "utf-8").toString();
+            if (!QUIET) {
+              console.log("Validating: " + file);
+            }
+            try {
+              const json = jsonlint.parse(data);
+              validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario");
+            } catch (e) {
+              console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+            }
+          }
+        });
         resolve();
+      } catch (e) {
+        reject(e);
       }
-    });
   });
 }
 
 async function validateCampaigns() {
   console.log('****Validating Campaigns****');
-  const campaignSchema = fs
-    .readFileSync("./schema/campaign.schema.json")
-    .toString();
+  const files = [
+    './schema/campaign.schema.json',
+    './schema/refs/campaign.schema.json',
+    './schema/refs/scenario.schema.json',
+    './schema/refs/condition.schema.json',
+    './schema/refs/effect.schema.json',
+    './schema/refs/input.schema.json',
+    './schema/refs/option.schema.json',
+    './schema/refs/resolution.schema.json',
+    './schema/refs/step.schema.json',
+    './schema/refs/types.schema.json',
+  ];
+  const schemas = files.map(file => JSON.parse(fs.readFileSync(file).toString()));
   return await new Promise((resolve, reject) => {
-    $RefParser.dereference(jsonlint.parse(campaignSchema), (err, schema) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        try {
-          // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-          // including referenced files, combined into a single object
-          const ajv = new Ajv({ verbose: true, allErrors: true  });
-          const validator = ajv.addSchema(schema, "campaign");
-          const QUIET = true;
-          [
-            ...getFilePaths("./campaigns").sort(),
-            ...getFilePaths("./build/return_campaigns").sort()
-          ].map(file => {
-            if (file.endsWith("campaign.json")) {
-              const data = fs.readFileSync(file, "utf-8").toString();
-              if (!QUIET) {
-                console.log("Validating: " + file);
-              }
-              try {
-                const json = jsonlint.parse(data);
-                validate(validator, file, json, "campaign");
-              } catch (e) {
-                console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
-              }
-            }
-          });
-        } catch(e) {
-          reject(e);
+
+    try {
+      // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
+      // including referenced files, combined into a single object
+      const validator = new Ajv({ verbose: true, allErrors: true, strictTuples: false, inlineRefs: false, schemas });
+      const QUIET = false;
+      [
+        ...getFilePaths("./campaigns").sort(),
+        ...getFilePaths("./build/return_campaigns").sort()
+      ].forEach(file => {
+        if (file.indexOf("side/campaign.json") !== -1) {
           return;
         }
-        resolve();
-      }
-    });
+        if (file.endsWith("campaign.json")) {
+          const data = fs.readFileSync(file, "utf-8").toString();
+          if (!QUIET) {
+            console.log("Validating: " + file);
+          }
+          try {
+            const json = jsonlint.parse(data);
+            validate(validator, file, json, "schema/campaign.schema.json#/definitions/campaign");
+          } catch (e) {
+            console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
+          }
+        }
+      });
+    } catch(e) {
+      reject(e);
+      return;
+    }
   });
 }
 
@@ -481,7 +488,7 @@ async function validateTaboos() {
 async function main() {
   await validateTaboos();
   await validateScenarios();
-  // await validateCampaigns();
+  await validateCampaigns();
   await validateChaosTokens();
   await validateErrata();
   //

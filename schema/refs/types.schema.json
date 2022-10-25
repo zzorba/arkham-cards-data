@@ -3,13 +3,11 @@
   "$id": "schema/types.schema.json",
   "definitions": {
     "borderColor": {
-      "$id": "#borderColor",
       "title": "BorderColor",
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
     "locationDetails": {
-      "$id": "#locationDetails",
       "title": "LocationDetails",
       "type": "object",
       "properties": {
@@ -38,7 +36,6 @@
       "additionalProperties": false
     },
     "mapLabel": {
-      "$id": "#mapLabel",
       "title": "MapLabel",
       "type": "object",
       "properties": {
@@ -64,7 +61,6 @@
       "additionalProperties": false
     },
     "dossierElement": {
-      "$id": "#dossierElement",
       "title": "DossierElement",
       "type": "object",
       "properties": {
@@ -87,12 +83,41 @@
         },
         "text": {
           "type": "string"
+        },
+        "reference": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": ["city", "name"],
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
     },
+    "calendarEntry": {
+      "title": "CalendarEntry",
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "time": {
+          "type": "number"
+        },
+        "entry": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["symbol"]
+    },
     "dossier": {
-      "$id": "#dossier",
       "title": "Dossier",
       "type": "object",
       "properties": {
@@ -104,13 +129,15 @@
           "items": {
             "$ref": "#/definitions/dossierElement"
           }
+        },
+        "locked": {
+          "type": "string"
         }
       },
       "required": ["title", "entries"],
       "additionalProperties": false
     },
     "mapLocation": {
-      "$id": "#mapLocation",
       "title": "MapLocation",
       "type": "object",
       "properties": {
@@ -145,6 +172,10 @@
           "type": "string",
           "enum": ["locked", "standard", "side"]
         },
+        "current": {
+          "type": "string",
+          "enum": ["up", "down"]
+        },
         "direction": {
           "type": "string",
           "enum": ["left", "right"]
@@ -159,8 +190,21 @@
       "required": ["id", "x", "y", "name", "status", "connections", "direction", "scenario", "details"],
       "additionalProperties": false
     },
+    "scarletKey": {
+      "title": "ScarletKey",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"],
+      "additionalProperties": false
+    },
     "partner": {
-      "$id": "#partner",
       "title": "Partner",
       "type": "object",
       "properties": {
@@ -200,13 +244,11 @@
       "additionalProperties": false
     },
     "partnerStatus": {
-      "$id": "#partnerStatus",
       "title": "PartnerStatus",
       "type": "string",
       "enum": ["eliminated", "alive", "has_damage", "has_horror", "mia", "safe", "resolute", "investigator_defeated", "investigator_selected", "victim", "cannot_take"]
     },
     "ultimatum": {
-      "$id": "#ultimatum",
       "title": "Ultimatum",
       "type": "object",
       "properties": {
@@ -224,7 +266,6 @@
       "additionalProperties": false
     },
     "achievement": {
-      "$id": "#achievement",
       "title": "Achievement",
       "type": "object",
       "properties": {
@@ -265,7 +306,6 @@
       "additionalProperties": false
     },
     "narration": {
-      "$id": "#narration",
       "title": "Narration",
       "type": "object",
       "properties": {
@@ -286,7 +326,6 @@
       "additionalProperties": false
     },
     "locationConnector": {
-      "$id": "#locationConnector",
       "title": "LocationConnector",
       "type": "string",
       "enum": [
@@ -299,7 +338,6 @@
       ]
     },
     "investigator": {
-      "$id": "#investigator",
       "title": "InvestigatorSelector",
       "type": "string",
       "enum": [
@@ -317,13 +355,11 @@
       ]
     },
     "choiceIcon": {
-      "$id": "#choiceIcon",
       "title": "ChoiceIcon",
       "type": "string",
       "enum": ["mental", "physical", "resign", "dismiss", "accept"]
     },
     "border": {
-      "$id": "#border",
       "title": "Border",
       "type": "string",
       "enum": [
@@ -333,7 +369,6 @@
       ]
     },
     "investigatorStatus": {
-      "$id": "#investigatorStatus",
       "title": "InvestigatorStatus",
       "type": "string",
       "enum": [
@@ -345,7 +380,6 @@
       ]
     },
     "scenarioStatus": {
-      "$id": "#scenarioStatus",
       "title": "ScenarioStatus",
       "type": "string",
       "enum": [
@@ -358,7 +392,6 @@
       ]
     },
     "difficulty": {
-      "$id": "#difficulty",
       "title": "Difficulty",
       "type": "string",
       "enum": [
@@ -369,7 +402,6 @@
       ]
     },
     "specialXp": {
-      "$id": "#specialXp",
       "title": "SpecialXp",
       "type": "string",
       "enum": [
@@ -379,7 +411,6 @@
       ]
     },
     "specialChaosToken": {
-      "$id": "#specialChaosToken",
       "title": "SpecialChaosToken",
       "type": "string",
       "enum": [
@@ -395,7 +426,6 @@
       ]
     },
     "campaignResult": {
-      "$id": "#campaignResult",
       "title": "CampaignResult",
       "type": "string",
       "enum": [
@@ -405,7 +435,6 @@
       ]
     },
     "chaosToken": {
-      "$id": "#chaosToken",
       "title": "ChaosToken",
       "oneOf": [
         {
@@ -429,7 +458,6 @@
       ]
     },
     "customData": {
-      "$id": "#customData",
       "title": "CustomData",
       "type": "object",
       "properties": {
@@ -487,7 +515,6 @@
       "additionalProperties": false
     },
     "cardCodeList": {
-      "$id": "#cardCodeList",
       "title": "CardCodeList",
       "type": "object",
       "properties": {
@@ -505,7 +532,6 @@
       "additionalProperties": false
     },
     "cardSearchQuery": {
-      "$id": "#cardSearchQuery",
       "title": "CardSearchQuery",
       "type": "object",
       "properties": {
@@ -517,6 +543,12 @@
           ]
         },
         "traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "types": {
           "type": "array",
           "items": {
             "type": "string"
@@ -542,7 +574,6 @@
       "additionalProperties": false
     },
     "cardQuery": {
-      "$id": "#cardQuery",
       "title": "CardQuery",
       "oneOf": [
         {
@@ -554,7 +585,6 @@
       ]
     },
     "choice": {
-      "$id": "#choice",
       "title": "Choice",
       "type": "object",
       "properties": {
@@ -611,7 +641,6 @@
       "additionalProperties": false
     },
     "binaryConditionalChoice": {
-      "$id": "#binaryConditionalChoice",
       "title": "BinaryConditionalChoice",
       "type": "object",
       "properties": {
@@ -687,7 +716,6 @@
       "additionalProperties": false
     },
     "chaosTokenModifier": {
-      "$id": "#chaosTokenModifier",
       "title": "ChaosTokenModifier",
       "type": "object",
       "properties": {
@@ -714,7 +742,6 @@
       "required": ["modifier"]
     },
     "simpleChaosTokenValue": {
-      "$id": "#simpleChaosTokenValue",
       "title": "SimpleChaosTokenValue",
       "type": "object",
       "properties": {
@@ -735,7 +762,6 @@
       "required": ["token", "value"]
     },
     "counterChaosTokenValue": {
-      "$id": "#counterChaosTokenValue",
       "title": "CounterChaosTokenValue",
       "type": "object",
       "properties": {
@@ -785,7 +811,6 @@
       "required": ["type", "token", "counter"]
     },
     "conditionChaosTokenValue": {
-      "$id": "#conditionChaosTokenValue",
       "title": "ConditionChaosTokenValue",
       "type": "object",
       "properties": {
@@ -830,7 +855,6 @@
       "required": ["type", "token", "condition"]
     },
     "singleChaosTokenValue": {
-      "$id": "#singleChaosTokenValue",
       "title": "SingleChaosTokenValue",
       "type": "object",
       "oneOf": [
@@ -846,7 +870,6 @@
       ]
     },
     "scenarioChaosTokens": {
-      "$id": "#scenarioChaosTokens",
       "title": "ScenarioChaosTokens",
       "type": "object",
       "properties": {
@@ -873,7 +896,6 @@
       "additionalProperties": false
     },
     "investigatorConditionalChoice": {
-      "$id": "#investigatorConditionalChoice",
       "title": "InvestigatorConditionalChoice",
       "type": "object",
       "properties": {
@@ -927,7 +949,6 @@
       "additionalProperties": false
     },
     "tableCell": {
-      "$id": "#tableCell",
       "title": "TableCell",
       "type": "object",
       "properties": {
@@ -942,7 +963,6 @@
       "additionalProperties": false
     },
     "tableRow": {
-      "$id": "#tableRow",
       "title": "TableRow",
       "type": "object",
       "properties": {
@@ -957,7 +977,6 @@
       "additionalProperties": false
     },
     "supply": {
-      "$id": "#supply",
       "title": "Supply",
       "type": "object",
       "properties": {
@@ -981,7 +1000,6 @@
       "additionalProperties": false
     },
     "bulletType": {
-      "$id": "#bulletType",
       "title": "BulletType",
       "type": "string",
       "enum": [

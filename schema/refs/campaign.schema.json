@@ -3,7 +3,6 @@
   "$id": "schema/campaign.schema.json",
   "definitions": {
     "campaignLogSectionDefinition": {
-      "$id": "#campaignLogSectionDefinition",
       "title": "CampaignLogSectionDefinition",
       "type": "object",
       "properties": {
@@ -15,12 +14,24 @@
         },
         "type": {
           "type": "string",
-          "enum": ["investigator_count", "count", "supplies", "header", "partner", "hidden"]
+          "enum": ["investigator_count", "count", "supplies", "header", "partner", "scarlet_keys", "hidden"]
         },
         "partners": {
           "type": "array",
           "items": {
             "$ref": "types.schema.json#/definitions/partner"
+          }
+        },
+        "calendar": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/calendarEntry"
+          }
+        },
+        "scarlet_keys": {
+          "type": "array",
+          "items": {
+            "$ref": "types.schema.json#/definitions/scarletKey"
           }
         }
       },
@@ -28,7 +39,6 @@
       "additionalProperties": false
     },
     "campaignMap": {
-      "$id": "#campaignMap",
       "title": "CampaignMap",
       "type": "object",
       "properties": {
@@ -38,10 +48,7 @@
         "height": {
           "type": "number"
         },
-        "max_time": {
-          "type": "number"
-        },
-        "final_scenario": {
+        "fast_code": {
           "type": "string"
         },
         "locations": {
@@ -57,11 +64,10 @@
           }
         }
       },
-      "required": ["width", "height", "max_time", "final_scenario", "locations", "labels"],
+      "required": ["width", "height", "fast_code" , "locations", "labels"],
       "additionalProperties": false
     },
     "campaign": {
-      "$id": "#campaign",
       "title": "Campaign",
       "type": "object",
       "properties": {
@@ -83,6 +89,9 @@
         "position": {
           "type": "integer"
         },
+        "no_side_scenario_xp": {
+          "type": "boolean"
+        },
         "map": {
           "$ref": "#/definitions/campaignMap"
         },
@@ -99,7 +108,7 @@
               },
               "gender": {
                 "type": "string",
-                "enum": ["m", "f"]
+                "enum": ["m", "f", "nb"]
               },
               "description": {
                 "type": "string"

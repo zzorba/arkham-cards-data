@@ -3,7 +3,6 @@
   "$id": "schema/step.schema.json",
   "definitions": {
     "inputStep": {
-      "$id": "#inputStep",
       "title": "InputStep",
       "type": "object",
       "properties": {
@@ -43,7 +42,6 @@
       "additionalProperties": false
     },
     "branchStep": {
-      "$id": "#branchStep",
       "title": "BranchStep",
       "type": "object",
       "properties": {
@@ -89,7 +87,6 @@
       "additionalProperties": false
     },
     "encounterSetsStep": {
-      "$id": "#encounterSetsStep",
       "title": "EncounterSetsStep",
       "type": "object",
       "properties": {
@@ -131,6 +128,12 @@
         },
         "remove": {
           "type": "boolean"
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/effect"
+          }
         }
       },
       "required": [
@@ -141,7 +144,6 @@
       "additionalProperties": false
     },
     "tableStep": {
-      "$id": "#tableStep",
       "title": "TableStep",
       "type": "object",
       "properties": {
@@ -188,7 +190,6 @@
       "additionalProperties": false
     },
     "locationConnectorsStep": {
-      "$id": "#locationConnectorsStep",
       "title": "LocationConnectorsStep",
       "type": "object",
       "properties": {
@@ -236,7 +237,6 @@
       "additionalProperties": false
     },
     "ruleReminderStep": {
-      "$id": "#ruleReminderStep",
       "title": "RuleReminderStep",
       "type": "object",
       "properties": {
@@ -287,8 +287,40 @@
       ],
       "additionalProperties": false
     },
+    "travelCostStep": {
+      "title": "TravelCostStep",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["travel_cost"]
+        },
+        "text": {
+          "type": "string"
+        },
+        "border_only": {
+          "type": "boolean"
+        },
+        "title": {
+          "type": "string"
+        },
+        "bullet_type": {
+          "type": "null"
+        },
+        "narration": {
+          "$ref": "types.schema.json#/definitions/narration"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false
+    },
     "borderStep": {
-      "$id": "#borderStep",
       "title": "BorderStep",
       "type": "object",
       "properties": {
@@ -312,6 +344,10 @@
         },
         "title": {
           "type": "string"
+        },
+        "title_font": {
+          "type": "string",
+          "enum": ["status"]
         },
         "title_strikethrough": {
           "type": "boolean"
@@ -353,7 +389,6 @@
       "additionalProperties": false
     },
     "storyStep": {
-      "$id": "#storyStep",
       "title": "StoryStep",
       "type": "object",
       "properties": {
@@ -377,6 +412,10 @@
         },
         "title": {
           "type": "string"
+        },
+        "title_font": {
+          "type": "string",
+          "enum": ["status"]
         },
         "text": {
           "type": "string"
@@ -409,7 +448,6 @@
       "additionalProperties": false
     },
     "genericStep": {
-      "$id": "#genericStep",
       "title": "GenericStep",
       "type": "object",
       "properties": {
@@ -468,64 +506,7 @@
       ],
       "additionalProperties": false
     },
-    "campaignLogCountStep": {
-      "$id": "#campaignLogCountStep",
-      "title": "CampaignLogCountStep",
-      "type": "object",
-      "properties": {
-        "border_only": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "campaign_log_count"
-          ]
-        },
-        "text_count": {
-          "type": "string"
-        },
-        "campaign_log_count": {
-          "type": "object",
-          "properties": {
-            "section": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "section"
-          ],
-          "additionalProperties": false
-        },
-        "bullet_type": {
-          "type": "null"
-        },
-        "title": {
-          "type": "string"
-        },
-        "text": {
-          "type": "null"
-        },
-        "narration": {
-          "$ref": "types.schema.json#/definitions/narration"
-        }
-      },
-      "required": [
-        "id",
-        "type",
-        "text_count",
-        "campaign_log_count"
-      ],
-      "additionalProperties": false
-    },
     "xpCountStep": {
-      "$id": "#xpCountStep",
       "title": "XpCountStep",
       "type": "object",
       "properties": {
@@ -565,7 +546,6 @@
       "additionalProperties": false
     },
     "resolutionStep": {
-      "$id": "#resolutionStep",
       "title": "ResolutionStep",
       "type": "object",
       "properties": {
@@ -614,7 +594,6 @@
       "additionalProperties": false
     },
     "locationSetupStep": {
-      "$id": "#locationSetupStep",
       "title": "LocationSetupStep",
       "type": "object",
       "properties": {
@@ -719,7 +698,6 @@
       "additionalProperties": false
     },
     "internalStep": {
-      "$id": "#internalStep",
       "title": "InternalStep",
       "type": "object",
       "properties": {
@@ -758,7 +736,6 @@
       "additionalProperties": false
     },
     "effectsStep": {
-      "$id": "#effectsStep",
       "title": "EffectsStep",
       "type": "object",
       "properties": {
@@ -808,7 +785,6 @@
       "additionalProperties": false
     },
     "step": {
-      "$id": "#step",
       "title": "Step",
       "oneOf": [
         {
@@ -845,9 +821,6 @@
           "$ref": "#/definitions/tableStep"
         },
         {
-          "$ref": "#/definitions/campaignLogCountStep"
-        },
-        {
           "$ref": "#/definitions/xpCountStep"
         },
         {
@@ -855,6 +828,9 @@
         },
         {
           "$ref": "#/definitions/borderStep"
+        },
+        {
+          "$ref": "#/definitions/travelCostStep"
         }
       ]
     }
