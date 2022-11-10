@@ -7,6 +7,24 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "image": {
+      "title": "Image",
+      "type": "object",
+      "properties": {
+        "ratio": {
+          "type": "number"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "alignment": {
+          "type": "string",
+          "enum": ["left", "right", "top", "bottom"]
+        }
+      },
+      "required": ["ratio", "uri", "alignment"],
+      "additionalProperties": false
+    },
     "locationDetails": {
       "title": "LocationDetails",
       "type": "object",
@@ -65,21 +83,7 @@
       "type": "object",
       "properties": {
         "image": {
-          "type": "object",
-          "properties": {
-            "ratio": {
-              "type": "number"
-            },
-            "uri": {
-              "type": "string"
-            },
-            "alignment": {
-              "type": "string",
-              "enum": ["left", "right"]
-            }
-          },
-          "required": ["ratio", "uri", "alignment"],
-          "additionalProperties": false
+          "$ref": "#/definitions/image"
         },
         "text": {
           "type": "string"
