@@ -40,6 +40,7 @@ function validate(validator, file, json, schemaName) {
   const steps = {};
   const magicSteps = {
     $proceed: true,
+    $proceed_alt: true,
     $upgrade_decks: true,
     $choose_investigators: true,
     $check_tarot_reading: true,
@@ -47,7 +48,16 @@ function validate(validator, file, json, schemaName) {
     $pr_no_resolution: true,
     // Technically only for TSK, but whatever.
     $embark: true,
-    $proceed: true,
+    $travel_time: true,
+    $embark_return: true,
+    $save_decks_with_xp: true,
+    $mark_1_time: true,
+    $mark_2_time: true,
+    $mark_3_time: true,
+    $maybe_epsilon_setup: true,
+    $maybe_add_elder_thing: true,
+    $maybe_add_tablet: true,
+    $maybe_add_tablet_and_save: true,
     $check_status_report: true,
   };
   if (
