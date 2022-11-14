@@ -1,0 +1,131 @@
+{
+  "id": "ybor_city",
+  "scenario_name": "The Safehouse",
+  "full_name": "Ybor City: The Safehouse",
+  "header": "Ybor City",
+  "icon": "ybor_city",
+  "type": "interlude",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "intro_1",
+    "check_know_passphrase"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "It’s a good thing the locals here are fairly welcoming and don’t seem to mind you asking directions, because “abandoned cigar factory” doesn’t exactly narrow things down. The bustling Ybor City district near Tampa is home to many such factories built and run by thousands of immigrants from all over. If you had to check each and every factory, you’d be here all week. Luckily, you have a lead just north of the bay: a quiet, run-down building with an adjoining boarded-up warehouse. If you didn’t know the truth, you’d think it was nothing more than an out-of-date factory from the ’80s, probably filled with nothing more than dust and rats. But if you’ve learned anything in your travels, it’s to never trust the evidence of your eyes.\nYou cautiously approach the main entrance and attempt to open it. As you suspected, it does not budge. If this is truly a Coterie sanctum, it’ll be harder than that to get inside. There’s no easy way in through the third-story windows, so you circle around the side of the warehouse, spotting a large metal door likely used for loading goods or unloading supplies. As there is no handle or lever, you decide to knock. A moment later, a gruff voice responds from the other side: “Passphrase.”"
+    },
+    {
+      "id": "check_know_passphrase",
+      "text": "Check the Campaign Log. <i>If you know the passphrase</i> and the current time is at or after Θ (theta):",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "know_the_passphrase",
+            "options": [{ "boolCondition": true }]
+          },
+
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "sr_theta_time"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "choose_bearer_of_the_mirroring_blade", "earn_2_xp", "$save_decks_with_xp", "$mark_1_time", "$embark"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "may_return_to_ybor_city", "$embark_return"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You lean in and utter the words that Desi taught you—”Blackbird Solitaire”—and the door slides open. On the other side, a muscular man with a thick mustache gives you a toothy grin. The hand hovering just over the handle of a revolver holstered at his side gives you pause, but after a moment, he steps aside to let you in. “Boss said you might be stopping by,” the doorman says. “He said to let you look around and take whatever you need.”\nYou step inside and eye the man carefully. Last thing you need is a bullet in the back just as soon as you begin your search. As if sensing your concern, he slowly unholsters his gun and empties the cylinder. “Look, friend. I know what you did for Desi. Any friend of his is a friend of mine,” he states, meeting your suspicious gaze head-on. “Whatever you’re looking for, it’s yours.”\nIt doesn’t take too long for you to find the Key Desi had stashed here. Mounted on a far wall of the warehouse, over a midst of a trove of supplies and ammunition, its alien sheen reflects a warped view of your startled countenance. It is a double-edged blade of considerable length, although it has no handle or grip with which to wield it. It might be a weapon, but it is no mortal one, that is for sure.\n“That old thing?” the gruff man asks as you delicately remove it from its mount. “Just a weird hunk of metal, that is. Thought Desi just kept it here for kicks. Creeps the hell out of me.” As you hold the blade over both of your hands, a gentle pulse of energy quivers through its length. Not a decoration, then—this is the real deal.\nYou also sift througth some of Desi’s records and intel while you are here. Not much that you don’t already know, but it looks like he’s been keeping tabs on a few of his cohorts. There are more than a few clandestine photographs of a woman carrying a red parasol over her shoulder. In the clearest of these, the woman is giving the camera a knowing smirk. She knew Desi was on to her. On the back, in sloppy handwriting, black ink reads: “You’re in too deep this time, Tzu.”\nYou browse a bit more, but you aren’t going to find much else here. Desi’s operation is quite a bit different from the Coterie’s stated goals, it seems. Perhaps there is more to them than the Foundation believes. Or, it’s just another front. Doesn’t matter. You have what you came for."
+    },
+    {
+      "id": "choose_bearer_of_the_mirroring_blade",
+      "text": "Choose an investigator to be the bearer of The Mirroring Blade and update the Campaign Log accordingly.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "sable_glass",
+            "text": "Bearer of The Mirroring Blade",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "mirroring_blade",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_2_xp",
+      "text": "Each investigator earns 2 experience, as they gain insight into the inner workings of the Red Coterie.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "No matter what you say, the voice on the other side of the door remains silent. Then, muffled yet distinct, you hear the telltale sound of a revolver being slowly chambered. With that, you decide to take your leave. You’ll have to return later, when you know how to get in…"
+    },
+    {
+      "id": "may_return_to_ybor_city",
+      "text": "You may return to this location again later."
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

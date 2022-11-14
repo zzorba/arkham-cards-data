@@ -1,0 +1,1154 @@
+{
+  "id": "istanbul",
+  "scenario_name": "Dealings in the Dark",
+  "full_name": "Istanbul: Dealings in the Dark",
+  "header": "Istanbul",
+  "icon": "istanbul",
+  "setup": [
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "check_have_keys",
+    "intro_cont",
+    "choose_path",
+    "gather_encounter_sets",
+    "unveiling_card",
+    "check_time",
+    "check_time_unveiling",
+    "setup_locations",
+    "location_layout",
+    "check_working_with_ece",
+    "set_aside_cards",
+    "gather_decoy_cards",
+    "$maybe_epsilon_setup",
+    "encounter_deck",
+    "spawn_cultists",
+    "location_adjacency_rule",
+    "acolyte_concealed_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Gulls cry out as you cross the Galata Bridge: what many would call the link between the traditional city of Constantinople, and the districts of Galata, Beyoğlu, Şişli and Harbiye, where a large proportion of foreign merchants and diplomats live and work. Since you know where you are headed, and time and secrecy are of the essence, you decide against hiring a translator, and head directly to the Süleymaniye Complex, where the target of your investigation—a Ms. Ece Şahin—supposedly works.\nMs. Şahin has made a name for herself in several fields of academia, specifically in the fields of antiquity and art history. According to your intel, she works as a curator in the recently established Turkish and Islamic Arts Museum, but to your surprise, your case files include a wealth of other information about Ms. Şahin, from her schooling all the way back to her early life. All of this points to one of two conclusions: either she is not in hiding like the other members of the Coterie, or she has crafted an extensive cover story.\nAccording to your intel, Ms. Şahin has already reached out to the Foundation by way of an offer of introduction. It could be a trap, but if she truly wishes to meet, you can’t turn down such an opportunity. Thankfully, her office is not difficult to find, the door marked with her name and full title in Turkish and several other languages. You knock and she bids you to enter, which you do with much caution, eyes instinctively darting to every one of the room’s corners and hiding places.\nThe room is warm and richly decorated, the walls covered in beautiful tapestries and paintings of many styles ranging from hundreds of years old to very recent, and shelves filled to the brim with a variety of colorful ceramics, glassware, and old, musty texts. “Greetings,” Ms. Şahin says with a warm smile that seems to brighten the room. She is a young woman with dark tan skin, hazel eyes, and the wispy figure of one who has spent her entire life in academia. “What can I do for you?”\nYou inform Ms. Şahin that you received her “earlier communication” and her desire to meet with you, which she takes a moment to interpret before her eyes go wide.\n“Oh! So you are—” she clears her throat and does not finish that train of thought. “I see. Then, in that case, please, sit down. We have much to discuss.”\nYou tell Ms. Şahin that she can start by explaining her involvement with the Coterie. Your eyes catch her shifting uncomfortably in her seat at the mention of the organization’s name.\n“The Coterie is involved with a great many things all over the world, as you likely already know,” she says, choosing each word delicately, “but their—our—goals are not so different from your own. I have spent many years as a researcher for the organization, searching for the very same things your employers seek. Objects of arcane power that can be used to defend humanity from the threats we cannot see.”"
+    },
+    {
+      "id": "intro_cont",
+      "type": "story",
+      "text": "Or to control humanity, you note aloud.\nMs. Şahin sighs. “You are not wrong. But I assure you not all of us within the Coterie would use them for such purposes. There are those, like myself, who wish only to use them for the good of others.”\nYou ask Ms. Şahin why you should trust her, given the actions of the Coterie in other places around the world.\n“Ours is not an organization with a leader or a hierarchy,” she explains. “We operate independently in furtherance of a unified goal. But some…” she swallows hard with a shudder. “Some employ methods I do not agree with. Methods which disgust and, if I am being wholly honest, terrify me.”\nYou still don’t know if Ms. Şahin is telling the truth, but there’s no point in not hearing her out. You ask her what the situation in Constantinople is, and why she has sought an audience with the Foundation. “Istanbul,” she corrects you. “The people of Istanbul no longer refer to this city by that name.” You make a note to yourself to refer to the city only as Istanbul from here on out. “One of the relics you have been searching for is here, in Istanbul. It is one I have been seeking for many years, a talisman bound to a powerful entity, what some might call a ‘jinni.’ Or in the traditional sense, the only kind of non-human entity with the capability to exercise free will.”\nJudging from Ms. Şahin’s clinical definition, you wonder aloud if Ms. Şahin believes this to be true. “A jinni? No, I do not believe this talisman is bound to a jinni. I suspect its master is something even more powerful and inhuman. Something not of Earth at all. And the two of us are not the only ones looking for it. After the Great War and the dismantling of the Ottoman Empire, many records were thrown into chaos, but many more emerged from obscurity, including those pertaining to this talisman. The other group searching for it… the things they have done in search of this knowledge…” her face pales, and she struggles to keep her composure. “They’ll do anything to get their hands on it. Murder and torture are just tools to them. I hate to think of what sort of heinous acts these villains would commit if they managed to obtain it. And the worst part is, I believe one of my cohorts may be the one pulling the strings. I am so close to finding it, but if they find it first…”\nYou understand now why Ms. Şahin came to you—if one of the Coterie is behind this cult’s actions, she could not go to them with this information. Still, lingering doubt toils in your mind. “Please,” she pleads with you. “Find the talisman before this cult does. I do not wish to see what entity it is they worship. I’ll do what I can to help you if you place the talisman into my care afterward. In return, I promise never to relinquish it to the control of the other… more dangerous members of my organization. It will remain safe and tethered in my control. I cannot guarantee the same should you wield it yourself. Please, we are on the same side, I assure you.”"
+    },
+    {
+      "id": "choose_path",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "help",
+            "text": "<i>“All right. We will find it and place it in your care.”</i>",
+            "steps": ["intro_2", "cell_is_working_with_ece", "swap_token_help", "$maybe_add_tablet"]
+          },
+          {
+            "id": "lie",
+            "text": "<i>“All right. We will find it and place it in your care.” (You are lying.)</i>",
+            "steps": ["intro_3", "cell_is_deceiving_ece", "swap_token_lie", "$maybe_add_elder_thing"]
+          },
+          {
+            "id": "refuse",
+            "text": "<i>“We will track down this talisman, but we will be taking it into our custody.”</i>",
+            "steps": ["intro_4", "cell_refused_eces_offer"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Ece lets out a long breath, visibly relieved. “Thank you. I will admit, I wasn’t sure if I could trust you. It is a comfort to know that our two organizations can work together when lives are at stake. After all, we share the same goal.” She rises to her feet and shakes your hand.\nYou ask Ms. Şahin where you should begin searching. “The last written account of the talisman’s existence was during the city’s conquest in the 15th century. It was likely hidden in order to keep the invading Ottomans from finding it. After that, it remained hidden for many long years. It was naught but a fable, spoken of in hushed voices and whispers. But due to recent events… well, it would not surprise me if the recent Allied occupation of the city had something to do with this sudden interest in finding it. But let us not get buried in conjecture. I would begin looking in places that were not sacked by the conquering army. The university may also be a useful resource for you. As for me, I am not particularly helpful in a fight, if it comes to that. But I can provide you with aid, in my own way.”"
+    },
+    {
+      "id": "swap_token_help",
+      "text": "Remove 1 [elder_thing] token from the chaos bag. Add 1 [tablet] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "cell_is_working_with_ece",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_is_working_with_ece",
+          "text": "the cell is working with Ece."
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Ece lets out a long breath, visibly relieved. “Thank you. I will admit, I wasn’t sure if I could trust you. It is a comfort to know that our two organizations can work together when lives are at stake. After all, we share the same goal.” She rises to her feet and shakes your hand. You feel a pang of guilt for deceiving her, but you can’t allow the Key to land in the hands of anyone else. Ms. Şahin may yet still be a wolf in sheep’s clothing.\nYou ask her where you should begin searching. “The last written account of the talisman’s existence was during the city’s conquest in the 15th century. It was likely hidden in order to keep the invading Ottomans from finding it. After that, it remained hidden for many long years. It was naught but a fable, spoken of in hushed voices and whispers. But due to recent events… well, it would not surprise me if the recent Allied occupation of the city had something to do with this sudden interest in finding it. But let us not get buried in conjecture. I would begin looking in places that were not sacked by the Ottomans. The university may also be a useful resource for you. As for me, I am not particularly helpful in a fight, if it comes to that. But I can provide you with aid, in my own way.”\nYou nod, feeling her eyes fixed upon you. Does she suspect your true intentions? Is that why she wishes to travel alongside you? It matters not—what’s done is done. All that’s left is to find the Key."
+    },
+    {
+      "id": "cell_is_deceiving_ece",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_is_deceiving_ece",
+          "text": "the cell is deceiving Ece."
+        }
+      ]
+    },
+    {
+      "id": "swap_token_lie",
+      "text": "Remove 1 [tablet] token from the chaos bag. Add 1 [elder_thing] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "“I see.” Ece’s face falls, downcast. “I was truly hoping our two organizations could work together. After all, we share the same goal. But…” she sighs. “I suppose your honesty is still appreciated. After all the scheming and plotting, I prefer that to the alternative.”\nYou ask where this puts the two of you, hoping you won’t have to fight a war on two fronts. “Look. I was telling you the truth. I only want to prevent the talisman from falling into the hands of those who would use it to harm humanity. I hope that I put my trust in the right people, but if you’re unwilling to keep it in my protective custody…” She fidgets with her pen. “For all I know, you’re here for the same reasons they are. I won’t get in your way, but… I cannot in good faith help you if you intend to keep the Key without supervision.”\nYou try to protest, but you don’t have much of a leg to stand on. You chose not to trust her, so her decision not to trust you is equally valid. Of course you would only use the Keys you acquire to protect humanity, but you have nothing other than your word to give her. “Your best bet is to start your search in places that were not sacked when the Ottomans invaded the city in the 15th century. The university may also be a useful resource for you.”\nShe stands and escorts you to the door, wishing you luck. The door shuts behind you without another word."
+    },
+
+
+
+    {
+      "id": "cell_refused_eces_offer",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_refused_eces_offer",
+          "text": "the cell refused Ece's offer."
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "dealings_in_the_dark",
+        "agents_of_yuggoth",
+        "dark_veiling",
+        "ancient_evils",
+        "pentagram",
+        "locked_doors",
+        "arkham"
+      ],
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the 5 treachery cards (2x False Lead and 3x Hunting Shadow). Do not gather the location, act, agenda, or scenario reference cards from that set"
+    },
+    {
+      "id": "unveiling_card",
+      "text": "Put the double-sided “The Unveiling / The Unsealing” story card into play next to the scenario reference card, The Unveiling side faceup."
+    },
+    {
+      "id": "check_time",
+      "text": "Check how much <b>time</b> has passed in the Campaign Log."
+    },
+    {
+      "id": "check_time_unveiling",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+          "opA": {
+            "type": "campaign_log_count",
+            "section": "time"
+          },
+          "opB": {
+            "type": "constant",
+            "value": 10
+          },
+          "operation": "compare",
+          "options": [
+            {
+              "numCondition": -1,
+              "steps": ["10_or_less_time"]
+            },
+            {
+              "numCondition": 0,
+              "steps": ["10_or_less_time"]
+            },
+            {
+              "numCondition": 1,
+              "steps": ["check_time_unveiling_2"]
+            }
+          ]
+      }
+    },
+    {
+      "id": "10_or_less_time",
+      "bullet_type": "small",
+      "text": "Because 10 or fewer <b>time</b> has passed, no changes are made."
+    },
+    {
+      "id": "check_time_unveiling_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+          "opA": {
+            "type": "campaign_log_count",
+            "section": "time"
+          },
+          "opB": {
+            "type": "constant",
+            "value": 17
+          },
+          "operation": "compare",
+          "options": [
+            {
+              "numCondition": -1,
+              "steps": ["11_to_17_time"]
+            },
+            {
+              "numCondition": 0,
+              "steps": ["11_to_17_time"]
+            },
+            {
+              "numCondition": 1,
+              "steps": ["check_time_unveiling_3"]
+            }
+          ]
+      }
+    },
+    {
+      "id": "11_to_17_time",
+      "bullet_type": "small",
+      "text": "Because 11–17 <b>time</b> has passed, place clues on The Unveiling equal to half the number of investigators (rounded up)."
+    },
+
+    {
+      "id": "check_time_unveiling_3",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+          "opA": {
+            "type": "campaign_log_count",
+            "section": "time"
+          },
+          "opB": {
+            "type": "constant",
+            "value": 24
+          },
+          "operation": "compare",
+          "options": [
+            {
+              "numCondition": -1,
+              "steps": ["18_to_24_time"]
+            },
+            {
+              "numCondition": 0,
+              "steps": ["18_to_24_time"]
+            },
+            {
+              "numCondition": 1,
+              "steps": ["25_plus_time"]
+            }
+          ]
+      }
+    },
+    {
+      "id": "18_to_24_time",
+      "bullet_type": "small",
+      "text": "Because 18–24 <b>time</b> has passed, place clues on The Unveiling equal to the number of investigators."
+    },
+    {
+      "id": "25_plus_time",
+      "bullet_type": "small",
+      "text": "Because 25 or more <b>time</b> has passed, place clues on The Unveiling equal to twice the number of investigators."
+    },
+
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Hagia Sophia, Istanbul University, Obelisk of Theodosius, and Galata. Hagia Sophia must be on the right hand side of the play area.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at the Hagia Sophia."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "university",
+          "blank"
+        ],
+        [
+          "galata",
+          "blank",
+          "hagia_sophia"
+        ],
+        [
+          "blank",
+          "obelisk",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "university",
+          "name": "Istanbul University"
+        },
+        {
+          "code": "galata",
+          "name": "Galata"
+        },
+        {
+          "code": "hagia_sophia",
+          "name": "Hagia Sophia"
+        },
+        {
+          "code": "obelisk",
+          "name": "Obelisk of Theodosias"
+        }
+      ]
+    },
+    {
+      "id": "check_working_with_ece",
+      "type": "branch",
+      "text": "Check the Campaign Log. <i>If the cell is working with Ece</i>, or <i>if the cell is deceiving Ece</i>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_is_working_with_ece",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_is_deceiving_ece",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["helping_ece"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["not_helping_ece"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helping_ece",
+      "bullet_type": "small",
+      "text": "Put the Ece Şahin story asset into play under any investigator’s control."
+    },
+    {
+      "id": "not_helping_ece",
+      "bullet_type": "small",
+      "text": "Remove the Ece Şahin story asset from the game."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set each of the following cards aside, out of play: Each of the seven Grand Bazaar locations, the Umbral Harbinger enemy, the Emissary from Yuggoth enemy, the Galata Docks location, the Twisted Antiprism key, and The Chase act/agenda card."
+    },
+    {
+      "id": "gather_decoy_cards",
+      "text": "Gather each decoy mini-card and each of the following mini-cards: 3x Acolyte (any), Wizard of the Order, Sinister Aspirants (A, B and C), and Emissary from Yuggoth. Set them aside, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "spawn_cultists",
+      "text": "One at a time, in player order, each investigator discards cards from the top of the encounter deck until they discard a [[Cultist]] enemy. Each investigator draws the enemy they discarded, resolving its concealed keyword (as granted by agenda 1a). After all investigators have performed this step, shuffle each other discarded card back into the encounter deck."
+    },
+    {
+      "id": "location_adjacency_rule",
+      "title": "Location Adjacency in the Grand Bazaar",
+      "type": "rule_reminder",
+      "text": "This scenario’s 4 starting locations are arranged as shown above, and are connected through their connection symbols. Later during the scenario, the investigators will be instructed to put Grand Bazaar locations into play. <b>Each Grand Bazaar location is connected to each Grand Bazaar location adjacent to it.</b>",
+      "bullets": [
+        {
+          "text": "Adjacent locations share a side in common (left, right, above, or below). Locations that share only a corner are not adjacent."
+        }
+      ]
+    },
+    {
+      "id": "acolyte_concealed_rule",
+      "title": "Acolyte Concealed Mini-cards",
+      "type": "rule_reminder",
+      "text": "The first agenda of this scenario causes each [[Cultist]] enemy, including those from the Core Set, to gain the concealed keyword. Since the three Acolytes from the Core Set are not labeled as A, B and C, when resolving their concealed keyword, use any of the Acolyte (any) mini-cards along with their decoy. Likewise, when an “Acolyte (any)” mini-card is exposed, the exposing investigator may choose any Acolyte in the shadows to engage."
+    },
+    {
+      "id": "check_have_keys",
+      "text": "Check Campaign Log. If at least 1 key is bound to an investigator:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "scarlet_key_count",
+            "status": "investigator",
+            "options": [
+              { "numCondition": 1 },
+              { "numCondition": 2 },
+              { "numCondition": 3 },
+              { "numCondition": 4 },
+              { "numCondition": 5 },
+              { "numCondition": 6 },
+              { "numCondition": 7 },
+              { "numCondition": 8 },
+              { "numCondition": 9 },
+              { "numCondition": 10 },
+              { "numCondition": 11 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["have_key_story"]
+            }]
+          }
+        ]
+      }
+    },
+    {
+      "id": "have_key_story",
+      "type": "story",
+      "text": "You reveal your Key and show it to Ms. Şahin, wondering if this is one of these artifacts she speaks of. “I see you are already in possession of one such object. Where did you acquire this?”\nYou tell Ms. Şahin that you recovered this Key before one of her colleagues could cause further harm with it.\n“Key? Is that what you call them? Interesting. But not surprising. They have been called many things by many people throughout human history. Your terminology is apropos. They are the key to unlock power from other realms. Power enough to save the world, or to doom it.”"
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "act_2",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "ditd_act_2_setup",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Act 2 Setup",
+            "steps": [
+              "change_locations",
+              "shuffle_locations",
+              "reveal_token",
+              "move_to_entrance",
+              "shuffle_concealed_mini_cards",
+              "proceed_to_act_2"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "ditd_act_2_setup",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "transfer_key",
+            "text": "Transfer Key",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "have_not_seen_the_last_of_thorne",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "read_sr_epsilon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["$give_thorne_key"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "change_locations",
+      "title": "Act 2 Setup",
+      "text": "Set each of the current locations aside, without discarding any cards or tokens at those locations. Those locations (along with cards and tokens at those locations) are not considered to be in play during act 2, but will re-enter play later in the same state. <i>(Investigators are not defeated during this process.)</i>"
+    },
+    {
+      "id": "shuffle_locations",
+      "text": "Shuffle the seven Grand Bazaar locations and remove one of them from the game at random, without looking at it."
+    },
+    {
+      "id": "reveal_token",
+      "text": "Reveal a random token from the chaos bag, and choose the token below to determine the location layout (if none match, retry).",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "odd",
+            "text": "-1, -3, -5, -7",
+            "steps": ["act_2_location_setup", "odd_location_layout"]
+          },
+          {
+            "id": "even",
+            "text": "-2, -4, -6, -8",
+            "steps": ["act_2_location_setup", "even_location_layout"]
+          },
+          {
+            "id": "skull",
+            "text": "[skull], +1, 0",
+            "steps": ["act_2_location_setup", "skull_location_layout"]
+          },
+          {
+            "id": "spooky",
+            "text": "[cultist], [tablet], [elder_thing]",
+            "steps": ["act_2_location_setup", "spooky_location_layout"]
+          },
+          {
+            "id": "extreme",
+            "text": "[auto_fail], [elder_sign]",
+            "steps": ["act_2_location_setup", "extreme_location_layout"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "act_2_location_setup",
+      "text": "Put the remaining six Grand Bazaar locations into play, arranged in a pattern of rows and columns according to the randomly chosen diagram. Note that one of these locations is designated as the “entrance” and one is designated as the “east gate.”"
+    },
+    {
+      "id": "odd_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "grand_bazaar",
+          "blank"
+        ],
+        [
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar"
+        ],
+        [
+          "blank",
+          "grand_bazaar",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "grand_bazaar",
+          "name": "Grand Bazaar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Entrance",
+          "x": 0,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "East Gate",
+          "x": 3,
+          "y": 1,
+          "position": "bottom"
+        }
+      ]
+    },
+    {
+      "id": "even_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "grand_bazaar",
+          "blank",
+          "blank"
+        ],
+        [
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "grand_bazaar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "grand_bazaar",
+          "name": "Grand Bazaar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Entrance",
+          "x": 0,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "East Gate",
+          "x": 3,
+          "y": 2,
+          "position": "bottom"
+        }
+      ]
+    },
+    {
+      "id": "spooky_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "grand_bazaar"
+        ],
+        [
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar"
+        ],
+        [
+          "blank",
+          "grand_bazaar",
+          "grand_bazaar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "grand_bazaar",
+          "name": "Grand Bazaar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Entrance",
+          "x": 0,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "East Gate",
+          "x": 2,
+          "y": 0,
+          "position": "top"
+        }
+      ]
+    },
+    {
+      "id": "skull_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "grand_bazaar",
+          "grand_bazaar"
+        ],
+        [
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "grand_bazaar",
+          "name": "Grand Bazaar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Entrance",
+          "x": 0,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "East Gate",
+          "x": 3,
+          "y": 0,
+          "position": "top"
+        }
+      ]
+    },
+
+    {
+      "id": "extreme_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "grand_bazaar"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "grand_bazaar"
+        ],
+        [
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar",
+          "grand_bazaar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "grand_bazaar",
+          "name": "Grand Bazaar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Entrance",
+          "x": 0,
+          "y": 2,
+          "position": "top"
+        },
+        {
+          "text": "East Gate",
+          "x": 3,
+          "y": 0,
+          "position": "top"
+        }
+      ]
+    },
+    {
+      "id": "move_to_entrance",
+      "text": "Move each investigator to the Grand Bazaar location marked in the randomly chosen diagram as the “entrance.”"
+    },
+    {
+      "id": "shuffle_concealed_mini_cards",
+      "text": "Shuffle together each of the concealed mini-cards on the four locations from act 1, and divide them as evenly as possible among the Grand Bazaar locations in play."
+    },
+    {
+      "id": "proceed_to_act_2",
+      "text": "You are now ready to proceed to act 2."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": [
+              "act_1_resolution",
+              "earn_xp",
+              "red_gloved_man_has_twisted_antiprism",
+              "$upgrade_decks",
+              "$mark_1_time",
+              "$embark"
+            ]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": [
+              "act_1_resolution",
+              "earn_xp",
+              "red_gloved_man_has_twisted_antiprism",
+              "$upgrade_decks",
+              "$mark_1_time",
+              "$embark"
+            ]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": [
+              "act_3_resolution",
+              "resolution_6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "resolution_6",
+      "type": "resolution",
+      "resolution": "R6"
+    },
+    {
+      "id": "act_1_resolution",
+      "type": "story",
+      "text": "Finding the location of the talisman proved to be more difficult—and more deadly—than you thought. Ece was right: these cultists will stop at nothing to get their hands on the Key, and you worry there is nothing you can do to stop them. You hope that some day the Foundation may be able to recover the talisman and prevent whatever entity it binds from causing too much harm, but until then… you shudder and put such thoughts away for the time being. If Ece was right about one of her cohorts being behind this cult’s actions, you’ll surely see the talisman again."
+    },
+    {
+      "id": "act_3_resolution",
+      "type": "story",
+      "text": "Finding the location of the talisman proved to be more difficult—and more deadly—than you thought. Ece was right: these cultists will stop at nothing to get their hands on the Key, and you worry there is nothing you can do to stop them…"
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "red_gloved_man_has_twisted_antiprism",
+      "text": "The Red-Gloved Man is the bearer of The Twisted Antiprism. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "twisted_antiprism",
+          "bearer_type": "enemy",
+          "enemy_code": "ztsk_rgm"
+        }
+      ]
+    },
+    {
+      "id": "ece_has_twisted_antiprism",
+      "text": "Ece Şahin is the bearer of The Twisted Antiprism. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "twisted_antiprism",
+          "bearer_type": "enemy",
+          "enemy_code": "ztsk_ece"
+        }
+      ]
+    },
+    {
+      "id": "check_refused_eces_offer",
+      "bullet_type": "small",
+      "text": "<i>If the cell refused Ece's offer</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_refused_eces_offer",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_working_with_ece_resolution_1"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_working_with_ece_resolution_1",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": " <i>If the cell is working with Ece</i>, or <i>if the cell is deceiving Ece</i>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_is_working_with_ece",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_is_deceiving_ece",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_bearer_of_the_twisted_antiprism",
+      "text": "Choose an investigator to be the bearer of The Twisted Antiprism and update the Campaign Log accordingly.",
+
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "sable_glass",
+            "text": "Bearer of The Twisted Antiprism",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "twisted_antiprism",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_campaign_log",
+      "text": "Check Campaign Log."
+    },
+    {
+      "id": "check_working_with_ece_resolution",
+      "bullet_type": "small",
+      "text": "<i>If the cell is working with Ece</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_is_working_with_ece",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_deceiving_ece_resolution"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_deceiving_ece_resolution",
+      "bullet_type": "small",
+      "text": "<i>If the cell is deceiving Ece</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_is_deceiving_ece",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ece_trusts_the_cell",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ece_trusts_the_cell",
+          "text": "Ece trusts the cell."
+        }
+      ]
+    },
+    {
+      "id": "ece_does_not_trust_the_cell",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ece_does_not_trust_the_cell",
+          "text": "Ece does not trust the cell."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Once you and Ece are safely out of the city, you seal the talisman back in its case, speaking the proper words to contain its power. As you do, the uncanny eclipse looming over the city comes to a swift end.",
+      "steps": [
+        "check_campaign_log",
+        "check_refused_eces_offer"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You take a moment to look out over the sea and appreciate the beauty in the gentle waves, glimmering with the reflection of the now-shining sun. As you leave Istanbul behind, you allow yourself a bit of hope. Perhaps you could have trusted Ece more, but… you shake your head, filled with grim resolve. No—this relic is something you must protect yourself. Someone else might use it for ill. At least in your hands, you know it’s safe.",
+      "steps": [
+        "earn_xp",
+        "choose_bearer_of_the_twisted_antiprism",
+        "$upgrade_decks",
+        "$mark_2_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "Ece breathes an unsure sigh, worry still etched in her expression. “Well, in case they saw me, I should probably leave Istanbul for a short while. I’ll have to put in a leave of absence at the museum. In the meantime…” she turns to face you, eyebrows raised. “As for our agreement…?”",
+      "steps": [
+        "check_campaign_log",
+        "check_working_with_ece_resolution"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "You hand over the talisman, trusting that Ece will keep it safe in her possession as promised. She breathes a sigh of relief as she stores it safely in her side pack. “Thank you. For trusting me,” she says. “I’ll keep it on my person at all times.” You take a moment to look out over the sea and appreciate the beauty in the gentle waves, glimmering with the reflection of the now-shining sun. Finally, you ask Ece where she will go now that her position in Istanbul is compromised. “There is a place where the Coterie meets in secret. To go over… important happenings. We do not consort often, but I believe these events warrant a caucus. I will have to call the rest to assemble.” She sneaks a furtive glance in your direction. “Perhaps, when that times comes, we will meet again.” As you leave Istanbul behind, you allow yourself a bit of hope.",
+      "steps": [
+        "earn_xp",
+        "ece_trusts_the_cell",
+        "ece_has_twisted_antiprism",
+        "$upgrade_decks",
+        "$mark_3_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "hidden": true,
+      "text": "You lock eyes with Ece and apologize, explaining that you cannot give it to her. Especially after seeing the havoc it could wreak when unsealed. Her expression sours into cold anger. “I see.” She narrows her eyes. “…you had no intention of ever giving it to me,” she guesses correctly. You try to explain, but she stops you. “No, I understand. Really, I do.” She takes a step back, her posture wary, defensive. “You’re just like the others. You’ll do anything to get your hands on the Keys, won’t you?” You protest—it’s not that you want them for yourself, it’s just that you need to keep watch over them. In your possession, they’ll be safe, and only ever used to protect humanity. “And what do you suppose the rest of them say?” She barks. “Tzu? Amaranth? Álvarez? The very same. ‘It’s for the good of humanity,’ they claim, and to that end, all means are justified.” She turns and departs, her final words lingering in the air: “You would fit in nicely with the Coterie.” As you leave Istanbul behind, you reflect on your decision, turning the sealed case over and over in your hands. You know it was the right thing to do, but still, Ece’s words haunt you. Perhaps you’ll be able to reconcile some other time… if she’ll even hear you out.",
+      "steps": [
+        "earn_xp",
+        "ece_does_not_trust_the_cell",
+        "choose_bearer_of_the_twisted_antiprism",
+        "$upgrade_decks",
+        "$mark_3_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Resolution 6",
+      "text": "You managed to find the location of the talisman, but the cult was one step ahead of you, swooping in and snatching it for themselves. Before you knew it, they had escaped the city with the entity unsealed. Who knows what horrors they’ve unleashed upon the world. You hope that some day the Foundation may be able to recover the talisman and prevent whatever entity it binds from causing too much harm, but until then… you shudder and put such thoughts away for the time being. If Ece was right about one of her cohorts being behind this cult’s actions, you’ll surely see the talisman again.",
+      "steps": [
+        "earn_xp",
+        "red_gloved_man_has_twisted_antiprism",
+        "$upgrade_decks",
+        "$mark_2_time",
+        "$embark"
+      ]
+    }
+  ]
+}

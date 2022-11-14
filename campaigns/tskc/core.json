@@ -1,0 +1,2664 @@
+{
+  "id": "core",
+  "scenario_name": "The Scarlet Keys",
+  "full_name": "The Scarlet Keys",
+  "header": "",
+  "type": "core",
+  "setup": [
+    "$travel_time",
+    "$check_status_report",
+    "$maybe_embark_side_scenario",
+    "$mark_1_time",
+    "$mark_2_time",
+    "$mark_3_time",
+    "$maybe_epsilon_setup",
+    "$maybe_add_tablet",
+    "$maybe_add_elder_thing",
+    "$maybe_add_tablet_and_save"
+  ],
+  "steps": [
+    {
+      "id": "$travel_time",
+      "type": "travel_cost"
+    },
+    {
+      "id": "$mark_1_time",
+      "text": "Mark 1 <b>time</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "time",
+          "operation": "add",
+          "value": 1
+        }
+      ],
+      "steps": ["$check_status_report"]
+    },
+    {
+      "id": "$mark_2_time",
+      "text": "Mark 2 <b>time</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "time",
+          "operation": "add",
+          "value": 2
+        }
+      ],
+      "steps": ["$check_status_report"]
+    },
+    {
+      "id": "$mark_3_time",
+      "text": "Mark 3 <b>time</b> in your Campaign Log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "time",
+          "operation": "add",
+          "value": 3
+        }
+      ],
+      "steps": ["$check_status_report"]
+    },
+    {
+      "id": "$maybe_embark_side_scenario",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "next_scenario",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["$embark", "special_proceed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "special_proceed",
+      "text": "You may <b>embark</b>",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "$check_status_report",
+      "hidden": true,
+      "steps": [
+        "check_sr_alpha",
+        "check_sr_epsilon",
+        "check_sr_beta",
+        "check_sr_zeta",
+        "check_sr_gamma",
+        "maybe_check_sr_theta",
+        "maybe_check_sr_psi",
+        "check_sr_omega"
+      ]
+    },
+    {
+      "id": "check_sr_alpha",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 7
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_alpha",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_alpha",
+                "text": "dummy"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_alpha", "sr_alpha_effects"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_alpha",
+      "title": "Status Report Alpha (α)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "As your travels continue, the Foundation receives more and more reports of strange disappearances. With each new dossier you read, you worry that it is only a matter of time before there is nothing left."
+    },
+    {
+      "id": "sr_alpha_effects",
+      "text": "Add 1 [cultist] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "check_sr_beta",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 15
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_beta",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_beta",
+                "text": "dummy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["cultist"]
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "tunguska"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_beta", "sr_beta_effects", "sr_beta_unlock_tunguska"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_beta",
+      "title": "Status Report Beta (β)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "You receive a coded missive from Commissioner Taylor herself: “Agents—not long ago, a massive explosion occurred near the Podkamennaya Tunguska River in Siberia. It is classified as an impact event, but this is just a cover story. Our intel now indicates Coterie involvement. I have reason to believe this may be the site of one of their sanctums. Perhaps even their primary safehouse. You have clearance to investigate the site, but be prepared for anything.”"
+    },
+    {
+      "id": "sr_beta_effects",
+      "text": "Add 1 [cultist] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "sr_beta_unlock_tunguska",
+      "bullet_type": "none",
+      "text": "In the Central Asia section of the Campaign Log, find Tunguska. In its spot, write “60–Z.” You are now allowed to travel to this location whenever you embark. <i>(Note: This will end the campaign. You may wish to investigate further before proceeding to Tunguska… but be wary of how much time you spend.)</i>"
+    },
+
+    {
+      "id": "check_sr_epsilon",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 10
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_epsilon",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_epsilon",
+                "text": "dummy"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_epsilon", "sr_epsilon_effects"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "sr_epsilon",
+      "title": "Status Report Epsilon (ε)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "As you traverse the streets, you flinch at every shifting shadow and every passerby wearing red. You’re definitely being followed, and you have no lack of enemies who might fit the bill…"
+    },
+    {
+      "id": "sr_epsilon_effects",
+      "type": "encounter_sets",
+      "encounter_sets": ["red_coterie"],
+      "text": "For the remainder of the campaign, whenever you are setting up a scenario, perform the following: gather each of the enemies in the <i>Red Coterie</i> encounter set whose name matches those who you “haven’t seen the last of” in your Campaign Log, choose one at random, and shuffle it into the encounter deck for this scenario."
+    },
+    {
+      "id": "check_sr_zeta",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 20
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_zeta",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_zeta",
+                "text": "dummy"
+              }
+            ],
+            "steps": ["sr_zeta_choose_stolen_keys"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "sr_zeta",
+      "border_color": "resolution",
+      "border_only": true,
+      "type": "story",
+      "text": "You return to your hotel after a long day of travel and investigation, only to find your room in shambles. A grim feeling sprouts in your gut. Someone has clearly turned your room upside-down in search of something, and you’re pretty sure you know what. You rush to the safe where you have been storing the paradimensional artifacts you aren’t carrying on your person. To your horror, it is empty, apart from a single red card. Reaching out to Foundation contacts, you believe you have tracked the culprit to one of four likely Coterie sanctums. Perhaps if you’re quick, you can recover what was stolen from you."
+    },
+    {
+      "id": "sr_zeta_choose_stolen_keys",
+      "border_only": true,
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scarlet_key_count",
+        "status": "investigator",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["steal_0"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["steal_1", "steal_1_key", "choose_thief", "steal_keys"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "kabul"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "quito"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "san_juan"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "reykjavik"
+              }
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["steal_1", "steal_1_key", "choose_thief", "steal_keys"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "kabul"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "quito"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "san_juan"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "reykjavik"
+              }
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["steal_1", "steal_1_key", "choose_thief", "steal_keys"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "kabul"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "quito"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "san_juan"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "reykjavik"
+              }
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["steal_1", "steal_1_key", "choose_thief", "steal_keys"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "kabul"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "quito"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "san_juan"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "reykjavik"
+              }
+            ]
+          }
+        ],
+        "default_option": {
+          "effects": [
+            {
+              "type": "campaign_data",
+              "setting": "unlock_location",
+              "value": "kabul"
+            },
+            {
+              "type": "campaign_data",
+              "setting": "unlock_location",
+              "value": "quito"
+            },
+            {
+              "type": "campaign_data",
+              "setting": "unlock_location",
+              "value": "san_juan"
+            },
+            {
+              "type": "campaign_data",
+              "setting": "unlock_location",
+              "value": "reykjavik"
+            }
+          ],
+          "steps": ["steal_2", "steal_2_keys", "choose_thief", "steal_keys"]
+        }
+      }
+    },
+    {
+      "id": "no_keys_to_steal",
+      "text": "The investigators possess no Keys."
+    },
+    {
+      "id": "steal_0",
+      "type": "border",
+      "border": true,
+      "border_color": "resolution",
+      "title": "Status Report Zeta (ζ)",
+      "title_font": "status",
+      "steps": [
+        "sr_zeta",
+        "no_keys_to_steal"
+      ]
+    },
+    {
+      "id": "steal_1",
+      "type": "border",
+      "border": true,
+      "border_color": "resolution",
+      "title": "Status Report Zeta (ζ)",
+      "title_font": "status",
+      "steps": ["sr_zeta", "steal_1_key", "choose_thief", "unlock_zeta_locations"]
+    },
+    {
+      "id": "steal_2",
+      "type": "border",
+      "border": true,
+      "border_color": "resolution",
+      "title": "Status Report Zeta (ζ)",
+      "title_font": "status",
+      "steps": ["sr_zeta", "steal_2_keys", "choose_thief", "unlock_zeta_locations"]
+    },
+    {
+      "id": "steal_1_key",
+      "border_only": true,
+      "text": "Check the Keys section of the Campaign Log and find each of the Keys whose bearer is an investigator. Choose 1 at random. That Key has been stolen.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "random": true,
+        "min": 1,
+        "max": 1,
+        "text": "Stolen",
+        "choices": [
+          {
+            "id": "eye_of_ravens",
+            "text": "The Eye of Ravens",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "eye_of_ravens",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "eye_of_ravens_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "last_blossom",
+            "text": "The Last Blossom",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "last_blossom",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "last_blossom_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "weeping_lady",
+            "text": "The Weeping Lady",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "weeping_lady",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "weeping_lady_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "bale_engine",
+            "text": "The Bale Engine",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "bale_engine",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bale_engine_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "twisted_antiprism",
+            "text": "The Twisted Antiprism",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "twisted_antiprism",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_antiprism_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "light_of_pharos",
+            "text": "The Light of Pharos",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "light_of_pharos",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "light_of_pharos_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "ruinous_chime",
+            "text": "The Ruinous Chime",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "ruinous_chime",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "ruinous_chime_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shade_reaper",
+            "text": "The Shade Reaper",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "shade_reaper",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "shade_reaper_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "mirroring_blade",
+            "text": "The Mirroring Blade",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "mirroring_blade",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "mirroring_blade_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sable_glass",
+            "text": "The Sable Glass",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "sable_glass",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "sable_glass_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wellspring_of_fortune",
+            "text": "The Wellspring of Fortune",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "wellspring_of_fortune",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wellpspring_of_fortune_stolen",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$give_thorne_key",
+      "text": "Choose the Key to give to Thorne.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "min": 1,
+        "max": 1,
+        "text": "Give away",
+        "choices": [
+          {
+            "id": "eye_of_ravens",
+            "text": "The Eye of Ravens",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "eye_of_ravens",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "eye_of_ravens",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "last_blossom",
+            "text": "The Last Blossom",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "last_blossom",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "last_blossom",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "weeping_lady",
+            "text": "The Weeping Lady",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "weeping_lady",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "weeping_lady",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "bale_engine",
+            "text": "The Bale Engine",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "bale_engine",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "bale_engine",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "twisted_antiprism",
+            "text": "The Twisted Antiprism",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "twisted_antiprism",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "twisted_antiprism",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "light_of_pharos",
+            "text": "The Light of Pharos",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "light_of_pharos",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "light_of_pharos",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "ruinous_chime",
+            "text": "The Ruinous Chime",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "ruinous_chime",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "ruinous_chime",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "shade_reaper",
+            "text": "The Shade Reaper",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "shade_reaper",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "shade_reaper",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "mirroring_blade",
+            "text": "The Mirroring Blade",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "mirroring_blade",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "mirroring_blade",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "sable_glass",
+            "text": "The Sable Glass",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "sable_glass",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "sable_glass",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          },
+          {
+            "id": "wellspring_of_fortune",
+            "text": "The Wellspring of Fortune",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "wellspring_of_fortune",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "wellspring_of_fortune",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_2_keys",
+      "border_only": true,
+      "text": "Check the Keys section of the Campaign Log and find each of the Keys whose bearer is an investigator. Choose 2 at random (because the investigators control 5 or more keys). Those Keys have been stolen.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "random": true,
+        "min": 2,
+        "max": 2,
+        "text": "Stolen",
+        "choices": [
+          {
+            "id": "eye_of_ravens",
+            "text": "The Eye of Ravens",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "eye_of_ravens",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "eye_of_ravens_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "last_blossom",
+            "text": "The Last Blossom",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "last_blossom",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "last_blossom_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "weeping_lady",
+            "text": "The Weeping Lady",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "weeping_lady",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "weeping_lady_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "bale_engine",
+            "text": "The Bale Engine",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "bale_engine",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "bale_engine_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "twisted_antiprism",
+            "text": "The Twisted Antiprism",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "twisted_antiprism",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_antiprism_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "light_of_pharos",
+            "text": "The Light of Pharos",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "light_of_pharos",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "light_of_pharos_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "ruinous_chime",
+            "text": "The Ruinous Chime",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "ruinous_chime",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "ruinous_chime_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shade_reaper",
+            "text": "The Shade Reaper",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "shade_reaper",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "shade_reaper_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "mirroring_blade",
+            "text": "The Mirroring Blade",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "mirroring_blade",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "mirroring_blade_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sable_glass",
+            "text": "The Sable Glass",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "sable_glass",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "sable_glass_stolen",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wellspring_of_fortune",
+            "text": "The Wellspring of Fortune",
+            "condition": {
+              "type": "scarlet_key",
+              "scarlet_key": "wellspring_of_fortune",
+              "status": "investigator",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wellpspring_of_fortune_stolen",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_thief",
+      "border_only": true,
+      "text": "Gather each of the enemies in the Red Coterie encounter set whose name matches those who you “haven’t seen the last of” in your Campaign Log and choose one at random. This is the identity of the character who stole your Key(s).",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "random": true,
+        "min": 1,
+        "max": 1,
+        "text": "Thief",
+        "choices": [
+          {
+            "id": "rgm",
+            "text": "The Red-Gloved Man",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_rgm"]
+              }
+            ]
+          },
+          {
+            "id": "amaranth",
+            "text": "Amaranth",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_amaranth",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_amaranth"]
+              }
+            ]
+          },
+          {
+            "id": "chica",
+            "text": "La Chica Roja",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_la_chica_roja",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_chica"]
+              }
+            ]
+          },
+          {
+            "id": "watcher",
+            "text": "The Sanguine Watcher",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_the_sanguine_watcher",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_watcher"]
+              }
+            ]
+          },
+          {
+            "id": "thorne",
+            "text": "Thorne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_thorne",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_thorne"]
+              }
+            ]
+          },
+          {
+            "id": "knight",
+            "text": "The Claret Knight",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_the_claret_knight",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_knight"]
+              }
+            ]
+          },
+          {
+            "id": "beast",
+            "text": "The Beast in a Cowl of Crimson",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_the_beast",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_beast"]
+              }
+            ]
+          },
+          {
+            "id": "niang",
+            "text": "Tzu San Niang",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_tzu_san_niang",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_niang"]
+              }
+            ]
+          },
+          {
+            "id": "aliki",
+            "text": "Aliki Zoni Uperetria",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "key_thief",
+                "text": "#name#",
+                "cards": "$fixed_codes",
+                "codes": ["ztsk_aliki"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_keys",
+      "hidden": true,
+      "steps": [
+        "maybe_steal_eye_of_ravens",
+        "maybe_steal_last_blossom",
+        "maybe_steal_weeping_lady",
+        "maybe_steal_bale_engine",
+        "maybe_steal_twisted_antiprism",
+        "maybe_steal_light_of_pharos",
+        "maybe_steal_ruinous_chime",
+        "maybe_steal_shade_reaper",
+        "maybe_steal_mirroring_blade",
+        "maybe_steal_sable_glass",
+        "maybe_steal_mystery_key"
+      ]
+    },
+    {
+      "id": "maybe_steal_eye_of_ravens",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "eye_of_ravens_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_eye_of_ravens"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_eye_of_ravens",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "eye_of_ravens",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_last_blossom",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "last_blossom_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_last_blossom"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_last_blossom",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "last_blossom",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_weeping_lady",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "weeping_lady_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_weeping_lady"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_weeping_lady",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "weeping_lady",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_bale_engine",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "bale_engine_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_bale_engine"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_bale_engine",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "bale_engine",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_twisted_antiprism",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "twisted_antiprism_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_twisted_antiprism"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_twisted_antiprism",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "twisted_antiprism",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_light_of_pharos",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "light_of_pharos_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_light_of_pharos"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_light_of_pharos",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "light_of_pharos",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_ruinous_chime",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "ruinous_chime_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_ruinous_chime"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_ruinous_chime",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "ruinous_chime",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_shade_reaper",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "shade_reaper_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_shade_reaper"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_shade_reaper",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "shade_reaper",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_mirroring_blade",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "mirroring_blade_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_mirroring_blade"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_mirroring_blade",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "mirroring_blade",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_sable_glass",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "sable_glass_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_sable_glass"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_sable_glass",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "sable_glass",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_steal_mystery_key",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "wellpspring_of_fortune_stolen",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "steal_mystery_key"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "steal_mystery_key",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "key_thief",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "wellspring_of_fortune",
+                "bearer_type": "steal"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "unlock_zeta_locations",
+      "border_only": true,
+      "text": "In the Central Asia, Americas, and North Atlantic sections of the Campaign Log, find Kabul, Quito, San Juan, and Reykjavik In each of these spots, write “14–C.” You are now allowed to travel to these locations whenever you embark."
+    },
+    {
+      "id": "check_sr_gamma",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 24
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_gamma",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_gamma",
+                "text": "dummy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing"]
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_gamma", "sr_gamma_effects_token", "sr_gamma_effects_weakness"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_gamma",
+      "title": "Status Report Gamma (γ)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "The reports continue. Now it’s not just missing people, but people returning, having changed. Buildings and objects, too—replicated, but different, off, like they had been completely dismantled and then reassembled. But why?"
+    },
+    {
+      "id": "sr_gamma_effects_token",
+      "text": "Add 1 [cultist] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "sr_gamma_effects_weakness",
+      "type": "encounter_sets",
+      "encounter_sets": ["globetrotting"],
+      "text": "Each investigator must add 1 copy of the Paradimensional Understanding weakness to their deck. It does not count toward their deck size. These cards can be found in the <i>Globetrotting</i> encounter set.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "09767",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "maybe_check_sr_theta",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "know_the_passphrase",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_sr_theta"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sr_theta",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "sr_theta_time"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_theta",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_theta",
+                "text": "dummy"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_theta"]
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_dossier",
+                "value": "desi_theta"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_theta",
+      "title": "Status Report Theta (Θ)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "As you head to your hotel room, you spot a red envelope slipped under your door. Inside is a simple message: “My people in Ybor City know about the new passphrase and know you’re coming. Drop by when you get the chance.” It’s signed “Desi.”"
+    },
+    {
+      "id": "maybe_check_sr_psi",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "flint_is_working_solo",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_sr_psi"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sr_psi",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "sr_psi_time"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_psi",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_psi",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_location",
+                "value": "hong_kong"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "unlock_dossier",
+                "value": "hk_note"
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_psi", "sr_psi_effects"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_psi",
+      "title": "Status Report Psi (ψ)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "As you return to your hotel, the concierge waves you down and hands you a telegram.\n<center><typewriter>TRAIL PICKED UP HOT ON HER HEELS STOP</typewriter></center>\n<center><typewriter>MEET IN HONG KONG MAY REQUIRE AID STOP</typewriter></center>\n<center><typewriter>PARASOL IS KEY STOP</typewriter></center>\nThis must be from Inspector Flint. Perhaps you should travel to Hong Kong and learn more, if you can spare the time."
+    },
+    {
+      "id": "sr_psi_effects",
+      "text": "In the Southeast Asia section of the Campaign Log, find Hong Kong. In its spot, write “50–S.” You are now allowed to travel to this location whenever you embark."
+    },
+    {
+      "id": "check_sr_omega",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 35
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "read_sr_omega",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "border_color": "resolution",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "read_sr_omega",
+                "text": "dummy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing"]
+              },
+              {
+                "type": "story_step",
+                "steps": ["sr_omega", "sr_omega_token_effects", "sr_omega_scenario_effect"]
+              }
+            ],
+            "steps": ["maybe_end_it"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr_omega",
+      "title": "Status Report Omega (Ω)",
+      "border_color": "resolution",
+      "title_font": "status",
+      "type": "story",
+      "text": "As you head into your hotel room, frantic at news of recent events, you mentally begin to prepare for the next leg of your trip… when suddenly, a shape emerges from a corner of your hotel room, and you are clocked on the side of your skull by something heavy and smooth. You collapse into darkness. The last thing you see is a splash of red."
+    },
+    {
+      "id": "sr_omega_token_effects",
+      "text": "Add 1 [cultist] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "sr_omega_scenario_effect",
+      "text": "You are out of time. Immediately travel directly to Tunguska and proceed to <b>Finale: Congress of the Keys.</b>"
+    },
+    {
+      "id": "$maybe_epsilon_setup",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "read_sr_epsilon",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_setup", "epsilon_rgm", "check_epsilon_amaranth", "check_epsilon_chica", "check_epsilon_watcher", "check_epsilon_desi", "check_epsilon_thorne", "check_epsilon_knight", "check_epsilon_beast", "check_epsilon_niang", "check_epsilon_aliki"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_setup",
+      "type": "encounter_sets",
+      "encounter_sets": ["red_coterie"],
+      "text": "Gather each of the enemies in the <i>Red Coterie</i> encounter set whose name matches those who you “haven’t seen the last of” in your Campaign Log, choose one at random, and shuffle it into the encounter deck for this scenario.",
+      "subtext": "Choose from the following enemies:"
+    },
+    {
+      "id": "epsilon_rgm",
+      "bullet_type": "small",
+      "text": "The Red-Gloved Man"
+    },
+    {
+      "id": "check_epsilon_amaranth",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_amaranth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_amaranth"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_amaranth",
+      "bullet_type": "small",
+      "text": "Amaranth"
+    },
+    {
+      "id": "check_epsilon_chica",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_la_chica_roja",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_chica"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_chica",
+      "bullet_type": "small",
+      "text": "La Chica Roja"
+    },
+    {
+      "id": "check_epsilon_watcher",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_the_sanguine_watcher",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_watcher"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_watcher",
+      "bullet_type": "small",
+      "text": "The Sanguine Watcher"
+    },
+
+
+    {
+      "id": "check_epsilon_desi",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_desi",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_desi"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_desi",
+      "bullet_type": "small",
+      "text": "Desiderio Delgado Álvarez"
+    },
+    {
+      "id": "check_epsilon_thorne",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_thorne",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_thorne"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_thorne",
+      "bullet_type": "small",
+      "text": "Thorne"
+    },
+    {
+      "id": "check_epsilon_knight",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_the_claret_knight",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_knight"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_knight",
+      "bullet_type": "small",
+      "text": "The Claret Knight"
+    },
+    {
+      "id": "check_epsilon_beast",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_the_beast",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_beast"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_beast",
+      "bullet_type": "small",
+      "text": "The Beast in a Cowl of Crimson"
+    },
+    {
+      "id": "check_epsilon_niang",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_tzu_san_niang",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_niang"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_niang",
+      "bullet_type": "small",
+      "text": "Tzu San Niang"
+    },
+    {
+      "id": "check_epsilon_aliki",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["epsilon_aliki"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "epsilon_aliki",
+      "bullet_type": "small",
+      "text": "Aliki Zoni Uperetria"
+    },
+    {
+      "id": "$maybe_add_tablet",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "$maybe_add_tablet_and_save",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ],
+            "steps": ["$save_decks_with_xp"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$maybe_add_elder_thing",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "elder_thing",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$save_decks_with_xp",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "adjust_xp": true
+      }
+    },
+    {
+      "id": "maybe_end_it",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "location",
+        "status": "current",
+        "location": "tunguska",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "embark",
+                "location": "tunguska"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "tunguska"
+              }
+            ],
+            "steps": ["$proceed_alt"]
+          }
+        ]
+      }
+    }
+  ]
+}

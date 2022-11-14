@@ -1,0 +1,298 @@
+{
+  "id": "nairobi",
+  "scenario_name": "Infernal Machinery",
+  "full_name": "Nairobi: Infernal Machinery",
+  "header": "Nairobi",
+  "icon": "nairobi",
+  "type": "interlude",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "check_coterie_trust",
+    "check_chica",
+    "check_claret_knight",
+    "check_aliki",
+    "check_desi",
+    "check_thorne",
+    "check_ece",
+    "actually_check_coterie_trust",
+    "$embark"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "A heavy grey mist hangs in the air above Lake Victoria as your biplane touches down on a dusty runway. All leads in Nairobi about a Tuwile Masai point to the shoreline of Lake Victoria, where the Coterie member is said to have transported several tons of survey equipment. A faint but sharp scent of alkaline carries on the breeze as you walk to the lake, where several large boats are laden with heavy machinery at the shoreline. Sunlight catches on a pair of thick-rimmed spectacles down at the pier.\n“Professor Masai?” you greet the wiry man as he steps ashore. Masai looks nervously past you as he wipes his glasses."
+    },
+    {
+      "id": "check_coterie_trust",
+      "text": "Check the Campaign Log. If at least three of the following are recorded:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 3,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "chica_roja_is_on_your_side",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_aided_the_knight",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "aliki_is_on_your_side",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "desi_is_in_your_debt",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_made_a_deal_with_thorne",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "ece_trusts_the_cell",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_chica",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>La Chica Roja is on your side.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "chica_roja_is_on_your_side",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "check_claret_knight",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>The cell aided the knight.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_aided_the_knight",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "check_aliki",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>Aliki is on your side.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "aliki_is_on_your_side",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "check_desi",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>Desi is in your debt.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "desi_is_in_your_debt",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "check_thorne",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>The cell made a deal with Thorne.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_made_a_deal_with_thorne",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "check_ece",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>Ece trusts the cell.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "ece_trusts_the_cell",
+        "options": [{ "boolCondition": true }]
+      }
+    },
+    {
+      "id": "actually_check_coterie_trust",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 3,
+        "conditions": [
+
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "chica_roja_is_on_your_side",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_aided_the_knight",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "aliki_is_on_your_side",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "desi_is_in_your_debt",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_made_a_deal_with_thorne",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "ece_trusts_the_cell",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "tuwile_masai_is_on_your_side", "earn_1_xp", "choose_bearer_of_the_bale_engine", "$save_decks_with_xp", "$mark_1_time"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "tuwile_masai_fled_to_bermuda", "$embark"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_dossier",
+                "value": "bermuda_tuwile"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "“Your reputation precedes you. As did the sound of your aeroplane,” Masai smiles, though you can sense a nervous undercurrent in his demeanor. “You have caught me at just the right time. Would you care to accompany me out to the water?”\nYou cordially accept, and the professor leads you to board the boat to take a seat at at the stern. A half dozen crew members board, and the engine thrums to life as you cut a path across the glassy surface of the lake. After setting course, the professor hunches in his seat across from you and studies you through heavy red-rimmed glasses. “In truth, I am surprised you sought me out. I am hardly the mover and shaker I once was in the Coterie. Now, their concerns seem trivial in comparison with all the great work that must be done.”\nWhen you ask about his great work, the professor smiles. “It is the work of every person. What is it to be human except to live and help others in this great and perilous world? It’s harder than you might think.” He leafs through several papers, holding them tightly as the wind off Lake Victoria picks up. Masai shows you several complicated graphs and charts.\n“The lakebed here is covered in the ruins of a sunken city built long ago. I happened upon it when monitoring acidity and chemical levels. Something was increasing—or perhaps better put: producing—an incredible amount of carbon dioxide. Along with several odd mutations in local fauna and flora. After several months of searching, we were able to trace the production to its source.” The professor pinpoints a red X on a large map of Lake Victoria. You ask if that is where the boat is headed now, and the professor chuckles. “No. It is already done. The source of the unusual production was an object of power. A Key. We drudged it up just last week.”\nThe hair on the back of your neck raises as the crew cuts power to the engine. None of them appear armed, but you are suddenly aware of your vulnerable position.\n“Don’t fear for your life, my friend,” Masai rubs his glasses with a cloth. “I am not your enemy. Though I do worry for the Coterie itself. There is something strange at work among them. The one with the gloves in particular. He has been silent for too long, I think.” The professor sighs and leans back in his seat. Around you, the placid water of Lake Victoria ripples, dreamlike, as a heavy storm stirs the clouds overhead.\n“It’s yours, of course,” Masai says, eyes closed, as he looks up at the sky. “The artifact we found was some infernal machine that was still running, even now, at the bottom of the lake. I wonder who started it, and when? And what will happen if it ever stops running? Either way, if your track record with my colleagues is to be believed, it is safer in your hands than in mine.” He opens his eyes and stares at the surface of the lake as the crew rev the engine.\n“Perhaps you will succeed where I failed.”"
+    },
+    {
+      "id": "tuwile_masai_is_on_your_side",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tuwile_masai_is_on_your_side",
+          "text": "Tuwile Masai is on your side."
+        }
+      ]
+    },
+    {
+      "id": "choose_bearer_of_the_bale_engine",
+      "text": "Choose an investigator to be the bearer of The Bale Engine and update the Campaign Log accordingly.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "sable_glass",
+            "text": "Bearer of The Bale Engine",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "bale_engine",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_1_xp",
+      "text": "Each investigator earns 1 experience, as they gain insight into the inner workings of the Red Coterie.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "“I’m terribly sorry, but I don’t have time to chat,” Masai says as he steps lightly past you. You follow him, pressing for some assistance or insight, anything that can help in your struggle with the Red Coterie. “Ah. I had no idea I was dealing with the Foundation. You must be new.” Masai regards you in a new light, then leads you to sit in a makeshift camp. “Very well. Please wait here, and I’ll help you as soon as I can.”\nYou sit in a comedically short camping chair under the awning as the professor walks out of view. The minutes drift away as the clouds overhead break and a heavy rain begins to fall. After waiting for some time, you stand up and look out to the shoreline: the boats have gone. When you ask the locals for the professor’s whereabouts, they tell you he ended his survey and paid for passage across the lake.\nAfter returning to Nairobi, you check with the British Consulate and discover that Masai’s travel expenses were being footed by his fellowship with Oxford. His declaration of travel includes an obscure address in Bermuda. Pocketing the information, you continue your travels."
+    },
+    {
+      "id": "tuwile_masai_fled_to_bermuda",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tuwile_masai_fled_to_bermuda",
+          "text": "Tuwile Masai fled to Bermuda."
+        }
+      ]
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

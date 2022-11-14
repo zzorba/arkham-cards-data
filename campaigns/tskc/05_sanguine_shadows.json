@@ -1,0 +1,813 @@
+{
+  "id": "buenos_aires",
+  "scenario_name": "Sanguine Shadows",
+  "full_name": "Buenos Aires: Sanguine Shadows",
+  "header": "Buenos Aires",
+  "icon": "buenos_aires",
+  "setup": [
+    "$travel_time",
+    "$check_status_report",
+    "intro_1",
+    "choose_what_to_share",
+    "gather_encounter_sets",
+    "build_agenda",
+    "setup_avenida",
+    "choose_random_location",
+    "location_layout",
+    "place_targets",
+    "gather_mini_cards",
+    "find_chica_roja",
+    "set_aside_cards",
+    "$maybe_epsilon_setup",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "As soon as you arrive in Buenos Aires, you set your meeting with Oficial Bolívar at a café overlooking the harbor. Seagulls cry out over the many shipping and fishing boats in the distance. Even after Bolívar arrives, you continue to keep an eye out for others listening in—for anyone wearing red, especially. The officer meets you in uniform instead of casual clothes—whether by protocol or due to being overworked, you are unsure. His response to your letter seemed overly eager. Perhaps he is as starved for information regarding his target as you are? “Your letter suggested we may be able to aid one another,” he says casually, after calling out for a café chico. “You have information regarding La Chica Roja?”\nYou clarify that you are the one seeking information from Bolívar, not the other way around. “Well, scratch my back and I’ll scratch yours,” he says, his expression turning serious. “What do you know?”"
+    },
+    {
+      "id": "choose_what_to_share",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "all",
+            "text": "Tell Bolívar everything regarding the target.",
+            "steps": ["intro_2", "check_criminal_trait", "intro_2_continued", "swap_tell_all_token", "$maybe_add_tablet", "bolivar_trusts_you"]
+          },
+          {
+            "id": "some",
+            "text": "Give Bolívar some breadcrumbs.",
+            "steps": ["intro_3"]
+          },
+          {
+            "id": "nada",
+            "text": "Insist that Bolívar tells you what he knows.",
+            "steps": ["intro_4", "swap_tell_nada_token", "$maybe_add_elder_thing", "bolivar_does_not_trust_you"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You decide that honesty is the best policy. You doubt he would believe your tale about extraterrestrials and secret organizations, but you can at least tell him what you know regarding “La Chica Roja.” He mulls over the information you give him, taking a minute to process everything. “Hmm… so you really believe that La Chica Roja has these… abilities…?” You tell him you are certain. It may be tough to believe, but it is important that Bolívar understand the reality of the situation. “I knew it. I knew it!” he grins. “Of course! It makes so much sense. The way she would vanish into thin air, move with such speed…” You hadn’t expected him to believe you, but it turns out your information has only confirmed his own suspicions. “So how do you intend to help us catch her?”\nYou tell Bolívar that you intend to capture her on your own. All you need from him is information regarding her objective and last known whereabouts in Buenos Aires. He pulls several photos of buildings in Buenos Aires out of his folder and reveals them to you. “La Chica Roja has carved a path of thievery and mischief throughout Buenos Aires. Hundreds of thousands of pesos in stolen art and artifacts.” He points to each of the photos, one by one. “Casa Rosada, Palacio Errázuriz, Teatro Colón. She has been spotted many times, but try as we might, we cannot catch her in the act. Those in charge are, shall we say…unhappy… with how the situation has been handled.” He looks away and scratches at the back of his hand as he stammers. It is clear to you that Bolívar’s career is on the line. But you know the stakes are much higher than even that. “It is like she is toying with us. Mocking us.” He strikes the surface of the table in frustration. “Making a killing while making fools of us all.”"
+    },
+    {
+      "id": "check_criminal_trait",
+      "type": "branch",
+      "text": "If an investigator has the [[Criminal]] trait:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          {
+            "condition": "Criminal",
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["criminal_story"]
+            }]
+          }
+        ]
+      }
+    },
+    {
+      "id": "criminal_story",
+      "type": "story",
+      "text": "You of all people know better than to presume the target’s intent from so little. Had she intended to sell the stolen relics, there would be evidence of such sales on the black market. She would likely make as much or more ransoming the goods back to their owners. Besides, you doubt the Coterie is after mere wealth. There must be some other value to the stolen items."
+    },
+    {
+      "id": "intro_2_continued",
+      "type": "story",
+      "text": "You tell Oficial Bolívar that you will help him find the Girl in the Carmine Coat, but only if he aids you in your investigation. “Of course,” he says with a grin. “If it means we can finally put that thief behind bars, I will do what I can.” You shake the man’s hand and together, a plan begins to brew."
+    },
+    {
+      "id": "swap_tell_all_token",
+      "text": "Remove 1 [elder_thing] token from the chaos bag. Add 1 [tablet] token .",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "bolivar_trusts_you",
+      "text": "Remember that “Matias Bolívar trusts you.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "bolivar_trusts_you",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "For the sake of diplomacy, you decide to give Bolívar a few harmless bits of information regarding “La Chica Roja,” but nothing more. You can’t risk the truth of the situation getting out. Better that the police think of the Girl in the Carmine Coat as only an extraordinarily skilled thief, and nothing more. “That is all you know?” he asks, incredulous. “And here I thought that you being here meant… Oh well. I suppose she really is a mystery, after all. So how do you intend to help us catch her?”\nYou tell Bolívar that you intend to capture her on your own. All you need from him is information regarding her objective and last known whereabouts in Buenos Aires. He pulls several photos of buildings in Buenos Aires out of his folder and reveals them to you. “La Chica Roja has carved a path of thievery and mischief throughout Buenos Aires. Hundreds of thousands of pesos in stolen art and artifacts.” He points to each of the photos, one by one. “Casa Rosada, Palacio Errázuriz, Banco de la Provincia. She has been spotted many times, but try as we might, we cannot catch her in the act. Those in charge are, shall we say… unhappy… with how the situation has been handled.” He looks away and scratches at the back of his hand as he stammers. It is clear to you that Bolívar’s career is on the line. But you know the stakes are much higher than that. “She is toying with us. She will toy with you too. Chew your investigation up and spit you out.”\nYou assure Oficial Bolívar that you can catch her, but it’s better if his team stays out of your way. “If it means putting that thief behind bars, I will let you have a go at it,” he agrees. You shake the man’s hand, and a plan begins to brew.\n"
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You shake your head. This isn’t a negotiation—you cannot let Oficial Bolívar and his investigation impede yours in any way. “And what makes you think I am going to cooperate if you refuse to assist?”\nYou pull out one of the letters given to you by Agent Taylor and hand it to Bolívar. He opens it slowly and warily, keeping his eyes on you the entire time. It takes him little time to read through the entire thing, after which he crumples it up and tosses it back onto the table. “Damn you,” he says. You ask him once more what he knows regarding the target’s objective and last known whereabouts. He pulls several photos of buildings in Buenos Aires out of his folder and tosses them onto the table. “La Chica Roja has carved a path of thievery and mischief throughout Buenos Aires. Hundreds of thousands of pesos in stolen art and artifacts.” He points to each of the photos, one by one. “Casa Rosada, Palacio Errázuriz, Banco de la Provincia. She has been spotted many times, but try as we might, we cannot catch her in the act. And now here you are, complicating the whole ordeal.”\nYou examine the photos, ignoring Bolívar’s annoyed glare. It’s obvious that his career is on the line, but you cannot let the frustration of one man get in the way of your investigation. If the police get to the Girl in the Carmine Coat before you do, the best case scenario is that it will be tougher for you to get the information you need from her. Worst case scenario, it will only put them all in danger. Better for you to be the one to confront her.\nYou tell Oficial Bolívar that his team is to stay out of your way while you conduct your own investigation. Furthermore, you must be the one to question her if she is taken into custody—not the police. He lets out a sigh and shakes his head. “Do what you’re gonna do. Won’t be my head on the chopping block this time.” You get the feeling that Bolívar doesn’t think you can pull this off, but unlike him, you understand what you’re truly up against… though you still don’t know why. You take his documents and begin to brew a plan."
+    },
+    {
+      "id": "bolivar_does_not_trust_you",
+      "text": "Remember that “Matias Bolívar doesn’t trust you.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "bolivar_does_not_trust_you",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "swap_tell_nada_token",
+      "text": "Remove 1 [tablet] token from the chaos bag. Add 1 [elder_thing] token.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "sanguine_shadows",
+        "dark_veiling",
+        "mysteries_abound",
+        "shadow_of_a_doubt",
+        "strange_happenings",
+        "locked_doors",
+        "nightgaunts"
+      ]
+    },
+    {
+      "id": "build_agenda",
+      "text": "Build the agenda deck using only agenda 1 and the act deck using only acts 1 and 2."
+    },
+    {
+      "id": "setup_avenida",
+      "text": "Put the Avenida de Mayo location into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Avenida de Mayo."
+        }
+      ]
+    },
+    {
+      "id": "choose_random_location",
+      "text": "Choose one of the seven remaining locations at random, and remove it from the game. Put the other six locations into play, surrounding Avenida de Mayo."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "note": "<i><b>Note</b>: One of the below locations is randomaly removed from the game during setup and will not be in play",
+      "horizontal": "half",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "catedral",
+          "blank",
+          "casa_rosada",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "cementario",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "banco",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "avenida",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "palacio",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "cabildo",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "teatro",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "catedral",
+          "name": "Catedral Metropolitana"
+        },
+        {
+          "code": "casa_rosada",
+          "name": "Casa Rosada"
+        },
+        {
+          "code": "cementario",
+          "name": "Cementerio de la Recoleta"
+        },
+        {
+          "code": "banco",
+          "name": "Banco de la Provincia"
+        },
+        {
+          "code": "avenida",
+          "name": "Avenida de Mayo"
+        },
+        {
+          "code": "palacio",
+          "name": "Palacio Errázuriz"
+        },
+        {
+          "code": "teatro",
+          "name": "Teatro Colón"
+        },
+        {
+          "code": "cabildo",
+          "name": "The Cabildo"
+        }
+      ]
+    },
+    {
+      "id": "place_targets",
+      "text": "Place one resource on each location in play other than Avenida de Mayo, as targets. <i>(There should be six targets, in total).</i>",
+      "bullets": [
+        {
+          "text": "These targets represent the locations you suspect La Chica Roja is looking to steal from."
+        }
+      ]
+    },
+    {
+      "id": "gather_mini_cards",
+      "text": "Gather each decoy mini-card and each of the following mini-cards: La Chica Roja and Apportioned Ka. Set them aside, out of play."
+    },
+    {
+      "id": "find_chica_roja",
+      "text": "Find the double-sided La Chica Roja card, flip her to her enemy side, and resolve her concealed keyword."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: The Sanguine Watcher enemy, the Apportioned Ka enemy, the Seeing Red act/agenda, and The Weeping Lady key."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "cast_a_light",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "cast_a_light",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "description": "Cast a Light",
+            "text": "Scenario Interlude",
+            "style": "interlude",
+            "steps": [
+              "cast_a_light_story",
+              "ask_targets_on_chica",
+              "check_targets_on_chica"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "cast_a_light",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "transfer_key",
+            "text": "Transfer Key",
+
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "have_not_seen_the_last_of_thorne",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "read_sr_epsilon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["$give_thorne_key"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cast_a_light_story",
+      "type": "story",
+      "title": "Scenario Interlude: Cast a Light",
+      "text": "La Chica Roja paces around you in a slow circle as you claim her prize. “You’re good,” she concedes with a playful smirk. “But you’re workin’ for the wrong people. You know that, right?”\nYou tell her to stand down and turn herself over for questioning. She steps into the shadows, obscuring her face, but you can tell from her tone that she hasn’t stopped smiling."
+    },
+    {
+      "id": "ask_targets_on_chica",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are there no targets on La Chica Roja?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "chica_roja_has_no_targets",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_targets_on_chica",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "chica_roja_has_no_targets",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cast_a_light_2", "choose_believe"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["go_to_r1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "go_to_r1",
+      "text": "Skip to (→R1).",
+      "steps": ["$pr_R1"]
+    },
+    {
+      "id": "cast_a_light_2",
+      "type": "story",
+      "text": "You prepare for a lengthy chase, ready to take her down at any cost… but to your surprise, she reaches out and flicks the lamp switch next to her, bathing the room in an orange glow. She stands exposed in the lamplight, for once not fleeing or ducking into the shadows. “Bien entonces, la cana. Let’s talk, gumshoe.”\nYou’re not with the police, you insist. “I suppose that much is obvious. I don’t see that fool Bolívar anywhere. But if that’s truly the case, then who do you work for?” she asks. “You know what, nevermind that. You seem to know who I work for, don’t you? Well then, surely you must know there are two of us operating in Buenos Aires. Why aren’t you after the other guy?”\nYour confusion must show on your face. After a beat, La Chica Roja grins. “Oh, so that’s how it is. You, my friend, have outdated information.” You ask if she is using the stolen art pieces to assemble a Key, as the Foundation’s intel suggested. “Key? Oh, I see. You call them ‘Keys.’ Well, yes, that much is true. But you’re missing the why.”\nThe Girl in the Carmine Coat paces through the room, stepping in and out of countless shadows. “The other guy. ‘The Sanguine Watcher,’ they call him. Nobody knows his real name.” She takes off her hat and runs her finger along its scarlet hatband before using it to mask her countenance. “Just like me, I guess. Nameless. Faceless.” Then she rolls it back onto her head with a chuckle. “Only, el observador sanguinario ain’t like me. He’s already got his hands on more than a few pieces. Even with just those, he’ll use it only out of cruelty and malice. Human experimentation. Spellcraft. Real creepy stuff. He gets the rest of ‘em, who knows what he’ll do with them. My associates tend to thrive on that kind of thing. But not me.” Her fierce brown eyes lock with yours, soft and steely all at once. “I came here to stop him.”"
+    },
+    {
+      "id": "choose_believe",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "believe",
+            "text": "<i>“I believe you.”</i>",
+            "steps": ["cast_a_light_3", "check_bolivar_trusts", "cast_a_light_7", "flip_chica", "remove_agenda_act", "choose_random_target", "find_apportioned_ka", "shuffle_encounter_deck", "continue_playing"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "seeing_red",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "disbelieve",
+            "text": "<i>“I’m sorry, but I cannot believe you.”</i>",
+            "steps": ["cast_a_light_4", "go_to_r1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cast_a_light_3",
+      "type": "story",
+      "text": "“Good. Then let’s take that bastardo down together. Just help me out and I promise I’ll disappear. You can even keep your stupid ‘Key.’ Just so long as my… colleague… doesn’t get his hands on it.” The vitriol in her voice is palpable. Whoever this Sanguine Watcher is, she really seems to hate him.\nYou ask her how she intends to take him down. “Before you showed up? I wouldn’t stand a chance. But together? I think we can figure something out.” She motions toward the window and points toward the sky, reaching down to unfurl a curtain of shadows draped over what looked like a starless night. The darkness peels back, revealing a scarlet-red sky. “His mark. Been keeping it hidden for a while now so nobody panics. See, he’s got all these rituals tainting the city—including the one protecting his life. Gruesome stuff. Pulls out his own organs and hides them so he can’t be killed. We find ‘em, I guarantee he’ll turn rabbit.”"
+    },
+    {
+      "id": "check_bolivar_trusts",
+      "text": "If “Matias Bolívar trusts you”:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "bolivar_trusts_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cast_a_light_5"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_bolivar_does_not_trust"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_bolivar_does_not_trust",
+      "text": "If “Matias Bolívar doesn’t trust you”:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "bolivar_does_not_trust_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cast_a_light_6"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cast_a_light_4",
+      "type": "story",
+      "text": "You tell La Chica Roja that she spins an intriguing tale, but you still cannot trust her. She lets out a sigh, grins, and flicks the nearby lamp switch again, filling the room once more with darkness. “Then I guess I’ll see you around, idiota.”"
+    },
+    {
+      "id": "cast_a_light_5",
+      "type": "story",
+      "text": "You nod and get ready to move out when all of a sudden, the door behind you bursts open. Oficial Bolívar, flanked by two other polícia, levels a handgun in your direction. The Girl in the Carmine Coat grabs your hand. “You!” Bolívar shouts. “I trusted you! I should have known better.” You start to explain, but he cuts you off. There is real hurt behind his eyes. “You can explain yourself down at the station! Bring ‘em in, boys!”\n“That’s our cue,” your erstwhile quarry says in a singsong voice. She then leaps out of the window, pulling you along with her. A hail of bullets follow in your wake. There is a whirl of shadows and crimson, and the next thing you know, you are floating gracefully to the ground aloft a wispy cloud of darkness. “Quick!” La Chica Roja shouts. “Follow me!”"
+    },
+    {
+      "id": "cast_a_light_6",
+      "type": "story",
+      "text": "You nod and get ready to move out when all of a sudden, the door behind you bursts open. Oficial Bolívar, flanked by two other polícia, levels a handgun in your direction. The Girl in the Carmine Coat grabs your hand. “You!” Bolívar shouts. “I knew you couldn’t be trusted! On her side all along, were you?” You start to explain, but he cuts you off. “Like I can trust a single word you say? No, I think not. Bring ‘em in, boys!”\n“That’s our cue,” your erstwhile quarry says in a singsong voice. She then leaps out of the window, pulling you along with her. A hail of bullets follow in your wake. There is a whirl of shadows and crimson, and the next thing you know, you are floating gracefully to the ground aloft a wispy cloud of darkness. “Quick!” La Chica Roja shouts. “Follow me!”"
+    },
+    {
+      "id": "cast_a_light_7",
+      "type": "story",
+      "text": "You and the Girl in the Carmine Coat have teamed up to take down the true threat in Buenos Aires!"
+    },
+    {
+      "id": "flip_chica",
+      "text": "Flip La Chica Roja to her story asset side, removing all tokens and attachments from her, and choose an investigator to take control of her."
+    },
+    {
+      "id": "remove_agenda_act",
+      "text": "Remove the agenda and act decks from the game. Put the set-aside Seeing Red act/agenda into play. It is both the current act and the current agenda.",
+      "bullets": [
+        {
+          "text": "Place 1 doom on Seeing Red."
+        }
+      ]
+    },
+    {
+      "id": "choose_random_target",
+      "text": "Randomly choose a location with a target on it. Spawn The Sanguine Watcher at that location. Remove all other targets from locations in play."
+    },
+    {
+      "id": "find_apportioned_ka",
+      "text": "Find the set-aside Apportioned Ka enemy and resolve its concealed keyword, distributing its 5 concealed mini-cards as evenly as possible among each non-[[Central]] location that does not have a target."
+    },
+    {
+      "id": "shuffle_encounter_deck",
+      "text": "Shuffle the encounter discard pile into the encounter deck."
+    },
+    {
+      "id": "continue_playing",
+      "text": "You are now ready to continue playing."
+    },
+    {
+      "id": "check_seeing_red",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "seeing_red",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "late_defeat_resolution",
+              "earn_xp_with_chica",
+              "sanguine_watchers_torment_continues",
+              "chica_roja_is_on_your_side",
+              "watcher_has_the_weeping_lady",
+              "$upgrade_decks",
+              "$mark_2_time",
+              "$embark"
+            ]
+          }, {
+            "boolCondition": false,
+            "steps": [
+              "early_defeat_resolution",
+              "resolution_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "early_defeat_resolution",
+      "type": "story",
+      "text": "The night crawls on, but you cannot continue your investigation. Between the terrible winged creatures that haunt your every step and the cunning tricks of your target, you won’t last the night if you go any further. You have no choice but to retire, knowing that you’ve failed to stop La Chica Roja’s schemes."
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "late_defeat_resolution",
+      "type": "story",
+      "text": "A crack of thunder heralds a scarlet storm that covers your escape. You and La Chica Roja tried your best to take down the Sanguine Watcher, but his spell of protection was too powerful, his weak points too well hidden. You retreat to your new ally’s safehouse to lick your wounds, but you can’t stay long. “We have to flee the city,” she says bitterly. “Won’t be long before he finds us. I guarantee you wouldn’t like what that heartless bastard would do to us if he does…” You are loath to let him win, but you have no choice. Even with the pieces you’ve found, he has enough remnants himself to assemble the Key. You ask your new ally what she will do now. She responds with a tip of her hat. “Oh, I’ll be around. You helped me out back there. Don’t worry. I’ll pay you back.” With a twirl of her coat, she is gone."
+    },
+    {
+      "id": "earn_xp_with_chica",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 3 bonus experience, as they gain insight into the inner workings of the Red Coterie.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "sanguine_watchers_torment_continues",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "sanguine_watchers_torment_continues",
+          "text": "The Sanguine Watcher's torment continues."
+        }
+      ]
+    },
+    {
+      "id": "chica_roja_is_on_your_side",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "chica_roja_is_on_your_side",
+          "text": "La Chica Roja is on your side."
+        }
+      ]
+    },
+    {
+      "id": "chica_has_the_weeping_lady",
+      "text": "La Chica Roja is the bearer of The Weeping Lady. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "weeping_lady",
+          "bearer_type": "enemy",
+          "enemy_code": "ztsk_chica"
+        }
+      ]
+    },
+    {
+      "id": "watcher_has_the_weeping_lady",
+      "text": "The Sanguine Watcher is the bearer of The Weeping Lady. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "weeping_lady",
+          "bearer_type": "enemy",
+          "enemy_code": "ztsk_watcher"
+        }
+      ]
+    },
+    {
+      "id": "ask_targets_on_scenario",
+      "text": "How many targets were on the scenario reference card when the scenario ended?",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Targets:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "earn_xp_plus_targets",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience for each target that was on the scenario reference card when the scenario ended.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_bearer_of_the_weeping_lady",
+      "text": "Choose an investigator to be the bearer of The Weeping Lady and update the Campaign Log accordingly.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "sable_glass",
+            "text": "Bearer of The Weeping Lady",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "weeping_lady",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "have_not_seen_the_last_of_la_chica_roja",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_not_seen_the_last_of_la_chica_roja",
+          "text": "you haven't seen the last of La Chica Roja."
+        }
+      ]
+    },
+    {
+      "id": "have_not_seen_the_last_of_the_sanguine_watcher",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_not_seen_the_last_of_the_sanguine_watcher",
+          "text": "you haven't seen the last of The Sanguine Watcher."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "check_seeing_red"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You rush to apprehend your quarry, but with a twirl of shadows, she has vanished. It is as if she was a trick of the light all along—the same kind of mischief mirrored in Oficial Bolívar’s reports. Thankfully, you now possess enough of what she was after to put it together yourself. It takes some time and research, but eventually you are able to slot the various pieces of what you originally assumed to be art together. To your surprise, the result is an ornate figurine of a woman in robes. Tears, carved as thin lines like bloody scars, trail down the figure’s cheeks. With your new prize in tow, you report back to Oficial Bolívar the next day. He is more than a little miffed that his enemy escaped his grasp, but relieved that her campaign of thievery is finally at an end. “I warned you she would get away,” he says between sips of his espresso. “As far as my superiors are concerned, the book is closed on this one. Won’t look good on my record, but as long as she’s fled the city like you say, I am content with that.” You thank him again for his help and prepare to leave Buenos Aires behind.",
+      "steps": [
+        "ask_targets_on_scenario",
+        "earn_xp_plus_targets",
+        "have_not_seen_the_last_of_la_chica_roja",
+        "choose_bearer_of_the_weeping_lady",
+        "$upgrade_decks",
+        "$mark_1_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Your erstwhile adversary watches in grim silence as her rival is safely borne aloft on wings of darkness. “Damned things,” she spits. “They’ll follow whoever whistles loudest, I guess.” You ponder aloud what this means for the two of you. With the Sanguine Watcher out of the way, you wonder if she will keep her word. To your relief, she smirks and hands you the remaining pieces of the Key you’d both been competing for. “This is what you’re really after, isn’t it? Here. My main goal was only making sure that ojete en una nube de pedos didn’t get his hands on it. I trust it in your hands.” She then shows you how to fit the various pieces together and, to your surprise, the result is an ornate figurine of a woman in robes. Tears, carved as thin lines like bloody scars, trail down the figure’s cheeks. “The Rubicund Statuette,” she reveals, “also known as the Weeping Lady.” You ask what she will do now, and she responds with a tip of her hat. “Oh, I’ll be around. You helped me out back there. Don’t worry. I’ll pay you back.” With a twirl of her coat, she is gone.",
+      "steps": [
+        "earn_xp_with_chica",
+        "have_not_seen_the_last_of_the_sanguine_watcher",
+        "chica_roja_is_on_your_side",
+        "choose_bearer_of_the_weeping_lady",
+        "$upgrade_decks",
+        "$mark_3_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Oficial Bolívar was right: the Girl in the Carmine Coat chewed your investigation up and spat you out. You meet with him the next day, and the air is one of deadened frustration. “I warned you, did I not?” He says between sips of an espresso that looks and smells about as dark and bitter as his mood. “This puts me in a precarious position. La Chica Roja has gone to ground, from what we can tell. As far as my superiors are concerned, the book is closed on this one. I cannot help you any further.” He groans. “If I even still have a job when this is all over.” You give Oficial Bolívar your assurances that you did all you could to catch the thief, but he waves you off. “Oh, I am sure. Does not matter now, does it? What is done is done. I give up. She wins.” You thank him again and prepare to leave Buenos Aires behind.",
+      "steps": [
+        "ask_targets_on_scenario",
+        "earn_xp_plus_targets",
+        "have_not_seen_the_last_of_la_chica_roja",
+        "chica_has_the_weeping_lady",
+        "$upgrade_decks",
+        "$mark_1_time",
+        "$embark"
+      ]
+    }
+  ]
+}
