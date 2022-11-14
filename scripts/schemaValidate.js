@@ -498,9 +498,9 @@ async function validateTaboos() {
 
 async function main() {
   await validateTaboos();
+  await validateChaosTokens();
   await validateScenarios();
   await validateCampaigns();
-  await validateChaosTokens();
   await validateErrata();
   //
 }
