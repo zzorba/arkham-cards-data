@@ -60,6 +60,7 @@ function validate(validator, file, json, schemaName) {
     $maybe_add_tablet_and_save: true,
     $check_status_report: true,
     $give_thorne_key: true,
+    $maybe_investigator_setup: true,
   };
   if (
     json.type !== "interlude" &&

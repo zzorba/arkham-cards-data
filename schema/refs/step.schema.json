@@ -613,6 +613,61 @@
       ],
       "additionalProperties": false
     },
+    "investigatorSetupStep": {
+      "title": "InvestigatorSetupStep",
+      "type": "object",
+      "properties": {
+        "border_only": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "investigator_setup"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "effect.schema.json#/definitions/scenarioDataStatusEffect"
+          }
+        },
+        "bullet_type": {
+          "type": "null"
+        },
+        "narration": {
+          "$ref": "types.schema.json#/definitions/narration"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["scarlet_keys"]
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "sections"
+      ],
+      "additionalProperties": false
+    },
     "locationSetupStep": {
       "title": "LocationSetupStep",
       "type": "object",
@@ -857,6 +912,9 @@
         },
         {
           "$ref": "#/definitions/travelCostStep"
+        },
+        {
+          "$ref": "#/definitions/investigatorSetupStep"
         }
       ]
     }
