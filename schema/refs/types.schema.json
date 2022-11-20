@@ -7,6 +7,24 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "image": {
+      "title": "Image",
+      "type": "object",
+      "properties": {
+        "ratio": {
+          "type": "number"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "alignment": {
+          "type": "string",
+          "enum": ["left", "right", "top", "bottom"]
+        }
+      },
+      "required": ["ratio", "uri", "alignment"],
+      "additionalProperties": false
+    },
     "locationDetails": {
       "title": "LocationDetails",
       "type": "object",
@@ -54,7 +72,10 @@
         },
         "type": {
           "type": "string",
-          "enum": ["connection", "ocean", "small_ocean", "continent", "country"]
+          "enum": ["connection", "ocean", "small_ocean", "sea", "continent", "country"]
+        },
+        "rotation": {
+          "type": "string"
         }
       },
       "required": ["x", "y", "name", "direction", "type"],
@@ -65,21 +86,7 @@
       "type": "object",
       "properties": {
         "image": {
-          "type": "object",
-          "properties": {
-            "ratio": {
-              "type": "number"
-            },
-            "uri": {
-              "type": "string"
-            },
-            "alignment": {
-              "type": "string",
-              "enum": ["left", "right"]
-            }
-          },
-          "required": ["ratio", "uri", "alignment"],
-          "additionalProperties": false
+          "$ref": "#/definitions/image"
         },
         "text": {
           "type": "string"
@@ -124,6 +131,10 @@
         "title": {
           "type": "string"
         },
+        "title_font": {
+          "type": "string",
+          "enum": ["file"]
+        },
         "entries": {
           "type": "array",
           "items": {
@@ -151,6 +162,9 @@
           "type": "number"
         },
         "name": {
+          "type": "string"
+        },
+        "file_name": {
           "type": "string"
         },
         "scenario": {
@@ -323,6 +337,27 @@
         }
       },
       "required": ["id", "name", "lang"],
+      "additionalProperties": false
+    },
+    "locationAnnotation": {
+      "title": "LocationAnnotation",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "position": {
+          "type": "string",
+          "enum": ["top", "bottom"]
+        }
+      },
+      "required": ["text", "x", "y", "position"],
       "additionalProperties": false
     },
     "locationConnector": {
@@ -557,6 +592,9 @@
         "unique": {
           "type": "boolean"
         },
+        "non_story_only": {
+          "type": "boolean"
+        },
         "vengeance": {
           "type": "boolean"
         },
@@ -635,6 +673,9 @@
           "items": {
             "$ref": "effect.schema.json#/definitions/effect"
           }
+        },
+        "allow_duplicates": {
+          "type": "boolean"
         }
       },
       "required": ["id", "text"],
@@ -943,6 +984,9 @@
           "items": {
             "$ref": "effect.schema.json#/definitions/effect"
           }
+        },
+        "allow_duplicates": {
+          "type": "boolean"
         }
       },
       "required": ["id", "text"],

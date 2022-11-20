@@ -1,0 +1,236 @@
+{
+  "id": "perth",
+  "scenario_name": "Paranatural Selection",
+  "full_name": "Perth: Paranatural Selection",
+  "header": "Perth",
+  "icon": "perth",
+  "type": "interlude",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "check_campaign_log",
+    "check_met_and_early",
+    "$embark"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "A cool breeze greets you as you arrive in Perth. The capital of Western Australia is nestled in the crook of the Swan River, and despite—or perhaps because of—the nearby gold rush, it has the rugged feel of a frontier town. You catch a scent of something too sweet, possibly rotten, on the breeze."
+    },
+    {
+      "id": "check_campaign_log",
+      "text": "Check the Campaign Log."
+    },
+    {
+      "id": "check_met_and_early",
+      "bullet_type": "small",
+      "text": "<i>If the cell met Dr. Irawan</i> and less than 25 <b>time</b> has passed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 25
+            },
+            "options": [
+              { "numCondition": -1 }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_met_dr_irawan",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "dr_irawan_traveled_to_new_guinea", "earn_1_xp", "setup_time_delta",
+            "actually_setup_time_delta", "unlock_manokwari", "$save_decks_with_xp"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_met_and_late"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_met_and_late",
+      "bullet_type": "small",
+      "text": "<i>If the cell met Dr. Irawan</i> and 25 or more <b>time</b> has passed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 25
+            },
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cell_met_dr_irawan",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3", "dr_irawan_vanished_from_existence"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4", "cell_met_dr_irawan", "earn_1_xp", "$save_decks_with_xp"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_dossier",
+                "value": "rio_irawan"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You find Dr. Irawan at the local university cleaning up an empty lecture hall. On the blackboard is a precise chalk drawing of a stocky marsupial clutching a cluster of sedge grass.\n“I did not expect to see you here,” the zoologist sets to erasing the blackboard. You ask about the sketch. “It is a rare species of quokka: the red-tailed quokka. They were first introduced to the West by Dutch explorers in the 17th century. And now no one—not even the Cambridge professor who taught me their name—remember what they are.”\n“I do not know how much you have studied natural selection, but what we are experiencing feels very much like the introduction of a new apex predator into an ecosystem that has not evolved to withstand it,” says the zoologist. “Except that this predator feeds not only on the body, but on the actual existence of its prey. Although, of course, that would be unthinkable,” she laughs. “But I cannot help feeling that we are its prey. And the process is only accelerating.” The zoologist sits down and begins to flip idly through a sketchbook.\nThinking on the terms the Foundation used, you suggest she name the phenomena “Paranatural Selection.” She looks troubled at the suggestion, then smiles.\n“I will be sure to credit you,” she says, then goes pale. You look down and see her gaze fixed on a particular page in her sketchbook. “This cannot be.”\nYou ask her what the matter is, and she points to the page. “Just yesterday, this page was not blank. The <i>Phalanger septimus</i>. A cuscus living in western New Guinea.”\nDr. Irawan begins gathering up her things. “I sketched this subject from direct observation just months ago. Perhaps there will be some trace of it—or of whatever force is behind all this—out in Manokwari.” She pushes a strand of hair behind her ear and smiles at you. “Thank you for listening. Perhaps we will meet again.”"
+    },
+    {
+      "id": "dr_irawan_traveled_to_new_guinea",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_irawan_traveled_to_new_guinea",
+          "text": "Dr. Irawan traveled to New Guinea."
+        }
+      ]
+    },
+    {
+      "id": "earn_1_xp",
+      "text": "Each investigator earns 1 experience, as they gain insight into the strange happenings around the world.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "setup_time_delta",
+      "text": "Under “Time Passed,” write δ (delta) underneath the current time. <i>(This symbol has no status report and is only used as a time marker.)</i>"
+    },
+    {
+      "id": "actually_setup_time_delta",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "math",
+        "operation": "sum",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "time"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 10
+        },
+        "options": [],
+        "default_option": {
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "delta_time_cutoff",
+              "operation": "set_input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "unlock_manokwari",
+      "text": "In the Southeast Asia section of the Campaign Log, find Manokwari. In its spot, write “45–P.” You are now able to travel to Manokwari whenever you embark.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "unlock_location",
+          "value": "manokwari"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Upon arriving in the city, you look for Dr. Irawan at the local university. A helpful professor scours the academic schedule on your behalf when you mention Dr. Irawan’s lecture, but finds nothing. You take out the card she gave you, but both sides are blank. It’s as though she has vanished completely…"
+    },
+    {
+      "id": "dr_irawan_vanished_from_existence",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_irawan_vanished_from_existence",
+          "text": "Dr. Irawan vanished from existence."
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You catch Dr. Irawan walking out of a lecture at the local university and invite her to a nearby cafe to chat about her research. On a sunlit veranda, she lays several life-like sketches out on the table between you. “Have you ever heard of the red-tailed quokka?” she asks. You shake your head. “They were first introduced to the West by Dutch explorers in the 17th century, and have been listed in standard taxonomy since then. I learned about them at Cambridge.”\nDr. Irawan leafs through a sketchbook to a blank page. “On a survey five years ago, I took several sketches in the wild. But recently, I opened my books and the sketches were blank, as if they had never been drawn. Moreover, every footnote and reference to them in academia has vanished. I asked my professor at Cambridge—the man who taught me what red-tailed quokkas were—and he looked at me as though I had gone mad.” The zoologist adjusts her large spectacles.\nYou assure Dr. Irawan that she is not mad, and share what little you can about the disappearances.\n“I do not know how much you have studied natural selection, but what we are experiencing feels very much like the introduction of a new apex predator into an ecosystem that has not evolved to withstand it,” says the zoologist. “Except that this predator feeds not only on the body, but on the actual existence of its prey. Although, of course, that would be unthinkable,” she laughs. “But I cannot help feeling that we are its prey.”\nThinking on the terms the Foundation used, you suggest she name the phenomena “Paranatural Selection.” She looks troubled at the suggestion, then smiles.\n“Perhaps I will use that, with your permission,” says Dr. Irawan. “I am glad we met. I was beginning to think this was all in my head.” She gives you her business card with the name of a hotel in Brazil written on the back. “I will be in Rio de Janeiro to continue my survey, and my next lecture. Perhaps I will see you there.”"
+    },
+    {
+      "id": "cell_met_dr_irawan",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_met_dr_irawan",
+          "text": "the cell met Dr. Irawan."
+        }
+      ]
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

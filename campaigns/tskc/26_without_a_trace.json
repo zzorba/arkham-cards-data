@@ -1,0 +1,529 @@
+{
+  "id": "bermuda_triangle",
+  "scenario_name": "Without a Trace",
+  "full_name": "Bermuda Triangle: Without a Trace",
+  "header": "Bermuda Triangle",
+  "icon": "bermuda_triangle",
+  "chaos_bag_card": "09681",
+  "setup": [
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "whistle_choice",
+    "intro_4",
+    "$maybe_investigator_setup",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "setup_location",
+    "check_cell_blew_the_whistle",
+    "set_aside_cards",
+    "prepare_otherworld_deck",
+    "flip_otherworld_cards",
+    "gather_decoy_cards",
+    "shuffle_decoy_cards",
+    "location_layout",
+    "$maybe_epsilon_setup",
+    "encounter_deck",
+    "location_adjacency_rule",
+    "locations_in_the_shadows_rule",
+    "locations_in_the_shadows_rule_2",
+    "locations_in_the_shadows_rule_3",
+    "locations_in_the_shadows_rule_4",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "transfer_key",
+            "text": "Transfer Key",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "have_not_seen_the_last_of_thorne",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "read_sr_epsilon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["$give_thorne_key"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Even with the Foundation’s resources at your beck and call, it takes some finagling to charter a ship across the Devil’s Triangle, especially given you have no cargo to speak of and refuse to allow any other passengers on board, for their safety. After all, if your theory is correct, this ship’s destination does not exist on any map, and for all you know, it might be a one-way journey. Agent Quinn has convinced one of her colleagues to helm the ship, so as to not endanger a civilian, and together you set off for the center of the triangle, hearts in throats.\n“The commissioner will have gotten word by now,” Quinn says, standing with you at the helm of the ship. “Probably the end of my career, I would wager.” She stares off at the horizon as the sun dips just below the waves. Despite her words, her expression is steadfast, without even a hint of regret. “I just hope we find answers.” You concede, with a bit of trepidation, that you almost hope you don’t. The idea of ending up just like the people who have been snatched—it chills you to the core. “Well, no turning back now. Care to do the honors?” she asks, motioning toward the white raven whistle which hangs from a cord around your neck. You pull it off and clutch it in your palm, considering your options."
+    },
+    {
+      "id": "whistle_choice",
+      "text": "The lead investigator must decide (choose one):",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "aliki",
+            "text": "Blow the whistle and summon Aliki to your side.",
+            "steps": ["intro_2", "cell_blew_the_whistle"]
+          },
+          {
+            "id": "alone",
+            "text": "Dispose of the whistle and do this alone.",
+            "steps": ["intro_3", "earn_agent_quinn", "cell_threw_away_the_whistle"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Reluctantly, you put the whistle to your lips and send its shrill, otherworldly warble across the ocean and perhaps beyond. A shudder creeps up your spine as the wind picks up. Within moments, the girl with the red sash has appeared, standing on the deck of your ship as though she had always been there. She speaks in Coptic, her words muffled by whistling wind. “She says thank you,” Quinn translates, “for trusting her.” You wouldn’t go that far. But she seems to know more about where you’re going than you do, and you need every bit of help you can get if you are to survive. Then, just as the wind begins to die down, Aliki Uperetria turns and points over the bow of the ship, seemingly at nothing at all but dark, choppy waves and the dim evening horizon."
+    },
+    {
+      "id": "cell_blew_the_whistle",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_blew_the_whistle",
+          "text": "the cell blew the whistle."
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "After a moment of consideration, you hurl the whistle into the dark waves of the Atlantic. Quinn watches with horror as the ocean swallows it. “What did you do that for? She could have helped us!” You explain that the Coterie is not to be trusted, and that perhaps now—with the evidence of their cooperation disposed of—Taylor will allow Quinn to keep her position in the Foundation. “You did that… for me?” she says under her breath, stunned. “Well… I hope for our sake you know what you are doing. Where we are headed, we are going to need all the help we can get.” She glances over the bow of the ship, and you wonder if you are truly headed to another realm, or if you will simply greet the horizon."
+    },
+    {
+      "id": "earn_agent_quinn",
+      "type": "encounter_sets",
+      "encounter_sets": ["globetrotting"],
+      "text": "In your Campaign Log, record <i>Agent Quinn has your back</i>. Any one investigator may choose to add the Agent Ari Quinn story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Globetrotting</i> encounter set.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "agent_quinn_has_your_back",
+          "text": "Agent Quinn has your back."
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "09763"
+        }
+      ]
+    },
+    {
+      "id": "cell_threw_away_the_whistle",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_threw_away_the_whistle",
+          "text": "the cell threw away the whistle."
+        }
+      ]
+    },
+
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "Clouds hang still over the Atlantic, the ocean suddenly calmer than you have ever seen it before. “Look at that,” Quinn says, pointing at the surface of the water. “No fish, no waves, not even a ripple from the ship.” A feeling of regret in your throat, you rush to the bow of the ship and look out into the distance. Something in the air shimmers—a slight distortion, nothing more—just a trick of the eye—and then, without a moment of warning, the ship is swallowed whole. The clouds burst. Light and color and luster overtakes you, cosmic radiance swathed in transcendental mist. The sight is marvelous and awful, mesmerizing and haunting all at once. You shut your eyes, but colors wash behind your eyelids over and over and over again. Then, finally, what feels like an eternity later, you feel a tap on your shoulder and open your eyes. The sight that greets you is unlike anything you have ever seen.\nAliki was right—if the things that disappeared were taken, this is surely where they ended up: an impossibly jumbled city of twisting architecture and technology both alien and familiar, an unearthly repository for everything that has ever been forgotten and forsaken. A range of sickly purples span the sky above, and snaking throughout the tangled towers and effigies are swirling, shimmering entities of vapor and colorless radiance.\nStunned into silence, you simply stare at the horrifying, awe-inspiring horizon before you, devoid of ocean, devoid of humanity, devoid of life. This is the barren truth to which your investigation has led: The Outside."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "without_a_trace",
+        "agents_of_the_outside",
+        "beyond_the_beyond",
+        "outsiders",
+        "secret_war",
+        "spreading_corruption"
+      ]
+    },
+    {
+      "id": "setup_location",
+      "text": "Put the Court of the Outsiders location into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Court of the Outsiders."
+        }
+      ]
+    },
+    {
+      "id": "check_cell_blew_the_whistle",
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_blew_the_whistle",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["take_aliki"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_aliki"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "take_aliki",
+      "bullet_type": "small",
+      "text": "Choose an investigator to take control of the Aliki Zoni Uperetria story asset."
+    },
+    {
+      "id": "remove_aliki",
+      "bullet_type": "small",
+      "text": "Remove the Aliki Zoni Uperetria story asset from the game."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: The Red-Gloved Man story asset, the Mimetic Nemesis enemy, the Protoplasmic Reassembler enemy, and the Apocalyptic Presage enemy."
+    },
+    {
+      "id": "prepare_otherworld_deck",
+      "text": "Prepare the Otherworld deck. This is done by performing the following steps:",
+      "bullets": [
+        {
+          "text": "Find the Outsiders’ Lair and both copies of the Cliffs of Insanity locations. Shuffle these locations together, with their unrevealed sides faceup, to form a deck. This deck is called the Otherworld deck."
+        },
+        {
+          "text": "Find the remaining seven City of Remnants locations. Shuffle these locations together, with their unrevealed sides faceup. If there are exactly two investigators in the game, remove one of those locations from the game at random, without looking at it. If there is only one investigator, remove two of those locations from the game at random, without looking at them. Place the rest on top of the Otherworld deck."
+        },
+        {
+          "text": "Place the Otherworld deck near the scenario reference card."
+        }
+      ]
+    },
+    {
+      "id": "flip_otherworld_cards",
+      "text": "Take the top three locations in the Otherworld deck and place them in the shadows, arranged in a straight line from left to right (without looking at their other sides)."
+    },
+    {
+      "id": "gather_decoy_cards",
+      "text": "Gather each decoy mini-card and the three City of Remnants (L, M and R) mini-cards. Set them aside, out of play."
+    },
+    {
+      "id": "shuffle_decoy_cards",
+      "text": "Take one decoy mini-card and the three City of Remnants (L, M and R) mini-cards, shuffle them facedown, and arrange them around the Court of the Outsiders as follows: One to its left, one to its right, one above, and one below."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "concealed_mini",
+          "blank"
+        ],
+        [
+          "concealed_mini",
+          "court",
+          "concealed_mini"
+        ],
+        [
+          "blank",
+          "concealed_mini",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "concealed_mini",
+          "name": "Concealed Card"
+        },
+        {
+          "code": "court",
+          "name": "Court of the Outsiders"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "location_adjacency_rule",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in the Realm of the Outsiders",
+      "text": "Throughout this scenario, locations are arranged in a pattern of rows and columns, along with concealed mini-cards <i>(see Locations in the Shadows, below)</i>. <b>Each location is connected to each location adjacent to it.</b>",
+      "bullets": [
+        {
+          "text": "Adjacent locations share a side (left, right, above, or below). Locations that share only a corner are not adjacent."
+        },
+        {
+          "text": "During this scenario, concealed mini-cards are also placed adjacent to one or more locations as above, instead of placed at locations as normal <i>(see Locations in the Shadows, below)</i>."
+        }
+      ]
+    },
+    {
+      "id": "locations_in_the_shadows_rule",
+      "type": "rule_reminder",
+      "title": "Locations in the Shadows",
+      "text": "During this scenario, investigators must traverse the deceptively labyrinthine and illusory home world of the Outsiders. To represent the difficulty of exploring this alien dimension, three City of Remnants locations are placed in the shadows at all times (taken from the top of the Otherworld deck) and concealed mini-cards are arranged adjacent to locations, rather than placed at them. Exposing these concealed mini-cards is the key to finding a route through this otherworldly place.",
+      "bullets": [
+        {
+          "text": "Concealed mini-cards adjacent to a location are considered to be at that location for the purposes of card abilities and game rules. Use the shroud value of your current location when attempting to expose an adjacent concealed mini-card."
+        }
+      ]
+    },
+    {
+      "id": "locations_in_the_shadows_rule_2",
+      "text": "When a City of Remnants mini-card is exposed, set it aside and find the City of Remnants in the shadows whose position in the shadows matches that mini-card (L for left, M for middle, and R for right). Put that location into play in the position where its mini-card was (unrevealed side faceup).",
+      "bullets": [
+        {
+          "text": "If there were any other concealed mini-cards in that position, move them so they are arranged as evenly as possible in empty spots adjacent to the newly placed City of Remnants."
+        }
+      ]
+    },
+    {
+      "id": "locations_in_the_shadows_rule_3",
+      "text": "After a City of Remnants location leaves the shadows, place the top card of the Otherworld deck in the shadows in the position where the just-exposed City of Remnants was (without looking at its other side). Then, resolve its concealed keyword, placing each of its concealed mini-cards arranged as evenly as possible in empty spots adjacent to the just-exposed City of Remnants.",
+      "bullets": [
+        {
+          "text": "There must always be three City of Remnants locations in the shadows, if possible."
+        }
+      ]
+    },
+    {
+      "id": "locations_in_the_shadows_rule_4",
+      "text": "More than one concealed mini-card may occupy the same spot, but no concealed mini-cards may occupy a spot where a location already is present."
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b> (from Bermuda, Ybor City, or San Juan).",
+      "bullets": [
+        {
+          "text": "<i>Note: In the app the calculated travel distance from the Bermuda Triangle will automatically be adjusted as if you are leaving from the best possible city.</i>"
+        }
+      ],
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "cell_was_hollowed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_was_hollowed",
+          "text": "the cell was hollowed."
+        }
+      ]
+    },
+    {
+      "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+          "text": "you haven’t seen the last of Aliki Zoni Uperetria."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "earn_xp_plus_1",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 1 bonus experience, as they gain insight into the strange happenings around the world.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_campaign",
+      "text": "<b>The investigators lose the campaign.</b>",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "r1_campaign_entries",
+      "text": "In your Campaign Log, record the following:",
+      "bullets": [
+        {
+          "text": "<i>The cell knows the true nature of the Coterie.</i>"
+        },
+        {
+          "text": "<i>Aliki is on your side.</i>"
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_knows_the_true_nature_of_the_coterie",
+          "text": "the cell knows the true nature of the Coterie."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "aliki_is_on_your_side",
+          "text": "Aliki is on your side."
+        }
+      ]
+    },
+    {
+      "id": "aliki_is_on_your_side",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "aliki_is_on_your_side",
+          "text": "Aliki is on your side."
+        }
+      ]
+    },
+    {
+      "id": "r2_campaign_entries",
+      "text": "In your Campaign Log, record the following:",
+      "bullets": [
+        {
+          "text": "<i>The cell knows the true nature of the Coterie.</i>"
+        },
+        {
+          "text": "<i>You haven’t seen the last of Aliki Zoni Uperetria.</i>"
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_knows_the_true_nature_of_the_coterie",
+          "text": "the cell knows the true nature of the Coterie."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_not_seen_the_last_of_aliki_zoni_uperetria",
+          "text": "you haven’t seen the last of Aliki Zoni Uperetria."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "“There, that is the last of them,” Agent Hudson says as he slams his stamp down onto the expense report. “I understand the need for secrecy, but I must once again request we hire assistants for this secretarial work, Commissioner.” He hands the bundle of documents to Taylor, who sits behind her stark black desk, wearing a grave expression.\n“More eyes means more leaks. We keep this crew tight for a reason, Hudson. Do not lose sight of what is important.” She flips through the documents for a moment, furrowing her brows. “Where is the report on asset 32–J’s cell?”\n“32–J?” the man pulls a small notebook from his back pocket and flips to a page near the middle. “No such designation exists.”\nTaylor grimaces. “No, that’s not right. There was… we met them in London. You were there…” After a moment, she shakes her head in utter confusion. “Hm. Strange. I don’t remember who they were.”\n“You have been working too hard,” the agent replies with a small grin. “Take some time off, Commissioner. We can handle things without you for a week or so.”",
+      "steps": [
+        "cell_was_hollowed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You awaken on the ship’s deck, dreamlike memories and otherworldly visions swimming in your mind. The only sign that what you saw was real and not a mere nightmare is a red-gloved grip as a man pulls you to your feet and dusts off your shoulders. Nearby, Aliki watches wordlessly, her expression blank. Agent Quinn rises steadily to her feet as well. The world wobbles as your vision settles over a new dimension. “Stay with us,” the man says, his voice smoother and more natural than you remember.\nYou demand answers: what was he doing in London, what was that hellish place, and why was he there? “London?” He scoffs. “I haven’t been to London lately. I don’t even know who you are.” You reel. This is for sure the same man you saw in London—isn’t it? “As for that place, I have only a vague sense, but I have no idea what brought me there or how long I have been gone. That thing…” He lifts the brim of his fedora and clutches his forehead so hard his hands shake. “It was… prying. Searching. Learning.”\nAliki finally speaks, with Quinn once again translating. “She says that the creatures are not just taking things, they are… what would be the right word…” she struggles to retain her composure as Aliki once again switches languages. “…adapting. Mimicking.”\nCold realization washes over you. This is what Aliki had been afraid of—why she had come to you for help. The man you saw in London was not the same as the man before you now. It was an imposter. It was one of them.”It seems I am in your debt,” the man says, extending a red-gloved hand. “But unfortunately, I have much to do. If these creatures have infiltrated the Coterie, none can be trusted, myself most especially. If you see me again, assume it is not me. In the meantime, I will get to the bottom of this and confront the others with my findings when the time is right.” You nod and shake his hand. There is more at stake here than you ever realized, and you can only get to the heart of it by working together.",
+      "steps": [
+        "earn_xp_plus_1",
+        "r1_campaign_entries",
+        "$upgrade_decks",
+        "$mark_3_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You awaken on the ship’s deck, dreamlike memories and otherworldly visions swimming in your mind. The only sign that what you saw was real and not a mere nightmare is a red-gloved grip as a man pulls you to your feet and dusts off your shoulders. Agent Quinn rises steadily to her feet as well. The world wobbles as your vision settles over a new dimension. “Stay with us,” the man says, his voice smoother and more natural than you remember.\nYou demand answers: what was he doing in London, what was that hellish place, and why was he there? “London?” He scoffs. “I haven’t been to London lately. I don’t even know who you are.” You reel. This is for sure the same man you saw in London—isn’t it? “As for that place, I have only a vague sense, but I have no idea what brought me there or how long I have been gone. That thing…” He lifts the brim of his fedora and clutches his forehead so hard his hands shake. “It was… prying. Searching. Learning.”\nIs this even the same man you saw in London? You wonder what purpose the entity had in kidnapping him. What kind of information was it looking for? “In any event, I am in your debt,” the man says, extending a red-gloved hand. “But unfortunately, I have much to do. If you claim to have seen me in London, then there must be an imposter afoot. If you see me again, assume it is not me. In the meantime, I will get to the bottom of this and confront the others with my findings when the time is right.” You nod and shake his hand. “By the way…I am curious. How did you know where to find me?”\n“One of your own,” Agent Quinn replies. “Uperetria. She had a hunch. Seems she was right.”\n“I see,” he says with a scowl. “Well then… it appears I have two favors to repay, then. And rest assured… I always pay my debts.”",
+      "steps": [
+        "earn_xp_plus_1",
+        "r2_campaign_entries",
+        "$upgrade_decks",
+        "$mark_2_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You awaken on the ship’s deck, dreamlike memories and otherworldly visions swimming in your mind. The only sign that what you saw was real and not a mere nightmare is the gentle grip of Aliki as she pulls you to your feet, her expression blank. The world wobbles to and fro as your vision settles over a new dimension. Agent Quinn rises steadily to her feet as well, pounding her fist against the door to the cabin. “Dammit. We were so close!” she exclaims.\nYou struggle in vain to comprehend what you experienced in that other world. Answers may have eluded you, but it’s a relief to stand once more in a place that feels familiar to you. “That place… it is just as you thought,” Quinn says to Aliki, her eyes wide with both awe and horror. “Everything that is missing. Everything that is forgotten. It’s all there. Is that what they are doing? Stealing our world?”\nAliki finally speaks, with Quinn once again translating. “She says that the creatures are not just stealing things, they are… what would be the right word…” she struggles to retain her composure as Aliki once again switches languages. “…adapting. Mimicking.”\nYou ponder what all of this could mean in silence as night falls over the Atlantic. This is what Aliki had been afraid of—why she had come to you for help. But you are still uncertain what the entities from that reality truly want with yours, and what it might mean for the Red Coterie. “She thanks us for helping her, even if we were unable to learn the truth,” Quinn translates as Aliki speaks up once more. “And she says she will repay the favor when the time comes.”",
+      "steps": [
+        "earn_xp",
+        "aliki_is_on_your_side",
+        "$upgrade_decks",
+        "$mark_2_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You awaken on the ship’s deck, dreamlike memories and otherworldly visions swimming in your mind. The only sign that what you saw was real and not a mere nightmare is the pained groans of Agent Quinn as she rises steadily to her feet and pulls you up. The world wobbles as your vision settles over a new dimension.\n“What the hell,” Quinn utters under her breath. “What the hell.” You struggle in vain to comprehend what you experienced in that other world. Answers may have eluded you, but it’s a relief to stand once more in a place that feels familiar to you. “That place… it is just as Aliki thought,” Quinn says aloud, her eyes wide with both awe and horror. “Everything that is missing. Everything that is forgotten. It’s all there. Is that what they are doing? Stealing our world?”\nYou ponder what all of this could mean in silence as night falls over the Atlantic. This is what Aliki had been afraid of—why she had come to you for help. But you are still uncertain what the entities from that reality truly want with yours, and what it might mean for the Red Coterie. “What do we do now? I don’t even know how I would report this to the Commissioner. Even for us, it’s almost too far-fetched to believe. And we have nothing to show for it…”\nYou shake your head and ponder the horizon. How much of the emptiness around you is but the remnants of these creatures’ contact with Earth? How much will be left if their secret war is not stopped? At least now, you know the true scale of this threat…",
+      "steps": [
+        "earn_xp",
+        "have_not_seen_the_last_of_aliki_zoni_uperetria",
+        "$upgrade_decks",
+        "$mark_1_time",
+        "$embark"
+      ]
+    }
+  ]
+}

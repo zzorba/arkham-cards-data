@@ -1,0 +1,377 @@
+{
+  "id": "lagos",
+  "scenario_name": "Special Delivery",
+  "full_name": "Lagos: Special Delivery",
+  "header": "Lagos",
+  "icon": "lagos",
+  "type": "interlude",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "check_cell_is_delivering_foundation_intel",
+    "$embark"
+  ],
+  "steps": [
+    {
+      "id": "check_cell_is_delivering_foundation_intel",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_is_delivering_foundation_intel",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_4", "cross_out_cell_is_delivering_foundation_intel", "ask_token_to_replace", "save_decks"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "cell_is_delivering_foundation_intel", "save_decks", "$mark_1_time"],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "unlock_dossier",
+                "value": "tokyo_intel"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks"
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Following a set of coded directions from the Foundation, you follow a packed road to a small cafe in the heart of Lagos. Seated on a veranda overlooking a bustling market is Commissioner Taylor, nursing a glass filled with a deep red liquid. As you approach, she shuffles a deck of playing cards with one hand and looks up at you.\n“You can clearly follow directions,” she says, gesturing for you to sit across from her. “But do you know how to play whist?” A warm breeze stirs the air as you take your seat and Taylor deals you each thirteen cards, then reveals the top of the deck: a one-eyed jack. “Now talk.” As you play, the commissioner asks you questions about your findings around the globe. As the final trump card is revealed, Taylor looks you dead in the eyes.\n“We have identified thirteen members of the Coterie so far, but evidence suggests there are more. Far more. Even if we catch one, the organization will persist. And that’s to speak nothing of their many operatives and minions. It would be like trying to remove an anthill by catching individual ants.” You ask the commissioner what she is getting at and she lays down her last card with a smirk. “The way to bring them down is to cut them off at their source.”\nYou play your last card: a near loss. Taylor gathers the cards up. “I win this time, but I look forward to our next game,” she sips her drink. “Do not forget what I said. Find where they congregate.” As she speaks, a towering suit approaches from the side of the building and whispers in her ear. “I am sorry to cut this short, but I have business in Monaco. Unfortunately, I don’t have time to deliver these documents—see that these reach our operatives in Tokyo.”"
+    },
+    {
+      "id": "cell_is_delivering_foundation_intel",
+      "type": "encounter_sets",
+      "encounter_sets": ["globetrotting"],
+      "text": "In your Campaign Log, record <i>the cell is delivering Foundation intel</i>. Each investigator must add one copy of Foundation Intel to their deck. It does not count toward their deck size. These cards can be found in the <i>Globetrotting</i> encounter set.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_is_delivering_foundation_intel",
+          "text": "the cell is delivering Foundation intel."
+        },
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "09766"
+        }
+      ]
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "After putting into port, you find a warehouse marked with 39-0 and a logo of a red lion, per the instructions given to you by the Foundation. Once inside, you deliver Commissioner Taylor’s documents to a steely-eyed operative, who thanks you before melting into the shadows."
+    },
+    {
+      "id": "cross_out_cell_is_delivering_foundation_intel",
+      "text": "In your Campaign Log, cross off <i>the cell is delivering Foundation intel.</i> Each investigator removes one copy of Foundation Intel from their deck.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_is_delivering_foundation_intel",
+          "text": "the cell is delivering Foundation intel.",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "delivered_intel",
+          "text": "dummy"
+        },
+        {
+          "type": "remove_card",
+          "card": "09766"
+        }
+      ]
+    },
+    {
+      "id": "ask_token_to_replace",
+      "text": "Choose any number token in the chaos bag. Replace it with a number token of a value 1 higher <i>(i.e. You may replace a 0 token with a +1 token, or a –3 token with a –2 token)</i>.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "0",
+            "text": "0",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["0"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["+1"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "0",
+              "options": [
+                { "numCondition": 1 },
+                { "numCondition": 2 },
+                { "numCondition": 3 },
+                { "numCondition": 4 }
+              ]
+            }
+          },
+          {
+            "id": "-1",
+            "text": "−1",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["-1"]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["0"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-1",
+              "options": [
+                { "numCondition": 1 },
+                { "numCondition": 2 },
+                { "numCondition": 3 },
+                { "numCondition": 4 },
+                { "numCondition": 5 }
+              ]
+            }
+          },
+          {
+            "id": "-2",
+            "text": "−2",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-2"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-1"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-2",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                },
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          },
+          {
+            "id": "-3",
+            "text": "−3",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-2"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-3",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                },
+                {
+                  "numCondition": 3
+                }
+              ]
+            }
+          },
+          {
+            "id": "-4",
+            "text": "−4",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-3"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-4",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-5",
+            "text": "−5",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-4"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-5",
+              "options": [
+                {
+                  "numCondition": 1
+                },
+                {
+                  "numCondition": 2
+                }
+              ]
+            }
+          },
+          {
+            "id": "-6",
+            "text": "−6",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-6"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-5"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-6",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "-7",
+            "text": "−7",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-7"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-6"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-7",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          },
+          {
+            "id": "-8",
+            "text": "−8",
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": [
+                  "-8"
+                ]
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": ["-7"]
+              }
+            ],
+            "condition": {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "-8",
+              "options": [
+                {
+                  "numCondition": 1
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

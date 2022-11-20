@@ -1,0 +1,115 @@
+{
+  "id": "san_francisco",
+  "scenario_name": "Quid Pro Quo",
+  "full_name": "San Francisco: Quid Pro Quo",
+  "header": "San Francisco",
+  "type": "interlude",
+  "icon": "san_francisco",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "choice",
+    "$embark"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "A set of obscure and overly-complex instructions leads you to a drab two-story stone building on the edge of San Francisco’s Chinatown neighborhood. Inside, a bored attendant slumps behind a desk near a brass elevator. Punching a specific code, the elevator takes you deep underground, farther than you could have predicted. On –14F, you step out and are greeted by an imposing man in a well-tailored suit and black fedora. “Archibald Hudson. We met in London,” he reminds you. “Your cell is quite the talk around the office.” The agent leads you down a seemingly endless hallway lined with alcoves. Each alcove displays something different: a model of a hollow earth, a crystal skull, a map with ley lines and other unknown markings. You pause and look at a half-eaten ear of corn, still steaming.\n“From what I hear, that corn’s been cooked to perfection for the last two decades. So’s the dame who was eating it,” Agent Hudson says grimly. Looking at the paradimensional relics gives you a headache. Your eyes struggle to focus on them: they are both there and not there at the same time. Hudson ushers you down a side hall into a boxy room crammed with metal filing cabinets and sits down behind a heavy wooden desk. He speaks into a ring-and-spring microphone: “File #26–G2. Interview conducted by Hudson, Archibald, designation 42a6-951. That’s Agent Hudson to you,” he arches an eyebrow. Over the next several hours, you answer a gauntlet of grueling questions about your experience thus far, ranging from the past day to your experience in London. When it’s all done, Agent Hudson leans back and lights a cigarette. “I’ll admit, I was skeptical about you from the start. But Commissioner Taylor has good instincts, and I haven’t seen them steer her wrong yet,” he says. “You’ve done good work so far. We have some intel and some resources that might be useful for you. Tell me what the Foundation can do for you.”"
+    },
+    {
+      "id": "choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "faster",
+            "text": "<i>“We’d like to get around faster.”</i>",
+            "steps": ["expediated_ticket", "save_decks"]
+          },
+          {
+            "id": "supplies",
+            "text": "<i>“We’d like some supplies.”</i>",
+            "steps": ["earn_1_xp", "$save_decks_with_xp"]
+          },
+          {
+            "id": "info",
+            "text": "<i>“We’d like some intel on ‘Subject #11–B.’”</i>",
+            "condition": {
+              "type": "location",
+              "status": "visited",
+              "location": "marrakesh",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": ["intro_3", "cell_knows_amaranths_real_name"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "expediated_ticket",
+      "type": "encounter_sets",
+      "encounter_sets": ["globetrotting"],
+      "text": "The lead investigator adds one copy of Expedited Ticket to their deck. This card can be found in the <i>Globetrotting</i> encounter set.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "lead_investigator",
+          "card": "09765"
+        }
+      ]
+    },
+    {
+      "id": "earn_1_xp",
+      "text": "Each investigator earns 1 experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks"
+      }
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Agent Hudson flips through some files and pulls out an updated dossier similar to the one in your possession, but much thicker. “Subject #11–B, calls herself ‘Amaranth.’ But this is not the first Amaranth the Foundation has encountered. She pops back up every few decades, looking completely different each time. This iteration bears a striking resemblance to a former student of a ‘Miskatonic University’ in Massachusetts. Eryn Cochwyn was her name. She’s been missing for some time.” You wonder aloud if it might be a coincidence. “There are no coincidences in our line of work,” he mutters."
+    },
+    {
+      "id": "cell_knows_amaranths_real_name",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_knows_amaranths_real_name",
+          "text": "the cell knows Amaranth’s real name."
+        }
+      ]
+    }
+  ]
+}

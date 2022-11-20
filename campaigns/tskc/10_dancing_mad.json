@@ -1,0 +1,703 @@
+{
+  "id": "havana",
+  "scenario_name": "Dancing Mad",
+  "full_name": "Havana: Dancing Mad",
+  "header": "Havana",
+  "icon": "havana",
+  "chaos_bag_card": "09591",
+  "setup": [
+    "$travel_time",
+    "$check_status_report",
+    "intro",
+    "check_cop_trait",
+    "more_intro",
+    "check_time_intro",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "transfer_key",
+            "text": "Transfer Key",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "have_not_seen_the_last_of_thorne",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "read_sr_epsilon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["$give_thorne_key"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "As it turns out, finding the Red Coterie operating out of Havana is the easiest part of your trip to Cuba. According to your intel, Mr. Álvarez can often be seen spending his nights at Café Luna—a hot spot among the locals and American tourists looking to escape the iron jaws of Prohibition. Open at nearly all hours of the night and serving a variety of liquors that would make even the most seasoned bootlegger’s eyes bulge, the bar has become one of the most popular in all of Havana.\nYou arrive at peak hours, hoping to use the crowd to blend in. For all you know, Mr. Álvarez may have been warned of your approach. As soon as you arrive, you are greeted by an array of bright lights and a crowd almost too thick to squeeze past. Live jazz resounds from within the club, and many are dancing and reveling—some before they even get inside. A bouncer in a black pinstripe suit greets you at the door, giving you the once-over but not bothering to pat you down, ask for a password, or any of the usual hoops you might have to jump through back in the speakeasies hidden throughout the States.\nOnce inside, you head straight for the bartender and struggle to get his attention. You order a drink as a cover, but his expression changes the moment you say that you’re looking for a Mr. Desiderio Álvarez. Eyes narrow with suspicion, he nonetheless nods in the direction of a roped-off hallway in the back corner of the room, guarded by two more suits. Both of them flank you as you approach, and follow you into what you can only assume to be the club’s VIP section. There, in a dim, smoky back room, sits none other than the “man in the blood-soaked suit,” so named for the red accents adorning his otherwise black suit—or perhaps it is simply a metaphor. He inhales slowly from a cigarette hanging loosely from his lips as he appraises you. Across from him sit two others, an elderly Cuban gent in a red suit vest, puffing on a thick cigar, and a dangerous-looking woman in a red dress who sips from a martini glass. All three of them have murder in their eyes.\n“Who are these idiotas?” Mr. Álvarez asks one of the guards escorting you.\n“They asked to speak with you, Desi,” the man stammers.\n“Oh. Well, pour ‘em something hard, will you? Don’t just stand there.” After a quick nod, your escort jaunts out of the room, leaving you with the three apparent Coterie agents. “Come, sit.” You politely turn down a variety of smokes and take a seat at the table. “So you were looking for me?”\nYou nod and inform Mr. Álvarez that he is a person of interest in your investigation, that you knew he often frequented this very bar, and that you were hoping to simply ask him a few questions. Without hesitation, the woman in red pulls a long knife from out of seemingly nowhere. But the man in the suit holds out his hand, and she slides the blade back into her garter belt, covering it with the fabric of her dress."
+    },
+    {
+      "id": "check_cop_trait",
+      "type": "branch",
+      "text": "If an investigator has the [[Police]] or [[Detective]] trait:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "investigator",
+            "investigator_data": "trait",
+            "options": [
+              { "condition": "Police" },
+              { "condition": "Detective"}
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["cop_story"]
+            }]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cop_story",
+      "type": "story",
+      "text": "The man gives you a disarming smile. “You’ll have to forgive my friend here. She tends to be a bit… jumpy… around policía. I’m sure you understand.” You explain that despite what it looks like, you’re not here to crack down on anything illegal. This time. “Yeah, that much is pretty obvious, I think,” he says. “No, I’m guessing I know what you’re really here for…”"
+    },
+    {
+      "id": "more_intro",
+      "type": "story",
+      "text": "“First off, you can just call me Desi. Everyone else does. I’m not a big fan of formalities.” He waves his hand as if to fan away the tension in the room. “Secondly, I don’t just ‘frequent’ Café Luna, I own it. There was a… change of management a few months back. I guess your intel is a bit outdated, eh?” He chuckles, crushes the stub of his cigarette in a nearby ashtray, and immediately flicks open his lighter to light a new one. “So. Why don’t you tell me about this investigation of yours?”\nYou do, emphasizing that you are only after the location of Keys, and not whatever operation Desi has going on here.\nHis expression sharpens into angular stone. “Right. ‘Keys,’ eh. Is that all? All right, then. We might be able to help each other out…”"
+    },
+    {
+      "id": "check_time_intro",
+      "type": "branch",
+      "text": "Check Campaign Log. If less than 20 <b>time</b> has passed:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 20
+            },
+            "options": [
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "intro_2",
+              "cell_made_a_deal_with_desi",
+              "$maybe_investigator_setup",
+              "$check_tarot_reading",
+              "setup_1_encounter_sets",
+              "setup_act_v1",
+              "cafe_luna_v1",
+              "setup_other_locations_v1",
+              "location_layout_v1",
+              "find_desi_v1",
+              "someone_gets_desi_v1",
+              "set_aside_encounter_sets",
+              "gather_decoy_cards",
+              "$maybe_epsilon_setup",
+              "encounter_deck"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "intro_3",
+              "intro_4",
+              "cell_has_been_ambushed",
+              "$maybe_investigator_setup",
+              "$check_tarot_reading",
+              "setup_2_encounter_sets",
+              "setup_act_v2",
+              "cafe_luna_v2",
+              "location_layout_v2",
+              "find_desi_v2",
+              "set_aside_outsider_enemies",
+              "gather_decoy_cards",
+              "$maybe_epsilon_setup",
+              "encounter_deck",
+              "spawn_enemies"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Desi sighs and opens up to you, much to the chagrin of his two companions, who look on with surprise. “Something’s been after my crew in Havana. Started with some new blood who went off-grid all of a sudden. Then a couple longtimers. Just gone,” he says with a snap of his fingers. “At first, I thought it was just some uppity rivals looking to expand their territory. Fools who don’t know who I really am. The kinda scum who’d run this city into the ground.” He ashes his cigarette, staring into the ashes like there is some greater meaning inside to sift through. “Weird part is, I don’t remember their names. Nobody does. Sounds weird, right? I never forget a name. Never.” His gaze locks with yours, cold as stone. “Now I’m starting to suspect something worse. The kinda thing your people deal with.”\nYou wonder aloud if this is the kind of thing his people are also supposed to be dealing with.\n“Don’t lump me in with the rest of them,” he chides. “I’ve got other fish on my menu. Now—you got two choices. You either help me out with my little problem, or me and my buddies here throw you to the curb. Which is it gonna be?”\nAfter a moment of thought, you tell Desi that you’ll help if he gives you the location of any known Keys and relinquishes any he might have in his possession. The other two Coterie agents lock eyes with Desi in vain, but he has already made up his mind.\nHe extends his hand. “Deal. But I want in. We’ll do this together. Nobody messes with my crew and gets away with it. Come back here tomorrow night—same time, same place.” You nod and depart, booking a room at the Plaza Hotel in Old Havana and getting some much-needed rest before tomorrow’s investigation."
+    },
+    {
+      "id": "cell_made_a_deal_with_desi",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_made_a_deal_with_desi",
+          "text": "the cell made a deal with Desi."
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Desi stands and paces, clearly worked up about something. “There’s something going on with my crew.” His elderly companion watches in cold, unnerving silence, but the woman wears a worrying expression to match Desi’s. “It started with just a few of ‘em going missing. Thought they were bumped off by local gangs or the like. The kinda scum who’d run this city into the ground. But now…” He shakes his head, forehead wrinkled with worry. “I don’t remember who they were. Nobody does. And it’s more of ‘em every day. And every time, boom,” he snaps his fingers, “gone, no memory of them existing, only the faintest recollection that they were here and now they’re not.” He locks narrow eyes with you. “Sound familiar?”\nYou nod. This is all awfully familiar. You tell Desi that you’ll help him figure out what’s going on if he gives you the location of any known Keys and relinquishes any he might have in his possession. The woman bites her lip and glances at Desi, wondering if he will agree.\nThe elderly man once more remains eerily silent, watching with cold, hazy eyes.\nDesi shakes your hand and nods. “Deal. But I want in. We’ll do this together. Nobody messes with my crew and gets away with it. Come back here tomorrow night—same time, same place.” You nod and depart, booking a room at the Plaza Hotel in Old Havana and getting some much-needed rest before tomorrow’s investigation."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "The next night, you go back to Café Luna, ready to once more sift through the stifling crowd to reach Desi’s VIP room, but when you arrive you find the club closed. Thinking that Desi must have shut the place down for the night so you and his crew could plan your investigation without being disturbed, you try the handle. Confirming your suspicions, the door opens without any trouble, and you head inside.\nThe bar is eerily dim and quiet as you make your way to the back room. Having seen what the place looks like during a typical night, full of live music and reveling tourists, you feel a bit unnerved. Your steps echo quietly over the dance floor across from the bar. A nearby stool creaks.\nIt is too quiet.\nYou have no time to process whether you’re in danger. The moment the thought crosses your mind, a hail of gunfire erupts all around you. An ambush! You drop instinctively to the floor, guard your face and cover your ears. The ruckus is deafening. Windows along the front face of the building shatter and send an eruption of jagged glass over the dance floor. The bullets tear through the bar, the booths, the stools; every piece of furniture is ripped apart. You have only seconds to react—"
+    },
+    {
+      "id": "cell_has_been_ambushed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_has_been_ambushed",
+          "text": "the cell has been ambushed!"
+        }
+      ]
+    },
+    {
+      "id": "setup_1_encounter_sets",
+      "title": "Setup (v. I)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "dancing_mad",
+        "agents_of_the_outside",
+        "cleanup_crew",
+        "crimson_conspiracy",
+        "secret_war",
+        "shadow_of_a_doubt"
+      ]
+    },
+    {
+      "id": "setup_act_v1",
+      "text": "Build the act deck using only (v. I) of acts 1 and 2, along with act 3. Remove (v. II) of acts 1 and 2 from the game."
+    },
+    {
+      "id": "cafe_luna_v1",
+      "text": "Put the Café Luna location into play, <i>(Bastion of Remembrance)</i> side faceup.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Café Luna <i>(Bastion of Remembrance)</i>."
+        }
+      ]
+    },
+    {
+      "id": "setup_other_locations_v1",
+      "text": "Put all six remaining locations into play."
+    },
+    {
+      "id": "location_layout_v1",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "malecon",
+          "yacht_club",
+          "blank"
+        ],
+        [
+          "cafe_luna",
+          "blank",
+          "blank",
+          "hotel"
+        ],
+        [
+          "blank",
+          "gardens",
+          "theater",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "malecon",
+          "name": "El Malećon"
+        },
+        {
+          "code": "yacht_club",
+          "name": "Miramar Yacht Club"
+        },
+        {
+          "code": "cafe_luna",
+          "name": "Café Luna"
+        },
+        {
+          "code": "hotel",
+          "name": "Plaza Hotel"
+        },
+        {
+          "code": "gardens",
+          "name": "Jardines de la Tropical"
+        },
+        {
+          "code": "theater",
+          "name": "Gran Teatro de La Habana"
+        }
+      ]
+    },
+    {
+      "id": "location_layout_v2",
+      "type": "location_setup",
+      "text": "Location Placement - Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "malecon",
+          "yacht_club",
+          "blank"
+        ],
+        [
+          "cafe_luna",
+          "blank",
+          "blank",
+          "hotel"
+        ],
+        [
+          "blank",
+          "gardens",
+          "theater",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "malecon",
+          "name": "El Malećon"
+        },
+        {
+          "code": "yacht_club",
+          "name": "Miramar Yacht Club"
+        },
+        {
+          "code": "cafe_luna",
+          "name": "Café Luna"
+        },
+        {
+          "code": "hotel",
+          "name": "Plaza Hotel"
+        },
+        {
+          "code": "gardens",
+          "name": "Jardines de la Tropical"
+        },
+        {
+          "code": "theater",
+          "name": "Gran Teatro de La Habana"
+        }
+      ]
+    },
+    {
+      "id": "find_desi_v1",
+      "text": "Find both copies of the Desiderio Delgado Álvarez enemy. One has a story asset version on its other side, and one has a standard encounter card back.",
+      "bullets": [
+        {
+          "text": "Set the version with the encounter card back aside, out of play."
+        },
+        {
+          "text": "Flip the other version to its story asset side."
+        }
+      ]
+    },
+    {
+      "id": "someone_gets_desi_v1",
+      "text": "Choose an investigator to take control of the Desiderio Delgado Álvarez story asset."
+    },
+    {
+      "id": "set_aside_encounter_sets",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "cleanup_crew",
+        "crimson_conspiracy"
+      ],
+      "text": "Set the Cleanup Crew and Crimson Conspiracy encounter sets aside, out of play. "
+    },
+    {
+      "id": "gather_decoy_cards",
+      "text": "Gather each decoy mini-card and each of the following mini-cards: Desiderio Delgado Álvarez, Coterie Agents (A, B and C), Coterie Assassins (A and B), and Coterie Enforcers (A and B). Set them aside, out of play."
+    },
+    {
+      "id": "setup_2_encounter_sets",
+      "title": "Setup (v. II)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "dancing_mad",
+        "agents_of_the_outside",
+        "cleanup_crew",
+        "crimson_conspiracy",
+        "secret_war",
+        "shadow_of_a_doubt"
+      ]
+    },
+    {
+      "id": "setup_act_v2",
+      "text": "Build the act deck using only (v. II) of acts 1 and 2, along with act 3. Remove (v. I) of acts 1 and 2 from the game."
+    },
+    {
+      "id": "cafe_luna_v2",
+      "text": "Put the Café Luna location into play, <i>(Coterie Haunt)</i> side faceup.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Café Luna <i>(Coterie Haunt)</i>."
+        },
+        {
+          "text": "Set each other location aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "find_desi_v2",
+      "text": "Find both copies of the Desiderio Delgado Álvarez enemy. One has a story asset version on its other side, and one has a standard encounter card back. Set both of them aside, out of play."
+    },
+    {
+      "id": "set_aside_outsider_enemies",
+      "text": "Set each of the four [[Outsider]] enemies aside, out of play (2x Otherworldly Mimic and 2x Paradigm Effacer)."
+    },
+    {
+      "id": "spawn_enemies",
+      "text": "Spawn enemies in the shadows, as follows:",
+      "bullets": [
+        {
+          "text": "Find the set-aside Desiderio Delgado Álvarez enemy with the encounter card back. The lead investigator draws that enemy, resolving his concealed keyword."
+        },
+        {
+          "text": "One at a time, in player order, each other investigator discards cards from the top of the encounter deck until they discard a different [[Coterie]] enemy. Each investigator draws the enemy they discarded, resolving its concealed keyword. Shuffle each other discarded card back into the encounter deck."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "have_not_seen_the_last_of_desi",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "have_not_seen_the_last_of_desi",
+          "text": "you haven’t seen the last of Desiderio Delgado Álvarez."
+        }
+      ]
+    },
+    {
+      "id": "desi_has_mirroring_blade",
+      "text": "Desiderio Delgado Álvarez is the bearer of The Mirroring Blade. Update the Campaign Log accordingly.",
+      "effects": [
+        {
+          "type": "scarlet_key",
+          "section": "keys",
+          "scarlet_key": "mirroring_blade",
+          "bearer_type": "enemy",
+          "enemy_code": "ztsk_desi"
+        }
+      ]
+    },
+    {
+      "id": "desi_is_in_your_debt",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "desi_is_in_your_debt",
+          "text": "Desi is in your debt."
+        }
+      ]
+    },
+    {
+      "id": "know_the_passphrase",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "know_the_passphrase",
+          "text": "you know the passphrase."
+        }
+      ]
+    },
+    {
+      "id": "setup_sr_theta",
+      "text": "In your Campaign Log, under “Time Passed,” find the 6th spot from the current time. Under that spot, write “Θ.”",
+      "bullets": [
+        {
+          "text": "<i>(When you reach that spot on the time track, proceed to status report theta Θ in the Status Reports section of the Campaign Guide.)</i>"
+        },
+        {
+          "text": "If there is less than 6 time remaining under “Time Passed,” write “Θ” under the final spot, instead."
+        }
+      ]
+    },
+    {
+      "id": "actually_setup_theta",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "operation": "compare",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "time"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 29
+        },
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["set_theta_plus_6"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["set_theta_plus_6"]
+          },
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "sr_theta_time",
+                "operation": "set",
+                "value": 35
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_theta_plus_6",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "math",
+        "operation": "sum",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "time"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 6
+        },
+        "options": [],
+        "default_option": {
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "sr_theta_time",
+              "operation": "set_input"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "do_not_look_at_desi_backside",
+      "text": "<b>Remember not to look at the other side of Desiderio Delgado Álvarez when you clean up.</b>"
+    },
+    {
+      "id": "cell_did_not_discover_the_truth_in_havana",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_did_not_discover_the_truth_in_havana",
+          "text": "the cell didn’t discover the truth in Havana."
+        }
+      ]
+    },
+    {
+      "id": "exile_highest_xp_card",
+      "text": "Gather each hollow that was removed from the game throughout this scenario. Each investigator finds their hollow with the highest experience cost and exiles it."
+    },
+    {
+      "id": "record_erased_from_existence",
+      "text": "In your Campaign Log, record <i>erased from existence:</i> and next to this, record the names of each unique card exiled in this way. For the rest of the campaign, players cannot include any copies of those cards <i>(by title)</i> in their decks (immediately remove any copies from each investigator's deck).",
+      "type": "input",
+      "input": {
+        "type": "card_choice",
+        "query": [
+          {
+            "unique": true,
+            "non_story_only": true,
+            "source": "deck"
+          }
+        ],
+        "choices": [
+          {
+            "id": "erased",
+            "text": "Erased from existence",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "campaign_notes",
+                "id": "erased_from_existence_dm",
+                "cards": "$input_value",
+                "text": "erased from existence: #name#"
+              },
+              {
+                "type": "remove_card",
+                "card": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "upgrade_decks_exile",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "exile": true
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Deal or not, you can’t stay in Havana any longer. Your escape from the city is a blur of gunfire and fractured space, of pounding rain and roiling clouds, of imposters in familiar skin and eyes on every street corner. Eventually, somehow, you make it off the streets, commandeering a boat moored in Havana Harbor and setting off at once.\nAs your heart finally settles and your mind sets to work deciphering the things you’ve seen, you worry that your escape, while prudent, might have consequences for you in the future. And you have no new Keys or leads to show for it, either. But, despite the close call, you survived and are remembered—that must count for something.",
+      "steps": [
+        "earn_xp",
+        "cell_did_not_discover_the_truth_in_havana",
+        "have_not_seen_the_last_of_desi",
+        "desi_has_mirroring_blade",
+        "$upgrade_decks",
+        "$mark_1_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "investigator_status": [
+        "alive",
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You recap the night’s events in your head as Desi calls an impromptu meeting with the rest of his crew. “I have to sort through this,” he mutters to you in frustration. “The fact that any of them could be… y’know… well, it puts things into perspective. Not sure who to trust.” He certainly seems to be back to normal. You must have made the right choice. Then again… your mind wanders to the version of Desi who stalked you through the rainy Havana streets, to gunshots and distortions in the sky. You can’t help but continue to scan Desi’s eyes for any sign—any at all—that he is not who he claims to be. You find none. Or perhaps the mimic simply knows how to act now that it has been in his skin for so long? “Well,” he interrupts your thoughts, “I guess I owe you my end of the bargain. ‘Blackbird Solitaire.’”\nYou blink in confusion. “‘Blackbird Solitaire,’” he repeats. “It’s one of the passphrases for my hideout in Ybor City. We rotate passphrases whenever I grant someone in my crew access, which is… rare. Not even the rest of the Coterie knows how to get in. They think it’s just a front, anyway. I think most of ‘em don’t understand what I’m really up to most nights.” As if sensing your next question, a smile crawls along his lips. “Cleaning up the city, that is.” He flicks his cigarette into a wet puddle, not seeming to understand the irony in the act. “Anyway—7th Avenue. Old condemned cigar factory. You can’t miss it. Got at least one of those things you’re after stored inside. Just give it a week or two before they get the message about the new passphrase. Then it’s all yours.” Then Desi loads a new magazine into his Thompson and turns to address his crew. “Now if you’ll excuse me, I have some imposters to root out.” You decide to leave before you’re forced to know exactly how he plans to do that.",
+      "steps": [
+        "earn_xp",
+        "desi_is_in_your_debt",
+        "know_the_passphrase",
+        "setup_sr_theta",
+        "actually_setup_theta",
+        "do_not_look_at_desi_backside",
+        "$upgrade_decks",
+        "$mark_2_time",
+        "$embark"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "investigator_status": [
+        "alive",
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Though the danger seems to have receded, your worry only grows with each passing minute and each lost memory. Who did you come here with…? Who did you meet…? It all seems to blur together in your mind. You recall enough to know the fate that must have befallen those lost. No, not just the people—the distorted cloud chasing you throughout the city—the breathing walls, the shifting pavement, eyes in the lights, ears in the music—\nYou gasp for air as though choked by the night itself. It sounds impossible, but it must be: They took everything. Stole the walls, the sky, the city itself. Mind reeling, you flee through the rainy streets as though chased by horrors unimaginable. You push your way onto the first boat leaving the harbor and never look back. You don’t breathe easy until you know for sure the sky itself cannot devour you.",
+      "steps": [
+        "exile_highest_xp_card",
+        "record_erased_from_existence",
+        "earn_xp",
+        "cell_did_not_discover_the_truth_in_havana",
+        "have_not_seen_the_last_of_desi",
+        "desi_has_mirroring_blade",
+        "upgrade_decks_exile",
+        "$mark_1_time",
+        "$embark"
+      ]
+    }
+  ]
+}

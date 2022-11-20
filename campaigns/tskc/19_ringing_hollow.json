@@ -1,0 +1,159 @@
+{
+  "id": "sydney",
+  "scenario_name": "Ringing Hollow",
+  "full_name": "Sydney: Ringing Hollow",
+  "header": "Sydney",
+  "icon": "sydney",
+  "type": "interlude",
+  "setup": [
+    "$choose_investigators",
+    "$travel_time",
+    "$check_status_report",
+    "check_time",
+    "$embark"
+  ],
+  "steps": [
+
+    {
+      "id": "check_time",
+      "text": "Check how much <b>time</b> has passed in the Campaign Log. If less than 20 <b>time</b> has passed:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "time"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 20
+            },
+            "options": [
+              { "numCondition": -1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1", "check_cell_told_the_truth_to_taylor"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_4", "agent_quinn_vanished_from_existence"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You arrive in Sydney and immediately search for the agent described in Taylor’s dossier, finding her safehouse in an old, condemned warehouse by Botany Bay, on the eastern side of the city. She has an entire wall of filing cabinets containing years and years of research, and her table is covered in a mess of maps and photographs. “Ah, the new cell,” she regards you, flipping on a fluorescent light that coldly illuminates the room. “The name’s Quinn. The commissioner told me you might drop by.”\nYou ask her what kind of intel she might have to aid your investigation, which earns you a chuckle. “What don’t I have? Well, let me show you what I am looking into right now…”"
+    },
+
+    {
+      "id": "check_cell_told_the_truth_to_taylor",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_told_the_truth_to_taylor",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "unlock_london_invite"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "agent_quinn_does_not_trust_the_cell", "unlock_london_distrust"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "“I have been looking into the disappearances you mentioned to Taylor. She is concerned about these events, but perhaps not as much as she should be.” She hands you a file from her table and leans back as you examine it. It’s a host of information regarding missing buildings, sites, in some cases even entire villages, all of which vanished mysteriously and without explanation. “Sound familiar?”\nYou nod and inform Quinn this is precisely the kind of thing that you’d been looking into before you were recruited to the Foundation. You take the time to tell Quinn everything you know regarding the strange entities you have spotted numerous times in your travels, and what their presence does to objects and people alike.\n“That lines up with my research,” she says, motioning to her cluttered table. “But if that’s true, these things have been active for literally hundreds—thousands of years. And we have collectively forgotten everything that has been erased, save for a desperate few that cling to memory. Do you understand what this means?”\nOther than the obvious—that humanity is in very real danger of becoming forgotten history—you aren’t sure what she is getting at.\n“I have a hunch, but I cannot look into it here. Looks like I’m headed back to Britain. I know you have your own assignment to get to, but, if you can spare the time, can you come meet me in Amesbury? It is just due west of London.” Wearing a taut but determined grimace, Quinn gathers some personal belongings and leaves you with more questions than answers."
+    },
+    {
+      "id": "unlock_london_invite",
+      "text": "In the North Atlantic section of the Campaign Log, find London. In its spot, write “27–H.” You are now allowed to travel back to this location whenever you embark.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "unlock_location",
+          "value": "london"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "unlock_dossier",
+          "value": "london_invite"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "“This is off-book, but I’ve been looking into some pretty strange events. Take a look.” She hands you a file from her table and leans back as you examine it. It’s a host of information regarding missing buildings, sites, in some cases even entire villages, all of which vanished mysteriously and without explanation. You do your best not to let your familiarity with such events show on your face. “Any of this mean anything to you?”\nYou don’t like lying, but telling the truth now would reveal your earlier deception to Taylor. You shake your head, telling Quinn this is new to you. “That checks out. See, that is what’s so hinky about all this. You are holding the only surviving records of any of these places. It is as though all of them were completely eradicated from history. And if that is true, who is to say the same could not happen to us?” She shudders. “The thought of being forgotten like that… even by those closest to me… it is my worst fear.”\nYou tell Quinn that you feel similarly, and that you wish you had more intel to give her. Her gaze, narrow with suspicion, sees right through you.\n“I do not buy that for a second. Taylor might trust you, or maybe she just does not want to get her hands dirty. But I can tell when someone is lying to my face.” A grim silence hangs in the air. Finally, she exhales. “Fine. Do as you will. But if you decide to spill, you can find me in Amesbury, due west of London,” she says, packing some of her files and personal belongings in a small canvas duffel bag. You repeat her destination, curious as to why.\n“Something there I want to look into,” is all she gives you. You suppose it is only fair, considering your hesitance to give her the full story. She gives you no more than a cold glance as she leaves, and you wonder if perhaps you should have warned her. But what she doesn’t know can’t hurt her… right?"
+    },
+    {
+      "id": "agent_quinn_does_not_trust_the_cell",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "agent_quinn_does_not_trust_the_cell",
+          "text": "Agent Quinn does not trust the cell."
+        }
+      ]
+    },
+    {
+      "id": "unlock_london_distrust",
+      "text": "In the North Atlantic section of the Campaign Log, find London. In its spot, write “27–H.” You are now allowed to travel back to this location whenever you embark.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "unlock_location",
+          "value": "london"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "unlock_dossier",
+          "value": "london_distrust"
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You arrive in Sydney and immediately search for the agent described in Taylor’s dossier, but everywhere you search, there appears to be no trace of her, nor any memory of her among the locals. Feeling worried, you redouble your efforts and eventually track her to an old, condemned warehouse by the bay on the eastern side of the city. Inside is an entire wall of filing cabinets containing years and years of research, and a table covered in a mess of maps and photographs. But there is no sign of Agent Quinn.\nJudging from her recent notes, she appeared to have been researching the same kind of paranormal events you’d been looking into before you were recruited to the Foundation—missing buildings, sites, in some cases even entire villages, all of which vanished mysteriously and without explanation. But if she came to any conclusions, you find no evidence of it.\nWith no other leads, you depart, filing a report on Quinn’s disappearance for the commissioner. You hope she is simply in hiding somewhere, but your instincts tell you otherwise."
+    },
+    {
+      "id": "agent_quinn_vanished_from_existence",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "agent_quinn_vanished_from_existence",
+          "text": "Agent Quinn vanished from existence."
+        }
+      ]
+    },
+    {
+      "id": "$proceed",
+      "text": "You may <b>embark</b>.",
+      "effects": [
+        {
+          "type": "scenario_data",
+          "setting": "scenario_status",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}
