@@ -64,8 +64,7 @@
               "heir_to_carcosa_story",
               "watched_the_performance_of_heir_to_carcosa",
               "one_mental_trauma",
-              "check_heir_to_carcosa_weakness",
-              "actually_check_heir_to_carcosa_weakness"
+              "maybe_check_heir_to_carcosa_weakness"
             ]
           }
         ]
@@ -98,6 +97,60 @@
           "mental": 1
         }
       ]
+    },
+
+    {
+      "id": "maybe_check_heir_to_carcosa_weakness",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 4,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["maybe_ask_heir_to_carcosa_weakness"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_heir_to_carcosa_weakness", "actually_check_heir_to_carcosa_weakness"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_heir_to_carcosa_weakness",
+      "text": "If an investigator controls the Heir to Carcosa weakness, they may add 2 tally marks next to their \"Memories\".",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "zdm_00032",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "ask_mark_2_memories"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_mark_2_memories",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "memories",
+            "text": "Does the bearer of the Heir to Carcosa weakness want to gain 2 \"Memories\"?",
+            "steps": ["actually_check_heir_to_carcosa_weakness"]
+          }
+        ]
+      }
     },
     {
       "id": "check_heir_to_carcosa_weakness",
