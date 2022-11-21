@@ -424,7 +424,7 @@
       "text": "Update the Keys section of your Campaign Log as follows:"
     },
     {
-      "id": "no_resolution_thorne_key",
+      "id": "check_no_resolution_thorne_key",
       "bullet_type": "small",
       "type": "branch",
       "condition": {
@@ -438,7 +438,9 @@
           },
           {
             "boolCondition": false,
-            "steps": ["ask_if_investigator_controls_sable_glass", "check_investigator_has_sable_glass"]
+            "steps": [
+              "ask_if_investigator_controls_sable_glass", "check_investigator_has_sable_glass"
+            ]
           }
         ]
       }
@@ -459,6 +461,7 @@
     },
     {
       "id": "ask_if_investigator_controls_sable_glass",
+      "bullet_type": "small",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -512,7 +515,29 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["have_not_seen_the_last_of_thorne_small", "ask_who_has_sable_glass"]
+            "steps": [
+              "have_not_seen_the_last_of_thorne_small", "ask_who_has_sable_glass"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["thorne_has_sable_glass_small"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_investigator_has_sable_glass_r2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "investigator_has_sable_glass",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_who_has_sable_glass"]
           },
           {
             "boolCondition": false,
@@ -523,7 +548,9 @@
     },
     {
       "id": "ask_who_has_sable_glass",
+      "bullet_type": "small",
       "type": "input",
+      "text": "The investigator who controls The Sable Glass is its bearer.",
       "input": {
         "type": "investigator_choice",
         "source": "scenario",
@@ -561,7 +588,27 @@
     },
     {
       "id": "give_sable_glass_to_investigator",
-      "text": "The investigator who controls The Sable Glass is its bearer."
+      "text": "The investigator who controls The Sable Glass is its bearer.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "sable_glass",
+            "text": "Has The Sable Glass",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "sable_glass",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "thorne_has_sable_glass",
@@ -651,7 +698,7 @@
         "earn_xp",
         "void_chimera_escaped",
         "no_resolution_key",
-        "no_resolution_thorne_key",
+        "check_no_resolution_thorne_key",
         "$upgrade_decks",
         "$mark_1_time",
         "$embark"
@@ -710,7 +757,9 @@
       "steps": [
         "earn_xp",
         "thorne_disappeared",
-        "ask_who_has_sable_glass",
+        "no_resolution_key",
+        "ask_if_investigator_controls_sable_glass",
+        "check_investigator_has_sable_glass_r2",
         "$upgrade_decks",
         "$mark_3_time",
         "$embark"
