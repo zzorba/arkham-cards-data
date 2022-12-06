@@ -159,6 +159,14 @@
         "options": [
           {
             "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "dead_heat_skipped",
+                "text": "dummy"
+              }
+            ],
             "steps": [
               "intro_4",
               "resolution_5",
@@ -623,6 +631,22 @@
     },
     {
       "id": "maybe_aftermath",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "dead_heat_skipped",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["maybe_aftermath_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_aftermath_2",
       "hidden": true,
       "type": "branch",
       "condition": {
