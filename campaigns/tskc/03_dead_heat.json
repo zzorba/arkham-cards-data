@@ -159,10 +159,17 @@
         "options": [
           {
             "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "dead_heat_skipped",
+                "text": "dummy"
+              }
+            ],
             "steps": [
               "intro_4",
               "resolution_5",
-              "$embark",
               "$proceed"
             ]
           }
@@ -227,11 +234,11 @@
           "options": [
             {
               "numCondition": -1,
-              "steps": ["civilians_time_less_than_10"]
+              "steps": ["civilians_time_less_than_equal_10"]
             },
             {
               "numCondition": 0,
-              "steps": ["check_civilians_time_2"]
+              "steps": ["civilians_time_less_than_equal_10"]
             },
             {
               "numCondition": 1,
@@ -241,9 +248,9 @@
       }
     },
     {
-      "id": "civilians_time_less_than_10",
+      "id": "civilians_time_less_than_equal_10",
       "bullet_type": "small",
-      "text": "Because less than 10 <b>time</b> has passed, no change is made."
+      "text": "Because 10 or fewer <b>time</b> has passed, no change is made."
     },
     {
       "id": "check_civilians_time_2",
@@ -620,6 +627,360 @@
     {
       "id": "physical_trauma",
       "text": "Be sure to apply physical trauma to any investigator who had not already resigned or been defeated when the final agenda advanced."
+    },
+    {
+      "id": "maybe_aftermath",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "dead_heat_skipped",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["maybe_aftermath_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_aftermath_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": ["aftermath"]
+          },
+          {
+            "condition": "R2",
+            "steps": ["aftermath"]
+          },
+          {
+            "condition": "R3",
+            "steps": ["aftermath"]
+          },
+          {
+            "condition": "R4",
+            "steps": ["aftermath"]
+          },
+          {
+            "condition": "R5",
+            "steps": ["aftermath"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "aftermath",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["actual_aftermath"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["old_aftermath"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "old_aftermath",
+      "text": "Be sure to adjust experience or mental trauma based on the results of the Aftermath story card."
+    },
+    {
+      "id": "actual_aftermath",
+      "title": "Aftermath",
+      "text": "Compare the number of rescued civilians on Aftermath with the number of slain civilians on the Scenario Reference card",
+      "steps": [
+        "ask_rescued_civilians",
+        "ask_slain_civilians",
+        "check_more_rescued"
+      ]
+    },
+    {
+      "id": "ask_rescued_civilians",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Rescued civilians:",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_rescued_civilians",
+            "operation": "set_input",
+            "text": "dummy"
+          },
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_double_rescued_civilians",
+            "operation": "set_input",
+            "text": "dummy"
+          },
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_double_rescued_civilians",
+            "operation": "add_input",
+            "text": "dummy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_slain_civilians",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Slain civilians:",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_slain_civilians",
+            "operation": "set_input",
+            "text": "dummy"
+          },
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_double_slain_civilians",
+            "operation": "set_input",
+            "text": "dummy"
+          },
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "dh_double_slain_civilians",
+            "operation": "add_input",
+            "text": "dummy"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_more_rescued",
+      "type": "branch",
+      "text": "If the number of rescued civilians is more than the number of slain civilians:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_rescued_civilians"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_slain_civilians"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["extra_xp", "check_double_rescued"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_more_slain"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "extra_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earn 2 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "check_double_rescued",
+      "type": "branch",
+      "bullet_type": "small",
+      "text": "If the number of rescued civilians is more than twice the number of slain civilians:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_rescued_civilians"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_double_slain_civilians"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["additional_extra_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "additional_extra_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earn 2 additional bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "check_more_slain",
+      "type": "branch",
+      "text": "If the number of slain civilians is more than the number of rescued civilians:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_rescued_civilians"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_slain_civilians"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["suffer_mental_trauma", "check_double_slain"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["tie"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tie",
+      "bullet_type": "small",
+      "text": "Because it is a tie, nothing happens."
+    },
+    {
+      "id": "suffer_mental_trauma",
+      "bullet_type": "small",
+      "text": "Each investigator suffers 1 mental trauma",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 1,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "check_double_slain",
+      "type": "branch",
+      "bullet_type": "small",
+      "text": "If the number of slain civilians is more than twice the number of rescued civilians:",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_double_rescued_civilians"
+            },
+            "opB": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "dh_slain_civilians"
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": -1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["suffer_additional_mental_trauma"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "suffer_additional_mental_trauma",
+      "bullet_type": "small",
+      "text": "Each investigator suffers 1 additional mental trauma",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 1,
+          "hidden": true
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -636,6 +997,7 @@
       "text": "You watch in horror as the remnants of the city are overtaken by the insidious vines. The remaining civilians are devoured by Amaranth’s servants. As you watch the devastation unfold, you wish you could have done more.",
       "steps": [
         "slay_all_civilians",
+        "aftermath",
         "ask_enemy_in_play"
       ]
     },
@@ -644,6 +1006,7 @@
       "title": "Resolution 1",
       "text": "Realizing the peril of your situation, you make for the outskirts of town and knock on every door you see. Pleading for your life, you offer money or whatever you have on hand, only to be turned away at every stop. Eventually, a wrinkled old woman takes pity on you and welcomes you inside. You spend the night trembling in fear and trepidation, and when you emerge in the morning, the city is in ruins. Awful black vines envelop everything. This devastation was apparently a worthwhile price to pay for true love.",
       "steps": [
+        "maybe_aftermath",
         "earn_xp",
         "amaranth_has_the_last_blossom",
         "lovers_are_reunited",
@@ -658,6 +1021,7 @@
       "title": "Resolution 2",
       "text": "Realizing the peril of your situation, you make for the outskirts of town and knock on every door you see. Pleading for your life, you offer money or whatever you have on hand, only to be turned away at every stop. Eventually, a wrinkled old woman takes pity on you and welcomes you inside. You spend the night trembling in fear and trepidation, and when you emerge in the morning, the city is in ruins. Awful black vines envelop everything. You wonder what was so important to Amaranth that she would cause such devastation.",
       "steps": [
+        "maybe_aftermath",
         "earn_xp",
         "amaranth_has_the_last_blossom",
         "have_not_seen_the_last_of_amaranth",
@@ -672,6 +1036,7 @@
       "title": "Resolution 3",
       "text": "Looking down at the woman who called herself Amaranth, you call her by her true name. “Eryn… Cochwyn?” She holds her hand to her cheek as her cheeks flush. You see her eyes dilate as she begins to remember her former life. As her gaze passes over the Last Blossom writhing in your hand, she lets out a cry of horror. “I had the most terrible dream,” she says. “I dreamt I was a great and terrible queen, and that I ruled over a kingdom of silent subjects.” Realizing what she has done, the change in Eryn’s demeanor is jarring. The woman who seemed so heartless and cruel now lies before you, weeping.\nIt is clear to you that Eryn’s actions were not her own. You console her and lead her to safety along with the rest of the survivors, telling her that you will keep the blossom safe and prevent ‘Amaranth’ from taking another host ever again. “Never again,” she echoes your words. “Never again.” As you depart, the blossom furls and unfurls, as if searching for another host.",
       "steps": [
+        "maybe_aftermath",
         "earn_xp",
         "choose_bearer_of_the_last_blossom",
         "amaranth_has_left_the_coterie",
@@ -685,6 +1050,7 @@
       "title": "Resolution 4",
       "text": "As you hold the Last Blossom in your hand, Amaranth convulses on the ground before you. Spitting black ichor, the beautiful young woman claws at you like a frightened animal, then bolts away down a narrow street. Although you try to follow her, you eventually lose her trail in the confusion of fleeing civilians and shriveling overgrowth.",
       "steps": [
+        "maybe_aftermath",
         "earn_xp",
         "choose_bearer_of_the_last_blossom",
         "have_not_seen_the_last_of_amaranth",
@@ -699,6 +1065,7 @@
       "hidden": true,
       "text": "You find many “Latif”s listed among the innumerable dead as the city reckons with its losses. Rather than try to find your contact, you take stock of the situation and read over the dossier. You have little doubt that this was the work of the Coterie. What Amaranth did here claimed thousands of lives and wreaked havoc on a scale you could have scarcely foreseen. Whatever her reasons, she apparently has the ability to bring calamity on an apocalyptic scale.\nAs the people of Marrakesh carry out the grim arithmetic of counting survivors, you use what time you have to help the civilians rebuild. Over the course of many days, the awful vines dessicate and blow away as ash, and the dead are cleansed and wrapped for burial. Despite the devastation, there is hope for the city to become what it once was, if not even better. With a heavy heart, you prepare to leave.",
       "steps": [
+        "maybe_aftermath",
         "have_not_seen_the_last_of_amaranth",
         "mental_trauma",
         "earn_3_bonus_xp",
