@@ -245,7 +245,7 @@
               "raw_deal_3",
               "cell_made_a_deal_with_thorne",
               "help_thorne_token_swap",
-              "$maybe_add_tablet",
+              "oti_maybe_add_tablet",
               "take_thorne",
               "remove_crimson_conspiracy"
             ]
@@ -253,7 +253,7 @@
           {
             "id": "reject",
             "text": "<i>“No. We won, fair and square.”</i>",
-            "steps": ["raw_deal_4", "reject_thorne_token_swap", "$maybe_add_elder_thing", "take_sable_glass", "spawn_thorne"]
+            "steps": ["raw_deal_4", "reject_thorne_token_swap", "oti_maybe_add_elder_thing", "take_sable_glass", "spawn_thorne"]
           }
         ]
       }
@@ -276,7 +276,7 @@
               "raw_deal_3",
               "cell_made_a_deal_with_thorne",
               "help_thorne_token_swap",
-              "$maybe_add_tablet",
+              "oti_maybe_add_tablet",
               "take_thorne",
               "remove_crimson_conspiracy"
             ]
@@ -284,7 +284,7 @@
           {
             "id": "reject",
             "text": "<i>“We can’t let the Key fall into Coterie hands!”</i>",
-            "steps": ["raw_deal_5", "reject_thorne_token_swap", "$maybe_add_elder_thing", "spawn_thorne_with_sable_glass"]
+            "steps": ["raw_deal_5", "reject_thorne_token_swap", "oti_maybe_add_elder_thing", "spawn_thorne_with_sable_glass"]
           }
         ]
       }
@@ -389,6 +389,13 @@
           "section": "campaign_notes",
           "id": "nothing_of_note_in_anchorage",
           "text": "there is nothing of note in Anchorage."
+        },
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_made_a_deal_with_thorne",
+          "text": "the cell made a deal with Thorne.",
+          "remove": true
         },
         {
           "type": "campaign_data",
@@ -636,7 +643,12 @@
     },
     {
       "id": "exile_highest_xp_card",
-      "text": "Gather each hollow that was removed from the game throughout this scenario. Each investigator finds their hollow with the highest experience cost and exiles it."
+      "text": "Gather each hollow that was removed from the game throughout this scenario. Each investigator finds their hollow with the highest experience cost and exiles it.",
+      "bullets": [
+        {
+          "text": "If your deck is uploaded to ArkhamDB, you will need to handle any exiling manually (remove the card and adjust experience to cover the free replacement cost if needed). Other decks will get an opportunity to record exiled cards later when decks are saved."
+        }
+      ]
     },
     {
       "id": "record_erased_from_existence",
@@ -679,6 +691,126 @@
         "type": "upgrade_decks",
         "exile": true,
         "hide_xp": true
+      }
+    },
+    {
+      "id": "oti_maybe_add_tablet",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "oti_swap_xp",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "oti_maybe_add_elder_thing",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "elder_thing",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "oti_swap_xp",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["elder_thing"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_undo_oti_swap_xp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "oti_swap_xp",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -1
+              }
+            ]
+          }
+        ]
       }
     }
   ],
@@ -778,6 +910,7 @@
         "exile_highest_xp_card",
         "record_erased_from_existence",
         "scenario_never_happened",
+        "maybe_undo_oti_swap_xp",
         "save_decks",
         "$embark"
       ]

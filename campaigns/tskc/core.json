@@ -1970,6 +1970,12 @@
               {
                 "type": "story_step",
                 "steps": ["sr_gamma", "sr_gamma_effects_token", "sr_gamma_effects_weakness"]
+              },
+              {
+                "type": "add_card",
+                "investigator": "all",
+                "card": "09767",
+                "hidden": true
               }
             ]
           }
@@ -1992,15 +1998,7 @@
       "id": "sr_gamma_effects_weakness",
       "type": "encounter_sets",
       "encounter_sets": ["globetrotting"],
-      "text": "Each investigator must add 1 copy of the Paradimensional Understanding weakness to their deck. It does not count toward their deck size. These cards can be found in the <i>Globetrotting</i> encounter set.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "all",
-          "card": "09767",
-          "hidden": true
-        }
-      ]
+      "text": "Each investigator must add 1 copy of the Paradimensional Understanding weakness to their deck. It does not count toward their deck size. These cards can be found in the <i>Globetrotting</i> encounter set."
     },
     {
       "id": "maybe_check_sr_theta",
@@ -2283,10 +2281,15 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["epsilon_setup", "epsilon_rgm", "check_epsilon_amaranth", "check_epsilon_chica", "check_epsilon_watcher", "check_epsilon_desi", "check_epsilon_thorne", "check_epsilon_knight", "check_epsilon_beast", "check_epsilon_niang", "check_epsilon_aliki"]
+            "steps": ["epsilon_setup", "epsilon_rgm", "check_epsilon_amaranth", "check_epsilon_chica", "check_epsilon_watcher", "check_epsilon_desi", "check_epsilon_thorne", "check_epsilon_knight", "check_epsilon_beast", "check_epsilon_niang", "check_epsilon_aliki", "bearer_key_reminder"]
           }
         ]
       }
+    },
+    {
+      "id": "bearer_key_reminder",
+      "bullet_type": "small",
+      "text": "<i>Remember to attach any key that the Coterie member is the bearer of when they enter play.</i>"
     },
     {
       "id": "epsilon_setup",
@@ -2491,49 +2494,6 @@
       "bullet_type": "small",
       "text": "Aliki Zoni Uperetria"
     },
-    {
-      "id": "$maybe_add_tablet",
-      "bullet_type": "small",
-      "text": "If there are already 4, each investigator earns 1 experience instead.",
-      "type": "branch",
-      "condition": {
-        "type": "multi",
-        "count": 1,
-        "conditions": [
-          {
-            "type": "campaign_data",
-            "campaign_data": "chaos_bag",
-            "token": "tablet",
-            "options": [
-              {
-                "numCondition": 4
-              }
-            ]
-          }
-        ],
-        "options": [
-          {
-            "boolCondition": true,
-            "effects": [
-              {
-                "type": "earn_xp",
-                "investigator": "all",
-                "bonus": 1
-              }
-            ]
-          },
-          {
-            "boolCondition": false,
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["tablet"]
-              }
-            ]
-          }
-        ]
-      }
-    },
 
     {
       "id": "$maybe_add_tablet_and_save",
@@ -2579,6 +2539,50 @@
         ]
       }
     },
+    {
+      "id": "$maybe_add_tablet",
+      "bullet_type": "small",
+      "text": "If there are already 4, each investigator earns 1 experience instead.",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "chaos_bag",
+            "token": "tablet",
+            "options": [
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+
     {
       "id": "$maybe_add_elder_thing",
       "bullet_type": "small",

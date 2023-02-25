@@ -16,7 +16,6 @@
     "set_aside_cards",
     "check_notice_changes",
     "check_severely_delayed",
-    "check_route",
     "encounter_deck",
     "$play_scenario"
   ],
@@ -277,7 +276,11 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["severely_delayed_doom"]
+            "steps": ["severely_delayed_doom", "check_least_predictable_route", "check_most_direct_route"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_least_predictable_route"]
           }
         ]
       }
@@ -288,7 +291,7 @@
       "text": "Place 3 doom on agenda 1a."
     },
     {
-      "id": "check_route",
+      "id": "check_least_predictable_route",
       "hidden": true,
       "type": "branch",
       "condition": {
@@ -299,10 +302,6 @@
           {
             "boolCondition": true,
             "steps": ["least_predictable_doom"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["check_most_direct_route"]
           }
         ]
       }
