@@ -435,7 +435,8 @@
         { "$ref": "#/definitions/campaignDataInvestigatorCondition" },
         { "$ref": "#/definitions/campaignDataLinkedCondition" },
         { "$ref": "#/definitions/campaignDataVersionCondition" },
-        { "$ref": "#/definitions/campaignDataCycleCondition" }
+        { "$ref": "#/definitions/campaignDataCycleCondition" },
+        { "$ref": "#/definitions/campaignDataStandaloneCondition" }
       ]
     },
     "campaignDataVersionCondition": {
@@ -468,6 +469,37 @@
         "type",
         "campaign_data",
         "min_version",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+
+    "campaignDataStandaloneCondition": {
+      "title": "CampaignDataStandaloneCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "standalone"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
         "options"
       ],
       "additionalProperties": false
