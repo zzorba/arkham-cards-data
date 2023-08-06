@@ -47,7 +47,49 @@
           },
           {
             "boolCondition": false,
-            "steps": ["intro_3", "opening_hand_options", "shuffle_deck"]
+            "steps": ["intro_3", "opening_hand_options", "shuffle_deck", "ask_winchester"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "ask_winchester",
+      "text": "How many copies of Winchester .22 were taken?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "no",
+            "text": "Zero"
+          },
+          {
+            "id": "one",
+            "text": "One",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zhod_00130"
+              }
+            ]
+          },
+          {
+            "id": "Two",
+            "text": "Two",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zhod_00130"
+              },
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zhod_00130"
+              }
+            ]
           }
         ]
       }
@@ -246,13 +288,13 @@
     },
 
     {
-      "id": "captain_marlow_is_in_the_hands_of_the_ancestors",
+      "id": "know_how_to_imprison_the_darkness",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "captain_marlow_is_in_the_hands_of_the_ancestors",
-          "text": "Captain Marlow is in the hands of the ancestors."
+          "id": "know_how_to_imprison_the_darkness",
+          "text": "you know how to imprison the Darkness."
         }
       ]
     },
@@ -263,19 +305,19 @@
         "type": "play_scenario",
         "campaign_log": [
           {
-            "id": "captain_marlow_is_in_the_hands_of_the_ancestors",
+            "id": "know_how_to_imprison_the_darkness",
             "condition": {
               "type": "campaign_log",
               "section": "campaign_notes",
-              "id": "captain_marlow_is_in_the_hands_of_the_ancestors",
+              "id": "know_how_to_imprison_the_darkness",
               "options": [
                 {
                   "boolCondition": false
                 }
               ]
             },
-            "text": "Captain Marlow is in the hands of the ancestors.",
-            "steps": ["captain_marlow_is_in_the_hands_of_the_ancestors"]
+            "text": "You know how to imprison the Darkness.",
+            "steps": ["know_how_to_imprison_the_darkness"]
           }
         ],
         "branches": [
@@ -283,30 +325,27 @@
             "id": "information",
             "repeatable": true,
             "text": "Add Information on Kurtz",
-            "steps": ["add_information"]
+            "steps": ["ask_information"]
           },
           {
             "id": "parleys",
             "repeatable": true,
-            "description": "Parleys",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Parleys",
+            "description": "Scenario Interlude",
             "steps": ["$ask_parley"]
           },
           {
             "id": "along_the_river",
             "repeatable": true,
-            "description": "Along the River",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Along the River",
+            "description": "Scenario Interlude",
             "steps": ["$ask_along_the_river"]
           },
           {
             "id": "the_darkness",
             "repeatable": true,
-            "description": "The Darkness",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "The Darkness",
+            "description": "Scenario Interlude",
             "steps": ["$ask_the_darkness"]
           }
         ]
@@ -364,81 +403,32 @@
       }
     },
     {
-      "id": "ask_congolese_equipment",
-      "text": "How many copies of Congolese Warrior Equipment did the investigators take control of?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "no",
-            "text": "Zero"
-          },
-          {
-            "id": "one",
-            "text": "One",
-            "steps": ["explain_congolese_equipment"]
-          },
-          {
-            "id": "Two",
-            "text": "Two",
-            "steps": [
-              "explain_congolese_equipment_2"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "explain_congolese_equipment",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
-    },
-
-    {
-      "id": "explain_congolese_equipment_2",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        },
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
-    },
-    {
       "id": "all_killed",
       "text": "Each investigator is <b>killed</b>.",
       "effects": [
         {
           "type": "trauma",
           "investigator": "all",
-          "killed": true
+          "killed": true,
+          "hidden": true
         }
       ]
     },
     {
-      "id": "add_information",
-      "text": "Add 1 <b>Information on Kurtz</b> in your Campaign Log.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "information",
-          "operation": "add",
-          "value": 1
-        }
-      ]
+      "id": "ask_information",
+      "type": "input",
+      "text": "How much <b>Information on Kurtz</b> should be added?",
+      "input": {
+        "type": "counter",
+        "text": "Information on Kurtz",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "information",
+            "operation": "add_input"
+          }
+        ]
+      }
     },
     {
       "id": "ask_final_agenda",
@@ -548,7 +538,8 @@
         {
           "type": "trauma",
           "mental": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -559,7 +550,8 @@
         {
           "type": "trauma",
           "mental": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -570,7 +562,8 @@
         {
           "type": "trauma",
           "mental": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -635,7 +628,8 @@
         {
           "type": "trauma",
           "physical": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -646,7 +640,8 @@
         {
           "type": "trauma",
           "physical": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -658,7 +653,8 @@
           "type": "trauma",
           "physical": 1,
           "mental": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -716,7 +712,8 @@
           "type": "trauma",
           "physical": 1,
           "mental": 1,
-          "investigator": "all"
+          "investigator": "all",
+          "hidden": true
         }
       ]
     },
@@ -789,7 +786,8 @@
         {
           "type": "trauma",
           "investigator": "all",
-          "insane": true
+          "insane": true,
+          "hidden": true
         }
       ]
     },
@@ -1198,7 +1196,7 @@
         "avatar_of_darkness_freely_walks_the_earth",
         "unable_to_bring_kurtz_back_alive",
         "remove_darkness_calls",
-        "ask_congolese_equipment",
+        "$ask_congolese_equipment",
         "mixed_trauma",
         "earn_xp_plus_3",
         "$upgrade_decks",
@@ -1218,7 +1216,7 @@
       "text": "Mr. Promise snaps the file containing your mission report shut and looks up at you sternly.\n\"So that's what happened? I don't deny that the Company is embarrassed by the tragic death of Mr. Kurtz. And to leave his remains there is really...\"\nMr. Promise closes his eyes for a moment, inhales heavily, then looks at you from head to toe.\n\"But I guess you did the best you could under the circumstances. At least we don't have any more problems with the ivory. The new head of the Inner Station has started the shipments again, so everything will gradually return to normal. As for the... truth... about what Kurtz had become, I suppose I don't need to remind you of the confidentiality clause you signed before embarking for Africa a few months ago?\"\nYou leave Mr. Promise's office shortly afterwards and hurry out of the huge building as quickly as possible. The air is more breathable here, in front of the building, but the horizon is obscured by a bank of black clouds. The Miskatonic River flows quietly at your feet, forming a watery path that seems to lead to the farthest reaches of the earth... to the heart of darkness.",
       "steps": [
         "returned_from_the_heart_of_darkness",
-        "ask_congolese_equipment",
+        "$ask_congolese_equipment",
         "check_ancestors_are_watching_you",
         "$upgrade_decks",
         "win_campaign"

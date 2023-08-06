@@ -94,12 +94,13 @@
     },
     {
       "id": "darkness_calls_weakness",
-      "text": "Each investigator must add a copyof the Darkness Calls weakness to their deck. This card has a Story side with the same title. For abetter game experience, do not read this Story side until told to do so. Remove each unused copy of Darkness Calls from the game.",
+      "text": "Each investigator must add a copy of the Darkness Calls weakness to their deck. This card has a Story side with the same title. For abetter game experience, do not read this Story side until told to do so. Remove each unused copy of Darkness Calls from the game.",
       "effects": [
         {
           "type": "add_card",
           "investigator": "all",
-          "card": "zhod_00139"
+          "card": "zhod_00139",
+          "hidden": true
         }
       ]
     },
@@ -234,52 +235,47 @@
             "id": "information",
             "repeatable": true,
             "text": "Add Information on Kurtz",
-            "steps": ["add_information"]
-          },
-          {
-            "id": "add_kudu_horn",
-            "text": "Add Kudu Horn to deck",
-            "steps": [
-              "add_kudu_horn"
-            ]
+            "steps": ["ask_information"]
           },
           {
             "id": "parleys",
             "repeatable": true,
-            "description": "Parleys",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Parleys",
+            "description": "Scenario Interlude",
             "steps": ["$ask_parley"]
           },
           {
             "id": "along_the_river",
             "repeatable": true,
-            "description": "Along the River",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Along the River",
+            "description": "Scenario Interlude",
             "steps": ["$ask_along_the_river"]
           },
           {
             "id": "the_darkness",
             "repeatable": true,
-            "description": "The Darkness",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "The Darkness",
+            "description": "Scenario Interlude",
             "steps": ["$ask_the_darkness"]
           }
         ]
       }
     },
     {
-      "id": "add_kudu_horn",
-      "text": "The investigator who took control of Kudu Horn may add it to their deck",
-      "effects": [
-        {
-          "type": "add_card",
-          "card": "zhod_00028",
-          "investigator": "choice"
-        }
-      ]
+      "id": "ask_information",
+      "type": "input",
+      "text": "How much <b>Information on Kurtz</b> should be added?",
+      "input": {
+        "type": "counter",
+        "text": "Information on Kurtz",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "information",
+            "operation": "add_input"
+          }
+        ]
+      }
     },
     {
       "id": "defeated_bonus_xp",
@@ -357,60 +353,6 @@
       ]
     },
     {
-      "id": "ask_congolese_equipment",
-      "text": "How many copies of Congolese Warrior Equipment did the investigators take control of?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "no",
-            "text": "Zero"
-          },
-          {
-            "id": "one",
-            "text": "One",
-            "steps": ["explain_congolese_equipment"]
-          },
-          {
-            "id": "Two",
-            "text": "Two",
-            "steps": [
-              "explain_congolese_equipment_2"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "explain_congolese_equipment",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
-    },
-
-    {
-      "id": "explain_congolese_equipment_2",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        },
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
-    },
-    {
       "id": "$upgrade_decks",
       "type": "input",
       "input": {
@@ -454,13 +396,8 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "investigator_status": [
-        "alive",
-        "resigned",
-        "eliminated",
-        "physical",
-        "mental"
-      ],
+      "hidden": true,
+      "investigator_status": [],
       "text": "As dawn breaks the next day, you find yourself on board the Roi des Belges, ready to set off in search of Kurtz. The Director comes aboard shortly afterwards, accompanied by a small group of Westerners, all armed with guns and equipped for an expedition into the brush.\nWith everyone on board, you hear the disturbing noises of the boiler starting up. The workers involved in finishing the repairs may not have been as attentive as you might have been, considering they wouldn't be the ones aboard for the long journey to the heart of the Congo. The ship's paddle wheels slowly start to turn. The captain, an Englishman by the name of Marlow, sets course for the upper reaches of the river, which runs deep into the eastern Congo.",
       "steps": [
         "treated_at_the_central_stations_infirmary",
@@ -485,21 +422,15 @@
         "resolution_4"
       ]
     },
-
     {
       "id": "R4",
+      "hidden": true,
       "title": "Resolution 4",
-      "investigator_status": [
-        "alive",
-        "resigned",
-        "eliminated",
-        "physical",
-        "mental"
-      ],
+      "investigator_status": [],
       "text": "The weather is relatively pleasant for your first day aboard the Roi des Belges, and nothing remarkable has occurred. Captain Marlow is an excellent navigator. With him at the helm, the ship glides through the quiet waters of the river, skillfully avoiding any sandbanks that arise.\nThe crew chats merrily and you learn that most of the passengers are first time travelers to these parts. The newcomers are \"Pilgrims\", yet it is unclear to you what their pilgrimage involves. Many of them try to shoot the animals that come to drink on the banks of the river, as if on safari. Their accuracy is terrible, and they rarely hit their mark. You aren't sure whether you should be reassured or concerned about their presence on board.\nThe day passes quickly and you head off to take a well-deserved rest in your cabin. You are exhausted from your previous experiences. The sound of the water splashing against the hull lulls you to sleep almost immediately...",
       "steps": [
         "earn_xp",
-        "ask_congolese_equipment",
+        "$ask_congolese_equipment",
         "$upgrade_decks"
       ]
     }

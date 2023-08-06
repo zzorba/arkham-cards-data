@@ -7,9 +7,59 @@
   "setup": [
     "$ask_parley",
     "$ask_along_the_river",
-    "$ask_the_darkness"
+    "$ask_the_darkness",
+    "$ask_congolese_equipment"
   ],
   "steps": [
+    {
+      "id": "$ask_congolese_equipment",
+      "text": "How many copies of Congolese Warrior Equipment did the investigators take control of?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "no",
+            "text": "Zero"
+          },
+          {
+            "id": "one",
+            "text": "One",
+            "steps": ["explain_congolese_equipment"]
+          },
+          {
+            "id": "Two",
+            "text": "Two",
+            "steps": [
+              "explain_congolese_equipment",
+              "explain_congolese_equipment_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "explain_congolese_equipment",
+      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zhod_00146"
+        }
+      ]
+    },
+
+    {
+      "id": "explain_congolese_equipment_2",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zhod_00146"
+        }
+      ]
+    },
     {
       "id": "earn_harlequins_journal",
       "text": "An investigator may add The Harlequin's Jownal to their hand.",
@@ -18,6 +68,17 @@
           "type": "add_card",
           "investigator": "choice",
           "card": "zhod_00129"
+        }
+      ]
+    },
+    {
+      "id": "know_about_miss_promise",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "know_about_miss_promise",
+          "text": "you know about Miss Promise."
         }
       ]
     },
@@ -307,7 +368,7 @@
           {
             "id": "p3",
             "text": "Parley 3",
-            "steps": ["parley_3"],
+            "steps": ["parley_3", "know_about_miss_promise"],
             "condition": {
 
               "type": "campaign_log",
@@ -1558,7 +1619,7 @@
         {
           "type": "add_card",
           "investigator": "choice",
-          "card": "ABC123"
+          "card": "zhod_00140"
         }
       ]
     },

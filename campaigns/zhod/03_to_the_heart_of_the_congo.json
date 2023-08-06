@@ -76,29 +76,31 @@
     },
     {
       "id": "remove_darkness_horror",
-      "text": "Each investigator removes 1 horror from their copy of Darkness Calls.",
-      "effects": [
-        {
-          "type": "campaign_log_investigator_count",
-          "section": "darkness_calls",
-          "id": "$count",
-          "investigator": "all",
-          "operation": "add",
-          "value": -1
-        }
-      ]
+      "text": "Each investigator removes 1 horror from their copy of Darkness Calls."
     },
     {
-      "id": "add_information",
-      "text": "Add 1 <b>Information on Kurtz</b> in your Campaign Log.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "information",
-          "operation": "add",
-          "value": 1
-        }
-      ]
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "counter": "darkness_calls"
+      }
+    },
+    {
+      "id": "ask_information",
+      "type": "input",
+      "text": "How much <b>Information on Kurtz</b> should be added?",
+      "input": {
+        "type": "counter",
+        "text": "Information on Kurtz",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "information",
+            "operation": "add_input"
+          }
+        ]
+      }
     },
     {
       "id": "intro_3",
@@ -285,30 +287,27 @@
             "id": "information",
             "repeatable": true,
             "text": "Add Information on Kurtz",
-            "steps": ["add_information"]
+            "steps": ["ask_information"]
           },
           {
             "id": "parleys",
             "repeatable": true,
-            "description": "Parleys",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Parleys",
+            "description": "Scenario Interlude",
             "steps": ["$ask_parley"]
           },
           {
             "id": "along_the_river",
             "repeatable": true,
-            "description": "Along the River",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "Along the River",
+            "description": "Scenario Interlude",
             "steps": ["$ask_along_the_river"]
           },
           {
             "id": "the_darkness",
             "repeatable": true,
-            "description": "The Darkness",
-            "text": "Scenario Interlude",
-            "style": "interlude",
+            "text": "The Darkness",
+            "description": "Scenario Interlude",
             "steps": ["$ask_the_darkness"]
           }
         ]
@@ -380,59 +379,6 @@
           }
         ]
       }
-    },
-    {
-      "id": "ask_congolese_equipment",
-      "text": "How many copies of Congolese Warrior Equipment did the investigators take control of?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-
-          {
-            "id": "no",
-            "text": "Zero"
-          },
-          {
-            "id": "one",
-            "text": "One",
-            "steps": ["explain_congolese_equipment"]
-          },
-          {
-            "id": "two",
-            "text": "Two",
-            "steps": ["explain_congolese_equipment_2"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "explain_congolese_equipment",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
-    },
-
-    {
-      "id": "explain_congolese_equipment_2",
-      "text": "If an investigator took control of any copies of Congolese Warrior Equipment, any investigator may add those cards to their deck. These cards do not count towards those investigator's deck size.",
-      "effects": [
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        },
-        {
-          "type": "add_card",
-          "investigator": "choice",
-          "card": "zhod_00146"
-        }
-      ]
     },
     {
       "id": "check_any_resigned",
@@ -601,7 +547,8 @@
         {
           "type": "trauma",
           "investigator": "all",
-          "insane": true
+          "insane": true,
+          "hidden": true
         }
       ]
     },
@@ -805,7 +752,7 @@
       "text": "At the end of a muggy, dark day, you see a treeless hill in the distance, illuminated by torches, bright in the dark.\n\"This is Kurtz's house,\" the Director announces, startling you. \"You need to get a closer look at it, right now, to prepare us for what's ahead.\"\nThe Director hands you a telescope and you hurry to see what the house looks like. You stop yourself from recoiling, horrified by a nightmarish vision. All around a colonial-style building, you can clearly see spikes on which human heads have been planted.\n\"Now,\" the Director whispers to you, \"you really know who Kurtz is. What kind of man he has become. Tomorrow, no matter what happens, we're going to put an end to this madness.\"",
       "steps": [
         "earn_xp",
-        "ask_congolese_equipment",
+        "$ask_congolese_equipment",
         "check_captain_marlow_is_in_the_hands_of_the_ancestors"
       ]
     },
