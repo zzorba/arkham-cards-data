@@ -22,7 +22,19 @@ const getFilePaths = folderPath => {
   return [...filePaths, ...dirFiles];
 };
 
-function validate(validator, file, json, schemaName) {
+const FIXED_MAGIC_STEPS = {
+  $proceed: true,
+  $proceed_alt: true,
+  $upgrade_decks: true,
+  $choose_investigators: true,
+  $check_tarot_reading: true,
+  $pr_R1: true,
+  $pr_no_resolution: true,
+  $embark: true,
+  $embark_return: true,
+};
+
+function validate(validator, file, json, schemaName, magicSteps) {
   const valid = validator.validate(schemaName, json);
   if (!valid) {
     console.log(
@@ -38,30 +50,6 @@ function validate(validator, file, json, schemaName) {
     process.exit(1);
   }
   const steps = {};
-  const magicSteps = {
-    $proceed: true,
-    $proceed_alt: true,
-    $upgrade_decks: true,
-    $choose_investigators: true,
-    $check_tarot_reading: true,
-    $pr_R1: true,
-    $pr_no_resolution: true,
-    // Technically only for TSK, but whatever.
-    $embark: true,
-    $travel_time: true,
-    $embark_return: true,
-    $save_decks_with_xp: true,
-    $mark_1_time: true,
-    $mark_2_time: true,
-    $mark_3_time: true,
-    $maybe_epsilon_setup: true,
-    $maybe_add_elder_thing: true,
-    $maybe_add_tablet: true,
-    $maybe_add_tablet_and_save: true,
-    $check_status_report: true,
-    $give_thorne_key: true,
-    $maybe_investigator_setup: true,
-  };
   if (
     json.type !== "interlude" &&
     json.type !== "epilogue" &&
@@ -354,7 +342,25 @@ async function validateScenarios() {
             }
             try {
               const json = jsonlint.parse(data);
-              validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario");
+              const magicSteps = {
+                ...FIXED_MAGIC_STEPS,
+              };
+              if (!file.endsWith('/core.json')) {
+                const parts = file.split('/');
+                const coreFile = parts.slice(0, parts.length - 1).join('/') + '/core.json';
+                if (fs.existsSync(coreFile)) {
+                  const coreData = fs.readFileSync(coreFile, 'utf-8').toString();
+                  try {
+                    const coreJson = jsonlint.parse(coreData);
+                    coreJson.setup.forEach((step) => {
+                      magicSteps[step] = true;
+                    });
+                  } catch (e) {
+                    console.log(`JSON Error(${coreFile})\n${e.message || e}\n\n`);
+                  }
+                }
+              }
+              validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario", magicSteps);
             } catch (e) {
               console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
             }

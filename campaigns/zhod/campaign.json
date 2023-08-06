@@ -1,0 +1,403 @@
+{
+  "id": "zhd",
+  "position": 23,
+  "version": 1,
+  "name": "Heart of Darkness",
+  "tarot": [
+    "africa_is_watching",
+    "to_the_heart_of_the_congo",
+    "the_avatar_of_darkness"
+  ],
+  "custom": {
+    "creator": "Vinn Quest",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2023/06/30/heart-of-darkness-campaign/"
+    }
+  },
+  "campaign_type": "campaign",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "darkness_calls",
+      "title": "Horror on Darkness Calls",
+      "type": "investigator_count"
+    },
+    {
+      "id": "information",
+      "title": "Information on Kurtz",
+      "type": "count"
+    }
+  ],
+  "scenarios": [
+    "zhod_prologue",
+    "africa_is_watching",
+    "zhod_interlude_1",
+    "to_the_heart_of_the_congo",
+    "zhod_interlude_2",
+    "the_avatar_of_darkness",
+    "zhod_epilogue"
+  ],
+  "setup": [
+    "quote",
+    "intro",
+    "choose_investigators",
+    "difficulty_choice",
+    "draw_weakness",
+    "information_on_kurtz",
+    "act_decks",
+    "darkness_calls",
+    "exile",
+    "story_cards",
+    "alert",
+    "bonded",
+    "explore"
+  ],
+  "steps": [
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "trauma": true
+      }
+    },
+    {
+      "id": "quote",
+      "type": "story",
+      "title": "The Heart of the Truth is Concealed",
+      "text": "\"He struggled with himself, too. I saw it—I heard it. I saw the inconceivable mystery of a soul that knew no restraint, no faith, and no fear, yet struggling blindly with itself.\"\n- Joseph Conrad, \"Heart of Darkness\""
+    },
+    {
+      "id": "intro",
+      "text": "During the course of your previous investigations, you have repeatedly faced the horrors of the Mythos. You have learned of conspiracies and dreadful rituals aimed to draw abominable beings into our world. Unspeakable entities, some of which would destroy the whole of humanity. But what if the danger is somewhere else? Lurking deep within us, in the darkest recesses of our souls, there is something biding its time. Will whatever has been hidden in our hearts since the dawn of time spark the beginning of our own destruction? \nTravel deep into the heart of the Congo and navigate its perilous waters aboard the Roi des Belges to discover the <i>Heart of Darkness</i>, an unofficial campaign for Arkham Horror: The Card Game.\nThe 3 scenarios of this campaign are an adaptation of the eponymous book by Joseph Conrad set within the Cthulhu Mythos. These scenarios can be played in standalone mode or as a side-story during any other campaign."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "<i>I fear the Darkness</i>",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "<i>I want to face the Darkness</i>",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "<i>I want to be pulled by the Darkness</i>",
+            "tokens": [
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "<i>I will heed the call</i>",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-4",
+              "-5",
+              "-6",
+              "-7",
+              "-8",
+              "skull",
+              "skull",
+              "cultist",
+              "cultist",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-7",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "cultist",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "information_on_kurtz",
+      "type": "rule_reminder",
+      "title": "Information on Kurtz",
+      "text": "Throughout the Heart of Darkness campaign, players may be instructed to \"add X new <b>Information on Kurtz</b>\" in their Campaign Log. When this occurs, check one of the boxes under \"<b>Information on Kurtz</b>\" at the bottom of the Campaign Log.\nLater in the campaign, the number of boxes checked under <b>Information on Kurtz</b> may change the setup and outcome of certain scenarios. The <b>Information on Kurtz</b> is shared between players and not tied to a specific investigator.\nThe <b>Information on Kurtz</b> does not have any effect on the game unless specifically referred to by the Campaign Guide or a card effect."
+    },
+    {
+      "id": "act_decks",
+      "type": "rule_reminder",
+      "title": "Act Decks",
+      "text": "Scenarios in this campaign may begin with (or gain over the course of the game) multiple Act decks: One Primary Act deck and one or more Secondary Act decks.\nDuring a scenario, there may therefore be multiple act decks in play at once, and the players may choose to advance any act of their choice, as long as the objectives and conditions have been met, or when a game effect instructs you to advance.\nThe text on all acts in play are considered to be active simultaneously.\nWhen an act (or act deck) that was set-aside during setup enters play, put this act deck into play next to the others already in play."
+    },
+    {
+      "id": "darkness_calls",
+      "type": "rule_reminder",
+      "title": "Darkness Calls",
+      "text": "During the setup of the <i>Heart of Darkness</i> campaign, each investigator must add a copy of the Darkness Calls weakness to their deck. This weakness is double-sided, with a Story card side of the same name. For the best experience, do not read the Story card side until instructed. Later in the campaign, there may be a game effect that will instruct you to flip the card over and read the Story side.\nDarkness Calls is a Permanent asset, therefore each investigator must begin the scenario with it in their play area.\nDuring the setup of the first scenario, each investigator will be instructed to place 5 horror tokens on it. These tokens represent your investigator's ability to resist the influence of the Darkness.\nThroughout the campaign, you may be instructed to \"remove X horror from your copy of Darkness Calls.\" When this occurs, remove X horror from that card and return them to the token pool. You cannot remove or add horror on this card through any other effect other than when explicitly mentioned by scenario cards or the Campaign Guide."
+    },
+    {
+      "id": "exile",
+      "type": "rule_reminder",
+      "title": "Exile",
+      "text": "Some player cards must be exiled when they are used. When a card is exiled, it is removed from the game and returned to your collection. When a card is exiled, it is removed from the game and returned to your collection. During campaign play, a card that has been exiled must be purchased again with experience points (between scenarios) if you wish to re-include it in your deck. If exiling 1 or more cards would reduce your deck below your investigator's deck size, when purchasing cards between scenarios, you must purchase cards so that a legal deck size is maintained (when purchasing cards in this manner, you may purchase level 0 cards for 0 experience cost until a legal deck size is reached)."
+    },
+    {
+      "id": "story_cards",
+      "type": "rule_reminder",
+      "title": "Story Cards",
+      "text": "Story cards are set aside out of play and serve as an avenue for the scenario narrative. Don't read the text on these cards and don't flip them over unless a game effect instructs you to do so. When you are instructed to resolve a story card, simply read its story text and resolve its game text, if any."
+    },
+    {
+      "id": "alert",
+      "type": "rule_reminder",
+      "title": "Alert",
+      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the \"alert\" keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+    },
+    {
+      "id": "bonded",
+      "type": "rule_reminder",
+      "title": "Bonded",
+      "text": "Cards with the bonded keyword are linked to another player card. They have no level and therefore are not available as deckbuilding options. Instead, the card to which they are bonded (which is listed in parentheses next to this keyword) brings the bonded card into the game.\nIf your deck contains a card that summons one or more bonded cards, those bonded cards are set aside at the start of each game.\nIf a weakness with the bonded keyword is added to an investigator's deck, hand, threat area, or play area, it does not remain a part of that investigator's deck for the rest of the campaign (unlike other weaknesses). It starts each game set aside with that investigator's other bonded cards."
+    },
+    {
+      "id": "explore",
+      "type": "rule_reminder",
+      "title": "Explore (Updated version - Forgotten Age)",
+      "text": "Some abilities in this campaign (and others) are identified with an <b>Explore</b> action designator. Such abilities are generally used to find new locations to put into play, and are initiated using the \"activate\" action.\n<b>Explore</b> abilities instruct you to draw the top card of the \"exploration deck,\" which is a separate deck that is constructed during the setup of some scenarios. This deck consists of several single-sided locations and treachery cards.",
+      "bullets": [
+        {
+          "text": "Each <b>Explore</b> ability indicates a particular type of location that you are seeking to draw. <b>If a location of that type is drawn, it is put into play, and you move to that location.</b> This is considered a \"successful\" exploration."
+        },
+        {
+          "text": "If any other location is drawn, place it next to the exploration deck, and draw the next card from the exploration deck. Repeat this process until a location of the indicated type is drawn, or a treachery is drawn. After this action has ended, shuffle each location next to the exploration deck back into the exploration deck."
+        },
+        {
+          "text": "If a treachery card is drawn, it is resolved as normal. If it is discarded, place it in the encounter discard pile as you would normally. There is no discard pile for the exploration deck. This is considered an \"unsuccessful\" exploration."
+        },
+        {
+          "text": "As a single-sided location is put into play from the exploration deck, place clues on that location equal to its clue value."
+        }
+      ]
+    }
+  ]
+}
