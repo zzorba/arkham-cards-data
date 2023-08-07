@@ -60,7 +60,7 @@ async function readJSON(filePath) {
     const rawData = await readFile(filePath, 'utf8');
     return JSON.parse(rawData);
   } catch (err) {
-    throw new Error("Could not load JSON file : " + err);
+    throw new Error("Could not load JSON file : " + filePath);
   }
 }
 
