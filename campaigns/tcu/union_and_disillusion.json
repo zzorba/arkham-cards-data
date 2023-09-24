@@ -790,6 +790,69 @@
       }
     },
     {
+      "id": "maybe_choose_if_sanford_is_good",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 8,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_if_sanford_is_good_v8"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["choose_if_sanford_is_good"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "choose_if_sanford_is_good_v8",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "show_hidden_choices": true,
+        "choices": [
+          {
+            "id": "yes",
+            "text": "<i>“Yes.”</i>",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "inducted_into_the_inner_circle",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "deceiving_the_lodge",
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "description": "You may choose this option only if <i>the investigators were inducted into the Inner Circle</i>, and cannot choose this option <i>if the investigators are deceiving the Lodge</i>.",
+            "steps": ["resolution_2"]
+          },
+          {
+            "id": "no",
+            "text": "<i>“No.”</i>",
+            "steps": [
+              "resolution_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "choose_if_sanford_is_good",
       "type": "input",
       "input": {
@@ -1819,7 +1882,7 @@
       "title": "Resolution 1",
       "text": "The revenant thrashes and writhes in torment, unable to escape with its connection to the spectral realm torn away. Carl Sanford steps forward, opens a thick leather tome, and the ghost’s memories—along with the remainder of its form—are unceremoniously pulled into its pages.\n“What have you done?!” Anette yells. Several members of her coven surround her. They are embattled, but you have no doubt they would lay down their life to protect their high priestess from harm.\n“What have I done? Why, I have cheated the Devil,” Sanford responds with a sinister grin. You notice the words of his tome are now glowing with a spectral radiance. “Keziah signed the Black Book of Azathoth in order to learn the secrets of the universe. A fatal error, in my estimation, for it put her in the clutches of one far more powerful than she.” He begins to read from the pages as he explains further. “She paid the price, but I shall reap the harvest.”\nAnette clenches her jaw and turns toward you. “You cannot even begin to fathom the secrets this monster now possesses. Do you truly believe he will use this power for good?” She asks.",
       "steps": [
-        "choose_if_sanford_is_good"
+        "maybe_choose_if_sanford_is_good"
       ]
     },
     {
