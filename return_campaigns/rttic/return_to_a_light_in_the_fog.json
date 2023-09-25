@@ -1,0 +1,114 @@
+{
+  "id": "return_to_a_light_in_the_fog",
+  "original_id": "a_light_in_the_fog",
+  "scenario_name": "Return to A Light in the Fog",
+  "full_name": "Scenario VI: Return to A Light in the Fog",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "setup_locations",
+    "replace_agenda_card",
+    "location_layout",
+    "location_layout_act_3",
+    "setup_keys",
+    "setup_captured",
+    "set_aside_cards",
+    "check_for_story_assets",
+    "check_idol",
+    "check_mantle",
+    "check_headdress",
+    "check_for_doom",
+    "check_reached_falcon_point_after_sunrise",
+    "check_tide_has_grown_stronger",
+    "add_flood_tokens",
+    "shuffle_born_to_breed",
+    "encounter_deck",
+    "keys_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "a_light_in_the_fog",
+        "zreturn_to_a_light_in_the_fog",
+        "creatures_of_the_deep",
+        "flooded_caverns",
+        "zreturn_to_flooded_caverns",
+        "zrolling_tide",
+        "zoccultation",
+        "striking_fear"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Falcon Point Gatehouse, Falcon Point Cliffside, Lighthouse Stairwell, and Lighthouse Keeper's Cottage into play on the same row. Put Lantern Room into play directly above Lighthouse Stairwell. <i>(See Location Placement (Act 1))</i>.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Falcon Point Gatehouse."
+        },
+        {
+          "text": "Replace one of Tidal Pool and Underwater Cavern from original Flooded Caverns set with its counterpart from the Return to Flooded Caverns."
+        },
+        {
+          "text": "From among the Tidal Tunnel locations, remove the 2 Underground River locations from the game."
+        },
+        {
+          "text": "Set each other location aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: all three copies of Deep One Grappler, the Oceiros Marsh enemy, both copies of the Worth His Salt treachery, and both copies of the Taken Captive treachery."
+    },
+    {
+      "id": "shuffle_born_to_breed",
+      "text": "Shuffle both copies Born to Breed into the encounter deck."
+    },
+    {
+      "id": "replace_agenda_card",
+      "text": "Replace the Terror at Falcon Point agenda with the new version from the Return set."
+    },
+    {
+      "id": "maybe_return_deep_one",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "zrttic_00030",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["read_the_following", "deep_one_story", "deep_one_effects"],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "read_the_following",
+      "bullet_type": "none",
+      "text": "<b>Each Deep One investigator must read the following:</b>"
+    },
+    {
+      "id": "deep_one_story",
+      "type": "story",
+      "text": "You awaken abruptly from your sleep. You still have the dreams in front of your eyes, dreams of swimming in the depths, drawn deeper and deeper. You saw others down there with you, looking just like the twisted fish-like creatures you have encountered again and again now. They seemed strangely familiar to you, as if they are good friends. Or family."
+    },
+    {
+      "id": "deep_one_effects",
+      "text": "You gain 1 mental trauma as your mind tries to cope with the changes your body is going through."
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "id": "return_to_devil_reef",
+  "original_id": "devil_reef",
+  "scenario_name": "Return to Devil Reef",
+  "full_name": "Scenario IV: Return to Devil Reef",
+  "setup": [
+    "intro_1",
+    "check_mission_succeeded",
+    "investigator_setup",
+    "maybe_remove_dawson",
+    "gather_encounter_sets",
+    "setup_keys",
+    "setup_locations",
+    "set_aside_cards",
+    "setup_devil_reef",
+    "location_layout",
+    "setup_unfathomable_depths",
+    "replace_tidal_tunnels",
+    "setup_tidal_tunnels",
+    "setup_act_deck",
+    "check_battle_with_a_horrifying_devil",
+    "add_flood_tokens",
+    "shuffle_shrine_of_hydra",
+    "encounter_deck",
+    "location_adjacency_rule",
+    "vehicles_rule",
+    "vehicles_rule_1",
+    "vehicles_rule_2",
+    "vehicles_rule_3",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "devil_reef",
+        "zreturn_to_devil_reef",
+        "agents_of_hydra",
+        "creatures_of_the_deep",
+        "flooded_caverns",
+        "zreturn_to_flooded_caverns",
+        "malfunction",
+        "zrolling_tide"
+      ]
+    },
+    {
+      "id": "replace_tidal_tunnels",
+      "text": "Replace one of each Tidal Pool, Underground River and Underwater Cavern from original Flooded Caverns set with its counterpart from the Return to Flooded Caverns."
+    },
+    {
+      "id": "shuffle_shrine_of_hydra",
+      "text": "Shuffle the single copy of Shrine to Hydra into the encounter deck."
+    },
+
+    {
+      "id": "setup_devil_reef",
+      "text": "Shuffle the 6 Devil Reef locations and put each of them into play, unrevealed side faceup.",
+      "bullets": [
+        {
+          "text": "This includes the 5 original Devil Reef locations and the new Cave Mouth location. None should be removed."
+        },
+        {
+          "text": "Do not place them <i>adjacent</i> to Churning Waters—these locations are connected not via adjacency, but via their connection symbols."
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Churning Waters location into play. <i>(It enters play fully flooded.)</i>",
+      "bullets": [
+        {
+          "text": "Replace the Fishing Vessel story asset with the new version from the Return set, and put it into play at Churning Waters."
+        },
+        {
+          "text": "Each investigator begins play in the Fishing Vessel <i>(see Vehicles, below)</i>."
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "tide_has_grown_stronger",
+            "text": "The tide has grown stronger.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "tide_has_grown_stronger",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "tide_has_grown_stronger",
+                "text": "the tide has grown stronger."
+              }
+            ]
+          }
+        ],
+        "branches": [
+          {
+            "id": "keys",
+            "text": "Keys",
+            "steps": [
+              "ask_keys"
+            ]
+          },
+          {
+            "id": "flashback_9",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "flashback_9",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Flashback IX",
+            "steps": [
+              "flashback_9_story",
+              "flashback_9_effects",
+              "flashback_9_assets"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "flashback_9",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "flashback_10",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "flashback_10",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Flashback X",
+            "steps": [
+              "flashback_10_story",
+              "flashback_10_effects",
+              "flashback_10_assets"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "flashback_10",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "flashback_11",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "flashback_11",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Flashback XI",
+            "steps": [
+              "flashback_11_story",
+              "flashback_11_effects",
+              "flashback_11_assets"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "flashback_11",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "a_bargain",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "a_bargain_interlude",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "A Bargain",
+            "style": "interlude",
+            "steps": [
+              "a_bargain_1",
+              "a_bargain_choice"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "a_bargain_interlude",
+                "text": "dummy"
+              }
+            ]
+         }
+        ]
+      }
+    },
+    {
+      "id": "a_bargain_1",
+      "type": "story",
+      "text": "You stand in front of the large caved stone depicting a bloated figure with fishlike features. The voice that guided you here is just a whisper now, but you feel power radiating from the statue and you know that’s why you are here. It’s this power that calls out to you, telling you that you could have all the riches you desired and the long life to take advantage of them.\nWhile you approach the statue, you become aware of the price that you would have to pay. You consider your options."
+    },
+    {
+      "id": "a_bargain_choice",
+      "type": "input",
+      "text": "Choose one:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "pay",
+            "text": "You pay the price.",
+            "description": "Search your collection for a copy of Innsmouth Influence <i>(from the Return to In Too Deep set)</i> and add it to your deck. Discover all clues on Shrine to Hydra and gain 5 resources.",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "choice",
+                "card": "zrttic_00030"
+              }
+            ]
+          },
+          {
+            "id": "reject",
+            "text": "You come to your senses and back out. The voices go quiet."
+          }
+        ]
+      }
+    }
+  ]
+}
