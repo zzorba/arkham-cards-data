@@ -12,6 +12,9 @@
           "$ref": "#/definitions/campaignDataInvestigatorCondition"
         },
         {
+          "$ref": "#/definitions/campaignDataInvestigatorStatusCondition"
+        },
+        {
           "$ref": "#/definitions/campaignDataScenarioCondition"
         },
         {
@@ -97,9 +100,11 @@
               { "$ref": "#/definitions/partnerStatusCondition" },
               { "$ref": "#/definitions/basicTraumaCondition" },
               { "$ref": "#/definitions/campaignDataInvestigatorCondition" },
+              { "$ref": "#/definitions/campaignDataInvestigatorStatusCondition" },
               { "$ref": "#/definitions/campaignDataCycleCondition" },
               { "$ref": "#/definitions/scarletKeyCondition" },
-              { "$ref": "#/definitions/scarletKeyCountCondition" }
+              { "$ref": "#/definitions/scarletKeyCountCondition" },
+              { "$ref": "#/definitions/scenarioDataInvestigatorStatusCondition" }
             ]
           }
         },
@@ -360,6 +365,7 @@
           "type": "string",
           "enum": [
             "defeated",
+            "not_defeated",
             "resigned"
           ]
         },
@@ -438,6 +444,7 @@
         { "$ref": "#/definitions/campaignDataChaosBagCondition" },
         { "$ref": "#/definitions/campaignDataNextScenarioCondition" },
         { "$ref": "#/definitions/campaignDataInvestigatorCondition" },
+        { "$ref": "#/definitions/campaignDataInvestigatorStatusCondition" },
         { "$ref": "#/definitions/campaignDataLinkedCondition" },
         { "$ref": "#/definitions/campaignDataVersionCondition" },
         { "$ref": "#/definitions/campaignDataCycleCondition" },
@@ -737,6 +744,43 @@
         "type",
         "investigator",
         "investigator_data",
+        "options"
+      ],
+      "additionalProperties": false
+    },
+    "campaignDataInvestigatorStatusCondition": {
+      "title": "CampaignDataInvestigatorStatusCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_data"
+          ]
+        },
+        "campaign_data": {
+          "type": "string",
+          "enum": [
+            "investigator_status"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_eliminated"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "campaign_data",
+        "status",
         "options"
       ],
       "additionalProperties": false
