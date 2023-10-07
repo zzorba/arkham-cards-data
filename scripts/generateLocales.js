@@ -82,7 +82,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'selected_nonbinary_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'text', 'hidden_description', 'confirmation_text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt', 'file_name', 'customization_change', 'customization_text', 'replacement_text', 'replacement_back_text']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'selected_nonbinary_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'text', 'hidden_description', 'confirmation_text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt', 'file_name', 'customization_change', 'customization_text', 'replacement_text', 'replacement_back_text', 'chaos_bag_card_text', 'chaos_bag_card_back_text']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender, starter) {
   const normalized = unorm.nfc(object[prop]);
