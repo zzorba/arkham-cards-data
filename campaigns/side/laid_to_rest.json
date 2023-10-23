@@ -1,0 +1,596 @@
+{
+  "id": "laid_to_rest",
+  "scenario_name": "Laid to Rest",
+  "full_name": "Laid to Rest",
+  "header": "",
+  "chaos_bag_card": "90054",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "investigator": "02004",
+    "xp_cost": 2,
+    "requirements": []
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "shuffle_heretics",
+    "spawn_jean",
+    "spawn_spirits",
+    "create_encounter_decks",
+    "spectral_encounter_deck",
+    "haunted_rule",
+    "the_beyond_and_the_spirit_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "the_beyond_deck",
+    "intro",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "setup_locations",
+    "location_layout",
+    "shuffle_heretics",
+    "spawn_jean",
+    "spawn_spirits",
+    "create_encounter_decks",
+    "spectral_encounter_deck",
+    "haunted_rule",
+    "the_beyond_and_the_spirit_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "tokens": [
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "-7",
+              "-8",
+              "skull",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-7",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "02004",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "the_beyond_deck",
+      "text": "Regardless of which version of Jim Culver is being played, the Jim Culver player must build a separate spirit deck according to the deckbuilding requirements on the parallel Jim Culver investigator card back."
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The dead don’t rest. No matter where you go, you hear them talking, whispering, weeping, screaming. Sometimes to each other, sometimes alone. They ramble on about the people they loved, or their job, or the money they hid under the floorboards before they died. Usually it’s about food or drink. The dead are always hungry. Sometimes when they realize you can hear them, they crowd ’round real close and whisper in your ear. Last wishes and such. You try to help when you can, but usually the folks they want you to take care of are dead, too. You make a lot of empty promises, but at least it keeps them quiet.\nIt wasn’t always this way. The dead started talking the day your father died in his shotgun house in the French Quarter. You saw him standing over his own body in the living room when you came home; he vanished before you could say a word. From then on, whenever you played your father’s trumpet, you could hear a cacophany of voices. Some of them were human. But there were others, too. Piercing wails from inhuman lips. Gutteral cries. And a crowd of shimmering, spectral faces peering out from the shadows.\nJean helped you make sense of it all. He stopped to listen to you busking on a Bourbon Street corner and noticed the long look you gave to the ghost lying at your feet. He saw it too. Jean introduced himself as a medium and told you to meet him at his shop in Broadmoor. He told you all about the dead, and the things beyond the grave, and the price you’d pay if you kept company with ’em for too long.\nIt was the dead who led you to Arkham. You eke out a living playing your father’s trumpet. The dead get louder when you play. Sometimes they even compliment your music. Last night, Jean found you busking outside the Clover Club, almost like the first time you met. You could tell something was wrong: his face was haggard, and he looked like he hadn’t slept for days. Jean tells you that your father wants to see you, and that you need to go where the boundary between here and thereafter is thin. You tell him you know just the place. Hangman’s Hill is rife with spirits. Maybe if you do them a few favors, they’ll do you one in return."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "text": "Gather all cards from the following encounter sets: <i>Laid to Rest, The Wages of Sin, Anette’s Coven, City of Sins, Inexorable Fate, Realm of Death, Trapped Spirits,</i> and <i>Witchcraft</i>. Each of these sets except for Laid to Rest can be found in <i>The Circle Undone Campaign Expansion</i>.",
+      "encounter_sets": [
+        "laid_to_rest",
+        "the_wages_of_sin",
+        "anettes_coven",
+        "city_of_sins",
+        "inexorable_fate",
+        "realm_of_death",
+        "trapped_spirits",
+        "witchcraft"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Remove the original scenario reference card, acts, agendas, and Spectral Web story assets from <i>The Wages of Sin</i> encounter set from the game. Use the new scenario reference card, acts, and agendas provided in the downloadable <i>Laid to Rest</i> encounter set when setting up the game."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Randomly choose one of the two The Gallows locations, one of the two Heretics’ Graves locations, and one of the two Chapel Crypt locations and put them into play, along with Chapel Attic (176a). Remove the other versions of The Gallows, Heretics’ Graves, Chapel Crypt, and Chapel Attic (175a) from the game. Then, put Haunted Fields, Abandoned Chapel, and Hangman’s Brook into play.",
+      "bullets": [
+        {
+          "text": "Put each location into play on its non-[[Spectral]] side. <i>Note: Flipping a location over from one side to another during this scenario does not “reveal” the new location.</i>"
+        },
+        {
+          "text": "Place clues on each location without clues until each location has at least 1[per_investigator] clues on it."
+        },
+        {
+          "text": "Each investigator begins play in Hangman’s Brook."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "05169",
+          "blank",
+          "05175",
+          "blank"
+        ],
+        [
+          "05171",
+          "05167",
+          "blank",
+          "05168",
+          "05173"
+        ],
+        [
+          "blank",
+          "blank",
+          "05166",
+          "blank",
+          "blank"
+        ]
+      ]
+    },
+    {
+      "id": "shuffle_heretics",
+      "text": "Remove two of the Heretic enemies from the game at random. Shuffle each remaining Heretic enemy into the spirit deck, enemy side faceup."
+    },
+    {
+      "id": "spawn_jean",
+      "text": "Spawn the double-sided Jean Devereux enemy at Hangman’s Brook, <i>(Seeking Closure)</i> side faceup."
+    },
+    {
+      "id": "spawn_spirits",
+      "text": "Place a Ravenous Spirit enemy facedown beneath the following locations: The Gallows, Heretics’ Graves, Chapel Attic, and Chapel Crypt."
+    },
+    {
+      "id": "create_encounter_decks",
+      "text": "This scenario utilizes two separate encounter decks.",
+      "bullets": [
+        {
+          "text": "Separate each of the remaining cards with the [[Spectral]] trait and shuffle them together to build the spectral encounter deck <i>(see “The Spectral Encounter Deck,” below)</i>."
+        },
+        {
+          "text": "Shuffle each of the remaining non-[[Spectral]] cards together to build the standard encounter deck."
+        }
+      ]
+    },
+    {
+      "id": "spectral_encounter_deck",
+      "type": "rule_reminder",
+      "title": "The Spectral Encounter Deck",
+      "text": "During the setup of this scenario, two encounter decks are constructed: a “standard” encounter deck and a “spectral” encounter deck. Generally speaking, whenever an investigator would interact with the encounter deck, that investigator should use the standard encounter deck.\nHowever, at a certain point during this scenario, locations may flip over to their [[Spectral]] side. While an investigator is at a location with the [[Spectral]] trait, that investigator should use the spectral encounter deck instead of the standard encounter deck for all purposes, unless otherwise noted. This includes drawing cards from the encounter deck, as well as searching, looking at, revealing, or otherwise interacting with the encounter deck (or encounter discard pile) in any way. This also includes abilities that trigger when the encounter deck runs out of cards. If an effect specifically refers to the standard encounter deck or spectral encounter deck, it interacts with the specified deck regardless of the investigator’s location.\nEach of the two encounter decks have their own discard pile. Whenever a card with the [[Spectral]] trait would be discarded, it is placed in the discard pile for the spectral encounter deck. All other encounter cards are discarded to the discard pile for the standard encounter deck.\n<i>Note: Flipping a location over from one side to another during this scenario does not “reveal” the new location.</i>"
+    },
+
+
+    {
+      "id": "haunted_rule",
+      "type": "rule_reminder",
+      "title": "Haunted",
+      "text": "Haunted is an ability that appears on some locations. Each time an investigator fails a skill test while investigating a location, after applying all results for that skill test, that investigator must resolve all “<b>Haunted</b> –” abilities on that location. A location is “haunted” for the purposes of other card effects if it has at least one “<b>Haunted</b> –” ability (printed or otherwise)."
+    },
+    {
+      "id": "the_beyond_and_the_spirit_deck",
+      "type": "rule_reminder",
+      "title": "The Beyond and The Spirit Deck",
+      "text": "The double-sided The Beyond signature asset included in this set allows Jim Culver to attach [[Ally]] assets from the spirit deck to it, as spirits. The spirit deck is a separate deck that is shuffled facedown next to The Beyond when the game begins. It is immune to all player card effects except for the forced effect on The Beyond.\n<b>Spirits are in play but only retain their names and text boxes.</b> Spirits do not take up any slots and do not have health or sanity values. When a unique spirit enters play, discard any assets that share its name. If an attached spirit would be discarded, it is placed on the <b>bottom</b> of the spirit deck, instead."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_jim_xp",
+      "text": "Jim Culver earns experience equal to the combined Victory X value of each enemy in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display (enemies only):",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$fixed_investigator",
+            "fixed_investigator": "02004"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_location_xp",
+      "text": "Each other investigator earns experience equal to the combined Victory X value of each location in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display (locations only):",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          },
+          {
+            "type": "earn_xp",
+            "investigator": "$fixed_investigator",
+            "fixed_investigator": "02004",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "jim_good_swap",
+      "text": "Jim Culver may either Jim’s Trumpet to its advanced version, or downgrade the advanced version of Final Rhapsody to its original version.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "trumpet",
+            "text": "Upgrade to advanced Jim’s Trumpet",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "02012"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "90050"
+              }
+            ]
+          },
+          {
+            "id": "final",
+            "text": "Downgrade advanced Final Rhapsody",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "90051"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "02013"
+              }
+            ]
+          },
+          {
+            "id": "neither",
+            "text": "No change"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "jim_bad_swap",
+      "text": "Jim Culver must either upgrade Final Rhapsody to its advanced version, or downgrade the advanced version of Jim’s Trumpet to its original version.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "final",
+            "text": "Upgrade to advanced Final Rhapsody",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "02013"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "90051"
+              }
+            ]
+          },
+          {
+            "id": "trumpet",
+            "text": "Downgrade from advanced Jim’s Trumpet",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "90050"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "02004",
+                "non_story": true,
+                "card": "02012"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Phantasmagoric shapes form and recede in the mist around you. As you take Jean’s hands, the medium falls into a dead faint. In the dark, you glimpse your father’s face: his laugh lines, his kind eyes, his smile. Your father is with you at last.\nThe moment is broken by a sudden, gasping breath as Jean awakens. Before you can react, your father’s face winks out of sight, leaving you alone. Despite the knot in your stomach, you feel a sense of relief in knowing that your father was here, however briefly, and that he saw you. As you help Jean to his feet, you hear your father’s voice in your ear, whispering encouragement over the riot of ghosts bickering in your ears. You hope he never goes quiet.",
+      "steps": [
+        "earn_jim_xp",
+        "earn_location_xp",
+        "jim_good_swap",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Jean cusses as you stumble away from Hangman’s Hill, head hung low. “Sorry, my friend,” he says. “The dead speak, but they don’t always listen.” A mordant call from inhuman lips sweeps across the expanse, underscoring the medium’s words.",
+      "steps": [
+        "earn_jim_xp",
+        "earn_location_xp",
+        "jim_bad_swap",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
