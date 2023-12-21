@@ -491,9 +491,7 @@
       "effects": [
         {
           "type": "add_chaos_token",
-          "tokens": [
-            "tablet"
-          ]
+          "tokens": ["tablet"]
         }
       ]
     },
@@ -886,6 +884,32 @@
           }
         ]
       }
+    },
+    {
+      "id": "check_forgot_tablet",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["forgot_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "forgot_tablet",
+      "text": "During the scenario, you were instructed to add 1 [tablet] token to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -910,6 +934,7 @@
       "text": "You stumble as you escape the auction house, slipping down to the pavement for a brief moment.  The gangsters crowd around the open doors as they watch you recover, but don't make any further attempt to pursue you.  The group leader takes a step forward and points to you vindictively.  \"Now you listen good, pal.  We've seen you all over the building.  And those other spooks too.  And you been fightin' each other, which means that you're after the same thing that they were – all that stone junk.\"\nYou freeze at the mention of the stone, but the man only narrows his eyes.  \"Hardly anybody knows about that stone, which means that Wycliffe must have sent you.  You crawl back to that stuffed shirt and tell him that he ain't welchin' on our deal.  He'll pay double what we agreed if he wants to see any o' that cargo.  Nobody crosses the O'Bannions.  Understand?\"  The gangsters turn back toward the auction house, leaving you to your affairs.\nYou compose yourself as you process the gangster's words.  Wycliffe hired the O'Bannions to steal the expedition cargo?  Then why did he hire you to find it?  And if he knew that the O'Bannions had it, why didn't he say so?  These questions only lead to other questions, all answers eluding you as you pat down your soggy outer clothes.",
       "steps": [
         "left_the_auction_early",
+        "check_forgot_tablet",
         "add_elder_thing",
         "remove_one_notice",
         "ask_final_act"
@@ -921,6 +946,7 @@
       "text": "You try to explain to the broker the nature of your investigation with as few details as possible, but she scrutinizes each word until your purpose at the auction is clear.  You begrudgingly tell Ms. Shanley about your brief investigation of the riverfront before arriving at the auction, which causes a puzzling shift in her expression.  She sits in quiet thought for a moment, before casting her steely gaze back up at you.  \"No, your story isn't credible.  Wycliffe wouldn't have sent you to the river in the first place.\"\nYou press Ms. Shanley on how she knows what Wycliffe would do, and show her the documents from Wycliffe as proof of your story.  Her confusion deepens as she appraises the papers, and she leans back into her chair for another drag on her cigarette.  The woman scrutinizes your face once more as she exhales before replying.  \"What I'm about to tell you does not leave this room.  Am I understood?\"  You nod curtly, though Ms. Shanley takes her time before responding again.  \"Wycliffe is the man who hired us to take the artifacts in the first place.  Here.\"  The broker opens her desk and pulls out a check for a sizeable sum, with Wycliffe's signature clearly printed at the bottom, a perfect match for the one on your letter.  Ms. Shanley allows you to view the check for a few seconds before she returns it to her desk and stands stiffly.  \"If you want any further information, I suggest you ask Wycliffe directly.  I have enough to worry about without this backward deal adding to it.  And I suggest you leave before you give security any extra reasons to ice you.\"",
       "steps": [
         "interviewed_the_broker",
+        "check_forgot_tablet",
         "add_cultist",
         "resolution_4"
       ]

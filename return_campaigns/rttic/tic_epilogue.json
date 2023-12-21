@@ -1,0 +1,193 @@
+{
+  "id": "tic_epilogue",
+  "original_id": "tic_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "setup": [
+    "check_deep_one",
+    "epilogue_1",
+    "check_all_memories",
+    "check_meeting_with_thomas_dawson",
+    "check_battle_with_a_horrifying_devil",
+    "check_decision_to_stick_together",
+    "check_encounter_with_a_secret_cult",
+    "check_a_deal_with_joe_sargent",
+    "check_a_followed_lead",
+    "check_an_intervention",
+    "check_a_jailbreak",
+    "check_discovery_of_a_strange_idol",
+    "check_discovery_of_an_unholy_mantle",
+    "check_discovery_of_a_mystical_relic",
+    "check_conversation_with_mr_moore",
+    "check_lifecycle_of_a_deep_one",
+    "check_stinging_betrayal",
+    "maybe_check_remember_where_you_have_to_go",
+    "actually_check_memories"
+  ],
+  "steps": [
+    {
+      "id": "check_deep_one",
+      "text": "If there are any Deep One Investigators:",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "zrttic_00030",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["deep_ones_read", "flashback_16", "remember_where_you_have_to_go", "deep_one_epilogue", "all_read"]
+          }
+        ]
+
+      }
+    },
+    {
+      "id": "deep_ones_read",
+      "bullet_type": "none",
+      "text": "<b>Each Deep One investigator must read the following:</b>"
+    },
+    {
+      "id": "flashback_16",
+      "title": "Flashback XVI",
+      "type": "story",
+      "text": "You might have managed to leave the town of Innsmouth behind you, but as you are sitting in you car you realize that you took a part of it with you. Forever. There are signs of the Old One's influence on your body, sure. The webbing between a couple of fingers you noticed earlier. Spots on your skin that itch and you could swear that the skin on one of your elbows in particular feels more leathery by the day. All of this is deeply disturbing, but it pales to what is going on in your head. You feel guilt. Guilt for crossing your benefactors. Guilt for running from your new family, from your place under the sea. The weirdest part however is the rush of memories that sometimes comes over you. Memories of places and events you weren't around for but that appear in your head nonetheless. Mostly these memories come to you in your sleep, but they have started to appear while awake as well. You remember names of entities you never heard about, names of places you've never been. Among these flashes of insight, one name is recurring again and again. R'lyeh. Even as you think about it now, you silently mouth the word. R'lyeh. You don't know what it means, but at the same time the name offers you comfort. R'lyeh. You wanted to get distance from Innsmouth, but this is more important. R'lyeh. It's where you are needed."
+    },
+    {
+      "id": "remember_where_you_have_to_go",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "memories_recovered",
+          "id": "remember_where_you_have_to_go",
+          "text": "you remember where you have to go"
+        }
+      ]
+    },
+    {
+      "id": "all_read",
+      "bullet_type": "none",
+      "text": "<b>All investigator read the following:</b>"
+    },
+    {
+      "id": "deep_one_epilogue",
+      "text": "During the Epilogue, this memory can stand in for another one when determining whether you get to read Flashback XV (you still need 14 or more unlocked Flashbacks, including this one). This means that Deep One investigators might get a different epilogue than non-Deep One investigators."
+    },
+    {
+      "id": "maybe_check_remember_where_you_have_to_go",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "memories_recovered",
+        "id": "remember_where_you_have_to_go",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_remember_where_you_have_to_go"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_remember_where_you_have_to_go",
+      "bullet_type": "small",
+      "text": "<i>You remember where you have to go</i> (Deep One Investigators only)",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "memories_recovered",
+        "id": "remember_where_you_have_to_go",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_check_memories",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "memories_recovered",
+        "id": "remember_where_you_have_to_go",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["actually_check_with_deep_ones"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["actually_check_classic"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_check_classic",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "memories_recovered",
+        "id": "$num_entries",
+        "options": [
+          {
+            "numCondition": 14,
+            "steps": [
+              "flashback_15",
+              "horrific_truth"
+            ]
+          }
+        ],
+        "default_option": {
+          "steps": [
+            "epilogue_2"
+          ]
+        }
+      }
+    },
+    {
+      "id": "actually_check_with_deep_ones",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "memories_recovered",
+        "id": "$num_entries",
+        "options": [
+          {
+            "numCondition": 14,
+            "steps": [
+              "deep_ones_read",
+              "flashback_15",
+              "horrific_truth",
+              "non_deep_ones_read",
+              "epilogue_2"
+            ]
+          },
+          {
+            "numCondition": 15,
+            "steps": [
+              "flashback_15",
+              "horrific_truth"
+            ]
+          }
+        ],
+        "default_option": {
+          "steps": [
+            "epilogue_2"
+          ]
+        }
+      }
+    },
+    {
+      "id": "non_deep_ones_read",
+      "bullet_type": "none",
+      "text": "<b>Every other investigator must read the following:</b>"
+    }
+  ]
+}

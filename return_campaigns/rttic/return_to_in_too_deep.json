@@ -1,0 +1,103 @@
+{
+  "id": "return_to_in_too_deep",
+  "original_id": "in_too_deep",
+  "scenario_name": "Return to In Too Deep",
+  "full_name": "Scenario III: Return to In Too Deep",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_keys",
+    "setup_suspects",
+    "set_aside_cards",
+    "setup_angry_mob",
+    "replace_act_card",
+    "flood_tokens",
+    "encounter_deck",
+    "barriers_rule",
+    "location_adjacency",
+    "keys_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "in_too_deep",
+        "zreturn_to_in_too_deep",
+        "creatures_of_the_deep",
+        "zrolling_tide",
+        "zoccultation",
+        "the_locals",
+        "zstalkers_of_cthulhu"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: 2 copies of the Ravager from the Deep enemy, 2 copies of the Young Deep One enemy, 4 copies of Innsmouth Influence, the Joe Sargent story asset, the Teachings of the Order story asset, and the Innsmouth Shoggoth enemy."
+    },
+    {
+      "id": "replace_act_card",
+      "text": "When building the act deck, Through the Labyrinth act card with the new version from the Return set."
+    },
+
+    {
+      "id": "maybe_made_it_safely_to_their_vehicles",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "resolution",
+        "options": [
+          {
+            "condition": "R1",
+            "steps": [
+              "made_it_safely_to_their_vehicles",
+              "ask_innsmouth_influence"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_innsmouth_influence",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did any investigator gain a copy of Innsmouth Influence?",
+            "steps": ["choose_innsmouth_influence"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_innsmouth_influence",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "deep_one",
+            "text": "Gain Innsmouth Influence",
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "zrttic_00030"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
