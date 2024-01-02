@@ -1,0 +1,737 @@
+{
+  "id": "relics_of_the_past",
+  "scenario_name": "Relics of the Past",
+  "full_name": "Relics of the Past",
+  "header": "",
+  "chaos_bag_card": "09065",
+  "setup": [
+    "xp_cost",
+    "intro",
+    "explore",
+    "explore_2",
+    "supplies",
+    "supplies_side_scenario",
+    "maybe_check_tfa_campaign",
+    "choose_supplies",
+    "gather_encounter_sets",
+    "remove_original_cards",
+    "remove_encounter_cards",
+    "create_exploration_deck",
+    "check_hard_difficulty",
+    "set_aside_cards",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "explore",
+    "explore_2",
+    "supplies",
+    "choose_supplies",
+    "gather_encounter_sets",
+    "remove_original_cards",
+    "remove_encounter_cards",
+    "create_exploration_deck",
+    "check_hard_difficulty",
+    "set_aside_cards",
+    "setup_locations",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-3",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-6",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "tokens": [
+              "0",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-4",
+              "-6",
+              "-8",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-6",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "08007",
+          "bonus": -2
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "To better understand our future, we must first understand our past. It didn’t take long for the reports of Miskatonic University’s failed expedition to the jungles of Mexico to reach your ears. Stories of step pyramids, mythical serpent-people, and otherworldly artifacts in places previously thought uninhabited have piqued your interest. It didn’t take you long to pack your bags and make plans to head down and investigate it yourself. The Miskatonic University expedition made it into the ruins but struggled to make any progress. Your heart races as you begin to consider what other forgotten treasures lie undiscovered in the heart of the tomb."
+    },
+    {
+      "id": "explore",
+      "title": "Explore",
+      "text": "Some abilities in this scenario are identified with an <b>Explore</b> action designator. Such abilities are generally used to find new locations to put into play, and are initiated using the “activate” action."
+    },
+    {
+      "id": "explore_2",
+      "text": "<b>Explore</b> abilities instruct you to draw the top card of the “exploration deck,” which is a separate deck that is constructed during the setup of some scenarios. This deck consists of several single-sided locations and treachery cards.",
+      "bullets": [
+        {
+          "text": "Each <b>Explore</b> ability indicates a particular type of location that you are seeking to draw. <b>If a location of that type is drawn, it is put into play, and you move to that location.</b> This is considered a “successful” exploration."
+        },
+        {
+          "text": "If any other location is drawn, place it next to the exploration deck, and draw the next card from the exploration deck. Repeat this process until a location of the indicated type is drawn, or a treachery is drawn. After this action has ended, shuffle each location next to the exploration deck back into the exploration deck."
+        },
+        {
+          "text": "If a treachery card is drawn, it is resolved as normal. If it is discarded, place it in the encounter discard pile as you would normally. There is no discard pile for the exploration deck. This is considered an “unsuccessful” exploration."
+        },
+        {
+          "text": "If an enemy is drawn from the exploration deck, it is resolved as normal. If it is discarded, place it in the encounter discard pile as you would normally. This is considered an “unsuccessful” exploration."
+        },
+        {
+          "text": "If a story asset is drawn from the exploration deck, resolve its revelation effect. This is considered a “successful” exploration."
+        },
+        {
+          "text": "As a single-sided location is put into play from the exploration deck, place clues on that location equal to its clue value."
+        },
+        {
+          "text": "If the entire exploration deck is revealed without finding either a treachery card or a location specified by the explore ability, the exploration simply ends. It is neither successful nor unsuccessful. All locations drawn during the exploration should be shuffled back into the exploration deck, and the investigator’s action ends."
+        }
+      ]
+    },
+    {
+      "id": "supplies",
+      "title": "Supplies",
+      "text": "<i>Relics of the Past</i> uses a list of supplies unique to this scenario. Supplies have no inherent effect, but may be referenced by card abilities. Each investigator may choose one of the supplies listed below to bring for the expedition (if there is only one investigator, they may choose two supplies instead)."
+    },
+    {
+      "id": "supplies_side_scenario",
+      "text": "If playing <i>Relics of the Past</i> as a side-story in part of a larger campaign, supplies from <i>Relics of the Past</i> are not carried over into following scenarios."
+    },
+    {
+      "id": "maybe_check_tfa_campaign",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "cycle",
+        "options": [
+          {
+            "condition": "tfa",
+            "steps": ["check_tfa_campaign"]
+          },
+          {
+            "condition": "rttfa",
+            "steps": ["check_tfa_campaign"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tfa_campaign",
+      "text": "If you are playing <i>Relics of the Past</i> as part of a side-story in <i>The Forgotten Age</i> campaign:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "cycle",
+            "options": [
+              {
+                "condition": "tfa"
+              },
+              {
+                "condition": "rttfa"
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["skip_supplies"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "skip_supplies",
+      "bullet_type": "small",
+      "text": "Any supplies used in the campaign are not available for use while playing <i>Relics of the Past</i>."
+    },
+    {
+      "id": "choose_supplies",
+      "text": "Available supplies:",
+      "bullets": [
+        {
+          "text": "<b>Chalk:</b> <i>For writing on stone surfaces.</i>"
+        },
+        {
+          "text": "<b>Compass:</b> <i>Can help keep your bearings.</i>"
+        },
+        {
+          "text": "<b>Journal:</b> <i>To keep a record of the events of the expedition.</i>"
+        },
+        {
+          "text": "<b>Satchel:</b> <i>A safe place to store anything you find in the tomb.</i>"
+        },
+        {
+          "text": "<b>Torches:</b> <i>Can light up dark areas, or set sconces alight.</i>"
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "relics_of_the_past",
+        "eztli",
+        "agents_of_yig",
+        "traps",
+        "ruins",
+        "poison",
+        "serpents",
+        "venom",
+        "chilling_cold",
+        "locked_doors",
+        "arkham"
+      ],
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the 5 treachery cards (2x False Lead and 3x Hunting Shadow). Do not gather the location, act, agenda, or scenario reference cards from that set"
+    },
+    {
+      "id": "remove_original_cards",
+      "text": "Remove the original scenario reference card, acts, and agendas from <i>The Doom of Eztli</i> encounter set from the game. Use the new scenario reference card, acts, and agendas provided in the downloadable <i>Relics of the Past</i> encounter set when setting up the game."
+    },
+    {
+      "id": "remove_encounter_cards",
+      "text": "Remove the following cards from <i>The Doom of Eztli</i> encounter set from the game: the Relic of Ages asset, the Harbinger of Valusia enemy, and the Secret Passage, Ancient Hall, and Chamber of Time locations. These cards are not used in this challenge scenario."
+    },
+    {
+      "id": "create_exploration_deck",
+      "text": "Build the exploration deck. This is done by taking the five single-sided locations and shuffling them together with each of the following: one copy each of the Deep Dark and Final Mistake treacheries, and three copies of Pit Viper."
+    },
+    {
+      "id": "check_hard_difficulty",
+      "bullet_type": "small",
+      "text": "If playing on Hard or Expert difficulty:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "hard",
+            "steps": ["hard_explore"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_explore"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hard_explore",
+      "bullet_type": "small",
+      "text": "Also shuffle in one copy of Locked Door and one copy of Entombed."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: the Vengeant Past treachery, the Inner Chamber location, the three Brood of Yig enemies, each of the four [[Ancient]] story assets, and each copy of the Poisoned weakness."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Entryway into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play in the Entryway."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_jack_xp",
+      "text": "Monterey Jack earns experience equal to the combined Victory X value of each [[Ancient]] story asset in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display (Ancient assets only):",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$fixed_investigator",
+            "fixed_investigator": "08007"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_location_xp",
+      "text": "Each other investigator earns experience equal to the combined Victory X value of each enemy and location in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display (locations and enemies only):",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          },
+          {
+            "type": "earn_xp",
+            "investigator": "$fixed_investigator",
+            "fixed_investigator": "08007",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_journal_xp",
+      "text": "Check the supplies of each investigator who resigned.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "journal",
+            "text": "Did an investigator with the journal resign?",
+            "steps": [
+              "journal_resigned"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "journal_resigned",
+      "bullet_type": "small",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "jack_good_swap",
+      "text": " Monterey Jack may either upgrade Trusty Bullwhip to its advanced version, or downgrade the advanced version of Buried Secrets to its original version.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "gun",
+            "text": "Upgrade to advanced Trusty Bullwhip",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "08008"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "90063"
+              }
+            ]
+          },
+          {
+            "id": "crime",
+            "text": "Downgrade advanced Buried Secrets",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "90064"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "08009"
+              }
+            ]
+          },
+          {
+            "id": "neither",
+            "text": "No change"
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "jack_bad_swap",
+      "text": "Monterey Jack must either upgrade Buried Secrets to its advanced version, or downgrade the advanced version of Trusty Bullwhip to its original version.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "necronomicon",
+            "text": "Upgrade to advanced Buried Secrets",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "08009"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "90064"
+              }
+            ]
+          },
+          {
+            "id": "tote_bag",
+            "text": "Downgrade from advanced Trusty Bullwhip",
+            "effects": [
+              {
+                "type": "remove_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "90063"
+              },
+              {
+                "type": "add_card",
+                "investigator": "$fixed_investigator",
+                "fixed_investigator": "08007",
+                "non_story": true,
+                "card": "08008"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_investigators_poisoned",
+      "text": "Did any investigator gain the Poisoned weakness?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "poisoned",
+            "text": "Poisoned",
+            "condition": {
+              "type": "has_card",
+              "card": "04102",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "04102"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution_defeated",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "With a lash of your whip you swing over the final gap, and a quick roll gets you under the closing stone door before it seals behind you. You rise to your feet, looking out over the jungle before you, breathing the humid air once more. Checking your gear one last time, you see a scaly, serpentine stowaway has found its way into your bag. Grabbing it behind the head, you toss it softly into the grass and watch as it slithers away with a hiss.\nYou’ll have to be satisfied with what you’ve learned, and what you’ve found, in the Ruins of Eztli. Time to put the jungle behind you.",
+      "steps": [
+        "earn_jack_xp",
+        "earn_location_xp",
+        "ask_journal_xp",
+        "jack_good_swap",
+        "check_investigators_poisoned",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "hidden": true,
+      "text": "You race down the ruined corridor, the hissing of pursuing snake monstrosities echoing off the stone behind you. Your path leads you to a deep pit, and you are faced with a choice: try to cross the gap, or turn around to face your pursuers. You reach to your belt and retrieve your bullwhip, deciding to use it to cross the chasm. You lash the whip at an exposed tree root near the ceiling, and start your swing.\nWith a heart-wrenching crack, the root snaps under your weight and you plummet into the chasm. You bounce off of sharp rocks as you tumble down, eventually landing in a shallow stream at the bottom. You spit blood, and then look up to see the eyes of the serpent-people peering down at you from far above, before they retreat back the way they came.\nYou struggle to stand, and consider the stream at your feet. You stumble along, following its path, hoping it will eventually lead you out.",
+      "steps": [
+        "earn_xp",
+        "jack_bad_swap",
+        "check_investigators_poisoned",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
