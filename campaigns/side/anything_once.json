@@ -1,0 +1,487 @@
+{
+  "id": "anything_once",
+  "scenario_name": "Anything Once",
+  "full_name": "Anything Once",
+  "header": "",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "card_discount": ["04197", "10097"],
+    "xp_cost": 1,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2022/02/01/arkham-incidents/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "gather_olive",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "ask_olive_xp",
+    "intro",
+    "gather_encounter_sets",
+    "gather_olive",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "ask_olive_xp",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Have Olive McBride?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "bonus": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "There's not much you wouldn't do - or haven't already done - to protect Arkham from the strange evils that plague it. For everything that you wouldn't do, however, there are people like Olive McBride. The young woman's curiosity and fascination with true magic has led her to some crazy things in the past, so when she came to you about being in over her head, it had to be serious.\n\"Look, I've done blood magic before,\" Olive huffs, talking as if this could happen to anyone, \"It was one of the first kinds of magic I ever did! So when these fellas started going on about old blood rituals, I thought I already knew where this was going. What they did seemed kind of familiar, but there was something of about it.\" Olive idly rubs the scars on her arms from habitual spellcasting.\"I've used blood as a ritual component before, but they were making the blood move like it was alive. I could feel my own blood crawling under myskin when they were chanting, like it was trying to get out on its own. I called the whole thing off, and the guy in charge looked disappointed, but just packed up and left without a word.\" You press Olive for details on the sorcerers, and she nods. \"I did a little more magic after they left. A scrying spell this time. They made straight for Black Cave, and started preparingfor an even bigger ritual. I'd bet my soul that it's gonna be bad.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "anything_once"
+      ]
+    },
+    {
+      "id": "gather_olive",
+      "text": "If an investigator has a copy of Olive McBride in his or her deck, that investigator sets it aside and adds it to his or her hand after drawing opening hands, as an additional card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Black Cave Entrance location into play.  Choose two of the three Sprawling Caverns locations and two of the three Winding Tunnels locations at random and put them into play. Randomly put two copies of Dark Recesses locations into play adjacent to each copy of Sprawling Caverns and Winding Tunnels (so that each is adjacent to only one location).  Remove each other copy of Sprawling Caverns, Winding Tunnels, and Dark Recesses from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Black Cave Entrance."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Pool of Blood, Crimson Wizard, Bloodstone Knife, Phial of Living Blood."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "dark_recesses",
+          "blank",
+          "dark_recesses",
+          "blank"
+        ],
+        [
+          "dark_recesses",
+          "winding_tunnels",
+          "blank",
+          "sprawling_caverns",
+          "dark_recesses"
+        ],
+        [
+          "blank",
+          "blank",
+          "black_cave_entrance",
+          "blank",
+          "blank"
+        ],
+        [
+          "dark_recesses",
+          "sprawling_caverns",
+          "blank",
+          "winding_tunnels",
+          "dark_recesses"
+        ],
+        [
+          "blank",
+          "dark_recesses",
+          "blank",
+          "dark_recesses",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "dark_recesses",
+          "name": "Dark Recesses"
+        },
+        {
+          "code": "winding_tunnels",
+          "name": "Winding Tunnels"
+        },
+        {
+          "code": "sprawling_caverns",
+          "name": "Sprawling Caverns"
+        },
+        {
+          "code": "black_cave_entrance",
+          "name": "Black Cave Entrance"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_bloodstone_knife",
+      "text": "Any one investigator may choose to add Bloodstone Knife to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00301"
+        }
+      ]
+    },
+    {
+      "id": "earn_phial",
+      "text": "Any one investigator may choose to add Phial of Living Blood to their deck.  This card does not count toward that nvestigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00302"
+        }
+      ]
+    },
+    {
+      "id": "olive_has_sworn_off_blood_magic",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "olive_has_sworn_off_blood_magic",
+          "text": "Olive has sworn off blood magic."
+        }
+      ]
+    },
+    {
+      "id": "olive_paid_the_price_for_her_curiosity",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "olive_paid_the_price_for_her_curiosity",
+          "text": "Olive paid the price for her curiosity."
+        }
+      ]
+    },
+    {
+      "id": "halted_the_blood_ceremony",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "halted_the_blood_ceremony",
+          "text": "the investigators halted the blood ceremony."
+        }
+      ]
+    },
+    {
+      "id": "used_the_sorcrerers_magic_against_them",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "used_the_sorcrerers_magic_against_them",
+          "text": "the investigators used the sorcerers' magic against them."
+        }
+      ]
+    },
+    {
+      "id": "exile_olive",
+      "text": "Remove each copy of Olive McBride from each investigator's deck (replacing each copy with any valid level 0 card).  If you are playing in campaign mode, investigators cannot include Olive McBride in their decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "04197",
+          "exile": true,
+          "non_story": true
+        },
+        {
+          "type": "remove_card",
+          "card": "10097",
+          "exile": true,
+          "non_story": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Overwhelmed by the defenses of the blood sorcerers, you beat a hasty retreat back to the surface.  You wait tensely in the nearby underbrush, but minutes pass without any sign of pursuers.  Olive sinks down, shaking her head ruefully.  \"No more blood magic.  If this is where it gets me, I'm off the stuff for good.\"  You can't help but agree, you've had enough blood magic to last a lifetime.",
+      "steps": [
+        "olive_has_sworn_off_blood_magic",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You stagger back, battered and fatigued, as the head sorcerer clutches his fist, crackling with power.  \"Now, pay the price for your interference... starting with you!\"  His arm snaps out towards Olive, and she shrieks in pain as her skin tears, blood pouring toward the sorcerer. In mere moments, she collapses down lifelessly, not a drop left under her pallid skin.  \"Incredible...\" the sorcerer mutters proudly as he admires the flowing power leaping between his fingers.  You take the brief lapse in the wizard's concentration to flee full tilt back into the caverns.  For all his power, the sorcerer can't follow you any faster, and you make as quick a path as you can for the surface.  Only once you're safe from certain death can you spend a moment to regret Olive's passing.  It was as much a gamble to meddle in the sorcerers' plot as everything else she did, only this time, the dice didn't roll in her favor.  You only hope the sorcerers have better things to do than to make sure you suffer the same fate as Olive.",
+      "steps": [
+        "olive_paid_the_price_for_her_curiosity",
+        "exile_olive",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The blood in the pool roils uncontrollably as the lead sorcerer collapses down to all fours.  His eyes roll back and he lets out a strained cry.  The other sorcerers flee in terror, leaving their leader to his demise, though you stay on guard until he lets out one final bloody cough.  As his body goes still, so does the pool of blood with an eerie quiet.  Olive breathes a sigh of relief and starts picking through the discarded relics.  \"That's one less looney to worry about.  Wonder if they knew what they were getting into, because I still don't fully... although they were using pretty high quality ritual items.\"  Olive picks up a polished stone knife, inspecting it for a few moments before offering it to you.  \"What do you think, want to give this one a try?\"",
+      "steps": [
+        "halted_the_blood_ceremony",
+        "earn_bloodstone_knife",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Now the focus of the ceremony's power, you are filled with overwhelming energy.  Your mind is nearly blank from the overload of magic, only barely able to perceive through the haze.  The remaining sorcerers who had already begun to flee at the loss of their leader are struck down by the arcing magic, and their implements destroyed from the feedback.  Everything goes white, until finally your senses fade back in, finding yourself lying on the stone cave floor next to the now-placid pool of blood.  \"That was incredible!\" Olive exclaims as she recovers alongside you, \"I've never felt anything like that before.  Maybe there's something to their kind of blood magic!\"  You give her a baffled look but she doesn't seem to notice it.  \"Look, there's even some of that crazy living blood left!\"  Olive feels around until she finds a glass vial to scoop up the still-roiling blood, grinning excitedly as she holds it up.  \"I'll bet you could do some equally crazy things with this blood.  Wouldn't hurt to try, would it?\"",
+      "steps": [
+        "used_the_sorcrerers_magic_against_them",
+        "earn_phial",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
