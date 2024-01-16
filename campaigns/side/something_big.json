@@ -1,0 +1,483 @@
+{
+  "id": "something_big",
+  "scenario_name": "Something Big",
+  "full_name": "Something Big",
+  "header": "",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "card_discount": ["02302", "09054"],
+    "xp_cost": 1,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2022/02/01/arkham-incidents/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "gather_maleson",
+    "setup_locations",
+    "location_layout",
+    "setup_frequency_deck",
+    "starting_clues",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "ask_maleson_xp",
+    "intro",
+    "gather_encounter_sets",
+    "gather_maleson",
+    "setup_locations",
+    "location_layout",
+    "setup_frequency_deck",
+    "starting_clues",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "ask_maleson_xp",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Have Dr. William T. Maleson?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "bonus": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The request was unusual, but most of Dr. William T. Maleson's projects tended to be unusual.  You arrive at the Miskatonic Science Building right on schedule to find the researcher frantically -- and gleefully -- attending to a bizarre machine that fills half his lab.  He takes no notice of you at first, and you call out to him that you're here to help with 'something big,' as he phrased it in his letter. Dr. Maleson turns to you with a grin.  \"Oh, you'd better believe it's big!\" he chuckles, \"this could be the biggest breakthrough in all of physics!  Bigger than gravity, planetary motion, special relativity -- bigger than the atom!  Erm... well of course it's bigger than the atom, just about everything is, but you know what I'm getting at!\"\nYour confused stare lets Dr. Maleson know that he needs to actually explain.  \"Alright, picture this: You know how radios broadcast at different wavelengths, and you can tune in to specific frequencies?  Imagine if the universe as we know it -- everything that we can see, touch, et cetera -- was just a single frequency of reality?  Well, my machine is capable of turning that supposed radio knob!  We are going to open the door to an infinite amount of universes all overlapping ours!\"  He lets out a borderline maniacal laugh and shoves a stack of papers into your arms.  \"Here, I've done all the preliminary research.  This should get you up to speed.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "something_big"
+      ]
+    },
+    {
+      "id": "gather_maleson",
+      "text": "If an investigator has a copy of Dr. William T. Maleson in his or her deck, that investigator sets it aside and adds it to his or her hand after drawing opening hands, as an additional card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Lecture Hall, Machine Shop, Dr. Christopher's Office, Generator Room, and Dr. Maleson's Lab locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Dr. Maleson's Lab."
+        }
+      ]
+    },
+    {
+      "id": "setup_frequency_deck",
+      "text": "Create the Frequency Deck.  This is done by taking each of the seven [[Frequency]] cards and shuffling them together.  Put the Frequency Deck into play next to the act deck."
+    },
+    {
+      "id": "starting_clues",
+      "text": "Each investigator begins the game with 4 clues.  The lead investigator begins the game with 1 additional clue."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Dimensional Inductor, Phase Reactance Gauge, each copy of Alien Landscape, the Variable Frequencies story card, Convergent Entity."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "lecture_hall",
+          "blank"
+        ],
+        [
+          "dr_christophers_office",
+          "dr_malesons_lab",
+          "machine_shop"
+        ],
+        [
+          "blank",
+          "generator_room",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "lecture_hall",
+          "name": "Lecture Hall"
+        },
+        {
+          "code": "dr_christophers_office",
+          "name": "Dr. Christopher's Office"
+        },
+        {
+          "code": "dr_malesons_lab",
+          "name": "Dr. Maleson's Lab"
+        },
+        {
+          "code": "machine_shop",
+          "name": "Machine Shop"
+        },
+        {
+          "code": "generator_room",
+          "name": "Generator Room"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_phase_reactance",
+      "text": "Any one investigator may choose to add Phase Reactance Gauge to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00102"
+        }
+      ]
+    },
+    {
+      "id": "earn_dimensional_inductor",
+      "text": "Any one investigator may choose to add Dimensional Inductor to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00101"
+        }
+      ]
+    },
+    {
+      "id": "dr_malesons_experiment_was_a_failure",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_malesons_experiment_was_a_failure",
+          "text": "Dr. Maleson's experiment was a failure."
+        }
+      ]
+    },
+    {
+      "id": "dr_maleson_was_lost_between_dimensions",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_maleson_was_lost_between_dimensions",
+          "text": "Dr. Maleson was lost between dimensions."
+        }
+      ]
+    },
+    {
+      "id": "observed_the_aftereffects_of_the_shift",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "observed_the_aftereffects_of_the_shift",
+          "text": "the investigators observed the aftereffects of the shift."
+        }
+      ]
+    },
+    {
+      "id": "gathered_samples_from_another_earth",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "gathered_samples_from_another_earth",
+          "text": "the investigators gathered samples from another Earth."
+        }
+      ]
+    },
+    {
+      "id": "exile_maleson",
+      "text": "Remove each copy of Dr. William T. Maleson from each investigator's deck (replacing each copy with any valid level 0 card).  If you are playing in campaign mode, investigators cannot include Dr. William T. Maleson in their decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "02302",
+          "exile": true,
+          "non_story": true
+        },
+        {
+          "type": "remove_card",
+          "card": "09054",
+          "exile": true,
+          "non_story": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You stumble out of Dr. Maleson's lab as tarry smoke fill the room behind you.  The physicist sprays a fire extinguisher in one continuous stream until mechanical wreckage can finally be seen in the gaps of the foam.  \"This is a total disaster...\" he groans, running one hand through his hair, \"practically back to square one... how could it have gone wrong so quickly?\"  You console Dr. Maleson in the aftermath, wondering if his machine was always doomed to failure, if there simply were factors he couldn't have known.",
+      "steps": [
+        "dr_malesons_experiment_was_a_failure",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The explosion of power rocks the lab, shaking loose several pieces of the failing machine.  One electrical coil tips over into another, showering the room in sparks and starting a domino cascade of destruction.  The geometric creature draws in the fading power, its tentacles coiling out in search of other sources as it depletes.  The tendrils tighten around Dr. Maleson, closest nearby as he tries desperately to save his machine from destruction.  He yells in terror as it seizes him, and he claws at loose machinery to pull himself away.  Before you can act, Dr. Maleson's device finally fails and goes dead.  A hideous noise rips through the air as the dimensions normalize, and the alien being scatters apart, along with the physicist still in its grip.  His final wail lingers in your ears in the empty stillness of the lab.",
+      "steps": [
+        "dr_maleson_was_lost_between_dimensions",
+        "exile_maleson",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Like the small cubes scattered throughout the earlier landscapes, the geometric being's death is startlingly quiet as its facets dim and it collapses down.  Dr. Maleson approaches the corpse with a mix of apprehension and scientific curiosity.  \"Is it organic or mechanical?  Or both?  How extraordinary!\"  He finishes powering down his device, still glancing at the alien over his shoulder.  \"There.  That should keep the overlap stable for study.\"  He plucks up a severed fragment with building excitement and places it in a glass bell on a smaller technical device.  \"We'll need to see if the sample maintains its integrity over a long period of time.  Take it with you for now.  I already have scads of other material to work with for now!  This could be the start of something even bigger than I ever imagined!\"",
+      "steps": [
+        "gathered_samples_from_another_earth",
+        "earn_dimensional_inductor",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Dr. Maleson quickly rises to his feet and rushes to the control panels of the machine.  \"Look, look!  Even fully shut off, there's still residual power from the overlap -- or that bizarre thing, or both!\"  He grabs a stop watch from a nearby drawer and begins running it while he records on his scratch pad gleefully.  \"It's a possibility I didn't even consider until now!  An entirely new form of energy!  I knew this'd be bigger than Einstein, but bigger than Edison?  Oh, if only I'd known sooner!\"  He turns to you, looking half mad from joy.  \"I'll have to reinforce my machine of course, and prepare for any similar surprises, but this was a resounding success!\"  The physicist hands you a small gauge with the same odd energy running through it.  \"Now if you'd do me one last favor, I want you to take this with you.  The gauge is attuned to this energy, and will help you survey hotspots for future attempts!\"",
+      "steps": [
+        "observed_the_aftereffects_of_the_shift",
+        "earn_phase_reactance",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

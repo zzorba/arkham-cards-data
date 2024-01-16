@@ -1,0 +1,505 @@
+{
+  "id": "mysterious_benefits",
+  "scenario_name": "Mysterious Benefits",
+  "full_name": "Mysterious Benefits",
+  "header": "",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "card_discount": ["03198"],
+    "xp_cost": 1,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2022/02/01/arkham-incidents/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "gather_labranche",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "ask_labranche_xp",
+    "intro",
+    "gather_encounter_sets",
+    "gather_labranche",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "ask_labranche_xp",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Have Madame Labranche?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "bonus": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "\"My, I can't thank you enough for taking time to help me with my little problem.\"  You nod politely, but wonder just how urgent this business is as Madame Labranche pours you a cup of tea in her comfortable sitting room.  The elderly woman seats herself next to you, staring off in thought.  \"I suppose it all started with my late husband Charles Labranche, God rest him.  He led such an exciting life, you know, from fighting in the Civil War to sailing across the world.  Ah, but he had such a fondness for me.  When we were married, he promised that I'd always be provided for, and that's held true even thirty years after his passing.\"  You ask Madame Labranche if this business is about inheritance or some other oddity Charles left behind, but she shakes her head.\n\"You see, it's the strangest thing.  Whenever I've needed money for anything, I've always somehow had just the right amount around somewhere.  But lately, I've had too much!\"  You nod along, failing to see how this is a problem.  \"I didn't think much of it until just the other day, after I hadn't spent any money for some time.  I heard a clinking sound from the attic.  When I went up to see, there was an enormous pile of coins, with even more appearing out of thin air!  What's more, I saw figures lurking at the corners of the attic.  There's something bizarre up there.  Can you help to sort it out?\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "mysterious_benefits"
+      ]
+    },
+    {
+      "id": "gather_labranche",
+      "text": "If an investigator has a copy of Madame Labranche in his or her deck, that investigator sets one copy aside and adds it to his or her hand after drawing opening hands, as an additional card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Attic Landing and Locked Doorway locations into play. Randomly choose two of the Dusty Attic locations and put them into play.  Remove each other copy of Dusty Attic from the game.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Attic Landing."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: each [[Servitor]] enemy, each [[Extradimensional]] location, Daemonic Benefactor, Labranche Lamen, Invocation of Providence."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "text": "Act 1",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "locked_doorway",
+          "blank"
+        ],
+        [
+          "dusty_attic",
+          "blank",
+          "dusty_attic"
+        ],
+        [
+          "blank",
+          "attic_landing",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "locked_doorway",
+          "name": "Locked Doorway"
+        },
+        {
+          "code": "dusty_attic",
+          "name": "Dusty Attic"
+        },
+        {
+          "code": "attic_landing",
+          "name": "Attic Landing"
+        }
+      ]
+    },
+
+    {
+      "id": "location_layout_act_2",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "text": "Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "reinforced_room",
+          "blank",
+          "lavish_room"
+        ],
+        [
+          "blank",
+          "ensorcelled_hallway",
+          "blank"
+        ],
+        [
+          "armory",
+          "blank",
+          "storeroom"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "reinforced_room",
+          "name": "Reinforced Room"
+        },
+        {
+          "code": "lavish_room",
+          "name": "Lavish Room"
+        },
+        {
+          "code": "ensorcelled_hallway",
+          "name": "Ensorcelled Hallway"
+        },
+        {
+          "code": "armory",
+          "name": "Armory"
+        },
+        {
+          "code": "storeroom",
+          "name": "Storeroom"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_labranche_lamen",
+      "text": "Any one investigator may choose to add Labranche Lamen to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00401"
+        }
+      ]
+    },
+    {
+      "id": "earn_invocation",
+      "text": "Any one investigator may choose to add Invocation of Providence to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00402"
+        }
+      ]
+    },
+    {
+      "id": "madame_labranche_has_lost_her_fortune",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "madame_labranche_has_lost_her_fortune",
+          "text": "Madame Labranche has lost her fortune."
+        }
+      ]
+    },
+    {
+      "id": "madame_labranche_has_settled_accounts",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "madame_labranche_has_settled_accounts",
+          "text": "Madame Labranche has settled accounts."
+        }
+      ]
+    },
+    {
+      "id": "banished_shax",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "banished_shax",
+          "text": "the investigators banished Shax."
+        }
+      ]
+    },
+    {
+      "id": "renewed_the_labranches_pact",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "renewed_the_labranches_pact",
+          "text": "the investigators renewed the Labranches' pact."
+        }
+      ]
+    },
+    {
+      "id": "exile_labranche",
+      "text": "Remove each copy of Madame Labranche from each investigator's deck (replacing each copy with any valid level 0 card).  If you are playing in campaign mode, investigators cannot include Tetsuo Mori in their decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03198",
+          "exile": true,
+          "non_story": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You stumble down the attic stairs, trying to keep Madame Labranche from doing the same.  Before anything can follow, you lift the folding stairs back up, slamming the attic shut.  The elderly woman pats her chest reassuringly as her heart slows, overwhelmed by the event.  You're not sure what to tell her, but accepting the mysterious wealth is definitely not in her best interests.  She looks to you with a resigned expression, already knowing your thoughts.  \"I suppose I'll have to be a bit more frugal, shouldn't I?\"",
+      "steps": [
+        "madame_labranche_has_lost_her_fortune",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The fiery horses commanded by the demon erupt from every corner, each ridden by another horrid creature.  You brace for the worst, but Madame Labranche stands before the entity.  \"You only require one soul for this payment?\" she asks plainly.  You can't lodge any protest before the demon replies with a curt nod.  The old woman nods back and turns to you with a fatigued smile as the dark spirit raises its hand.  \"Do take care of yourself, dear.\"\nA tremendous force of magic blows you backward, sending you hurtling back through the attic and down the short staircase into Madame Labranche's home.  You scramble back up the staircase to find the attic quiet, with no sign of the otherworldly threats or the Labranche fortune.  At the far end of the attic, there is only bare wall, with no sign of a door having ever stood there.",
+      "steps": [
+        "madame_labranche_has_settled_accounts",
+        "exile_labranche",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You combat the daemon fiercely as it rides throughout the realm beyond the door, clashing as if jousting with the spirit.  At last, your attacks strike true, and it slumps down atop its steed with a ragged gasp.  \"Blind thee for this insult...\"  Its eyes snap to Madame Labranche and it points an accusatory finger.  \"I, Shax, Great Marquis of Hell, dissolve this pact!  Lament this day, for never again shall riches be thine!\"  Flames burst violently from the demon and its horses, leaving nothing behind but acrid smoke.  You expected some grand destruction, but a faint glow and glint of metal from the corridor catches your eye.  A gold amulet, inscribed with a now-familiar design, floats suspended in air.  \"Why that's Charles' medallion!\"  Madame Labranche exclaims with a reminiscing tone, \"He always did claim it protected him from evil.  Would you do me the honor of keeping it for me?  It's the very least I can offer you.\"",
+      "steps": [
+        "banished_shax",
+        "earn_labranche_lamen",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The demon steps stoically into the drawn triangle, looking to you expectantly.  You demand a full explanation, and it nods, its voice now smoother than before.  \"Charles Labranche did bargain for wealth to sustain his dear wife after his passing.\"  Madame Labranche places a hand on her cheek with a flattered smile, but Shax continues.  \"In accordance to the ceremonial magic, wealth was drawn in certain amounts... which became unclear as the writing faded.\"  You see now that the demon took advantage of this and attempted to claim a soul for granting more than agreed.  Following the terminology you've figured out, you command the demon to repair the inscriptions, and make an allowance to Madame Labranche for this trouble.  The spirit sullenly complies before vanishing with a flash of fire.",
+      "steps": [
+        "renewed_the_labranches_pact",
+        "earn_invocation",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
