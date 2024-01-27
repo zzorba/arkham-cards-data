@@ -305,6 +305,22 @@ async function validateChaosTokens() {
   });
 }
 
+function loadCoreSteps(file, magicSteps) {
+  const parts = file.split('/');
+  const coreFile = parts.slice(0, parts.length - 1).join('/') + '/core.json';
+  if (fs.existsSync(coreFile)) {
+    const coreData = fs.readFileSync(coreFile, 'utf-8').toString();
+    try {
+      const coreJson = jsonlint.parse(coreData);
+      coreJson.setup.forEach((step) => {
+        magicSteps[step] = true;
+      });
+    } catch (e) {
+      console.log(`JSON Error(${coreFile})\n${e.message || e}\n\n`);
+    }
+  }
+}
+
 async function validateScenarios() {
   console.log('****Validating Scenarios****');
   const files = [
@@ -346,19 +362,7 @@ async function validateScenarios() {
                 ...FIXED_MAGIC_STEPS,
               };
               if (!file.endsWith('/core.json')) {
-                const parts = file.split('/');
-                const coreFile = parts.slice(0, parts.length - 1).join('/') + '/core.json';
-                if (fs.existsSync(coreFile)) {
-                  const coreData = fs.readFileSync(coreFile, 'utf-8').toString();
-                  try {
-                    const coreJson = jsonlint.parse(coreData);
-                    coreJson.setup.forEach((step) => {
-                      magicSteps[step] = true;
-                    });
-                  } catch (e) {
-                    console.log(`JSON Error(${coreFile})\n${e.message || e}\n\n`);
-                  }
-                }
+                loadCoreSteps(file, magicSteps);
               }
               validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario", magicSteps);
             } catch (e) {
@@ -407,9 +411,11 @@ async function validateCampaigns() {
           if (!QUIET) {
             console.log("Validating: " + file);
           }
+          const magicSteps = {};
+          loadCoreSteps(file, magicSteps);
           try {
             const json = jsonlint.parse(data);
-            validate(validator, file, json, "schema/campaign.schema.json#/definitions/campaign");
+            validate(validator, file, json, "schema/campaign.schema.json#/definitions/campaign", magicSteps);
           } catch (e) {
             console.log(`JSON Error(${file})\n${e.message || e}\n\n`);
           }
