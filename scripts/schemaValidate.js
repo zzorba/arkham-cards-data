@@ -199,8 +199,9 @@ function validate(validator, file, json, schemaName, magicSteps) {
           }
         });
       }
-      if (step.condition && (step.condition.options || step.condition.default_option)) {
+      if (step.condition && (step.condition.options || step.condition.option || step.condition.default_option)) {
         const allOptions = [
+          ...(step.condition.option ? [step.condition.option] : []),
           ...(step.condition.options ? step.condition.options : []),
           ...(step.condition.default_option ? [step.condition.default_option] : []),
         ];
