@@ -313,6 +313,12 @@ function loadCoreSteps(file, magicSteps) {
     const coreData = fs.readFileSync(coreFile, 'utf-8').toString();
     try {
       const coreJson = jsonlint.parse(coreData);
+      if (coreJson.id !== 'core') {
+        throw new Error('Invalid core.json: ' + file);
+      }
+      if (coreJson.original_id) {
+        throw new Error('Invalid core.json for original_id: ' + file);
+      }
       coreJson.setup.forEach((step) => {
         magicSteps[step] = true;
       });
