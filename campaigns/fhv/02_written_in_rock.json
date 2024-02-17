@@ -1,0 +1,1563 @@
+{
+  "id": "written_in_rock",
+  "scenario_name": "Written in Rock",
+  "full_name": "Scenario: Written in Rock",
+  "header": "Scenario",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "$gather_day_encounter_set",
+    "setup_locations",
+    "location_layout",
+    "setup_written_in_rock",
+    "setup_scrap",
+    "check_day_residents",
+    "check_day_beast",
+    "scenario_reference",
+    "crystal_parasite",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "The Rail Line and Adjacency in Act 2",
+      "steps": ["rail_line_and_adjacency_rule"]
+    },
+    {
+      "title": "Sliding and Swapping Locations",
+      "steps": ["sliding_and_swapping_locations_rule"]
+    },
+    {
+      "title": "The Mine Cart and Switches",
+      "steps": ["the_mine_cart_and_switches_rule"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "$choose_investigators",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$actually_choose_investigators"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "scenario_data",
+                "setting": "scenario_status",
+                "status": "started"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The path to North Point Mine runs through a narrow ravine in the heart of Pearl Ridge. With little to go on, you asked around the Vale for more information about the mine, but all you could gather were several conflicting accounts. People have gone missing in the mines recently, although the mining operation is purportedly shut down. The lichens and moss are supposedly nutritious, but some are lethal? Nobody explained why the mine shut down in the first place, either.\nThe path ends at the mouth of a yawning cave. Following an old rail track in, you find heaps of abandoned equipment overgrown with bright yellow fungi. The fungus looks far from edible, and emits a putrescent stench. Eventually, the tunnel opens into a massive cavern filled with luminescent mushrooms and towering crystal formations. The ground shifts with a slight tremor, followed by an echoing cry from deeper in the mine. Steeling yourself, you trek deeper into the cave. At the very least, Dr. Marquez will want samples of the strange overgrowth on the rusted equipment."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "written_in_rock",
+        "horrors_in_the_rock",
+        "refractions",
+        "chilling_cold",
+        "ghouls"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Gather the 6 [[Cave]] locations and randomly remove 2 of them from the game. Place the rest as shown in the Location Placement diagram below."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 1",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "cavern",
+          "cavern",
+          "cavern",
+          "cavern",
+          "central_station"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "cavern",
+          "name": "Cavern"
+        },
+        {
+          "code": "central_station",
+          "name": "Central Station"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "1",
+          "x": 0,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "2",
+          "x": 1,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "Column\n3",
+          "x": 2,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "4",
+          "x": 3,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "5",
+          "x": 4,
+          "y": 0,
+          "position": "top"
+        }
+      ]
+    },
+    {
+      "id": "setup_written_in_rock",
+      "text": "Gather each location from the <i>Written in Rock</i> encounter set. Put the Control Station location into play as shown. Set the remaining 15 [[Rail]] locations aside, out of play."
+    },
+    {
+      "id": "setup_scrap",
+      "text": "Place 1 resource on each location, as a scrap. <i>(Hint: The scraps collected during Act 1 will help investigators during Act 2)</i>.",
+      "bullets": [
+        {
+          "text": "Investigators begin play at the leftmost location."
+        }
+      ]
+    },
+    {
+      "id": "check_day_residents",
+      "text": "If it is <b>Day [day]</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 },{ "numCondition": 3 },{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_residents", "check_residents_river", "check_residents_simeon", "check_residents_leah", "remove_other_residents"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_residents",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "text": "Gather each story asset from the <i>Residents</i> encounter set.",
+      "encounter_sets": [
+        "residents"
+      ]
+    },
+    {
+      "id": "check_residents_river",
+      "type": "branch",
+      "text": "If it is <b>Day 1</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_river"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_5",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_river",
+      "bullet_type": "small",
+      "text": "Place River Hawthorne at the location in column 3."
+    },
+    {
+      "id": "check_residents_simeon",
+      "type": "branch",
+      "text": "If it is <b>Day 1</b> or <b>Day 2</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 }, { "numCondition": 3 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_simeon"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_3",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_simeon",
+      "bullet_type": "small",
+      "text": "Set Simeon Atwood aside, out of play."
+    },
+    {
+      "id": "check_residents_leah",
+      "type": "branch",
+      "text": "If it is <b>Day 3</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_leah"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_2",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_leah",
+      "bullet_type": "small",
+      "text": "Set Leah Atwood aside, out of play."
+    },
+    {
+      "id": "remove_other_residents",
+      "text": "Remove the rest of the <i>Residents</i> encounter set from the game."
+    },
+    {
+      "id": "check_day_beast",
+      "text": "If it is <b>Day [day]</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 },{ "numCondition": 3 },{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_beast"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_beast",
+      "bullet_type": "small",
+      "text": "Remove the Subterranean Beast enemy from the game."
+    },
+    {
+      "id": "scenario_reference",
+      "text": "Put the scenario reference card into play on its Act 1 side."
+    },
+    {
+      "id": "crystal_parasite",
+      "text": "Set both copies of the Crystal Parasite enemy and each other card from the <i>Written in Rock</i> encounter set aside, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "cave_in",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "the_cave_in",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "The Cave-In",
+            "style": "interlude",
+            "steps": [
+              "cave_in_1",
+              "check_day_cave_in",
+              "cave_in_4",
+              "setup_rail_location",
+              "act_2_location_layout",
+              "add_switch",
+              "place_mine_cart",
+              "check_night_beast",
+              "shuffle_remaining_cards",
+              "resume_play",
+              "rail_line_and_adjacency_rule",
+              "sliding_and_swapping_locations_rule",
+              "the_mine_cart_and_switches_rule"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "the_cave_in",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": ["codex"]
+          },
+          {
+            "id": "defeat",
+            "icon": "residents",
+            "text": "Defeated resident asset",
+            "repeatable": true,
+            "steps": ["$defeat_resident"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cave_in_1",
+      "title": "Scenario Interlude: The Cave-In",
+      "type": "story",
+      "text": "As the rumbling subsides, you look back at the collapsed tunnel. There is no way back. With no other recourse, you follow the old rail line into the darkness. After some time, you come upon a brightly lit shed next to an old mine cart on the nearby tracks."
+    },
+    {
+      "id": "check_day_cave_in",
+      "text": "Check your Campaign Log. If it is (<b>Day [day]</b>):",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 },{ "numCondition": 3 },{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cave_in_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["cave_in_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cave_in_2",
+      "type": "story",
+      "text": "The shed is a former rail control station repurposed as a clubhouse. Hand-drawn maps and charts cover the walls and ceiling; they appear to be a young person’s handwriting. If someone was here recently, they may currently be trapped in the mine along with you."
+    },
+    {
+      "id": "cave_in_3",
+      "type": "story",
+      "text": "A sharp trill echoes through the cavern, followed by a noisome clicking. Down a connecting tunnel, a stygian maw nested in writhing appendages advances. Your heart nearly stops as the monstrosity lets out another shrill staccato and charges toward you."
+    },
+    {
+      "id": "cave_in_4",
+      "type": "story",
+      "text": "With the entrance collapsed, the only way out of the mine is through. You push the mine cart forward with every ounce of your strength and jump in, hoping the rusted tracks hold up."
+    },
+    {
+      "id": "setup_rail_location",
+      "text": "Gather all 15 set-aside [[Rail]] locations.",
+      "bullets": [
+        {
+          "text": "Place the Rail Exit and the 7 depicted Rail Tunnel locations as shown in the Location Placement diagram."
+        },
+        {
+          "text": "Shuffle the remaining [[Rail]] locations and place 1 in each space marked with a “?” on the Location Placement diagram."
+        },
+        {
+          "text": "Note: these locations are placed below the Act 1 locations, which are shown in the diagram for clarity."
+        }
+      ]
+    },
+    {
+      "id": "act_2_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "cavern",
+          "cavern",
+          "cavern",
+          "cavern",
+          "central_station_RAIL_NE"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "rail_exit_RAIL_S"
+        ],
+        [
+          "blank",
+          "blank",
+          "question",
+          "rail_tunnel_RAIL_ESW",
+          "question",
+          "rail_tunnel_RAIL_ES",
+          "empty_space"
+        ],
+        [
+          "blank",
+          "blank",
+          "question",
+          "empty_space",
+          "rail_tunnel_RAIL_NESW",
+          "empty_space",
+          "rail_tunnel_RAIL_NS"
+        ],
+        [
+          "blank",
+          "blank",
+          "question",
+          "rail_tunnel_RAIL_NESW",
+          "empty_space",
+          "rail_tunnel_RAIL_EW",
+          "question"
+        ],
+        [
+          "blank",
+          "blank",
+          "control_station_RAIL_NE",
+          "question",
+          "empty_space",
+          "question",
+          "rail_tunnel_RAIL_NW"
+        ]
+      ],
+      "arrows": [
+        {
+          "type": "long_single",
+          "x": 1.3,
+          "y": 5.4,
+          "color": "red",
+          "size": 0.35,
+          "width": 3,
+          "opacity": 0.8
+        }
+      ],
+      "location_names": [
+        {
+          "code": "mine_cart",
+          "name": "Mine Cart"
+        },
+        {
+          "code": "cavern",
+          "name": "Cavern"
+        },
+        {
+          "code": "central_station",
+          "name": "Central Station"
+        },
+        {
+          "code": "question",
+          "name": "Rail Tunnel",
+          "random": true
+        },
+        {
+          "code": "rail_tunnel",
+          "name": "Rail Tunnel"
+        },
+        {
+          "code": "rail_tunnel",
+          "name": "Rail Tunnel"
+        },
+        {
+          "code": "rail_exit",
+          "name": "Rail Exit"
+        },
+        {
+          "code": "control_station",
+          "name": "Control Station"
+        },
+        {
+          "code": "empty_space",
+          "name": "Empty Space",
+          "placeholder": true
+        }
+      ],
+      "cards": [
+        {
+          "code": "mine_cart_RAIL_E",
+          "x": 1.25,
+          "y": 4.8
+        }
+      ],
+      "annotations": [
+        {
+          "text": "In this example, the Mine Cart is facing the adjacent location next to the Control Station. When it moves via its forced effect, it will move into that location if the rail icons are aligned. If the icons are not aligned, the Mine Cart moves off the tracks and each investigator is defeated!",
+          "x": 2,
+          "y": 3,
+          "height": 2,
+          "width": 3,
+          "position": "left",
+          "style": "description"
+        },
+        {
+          "text": "1",
+          "x": 2,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "2",
+          "x": 3,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "Column\n3",
+          "x": 4,
+          "y": 0,
+          "position": "top"
+        },
+        {
+          "text": "4",
+          "x": 4,
+          "y": 5,
+          "position": "top"
+        },
+        {
+          "text": "5",
+          "x": 6,
+          "y": 0,
+          "position": "top"
+        }
+      ]
+    },
+    {
+      "id": "add_switch",
+      "text": "Place 1 resource on the scenario reference card, as a switch."
+    },
+    {
+      "id": "place_mine_cart",
+      "text": "Place the set-aside Mine Cart asset at the Control Station and choose which direction it is facing <i>(see </i><b>Sliding and Swapping Locations</b> <i>and</i> <b>The Mine Cart</b> <i>below).</i>",
+      "bullets": [
+        {
+          "text": "Place each investigator mini-card in the Mine Cart."
+        },
+        {
+          "text": "If either Simeon Atwood or Leah Atwood are set aside, place them at the topmost location in column 2."
+        },
+        {
+          "text": "Place the set-aside Prismatic Shard asset at the bottom location in column 4."
+        }
+      ]
+    },
+    {
+      "id": "check_night_beast",
+      "text": "If it is <b>Night [night]</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 2 },{ "numCondition": 4 },{ "numCondition": 6 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_beast"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_beast",
+      "bullet_type": "small",
+      "text": "Place the set-aside Subterranean Beast enemy at the Control Station, exhausted."
+    },
+    {
+      "id": "shuffle_remaining_cards",
+      "text": "Shuffle the remaining set-aside <i>Written in Rock</i> encounter cards and the encounter discard pile into the encounter deck."
+    },
+    {
+      "id": "resume_play",
+      "text": "Resume playing."
+    },
+    {
+      "id": "rail_line_and_adjacency_rule",
+      "type": "rule_reminder",
+      "title": "The Rail Line and Adjacency in Act 2",
+      "text": "Each [[Rail]] location has 1 or more rail icons printed on it. These rail icons represent the track the Mine Cart moves along.",
+      "bullets": [
+        {
+          "text": "When a rail icon on one location faces a rail icon on an adjacent location, the rail icons are <b>aligned</b>."
+        },
+        {
+          "text": "Adjacent locations with aligned rail icons are connected to each other and form a rail line. Adjacent locations without aligned rail icons are not connected to each other."
+        }
+      ]
+    },
+    {
+      "id": "sliding_and_swapping_locations_rule",
+      "type": "rule_reminder",
+      "title": "Sliding and Swapping Locations",
+      "text": "Sliding and swapping locations allow the investigators to create a path to the Rail Exit by aligning the rail line.\nTo slide a location, choose a location with an empty space adjacent to it. Move that location (and all cards at that location) into that empty space.\nTo swap 2 locations, simultaneously move each of those locations (and all cards at them) to the space the other one was occupying.",
+      "bullets": [
+        {
+          "text": "<b>Locations with story assets cannot be slid or swapped.</b>"
+        }
+      ]
+    },
+    {
+      "id": "the_mine_cart_and_switches_rule",
+      "type": "rule_reminder",
+      "title": "The Mine Cart and Switches",
+      "text": "Each investigator’s mini-card is placed overlapping the Mine Cart.",
+      "bullets": [
+        {
+          "text": "An investigator in the Mine Cart is also at its location. Investigators cannot move independently of the Mine Cart. When the Mine Cart moves, each investigator moves with it."
+        },
+        {
+          "text": "The Mine Cart story asset has a rail icon on its right side that indicates the direction it is facing. The Mine Cart’s rail icon must always face the same direction as one of its location’s rail icons."
+        },
+        {
+          "text": "When moving the Mine Cart, it can only move along a rail line to a connecting location."
+        },
+        {
+          "text": "When the Mine Cart enters a location, the investigators may turn it 90 degrees in either direction to face the same direction as a rail icon on that location."
+        },
+        {
+          "text": "The Mine Cart can only move in the direction its rail icon is facing. If the location it moves into does not form a complete rail line <i>(they are not aligned)</i>, the Mine Cart moves off the rail line."
+        }
+      ]
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_2",
+            "text": "2",
+            "description": "Codex 2: Leah Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "written_in_rock_codex_2",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_codex_2"]
+          },
+          {
+            "id": "codex_3",
+            "text": "3",
+            "description": "Codex 3: Simeon Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "written_in_rock_codex_3",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_codex_3"]
+          },
+          {
+            "id": "codex_5",
+            "text": "5",
+            "description": "Codex 5: River Hawthorne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "written_in_rock_codex_5",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_5_story", "codex_5_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_5",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_theta",
+            "text": "Θ",
+            "description": "Codex Θ: Dr. Rosa Marquez",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "written_in_rock_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["maybe_ask_act_codex_theta"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_codex_2",
+      "type": "branch",
+      "bullet_type": "none",
+      "text": "<b>If Leah Atwood is not under the control of an investigator:</b>",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "written_in_rock_have_leah",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["take_leah_story", "take_leah_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_have_leah",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["leah_switch_story", "leah_switch_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_2",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "take_leah_story",
+      "type": "story",
+      "text": "You find Leah staring down at a pool of milky, glowing liquid. She brushes tears from her eyes as you approach, and resists when you ask her to leave. “This is where I want to be,” she says. You describe the cave-in at the entrance, and the present danger. “None of it matters,” she says stonily, but eventually relents. As you lead her to the cart, you turn and see a round, humanoid shape outlined against the incandescent pool. It flits quickly behind a rock."
+    },
+    {
+      "id": "take_leah_effects",
+      "text": "Choose an investigator to take control of Leah Atwood. An investigator may trigger this codex again."
+    },
+    {
+      "id": "leah_switch_story",
+      "type": "story",
+      "text": "Leah breaks her silence to grab the cart’s broken lever. “Not left! Right!” The cart wobbles on the tracks, then rights itself. You share a look of relief with the Vale cook as the cart careens forward."
+    },
+    {
+      "id": "leah_switch_effects",
+      "text": "Place 1 resource on the scenario reference card, as a switch."
+    },
+    {
+      "id": "check_codex_3",
+      "type": "branch",
+      "bullet_type": "none",
+      "text": "<b>If Simeon Atwood is not under the control of an investigator:</b>",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "written_in_rock_have_simeon",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["take_simeon_story", "take_simeon_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_have_simeon",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["simeon_switch_story", "simeon_switch_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_codex_3",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "take_simeon_story",
+      "type": "story",
+      "text": "As the mine cart judders over a rickety bridge, you notice a small figure dangling from the edge of a precipice. Acting on instinct, you lean down the lip of the mine cart and catch the figure by the forearm as you hurtle past. As you pull him into the cart, you recognize him as Simeon, chief mischief-maker of the Vale. He brushes himself off, cheeks white as paper. “I was looking for my stash. All part of the p—” he wheezes, then gives up. “Thanks for saving me. I don’t know what I would’ve done without you.”"
+    },
+    {
+      "id": "take_simeon_effects",
+      "text": "Choose an investigator to take control of Simeon Atwood. An investigator may trigger this codex again."
+    },
+    {
+      "id": "simeon_switch_story",
+      "type": "story",
+      "text": "“No, no, don’t do it like that.” Simeon pulls the lever on the cart. “How are you still alive? I’m surprised you even found me.” He hits a switch at the side of the tunnel and grins rakishly. “That’s how it’s done.”"
+    },
+    {
+      "id": "simeon_switch_effects",
+      "text": "Place 2 resources on the scenario reference card, as switches."
+    },
+    {
+      "id": "codex_5_story",
+      "type": "story",
+      "text": "“Fancy seeing you here,” River stands as you approach. They hold a woven basket filled to the brim with phosphorescent mushrooms and blood-red lichens. “I have quite the discerning palate, let me tell you. Eugénie Brazier herself said that I was the most demanding patron to grace her table. These are exquisite,” they inhale from their basket luxuriously, then gesture at the grim tunnel. “The things we do for love.” You offer to help them forage; after all, Dr. Marquez will want samples of the unusual growths."
+    },
+    {
+      "id": "codex_5_effects",
+      "text": "Take control of River Hawthorne. If investigators end the scenario with both River Hawthorne and at least 2[per_investigator] clues under their control, remember that “you helped River.”"
+    },
+    {
+      "id": "maybe_ask_act_codex_theta",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "written_in_rock_asked_act",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["is_act_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_act"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "written_in_rock_asked_act",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_act",
+      "text": "What Act is it?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["codex_theta_act_1_story", "codex_theta_act_1_effects"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["codex_theta_act_2_story", "codex_theta_act_2_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_theta_act_1_story",
+      "type": "story",
+      "text": "“I wonder where Simeon is. Leah seemed so worried last night,” Dr. Marquez says distractedly as she holds up a sample of a white and blue crystal. “These formations aren’t natural. I’m no geologist, but the formation is...warped. Some of these lack basic symmetry.”"
+    },
+    {
+      "id": "codex_theta_act_1_effects",
+      "text": "Place 1 resource on the scenario reference card, as a scrap. An investigator may trigger this codex again during a different act."
+    },
+    {
+      "id": "is_act_2",
+      "text": "<b>If it is Act 2</b>:",
+      "bullet_type": "none",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "always_true",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["codex_theta_act_2_story", "codex_theta_act_2_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_theta_act_2_story",
+      "type": "story",
+      "text": "“I’m getting too old for this!” Dr. Marquez bellows as she holds onto her hat. Rotting beams whiz by overhead as the mine cart careens forward. The professor hits a nearby switch with her cane as you zoom through the darkness. Somewhere deeper in the mine, something moves."
+    },
+    {
+      "id": "codex_theta_act_2_effects",
+      "text": "Swap 2 adjacent locations.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "written_in_rock_codex_theta",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "check_no_resolution_day",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "day",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["no_resolution_day_1_or_2", "resolution_3"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["no_resolution_night", "cross_out_simeon", "resolution_6"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["no_resolution_day_1_or_2", "resolution_3"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["no_resolution_night", "cross_out_simeon", "resolution_6"]
+          },
+          {
+            "numCondition": 5,
+            "steps": ["no_resolution_day_3", "resolution_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_resolution_day_1_or_2",
+      "text": "Check your Campaign Log. Because it is <b>Day 1</b> or <b>Day 2</b>:"
+    },
+    {
+      "id": "no_resolution_night",
+      "text": "Check your Campaign Log. Because it is <b>Night 1</b> or <b>Night 2</b>:"
+    },
+    {
+      "id": "cross_out_simeon",
+      "text": "Cross out Simeon Atwood’s name.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "simeon_plan_is_underway",
+          "text": "dummy",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "no_resolution_day_3",
+      "text": "Check your Campaign Log. Because it is <b>Day 3</b>:"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "resolution_6",
+      "type": "resolution",
+      "resolution": "R6"
+    },
+    {
+      "id": "simeon_survived",
+      "text": "Update your Campaign Log.",
+      "bullets": [
+        {
+          "text": "In Simeon Atwood’s Notes, record <i>Simeon survived</i>."
+        },
+        {
+          "text": "Increase Simeon Atwood’s Relationship Level by 2. Each investigator earns 2 bonus experience."
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "simeon_survived",
+          "text": "Simeon survived."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "simeon",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 2
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "leah_saw_something",
+      "text": "Update your Campaign Log.",
+      "bullets": [
+        {
+          "text": "In Leah Atwood’s Notes, record <i>Leah saw something in the mine</i>."
+        },
+        {
+          "text": "Increase Leah Atwood’s Relationship Level. Each investigator earns 2 bonus experience."
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_saw_something_in_the_mine",
+          "text": "Leah saw something in the mine."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "leah",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "simeon_disappeared",
+      "text": "Update your Campaign Log.",
+      "bullets": [
+        {
+          "text": "In Simeon Atwood’s Notes, record <i>Simeon disappeared</i>."
+        },
+        {
+          "text": "Cross out Simeon Atwood’s name."
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "simeon_disappeared",
+          "text": "Simeon disappeared."
+        },
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "simeon_plan_is_underway",
+          "text": "dummy",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "leah_and_simeon_reunited",
+      "text": "Update your Campaign Log.",
+      "bullets": [
+        {
+          "text": "In Leah Atwood’s Notes, record <i>Leah and Simeon were reunited</i>."
+        },
+        {
+          "text": "Cross out Leah Atwood’s name."
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_and_simeon_were_reunited",
+          "text": "Leah and Simeon were reunited."
+        },
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "survived_the_horrors_in_the_rock",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "survived_the_horrors_in_the_rock",
+          "text": "the investigators survived the horrors in the rock."
+        }
+      ]
+    },
+    {
+      "id": "check_helped_river",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "written_in_rock_codex_5",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_control_river"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["failed_to_encounter_river"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "failed_to_encounter_river",
+      "text": "Update your Campaign Log. If “you helped River”:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "written_in_rock_codex_5",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_control_river",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the scenario end with River Hawthorne under an investigator's control?",
+            "steps": ["ask_has_help_river_clues", "check_helped_river_clues"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_has_help_river_clues",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators control at least 2[per_investigator] clues at the end of the scenario?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wir_helped_river",
+                "text": "dummy"
+              }
+            ],
+            "steps": ["helped_river_reminder"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helped_river_reminder",
+      "bullet_type": "small",
+      "text": "Remember that “you helped River.”"
+    },
+    {
+      "id": "check_helped_river_clues",
+      "text": "Update your Campaign Log. If “you helped River”:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "wir_helped_river",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["helped_river_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["decrease_river_relationship", "maybe_decrease_river_relationship"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helped_river_effects",
+      "bullet_type": "small",
+      "text": "Increase River Hawthorne’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "decrease_river_relationship",
+      "bullet_type": "small",
+      "text": "Decrease River Hawthorne’s Relationship Level."
+    },
+    {
+      "id": "maybe_decrease_river_relationship",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 0,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "river",
+                "id": "$relationship",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          },
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "campaign_log_count",
+                "section": "river",
+                "id": "$relationship",
+                "operation": "add",
+                "value": -1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. <b>Each investigator may now spend the experience recorded under “Unspent Experience” in your Campaign Log.</b>",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_xp",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "update_areas_surveyed",
+      "text": "In the “Areas Surveyed” section of your Campaign Log, check off <i>North Point Mine</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "areas_surveyed",
+          "id": "north_point_mine",
+          "text": "North Point Mine"
+        }
+      ]
+    },
+    {
+      "id": "ask_prismatic_shard",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Prismatic Shard story asset was under the control of an investigator when the scenario ended?",
+            "steps": ["earn_prismastic_shard"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_prismastic_shard",
+      "bullet_type": "small",
+      "text": "Choose an investigator to add Prismatic Shard to their deck. It does not count toward their deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "card": "10522",
+          "investigator": "any"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "The last thing you remember before you are knocked unconscious is the cart careening into a canyon of light. Your head pounds as you awaken surrounded by glowing blue fungus and extravegant crystal formations. There is a path up the rock, but it will take hours to trek back even to the beginning of the rail tunnels. You sigh, exhausted, and wade through the underground river.",
+      "steps": [
+        "check_no_resolution_day"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Simeon steps out of the mine cart looking dazed. “What a ride!” he shouts, troublingly unfazed. “No matter what, you are definitely going in the Miner’s Secret Order of Mischief ’s Hall of Fame! You’re in good company with George Washington Carver and my mom.” He nearly trips as the rail line slopes upward, toward the brilliant sky. You help him to his feet and lead him outside, into the clear fresh air.",
+      "steps": [
+        "simeon_survived",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Leah grips the side of the cart as you disembark. She bites her lip as she holds back tears, unseeing. As you lead her back up the tunnel, the sound of soft weeping echoes off the stone walls. As you emerge outside into the clean, fresh air, you work up the courage to ask Leah what she saw.\n“He’s gone. Simeon’s gone,” she replies.",
+      "steps": [
+        "leah_saw_something",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You could swear you hear Simeon Atwood’s voice calling through the empty tunnels as you disembark. Unable to shake the sound, you double back through the tunnels in hopes of finding the young man. You eventually come to a shining abyss filled with crystals. A dark humanoid shape sits hunched over the carcass of a small animal. It skitters into the dark when you call. You shout Simeon’s name until your voice is hoarse, then retrace your steps to the exit with an awful lump in your throat.",
+      "steps": [
+        "simeon_disappeared",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You could swear you hear Leah Atwood’s voice calling through the empty tunnels as you disembark. Unable to shake the sound, you double back through the tunnels in hopes of finding the Vale cook. You eventually come to a shining abyss filled with crystals. A dark humanoid shape sits hunched over Leah’s body at the bottom. It skitters into the dark when you call. You take one last look at Leah’s lifeless body, then retrace your steps to the exit with an awful lump in your throat.",
+      "steps": [
+        "leah_and_simeon_reunited",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "You hear a familiar chittering staccato as you disembark, followed by a scent of rot. More howls and shouts echo through the twisted cavern, prompting you to run to the exit. Once you emerge into the clear night air, you turn back and wonder what other terrors are written in rock beneath the island.",
+      "steps": [
+        "survived_the_horrors_in_the_rock",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Resolution 6",
+      "hidden": true,
+      "text": "“Miskatonic Survey, June 1926. Members Marquez, Musgrave, et alii. We were lucky to escape from North Point Mine with our lives. Extreme instability and seismic tremors. Findings include asymmetrical crystal formations, rodents of unusual size, and an unusually aggressive insect population.”",
+      "steps": [
+        "ask_prismatic_shard",
+        "check_helped_river",
+        "earn_xp",
+        "transfer_xp",
+        "$upgrade_decks",
+        "update_areas_surveyed",
+        "$find_next_scenario",
+        "$advance_time"
+      ]
+    }
+  ]
+}
