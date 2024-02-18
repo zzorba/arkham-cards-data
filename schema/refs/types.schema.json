@@ -7,6 +7,23 @@
       "type": "string",
       "enum": ["setup", "resolution", "interlude"]
     },
+    "campaignRule": {
+      "title": "CampaignRule",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["title", "steps"],
+      "additionalProperties": false
+    },
     "image": {
       "title": "Image",
       "type": "object",
@@ -250,6 +267,23 @@
       "required": ["id", "name"],
       "additionalProperties": false
     },
+    "checklistItem": {
+      "title": "ChecklistItem",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name"],
+      "additionalProperties": false
+    },
     "partner": {
       "title": "Partner",
       "type": "object",
@@ -371,6 +405,97 @@
       "required": ["id", "name", "lang"],
       "additionalProperties": false
     },
+    "locationSetupCard": {
+      "title": "LocationSetupCard",
+      "type": "object",
+      "properties": {
+        "rotate": {
+          "type": "string",
+          "enum": ["left", "right", "invert"]
+        },
+        "code": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": ["code", "x", "y"],
+      "additionalProperties": false
+    },
+    "locationDecoration": {
+      "title": "LocationDecoration",
+      "type": "object",
+      "properties": {
+        "layer": {
+          "type": "string",
+          "enum": ["top", "bottom"]
+        },
+        "type": {
+          "type": "string",
+          "enum": ["line", "circle"]
+        },
+        "start_x": {
+          "type": "number"
+        },
+        "start_y": {
+          "type": "number"
+        },
+        "end_x": {
+          "type": "number"
+        },
+        "end_y": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["blue"]
+        }
+      },
+      "required": ["layer", "type", "start_x", "start_y", "end_x", "end_y"],
+      "additionalProperties": false
+    },
+    "locationArrow": {
+      "title": "LocationArrow",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["short", "long", "swoop", "swoop_right", "long_single"]
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string",
+          "enum": ["red"]
+        },
+        "size": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "opacity": {
+          "type": "number"
+        },
+        "rotation": {
+          "type": "string",
+          "enum": ["90deg", "180deg", "270deg"]
+        }
+      },
+      "required": ["type", "x", "y", "color"],
+      "additionalProperties": false
+    },
     "locationAnnotation": {
       "title": "LocationAnnotation",
       "type": "object",
@@ -384,9 +509,23 @@
         "y": {
           "type": "number"
         },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["title", "description"]
+        },
+        "alignment": {
+          "type": "string",
+          "enum": ["left", "right", "center"]
+        },
         "position": {
           "type": "string",
-          "enum": ["top", "bottom"]
+          "enum": ["top", "bottom", "left", "right"]
         }
       },
       "required": ["text", "x", "y", "position"],
