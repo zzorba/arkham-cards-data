@@ -3,6 +3,7 @@
   "scenario_name": "The Thing in the Depths",
   "full_name": "Scenario: The Thing in the Depths",
   "header": "Scenario",
+  "chaos_bag_card": "10588",
   "setup": [
     "check_night_intro",
     "$check_tarot_reading",
@@ -159,6 +160,25 @@
     },
     {
       "id": "increase_judith_relationship",
+      "text": "Increase Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "increase_judith_relationship_small",
+      "bullet_type": "small",
       "text": "Increase Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
       "effects": [
         {
@@ -1140,7 +1160,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["increase_judith_relationship"]
+            "steps": ["increase_judith_relationship_small"]
           }
         ]
       }
