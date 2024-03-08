@@ -580,7 +580,7 @@
     },
     {
       "id": "check_rallied_locations",
-      "text": "Check your campaign log. For each location recorded as \"Rallied\", put the corresponding story asset into play at that:"
+      "text": "Check your campaign log. For each location recorded as \"Rallied\", put the corresponding story asset into play at that location:"
     },
 
 
@@ -1158,8 +1158,299 @@
         }
       ]
     },
-
-
+    {
+      "id": "record_eliminated_elites_version",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 4,
+        "options":[
+          {
+            "boolCondition": false,
+            "steps": [
+              "record_eliminated_elites"
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": [
+              "record_eliminated_elites_pruned"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_eliminated_elites_pruned",
+      "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminated",
+        "choices": [
+          {
+            "id": "priest_of_plagues",
+            "text": "Priest of Plagues",
+            "condition": {
+              "type": "campaign_log",
+              "section": "eliminated",
+              "id": "priest_of_plagues",
+              "options": [{ "boolCondition": false }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "priest_of_plagues",
+                "text": "Priest of Plagues"
+              }
+            ]
+          },
+          {
+            "id": "doyle",
+            "text": "Doyle Jeffries",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "doyle",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "arkham_advertiser",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "doyle",
+                "text": "Doyle Jeffries"
+              }
+            ]
+          },
+          {
+            "id": "armitage",
+            "text": "Henry Armitage",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "armitage",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "orne_library",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "armitage",
+                "text": "Henry Armitage"
+              }
+            ]
+          },
+          {
+            "id": "hibbs",
+            "text": "Hibbs",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "hibbs",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hibbs_roadhouse",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "hibbs",
+                "text": "Hibbs"
+              }
+            ]
+          },
+          {
+            "id": "ma",
+            "text": "Ma Matheson",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "ma",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "mas_boarding_house",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "ma",
+                "text": "Ma Matheson"
+              }
+            ]
+          },
+          {
+            "id": "beecher",
+            "text": "Miram Beecher",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "beecher",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "ye_olde_magick_shoppe",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "beecher",
+                "text": "Miram Beecher"
+              }
+            ]
+          },
+          {
+            "id": "the_loving_couple",
+            "text": "The Loving Couple",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "the_loving_couple",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "general_store",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "the_loving_couple",
+                "text": "The Loving Couple"
+              }
+            ]
+          },
+          {
+            "id": "thing_in_water",
+            "text": "The Thing in the Water",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "thing_in_water",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "river_docks",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "thing_in_water",
+                "text": "The Thing in the Water"
+              }
+            ]
+          },
+          {
+            "id": "vice_president",
+            "text": "The Vice President",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "eliminated",
+                  "id": "vice_president",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "bank_of_arkham",
+                  "id": "infected",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "count": 2
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "vice_president",
+                "text": "The Vice President"
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "record_eliminated_elites",
       "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
@@ -1599,7 +1890,7 @@
         "check_messenger_of_flame_defeated",
         "ask_messenger_of_the_king_in_victory",
         "check_messenger_of_the_king_defeated",
-        "record_eliminated_elites",
+        "record_eliminated_elites_version",
         "$upgrade_decks",
         "$proceed",
         "trap"

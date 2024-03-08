@@ -8,7 +8,7 @@
     "$check_tarot_reading",
     "gather_encounter_sets",
     "setup_locations",
-    "maybe_assign_infected_defended",
+    "assign_infected_defended_branch",
     "check_too_many_infected",
     "check_defended_locations",
     "check_arkham_advertiser_defended",
@@ -187,6 +187,30 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "defended_or_infected"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 8
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["assign_infected_defended_branch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "assign_infected_defended_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "campaign_data",
         "campaign_data": "version",
         "min_version": 3,
@@ -194,26 +218,26 @@
           {
             "boolCondition": true,
             "steps": [
-              "preloop_assign_infected_defended",
-              "loop_assign_infected_defended"
+              "assign_infected_defended_preloop",
+              "assign_infected_defended_loop"
             ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "legacy_assign_infected_defended"
+              "assign_infected_defended"
             ]
           }
         ]
       }
     },
     {
-      "id": "preloop_assign_infected_defended",
+      "id": "assign_infected_defended_preloop",
       "type": "story",
       "text": "Check your campaign log. In a random order, for each location not marked as either \"Defended\" or \"Infected\", mark it as the value which appears less."
     },
     {
-      "id": "loop_assign_infected_defended",
+      "id": "assign_infected_defended_loop",
       "type": "branch",
       "hidden": true,
       "loop": true,
@@ -867,35 +891,6 @@
                 "value": 1
               }
             ]
-          }
-        ]
-      }
-    },
-
-
-
-
-
-    {
-      "id": "legacy_assign_infected_defended",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "defended_or_infected"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 8
-        },
-        "operation": "compare",
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["assign_infected_defended"]
           }
         ]
       }
@@ -2006,6 +2001,273 @@
       ]
     },
     {
+      "id": "record_rallied_version",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 4,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "record_rallied_pruned"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "record_rallied"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_rallied_pruned",
+      "text": "In your Campaign Log, record <i>Rallied</i> under the name of each location you have \"rallied\".",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "\"Rallied\"",
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "condition": {
+              "type": "campaign_log",
+              "section": "arkham_advertiser",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "condition": {
+              "type": "campaign_log",
+              "section": "bank_of_arkham",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "condition": {
+              "type": "campaign_log",
+              "section": "general_store",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hibbs_roadhouse",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "condition": {
+              "type": "campaign_log",
+              "section": "mas_boarding_house",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "condition": {
+              "type": "campaign_log",
+              "section": "orne_library",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "condition": {
+              "type": "campaign_log",
+              "section": "river_docks",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "condition": {
+              "type": "campaign_log",
+              "section": "ye_olde_magick_shoppe",
+              "id": "defended",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "rallied",
+                "text": "Rallied"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "rallied",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "record_rallied",
       "text": "In your Campaign Log, record <i>Rallied</i> under the name of each location you have \"rallied\".",
       "type": "input",
@@ -2162,6 +2424,229 @@
                 "id": "rallied",
                 "operation": "add",
                 "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_eliminated_elites_version",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 4,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "record_eliminated_elites_pruned"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "record_eliminated_elites"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_eliminated_elites_pruned",
+      "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Eliminated",
+        "choices": [
+          {
+            "id": "priest_of_plagues",
+            "text": "Priest of Plagues",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "priest_of_plagues",
+                "text": "Priest of Plagues"
+              }
+            ]
+          },
+          {
+            "id": "doyle",
+            "text": "Doyle Jeffries",
+            "condition": {
+              "type": "campaign_log",
+              "section": "arkham_advertiser",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "doyle",
+                "text": "Doyle Jeffries"
+              }
+            ]
+          },
+          {
+            "id": "armitage",
+            "text": "Henry Armitage",
+            "condition": {
+              "type": "campaign_log",
+              "section": "orne_library",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "armitage",
+                "text": "Henry Armitage"
+              }
+            ]
+          },
+          {
+            "id": "hibbs",
+            "text": "Hibbs",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hibbs_roadhouse",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "hibbs",
+                "text": "Hibbs"
+              }
+            ]
+          },
+          {
+            "id": "ma",
+            "text": "Ma Matheson",
+            "condition": {
+              "type": "campaign_log",
+              "section": "mas_boarding_house",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "ma",
+                "text": "Ma Matheson"
+              }
+            ]
+          },
+          {
+            "id": "beecher",
+            "text": "Miram Beecher",
+            "condition": {
+              "type": "campaign_log",
+              "section": "ye_olde_magick_shoppe",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "beecher",
+                "text": "Miram Beecher"
+              }
+            ]
+          },
+          {
+            "id": "the_loving_couple",
+            "text": "The Loving Couple",
+            "condition": {
+              "type": "campaign_log",
+              "section": "general_store",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "the_loving_couple",
+                "text": "The Loving Couple"
+              }
+            ]
+          },
+          {
+            "id": "thing_in_water",
+            "text": "The Thing in the Water",
+            "condition": {
+              "type": "campaign_log",
+              "section": "river_docks",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "thing_in_water",
+                "text": "The Thing in the Water"
+              }
+            ]
+          },
+          {
+            "id": "vice_president",
+            "text": "The Vice President",
+            "condition": {
+              "type": "campaign_log",
+              "section": "bank_of_arkham",
+              "id": "infected",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "eliminated",
+                "id": "vice_president",
+                "text": "The Vice President"
               }
             ]
           }
@@ -2572,8 +3057,8 @@
       "steps": [
         "earn_xp",
         "record_crater_of_the_unbinding",
-        "record_rallied",
-        "record_eliminated_elites"
+        "record_rallied_version",
+        "record_eliminated_elites_version"
       ]
     },
     {
@@ -2583,8 +3068,8 @@
       "steps": [
         "earn_xp",
         "record_site_of_the_unbinding",
-        "record_rallied",
-        "record_eliminated_elites"
+        "record_rallied_version",
+        "record_eliminated_elites_version"
       ]
     }
   ]
