@@ -41,6 +41,12 @@
     "procession_discard",
     "$play_scenario"
   ],
+  "rules": [
+    {
+      "title": "Procession",
+      "steps": ["procession_rule"]
+    }
+  ],
   "steps": [
     {
       "id": "$play_scenario",
@@ -178,6 +184,700 @@
     },
     {
       "id": "maybe_assign_infected_defended",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 3,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "preloop_assign_infected_defended",
+              "loop_assign_infected_defended"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "legacy_assign_infected_defended"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "preloop_assign_infected_defended",
+      "type": "story",
+      "text": "Check your campaign log. In a random order, for each location not marked as either \"Defended\" or \"Infected\", mark it as the value which appears less."
+    },
+    {
+      "id": "loop_assign_infected_defended",
+      "type": "branch",
+      "hidden": true,
+      "loop": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "defended_or_infected"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 8
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["choose_defend_infect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_defend_infect",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "defended"
+        },
+        "opB": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "infected"
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "repeatable": true,
+            "steps": ["assign_infected"]
+          },
+          {
+            "numCondition": 0,
+            "repeatable": true,
+            "steps": ["assign_defended"]
+          },
+          {
+            "numCondition": -1,
+            "repeatable": true,
+            "steps": ["assign_defended"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "assign_defended",
+      "type": "input",
+      "text": "Choose a location (at random) to mark as Defended",
+      "input": {
+        "type": "choose_one",
+        "random": true,
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "arkham_advertiser",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "bank_of_arkham",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "general_store",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "hibbs_roadhouse",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "mas_boarding_house",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "orne_library",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "river_docks",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "ye_olde_magick_shoppe",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "defended",
+                "text": "Defended"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "assign_infected",
+      "type": "input",
+      "text": "Choose a location (at random) to mark as Infected",
+      "input": {
+        "type": "choose_one",
+        "random": true,
+        "choices": [
+          {
+            "id": "arkham_advertiser",
+            "text": "Arkham Advertiser",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "arkham_advertiser",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "arkham_advertiser",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "bank_of_arkham",
+            "text": "Bank of Arkham",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "bank_of_arkham",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "bank_of_arkham",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "general_store",
+            "text": "General Store",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "general_store",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "general_store",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "hibbs_roadhouse",
+            "text": "Hibb's Roadhouse",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "hibbs_roadhouse",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hibbs_roadhouse",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "mas_boarding_house",
+            "text": "Ma's Boarding House",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "mas_boarding_house",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "mas_boarding_house",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "orne_library",
+            "text": "Orne Library",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "orne_library",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "orne_library",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "river_docks",
+            "text": "River Docks",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "river_docks",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "river_docks",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "id": "ye_olde_magick_shoppe",
+            "text": "Ye Olde Magick Shoppe",
+            "condition": {
+              "type": "campaign_log_count",
+              "section": "ye_olde_magick_shoppe",
+              "id": "$num_entries",
+              "options": [
+                {
+                  "numCondition": 0
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "ye_olde_magick_shoppe",
+                "id": "infected",
+                "text": "Infected"
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "infected",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "defended_or_infected",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+
+
+
+    {
+      "id": "legacy_assign_infected_defended",
       "hidden": true,
       "type": "branch",
       "condition": {

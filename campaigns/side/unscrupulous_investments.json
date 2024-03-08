@@ -1,0 +1,519 @@
+{
+  "id": "unscrupulous_investments",
+  "scenario_name": "Unscrupulous Investments",
+  "full_name": "Unscrupulous Investments",
+  "header": "",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "card_discount": ["03151"],
+    "xp_cost": 1,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2022/02/01/arkham-incidents/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "gather_dario",
+    "setup_pursuit_deck",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "ask_dario_xp",
+    "intro",
+    "gather_encounter_sets",
+    "gather_dario",
+    "setup_pursuit_deck",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "ask_dario_xp",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Have Dario El-Amin?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "bonus": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "From the little you knew of Dario El-Amin, he was shrewd, wealthy, and never said more than he had to.  You hadn't pried into his affairs before, and it seems he appreciated this courtesy as he now sends you a letter requesting your assistance.  You don't know if it's because Dario trusts you, or if he simply trusts everyone else even less.  The financier extends his hand with a congenial smile as you enter his office.\n\"Ah, my friend, I see you are in good health as ever.  I'm sure that my offer of mystery and fortune has captured your attention, so let us proceed to the business at hand.\"  Dario seats himself behind his desk and gestures to an open cigar box as he begins choosing his words.  \"I recently financed an expedition to recover an artifact of considerable worth.  The man was a talented explorer, for all his faults, and I was confident that he would succeed.  And succeed he did.  The problem arose after he returned and I visited to collect on my investment.\"  Dario opens a folder and slides a photograph forward toward you.  Pictured is a metallic statue contorted in fear.  \"Turned to solid gold.  And the artifact nowhere to be found.  You can no doubt see the dangers of such a relic in the hands of even less scrupulous men -- though I expect you see the potential riches as well.  I have a lead on the thief's identity.  Will you pursue him?\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "unscrupulous_investments"
+      ]
+    },
+    {
+      "id": "gather_dario",
+      "text": "If an investigator has a copy of Dario El-Amin in his or her deck, that investigator sets it aside and adds it to his or her hand after drawing opening hands, as an additional card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each of the [[River Street]], [[Main Street]], [[Church Street]], and [[Crossroad]] locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Central Main Street."
+        }
+      ]
+    },
+    {
+      "id": "setup_pursuit_deck",
+      "text": "Create the Pursuit Deck.  This is done by randomly taking three of the six story cards and shuffling them together.  Remove the other three story cards from the game.  When the game begins, draw the top card of the Pursuit Deck and put it into play next to the act deck."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Gilded Coin, Midas Touch, Dead End Alley, Desperate Thief."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "west_river_street",
+          "blank",
+          "central_river_street",
+          "blank",
+          "east_river_street",
+          "blank"
+        ],
+        [
+          "boundary_street",
+          "west_main_street",
+          "west_street",
+          "central_main_street",
+          "garrison_street",
+          "east_main_street",
+          "peabody_avenue"
+        ],
+        [
+          "blank",
+          "west_church_street",
+          "blank",
+          "central_church_street",
+          "blank",
+          "east_church_street",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "west_river_street",
+          "name": "West River Street"
+        },
+        {
+          "code": "central_river_street",
+          "name": "Central River Street"
+        },
+        {
+          "code": "east_river_street",
+          "name": "East River Street"
+        },
+        {
+          "code": "officers_lounge",
+          "name": "Officers' Lounge"
+        },
+        {
+          "code": "boundary_street",
+          "name": "Boundary Street"
+        },
+        {
+          "code": "west_main_street",
+          "name": "West Main Street"
+        },
+        {
+          "code": "west_street",
+          "name": "West Street"
+        },
+        {
+          "code": "central_main_street",
+          "name": "Central Main Street"
+        },
+        {
+          "code": "garrison_street",
+          "name": "Garrison Street"
+        },
+        {
+          "code": "east_main_street",
+          "name": "East Main Street"
+        },
+        {
+          "code": "peabody_avenue",
+          "name": "Peabody Avenue"
+        },
+        {
+          "code": "west_church_street",
+          "name": "West Church Street"
+        },
+        {
+          "code": "central_church_street",
+          "name": "Central Church Street"
+        },
+        {
+          "code": "east_church_street",
+          "name": "East Church Street"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_gilded_coin",
+      "text": "Any one investigator may choose to add Gilded Coin to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00201"
+        }
+      ]
+    },
+    {
+      "id": "earn_midas_touch",
+      "text": "Any one investigator may choose to add Midas Touch to their deck.  This card does not count toward that nvestigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00202"
+        }
+      ]
+    },
+    {
+      "id": "darios_investment_didnt_pay_off",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "darios_investment_didnt_pay_off",
+          "text": "Dario's investment didn't pay off."
+        }
+      ]
+    },
+    {
+      "id": "dario_was_turned_into_solid_gold",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dario_was_turned_into_solid_gold",
+          "text": "Dario was turned into solid gold."
+        }
+      ]
+    },
+    {
+      "id": "banished_the_gilded_spirit",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "banished_the_gilded_spirit",
+          "text": "the investigators banished the gilded spirit."
+        }
+      ]
+    },
+    {
+      "id": "repaired_the_golden_artifact",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "repaired_the_golden_artifact",
+          "text": "the investigators repaired the golden artifact."
+        }
+      ]
+    },
+    {
+      "id": "exile_dario",
+      "text": "Remove each copy of Dario El-Amin from each investigator's deck (replacing each copy with any valid level 0 card).  If you are playing in campaign mode, investigators cannot include Dario El-Amin in their decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "03151",
+          "exile": true,
+          "non_story": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You retreat to a neighboring district while the plague of greed runs its course, then slowly make your way back to Dario's office.  The financier rubs his temples in quiet thought before shaking his head.  \"It would be unwise to pursue this matter further.  It has already cost us both time and money, and promises to lose yet more.  Let us hope our next venture will be more profitable, my friend.\"",
+      "steps": [
+        "darios_investment_didnt_pay_off",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The demon of the relic begins to glow with golden light, and its jaws opens wide.  With a tumultuous clatter, shining coins of a thousand different currencies begin to pour from its mouth to the rough stone street.  You turn to run, knowing full well the fate of the earlier thieves, but Dario is transfixed.  His desire to profit from these events clashes with his sense of survival.  For a moment, his hand twitches toward the growing pile of coins, and the spirit lets out a ghoulish laugh.  \"Gold more desirable than thy soul?  Then let a bargain be struck!\"  The golden glow spreads to Dario, and he gasps in horror as the inevitable change begins.  The light nearly blinds you, but through the blind-ness you hear Dario's screaming voice evaporating.  A dense metallic clatter sounds out, and the alley is still.  Your vision returns to the frozen form of Dario, petrified in solid gold.  Gone are the malevolent spirit and its mound of coins, leaving only regret and unattainable riches in its wake.",
+      "steps": [
+        "dario_was_turned_into_solid_gold",
+        "exile_dario",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You resist the demon's temptations and attack it relentlessly, deciding that no possible reward outweighs pure survival.  Cracks gradually form on the spirit's gilded skin, until the golden light bursts out from it.  \"Curse thee!  Curse thee tenfold!  Thou shalt not... be rid of...\"  A noise rings out like shearing metal, and the devil winks out of existence.  Dario shakes his head, bemused.  \"You continue to surprise me, my friend.  Lamentable as it is to see all that gold disappear, you have fulfilled your end of our deal.\"  Dario presses an unfamiliar coin into your palm as he looks to the gold-petrified thief.  \"And who is to say that this venture has been entirely without profit?\"",
+      "steps": [
+        "banished_the_gilded_spirit",
+        "earn_gilded_coin",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "With the golden relic in tow, you return to Dario's office to find a wild-looking woman waiting patiently for him.  Dario shakes her hand congenially and bids you to sit next to her.  \"Forgive our tardiness, my friend, but I have the artifact, as promised.\"  He gestures to you, and the woman holds out her hand expectantly.  \"Did I not mention that I was acting as an intermediary for this investment?  Yes, I leave these strange matters to specialists who can better help me reap the rewards.\"  You cautiously give the relic to the woman, but her hand glows violet as she touches the artifact.  Satisfied, she in turn gives a wrapped bundle to Dario, who places it on his desk.  \"And as for your reward, my friend, you have proven both cunning and resilient.  I believe we can divine something from the artifact for you to make use of.\"  The woman sits in a trance, hands tracing the relic as if searching.  Finally, her eyes snap open and she utters a word in an unfamiliar language, and her hands glow a familiar golden color.  \"Remember that word well, my friend, and remember to say it again to stop the effect.\"",
+      "steps": [
+        "repaired_the_golden_artifact",
+        "earn_midas_touch",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
