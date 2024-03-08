@@ -8,7 +8,7 @@
     "$check_tarot_reading",
     "gather_encounter_sets",
     "setup_locations",
-    "maybe_assign_infected_defended",
+    "assign_infected_defended_branch",
     "check_too_many_infected",
     "check_defended_locations",
     "check_arkham_advertiser_defended",
@@ -187,6 +187,30 @@
       "hidden": true,
       "type": "branch",
       "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "defended_or_infected"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 8
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["assign_infected_defended_branch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "assign_infected_defended_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
         "type": "campaign_data",
         "campaign_data": "version",
         "min_version": 3,
@@ -194,26 +218,26 @@
           {
             "boolCondition": true,
             "steps": [
-              "preloop_assign_infected_defended",
-              "loop_assign_infected_defended"
+              "assign_infected_defended_preloop",
+              "assign_infected_defended_loop"
             ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "legacy_assign_infected_defended"
+              "assign_infected_defended"
             ]
           }
         ]
       }
     },
     {
-      "id": "preloop_assign_infected_defended",
+      "id": "assign_infected_defended_preloop",
       "type": "story",
       "text": "Check your campaign log. In a random order, for each location not marked as either \"Defended\" or \"Infected\", mark it as the value which appears less."
     },
     {
-      "id": "loop_assign_infected_defended",
+      "id": "assign_infected_defended_loop",
       "type": "branch",
       "hidden": true,
       "loop": true,
@@ -867,35 +891,6 @@
                 "value": 1
               }
             ]
-          }
-        ]
-      }
-    },
-
-
-
-
-
-    {
-      "id": "legacy_assign_infected_defended",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "defended_or_infected"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 8
-        },
-        "operation": "compare",
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["assign_infected_defended"]
           }
         ]
       }
@@ -2017,20 +2012,20 @@
           {
             "boolCondition": true,
             "steps": [
-              "record_rallied"
+              "record_rallied_pruned"
             ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "record_rallied_legacy"
+              "record_rallied"
             ]
           }
         ]
       }
     },
     {
-      "id": "record_rallied",
+      "id": "record_rallied_pruned",
       "text": "In your Campaign Log, record <i>Rallied</i> under the name of each location you have \"rallied\".",
       "type": "input",
       "input": {
@@ -2273,7 +2268,7 @@
       }
     },
     {
-      "id": "record_rallied_legacy",
+      "id": "record_rallied",
       "text": "In your Campaign Log, record <i>Rallied</i> under the name of each location you have \"rallied\".",
       "type": "input",
       "input": {
@@ -2447,20 +2442,20 @@
           {
             "boolCondition": true,
             "steps": [
-              "record_eliminated_elites"
+              "record_eliminated_elites_pruned"
             ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "record_eliminated_elites_legacy"
+              "record_eliminated_elites"
             ]
           }
         ]
       }
     },
     {
-      "id": "record_eliminated_elites",
+      "id": "record_eliminated_elites_pruned",
       "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
       "type": "input",
       "input": {
@@ -2659,7 +2654,7 @@
       }
     },
     {
-      "id": "record_eliminated_elites_legacy",
+      "id": "record_eliminated_elites",
       "text": "In your Campaign Log, record the name of each [[Elite]] enemy in the victory display as <i>Eliminated</i>",
       "type": "input",
       "input": {
