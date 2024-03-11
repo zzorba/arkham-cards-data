@@ -283,7 +283,26 @@
       "id": "shattered_self_6",
       "text": "If your Shattered Self is defeated during this scenario, you are <b>driven insane</b>."
     },
-
+    {
+      "id": "ask_fate_of_the_vale_version",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_fate_of_the_fale_pruned"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ask_fate_of_the_vale"]
+          }
+        ]
+      }
+    },
     {
       "id": "$play_scenario",
       "type": "input",
@@ -306,7 +325,7 @@
             "text": "Scenario Interlude",
             "description": "Fate of the Vale",
             "style": "interlude",
-            "steps": ["ask_fate_of_the_vale"],
+            "steps": ["ask_fate_of_the_vale_version"],
             "effects": [
               {
                 "type": "campaign_log",
@@ -329,6 +348,120 @@
             "text": "Defeated resident asset",
             "repeatable": true,
             "steps": ["$defeat_resident"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_fate_of_the_fale_pruned",
+      "type": "input",
+      "text": "Which <b>Fate of the Vale</b> entry should be read?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Fate of the Vale 1",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "gideon",
+                  "id": "gideon_told_the_tale_of_the_annabelle_lee",
+                  "options": [{"boolCondition": true}]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "dr_marquez_ready_for_fate_of_vale",
+                  "options": [{"boolCondition": true}]
+                }
+              ],
+              "count": 1,
+              "options": [{"boolCondition": true}]
+            },
+            "steps": [
+              "fate_of_the_vale_1",
+              "find_marquez",
+              "flip_abyss_card",
+              "flip_cosmic_emissary",
+              "act_3a_v1",
+              "resume_playing"
+            ]
+          },
+          {
+            "id": "2",
+            "text": "Fate of the Vale 2",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type":"campaign_log",
+                  "section": "campaign_notes",
+                  "id": "the_peters_family_was_reunited",
+                  "options": [{"boolCondition": true}]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "the_hemlocks_made_a_truce",
+                  "options": [{"boolCondition": true}]
+                }
+              ],
+              "count": 1,
+              "options": [{"boolCondition": true}]
+            },
+            "steps": [
+              "fate_of_the_vale_2",
+              "remove_mirror_nest_and_cave_locations",
+              "setup_hemlock_vale",
+              "$hemlock_vale_location_layout",
+              "check_the_peters_was_reunited",
+              "check_the_hemlocks_made_a_truce",
+              "act_3a_v2",
+              "spawn_enemies_at_hemlock_vale",
+              "flip_cosmic_emissary_in_vale",
+              "resume_playing"
+            ]
+          },
+          {
+            "id": "3",
+            "text": "Fate of the Vale 3",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "the_vale_is_full_of_fireworks",
+              "options": [{"boolCondition": true}]
+            },
+            "steps": [
+              "fate_of_the_vale_3",
+              "act_3a_v3",
+              "fate_of_the_vale_5",
+              "remove_mirror_nest_and_cave_locations",
+              "setup_hemlock_vale",
+              "$hemlock_vale_location_layout",
+              "check_bertie_perished",
+              "spawn_enemies_at_hemlock_vale_limited",
+              "flip_cosmic_emissary_in_vale",
+              "resume_playing"
+            ]
+          },
+          {
+            "id": "4",
+            "text": "Fate of the Vale 4",
+            "steps": [
+              "fate_of_the_vale_4",
+              "act_3a_v4",
+              "fate_of_the_vale_5",
+              "remove_mirror_nest_and_cave_locations",
+              "setup_hemlock_vale",
+              "$hemlock_vale_location_layout",
+              "check_bertie_perished",
+              "spawn_enemies_at_hemlock_vale_limited",
+              "flip_cosmic_emissary_in_vale",
+              "resume_playing"
+            ]
           }
         ]
       }
