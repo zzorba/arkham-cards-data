@@ -465,7 +465,7 @@
               "id": "fhv_second_day_codex_4",
               "options": [{ "boolCondition": false }]
             },
-            "steps": ["codex_4", "codex_4_effects", "codex_4_relationship", "maybe_decrease_river", "tome_or_talent"],
+            "steps": ["codex_4", "codex_4_effects", "codex_4_relationship", "tome_or_talent"],
             "effects": [
               {
                 "type": "campaign_log",
@@ -485,7 +485,7 @@
               "id": "fhv_second_day_codex_5",
               "options": [{ "boolCondition": false }]
             },
-            "steps": ["codex_5", "codex_5_effects", "codex_5_relationship", "maybe_decrease_william", "gain_4_resources"],
+            "steps": ["codex_5", "codex_5_effects", "codex_5_relationship", "gain_4_resources"],
             "effects": [
               {
                 "type": "campaign_log",
@@ -874,44 +874,20 @@
           "value": 1
         },
         {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        },
+        {
           "type": "earn_xp",
           "bonus": 1,
           "investigator": "all",
           "special_xp": "unspect_xp"
         }
       ]
-    },
-    {
-      "id": "maybe_decrease_river",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "river",
-          "id": "$relationship"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 0
-        },
-        "options": [
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "river",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ]
-      }
     },
     {
       "id": "tome_or_talent",
@@ -946,50 +922,20 @@
           "value": 2
         },
         {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -2,
+          "min": 0
+        },
+        {
           "type": "earn_xp",
           "bonus": 2,
           "investigator": "all",
           "special_xp": "unspect_xp"
         }
       ]
-    },
-    {
-      "id": "maybe_decrease_william",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log_count",
-        "section": "william",
-        "id": "$relationship",
-        "options": [
-          {
-            "numCondition": 0
-          },
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "william",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ],
-        "default_option": {
-          "effects": [
-            {
-              "type": "campaign_log_count",
-              "section": "william",
-              "id": "$relationship",
-              "operation": "add",
-              "value": -2
-            }
-          ]
-        }
-      }
     },
     {
       "id": "gain_4_resources",
@@ -1113,7 +1059,7 @@
           {
             "id": "thanks",
             "text": "<i>“Thanks for saving us.”</i>",
-            "steps": ["judith_4", "decrease_judith", "maybe_decrease_judith"]
+            "steps": ["judith_4", "decrease_judith"]
           }
         ]
       }
@@ -1156,42 +1102,17 @@
           "bonus": 1,
           "investigator": "all",
           "special_xp": "unspect_xp"
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
         }
       ]
     },
-    {
-      "id": "maybe_decrease_judith",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "judith",
-          "id": "$relationship"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 0
-        },
-        "options": [
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "judith",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ]
-      }
-    },
-
     {
       "id": "check_theo_distracted_the_bear",
       "bullet_type": "none",
@@ -1387,7 +1308,7 @@
           {
             "id": "fight",
             "text": "<i>Let them fight it out.</i>",
-            "steps": ["fight_story", "fight_effects", "maybe_decrease_william", "maybe_decrease_river"]
+            "steps": ["fight_story", "fight_effects"]
           }
         ]
       }
@@ -1409,7 +1330,25 @@
     },
     {
       "id": "fight_effects",
-      "text": "Decrease both William Hemlock and River Hawthorne’s Relationship Levels."
+      "text": "Decrease both William Hemlock and River Hawthorne’s Relationship Levels.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
     },
     {
       "id": "maybe_check_running_an_errand",

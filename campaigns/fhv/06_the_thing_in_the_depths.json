@@ -468,13 +468,13 @@
       "id": "maybe_hide_codex_theta",
       "hidden": true,
       "type": "branch",
-      "condition": 
+      "condition":
       {
         "type": "has_card",
         "investigator": "any",
         "card": "10702",
         "options" : [
-          { 
+          {
             "boolCondition": false,
             "effects": [
               {
@@ -1023,7 +1023,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["decrease_river_relationship", "maybe_decrease_river_relationship"]
+            "steps": ["decrease_river_relationship"]
           }
         ]
       }
@@ -1031,52 +1031,17 @@
     {
       "id": "decrease_river_relationship",
       "bullet_type": "small",
-      "text": "Decrease River Hawthorne’s Relationship Level."
-    },
-    {
-      "id": "maybe_decrease_river_relationship",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-
-        "opA": {
+      "text": "Decrease River Hawthorne’s Relationship Level.",
+      "effects": [
+        {
           "type": "campaign_log_count",
           "section": "river",
-          "id": "$relationship"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 1
-        },
-        "operation": "compare",
-        "options": [
-          {
-            "numCondition": 0,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "river",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          },
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "river",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ]
-      }
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
     },
     {
       "id": "fail_river_condition",

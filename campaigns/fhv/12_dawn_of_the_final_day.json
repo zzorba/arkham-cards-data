@@ -717,7 +717,7 @@
           {
             "id": "accuse",
             "text": "<i>“I see you for what you really are.”</i>",
-            "steps": ["rachel_4", "decrease_rachel", "maybe_decrease_rachel"]
+            "steps": ["rachel_4", "decrease_rachel"]
           }
         ]
       }
@@ -771,40 +771,16 @@
           "bonus": 1,
           "investigator": "all",
           "special_xp": "unspect_xp"
-        }
-      ]
-    },
-    {
-      "id": "maybe_decrease_rachel",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
+        },
+        {
           "type": "campaign_log_count",
           "section": "rachel",
-          "id": "$relationship"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 0
-        },
-        "options": [
-          {
-            "numCondition": 1,
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "rachel",
-                "id": "$relationship",
-                "operation": "add",
-                "value": -1
-              }
-            ]
-          }
-        ]
-      }
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
     },
     {
       "id": "check_simeon_crossed_out",
