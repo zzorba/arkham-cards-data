@@ -1,0 +1,495 @@
+{
+  "id": "too_noble",
+  "scenario_name": "Too Noble",
+  "full_name": "Too Noble",
+  "header": "",
+  "xp_cost": 1,
+  "side_scenario_type": "challenge",
+  "challenge": {
+    "card_discount": ["06155"],
+    "xp_cost": 1,
+    "requirements": []
+  },
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2022/02/01/arkham-incidents/"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "gather_tetsuo",
+    "setup_locations",
+    "location_layout",
+    "setup_police_assets",
+    "setup_evidence",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "ask_tetsuo_xp",
+    "intro",
+    "gather_encounter_sets",
+    "gather_tetsuo",
+    "setup_locations",
+    "location_layout",
+    "setup_police_assets",
+    "setup_evidence",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "ask_tetsuo_xp",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Have Tetsuo Mori?",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "bonus": 1,
+                "investigator": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1,
+          "side_scenario_cost": true
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -1
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Arkham's police station draws into view through the light blanket of mist as you round the corner. A single officer stands in front of the station at rapt attention -- one that you knew would be waiting for you.  Tetsuo Mori is a fairly new face in Arkham, but he has quickly earned a reputation for his diligence and bravery. Despite this reputation and his position within the police force, he has asked for your assistance on this specific evening. Tetsuo bows forward deliberately at your approach. His eyes glint with recognition, but his face remains stiff and serious.\n\"Thank you for agreeing to help. I know that you are busy, but this is a matter of the utmost importance, and one that I sadly cannot trust to my colleagues -- not all of them, that is to say.\" Tetsuo turns toward the station, brow knit with anxiety. \"A body was brought to the station last night. It was never identified, but that is the least troubling part. The next day, I discovered that the body had been dismembered savagely, as if torn apart.  Only my fellow officers could have accessed the body in the morgue. I called you here tonight because each of the five men who were on duty that night are on duty tonight as well. One of them must be responsible, and I must protect the others against that one. I am counting upon your skills to uncover the truth.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "too_noble"
+      ]
+    },
+
+
+    {
+      "id": "gather_tetsuo",
+      "text": "If an investigator has a copy of Tetsuo Mori in his or her deck, that investigator sets one copy aside and adds it to his or her hand after drawing opening hands, as an additional card."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Reception, Garage, Sheriff's Office, Officers' Lounge, Interview Room, Holding Cells, Evidence Room, Police Morgue, and Records Room locations into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Reception."
+        }
+      ]
+    },
+    {
+      "id": "setup_police_assets",
+      "text": "Take each of the five [[Police]] story assets.  Put Frank Cagle into play at Garage, Wendell Boone into play at Sheriff's Office, Jim Fletcher into play at Interview Room, Gus Odell into play at Evidence Room, and Eddie Maguire into play at Records Room."
+    },
+    {
+      "id": "setup_evidence",
+      "text": "Take each of the five [[Evidence]] story assets and shuffle them together.  Randomly deal 1 facedown underneath Reception, Officers' Lounge, Holding Cells, and Police Morgue.  Place the fifth card facedown beneath the scenario card."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Inscribed Nail, Command Essence, each <t>Criminal</t>enemy and treachery."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "records_room",
+          "police_morgue",
+          "evidence_room"
+        ],
+        [
+          "officers_lounge",
+          "interview_room",
+          "holding_cells"
+        ],
+        [
+          "sheriffs_office",
+          "reception",
+          "garage"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "records_room",
+          "name": "Records Room"
+        },
+        {
+          "code": "police_morgue",
+          "name": "Police Morgue"
+        },
+        {
+          "code": "evidence_room",
+          "name": "Evidence Room"
+        },
+        {
+          "code": "officers_lounge",
+          "name": "Officers' Lounge"
+        },
+        {
+          "code": "interview_room",
+          "name": "Interview Room"
+        },
+        {
+          "code": "holding_cells",
+          "name": "Holding Cells"
+        },
+        {
+          "code": "sheriffs_office",
+          "name": "Sheriff's Office"
+        },
+        {
+          "code": "reception",
+          "name": "Reception"
+        },
+        {
+          "code": "garage",
+          "name": "Garage"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "ask_final_act",
+      "type": "input",
+      "text": "What act were the investigators on when the scenario ended?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1",
+            "text": "Act 1",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_2",
+            "text": "Act 2",
+            "steps": ["resolution_1"]
+          },
+          {
+            "id": "act_3",
+            "text": "Act 3",
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the combined Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_command_essence",
+      "text": "Any one investigator may choose to add Command Essence to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00002"
+        }
+      ]
+    },
+    {
+      "id": "earn_inscribed_nail",
+      "text": "Any one investigator may choose to add Inscribed Nail to their deck.  This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zai_00001"
+        }
+      ]
+    },
+    {
+      "id": "testsuo_made_a_noble_sacrifice",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "testsuo_made_a_noble_sacrifice",
+          "text": "Tetsuo made a noble sacrifice."
+        }
+      ]
+    },
+    {
+      "id": "tetsuos_investigation_has_failed",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "tetsuos_investigation_has_failed",
+          "text": "Tetsuo's investigation has failed."
+        }
+      ]
+    },
+    {
+      "id": "saved_the_mutated_officer",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "saved_the_mutated_officer",
+          "text": "the investigators saved the mutated officer."
+        }
+      ]
+    },
+    {
+      "id": "purged_the_police_station",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "purged_the_police_station",
+          "text": "the investigators purged the police station."
+        }
+      ]
+    },
+    {
+      "id": "exile_tetsuo",
+      "text": "Remove each copy of Tetsuo Mori from each investigator's deck (replacing each copy with any valid level 0 card).  If you are playing in campaign mode, investigators cannot include Tetsuo Mori in their decks for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "06155",
+          "exile": true,
+          "non_story": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_final_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You retreat a short distance away from the station and recuperate alongside Tetsuo.  It's a shame that you had to cut your investigation short, but it was either that or be cut short instead.  \"I'm afraid that the culprit will flee when next given the chance,\" he says grimly, \"but this is not the end.  I will find whatever power is responsible for this, with your help if you so desire.\"",
+      "steps": [
+        "tetsuos_investigation_has_failed",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The monster that was once a police officer lunges toward you, gaping maw and tentacles all ready to consume you.  Tetsuo shoulder tackles you out of the way and shouts for you to flee before the abominable mass completely engulfs him in one clean bite.  You retreat from the station frantically, Tetsuo's final sacrifice giving you the chance to escape.  Slowly, the din from inside the police station dies down, until at last a stark silence reigns over the building.  You re-enter cautiously and find the station filled with carnage, but otherwise silent.  The mutated officer has escaped into the night, leaving little behind to track it with.  No trace of Tetsuo or the other officers remain either, save for crumpled badges and buttons that the vile creature couldn't consume.  You depart solemnly once more, carrying the burden of this massacre with you.",
+      "steps": [
+        "testsuo_made_a_noble_sacrifice",
+        "exile_tetsuo",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Again and again you strike the mutated creature, dodging its furious attacks and withstanding its baleful howls.  Finally, the monster's form begins to grow unstable and it howls with painful rage as pieces begin to slough off.  You stagger back and hold your nose with disgust as the monster melts down into a roiling puddle of melted flesh.  Tetsuo stands alongside you solemnly as he watches the remains of his former colleague dissolve, leaving only a glowing iron nail behind.  \"Regrettable,\" Tetsuo utters, picking up the nail and holding it out to you, \"but with this evil ended, I can trust my comrades again.\"",
+      "steps": [
+        "purged_the_police_station",
+        "earn_inscribed_nail",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The etched iron nail in your hand bends and corrodes as the magic evaporates from it, while the mutated officer twists and spasms before you.  Tetsuo holds the man steady, and miraculously, the officer's form slowly returns to normal, albeit seriously injured from the transformation.  The officer breathes raggedly as he recovers, while you join Tetsuo next to him.  \"The man... the blonde man... he stuck that nail into my neck...\" he utters.\n\"That man is no more.\" Tetsuo assures him, \"He changed you into a creature that he could not control, and paid the price for it.\"  The officer nods weakly before passing out from the pain and exhaustion, though still assuredly alive.  Tetsuo stands and bows to you again, more deeply this time.  \"I am greatly indebted to you.  You saved my colleagues -- all of them -- at great personal risk.  If there is anything that I can do to repay you, name it, and it shall be done.\"  You nod and inspect the unconscious officer, soon finding a strange inscription still lingering at the top of his back.",
+      "steps": [
+        "saved_the_mutated_officer",
+        "earn_command_essence",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

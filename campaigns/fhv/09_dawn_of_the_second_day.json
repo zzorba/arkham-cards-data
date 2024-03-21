@@ -1,0 +1,1636 @@
+{
+  "id": "dawn_of_the_second_day",
+  "scenario_name": "Dawn of the Second Day",
+  "full_name": "Prelude: Dawn of the Second Day",
+  "header": "Prelude",
+  "icon": "day_of_rain",
+  "chaos_bag_card": "10704",
+  "setup": [
+    "intro",
+    "$fatigue_tokens",
+    "explain_hemlock_curse",
+    "check_hemlock_curse",
+    "check_gnawing_hunger",
+    "gather_encounter_sets",
+    "setup_day_two",
+    "setup_locations",
+    "$hemlock_vale_location_layout",
+    "gather_residents",
+    "set_aside_residents",
+    "place_doom",
+    "ready_to_begin",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You wake up feeling utterly drained. A light rain falls as you walk outside, but even the rain doesn’t seem to dampen the Vale’s spirits: A ring of children in animal masks sing a lilting melody as they continue decorating."
+    },
+    {
+
+      "id": "explain_hemlock_curse",
+      "text": "Check your Campaign Log. Each investigator who <i>finished their meal</i> must read <b>The Hemlock Curse</b>. Each other investigator must read <b>Gnawing Hunger</b>."
+    },
+    {
+      "id": "check_hemlock_curse",
+      "type": "branch",
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "eat",
+        "prompt": "The Hemlock Curse",
+        "option": {
+          "boolCondition": true,
+          "border": true,
+          "effects": [
+            {
+              "type": "story_step",
+              "steps": [
+                "hemlock_curse_story",
+                "hemlock_curse_effects"
+              ]
+            },
+            {
+              "type": "add_card",
+              "investigator": "$input_value",
+              "card": "10685"
+            },
+            {
+              "type": "campaign_log_investigator_count",
+              "section": "hemlock_curse_count",
+              "id": "$count",
+              "investigator": "$input_value",
+              "operation": "set",
+              "value": 1,
+              "text": "dummy"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hemlock_curse_story",
+      "title": "The Hemlock Curse",
+      "type": "story",
+      "text": "Your entire body seems to thrum in time to your heartbeat, then gives way to discomfort, then delicious euphoria, as if you were made of air. The feeling passes. You touch the back of your hand. You can’t quite describe it, but you don’t feel right. You feel different."
+    },
+    {
+      "id": "hemlock_curse_effects",
+      "type": "encounter_sets",
+      "encounter_sets": ["day_of_rain"],
+      "text": "Search the <i>Day of Rain</i> encounter set for The Hemlock Curse weakness and add it to your deck. It does not count toward your deck size."
+    },
+    {
+      "id": "check_gnawing_hunger",
+      "type": "branch",
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "eat",
+        "prompt": "Gnawing Hunger",
+        "option": {
+          "boolCondition": false,
+          "border": true,
+          "effects": [
+            {
+              "type": "story_step",
+              "steps": [
+                "gnawing_hunger_story",
+                "gnawing_hunger_effects"
+              ]
+            },
+            {
+              "type": "trauma",
+              "investigator": "$input_value",
+              "physical": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "gnawing_hunger_story",
+      "title": "Gnawing Hunger",
+      "type": "story",
+      "text": "Your stomach grumbles as the smell of fresh eggs and biscuits wafts out of the Boarding House. Your hunger has caught up to you."
+    },
+    {
+      "id": "gnawing_hunger_effects",
+      "text": "Suffer 1 physical trauma."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Prelude Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_second_day",
+        "day_of_rain",
+        "residents",
+        "the_vale"
+      ]
+    },
+    {
+      "id": "setup_day_two",
+      "text": "Put the <b>Day Two</b> Time Marker card into play. Are you still hungry?"
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each location from <i>The Vale</i> encounter set into play on its <b>(Day [day])</b> side according to the location layout below.",
+      "bullets": [
+        {
+          "text": "Note that during this prelude, locations are only connected via their location connection icons."
+        },
+        {
+          "text": "Each investigator begins play at the Boarding House."
+        }
+      ]
+    },
+    {
+      "id": "gather_residents",
+      "text": "Gather the <i>Residents</i> encounter set and check the Campaign Log.",
+      "bullets": [
+        {
+          "text": "Remove each resident whose name is crossed off from the game."
+        }
+      ],
+      "steps": [
+        "check_rachel",
+        "check_leah",
+        "check_simeon",
+        "check_william",
+        "check_river",
+        "check_gideon",
+        "check_theo",
+        "check_judith"
+      ]
+    },
+    {
+      "id": "check_rachel",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "rachel",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_rachel"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_rachel",
+      "bullet_type": "small",
+      "text": "Remove Mother Rachel from the game."
+    },
+    {
+      "id": "check_leah",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "leah",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_leah"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_leah",
+      "bullet_type": "small",
+      "text": "Remove Leah Atwood from the game."
+    },
+    {
+      "id": "check_simeon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "simeon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_simeon"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_3",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_simeon",
+      "bullet_type": "small",
+      "text": "Remove Simeon Atwood from the game."
+    },
+    {
+      "id": "check_william",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "william",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_william"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_william",
+      "bullet_type": "small",
+      "text": "Remove William Hemlock from the game."
+    },
+    {
+      "id": "check_river",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "river",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_river"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_river",
+      "bullet_type": "small",
+      "text": "Remove River Hawthorne from the game."
+    },
+
+
+    {
+      "id": "check_gideon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "gideon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_gideon"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_gideon",
+      "bullet_type": "small",
+      "text": "Remove Gideon Mizrah from the game."
+    },
+    {
+      "id": "check_theo",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "theo",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_theo"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_theo",
+      "bullet_type": "small",
+      "text": "Remove Theo Peters from the game."
+    },
+    {
+      "id": "check_judith",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "judith",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_judith"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_judith"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_judith",
+      "bullet_type": "small",
+      "text": "Put Judith Park into play at The Crossroads, asset side faceup."
+    },
+    {
+      "id": "remove_judith",
+      "bullet_type": "small",
+      "text": "Remove Judith Par from the game."
+    },
+    {
+      "id": "set_aside_residents",
+      "bullet_type": "small",
+      "text": "Set each remaining card from the <i>Residents</i> encounter set aside, out of play."
+    },
+    {
+      "id": "place_doom",
+      "text": "Place doom on the agenda equal to the number of investigators."
+    },
+    {
+      "id": "ready_to_begin",
+      "text": "You are now ready to begin."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": ["codex"]
+          },
+          {
+            "id": "defeat",
+            "icon": "residents",
+            "text": "Defeated resident asset",
+            "repeatable": true,
+            "steps": ["$defeat_resident"]
+          },
+          {
+            "id": "bonus_xp",
+            "icon": "xp",
+            "text": "Award bonus experience",
+            "repeatable": true,
+            "steps": ["ask_bonus_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_bonus_xp",
+      "text": "Which investigator should earn bonus experience?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Bonus experience",
+        "max": 2,
+        "min": 0,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "special_xp": "unspect_xp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_1",
+            "text": "1",
+            "description": "Codex 1: Mother Rachel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_1",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_1", "check_mother_rachel_intervened"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_1",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_3",
+            "text": "3",
+            "description": "Codex 3: Simeon Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_3",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_simeon_hatched_a_plan"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_3",
+                "text": "dummy"
+              }
+            ]
+          },
+
+          {
+            "id": "codex_4",
+            "text": "4",
+            "description": "Codex 4: William Hemlock",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_4",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_4", "codex_4_effects", "codex_4_relationship", "tome_or_talent"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_4",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_5",
+            "text": "5",
+            "description": "Codex 5: River Hawthorne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_5",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_5", "codex_5_effects", "codex_5_relationship", "gain_4_resources"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_5",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 6",
+            "text": "6",
+            "description": "Codex 6: Gideon Mizrah",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_6",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_6", "check_gideon_told_the_story_of_captain_hemlock"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_6",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 7",
+            "text": "7",
+            "description": "Codex 7: Judith Park",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_7",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_7", "check_judith_saved_your_ass"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_7",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 8",
+            "text": "8",
+            "description": "Codex 8: Theo Peters",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_8",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_theo_distracted_the_bear"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_8",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 9",
+            "text": "9",
+            "description": "Codex 9: Boarding House",
+            "steps": ["codex_9", "codex_9_choice"]
+          },
+          {
+            "id": "codex 10",
+            "text": "10",
+            "description": "Codex 10: The Crossroads",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_10",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_10", "codex_10_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_10",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 11",
+            "text": "11",
+            "description": "Codex 11: Hemlock Chapel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_11",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_11", "codex_11_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_11",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 12",
+            "text": "12",
+            "description": "Codex 12: The Old Mill",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_12",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_12", "codex_12_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_12",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 13",
+            "text": "13",
+            "description": "Codex 13: The Atwood House",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_13",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_13", "codex_13_choice"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_13",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 14",
+            "text": "14",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_14",
+              "options": [{ "boolCondition": false }]
+            },
+            "description": "Codex 14: Tad’s General Store",
+            "steps": ["maybe_check_running_an_errand"]
+          },
+          {
+            "id": "codex 15",
+            "text": "15",
+            "description": "Codex 15: Vale Schoolhouse",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_15",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_15", "codex_15_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_15",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 16",
+            "text": "16",
+            "description": "Codex 16: The Commons",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_16",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_16", "$ask_give_gift"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_16",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 17",
+            "text": "17",
+            "description": "Codex 17: The Curse",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_second_day_codex_17",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_17", "ask_codex_17_investigator"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_17",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_1",
+      "type": "story",
+      "text": "Mother Rachel stands at the head of a procession. Her train wave bright colorful ribbons as they sing a lilting song: “The night is long, the woods are dark / The starborn child is clothed in bark / Silent, we wait for summer rain / The cleansing wash to end all pain.” The procession halts as Mother Rachel breaks from the group to walk to your side."
+    },
+    {
+      "id": "check_mother_rachel_intervened",
+      "type": "branch",
+      "text": "Check Mother Rachel’s Notes. <i> If Mother Rachel intervened</i>:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "rachel",
+        "id": "mother_rachel_intervened",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["mother_rachel_2_story", "rachel_relationship", "corn_husk_doll_explain"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["mother_rachel_3_story", "rachel_relationship", "charm_or_spell"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mother_rachel_2_story",
+      "type": "story",
+      "text": "Mother Rachel’s eyes well with tears. “I could feel the hand of death was upon you, and so I followed you into the woods. When the beast appeared, I knew it was my place to help you. Just as it is your place to witness the miracles of Hemlock Isle in all their fearsome, terrifying glory.” She presses a small, handmade doll into your hands. “A gift from my daughter,” she gestures to a young girl in a rabbit mask in the midst of the procession. Strings of flowering garlands are roped around her hands and ankles."
+    },
+    {
+      "id": "rachel_relationship",
+      "text": "Increase Mother Rachel’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "rachel",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "corn_husk_doll_explain",
+      "text": "Search the <i>Heirlooms</i> encounter set for the Corn Husk Doll story asset and add it to your deck. It does not count toward your deck size.",
+      "type": "encounter_sets",
+      "encounter_sets": ["heirlooms"],
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "10714"
+        }
+      ]
+    },
+    {
+      "id": "mother_rachel_3_story",
+      "type": "story",
+      "text": "Mother Rachel grips your hands tightly in hers as she looks down at you with a magnanimous smile. “There is so much that you do not yet understand. And yet, I believe you will understand it once the Feast begins.” As the matron returns to the procession, a young girl in a rabbit mask peers out from the midst of the crowd. Strings of flowering garlands are roped around her hands and ankles."
+    },
+    {
+      "id": "charm_or_spell",
+      "text": "Draw 1 card. You may play a [[Charm]] or [[Spell]] asset from your hand, ignoring its cost."
+    },
+    {
+      "id": "check_simeon_hatched_a_plan",
+      "bullet_type": "none",
+      "type": "branch",
+      "text": "<b><i>If Simeon hatched a plan:</i></b>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "simeon",
+        "id": "simeon_hatched_a_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["simeon_plan_story", "plan_is_underway"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["simeon_no_plan_story", "tactic_or_trick"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "simeon_plan_story",
+      "type": "story",
+      "text": "“For the Secret Miners!” Simeon tosses a firecracker at your feet, but the rain extinguishes the fuse. “Consider that a warning,” he laughs. The young man then opens a bag full of fireworks as he outlines a convoluted plan. “Tomorrow morning, hide these fireworks somewhere in the crossroads, the chapel, the store, and the school. Where people won’t find them. Then, on the night of the Feast, we’ll meet behind the schoolhouse.” When you ask him why he won’t place the fireworks himself, he smirks. “I’ve gotta get more gunpowder from my secret underground lair. But don’t worry, I’ll be back tomorrow.”"
+    },
+    {
+      "id": "plan_is_underway",
+      "text": "In Simeon Atwood’s Notes, record <i>The plan is underway</i>.",
+      "bullets": [
+        {
+          "text": "<i>(Hint: Tomorrow, you need to hide 1 [per_investigator] fireworks around Hemlock Vale.)</i>"
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "plan_is_underway",
+          "text": "the plan is underway."
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "simeon_plan_is_underway",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "simeon_no_plan_story",
+      "type": "story",
+      "text": "“Scram!” Simeon shouts from a small burrow at the base of the mill. The young man is clearly hiding something, but you have no idea what. A firecracker flies out of the foliage but doesn’t go off."
+    },
+    {
+      "id": "tactic_or_trick",
+      "text": "Draw 1 card. Search the top 9 cards of your deck for a [[Tactic]] or [[Trick]] card and add it to your hand <i>(shuffle your deck)</i>."
+    },
+    {
+      "id": "codex_4",
+      "type": "story",
+      "text": "River walks off in a huff after you come to their cousin’s defense. William smiles. “Thank you, my friend. I have plenty to reflect on.”"
+    },
+    {
+      "id": "codex_4_effects",
+      "text": "In William Hemlock’s Notes, record <i>William took heart</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "id": "william_took_heart",
+          "text": "William took heart."
+        }
+      ]
+    },
+    {
+      "id": "codex_4_relationship",
+      "text": "Increase William Hemlock’s Relationship Level. Decrease River Hawthorne’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "tome_or_talent",
+      "text": "Search the top 9 cards of your deck for a [[Tome]] or [[Talent]] card and add it to your hand <i>(shuffle your deck)</i>."
+    },
+    {
+      "id": "codex_5",
+      "type": "story",
+      "text": "“I appreciate your support,” River smirks as William storms off. “My idiot cousin entrusted all the family bonds and deeds to the Atwoods. I just need to find where they’ve hidden them.”"
+    },
+    {
+      "id": "codex_5_effects",
+      "text": "In River Hawthorne’s Notes, record <i>The scheme is in motion.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "river",
+          "id": "scheme_is_in_motion",
+          "text": "the scheme is in motion."
+        }
+      ]
+    },
+    {
+      "id": "codex_5_relationship",
+      "text": "Increase River Hawthorne’s Relationship Level by 2. Decrease William Hemlock’s Relationship Level. Each investigator earns 2 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 2
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 2,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "gain_4_resources",
+      "text": "Gain 4 resources."
+    },
+
+    {
+      "id": "codex_6",
+      "type": "story",
+      "text": "Gideon is seated at a long table. “I heard some talk on the northern shore about a right queer thing. A heap of weeds and shellfish rolling on the north beach. They said it moved on its own.” The old man’s story soon threatens to spiral into an explanation of whale anatomy."
+    },
+    {
+      "id": "check_gideon_told_the_story_of_captain_hemlock",
+      "text": "Check Gideon Mizrah’s Notes. <i>If Gideon told the story of Captain Hemlock</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "gideon",
+        "id": "gideon_told_the_story_of_captain_hemlock",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["captain_hemlock_story", "gideon_told_the_tale_of_the_annabelle_lee", "gideon_relationship"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["no_hemlock_story", "gideon_relationship"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "captain_hemlock_story",
+      "type": "story",
+      "text": "Sensing another of the old sailor’s wandering tales, you ask Gideon about the shipwreck he and Captain Hemlock found in the Atlantic. The old man’s face lights up at the question, and he gives a grim account detailing how the crew of his ship—the Annabelle Lee— grew gravely ill following their visit to the shipwreck. As he tells the story, you are joined by Dr. Marquez, who listens intently. You can sense an old fear in the grizzled sailor’s tone, but don’t press it further."
+    },
+    {
+      "id": "gideon_told_the_tale_of_the_annabelle_lee",
+      "text": "In Gideon Mizrah’s Notes, record <i>Gideon told the tale of the</i> Annabelle Lee.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "gideon",
+          "id": "gideon_told_the_tale_of_the_annabelle_lee",
+          "text": "Gideon told the tale of the Annabelle Lee."
+        }
+      ]
+    },
+    {
+      "id": "gideon_relationship",
+      "text": "Draw 3 cards. Increase Gideon Mizrah’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "gideon",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "no_hemlock_story",
+      "type": "story",
+      "text": "The conversation instead devolves into a soliloquy about barnacle removal. As Gideon waxes eloquent about a delicious abalone stew he once enjoyed, you politely excuse yourself."
+    },
+
+
+    {
+      "id": "codex_7",
+      "type": "story",
+      "text": "Judith leans against the side of the Atwood House, polishing her rifle as she observes passers-by. “These sweet little lambs don’t even know what I have to go through to keep them safe. And hopefully they never will, Jomo.” You realize she is addressing her rifle, and not you. She stops suddenly, as if aware of your presence, and locks eyes with you."
+    },
+    {
+      "id": "check_judith_saved_your_ass",
+      "text": "Check Judith Park’s Notes. <i>If Judith saved your ass</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "judith",
+        "id": "judith_saved_your_ass",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["judith_saved_story", "judith_saved_choice"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["play_weapon"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "play_weapon",
+      "text": "Draw 1 card. You may play a [[Weapon]] card from your hand, ignoring its cost."
+    },
+    {
+      "id": "judith_saved_story",
+      "type": "story",
+      "text": "“You can bet that bear is alive and has your scent,” Judith says grimly. “Some of the animals here are incredibly smart. Too smart. I can guarantee that thing’s out for blood tonight. Don’t go near the woods again.”"
+    },
+    {
+      "id": "judith_saved_choice",
+      "text": "You must decide <i>(choose one)</i>:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "alone",
+            "text": "<i> “I can handle myself.”</i>",
+            "steps": ["judith_3", "judith_relationship"]
+          },
+          {
+            "id": "thanks",
+            "text": "<i>“Thanks for saving us.”</i>",
+            "steps": ["judith_4", "decrease_judith"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "judith_3",
+      "type": "story",
+      "text": "Judith looks you over, sizing you up. “I figured the survey had to bring someone like you along. Someone who can stay cool under pressure.” She puts her hands on her hips. “I might be impressed.”"
+    },
+    {
+      "id": "judith_relationship",
+      "text": "Increase Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "judith_4",
+      "type": "story",
+      "text": "“Thank me? For saving you?” Judith cocks an eyebrow. “You’re welcome, I guess. Just doing what I’m paid to do.”"
+    },
+    {
+      "id": "decrease_judith",
+      "text": "Decrease Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "check_theo_distracted_the_bear",
+      "bullet_type": "none",
+      "text": "<b><i>If Theo distracted the bear:</i></b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "theo",
+        "id": "theo_distracted_the_bear",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["theo_distracted_story", "move_to_any_location", "theo_relationship"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["theo_other_story", "move_to_any_location"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "theo_distracted_story",
+      "type": "story",
+      "text": "Theo stands up in the schoolyard, clutching a well-loved copy of <i>20,000 Leagues Under the Sea</i>. “Sister Miriam got mad when I asked to buy her book. But I don’t want to return it,” he says. “I’ve always wanted to see the ocean floor. As long as I didn’t die.” As he drives you around the Vale, Theo looks  contemplative. “I can’t stop thinking about the bear. Now I see why Mother Rachel tells us not to go out at night. Some folks have gone missing in the last few months. Benny. Sister Edie. That one kid whose name I can never remember. We don’t talk about the ones who disappear.”"
+    },
+    {
+      "id": "move_to_any_location",
+      "text": "You may immediately move to any location."
+    },
+    {
+      "id": "theo_relationship",
+      "text": "Increase Theo Peters’ Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "theo",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "theo_other_story",
+      "type": "story",
+      "text": "Theo stands up in the schoolyard, clutching a well-loved copy of <i>20,000 Leagues Under the Sea</i>. “Sister Miriam got mad when I asked to buy her book. But I don’t want to return it,” he says. “I’ve always wanted to go to the ocean floor. As long as I didn’t die.”"
+    },
+    {
+      "id": "codex_9",
+      "type": "story",
+      "text": "Ms. Olmstead is more than happy to answer your questions as she sets plates heaped with succulent fruit and sizzling meats. “Don’t forget to come to the dance this evening. Everyone will be there,” she smiles. Your mouth waters at the scent of the food, but you also catch the acrid undercurrent."
+    },
+    {
+      "id": "codex_9_choice",
+      "text": "Choose one of the options below to resolve. Investigators at Boarding House may spend any number of actions, as a group, to choose that many additional options. An investigator may trigger this codex again.",
+      "bullets": [
+        {
+          "text": "<i>“Leah was supposed to prepare the Feast in the Crossroads. If she’s there, I know she’d appreciate your help.”</i> An investigator at the Boarding House may immediately move to The Crossroads."
+        },
+        {
+          "text": "<i>“Simeon’s probably hiding in the field.”</i> Search the set-aside <i>Residents</i> encounter set for Simeon Atwood and put him into play at The Old Mill, asset side faceup."
+        },
+        {
+          "text": "<i>“Gideon is probably at The Commons like always.”</i> Search the set-aside <i>Residents</i> encounter set for Gideon Mizrah and put him into play at The Commons, asset side faceup."
+        }
+      ]
+    },
+    {
+      "id": "codex_10",
+      "type": "story",
+      "text": "Leah shouts to a cadre of workers to cover the effigy with tarps as rain falls. The dozens of small mirrors ring like chimes as the festival decorations are sheltered from the rain. In a large white tent, Leah looks up as you approach. “Ah, perfect timing. Take these over to Tad’s as soon as possible. Much obliged.” She nods to a box heaped with worn farming tools."
+    },
+    {
+      "id": "codex_10_effects",
+      "text": "Draw 1 card. Remember that you are “running an errand.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "running_an_errand",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "codex_11",
+      "type": "story",
+      "text": "The entrance to Hemlock Chapel is choked with parishioners in white-gold cloaks, so you head around back. As you open the door to the rear, you hear hushed conversation. You leave the door cracked and listen. A soft voice speaks: “It’ll be done as you’ve said, Mother. But I was wondering exactly why you needed us to—”\n“It is not your place to question, nor to speak, but to obey.” Mother Rachel’s stern voice cuts like a knife. “Now you must join your brethren, and I must join the procession. Simply do as I asked.”"
+    },
+    {
+      "id": "codex_11_effects",
+      "text": "Search the set-aside <i>Residents</i> encounter set for Mother Rachel and put her into play at Hemlock Chapel, asset side faceup."
+    },
+    {
+      "id": "codex_12",
+      "type": "story",
+      "text": "The Old Mill is eerily silent as you poke around the overgrowth. As thunder rumbles overhead, a long-legged grasshopper flits through the air. You note that the insect has misshapen black wings."
+    },
+    {
+      "id": "codex_12_effects",
+      "text": "Draw 3 cards."
+    },
+
+
+    {
+      "id": "codex_13",
+      "type": "story",
+      "text": "You hear William and River arguing. “This is all we have left. We can’t turn our back on our past. Our legacy,” William insists. River cuts in with a scathing look. “The Hemlock legacy is dead. And I know several buyers in Harlem who would turn this soggy island into a paradise.”"
+    },
+    {
+      "id": "codex_13_choice",
+      "text": "You must decide <i>(choose one)</i>:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "show_hidden_choices": true,
+        "choices": [
+          {
+            "id": "william",
+            "text": "<i>“William has a point.”</i>",
+            "description": "You may only choose this option if William Hemlock’s Relationship Level is 2 or higher.",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "math",
+                  "operation": "compare",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "william",
+                    "id": "$relationship"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 2
+                  },
+                  "options": [
+                    {
+                      "numCondition": 0
+                    },
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "count": 1,
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["spawn_william"]
+          },
+          {
+            "id": "river",
+            "text": "<i>River has a point.”</i>",
+            "description": "You may only choose this option if River Hawthorne’s Relationship Level is 2 or higher.",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "math",
+                  "operation": "compare",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "river",
+                    "id": "$relationship"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 2
+                  },
+                  "options": [
+                    {
+                      "numCondition": 0
+                    },
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "count": 1,
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["spawn_river"]
+          },
+          {
+            "id": "fight",
+            "text": "<i>Let them fight it out.</i>",
+            "steps": ["fight_story", "fight_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_william",
+      "bullet_type": "small",
+      "text": "Search the set-aside <i>Residents</i> encounter set for William Hemlock and put him into play at The Atwood House, asset side faceup."
+    },
+    {
+      "id": "spawn_river",
+      "bullet_type": "small",
+      "text": "Search the set-aside <i>Residents</i> encounter set for River Hawthorne and put them into play at The Atwood House, asset side faceup."
+    },
+    {
+      "id": "fight_story",
+      "type": "story",
+      "text": "As the pair sling incredibly personal insults back and forth, a peal of thunder silences them both. William’s brow furrows when he sees you; River turns and grimaces as well. An uneasy silence follows, and you realize you just eavesdropped on a very sensitive conversation."
+    },
+    {
+      "id": "fight_effects",
+      "text": "Decrease both William Hemlock and River Hawthorne’s Relationship Levels.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "maybe_check_running_an_errand",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fhv_second_day_codex_14_once",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["running_errand_story", "leah_relationship"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_14",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_running_an_errand"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_14_once",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_running_an_errand",
+      "type": "branch",
+      "bullet_type": "none",
+      "text": "<b>If you are “running an errand”:</b>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "running_an_errand",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["running_errand_story", "leah_relationship"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_second_day_codex_14",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["no_errand_story", "no_errand_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "running_errand_story",
+      "type": "story",
+      "text": "You drop the box of farming tools and implements on the counter with a dull thud. The proprietor smiles as he stows them. “Leah’ll appreciate this a lot. Ready for the big feast tomorrow?” He chews on a strip of leathery jerky and spits into a bottle."
+    },
+    {
+      "id": "leah_relationship",
+      "text": "Increase Leah Atwood’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "leah",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "no_errand_story",
+      "type": "story",
+      "text": "“What’re you buyin’?” the proprietor laughs. “At least, that’s what Tad used to say.” When you ask him where Tad is, he goes quiet."
+    },
+    {
+      "id": "no_errand_effects",
+      "text": "You may spend 3 resources to search your deck for an [[Item]] asset and play it, ignoring its cost. An investigator may trigger this codex again if they are “running an errand.”"
+    },
+    {
+      "id": "codex_15",
+      "type": "story",
+      "text": "“It’s a library, not a book shop!” An angry, red-haired teacher barks. Theo emerges from the schoolhouse and flashes a goofy smile just as he is tackled by school kids."
+    },
+    {
+      "id": "codex_15_effects",
+      "text": "Search the set-aside <i>Residents</i> encounter set for Theo Peters and put him into play at Vale Schoolhouse, asset side faceup."
+    },
+    {
+      "id": "codex_16",
+      "type": "story",
+      "text": "“Wanna send a gift to a special someone?” Martha Jean beckons to a neat stack of woven gift boxes tied with colorful ribbons. “Anything you wanna send to the mainland will have to wait till tomorrow morning, I’m afraid. The postman got stranded again.”"
+    },
+    {
+      "id": "codex_17",
+      "type": "story",
+      "text": "As you lean on the stack of mirrors, you look down and see your own reflection staring back. Your features are stretched and different somehow: you look gaunt and exhausted. As you stand up, gray, flaking skin sloughs off of your forearm."
+    },
+    {
+      "id": "ask_codex_17_investigator",
+      "text": "Which investigator is reading this codex?",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "min": {
+          "type": "constant",
+          "value": 1
+        },
+        "max": {
+          "type": "constant",
+          "value": 1
+        },
+        "choices": [
+          {
+            "id": "read",
+            "text": "Read Codex 17",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "read_codex_17_curse",
+                "cards": "$input_value",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "hemlock_curse_count",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "earn_xp",
+                "bonus": 2,
+                "investigator": "$input_value",
+                "special_xp": "unspect_xp"
+              }
+            ],
+            "steps": ["check_read_codex_17_curse", "you_bonus_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "you_bonus_xp",
+      "text": "You <i>(and only you)</i> earn 2 bonus experience."
+    },
+    {
+      "id": "check_read_codex_17_curse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_investigator_count",
+        "section": "hemlock_curse_count",
+        "investigator": "any",
+        "options": [
+          {
+            "numCondition": 2,
+            "steps": ["start_with_hemlock_curse"]
+          }
+        ],
+        "default_option": {
+          "steps": ["explain_reader_gets_hemlock_curse", "reader_gets_hemlock_curse"]
+        }
+      }
+    },
+    {
+      "id": "start_with_hemlock_curse",
+      "text": "Because you already have a copy of Hemlock Curse in your deck, during setup for the next scenario, search your deck and discard pile for the Hemlock Curse weakness and add it to your opening hand."
+    },
+    {
+      "id": "explain_reader_gets_hemlock_curse",
+      "type": "encounter_sets",
+      "encounter_sets": ["day_of_rain"],
+      "text": "Search the set-aside <i>Day of Rain</i> encounter set for the Hemlock Curse weakness and add it to your deck. It does not count toward your deck size."
+    },
+    {
+      "id": "reader_gets_hemlock_curse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "read_codex_17_curse",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "10685"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "no_xp",
+      "text": "Do not record the Victory X value of each card in the victory display. Each investigator earns the bonus experience awarded during this prelude. Record each bonus experience earned under “Unspent Experience” in your Campaign Log, <b>but do not spend any of it until the end of the next scenario.</b>"
+    },
+    {
+      "id": "survey_preparations",
+      "text": "Make preparations for your next survey.",
+      "bullets": [
+        {
+          "text": "Choose 1 asset in your play area to keep for the next scenario. It must be one that does not normally start in play. Discard each other asset and attachment in your play area, except for those that start each game in play."
+        },
+        {
+          "text": "Discard down to your opening hand size. Shuffle your discard pile into your deck. <i>(Your current hand is your opening hand for the next scenario; you will not draw a new opening hand or take a mulligan.)</i>"
+        },
+        {
+          "text": "Discard down to your starting resources."
+        }
+      ]
+    },
+    {
+      "id": "next_scenario",
+      "text": "When setting up the next scenario, skip steps 1-8 of ‘Setting Up the Game” on page 27 of the Rules Reference.",
+      "bullets": [
+        {
+          "text": "<i>Note: This means you skip choosing investigators, taking trauma damage/horror, collecting starting resources, and drawing opening hands.</i>"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Dr. Marquez emerges from upstairs with a stony look on her face. Bertie follows, nursing a bandaged arm. His face is ashen as he recounts his experience: “I was walking at the edge of the woods—I think at midday—when I felt the most delicious, erm.” He struggles to put it into words. “An absolute joy. And then I suppose I lost myself. When I came to, it was night and I was quite lost. And now that I’ve returned, I can’t help but reflect on that breathless feeling. ‘Emotion recollected in tranquility,’ eh?” The professor rolls her eyes but doesn’t comment.",
+      "steps": [
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Dr. Marquez slams the screen door as she enters. “Mother Rachel told me she found Bertie wandering around this morning. I saw him recovering at the Atwood House, and he looks just fine. Babbling nonsense and reading some of the local poetry.”",
+      "steps": [
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Dr. Marquez pours herself a strong cup of coffee. “I’m going to take advantage of the cooling rain and head up to Pearl Ridge. Join me if you like,” she takes a bite of her eggs and wrinkles her nose. “Is that a metal taste?” She discretely spits the eggs into a handkerchief as Ms. Olmstead emerges from the kitchen with a stack of flapjacks and serves several hungry guests.",
+      "steps": [
+        "no_xp",
+        "survey_preparations",
+        "next_scenario",
+        "$choose_next_scenario_day"
+      ]
+    }
+  ]
+}

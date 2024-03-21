@@ -22,6 +22,20 @@
     "resolving_incursions",
     "$play_scenario"
   ],
+  "rules": [
+    {
+      "title": "Choosing a Random Location",
+      "steps": ["choosing_a_random_location"]
+    },
+    {
+      "title": "Breaches and Incursions",
+      "steps": ["breaches_and_incursions"]
+    },
+    {
+      "title": "Placing Breaches",
+      "steps": ["placing_breaches"]
+    }
+  ],
   "steps": [
     {
       "id": "intro_1",
@@ -357,9 +371,47 @@
     },
     {
       "id": "choosing_a_random_location",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "anette_mason_is_possessed_by_evil",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choosing_a_random_location_rule", "gather_anette_random_locations"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["choosing_a_random_location_rule", "gather_carl_random_locations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choosing_a_random_location_rule",
       "type": "rule_reminder",
       "title": "Choosing a Random Location",
       "text": "During this scenario, you will often be instructed to choose a random location. This should be done by shuffling together the 8 locations removed from the game during setup (the versions of each location in play not currently being used) and drawing 1 at random.\nIf you are instructed to choose multiple different random locations, shuffle together the 8 locations not currently being used and randomly draw a number of different locations equal to the amount specified."
+    },
+    {
+      "id": "gather_anette_random_locations",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "text": "Note: the extra copies of Hangman's Hill and Silver Twilight Lodge are located in the <i>Secrets of the Universe</i> encounter set.",
+      "encounter_sets": [
+        "secrets_of_the_universe"
+      ]
+    },
+    {
+      "id": "gather_carl_random_locations",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "text": "Note: the extra copies of Hangman's Hill and Silver Twilight Lodge are located in the <i>Music of the Damned</i> encounter set.",
+      "encounter_sets": [
+        "music_of_the_damned"
+      ]
     },
     {
       "id": "breaches_and_incursions",

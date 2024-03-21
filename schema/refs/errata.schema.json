@@ -16,8 +16,8 @@
       "required": ["question", "answer"],
       "additionalProperties": false
     },
-    "faqEntry": {
-      "title": "FaqEntry",
+    "scenarioFaqEntry": {
+      "title": "ScenarioFaqEntry",
       "type": "object",
       "properties": {
         "scenario_code": {
@@ -31,6 +31,26 @@
         }
       },
       "required": ["scenario_code", "questions"],
+      "additionalProperties": false
+    },
+    "campaignFaqEntry": {
+      "title": "CampaignFaqEntry",
+      "type": "object",
+      "properties": {
+        "cycles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/question"
+          }
+        }
+      },
+      "required": ["cycles", "questions"],
       "additionalProperties": false
     },
     "cardErrata": {
@@ -80,7 +100,13 @@
         "faq": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/faqEntry"
+            "$ref": "#/definitions/scenarioFaqEntry"
+          }
+        },
+        "campaign_faq": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/campaignFaqEntry"
           }
         }
       },

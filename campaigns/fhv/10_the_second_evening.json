@@ -1,0 +1,1589 @@
+{
+  "id": "the_second_evening",
+  "scenario_name": "The Second Evening",
+  "full_name": "Prelude: The Second Evening",
+  "header": "Prelude",
+  "type": "interlude",
+  "icon": "residents",
+  "setup": [
+    "$choose_investigators",
+    "intro_1",
+    "check_simeon_survived",
+    "intro_4",
+    "dance_explanation",
+    "choose_dance_count",
+    "resolution_1"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The rain continues through the day. When you arrive at the Commons for dinner, the tables have been pushed to the sides of the room and warm lamps are hung from colorful ribbons. Dozens of new faces peer out from the crowd of cloaked locals: visitors from the mainland. A large sculpture looms in the center of the room, festooned with violet and white blossoms that seem to palpitate in the soft light. The room goes silent as Mother Rachel addresses the assembly. “Friends. Brethren. Each of you is a miracle of time and light. You are the promise of your true self—” The matron stops mid-sentence."
+    },
+    {
+      "id": "check_simeon_survived",
+      "text": "<i>If Simeon survived</i> is recorded in Simeon Atwood’s Notes:",
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "simeon",
+        "id": "simeon_survived",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "leah_is_searching_for_simeon"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "A shadow passes over the matron’s face as she sways, looking for a moment as though she might faint. The air in the room swirls thickly. Oily patterns dance in the light as you feel a now-familiar light-headedness. Someone steps forward to help Mother Rachel, but she holds up one hand and steadies herself."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "A sturdy figure cuts through the crowd. “Has anyone seen Simeon?” Leah Atwood asks in a trembling voice. She looks at the assembly with wide, searching eyes. “Please. Simeon. Now’s not the time for pranks,” she addresses her son, but to no response. The air in the room swirls thickly. “Enough,” Mother Rachel shoos her sister away. Oily patterns dance in the light as you feel a now-familiar light-headedness."
+    },
+    {
+      "id": "leah_is_searching_for_simeon",
+      "bullet_type": "small",
+      "text": "Update your Campaign Log.",
+      "bullets": [
+        {
+          "text": "In Leah Atwood’s Notes, record Leah is searching for Simeon."
+        },
+        {
+          "text": "Cross out Simeon Atwood’s name."
+        }
+      ],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_is_searching_for_simeon",
+          "text": "Leah is searching for Simeon."
+        },
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "cross_out": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "simeon_plan_is_underway",
+          "text": "dummy",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "Mother Rachel regains her composure. “Tonight is the shortest night of the year. And tomorrow is the beginning of eternity. So on this night, let us dance.” The assembly bursts into rapturous applause. A ragtag band in the corner starts playing as the dance begins. Several friendly faces beckon you to join."
+    },
+    {
+      "id": "dance_explanation",
+      "text": "You may choose whom you would like to dance with. One at a time, each investigator may choose a different codex entry from the following (if there is only one investigator, you may choose two to resolve instead). If a resident’s name is crossed out, you cannot choose their codex."
+    },
+    {
+      "id": "choose_dance_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["choose_dance_solo", "choose_dance"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["choose_dance"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["choose_dance"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["choose_dance"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "codex_1_story",
+      "title": "Codex 1: Mother Rachel",
+      "type": "story",
+      "text": "The Vale’s matriarch stands apart from the throng, arms crossed. Tears glisten on her cheeks as she watches the room. You approach and ask her to dance. “I’m sorry. I can’t,” she replies. The strain in her voice is evident, and you ask what the matter is. “We are called to give up many things in this life. I only pray that what we gain is worth the cost.”"
+    },
+    {
+      "id": "codex_1_effects",
+      "text": "In Mother Rachel’s Notes, record <i>Mother Rachel shared her doubts</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "rachel",
+          "id": "mother_rachel_shared_her_doubts",
+          "text": "Mother Rachel shared her doubts."
+        }
+      ]
+    },
+    {
+      "id": "check_leah_searching_for_simeon",
+      "title": "Codex 2: Leah Atwood",
+      "bullet_type": "none",
+      "text": "<b>If Leah is searching for Simeon:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "leah",
+        "id": "leah_is_searching_for_simeon",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["leah_busy"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["leah_dance", "leah_dance_effects"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "leah_busy",
+      "type": "story",
+      "text": "You find Leah standing by the dinner spread, hands trembling. “Simeon kept talking about a ‘Miner Club’ lately. I wonder if—” she goes pale. “Sorry, I can’t dance right now.”"
+    },
+    {
+      "id": "leah_dance",
+      "type": "story",
+      "text": "Leah steps out onto the wooden floor with you and dances along. Although she can’t quite keep step with the music, she sweeps you off your feet with surprising ease and spins you around. The others cheer as you take a bow."
+    },
+    {
+      "id": "leah_dance_effects",
+      "text": "In Leah Atwood’s Notes, record <i>Leah shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_shared_a_dance",
+          "text": "Leah shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "check_simeon_relationship_3",
+      "title": "Codex 3: Simeon Atwood",
+      "type": "branch",
+      "text": "<b>If Simeon Atwood is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "simeon",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["simeon_dance", "simeon_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["simeon_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "simeon_dance",
+      "type": "story",
+      "text": "“Get ready for the Texas Tommy!” Simeon waves his hands overhead as the band picks up the tempo. “Not bad, not bad,” You feel something cold and slick creep up your leg. He smiles mischievously as you extract the garter snake from around your ankle."
+    },
+    {
+      "id": "simeon_dance_effects",
+      "text": "In Simeon Atwood’s Notes, record <i>Simeon shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "simeon_shared_a_dance",
+          "text": "Simeon shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "simeon_refused",
+      "type": "story",
+      "text": "“Sorry, but you’re kind of boring,” Simeon shrugs. “Get ready for the Texas Tommy!” he shouts to his friends."
+    },
+    {
+      "id": "check_william_relationship_3",
+      "title": "Codex 4: William Hemlock",
+      "type": "branch",
+      "text": "<b>If William Hemlock is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "william",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["william_dance", "william_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["william_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_dance",
+      "type": "story",
+      "text": "“It’s been years and I’m out of practice, but why not?” William joins you on the dance floor and leads you in a waltz. After several bumps and awkward gaffes, the dance ends mercifully early. The older Hemlock looks quite pleased as he takes his place back in the corner."
+    },
+    {
+      "id": "william_dance_effects",
+      "text": "In William Hemlock’s Notes, record <i>William shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "id": "william_shared_a_dance",
+          "text": "William shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "william_refused",
+      "type": "story",
+      "text": "“It’s been many years and I’m out of practice,” William says, straightening his jacket. “But thank you for asking.”"
+    },
+
+    {
+      "id": "check_river_relationship_3",
+      "title": "Codex 5: River Hawthorne",
+      "type": "branch",
+      "text": "<b>If River Hawthorne is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "river",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["river_dance", "river_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["river_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_dance",
+      "type": "story",
+      "text": "“Hop down front, then doodle back!” River calls instructions to the Black Bottom dance to everyone around. While the others struggle to keep step, you lock eyes with River and follow their every move. When it’s over, they pat your shoulder. “Not bad, dear. Not bad.”"
+    },
+    {
+      "id": "river_dance_effects",
+      "text": "In River Hawthorne’s Notes, record <i>River shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "river",
+          "id": "river_shared_a_dance",
+          "text": "River shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "river_refused",
+      "type": "story",
+      "text": "“Sorry, but you just can’t keep up,” River teaches the Black Bottom to the other dancers. Unfortunately, you don’t make the cut."
+    },
+    {
+      "id": "check_gideon_relationship_3",
+      "title": "Codex 6: Gideon Mizrah",
+      "type": "branch",
+      "text": "<b>If Gideon Mizrah is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "gideon",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gideon_dance", "gideon_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gideon_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gideon_dance",
+      "type": "story",
+      "text": "“Aye, but only if we dance the Yankee Doodle,” Gideon says with a youthful grin. You go to the band and make the request, and return to find the old sailor swaying in time to the music. “My niece Gavriella loved this song. I hae’n’t seen ‘er in years though...”"
+    },
+    {
+      "id": "gideon_dance_effects",
+      "text": "In Gideon Mizrah’s Notes, record <i>Gideon shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "gideon",
+          "id": "gideon_shared_a_dance",
+          "text": "Gideon shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "gideon_refused",
+      "type": "story",
+      "text": "“Nae, I dare not,” Gideon shakes his head. “These old hips ain’t what they used to be.”"
+    },
+
+    {
+      "id": "check_judith_relationship_3",
+      "title": "Codex 7: Judith Park",
+      "type": "branch",
+      "text": "<b>If Judith Park is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "judith",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["judith_dance", "judith_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["judith_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "judith_dance",
+      "type": "story",
+      "text": "“I’m supposed to be working, but what the hell?” Judith smiles rakishly as she joins you on the dance floor. The bodyguard is suprisingly good as she leads you in the Charleston and the Fox Trot. “That was more fun than I expected,” she says after, cheeks flushed."
+    },
+    {
+      "id": "judith_dance_effects",
+      "text": "In Judith Park’s Notes, record <i>Judith shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "judith",
+          "id": "judith_shared_a_dance",
+          "text": "Judith shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "judith_refused",
+      "type": "story",
+      "text": "“Sorry, but I’m working,” Judith says. “One time, a wolf just wandered in during community dinner. I can’t let that happen again.” She rests one hand on the butt of her gun."
+    },
+
+
+    {
+      "id": "check_theo_relationship_3",
+      "title": "Codex 8: Theo Peters",
+      "type": "branch",
+      "text": "<b>If Theo Peters is at Relationship Level 3 or higher:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "theo",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["theo_dance", "theo_dance_effects"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["theo_refused"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "theo_dance",
+      "type": "story",
+      "text": "“But how can you ask me to dance with you if we’re already dancing?” Theo giggles as he shuffles out of time with the music. He nearly slips in a patch of mud, but you catch him just in time. “I think you just saved my life,” he gasps."
+    },
+    {
+      "id": "theo_dance_effects",
+      "text": "In Theo Peters’ Notes, record <i>Theo shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "id": "theo_shared_a_dance",
+          "text": "Theo shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "theo_refused",
+      "type": "story",
+      "text": "“Thanks but I—” Theo slips in some mud and careens into a dancing couple, who topple another half dozen revelers. The Commons go quiet for a moment. “I’m okay!” Theo shouts as he scrambles to his feet."
+    },
+    {
+      "id": "choose_dance",
+      "text": "Choose dance:",
+      "type": "input",
+      "prompt_type": "header",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "confirm_text": "Chosen dance:",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Mother Rachel watches the room.",
+            "description": "[codex] 1",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_1",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "rachel",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["codex_1_story", "codex_1_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_1",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "text": "Next to the dinner spread, Leah looks utterly exhausted.",
+            "description": "[codex] 2",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_2",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "leah",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_leah_searching_for_simeon"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "text": "Simeon makes bird noises to a gaggle of children.",
+            "description": "[codex] 3",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_3",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "simeon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_simeon_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_3",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "4",
+            "text": "William sits in a corner, penning the first lines of what is sure to be an overwrought poem about his family legacy.",
+            "description": "[codex] 4",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_4",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "william",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_william_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_4",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "5",
+            "text": "River is tearing it up on the dance floor.",
+            "description": "[codex] 5",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_5",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "river",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_river_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_5",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "6",
+            "text": "Gideon sits on a stool near the dancing.",
+            "description": "[codex] 6",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_6",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "gideon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_gideon_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_6",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "7",
+            "text": "Standing by the entrance, Judith watches the door.",
+            "description": "[codex] 7",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_7",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "judith",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_judith_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_7",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "8",
+            "text": "Theo bobs his head in rhythm in the crowd.",
+            "description": "[codex] 8",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_8",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "theo",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_theo_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_8",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "9",
+            "text": "Dance by yourself.",
+            "description": "[codex] 9",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_9",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["dance_alone_story", "dance_alone_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_9",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "omega",
+            "text": "A woman in hunting clothes stands at the edge of the room.",
+            "description": "[codex] Ω",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_helen_peters_joined_the_survey"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+
+          {
+            "id": "theta",
+            "text": "Dr. Marquez eyes you from across the room.",
+            "description": "[codex] Θ",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_theta_story", "codex_theta_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_dance_solo",
+      "text": "Choose dance:",
+      "type": "input",
+      "prompt_type": "header",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "confirm_text": "Chosen dance:",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Mother Rachel watches the room.",
+            "description": "[codex] 1",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_1",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "rachel",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["codex_1_story", "codex_1_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_1",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "text": "Next to the dinner spread, Leah looks utterly exhausted.",
+            "description": "[codex] 2",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_2",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "leah",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_leah_searching_for_simeon"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "3",
+            "text": "Simeon makes bird noises to a gaggle of children.",
+            "description": "[codex] 3",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_3",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "simeon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_simeon_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_3",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "4",
+            "text": "William sits in a corner, penning the first lines of what is sure to be an overwrought poem about his family legacy.",
+            "description": "[codex] 4",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_4",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "william",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_william_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_4",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "5",
+            "text": "River is tearing it up on the dance floor.",
+            "description": "[codex] 5",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_5",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "river",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_river_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_5",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "6",
+            "text": "Gideon sits on a stool near the dancing.",
+            "description": "[codex] 6",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_6",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "gideon",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_gideon_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_6",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "7",
+            "text": "Standing by the entrance, Judith watches the door.",
+            "description": "[codex] 7",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_7",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "judith",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_judith_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_7",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "8",
+            "text": "Theo bobs his head in rhythm in the crowd.",
+            "description": "[codex] 8",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "second_evening_codex_8",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_log_section_exists",
+                  "section": "theo",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["check_theo_relationship_3"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_8",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "9",
+            "text": "Dance by yourself.",
+            "description": "[codex] 9",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_9",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["dance_alone_story", "dance_alone_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_9",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "omega",
+            "text": "A woman in hunting clothes stands at the edge of the room.",
+            "description": "[codex] Ω",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_helen_peters_joined_the_survey"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+
+          {
+            "id": "theta",
+            "text": "Dr. Marquez eyes you from across the room.",
+            "description": "[codex] Θ",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "second_evening_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_theta_story", "codex_theta_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "second_evening_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dance_alone_story",
+      "type": "story",
+      "title": "Codex 9: Dancing Alone",
+      "text": "You move in time to the music. The dim light casts each face in soft, dark shadows as the sky outside darkens. A palpable presence blankets the room, moving between the dancing figures and slowing your senses. You close your eyes for what feels like just a moment. When you open them, you are lying on the floor. Several dancers stand around you, and someone helps you to your feet."
+    },
+    {
+      "id": "dance_alone_effects",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "check_helen_peters_joined_the_survey",
+      "type": "branch",
+      "bullet_type": "none",
+      "title": "Codex Ω: Helen Peters",
+      "text": "<b>Check your Campaign Log. If <i>Helen Peters joined the survey</i>:</b>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "helen_peters_joined_the_survey",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["helen_joined_story", "helen_shared_a_dance"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_peters_family_reunited"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helen_joined_story",
+      "type": "story",
+      "text": "“I thought you’d never ask,” Helen smiles. You keep step with her as best you can; she is unsurprisingly agile as she leads you in the dance, then lets you guide as the song turns from upbeat to contemplative. As the dance ends, you look out to the crowd to see everyone looking on with the same wide, dopey grin."
+    },
+    {
+      "id": "helen_shared_a_dance",
+      "text": "In your Campaign Log, record <i>Helen shared a dance</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "helen_shared_a_dance",
+          "text": "Helen shared a dance."
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "dance_count",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "check_peters_family_reunited",
+      "bullet_type": "none",
+      "text": "<b><i>If The Peters Family was reunited:</i></b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_peters_family_was_reunited",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["helen_peters_joined_the_survey", "earn_helen"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["theo_rejected_story", "theo_rejected_effects"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "helen_peters_joined_the_survey",
+      "text": "In your Campaign Log, record <i>Helen Peters joined the survey</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "helen_peters_joined_the_survey",
+          "text": "Helen Peters joined the survey."
+        }
+      ]
+    },
+    {
+      "id": "earn_helen",
+      "text": "Any one investigator may choose to add the Helen Peters story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Residents</i> encounter set",
+      "type": "encounter_sets",
+      "encounter_sets": ["residents"],
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "10703"
+        }
+      ]
+    },
+    {
+      "id": "theo_rejected_story",
+      "type": "story",
+      "text": "You approach to find the woman in hunting clothes locked in an argument with Theo. “For the last time, sis, I can’t. They need me here,” Theo says, flustered. She gives him a pitying look. “What would Mother think?” Theo glowers at her. “Just leave,” he says darkly."
+    },
+    {
+      "id": "theo_rejected_effects",
+      "text": "In Theo Peters’ Notes, record <i>Theo rejected his family</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "id": "theo_rejected_his_family",
+          "text": "Theo rejected his family."
+        }
+      ]
+    },
+    {
+      "id": "codex_theta_story",
+      "type": "story",
+      "text": "“Meet me outside afterward,” Dr. Marquez says, all business. You ask her why and she shakes her head. “This is the last place I’d want to discuss anything. I’m going to gather some supplies before we talk. I recommend you do the same.”"
+    },
+    {
+      "id": "codex_theta_effects",
+      "text": "Each investigator begins the next scenario with 2 additional resources."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "resolution_6",
+      "type": "resolution",
+      "resolution": "R6"
+    },
+    {
+      "id": "check_madame_pearls_diary_was_recovered",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "madame_pearls_diary_was_recovered",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_3"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "earn_pearl_diary",
+      "text": "Any one investigator may choose to add The Pearl Diary story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Heirlooms</i> encounter set.",
+      "type": "encounter_sets",
+      "encounter_sets": ["heirlooms"],
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "10715"
+        }
+      ]
+    },
+    {
+      "id": "check_bertie_was_rescued",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "bertie_was_rescued",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bertie_had_an_epiphany",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "bertie_had_an_epiphany",
+          "text": "Bertie had an epiphany."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns the bonus experience awarded during this prelude. Record each bonus experience earned under “Unspent Experience” in your Campaign Log, <b>but do not spend any of it until the end of the next scenario.</b>"
+    },
+    {
+      "id": "next_scenario_choice",
+      "type": "input",
+      "text": "The investigators must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "search",
+            "text": "<i>Follow Dr. Marquez’s lead out to the Atwood Farm. What is the Vale hiding?</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_longest_night"
+              }
+            ]
+          },
+          {
+            "id": "survey",
+            "text": "<i>Gather more information on Hemlock Isle’s unique ecosystem at night.</i>",
+            "description": "Check the “Areas Surveyed” section of your Campaign Log and choose a scenario that has not yet been checked off. <b>If you do, add 1 [tablet] token, 1 [skull] token, and 1 [elder_thing] token to the chaos bag for the remainder of the campaign.</b>",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "skull", "elder_thing"]
+              }
+            ],
+            "steps": ["$choose_next_scenario_night"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Midway into the evening, the dance reaches a lull. While rain patters outside, the dancing revelers move like smoke in the dim commons. Dr. Marquez signals you to join her at the side of the room. “There’s something very wrong here,” she says in a low voice. “There are maybe a dozen members of the Vale who have disappeared—some even in the last few days. Mother Rachel seems blissfully unconcerned. And then there are these ‘wonders’ everyone talks about. I’m starting to suspect the ‘wondrous’ feeling here isn’t just hypoxia.” You mention your own dizziness and strange euphoria over the past few days.",
+      "steps": [
+        "check_madame_pearls_diary_was_recovered"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The professor hands you Susan Pearl’s diary. “Thank you for recovering this, by the way. It’s a fascinating read. In the last year of her life, Madame Pearl was wracked by hallucinations and a chronic wasting disease. Whatever it is, it incites rapid mutation before breaking down muscles, organs, and cognitive function. Reading between the lines, I get the impression the entire Pearl family was similarly affected prior to the incident that devastated the ridge.”",
+      "steps": [
+        "earn_pearl_diary",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "You share your own observations of Hemlock Isle. More than just ‘wonders,’ the creatures here are either sickly and malnourished, or aggressively vivacious. Dr. Marquez nods along. “Everything is affected. Sickly. Starving. Mutating. And it’s all highly localized. There are no reports of these strange phenomena elsewhere. It’s only here.” She produces a creased map of the island and points to the north hills. “Pearl Ridge hasn’t recovered in the past twenty years since it was obliterated.”\nMarquez holds up two rings of glassy wood from both Eastwick Bog and Pearl Orchard, then draws a ring around Pearl Ridge on her map. “The bitter eggs this morning reminded me of a report after the Tunguska event. A meteorite obliterated miles of Russian countryside, but the effects on the locals were even more devastating. Stores of food were poisoned. Livestock perished. Nearby villages were slowly deserted as families who lived there for generations died of starvation or worse.” She draws a larger concentric circle around the first.\n“Nobody has said anything about a meteor, but judging by the massive sinkhole in front of the Pearl Estate, something emerged from the rock. My working theory is that the mining operation opened a vein and released whatever poisoned gas or mineral affecting the island.”\nDr. Marquez’s expression goes grave. “There’s something else. Something we shouldn’t discuss here. Follow me.” As you follow the professor out of the Commons, a stout figure bumps into you.",
+      "steps": [
+        "check_bertie_was_rescued"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "“Terribly sorry,” Bertie says. “Professor! And you! I assumed you had retired early.” His eyes go wide. “Are we conspiring? Surveying? I would love to—” Dr. Marquez cuts him off with a sharp glance. “After last night, Bertie, I think it’s best if you stay in your room tonight and rest.” The young assistant looks quite wounded, but doesn’t object. “Very well then,” he mutters.",
+      "steps": [
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "text": "“Terrible—sorry,” Bertie slurs. A dopey smile spreads across his face. “They told me not to worry about you. The people told me. The people. The people in the—” he gestures to the crowd around. “The place. I had an epiphany but I quite forgot it. Mother Rachel has been taking care of me. They told me there will be more dancing later, in the crossroads, and a large bonfire.”\n“You need to rest. Head back to the boarding house,” Marquez insists. You can’t be sure if Bertie even heard her as he slips away.",
+      "steps": [
+        "bertie_had_an_epiphany",
+        "resolution_6"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Resolution 6",
+      "text": "“We didn’t need to involve him. He’s much better in a lab than in the field anyway.” Dr. Marquez leads you outside. “Something followed me down from the ridge today. Something big and hungry. I tried to take shelter at the old Atwood Farm, but it was boarded up. Windows and doors. It smelled something awful. I’m not even sure what I heard coming from inside,” she says soberly. When you ask her to explain, she shakes her head.\n“This place definitely isn’t what it seems. I don’t know what the Vale folks are hiding in that old farmhouse, but I plan to find out.”",
+      "steps": [
+        "earn_xp",
+        "next_scenario_choice"
+      ]
+    }
+  ]
+}

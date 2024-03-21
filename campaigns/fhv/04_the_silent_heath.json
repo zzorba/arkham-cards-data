@@ -1,0 +1,1022 @@
+{
+  "id": "the_silent_heath",
+  "scenario_name": "The Silent Heath",
+  "full_name": "Scenario: The Silent Heath",
+  "header": "Scenario",
+  "chaos_bag_card": "10549",
+  "setup": [
+    "check_night_intro"    ,
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "$gather_day_encounter_set",
+    "check_day_agenda",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "shuffle_crystal_remains",
+    "choose_random_locations",
+    "check_day_residents",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "$choose_investigators",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [
+              {
+                "numCondition": 2
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$actually_choose_investigators"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "scenario_data",
+                "setting": "scenario_status",
+                "status": "started"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_night_intro",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "day",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["intro_day_1", "intro_1", "intro_5"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["intro_night", "intro_4"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["intro_day_2", "intro_2", "intro_5"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["intro_night", "intro_4"]
+          },
+          {
+            "numCondition": 5,
+            "steps": ["intro_day_3", "intro_3", "intro_5"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_day_1",
+      "text": "Check Campaign Log. Because it is <b>Day 1</b>:"
+    },
+    {
+      "id": "intro_day_2",
+      "text": "Check Campaign Log. Because it is <b>Day 2</b>:"
+    },
+    {
+      "id": "intro_day_3",
+      "text": "Check Campaign Log. Because it is <b>Day 3</b>:"
+    },
+    {
+      "id": "intro_night",
+      "text": "Check Campaign Log. Because it is <b>Night 1</b> or <b>Night 2</b>:"
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You step out of Theo’s truck accompanied by Leah Atwood and look up at Hemlock Isle’s highest point. The narrow winding road gives way to the soft, sand-like ash that blankets the heath. The black rocks at the top of the hill look like jagged teeth. A dread silence pervades everything as you walk up the hill with the Vale’s cook. “There’s a reason folks don’t live here anymore. Watch yourself up here. I don’t know what lives in the caves, and I don’t intend to find out,” she says. As if in response, a strong wind blows up clouds of white ash."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You step out of Theo’s truck into the pouring rain, accompanied by Dr. Marquez. The narrow winding road gives way to the soft, sand-like ash that blankets the heath. The black rocks at the top of the hill look like jagged teeth. A dread silence pervades everything as you walk up the hill with the professor, who wears a bright yellow and blue poncho. “If the locals are to be believed, we want to head this way,” she points up the hillside to a glimmering orchard. After hiking the steep incline, the professor lets out a gasp.\nRows of crystalline trees shimmer in the light. A crack of lightning from the southern clouds refracts a band of gorgeous, prismatic radiance through hanging apples and knotted glass trunks. Although beautiful, you can’t help but feel an anxious pang: the trees are wondrous, but they are long dead, frozen in time. Dr. Marquez begins chipping away at a young sapling with a hammer and chisel. “Fan out and explore the ruins. Leah warned me to keep clear of the ants, whatever that means. Don’t kick any anthills, I guess.” she says, already engrossed in her work."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "You step out of Theo’s truck and look up at Hemlock Isle’s highest point. The narrow winding road gives way to the soft, sand-like ash that blankets the heath. The black rocks at the top of the hill look like jagged teeth. A dread silence pervades everything as you walk up the hill and spot a robed figure standing on a jutting rock, staring down at Hemlock Isle. You recognize the figure as Mother Rachel as you draw closer. She nods as if to acknowledge your presence, then spreads her arms in an exultant pose. The sky overhead shimmers with a band of strange colors."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "You step out of Theo’s truck and look up at Hemlock Isle’s highest point. The narrow winding road gives way to the soft, sand-like ash that blankets the heath: silvery and bright in the moonlight. The black rocks at the top of the hill look like jagged teeth. You feel strangely calmed by the silence as you walk up the hill, and see brilliant bands of color in the starlight overhead."
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "You reach the old Pearl Estate and stop yourself from walking into the yawning dark chasm in front of the dilapidated house. A shattered rooftop at the northern end of the estate tells a story of some violent impact: judging by the scattered boards, something shot out of the interior with the force of a cannonball. As you survey the ruins, you wonder what awful catastrophe befell the Pearl family. A skittering black shadow flits at the edge of your vision. When you turn to look, it has gone."
+    },
+
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_silent_heath",
+        "agents_of_the_colour",
+        "blight",
+        "horrors_in_the_rock",
+        "refractions",
+        "transfiguration",
+        "striking_fear"
+      ]
+    },
+
+    {
+      "id": "check_day_agenda",
+      "text": "Check the Campaign Log. If it is <b>Day 1</b> or <b>Night 1</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [
+              {
+                "numCondition": 1
+              },
+              {
+                "numCondition": 2
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_agenda_v2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["remove_agenda_v1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_agenda_v2",
+      "bullet_type": "small",
+      "text": "Remove Agenda 2a: Desolation (v.II) from the game."
+    },
+    {
+      "id": "remove_agenda_v1",
+      "bullet_type": "small",
+      "text": "Remove Agenda 2a: Desolation (v.I) from the game."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the following locations into play: Crystal Grove, Pearl Estate Ruins, and Ashen Slope. Use the diagram below for reference.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at the Pearl Estate Ruins."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "arrows": [
+        {
+          "type": "swoop",
+          "x": 2.5,
+          "y": 1.15,
+          "color": "red",
+          "size": 0.25,
+          "width": 0.75,
+          "opacity": 0.8
+        },
+        {
+          "type": "swoop",
+          "x": 3.75,
+          "y": 1.65,
+          "color": "red",
+          "size": 0.25,
+          "width": 0.75,
+          "opacity": 0.8,
+          "rotation": "180deg"
+        },
+        {
+          "type": "swoop",
+          "x": 3.3,
+          "y": 0.8,
+          "color": "red",
+          "size": 0.25,
+          "width": 0.8,
+          "opacity": 0.8,
+          "rotation": "90deg"
+        },
+        {
+          "type": "swoop",
+          "x": 2.9,
+          "y": 2.0,
+          "color": "red",
+          "size": 0.25,
+          "width": 0.8,
+          "opacity": 0.8,
+          "rotation": "270deg"
+        }
+      ],
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "pearl_estate_ruins",
+          "cavern",
+          "ashen_slope"
+        ],
+        [
+          "blank",
+          "blank",
+          "cavern",
+          "crystal_grove",
+          "cavern"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "cavern",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "pearl_estate_ruins",
+          "name": "Pearl Estate Ruins"
+        },
+        {
+          "code": "ashen_slope",
+          "name": "Ashen Slope"
+        },
+        {
+          "code": "crystal_grove",
+          "name": "Crystal Grove"
+        },
+        {
+          "code": "cavern",
+          "name": "Cavern",
+          "faded": true
+        }
+      ],
+      "annotations": [
+        {
+          "x": 2,
+          "y": 0,
+          "height": 4,
+          "width": 2,
+          "position": "left",
+          "style": "description",
+          "text": "<b>Placing New Locations</b>\nWhen placing new locations, place them adjacent to your location. Note that the starting locations are still connected via their location connection icons.\n<i>Example: the four placeholder Cavern locations in the diagram indicate where locations from Crystal Grove would be placed.</i>"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set each of the following aside, out of play: the Brood Queen enemy, both copies of the Crystal Parasite enemy, and the single-sided Salt Chamber, Larval Tunnel, and Crystal Nursery locations."
+    },
+    {
+      "id": "shuffle_crystal_remains",
+      "text": "Shuffle the 3 Crystal Remains story asset cards facedown <i>(so you do not know which is which)</i> and set them aside, out of play."
+    },
+    {
+      "id": "choose_random_locations",
+      "text": "Choose 3 locations at random from the <i>Horrors in the Rock</i> encounter set and set them aside without looking at their revealed sides. Remove the remaining <i>Horrors in the Rock</i> locations from the game."
+    },
+    {
+      "id": "check_day_residents",
+      "text": "If it is <b>Day [day]</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 },{ "numCondition": 3 },{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_residents", "check_residents_leah", "check_residents_marquez", "check_residents_rachel", "remove_other_residents"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_residents",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "text": "Gather each story asset from the <i>Residents</i> encounter set.",
+      "encounter_sets": [
+        "residents"
+      ]
+    },
+    {
+      "id": "check_residents_leah",
+      "type": "branch",
+      "text": "If it is <b>Day 1</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 1 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_leah"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_2",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_leah",
+      "bullet_type": "small",
+      "text": "Place Leah Atwood at the Pearl Estate Ruins location."
+    },
+    {
+      "id": "check_residents_marquez",
+      "type": "branch",
+      "text": "If it is <b>Day 2</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 3 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_marquez"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["maybe_hide_codex_theta"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_hide_codex_theta",
+      "hidden": true,
+      "type": "branch",
+      "condition": 
+      {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "10702",
+        "options" : [
+          { 
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_marquez",
+      "bullet_type": "small",
+      "text": "Place Dr. Rosa Marquez at the Crystal Grove location."
+    },
+    {
+      "id": "check_residents_rachel",
+      "type": "branch",
+      "text": "If it is <b>Day 3</b>:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "day",
+            "options": [{ "numCondition": 5 }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_rachel"]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_1",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_rachel",
+      "bullet_type": "small",
+      "text": "Place Mother Rachel at the Ashen Slope location."
+    },
+    {
+      "id": "remove_other_residents",
+      "text": "Remove the rest of the <i>Residents</i> encounter set from the game."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": ["codex"]
+          },
+          {
+            "id": "defeat",
+            "icon": "residents",
+            "text": "Resident asset defeated",
+            "repeatable": true,
+            "steps": ["$defeat_resident"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_1",
+            "text": "1",
+            "description": "Codex 1: Mother Rachel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_1",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_1_story", "codex_1_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_1",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_2",
+            "text": "2",
+            "description": "Codex 2: Leah Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_2",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_2_story", "leah_searched_the_pearl_ruins", "codex_2_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_theta",
+            "text": "Θ",
+            "description": "Codex Θ: Dr. Rosa Marquez",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["maybe_ask_codex_theta_act"]
+          },
+          {
+            "id": "codex_psi",
+            "text": "Ψ",
+            "description": "Codex Ψ: Larval Tunnel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_psi",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_psi_story", "codex_psi_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_psi",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_omega",
+            "text": "Ω",
+            "description": "Codex Ω: Salt Chamber",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_omega_story", "codex_omega_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_phi",
+            "text": "Φ",
+            "description": "Codex Φ: Crystal Nursery",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_phi",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_phi_story", "codex_phi_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_phi",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_sigma",
+            "text": "Σ",
+            "description": "Codex Σ: Brood Queen",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "silent_heath_codex_sigma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_sigma_story", "codex_sigma_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "silent_heath_codex_sigma",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_1_story",
+      "type": "story",
+      "text": "“We do not choose our path. Whether for the simple, the wise, or those fools who think themselves wise, it is the same. The choices are made for us. The best we can do is to accept our place,” the matron says, kneeling. She looks past you to the ruined house. “You shall soon know your place. As will the people of the Vale.”"
+    },
+    {
+      "id": "codex_1_effects",
+      "text": "Increase Mother Rachel’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "rachel",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "codex_2_story",
+      "type": "story",
+      "text": "“Used to be this was about the only place on the island where you could get anything to grow. In fact, you couldn’t get things to stop growing. The Pearl family had a whole operation: orchards and vineyards, to say nothing of the mining and whaling. Then, twenty years ago, almost to the day, something happened. Can you believe my sister talks about it like it was some kind of miracle?” she scoffs."
+    },
+    {
+      "id": "leah_searched_the_pearl_ruins",
+      "text": "In Leah Atwood’s Notes, record <i>Leah searched the Pearl Ruins</i>.",
+      "effects": [
+
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "searched_the_pearl_ruins",
+          "text": "Leah searched the Pearl Ruins."
+        }
+      ]
+    },
+    {
+      "id": "codex_2_effects",
+      "text": "Each investigator gains 1 clue (from the token pool)."
+    },
+    {
+      "id": "maybe_ask_codex_theta_act",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "codex_theta_act_asked",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["codex_theta_ask_act"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "codex_theta_act_asked",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": [
+              "codex_theta_act_2_story",
+              "codex_theta_act_2_effects"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_theta_ask_act",
+      "type": "input",
+      "text": "What is the current Act?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "1",
+            "text": "Act 1",
+            "steps": [
+              "codex_theta_act_1_story",
+              "codex_theta_act_1_effects"
+            ]
+          },
+          {
+            "id": "2",
+            "text": "Act 2",
+            "steps": [
+              "codex_theta_act_2_story",
+              "codex_theta_act_2_effects"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_theta_act_1_story",
+      "type": "story",
+      "text": "Dr. Marquez holds up a round piece of glass to the light. It is a cross- section of a petrified tree, riven with gossamer patterns. The professor pockets the sample. “The apple orchard wasn’t petrified: the structure of the wood itself changed. This cross section is a dozen different trees, each with its own history and rings. All crystallized.”"
+    },
+    {
+      "id": "codex_theta_act_1_effects",
+      "text": "Draw 3 cards. An investigator may trigger this codex again during a different act."
+    },
+    {
+      "id": "codex_theta_act_2_story",
+      "type": "story",
+      "text": "The professor hefts a desiccated mandible the size of her forearm. “These creatures have both termite, wasp, and other features from a number of insects. It’s out of my field—Dr. Christopher would lose his mind if he saw this—but I was able to dig up some interesting findings in the tunnels. Look at this.”"
+    },
+    {
+      "id": "codex_theta_act_2_effects",
+      "text": "Choose a location in play. Reveal all cards beneath the chosen location. Discard each treachery revealed and put the rest back in any order.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "silent_heath_codex_theta",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "codex_psi_story",
+      "type": "story",
+      "text": "A bilious stench wafts from a tunnel crawling with pillowy white insects. Monstrous larvae stare blindly out of the dark with milky white eyes. The insect colony keeps its young in this tunnel to mature. Judging by the gory and dessicated remains on the floor, the older brood soldiers feed them with a steady supply of local wildlife and anyone foolish enough to venture into their caves."
+    },
+    {
+      "id": "codex_psi_effects",
+      "text": "Gather 1 of the set-aside Crystal Remains cards along with the top 2 cards of the encounter deck. Shuffle them together and place the 3 cards facedown in a stack beneath Larval Tunnel."
+    },
+    {
+      "id": "codex_omega_story",
+      "type": "story",
+      "text": "A narrow cleft in the side of a tunnel leads into a spacious cavern. Salt formations form delicate, spidery patterns that hang from the ceiling and rise from the floor. The air is sharp with a bitter, alkaline taste, mixed with a repugnant musky scent. Several dessicated corpses—some of them human—litter the floor, overgrown with salt. Perhaps the local creatures use the salt in this chamber as a natural preservative. A pantry, of sorts."
+    },
+    {
+      "id": "codex_omega_effects",
+      "text": "Gather 1 of the set-aside Crystal Remains cards along with the top 2 cards of the encounter deck. Shuffle them together and place the 3 cards facedown in a stack beneath Salt Chamber."
+    },
+    {
+      "id": "codex_phi_story",
+      "type": "story",
+      "text": "You enter a massive cavern the size of an amphitheater, filled with milky white crystals. Innumerable insects hang from the walls and bask on the floor in pale, watery light that filters down from a hole in the ceiling. You realize the opening above is the massive chasm in front of the Pearl Estate. A low, subsonic hum permeates the room. You feel as though you have entered a sacred space."
+    },
+    {
+      "id": "codex_phi_effects",
+      "text": "Gather 1 of the set-aside Crystal Remains cards along with the top 2 cards of the encounter deck. Shuffle them together and place the 3 cards facedown in a stack beneath Crystal Nursery."
+    },
+    {
+      "id": "codex_sigma_story",
+      "type": "story",
+      "text": "The massive, corpulent form of an insect lurches out of a dark tunnel. The Brood Queen’s antennae wave in the dark, emitting unsettling vibrations. In moments, the cave is filled with her brood, each of them glowing with faint blue light."
+    },
+    {
+      "id": "codex_sigma_effects",
+      "text": "Spawn the Brood Queen at the location nearest to the most investigators (at a [[Cave]] location, if able). Remove each [[Insect]] enemy from the victory display and spawn it at the Brood Queen’s location."
+    },
+    {
+      "id": "ask_crystal_remains",
+      "text": "How many Crystal Remains are in the victory display?",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Crystal Remains in Victory Display:",
+        "max": {
+          "type": "constant",
+          "value": 3
+        },
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "silent_heath_crystal_remains",
+            "operation": "set_input"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_cyrstal_remains",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "silent_heath_crystal_remains",
+        "options": [
+          {
+            "numCondition": 3,
+            "steps": ["resolution_1"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["resolution_2"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["resolution_2"]
+          }
+        ],
+        "default_option": {
+          "steps": ["resolution_4"]
+        }
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "laid_the_pearl_family_to_rest",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "laid_the_pearl_family_to_rest",
+          "text": "the investigators laid the Pearl Family to rest."
+        }
+      ]
+    },
+    {
+      "id": "remains_were_partially_recovered",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "remains_were_partially_recovered",
+          "text": "the remains were partially recovered."
+        }
+      ]
+    },
+    {
+      "id": "madame_pearls_diary_was_recovered",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "madame_pearls_diary_was_recovered",
+          "text": "Madame Pearl’s diary was recovered."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. <b>Each investigator may now spend the experience recorded under “Unspent Experience” in your Campaign Log.</b>",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_xp",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "update_areas_surveyed",
+      "text": "In the “Areas Surveyed” section of your Campaign Log, check off <i>Pearl Ridge</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "areas_surveyed",
+          "id": "pearl_ridge",
+          "text": "Pearl Ridge"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "As you walk down the slope, utterly exhausted, you hear the sound of a hundred beating wings. Pale, translucent insects cover the black rocks atop the hill, whirring incessantly. What are they saying to each other in their own alien language? Do they know about the world beyond the heath? You shudder when you wonder how many more lurk in the caverns below.",
+      "steps": [
+        "ask_crystal_remains",
+        "check_cyrstal_remains"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You lay the three desiccated corpses in the bed of the truck. The buildup of minerals makes them simultaneously heavy and incredibly brittle. The belly of the son is swollen with crystals the size of a basketball, and the mother’s skin is leathery with salt. You don’t know what warped the bodies of the Pearl Family, but it surely wasn’t quick; they must have been horribly deformed when they died. You document the remains and a few samples of the crystal growths. The Pearl family deserved better than this. With a shovel from the back of Theo’s truck, you set to digging the three corpses a proper grave.",
+      "steps": [
+        "laid_the_pearl_family_to_rest",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You lay the remains you could recover in the bed of Theo’s sky blue truck. The buildup of minerals makes them simultaneously heavy and incredibly brittle. You don’t know what warped the bodies of the Pearl Family, but it surely wasn’t quick; they must have been horribly deformed when they died. You document the remains and a few samples of the crystal growths, then bury the remains in a shallow grave at the base of Pearl Ridge.",
+      "steps": [
+        "remains_were_partially_recovered",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Once you have left Pearl Ridge behind, you study Susan Pearl’s diary. The account chronicles the rise and fall of Susan Pearl’s investments in agriculture and mining on Hemlock Isle in the decade leading up to 1906. The business entries are interspersed with prayers, illustrations of birds, and occasional details on the strange “Warrens” underneath Pearl Ridge. Other entries mention spreading sickness in the orchard workers and the Pearl family, along with repeated hardship in their mining efforts. The last entry, written in a long, erratic scrawl, catches your attention:\n<blockquote>I am still not certain if what I experienced was a dream or vision. At midnight, I awoke to the uncanny feeling of being watched, and when I opened my eyes, I saw a pale sphere of watery light in the corner of my room, dancing like something in a faery story. As soon as I laid eyes on it, the thing flew out the window, and I followed it out into the orchard. What I saw is something I can only describe as a miracle: A hundred more faery lights danced in the orchard. As I watched the lights, they grew brighter, and I felt almost as though I was flying. A heady bliss took over my mind, and I felt different, somehow. As if there were another me—five other me’s—beating within my chest. And as I looked out at the trees, I saw myself in them, too. In all of this. Strong and thick with knotted skin and branches for arms. I saw myself, my place, in all of creation. And all of my fears—for Ezra, for the mine, for our health—melted away. I knew only joy. Such joy!\nI am the eyes. All eyes that see. I am the brilliance.\n<right><fancy>Susan Pearl. June 22, 1906</fancy></right>\n</blockquote>",
+      "steps": [
+        "madame_pearls_diary_was_recovered",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "“Miskatonic Survey, June 1926. Members Marquez, Musgrave, et alii. Surveyed Pearl Ridge. Northern hills were devastated in an unknown event. Persistent contamination has led to mineralization and crystallization of organic life. Local caverns overrun by a massive insect colony. Insects exhibited vespid and termitid behaviors and physiology. Further study needed.”",
+      "steps": [
+        "earn_xp",
+        "transfer_xp",
+        "$upgrade_decks",
+        "update_areas_surveyed",
+        "$find_next_scenario",
+        "$advance_time"
+      ]
+    }
+  ]
+}
