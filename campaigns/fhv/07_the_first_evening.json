@@ -1,0 +1,855 @@
+{
+  "id": "the_first_evening",
+  "scenario_name": "The First Evening",
+  "full_name": "Prelude: The First Evening",
+  "type": "interlude",
+  "header": "Prelude",
+  "icon": "refractions",
+  "setup": [
+    "$choose_investigators",
+    "intro",
+    "choose_feast_prompt",
+    "choose_feast",
+    "conversation_explanation",
+    "choose_conversation_count",
+    "resolution_1"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "As you return to Hemlock Vale, a young red-headed girl in a rabbit mask introduces herself as Rebecca, Mother Rachel’s daughter, and leads you by the hand to dinner in the Commons. The long building’s large barn doors are open to let out the rich scent of roasted vegetables and savory meat. The people of the Vale sit and eat in lively conversation, each of them in their white-gold cloaks. At the head of the room, Mother Rachel stands up and calls for attention. Rebecca leads you to the now-picked-over dinner spread as the room falls silent.\n“<i>Meine lieben Freunde.</i> What a blessing that all of us have come here, on the threshold of infinity. And what a greater blessing still that pilgrims have come here, so full of light and curiosity!” Mother Rachel gestures to Dr. Marquez to her right, and to you. “We have waited for the right moment to open our community. Our community which is truly the ‘Sanctuary of Transfiguration’ we long dreamed of. For each of us yearns to be remade as we wait to join our light with the light of the cosmos.”\nThe room bursts into applause as Leah Atwood and several locals place trays of honeyed cakes topped with robust red fruit in the center of each table. Your stomach grumbles as you take a bite of shriveled greens. It has a faint bitter taste, and a sharp smell."
+    },
+    {
+      "id": "choose_feast_prompt",
+      "text": "One at a time, each investigator must decide individually:"
+    },
+    {
+      "id": "choose_feast",
+      "prompt_type": "header",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "choices": [
+          {
+            "id": "eat",
+            "text": "Keep eating.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "bullet_type": "small",
+                "section": "campaign_notes",
+                "id": "eat",
+                "cards": "$input_value",
+                "masculine_text": "#name# finished his meal.",
+                "feminine_text": "#name# finished her meal.",
+                "nonbinary_text": "#name# finished their meal."
+              }
+            ]
+          },
+          {
+            "id": "stop",
+            "text": "Don't eat any more."
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_conversation_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["choose_conversation_solo", "choose_conversation"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["choose_conversation"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["choose_conversation"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["choose_conversation"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "conversation_explanation",
+      "text": "You may choose where to sit for the community meal. One at a time, each investigator may choose a different codex entry from the following. (If there is only one investigator, you may choose two to resolve instead)."
+    },
+    {
+      "id": "choose_conversation",
+      "text": "Choose where to sit:",
+      "prompt_type": "header",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "choices": [
+          {
+            "id": "theta",
+            "text": "Dr. Marquez, Mother Rachel, and William sit at the head of the room at a large open table.",
+            "description": "To sit with them, ([codex] Θ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_theta_story", "codex_theta_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "delta",
+            "text": "Judith’s face is pinched in frustration as she talks to River.",
+            "description": "To join them at the outer edge of the common, ([codex] Δ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_delta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_delta_story", "codex_delta_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_delta",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sigma",
+            "text": "Leah is watching the room as Gideon talks to her.",
+            "description": "To join them in the center of the commons, ([codex] Σ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_sigma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_sigma_story", "codex_sigma_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_sigma",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "omega",
+            "text": "Theo leans against the doorpost looking outside.",
+            "description": "To join him at the entrance to the commons, ([codex] Ώ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_peters_family_reunited"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "gamma",
+            "text": "Some children in animal masks eat honeyed cake in the corner.",
+            "description": "To sit with the Vale’s youth, ([codex] Γ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_gamma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_simeon_crossed_out"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_gamma",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "pi",
+            "text": "To sit alone.",
+            "description": "(If there is only one investigator, this option cannot be the first choice.)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_pi",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_pi_story", "codex_pi_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_pi",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_conversation_solo",
+      "text": "Choose where to sit:",
+      "prompt_type": "header",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "choices": [
+          {
+            "id": "theta",
+            "text": "Dr. Marquez, Mother Rachel, and William sit at the head of the room at a large open table.",
+            "description": "To sit with them, ([codex] Θ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_theta_story", "codex_theta_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "delta",
+            "text": "Judith’s face is pinched in frustration as she talks to River.",
+            "description": "To join them at the outer edge of the common, ([codex] Δ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_delta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_delta_story", "codex_delta_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_delta",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sigma",
+            "text": "Leah is watching the room as Gideon talks to her.",
+            "description": "To join them in the center of the commons, ([codex] Σ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_sigma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_sigma_story", "codex_sigma_question"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_sigma",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "omega",
+            "text": "Theo leans against the doorpost looking outside.",
+            "description": "To join him at the entrance to the commons, ([codex] Ώ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_peters_family_reunited"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "gamma",
+            "text": "Some children in animal masks eat honeyed cake in the corner.",
+            "description": "To sit with the Vale’s youth, ([codex] Γ)",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_evening_codex_gamma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["check_simeon_crossed_out"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "first_evening_codex_gamma",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_theta_story",
+      "title": "Codex Θ: The Hemlock Legacy",
+      "type": "story",
+      "text": "As you seat yourself across from William and Mother Rachel, a thin older woman with bronze skin stares morosely at you. “Mother, please,” William vainly attempts to spoonfeed her chowder as her eyes follow you, lips pursed. Mother Rachel and Dr. Marquez sip earthy tea as you seat yourself. “I have been wondering about the history of this place,” the professor says to Mother Rachel. She nods to you to speak up."
+    },
+    {
+      "id": "codex_theta_question",
+      "type": "input",
+      "text": "You must decide what to say <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "atwood",
+            "text": "<i>“Who are the Atwoods?”</i>",
+            "steps": ["hemlock_legacy_2", "increase_rachel_relationship"]
+          },
+          {
+            "id": "stars",
+            "text": "<i>“Who are the Children of the Stars?”</i>",
+            "steps": ["hemlock_legacy_3", "increase_rachel_relationship"]
+          },
+          {
+            "id": "hemlock",
+            "text": "<i>“Who are the Hemlocks?”</i>",
+            "steps": ["hemlock_legacy_4", "increase_william_relationship", "william_shared_his_legacy"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "hemlock_legacy_2",
+      "type": "story",
+      "text": "Mother Rachel beams. “We Atwoods have been here almost as long as the Hemlocks. Our family helped build Hemlock Harbor. We planted half of Pearl Orchard, and we put our lives on the line for Wilbur Hemlock and his doomed whaling enterprise. And when whaling all but died out, we were here to pick up the pieces,” Mother Rachel says smugly. You note William’s grimace as the matron goes on.\n“I suppose we are now the caretakers of the Hemlock family’s legacy.”"
+    },
+    {
+      "id": "increase_rachel_relationship",
+      "text": "Increase Mother Rachel’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "rachel",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "hemlock_legacy_3",
+      "type": "story",
+      "text": "Mother Rachel smiles magnanimously. “We are simply quiet people of good faith. I was born on Hemlock Isle and studied abroad for many years. I attended seances with Sarah Winchester, studied mesmerism in France, and became a member of the Ghost Club in London. Everywhere I studied, I learned more and more of our connectedness. Our many-faceted oneness. And so I brought my learning home, to my family, where it always belonged.”"
+    },
+    {
+      "id": "hemlock_legacy_4",
+      "type": "story",
+      "text": "“The Hemlock family is the very lifeblood of Hemlock Isle,” William boasts. “In our heyday, Hemlock Harbor was a bustling hub for mariners far and wide. My grandfather Wilbur commanded dozens of whaling vessels. But his pride and joy was the Annabelle Lee.” He looks forlornly at his elderly mother. “Naturally, it sank. As did the profits from the whaling industry. My grandfather blamed it all on some kind of curse. He believed in it so strongly that he locked my poor mother in the attic of our family home for weeks at a time.”\nWilliam squeezes his mother’s hand. “I don’t think she ever quite recovered.”"
+    },
+
+    {
+      "id": "increase_william_relationship",
+      "text": "Increase William Hemlock’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "william_shared_his_legacy",
+      "text": "In William Hemlock’s Notes, record <i>William shared his legacy</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "id": "william_shared_his_legacy",
+          "text": "William shared his legacy."
+        }
+      ]
+    },
+    {
+      "id": "codex_delta_story",
+      "title": "Codex Δ: Best “Friends”",
+      "type": "story",
+      "text": "The table’s mood is decidedly icy as you sit down across from Judith and River. “That’s not what I meant,” Judith glowers at River. “I just said ‘ jazz makes my head spin.’” River takes a puff of their clove cigarette and winks at her. “Darling, an evening at The Cotton Club in Harlem will get the rest of you spinning too.”"
+    },
+    {
+      "id": "codex_delta_question",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "good",
+            "text": "<i>“River, jazz is delightful.”</i>",
+            "steps": ["best_friends_2", "increase_river_relationship", "river_shared_their_ambitions"]
+          },
+          {
+            "id": "bad",
+            "text": "<i>“Jazz is hell, Judith.”</i>",
+            "steps": ["best_friends_3", "increase_judith_relationship"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "best_friends_2",
+      "type": "story",
+      "text": "You engage in some playful banter with River as they gush about their favorite jazz heavies in Harlem. After realizing the back-and-forth won’t end anytime soon, Judith walks away in a huff. River smirks. “Once I clean up this trash boat of an island, there’ll be no more rustic feasts. I’ll make it a retreat for artists. Visionaries. And you can bet there’ll be jazz.”"
+    },
+    {
+      "id": "increase_river_relationship",
+      "text": "Increase River Hawthorne’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "river_shared_their_ambitions",
+      "text": "In River Hawthorne’s Notes, record <i>River shared their ambitions</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "river_shared_their_ambitions",
+          "text": "River shared their ambitions."
+        }
+      ]
+    },
+    {
+      "id": "best_friends_3",
+      "type": "story",
+      "text": "“I didn’t ask you for your opinion,” River huffs, then excuses themself. Judith picks at an abnormally large chicken thigh. “Last time I was in a club, I was working. Two folks got in a brawl. A guy got shot. The damn band kept playing the whole time. And yes, it was jazz,” she cocks an eyebrow."
+    },
+    {
+      "id": "increase_judith_relationship",
+      "text": "Increase Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "codex_sigma_story",
+      "title": "Codex Σ: Old Blood",
+      "type": "story",
+      "text": "A lazy fly buzzes around the central table. Leah sits at the edge of her seat, scanning the room, as Gideon idly scrapes the gravy on his plate. They look up as you arrive."
+    },
+    {
+      "id": "codex_sigma_question",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "gideon",
+            "text": "<i>“I heard you were a sailor, Gideon.”</i>",
+            "steps": ["old_blood_2", "increase_gideon_relationship", "gideon_told_the_story_of_captain_hemlock"]
+          },
+          {
+            "id": "leah",
+            "text": "<i>“Leah, tell me about your work.”</i>",
+            "steps": ["old_blood_3", "increase_leah_relationship", "check_leah_searched_the_pearl_ruins"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "old_blood_2",
+      "type": "story",
+      "text": "“Aye, I’ve many a tale from my time sailing with Captain Hemlock. William’s gran’ father.” He begins a long story about a shipwreck in the south Atlantic but quickly loses the narrative in an explanation of semaphore communication."
+    },
+    {
+      "id": "increase_gideon_relationship",
+      "text": "Increase Gideon Mizrah’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "gideon",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "gideon_told_the_story_of_captain_hemlock",
+      "text": "In Gideon Mizrah’s Notes, record <i>Gideon told the story of Captain Hemlock</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "gideon",
+          "id": "gideon_told_the_story_of_captain_hemlock",
+          "text": "Gideon told the story of Captain Hemlock."
+        }
+      ]
+    },
+    {
+      "id": "old_blood_3",
+      "type": "story",
+      "text": "“When am I not working?” Leah sighs. “There are fifty mouths to feed in Hemlock Vale, and Rachel tells me there’ll be hundreds more for the Feast. Assuming we don’t run out of food during the Feast, there’ll be nothing left to eat after. And when I ask Rachel, all she says is ‘Just trust in the plan, Leah.’”"
+    },
+    {
+      "id": "increase_leah_relationship",
+      "text": "Increase Leah Atwood’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "leah",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "check_leah_searched_the_pearl_ruins",
+      "text": "If <i>Leah searched the Pearl Ruins</i> is in Leah Atwood’s Notes:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "leah",
+        "id": "searched_the_pearl_ruins",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["old_blood_4", "leah_shared_her_frustrations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "old_blood_4",
+      "type": "story",
+      "text": "“So I’ll be out there at the Crossroads tomorrow, rain or shine. My sister has me running back and forth to Tad’s all day, like I’m some kinda workhorse,” the older woman sighs."
+    },
+    {
+      "id": "leah_shared_her_frustrations",
+      "text": "In Leah Atwood’s Notes, record <i>Leah shared her frustrations</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_shared_her_frustrations",
+          "text": "Leah shared her frustrations."
+        }
+      ]
+    },
+    {
+      "id": "check_peters_family_reunited",
+      "title": "Codex Ω: Family Matters",
+      "bullet_type": "none",
+      "text": "<b>Check your Campaign Log. If The Peters Family was reunited:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_peters_family_was_reunited",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["omega_reunited_story", "increase_theo_relationship", "helen_peters_joined_the_survey"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["omega_lost_story", "increase_theo_relationship"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "omega_reunited_story",
+      "type": "story",
+      "text": "“Those huge shellfish we saw on the beach reminded me of something in 20,000 Leagues Under the Sea. I wonder if Mr. Verne ever visited Hemlock Isle,” Theo says. “Actually, if he did, I’d know about it. Because I would have definitely asked for his autograph.” You decide not to tell the young man when Mr. Verne died, or the likelihood of him visiting Hemlock Isle. When he sees Helen approach, Theo greets her with a full-on bear hug. “I thought you were leaving!”\nHelen replies that she and Lizzie are leaving in the morning, and Theo looks worried. “Not back to Vermont, right?”\nHelen smiles patiently. “Uncle George has a boat, Theo. So, no. Not to Vermont. You know Uncle George’s address in Portland. You can always come see us.” She kisses her brother on the cheek and gives him one last hug. Theo rubs his eyes with the back of his sleeve, then walks back into the Commons.\nOnce he is gone, Helen locks eyes with you. “Let me help the survey. Lizzie’ll be safe in Portland. Maybe together, you and I can convince him to leave.”"
+    },
+    {
+      "id": "increase_theo_relationship",
+      "text": "Increase Theo Peters’ Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "theo",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "helen_peters_joined_the_survey",
+      "text": "In your Campaign Log, record <i>Helen Peters joined the survey</i>. Any one investigator may choose to add the Helen Peters story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Residents</i> encounter set",
+      "type": "encounter_sets",
+      "encounter_sets": ["residents"],
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "helen_peters_joined_the_survey",
+          "text": "Helen Peters joined the survey."
+        },
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "10703"
+        }
+      ]
+    },
+    {
+      "id": "omega_lost_story",
+      "type": "story",
+      "text": "You join Theo at the entrance to the Commons as the sun sets on the idyllic village, dazzlingly bright. “Y’know. Sometimes I like to think the sun is an eye. The eye of the sky. Always watching us. But then I think of where the other eye is,” Theo points to the darkening horizon and the faint moon. “Tricky isn’t it? You never know about that sky.” He narrows his eyes and points up at the moon. “But I’m on to you, moon.” A woman wearing flannel and well-worn hunting gear approaches to break his reverie. “Hey sis, I told you—”\nShe interrupts, lip curled in a snarl. “You told me, yes. I know you made up your mind. But Lizzie needs to hear it from you—Just come back to Akwan. Is it really so hard?” As the pair argue, you excuse yourself from the conversation. Several minutes later, Theo finds you back inside. “Sorry you had to see that. Family drama.”"
+    },
+    {
+      "id": "check_simeon_crossed_out",
+      "title": "Codex Γ: The Rabbit",
+      "type": "branch",
+      "bullet_type": "none",
+      "text": "<b>If Simeon Atwood’s name is crossed out:</b>",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_section_exists",
+            "section": "simeon",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["simeon_dead_story", "one_bonus_xp"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["simeon_alive_story", "increase_simeon_relationship", "simeon_hatched_a_plan"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "simeon_dead_story",
+      "type": "story",
+      "text": "Rebecca’s mask is pulled back to reveal her freckled face as she sips slowly from a bowl of thick meaty soup. Several raised, scar-like growths score her neck and cheeks. “Mama likes you a lot. She says you’re very important. Almost as important as Mama.” You look across the room to Mother Rachel, warmly smiling at the assembly. “Sometimes, when I don’t want anyone to see me, I put my mask on,” Rebecca says as she slides the rabbit mask down to hide her long, red scars. Her thick red hair spills out around the mask as she cocks her head to the side.\n“Mama said we’re watching you all the time.”"
+    },
+    {
+      "id": "one_bonus_xp",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "simeon_alive_story",
+      "type": "story",
+      "text": "Rebecca’s mask is pulled back to reveal her freckled face as she sips slowly from a bowl of thick meaty soup. Several raised, scar-like growths score her neck and cheeks. As she opens her mouth to speak, Simeon Atwood bursts from beneath the table.\n“Welcome to the Miner’s Secret Order of Mischief,” Simeon pulls out a ruled notebook and begins taking minutes. “Our goal is to rain mayhem on Auntie Rachel’s plans. Because she said there would be no fireworks at the Feast. And she thinks there won’t be,” he says in a conspiratorial voice. “But we’re gonna put on the best show this island has ever seen. And you’re gonna help me. That is, if you want to become an official member,” he nods, as if in agreement to his own crazy plan. “Meet me behind the Old Mill tomorrow morning.”"
+    },
+    {
+      "id": "increase_simeon_relationship",
+      "text": "Increase Simeon Atwood’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "simeon",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "simeon_hatched_a_plan",
+      "text": "In Simeon Atwood’s Notes, record <i>Simeon hatched a plan</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "simeon_hatched_a_plan",
+          "text": "Simeon hatched a plan."
+        }
+      ]
+    },
+    {
+      "id": "codex_pi_story",
+      "type": "story",
+      "text": "You step outside for some fresh air. Near the Commons, several locals sit around a small fire, laughing and drinking coffee. They wear a mix of everyday working clothes—notably, no cloaks—and regard you with careful curiosity until you explain that you’re here on a survey. A man with a kind smile and a long scar down his cheek asks, “You’re here to study...the wildlife?” You say yes, and he and his friends burst out laughing. “We work on the docks up in Akwan. We’re just here to ‘study’ the free food.” You laugh along to their stories of gargantuan shellfish and biggest catches. As they disperse, the man with the long scar presses a smooth, perfect river rock into your palm. “Take it,” he says. “It’ll protect you.”"
+    },
+    {
+      "id": "codex_pi_effects",
+      "text": "Search the <i>Heirlooms</i> encounter set for the Worry Rock story asset and add it to your deck. It does not count toward your deck size.",
+      "type": "encounter_sets",
+      "encounter_sets": ["heirlooms"],
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "10713"
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns the bonus experience awarded during this prelude. Record each bonus experience earned under “Unspent Experience” in your Campaign Log, <b>but do not spend any of it until the end of the next scenario.</b>"
+    },
+    {
+      "id": "next_scenario_choice",
+      "type": "input",
+      "text": "The investigators must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "search",
+            "text": "<i>Search for Bertie Musgrave with Dr. Marquez.</i>",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_twisted_hollow"
+              }
+            ]
+          },
+          {
+            "id": "survey",
+            "text": "<i>Gather more information on Hemlock Isle’s unique ecosystem at night.</i>",
+            "description": "Check the “Areas Surveyed” section of your Campaign Log and choose a scenario that has not yet been checked off. <b>If you do, add 1 [tablet] token and 1 [elder_thing] token to the chaos bag for the remainder of the campaign.</b>",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["tablet", "elder_thing"]
+              }
+            ],
+            "steps": ["$choose_next_scenario_night"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The evening chatter fades as residents trickle out of the Commons. There is an uncharacteristic spring in Dr. Marquez’s step as you reconvene outside the Commons. The sunset casts the sky in shades from ochre, to lilac, to violet. The professor cracks a handful of walnuts as you share your impressions of Hemlock Isle.\n“This island has the density and special variance of a jungle, but it’s far more dangerous than any jungle. I have no clue why someone would start a commune in such a hazardous environment, but I understand it wasn’t always so deadly. Something was introduced and fundamentally changed the local ecosystem,” Dr. Marquez muses.\nYou mention the unusually good mood shared by everyone in the village, and the professor nods. “Most everyone looks blissed out of their minds. It’s like walking into an opium den. But as far as I can tell, the food isn’t laced with anything. Though I didn’t try the bread pudding. I’ve never liked bread, and the last time I had pudding was in Oxford.”\nThe professor’s reference to the prestigious university brings Bertie Musgrave to mind, and you ask where he is.\n“You haven’t seen him? I assumed he went back to the boarding house to rest,” she scowls. “Theo offered to lend us his truck for the evening. I thought we could observe some of the local wildlife at night, but I suppose we should find him first.”\nA heavy breeze stirs the trees and grass around you, smelling of cedar and pine. Dr. Marquez grips her cane. “If you’d rather take the truck and continue the survey, I can look for Bertie on my own.”",
+      "steps": [
+        "earn_xp",
+        "next_scenario_choice"
+      ]
+    }
+  ]
+}

@@ -312,6 +312,104 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_ask_mid_game_tokens",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 5,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_ask_mid_game_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_ask_mid_game_tokens",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "cca_add_chaos_token",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ask_mid_game_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_mid_game_tokens",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "While playing the scenario, were you instructed to add any tokens to the chaos bag?",
+            "steps": ["ask_which_mid_game_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_which_mid_game_token",
+      "text": "Which version of Act 2b was advanced?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "a_city_aflame",
+            "text": "A City Aflame",
+            "description": "Add 2 [cultist] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "cultist",
+                  "cultist"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "the_path_is_mine",
+            "text": "The Path is Mine",
+            "description": "Add 2 [tablet] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "tablet",
+                  "tablet"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "the_shores_of_hali",
+            "text": "The Shores of Hali",
+            "description": "Add 2 [elder_thing] tokens to the chaos bag.",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "elder_thing",
+                  "elder_thing"
+                ]
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -339,6 +437,7 @@
       "steps": [
         "stranger_is_on_to_you",
         "chasing_the_stranger",
+        "maybe_ask_mid_game_tokens",
         "earn_xp",
         "$upgrade_decks"
       ]
@@ -364,6 +463,7 @@
         "stole_from_box_office",
         "stranger_is_on_to_you",
         "chasing_the_stranger_2",
+        "maybe_ask_mid_game_tokens",
         "earn_xp",
         "$upgrade_decks"
       ]
@@ -388,6 +488,7 @@
         "chose_not_to_warn_police",
         "stranger_is_on_to_you",
         "chasing_the_stranger_2",
+        "maybe_ask_mid_game_tokens",
         "earn_xp",
         "$upgrade_decks"
       ]
