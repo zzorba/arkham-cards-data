@@ -2,7 +2,7 @@ const promisify = require("util").promisify;
 const fs = require("fs");
 const path = require("path");
 const PO = require("pofile");
-const getFilePaths = require("./utils/getFilePaths");
+const getFilePaths = require(`.${path.sep}utils${path.sep}getFilePaths`);
 const unorm = require('unorm');
 const yargs = require('yargs');
 
@@ -132,7 +132,7 @@ async function readPOFile(scenarioPoFile) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function checkLocale(localeCode) {
-  const allPoFiles = getFilePaths(`i18n/${localeCode}`);
+  const allPoFiles = getFilePaths(`i18n${path.sep}${localeCode}`);
   for (const scenarioPoFile of allPoFiles.sort()) {
     let missing = 0;
     if (scenarioPoFile.indexOf(".DS_Store") !== -1) {

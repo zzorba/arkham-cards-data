@@ -83,7 +83,7 @@ async function fetchFaq() {
   }
   Object.keys(faqByPack).forEach(pack_code => {
     const json = faqByPack[pack_code];
-    fs.writeFileSync(`./faq/en/${pack_code}.json`, JSON.stringify(json, null, 2));
+    fs.writeFileSync(`.${path.sep}faq${path.sep}en${path.sep}${pack_code}.json`, JSON.stringify(json, null, 2));
   });
 }
 

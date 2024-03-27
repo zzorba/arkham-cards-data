@@ -17,7 +17,7 @@ const argv = yargs
       alias: 'o',
       description: 'Output directory',
       type: 'string',
-      default: './build',
+      default: `.${path.sep}build`,
     }
   ).help()
   .alias('help', 'h')
@@ -31,20 +31,20 @@ const getFilePaths = (folderPath) => {
   return [...filePaths, ...dirFiles];
 };
 
-const output_dir = argv.output || './build';
+const output_dir = argv.output || `.${path.sep}build`;
 
 if (!fs.existsSync(output_dir)) {
   fs.mkdirSync(output_dir, { recursive: true })
 }
-if (!fs.existsSync(`${output_dir}/return_campaigns`)) {
-  fs.mkdirSync(`${output_dir}/return_campaigns`, { recursive: true })
+if (!fs.existsSync(`${output_dir}${path.sep}return_campaigns`)) {
+  fs.mkdirSync(`${output_dir}${path.sep}return_campaigns`, { recursive: true })
 }
 const input_dir = argv.input || '.';
-const input_replace_dir = input_dir === '.' ? '' : `${input_dir}/`;
+const input_replace_dir = input_dir === '.' ? '' : `${input_dir}${path.sep}`;
 
 console.log(`Generating Return Campaigns: (${input_dir}) -> (${output_dir})`);
 
-getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
+getFilePaths(`${input_dir}${path.sep}return_campaigns`).sort().map(file => {
   if (file.endsWith('.schema.json') || !file.endsWith('.json')) {
     return;
   }
@@ -53,11 +53,11 @@ getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
   const originalId = json.original_id;
   if (file.endsWith('campaign.json')) {
     const originalData = fs.readFileSync(
-      file.replace('return_campaigns/rt', 'campaigns/'),
+      file.replace(`return_campaigns${path.sep}rt`, `campaigns${path.sep}`),
       'utf-8'
     ).toString();
     const originalJson = jsonlint.parse(originalData);
-    const targetDir = `${output_dir}/return_campaigns/${json.id}`;
+    const targetDir = `${output_dir}${path.sep}return_campaigns${path.sep}${json.id}`;
     if (!fs.existsSync(targetDir)) {
       fs.mkdirSync(targetDir, { recursive: true });
     }
@@ -74,10 +74,10 @@ getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
       ];
     }
 
-    fs.writeFileSync(`${targetDir}/campaign.json`,
+    fs.writeFileSync(`${targetDir}${path.sep}campaign.json`,
       JSON.stringify(newCampaign, null, 2)
     );
-    const campaign_dir = file.replace('return_campaigns/rt', 'campaigns/').replace('/campaign.json', '')
+    const campaign_dir = file.replace(`return_campaigns${path.sep}rt`, `campaigns${path.sep}`).replace(`${path.sep}campaign.json`, '')
     console.log(`Campaign Dir: ${campaign_dir}`)
     getFilePaths(campaign_dir).sort().map(originalFile => {
       if (originalFile.endsWith('.schema.json') ||
@@ -88,7 +88,7 @@ getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
       }
       const originalScenarioJson = jsonlint.parse(fs.readFileSync(originalFile, 'utf-8').toString());
       if (originalScenarioJson.type === 'interlude' || originalScenarioJson.type === 'epilogue') {
-        const outputFile = originalFile.replace(`${input_replace_dir}campaigns/`, `${output_dir}/return_campaigns/rt`);
+        const outputFile = originalFile.replace(`${input_replace_dir}campaigns${path.sep}`, `${output_dir}${path.sep}return_campaigns${path.sep}rt`);
         console.log(`Saving Interlude/Epilogue to ${outputFile} (original: ${originalFile})`);
         fs.writeFileSync(outputFile, JSON.stringify(originalScenarioJson, null, 2));
       }
@@ -97,7 +97,7 @@ getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
     if (!json.id || !json.original_id) {
       throw new Error(`${file} is missing id/original_id (${JSON.stringify(json)})`);
     }
-    const newFile = file.replace('return_campaigns/rt', 'campaigns/')
+    const newFile = file.replace(`return_campaigns${path.sep}rt`, `campaigns${path.sep}`)
       .replace(json.id, json.original_id);
     const originalJson = jsonlint.parse(fs.readFileSync(newFile, 'utf-8').toString());
     const newStepsIds = new Set(json.steps.map(step => step.id));
@@ -105,7 +105,7 @@ getFilePaths(`${input_dir}/return_campaigns`).sort().map(file => {
       ...originalJson.steps.filter(step => !newStepsIds.has(step.id)),
       ...json.steps,
     ];
-    const outputFile = file.replace(`${input_replace_dir}return_campaigns/`, `${output_dir}/return_campaigns/`);
+    const outputFile = file.replace(`${input_replace_dir}return_campaigns${path.sep}`, `${output_dir}${path.sep}return_campaigns${path.sep}`);
     fs.writeFileSync(outputFile,
       JSON.stringify({
         ...originalJson,
