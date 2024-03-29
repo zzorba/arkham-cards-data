@@ -333,14 +333,20 @@
       "steps": [
         "check_leah",
         "check_simeon",
+        "check_river",
+        "check_judith",
+        "check_william",
+        "check_theo",
+        "check_gideon",
+        "check_helen",
         "rachel_at_crossroads",
         "check_bertie_had_an_epiphany",
         "check_interrupted_the_feast_residents",
         "maybe_spawn_leah",
         "maybe_spawn_simeon",
-        "check_gideon_relationship",
-        "check_judith_relationship",
-        "check_theo_relationship",
+        "maybe_check_gideon_relationship",
+        "maybe_check_judith_relationship",
+        "maybe_check_theo_relationship",
         "set_aside_residents"
       ]
     },
@@ -430,6 +436,167 @@
           }
         ]
       }
+    },
+    {
+      "id": "check_river",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "river",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_river"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_evening_codex_5",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_river",
+      "bullet_type": "small",
+      "text": "Remove River Hawthorne from the game."
+    },
+    {
+      "id": "check_judith",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "judith",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_judith"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_evening_codex_7",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_judith",
+      "bullet_type": "small",
+      "text": "Remove Judith Park from the game."
+    },
+    {
+      "id": "check_william",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "william",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_william"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_evening_codex_4",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_william",
+      "bullet_type": "small",
+      "text": "Remove William Hemlock from the game."
+    },
+    {
+      "id": "check_theo",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "theo",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_theo"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_evening_codex_8",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_theo",
+      "bullet_type": "small",
+      "text": "Remove Theo Peters from the game."
+    },
+
+    {
+      "id": "check_gideon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "gideon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_gideon"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_evening_codex_6",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_gideon",
+      "bullet_type": "small",
+      "text": "Remove Gideon Mizrah from the game."
+    },
+    {
+      "id": "check_helen",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "helen",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["remove_helen"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_helen",
+      "bullet_type": "small",
+      "text": "Remove Helen Peters from the game."
     },
     {
       "id": "remove_leah",
@@ -595,6 +762,20 @@
       ]
     },
     {
+      "id": "maybe_check_gideon_relationship",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "gideon",
+        "options": [{
+          "boolCondition": true,
+          "steps": ["check_gideon_relationship"]
+          }
+        ]
+      }
+    },
+    {
       "id": "check_gideon_relationship",
       "hidden": true,
       "type": "branch",
@@ -644,7 +825,20 @@
         }
       ]
     },
-
+    {
+      "id": "maybe_check_judith_relationship",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "judith",
+        "options": [{
+          "boolCondition": true,
+          "steps": ["check_judith_relationship"]
+          }
+        ]
+      }
+    },
     {
       "id": "check_judith_relationship",
       "hidden": true,
@@ -694,6 +888,20 @@
           "text": "dummy"
         }
       ]
+    },
+    {
+      "id": "maybe_check_theo_relationship",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "theo",
+        "options": [{
+          "boolCondition": true,
+          "steps": ["check_theo_relationship"]
+          }
+        ]
+      }
     },
     {
       "id": "check_theo_relationship",
