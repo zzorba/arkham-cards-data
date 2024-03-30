@@ -83,7 +83,7 @@ async function writeJSON(object, filePath) {
 async function checkNarration(step, localeCode, audioDir) {
   if (step.narration) {
     const id = step.narration.id;
-    const file = `${audioDir}/${id}.mp3`
+    const file = `${audioDir}${path.sep}${id}.mp3`
     if (await exists(file)) {
       if (argv.verbose) {
         console.log(`Found: ${file}`);
@@ -129,8 +129,8 @@ async function updateScenarioNarration(localeCode, scenario, audioDir) {
  * @param {string} audioDir - Folder containing all audio files.
  */
 async function updateLangNarration(localeCode, audioDir) {
-  const allScenarios = getFilePaths("./campaigns");
-  const allReturnScenarios = getFilePaths("./return_campaigns");
+  const allScenarios = getFilePaths(`.${path.sep}campaigns`);
+  const allReturnScenarios = getFilePaths(`.${path.sep}return_campaigns`);
   for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
