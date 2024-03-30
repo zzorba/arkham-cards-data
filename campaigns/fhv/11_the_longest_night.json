@@ -811,6 +811,39 @@
             "text": "Defeated resident asset",
             "repeatable": true,
             "steps": ["$defeat_resident"]
+          },
+          {
+            "id": "agenda_advanced",
+            "icon": "settings",
+            "text": "Agenda advanced",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_longest_night_agenda_flip",
+                  "options": [{ "boolCondition": false }]
+                },
+                {
+                  "type": "campaign_data",
+                  "campaign_data": "version",
+                  "min_version": 3,
+                  "options": [{ "boolCondition": false }]
+                }
+              ],
+              "count": 2,
+              "options": [{ "boolCondition": true}]
+            },
+            "steps": ["ask_agenda_flip"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_longest_night_agenda_flip",
+                "text": "dummy"
+              }
+            ]
           }
         ]
       }
@@ -1583,6 +1616,348 @@
           "scenario": "dawn_of_the_final_day"
         }
       ]
+    },
+    {
+      "id": "maybe_ask_agenda_flip",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "version",
+            "min_version": 3,
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "fhv_longest_night_agenda_flip",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_agenda_flip"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_agenda_flip",
+      "type": "input",
+      "text": "Which choice from agenda 1b did you take?",
+      "input": {
+        "type": "choose_one",
+        "show_hidden_choices": true,
+        "choices": [
+          {
+            "id": "trauma",
+            "text": "Each undefeated investigator takes 1 mental trauma.",
+            "effects": [
+              {
+                "type": "trauma",
+                "mental": 1,
+                "investigator": "all",
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "kill",
+            "text": "A resident sacrificed themselves to save you.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "leah",
+                  "id": "leah_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "simeon",
+                  "id": "simeon_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "william",
+                  "id": "william_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "river",
+                  "id": "river_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "gideon",
+                  "id": "gideon_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "theo",
+                  "id": "theo_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "helen_shared_a_dance",
+                  "options": [{ "boolCondition": true }]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["ask_sacrificed_resident"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_sacrificed_resident",
+      "text": "Which resident sacrifice themselves to save you?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "leah",
+            "text": "Leah Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "leah",
+              "id": "leah_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["leah_sacrificed"]
+          },
+          {
+            "id": "simeon",
+            "text": "Simeon Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "simeon",
+              "id": "simeon_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["simeon_sacrificed"]
+          },
+          {
+            "id": "william",
+            "text": "William Hemlock",
+            "condition": {
+              "type": "campaign_log",
+              "section": "william",
+              "id": "william_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["william_sacrificed"]
+          },
+          {
+            "id": "river",
+            "text": "River Hawhtorne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "river",
+              "id": "river_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["river_sacrificed"]
+          },
+          {
+            "id": "gideon",
+            "text": "Gideon Mizrah",
+            "condition": {
+              "type": "campaign_log",
+              "section": "gideon",
+              "id": "gideon_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["gideon_sacrificed"]
+          },
+          {
+            "id": "judith",
+            "text": "Judith Park",
+            "condition": {
+              "type": "campaign_log",
+              "section": "judith",
+              "id": "judith_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["judith_sacrificed"]
+          },
+          {
+            "id": "theo",
+            "text": "Theo Peters",
+            "condition": {
+              "type": "campaign_log",
+              "section": "theo",
+              "id": "theo_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["theo_sacrificed"]
+          },
+          {
+            "id": "theo",
+            "text": "Helen Peters",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "helen_shared_a_dance",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["helen_sacrificed"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "leah_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out Leah Atwood's name. In her notes, record <i>Leah Atwood sacrificed herself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "id": "leah_sacrificed_himself",
+          "text": "Leah Atwood sacrificed herself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "leah",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "simeon_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out Simeon Atwood's name. In his notes, record <i>Simeon Atwood sacrificed himself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "simeon_sacrificed_himself",
+          "text": "Simeon Atwood sacrificed himself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "william_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out William Hemlock's name. In his notes, record <i>William Hemlock sacrificed himself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "id": "william_sacrificed_himself",
+          "text": "William Hemlock sacrificed himself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "river_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out River Hawthorne's name. In their notes, record <i>River Hawthorne sacrificed themself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "river",
+          "id": "river_sacrificed_himself",
+          "text": "River Hawthorne sacrificed themself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "river",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "gideon_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out Gideon Mizrah's name. In his notes, record <i>Gideon Mizrah sacrificed himself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "gideon",
+          "id": "gideon_sacrificed_himself",
+          "text": "Gideon Mizrah sacrificed himself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "gideon",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "judith_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out Judith Parks' name. In her notes, record <i>Judith Park sacrificed herself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "judith",
+          "id": "judith_sacrificed_himself",
+          "text": "Judith Park sacrificed herself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "judith",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "theo_sacrificed",
+      "bullet_type": "small",
+      "text": "Cross out Theo Peters' name. In his notes, record <i>Theo Peters sacrificed himself for the investigators.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "id": "theo_sacrificed_himself",
+          "text": "Theo Peters sacrificed himself for the investigators."
+        },
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "helen_sacrificed",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "helen_sacrificed_herself",
+          "text": "Helen Peters sacrificed herself for the investigators."
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -1612,6 +1987,7 @@
       "title": "Resolution 1",
       "text": "“Please, listen,” Dr. Marquez implores the captives. “Each of you deserves to live a full life. We can help! You can receive care on the mainland.” Tad spits in response. “You’ve robbed us of a great privilege. We were chosen.” Dr. Marquez hardly answers before a jagged plank of wood swings out from behind her, striking her on the shoulder. One of the captives holds it overhead, while several others gather round. Tad looks balefully at the professor and growls, “Leave now.” Dr. Marquez rises gingerly and walks out of the farmhouse. You follow her. “Idiots. We saved their lives,” she scoffs. As you leave, a young girl wearing a rabbit mask peers out from under some debris. You recognize her as Rebecca, Mother Rachel’s daughter.",
       "steps": [
+        "maybe_ask_agenda_flip",
         "ask_damage_on_captives",
         "check_damage_on_captives",
         "captives_were_saved",
@@ -1623,6 +1999,7 @@
       "title": "Resolution 2",
       "text": "Tad stands in the center of the farmhouse, his white- gold Vale cloak stained crimson. Surrounding him, the half-eaten corpses of the slain captives are arranged in a kind of circle. When you approach, the middle-aged man laughs bitterly. “Why was I spared, and so many others taken?” He raises both hands to his face and laughs hysterically. “Why is everything so bright?!” he giggles, clawing at his own eyes. You turn away and join Dr. Marquez outside, hunched over a pile of wreckage. A young girl wearing a rabbit mask scrambles out from underneath the debris. You recognize her as Rebecca, Mother Rachel’s daughter.",
       "steps": [
+        "maybe_ask_agenda_flip",
         "ask_damage_on_captives_bad",
         "check_damage_on_captives",
         "many_captives_were_lost",
