@@ -103,7 +103,7 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario, quiet) {
  * @param {string} localeCode  - Locale code (en, es, ...)
  */
 async function readEncounterSets(localeCode) {
-  const json = await readJSON(`encounter_sets/${localeCode}.json`);
+  const json = await readJSON(`encounter_sets${path.sep}${localeCode}.json`);
   const encounter_sets = {};
   for(let i = 0; i < json.length; i++) {
     const entry = json[i];
@@ -132,7 +132,7 @@ function messageId(msgId, context) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateNarration(localeCode) {
-  const allCampaigns = await readJSON(localeCode === 'en' ? `${argv.arkham_cards}/build/allCampaigns.json` : `${argv.arkham_cards}/build/allCampaigns_${localeCode}.json`);
+  const allCampaigns = await readJSON(localeCode === 'en' ? `${argv.arkham_cards}${path.sep}build${path.sep}allCampaigns.json` : `${argv.arkham_cards}${path.sep}build${path.sep}allCampaigns_${localeCode}.json`);
   const printErr = (err) => {
     if (err) {
       console.log(err);
@@ -140,9 +140,9 @@ async function generateNarration(localeCode) {
   };
 
   // First we gather all the known PO entries.
-  fs.mkdirSync(`${argv.arkham_cards}/build/${localeCode}`, { recursive: true, exists: true });
+  fs.mkdirSync(`${argv.arkham_cards}${path.sep}build${path.sep}${localeCode}`, { recursive: true, exists: true });
   for (const { campaign, scenarios } of allCampaigns) {
-    fs.mkdirSync(`${argv.arkham_cards}/build/${localeCode}/${campaign.id}/`, { recursive: true, exists: true });
+    fs.mkdirSync(`${argv.arkham_cards}${path.sep}build${path.sep}${localeCode}${path.sep}${campaign.id}${path.sep}`, { recursive: true, exists: true });
     if (campaign.steps) {
       let output = '';
       const print = (s) => {
@@ -163,7 +163,7 @@ async function generateNarration(localeCode) {
           print("------");
         }
       }
-      fs.writeFileSync(`${argv.arkham_cards}/build/${localeCode}/${campaign.id}/0_campaign.txt`, output);
+      fs.writeFileSync(`${argv.arkham_cards}${path.sep}build${path.sep}${localeCode}${path.sep}${campaign.id}${path.sep}0_campaign.txt`, output);
     }
     const allScenarios = [...campaign.scenarios, ...(campaign.hidden_scenarios || [])];
     for (const idx in allScenarios) {
@@ -207,7 +207,7 @@ async function generateNarration(localeCode) {
             }
           }
         }
-        fs.writeFileSync(`${argv.arkham_cards}/build/${localeCode}/${campaign.id}/${parseInt(idx, 10) + 1}_${scenario.id}.txt`, output);
+        fs.writeFileSync(`${argv.arkham_cards}${path.sep}build${path.sep}${localeCode}${path.sep}${campaign.id}${path.sep}${parseInt(idx, 10) + 1}_${scenario.id}.txt`, output);
       }
     }
   }

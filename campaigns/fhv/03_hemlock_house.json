@@ -562,16 +562,21 @@
     {
       "id": "check_residents_judith",
       "type": "branch",
-      "text": "If it is <b>Day 2</b> or <b>Day 3</b>:",
+      "text": "If it is <b>Day 2</b> or <b>Day 3</b> and Judith Park is not crossed out:",
       "condition": {
         "type": "multi",
-        "count": 1,
+        "count": 2,
         "conditions": [
           {
             "type": "campaign_log_count",
             "section": "hidden",
             "id": "day",
             "options": [{ "numCondition": 3 }, { "numCondition": 5 }]
+          },
+          {
+            "type": "campaign_log_section_exists",
+            "section": "judith",
+            "options": [{ "boolCondition": true }]
           }
         ],
         "options": [
@@ -1026,20 +1031,20 @@
           },
           {
             "numCondition": 3,
-            "steps": ["codex_4_day_1", "maybe_ask_codex_4_william_and_judith"]
+            "steps": ["codex_4_day_2", "maybe_ask_codex_4_william_and_judith"]
           }
         ]
       }
     },
     {
-      "id": "codex_4_day_1",
+      "id": "codex_4_day_2",
       "bullet_type": "none",
-      "text": "<b>Because it is Day 1</b>:"
+      "text": "<b>Because it is Day 2</b>:"
     },
     {
       "id": "check_controls_little_sylvie",
       "bullet_type": "none",
-      "text": "<b>Because it is Day 1 and an investigator controls the Little Sylvie story asset:</b>",
+      "text": "<b>If it is Day 1 and an investigator controls the Little Sylvie story asset:</b>",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
@@ -1197,7 +1202,10 @@
           },
           {
             "boolCondition": false,
-            "steps": ["codex_4_day_2_william_not_reunited_story", "codex_4_day_2_william_not_reunited_effects"]
+            "steps": [
+              "codex_4_day_2_william_not_reunited_story",
+              "codex_4_day_2_william_not_reunited_effects"
+            ]
           }
         ]
       }
