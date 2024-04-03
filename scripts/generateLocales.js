@@ -264,7 +264,7 @@ async function generateLocale(localeCode) {
       continue;
     }
     const file = card.split(`${path.sep}`)[1];
-    const translatedFile = `i18n${path.sep}${localeCode}${path.sep}cards` + file;
+    const translatedFile = `i18n${path.sep}${localeCode}${path.sep}cards${path.sep}` + file;
     if ((await exists(translatedFile))) {
       // File already exists, so continue.
       console.log(`Cards: translation file for ${file} already exists, merging.`);
