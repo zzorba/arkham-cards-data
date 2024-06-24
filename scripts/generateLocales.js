@@ -195,7 +195,12 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'vi',
     'Plural-Forms': 'nplurals=1; plural=0;',
   },
+  cs: {
+    'Language': 'cs',
+    'Plural-Forms': 'nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;',
+  },
 };
+
 
 async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario, quiet) {
   if (await exists(scenarioPoFile)) {
