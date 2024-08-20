@@ -40,7 +40,7 @@ async function getAvailableLocales() {
 }
 
 async function run() {
-  const localeCodes = getAvailableLocales();
+  const localeCodes = await getAvailableLocales();
   shell.exec(`node ./scripts/generateLocales.js --arkham_cards ${argv.arkham_cards}`)
   for (const localeCode of localeCodes) {
     // Check rules script
