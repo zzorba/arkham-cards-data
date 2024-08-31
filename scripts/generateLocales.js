@@ -183,6 +183,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'zh',
     'Plural-Forms': 'nplurals=1; plural=0;',
   },
+  'zh-cn': {
+    'Language': 'zh-cn',
+    'Plural-Forms': 'nplurals=1; plural=0;',
+  },
   pl: {
     'Language': 'pl',
     'Plural-Forms': 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
@@ -432,7 +436,7 @@ async function generateLocale(localeCode) {
 async function getAvailableLocales() {
   const entries = await readdir("i18n");
   return asyncFilter(entries, async e => {
-    return !(await stat("i18n/" + e)).isFile();
+    return (await stat("i18n/" + e)).isDirectory();
   });
 }
 
