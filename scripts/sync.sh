@@ -25,7 +25,7 @@ if [ -d "$ARKHAM_CARDS" ]; then
   cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/generated/rules.json"
 
   # I18N files
-  LANGS=(es ko it fr ru de zh pt pl vi)
+  LANGS=(es ko it fr ru de zh pt pl vi cs zh-cn)
   for lang in ${LANGS[@]}; do
     # node ./scripts/compressAndCopy.js -i ./build/allCampaigns_$lang.json -o "$ARKHAM_CARDS/assets/generated/allCampaigns_$lang.json"
     cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/allCampaigns_$lang.json"
