@@ -51,7 +51,7 @@ async function run() {
     }
 
     shell.exec(`node ./scripts/generateReturnCampaigns.js -i build/i18n/${localeCode} -o build/i18n/${localeCode}/build`);
-    shell.exec(`sh ./scripts/build.sh -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`);
+    shell.exec(`node ./scripts/build.js -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`);
     shell.exec(`sh ./scripts/generate-campaign-logs.sh -o build/i18n/${localeCode}/build`);
     shell.cp(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/scenarioNames.json`, `./build/scenarioNames_${localeCode}.json`);
