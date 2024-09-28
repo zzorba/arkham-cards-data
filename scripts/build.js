@@ -97,7 +97,6 @@ async function run(){
 
 // Read command line arguments
 const args = process.argv.slice(2);
-console.log(args);
 
 let OUTPUT_DIR, INPUT_DIR, RETURN_INPUT_DIR;
 
