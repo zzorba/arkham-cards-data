@@ -9,12 +9,10 @@ async function run(lang_code){
 
     const exists = fs.existsSync( file );
     if (exists === false){
-        console.log("File not found");
-
-        // TODO this is an error, process should exit with an error code
-        process.exit(0);
+        console.log(`(${lang_code}) Rules file not found.`);
+        return
     }
-    
+
     const content = await fsprom.readFile(file, 'utf-8');
     const json = JSON.parse(content);
     
@@ -26,25 +24,31 @@ async function run(lang_code){
       console.log("No duplicate ids found.");
     } else {
         const duplicates = all_ids.filter(item => {
-            if (uniqueSet.has(item)) {
-              uniqueSet.delete(item);
+            if (unique_ids.has(item)) {
+              unique_ids.delete(item);
               return false; // Not a duplicate yet, remove from Set to catch next occurrence
             }
             return true; // Already removed from Set, thus a duplicate
         });
-    
-      console.log("Duplicate ids found:", duplicates);
+
+      console.log(`(${lang_code}) Rules, duplicate ids found:`, duplicates);
       process.exit(1);
     }
 }
 
+if (require.main === module){
+  // Invoked from the shell, not from a require()
 
-const argv = yargs
-    .option('lang',{
-        describe: 'Two letters lang code',
-        demandOption: true
-    })
-    .help().alias('help', 'h')
-    .argv;
+  const argv = yargs
+        .option('lang',{
+          describe: 'Two letters lang code',
+          demandOption: true
+      })
+      .help().alias('help', 'h')
+      .argv;
+  
+  run( argv.lang );
 
-run( argv.lang );
+}
+
+module.exports = { run };

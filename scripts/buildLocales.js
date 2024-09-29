@@ -7,6 +7,7 @@ const writeFile = promisify(fs.writeFile);
 const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
+const check_rules = require('./check_rules');
 const yargs = require('yargs');
 require('dotenv').config()
 
@@ -38,11 +39,7 @@ async function run() {
   shell.exec(`node ./scripts/generateLocales.js --arkham_cards ${argv.arkham_cards}`)
   for (const localeCode of localeCodes) {
     // Check rules script
-    const checkRulesResult = shell.exec(`node ./scripts/check_rules.js --lang ${localeCode}`);
-    if (checkRulesResult.code !== 0) {
-       console.error(`Error: Duplicate rule IDs found for locale ${localeCode}`);
-       process.exit(1);
-    }
+    await check_rules.run(localeCode);
 
     shell.exec(`node ./scripts/generateReturnCampaigns.js -i build/i18n/${localeCode} -o build/i18n/${localeCode}/build`);
     shell.exec(`node ./scripts/build.js -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`);
