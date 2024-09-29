@@ -22,22 +22,15 @@ const argv = yargs
   .alias('help', 'h')
   .argv;
 
-/** Asynchronous filtering of an array. */
-const asyncFilter = async (arr, predicate) =>
-  Promise.all(arr.map(predicate)).then(results =>
-    arr.filter((_v, index) => results[index])
-  );
-
 /**
  * Get the list of available locales by reading folders under i18n
  *
- * @returns {string[]} The list of available locales
+ * @returns {Promise<string[]>} The list of available locales
  */
 async function getAvailableLocales() {
-  const entries = await readdir("i18n");
-  return asyncFilter(entries, async e => {
-    return !(await stat("i18n/" + e)).isFile();
-  });
+  const entries = await readdir("i18n", {withFileTypes: true});
+  const langs = entries.filter(entry => entry.isDirectory()).map(entry => entry.name);
+  return langs;
 }
 
 async function run() {
@@ -54,11 +47,10 @@ async function run() {
     shell.exec(`node ./scripts/generateReturnCampaigns.js -i build/i18n/${localeCode} -o build/i18n/${localeCode}/build`);
     shell.exec(`node ./scripts/build.js -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`);
     shell.exec(`node ./scripts/generate-campaign-logs.js -o build/i18n/${localeCode}/build`);
-    shell.cp(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`);
-    shell.cp(`./build/i18n/${localeCode}/build/scenarioNames.json`, `./build/scenarioNames_${localeCode}.json`);
-    shell.cp(`./build/i18n/${localeCode}/build/campaignLogs.json`, `./build/campaignLogs_${localeCode}.json`);
-    shell.cp(`./build/i18n/${localeCode}/build/encounterSets.json`, `./build/encounterSets_${localeCode}.json`);
-
+    fs.copyFileSync(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`)
+    fs.copyFileSync(`./build/i18n/${localeCode}/build/scenarioNames.json`, `./build/scenarioNames_${localeCode}.json`);
+    fs.copyFileSync(`./build/i18n/${localeCode}/build/campaignLogs.json`, `./build/campaignLogs_${localeCode}.json`);
+    fs.copyFileSync(`./build/i18n/${localeCode}/build/encounterSets.json`, `./build/encounterSets_${localeCode}.json`);
   }
 }
 
