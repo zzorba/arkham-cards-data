@@ -21,7 +21,7 @@ async function run(ARKHAM_CARDS){
   const exists = fs.existsSync(ARKHAM_CARDS);
   if (exists === true){
     await Promise.all([
-      //fsprom.copyFile('./build/index.d.ts', `${ARKHAM_CARDS}/src/data/scenario/types.d.ts`),
+      fsprom.copyFile('./build/index.d.ts', `${ARKHAM_CARDS}/src/data/scenario/types.d.ts`),
       fsprom.copyFile('./build/standalone.json', `${ARKHAM_CARDS}/assets/generated/standaloneScenarios.json`),
       fsprom.copyFile('./build/allCampaigns.json', `${ARKHAM_CARDS}/assets/generated/allCampaigns.json`),
       fsprom.copyFile('./build/scenarioNames.json', `${ARKHAM_CARDS}/assets/generated/scenarioNames.json`),
