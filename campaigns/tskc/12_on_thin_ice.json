@@ -62,10 +62,14 @@
           {
             "boolCondition": true,
             "border": true,
-            "effects": [{
-              "type": "story_step",
-              "steps": ["wayfarer_story"]
-            }]
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "wayfarer_story"
+                ]
+              }
+            ]
           }
         ]
       }
@@ -141,7 +145,9 @@
         "options": [
           {
             "numCondition": 0,
-            "steps": ["no_extra_doom"]
+            "steps": [
+              "no_extra_doom"
+            ]
           }
         ],
         "default_option": {
@@ -154,7 +160,9 @@
               "operation": "set_input"
             }
           ],
-          "steps": ["show_doom"]
+          "steps": [
+            "show_doom"
+          ]
         }
       }
     },
@@ -230,17 +238,26 @@
           {
             "id": "one",
             "text": "Agenda 1",
-            "steps": ["raw_deal_1", "raw_deal_1_choice"]
+            "steps": [
+              "raw_deal_1",
+              "raw_deal_1_choice"
+            ]
           },
           {
             "id": "two",
             "text": "Agenda 2",
-            "steps": ["raw_deal_2", "raw_deal_2_choice"]
+            "steps": [
+              "raw_deal_2",
+              "raw_deal_2_choice"
+            ]
           },
           {
             "id": "three",
             "text": "Agenda 3",
-            "steps": ["raw_deal_2", "raw_deal_2_choice"]
+            "steps": [
+              "raw_deal_2",
+              "raw_deal_2_choice"
+            ]
           }
         ]
       }
@@ -280,7 +297,13 @@
           {
             "id": "reject",
             "text": "<i>“No. We won, fair and square.”</i>",
-            "steps": ["raw_deal_4", "reject_thorne_token_swap", "oti_maybe_add_elder_thing", "take_sable_glass", "spawn_thorne"]
+            "steps": [
+              "raw_deal_4",
+              "reject_thorne_token_swap",
+              "oti_maybe_add_elder_thing",
+              "take_sable_glass",
+              "spawn_thorne"
+            ]
           }
         ]
       }
@@ -320,7 +343,12 @@
           {
             "id": "reject",
             "text": "<i>“We can’t let the Key fall into Coterie hands!”</i>",
-            "steps": ["raw_deal_5", "reject_thorne_token_swap", "oti_maybe_add_elder_thing", "spawn_thorne_with_sable_glass"]
+            "steps": [
+              "raw_deal_5",
+              "reject_thorne_token_swap",
+              "oti_maybe_add_elder_thing",
+              "spawn_thorne_with_sable_glass"
+            ]
           }
         ]
       }
@@ -356,7 +384,9 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "tokens": ["elder_thing"]
+          "tokens": [
+            "elder_thing"
+          ]
         }
       ]
     },
@@ -367,10 +397,11 @@
     {
       "id": "remove_crimson_conspiracy",
       "type": "encounter_sets",
-      "encounter_sets": ["crimson_conspiracy"],
+      "encounter_sets": [
+        "crimson_conspiracy"
+      ],
       "text": "Search the encounter deck, discard pile and all play areas for all cards from the Crimson Conspiracy encounter set and remove them from the game."
     },
-
     {
       "id": "raw_deal_4",
       "narration": {
@@ -391,7 +422,9 @@
       "effects": [
         {
           "type": "remove_chaos_token",
-          "tokens": ["tablet"]
+          "tokens": [
+            "tablet"
+          ]
         }
       ]
     },
@@ -513,12 +546,15 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["thorne_has_sable_glass_small"]
+            "steps": [
+              "thorne_has_sable_glass_small"
+            ]
           },
           {
             "boolCondition": false,
             "steps": [
-              "ask_if_investigator_controls_sable_glass", "check_investigator_has_sable_glass"
+              "ask_if_investigator_controls_sable_glass",
+              "check_investigator_has_sable_glass"
             ]
           }
         ]
@@ -595,12 +631,15 @@
           {
             "boolCondition": true,
             "steps": [
-              "have_not_seen_the_last_of_thorne_small", "ask_who_has_sable_glass"
+              "have_not_seen_the_last_of_thorne_small",
+              "ask_who_has_sable_glass"
             ]
           },
           {
             "boolCondition": false,
-            "steps": ["thorne_has_sable_glass_small"]
+            "steps": [
+              "thorne_has_sable_glass_small"
+            ]
           }
         ]
       }
@@ -616,11 +655,15 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["ask_who_has_sable_glass"]
+            "steps": [
+              "ask_who_has_sable_glass"
+            ]
           },
           {
             "boolCondition": false,
-            "steps": ["thorne_has_sable_glass_small"]
+            "steps": [
+              "thorne_has_sable_glass_small"
+            ]
           }
         ]
       }
@@ -807,7 +850,9 @@
             "effects": [
               {
                 "type": "add_chaos_token",
-                "tokens": ["tablet"]
+                "tokens": [
+                  "tablet"
+                ]
               }
             ]
           }
@@ -856,7 +901,9 @@
             "effects": [
               {
                 "type": "add_chaos_token",
-                "tokens": ["elder_thing"]
+                "tokens": [
+                  "elder_thing"
+                ]
               }
             ]
           }
@@ -884,6 +931,36 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_remove_cell_made_a_deal_with_thorne",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cell_made_a_deal_with_thorne",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "remove_cell_made_a_deal_with_thorne"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_cell_made_a_deal_with_thorne",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cell_made_a_deal_with_thorne",
+          "text": "the cell made a deal with Thorne.",
+          "cross_out": true
+        }
+      ]
     }
   ],
   "resolutions": [
@@ -1000,6 +1077,7 @@
         "no_resolution_key",
         "ask_if_investigator_controls_sable_glass",
         "check_investigator_has_sable_glass_r2",
+        "maybe_remove_cell_made_a_deal_with_thorne",
         "$upgrade_decks",
         "$mark_3_time",
         "$embark"
