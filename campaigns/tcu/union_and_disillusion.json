@@ -27,6 +27,12 @@
     "circle_braziers",
     "$play_scenario"
   ],
+  "rules": [
+    {
+      "title": "Circle / Braziers",
+      "steps": ["circle_braziers"]
+    }
+  ],
   "steps": [
     {
       "id": "intro_1",
@@ -653,7 +659,7 @@
             },
             "text": "Gavriella is alive.",
             "steps": [
-              "gavriella_alive"
+              "check_gavriella_not_eligible_alive"
             ]
           },
           {
@@ -670,7 +676,7 @@
               ]
             },
             "steps": [
-              "jerome_alive"
+              "check_jerome_not_eligible_alive"
             ]
           },
           {
@@ -687,7 +693,7 @@
               ]
             },
             "steps": [
-              "penny_alive"
+              "check_penny_not_eligible_alive"
             ]
           },
           {
@@ -704,7 +710,7 @@
               ]
             },
             "steps": [
-              "valentino_alive"
+              "check_valentino_not_eligible_alive"
             ]
           }
         ],
@@ -712,6 +718,51 @@
           "add_chaos_token"
         ]
       }
+    },
+    {
+      "id": "check_gavriella_not_eligible_alive",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05046",
+            "id": "on_gavriellas_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["gavriella_not_eligible_alive"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["gavriella_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gavriella_not_eligible_alive",
+      "text": "Gavriella Mizrah is not eligible to be alive, because <i>Disappeared into the mists</i> and <i>On Gavriella’s trail</i> are not both true."
     },
     {
       "id": "gavriella_alive",
@@ -727,6 +778,51 @@
       ]
     },
     {
+      "id": "check_jerome_not_eligible_alive",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05047",
+            "id": "on_jeromes_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["jerome_not_eligible_alive"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["jerome_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "jerome_not_eligible_alive",
+      "text": "Jerome David is not eligible to be alive, because <i>Disappeared into the mists</i> and <i>On Jerome’s trail</i> are not both true."
+    },
+    {
       "id": "jerome_alive",
       "text": "Next to Jerome Davids's profile, record <i>Jerome is alive.</i>",
       "hidden": true,
@@ -740,6 +836,51 @@
       ]
     },
     {
+      "id": "check_penny_not_eligible_alive",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05049",
+            "id": "on_pennys_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["penny_not_eligible_alive"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["penny_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "penny_not_eligible_alive",
+      "text": "Penny White is not eligible to be alive, because <i>Disappeared into the mists</i> and <i>On Penny’s trail</i> are not both true."
+    },
+    {
       "id": "penny_alive",
       "text": "Next to Penny White's profile, record <i>Penny is alive.</i>",
       "hidden": true,
@@ -751,6 +892,51 @@
           "text": "Penny is alive."
         }
       ]
+    },
+    {
+      "id": "check_valentino_not_eligible_alive",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "disappeared_into_the_mist",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "05048",
+            "id": "on_valentinos_trail",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["valentino_not_eligible_alive"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["valentino_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "valentino_not_eligible_alive",
+      "text": "Valention Rivas is not eligible to be alive, because <i>Disappeared into the mists</i> and <i>On Valentino’s trail</i> are not both true."
     },
     {
       "id": "valentino_alive",

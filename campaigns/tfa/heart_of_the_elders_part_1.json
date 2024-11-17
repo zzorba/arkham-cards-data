@@ -282,6 +282,7 @@
               "gather_encounter_sets",
               "setup_locations",
               "setup_paths",
+              "setup_paths_count",
               "check_replay",
               "create_exploration_deck",
               "check_mapped_way_forward",
@@ -329,6 +330,26 @@
     {
       "id": "setup_paths",
       "text": "Check Campaign Log. Your journey beyond the boundary of time has granted you insight into how to enter K’n-yan. For each path that is known to you, place 1 resource on the Mouth of K’n-yan, as a pillar token."
+    },
+    {
+      "id": "setup_paths_count",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "campaign_notes",
+        "id": "paths_known",
+        "options": [],
+        "default_option": {
+          "effects": [
+            {
+              "type": "check_campaign_log_count",
+              "bullet_type": "small",
+              "text": "#X# paths are known to you."
+            }
+          ]
+        }
+      }
     },
     {
       "id": "check_replay",
@@ -623,7 +644,7 @@
       "condition": {
         "type": "campaign_log_cards",
         "section": "hidden",
-        "id": "hote_start_with_clue",
+        "id": "hote_start_with_clue_true",
         "options": [
           {
             "boolCondition": true,

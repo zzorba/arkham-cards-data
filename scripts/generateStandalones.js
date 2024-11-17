@@ -18,7 +18,7 @@ const argv = yargs
       alias: 'o',
       description: 'Output directory',
       type: 'string',
-      default: './build',
+      default: `.${path.sep}build`,
     }
   ).help()
   .alias('help', 'h')
@@ -32,7 +32,7 @@ const getFilePaths = (folderPath) => {
   return [...filePaths, ...dirFiles];
 };
 
-const output_dir = argv.output || './build';
+const output_dir = argv.output || `.${path.sep}build`;
 
 if (!fs.existsSync(output_dir)) {
   fs.mkdirSync(output_dir, { recursive: true })
@@ -42,7 +42,7 @@ if (!fs.existsSync(`${output_dir}`)) {
 }
 const input_dir = argv.input || '.';
 const standaloneList = [];
-getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
+getFilePaths(`${input_dir}${path.sep}campaigns`).sort().map(file => {
   if (file.endsWith('.schema.json') || !file.endsWith('.json')) {
     return;
   }
@@ -57,8 +57,8 @@ getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
     return;
   }
   if (json.standalone_setup) {
-    const parts = file.split('/');
-    const campaignFile =  jsonlint.parse(fs.readFileSync(filter(parts, x => x !== parts[parts.length - 1]).join('/') + '/campaign.json', 'utf-8').toString())
+    const parts = file.split(`${path.sep}`);
+    const campaignFile =  jsonlint.parse(fs.readFileSync(filter(parts, x => x !== parts[parts.length - 1]).join(`${path.sep}`) + `${path.sep}campaign.json`, 'utf-8').toString())
     standaloneList.push({
       type: 'scenario',
       campaignId: campaignFile.id,
@@ -66,4 +66,4 @@ getFilePaths(`${input_dir}/campaigns`).sort().map(file => {
     });
   }
 });
-fs.writeFileSync(`${output_dir}/standalone.json`, JSON.stringify(standaloneList, null, 2));
+fs.writeFileSync(`${output_dir}${path.sep}standalone.json`, JSON.stringify(standaloneList, null, 2));

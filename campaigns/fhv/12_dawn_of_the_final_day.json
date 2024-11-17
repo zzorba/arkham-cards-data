@@ -1,0 +1,2533 @@
+{
+  "id": "dawn_of_the_final_day",
+  "scenario_name": "Dawn of the Final Day",
+  "full_name": "Prelude: Dawn of the Final Day",
+  "header": "Prelude",
+  "icon": "day_of_the_feast",
+  "allow_side_scenario": true,
+  "chaos_bag_card": "10704",
+  "setup": [
+    "check_dr_marquez_has_a_plan",
+    "$fatigue_tokens",
+    "gather_encounter_sets",
+    "setup_day_three",
+    "build_act_and_agenda",
+    "setup_locations",
+    "$hemlock_vale_location_layout",
+    "gather_residents",
+    "set_aside_colour",
+    "place_doom",
+    "ready_to_begin",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_dr_marquez_has_a_plan",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dr_marquez_has_a_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "intro_1",
+              "intro_3",
+              "reinforcements"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "intro_2",
+              "intro_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.intro_1",
+        "name": "Intro 1",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "After a few scant hours of sleep, you emerge from your room to find Dr. Marquez groggily sipping hot black coffee. “You look like death,” she says darkly. You tell her she looks the same, and she laughs emptily. “I’ve had worse. Not much worse. But worse.”"
+    },
+    {
+      "id": "intro_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.intro_2",
+        "name": "Intro 2",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "You awaken to the sound of singing outside your window. You head downstairs to find Dr. Marquez groggily sipping black coffee, her expression grim. When you ask about the events of last night, she looks at you wearily. “Whatever happened last night is not going into the report, is all I’ll say.” Further questions are met with a stony silence."
+    },
+    {
+      "id": "intro_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.intro_3",
+        "name": "Intro 3",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "After a quick breakfast, you emerge from the Boarding House into an almost fairy tale atmosphere: locals dancing in circles, singing lilting melodies, and reclining on quilts. Dozens of outsiders in everyday clothes mingle with the locals, laughing. Fully aware of the danger ahead, you make preparations for one last survey."
+    },
+    {
+      "id": "reinforcements",
+      "text": "More survey assistance has arrived. Any player whose investigator was <b>killed</b> in The Longest Night scenario may select a new investigator and upgrade their new deck to half the earned experience of their previous investigator <i>(rounded up)</i>."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Prelude Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_final_day",
+        "day_of_the_feast",
+        "agents_of_the_colour",
+        "residents",
+        "the_vale"
+      ]
+    },
+    {
+      "id": "setup_day_three",
+      "text": "Put the <b>Day Three</b> Time Marker card into play. Are you hungry yet?"
+    },
+    {
+      "id": "build_act_and_agenda",
+      "text": "Build the act and agenda deck using All is Full of Love and Dawn of the Final Day. Remove each other act and agenda from the game."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put each location except for The Crossroads and The Old Mill into play on its (<b>Day</b> [day]) side according to the location layout below.",
+      "bullets": [
+        {
+          "text": "Use The Crossroads and The Old Mill locations from the Day of the Feast encounter set, <i>(Morning)</i> side faceup. Remove the other The Crossroads and The Old Mill locations from the game."
+        },
+        {
+          "text": "Each investigator begins play at the Boarding House."
+        }
+      ]
+    },
+    {
+      "id": "gather_residents",
+      "text": "Gather the <i>Residents</i> encounter set and check the Campaign Log.",
+      "bullets": [
+        {
+          "text": "Remove each resident whose name is crossed off from the game."
+        }
+      ],
+      "steps": [
+        "check_leah",
+        "check_simeon",
+        "check_river",
+        "check_judith",
+        "check_william",
+        "check_theo",
+        "check_gideon",
+        "rachel_and_judith_at_crossroads",
+        "set_aside_residents"
+      ]
+    },
+    {
+      "id": "rachel_and_judith_at_crossroads",
+      "bullet_type": "small",
+      "text": "Put Mother Rachel and Judith Park into play at The Crossroads, asset side faceup."
+    },
+    {
+      "id": "check_leah",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "leah",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_leah"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_2",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_leah",
+      "bullet_type": "small",
+      "text": "Remove Leah Atwood from the game."
+    },
+    {
+      "id": "check_simeon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "simeon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_simeon"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_simeon",
+      "bullet_type": "small",
+      "text": "Remove Simeon Atwood from the game."
+    },
+    {
+      "id": "check_river",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "river",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_river"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_5",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_river",
+      "bullet_type": "small",
+      "text": "Remove River Hawthorne from the game."
+    },
+    {
+      "id": "check_judith",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "judith",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_judith"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_7",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_judith",
+      "bullet_type": "small",
+      "text": "Remove Judith Park from the game."
+    },
+    {
+      "id": "check_william",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "william",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_william"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_4",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_william",
+      "bullet_type": "small",
+      "text": "Remove William Hemlock from the game."
+    },
+    {
+      "id": "check_theo",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "theo",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_theo"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_8",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_theo",
+      "bullet_type": "small",
+      "text": "Remove Theo Peters from the game."
+    },
+    {
+      "id": "check_gideon",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_section_exists",
+        "section": "gideon",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "remove_gideon"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_6",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_gideon",
+      "bullet_type": "small",
+      "text": "Remove Gideon Mizrah from the game."
+    },
+    {
+      "id": "remove_helen",
+      "bullet_type": "small",
+      "text": "Remove Helen Peters from the game."
+    },
+    {
+      "id": "set_aside_residents",
+      "bullet_type": "small",
+      "text": "Set each remaining card from the <i>Residents</i> encounter set aside, out of play."
+    },
+    {
+      "id": "set_aside_colour",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "agents_of_the_colour"
+      ],
+      "text": "Set the <i>Agents of the Colour</i> encounter set aside, out of play."
+    },
+    {
+      "id": "place_doom",
+      "text": "Place doom on the agenda equal to the number of investigators."
+    },
+    {
+      "id": "ready_to_begin",
+      "text": "You are now ready to begin."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": [
+              "codex"
+            ]
+          },
+          {
+            "id": "defeat",
+            "icon": "residents",
+            "text": "Defeated resident asset",
+            "repeatable": true,
+            "steps": [
+              "$defeat_resident"
+            ]
+          },
+          {
+            "id": "bonus_xp",
+            "icon": "xp",
+            "text": "Award bonus experience",
+            "repeatable": true,
+            "steps": [
+              "ask_bonus_xp"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_bonus_xp",
+      "text": "Which investigator should earn bonus experience?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Bonus experience",
+        "max": 2,
+        "min": 0,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "special_xp": "unspect_xp"
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_1",
+            "text": "1",
+            "description": "Codex 1: Mother Rachel",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_1",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "codex_1",
+              "check_southern_fields_surveyed"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_1",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_2",
+            "text": "2",
+            "description": "Codex 2: Leah Atwood",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_2",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "check_simeon_crossed_out"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_2",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_4",
+            "text": "4",
+            "description": "Codex 4: William Hemlock",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_4",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "codex_4",
+              "check_william_stood_by_you"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_4",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_5",
+            "text": "5",
+            "description": "Codex 5: River Hawthorne",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_5",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "check_river_codex_conditions"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_5",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_6",
+            "text": "6",
+            "description": "Codex 6: Gideon Mizrah",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_6",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "check_gideon_stood_by_you"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_6",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_7",
+            "text": "7",
+            "description": "Codex 7: Judith Park",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_7",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "codex_7",
+              "spawn_miasmatic_shadow",
+              "check_judith_conditions"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_7",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_8",
+            "text": "8",
+            "description": "Codex 8: Theo Peters",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_8",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "check_theo_stood_by_you"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_8",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex 9",
+            "text": "9",
+            "description": "Codex 9: Boarding House",
+            "steps": [
+              "codex_9",
+              "codex_9_choice"
+            ]
+          },
+          {
+            "id": "codex_10",
+            "text": "10",
+            "description": "Codex 10: The Crossroads",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_10",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "repeatable": true,
+            "steps": [
+              "check_crossroads_plan",
+              "crossroads_plan_story",
+              "crossroads_plan_test",
+              "ask_crossroads_plan_test",
+              "check_crossroads_plan_test"
+            ]
+          },
+          {
+            "id": "codex_10_no_plan",
+            "text": "10",
+            "description": "Codex 10: The Crossroads",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_10",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "check_crossroads_plan",
+              "crossroads_no_plan",
+              "draw_1_card_or_resource"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_10",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_11",
+            "text": "11",
+            "description": "Codex 11: Hemlock Chapel",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_11",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "repeatable": true,
+            "steps": [
+              "check_chapel_plan",
+              "chapel_plan_story",
+              "maybe_spawn_gideon",
+              "chapel_plan_test",
+              "ask_chapel_plan_test",
+              "check_chapel_plan_test"
+            ]
+          },
+          {
+            "id": "codex_11_no_plan",
+            "text": "11",
+            "description": "Codex 11: Hemlock Chapel",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_11",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "check_chapel_plan",
+              "chapel_no_plan",
+              "spawn_gideon"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_11",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_13",
+            "text": "13",
+            "description": "Codex 13: The Atwood House",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_13",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "codex_13",
+              "codex_13_effects"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_13",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_14",
+            "text": "14",
+            "description": "Codex 14: Tad’s General Store",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_14",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "repeatable": true,
+            "steps": [
+              "check_store_plan",
+              "store_plan_story",
+              "store_plan_test",
+              "ask_store_plan_test",
+              "check_store_plan_test"
+            ]
+          },
+          {
+            "id": "codex_14_no_plan",
+            "text": "14",
+            "description": "Codex 14: Tad’s General Store",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_14",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "check_store_plan",
+              "store_no_plan",
+              "search_item"
+            ]
+          },
+          {
+            "id": "codex_15",
+            "text": "15",
+            "description": "Codex 15: Vale Schoolhouse",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_15",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "repeatable": true,
+            "steps": [
+              "check_school_plan",
+              "school_plan_story",
+              "school_plan_test",
+              "ask_school_plan_test",
+              "check_school_plan_test"
+            ]
+          },
+          {
+            "id": "codex_15_no_plan",
+            "text": "15",
+            "description": "Codex 15: Vale Schoolhouse",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "fhv_final_day_codex_15",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "simeon_plan_is_underway",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "check_school_plan",
+              "school_no_plan",
+              "draw_1_card_or_resource"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_15",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_16",
+            "text": "16",
+            "description": "Codex 16: The Commons",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "fhv_final_day_codex_16",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "check_delivering_a_package",
+              "codex_16",
+              "$ask_give_gift"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_16",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_1",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_1_mother_rachel_1",
+        "name": "Codex 1: Mother Rachel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "A crowd of tourists and locals in white-gold cloaks gathers around the effigy in the center of Hemlock Vale. Mother Rachel stands in their midst, regarding each and every one of them with an exultant smile."
+    },
+    {
+      "id": "check_southern_fields_surveyed",
+      "text": "Check the Areas Surveyed section of your Campaign Log. If the box next to <i>Southern Fields</i> is checked:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "areas_surveyed",
+        "id": "southern_fields",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "rachel_2",
+              "rachel_2_choice"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "cannot_reach_matron"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cannot_reach_matron",
+      "bullet_type": "small",
+      "text": "You cannot reach the matron."
+    },
+    {
+      "id": "rachel_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_1_mother_rachel_2",
+        "name": "Codex 1: Mother Rachel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Feeling bold, you cut through the crowd. The matron’s eyes brim with tears when she sees you. “Oh, my child. I prayed for your safe return.” She takes your hand as the crowd disperses. “It was not my place to interfere, although I was wracked with guilt. I am so thankful you are alive.”"
+    },
+    {
+      "id": "rachel_2_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "thanks",
+            "text": "<i>“Thank you for your prayers.”</i>",
+            "steps": [
+              "rachel_3",
+              "learned_their_place",
+              "increase_rachel_relationship"
+            ]
+          },
+          {
+            "id": "accuse",
+            "text": "<i>“I see you for what you really are.”</i>",
+            "steps": [
+              "rachel_4",
+              "decrease_rachel"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "rachel_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_1_mother_rachel_3",
+        "name": "Codex 1: Mother Rachel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The matron smiles warmly. “I hope you will stand by me at the Feast tonight, as a guest of honor.” Before you can reply, you are pulled into the dancing circle around the effigy."
+    },
+    {
+      "id": "learned_their_place",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "learned_their_place",
+          "text": "the investigators learned their place."
+        }
+      ]
+    },
+    {
+      "id": "increase_rachel_relationship",
+      "text": "Increase Mother Rachel’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "rachel",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "rachel_4",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_1_mother_rachel_4",
+        "name": "Codex 1: Mother Rachel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The matron replies with a cold stare. “And I, too, see you for what you are. I hope you join us for the Feast.” Before you can reply, you are pulled into the dancing circle around the effigy."
+    },
+    {
+      "id": "decrease_rachel",
+      "text": "Decrease Mother Rachel’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "rachel",
+          "id": "$relationship",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "check_simeon_crossed_out",
+      "bullet_type": "none",
+      "text": "<b>If Simeon Atwood’s name is crossed out:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_section_exists",
+            "section": "simeon",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "codex_2_simeon_dead_story",
+              "leah_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "codex_2_simeon_alive_story",
+              "leah_relationship_by_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_2_simeon_dead_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_2_leah_atwood_1",
+        "name": "Codex 2: Leah Atwood",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Leah sits on the front porch, head cradled in her hands. She looks up as you approach. “Simeon was always talking about his ‘Secret Order of Miners.’ And he was—he was always talking about the mines. He said he’d been practicing for something. A ‘ journey to the center of the earth’ or whatever nonsense he’s been talking about with that boy Theo.”"
+    },
+    {
+      "id": "leah_relationship",
+      "text": "Increase Leah Atwood’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "leah",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "codex_2_simeon_alive_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_2_leah_atwood_2",
+        "name": "Codex 2: Leah Atwood",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The front door of the Atwood House slams, and Leah makes a beeline for you. “Simeon told me what you did for him. I can’t believe he—” She raises one hand to her head. “I’m just glad you were there to help. Thank you, from the bottom of my heart. If there’s anything we can do for you, please, don’t hesitate to ask.”"
+    },
+    {
+      "id": "leah_relationship_by_2",
+      "text": "Increase Leah Atwood’s Relationship Level by 2. Each investigator earns 2 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "leah",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 2
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 2,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "codex_4",
+      "type": "story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_4_william_hemlock_1",
+        "name": "Codex 4: William Hemlock",
+        "lang": [
+          "ru"
+        ]
+      },
+      "text": "You find William scratching notes in his commonplace book. “I wonder if I should quote Socrates. No, it would be rather gauche...” When you ask him to explain, he shows you a handsome poem written in flowing script:\n<center><fancy>I tarry amidst violet blooms</fancy></center>\n<center><fancy>Celebrating the advent of what I assume you presume:</fancy></center>\n\n<center><fancy>An effulgent fledgling joy.</fancy></center>\n"
+    },
+    {
+      "id": "check_william_stood_by_you",
+      "type": "branch",
+      "text": "Check your Campaign Log. <i>If William stood by you:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "william",
+        "id": "william_stood_by_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "william_2",
+              "check_william_took_heart",
+              "william_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "william_3",
+              "william_relationship"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_4_william_hemlock_2",
+        "name": "Codex 4: William Hemlock",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "William looks grave as you hand back his book. “Last night’s events have cast a pall on the Feast. I do not know Mother Rachel’s true intentions, but I think it’s time the Hemlocks dug in. Perhaps it would be better if River and I stood as one ...”"
+    },
+    {
+      "id": "check_william_took_heart",
+      "text": "<i>If William took heart:</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "william",
+        "id": "william_took_heart",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "william_is_resolved"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "william_is_resolved",
+      "bullet_type": "small",
+      "text": "In William Hemlock’s Notes, record <i>William is resolved</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "william",
+          "id": "william_is_resolved",
+          "text": "William is resolved."
+        }
+      ]
+    },
+    {
+      "id": "william_relationship",
+      "text": "Increase William Hemlock’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "william",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "william_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_4_william_hemlock_3",
+        "name": "Codex 4: William Hemlock",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“Ah! I’ve got it,” William exclaims. After a minute of furious scribbling, he shares more:\n<center><fancy>The brilliance that burns</fancy></center>\n<center><fancy>Turns wholly my heart to the sky.</fancy></center>\n<center><fancy>My vision brims</fancy></center>\n<center><fancy>For our glorious ascension is nigh.</fancy></center>"
+    },
+    {
+      "id": "check_river_codex_conditions",
+      "bullet_type": "none",
+      "text": "<b><i>If River stood by you</i> and <i>the scheme is in motion</i>:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "river",
+            "id": "river_stood_by_you",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "river",
+            "id": "scheme_is_in_motion",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "river_reclaim_story",
+              "river_is_reclaiming_their_legacy",
+              "river_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "river_mad_story",
+              "3_resources"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "river_reclaim_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_5_river_hawthorne_1",
+        "name": "Codex 5: River Hawthorne",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "River breaks from the crowd and takes you aside. “I helped you last night, so now I need something in return. During the Feast tonight, I need you to distract my sweet William using any means necessary. If he threatens violence, I expect your help!”"
+    },
+    {
+      "id": "river_is_reclaiming_their_legacy",
+      "text": "In River Hawthorne’s Notes, record <i>River is reclaiming their legacy.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "river",
+          "id": "river_is_reclaiming_their_legacy",
+          "text": "River is reclaiming their legacy."
+        }
+      ]
+    },
+    {
+      "id": "river_relationship",
+      "text": "Increase River Hawthorne’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "river",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "river_mad_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_5_river_hawthorne_2",
+        "name": "Codex 5: River Hawthorne",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“I’ll have you all know that I risked life and limb for all of the cranberry sauce at today’s feast,” River looks imperiously at their entourage, who listen attentively. “So I expect each and every one of you to not only vote for my sauce in the competition, but also to eat a double helping of it. If I don’t get my prize, I’ll go straight to Langston and ask him to write a very unflattering poem about each of you.”"
+    },
+    {
+      "id": "3_resources",
+      "text": "Gain 3 resources."
+    },
+    {
+      "id": "check_gideon_stood_by_you",
+      "bullet_type": "none",
+      "text": "<b><i>If Gideon stood by you:</i></b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "gideon",
+        "id": "gideon_stood_by_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "gideon_help_story",
+              "gideon_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gideon_mad_story",
+              "3_cards"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gideon_help_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_6_gideon_mizrah_1",
+        "name": "Codex 6: Gideon Mizrah",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Gideon sits at the back of the chapel, hat in his hands. He smiles at your approach. “I weren’t much for religion, but I’d ne’er heard a sermon like Mother Rachel’s. Nothin’ like the New Church Green in Innsmouth. They were always beggin’ fer coin. An’ the sermons were a mite fishy.”"
+    },
+    {
+      "id": "gideon_relationship",
+      "text": "Increase Gideon Mizrah’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "gideon",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "gideon_mad_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_6_gideon_mizrah_2",
+        "name": "Codex 6: Gideon Mizrah",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Gideon sits at the back of the sanctuary, either praying or asleep. Rather than disturb him, you stop to admire several wooden spiral sculptures."
+    },
+    {
+      "id": "3_cards",
+      "text": "Draw 3 cards."
+    },
+    {
+      "id": "codex_7",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_7_judith_park_1",
+        "name": "Codex 7: Judith Park",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“Something’s off,” Judith stares up at the sun, one hand on the holster of her gun. Above, a dark patch of sky flits and then descends as a cloud of smoke, dispersing a gaggle of tourists. Judith raises her gun and prepares to fire into the smoke."
+    },
+    {
+      "id": "spawn_miasmatic_shadow",
+      "text": "Search the set-aside <i>Agents of the Colour</i> encounter set for 1 copy of the Miasmatic Shadow enemy and spawn it at The Crossroads."
+    },
+    {
+      "id": "check_judith_conditions",
+      "text": "Check your Campaign Log. <i>If Judith stood by you</i>, and/or <i>The Thing in the Depths was defeated</i>, and/or Judith Park is at Relationship Level 4 or higher:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "judith",
+            "id": "judith_stood_by_you",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "thing_in_the_depths_was_defeated",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "judith",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 4
+            },
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "judith_2",
+              "take_judith",
+              "you_backed_judith_up",
+              "judith_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "judith_3",
+              "discard_card_at_random",
+              "judith_relationship"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "judith_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_7_judith_park_2",
+        "name": "Codex 7: Judith Park",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "You shout at the bodyguard to stop. She lowers her gun as the roiling cloud flickers like a mirage. “With me!” Judith beckons you."
+    },
+    {
+      "id": "take_judith",
+      "text": "Take control of Judith Park. When this prelude ends, set Judith Park aside, out of play."
+    },
+    {
+      "id": "you_backed_judith_up",
+      "text": "In Judith Park’s Notes, record <i>you backed Judith up</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "judith",
+          "id": "you_backed_judith_up",
+          "text": "you backed Judith up."
+        }
+      ]
+    },
+    {
+      "id": "judith_relationship",
+      "text": "Increase Judith Park’s Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "judith",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "judith_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_7_judith_park_3",
+        "name": "Codex 7: Judith Park",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The bodyguard fires blindly into the cloud. Shouts of alarm ring through the Crossroads as tourists dive for cover. The roiling cloud flickers like a mirage. “Son of a—” Judith exclaims, thunderstruck."
+    },
+    {
+      "id": "discard_card_at_random",
+      "text": "Discard 1 card at random from your hand."
+    },
+    {
+      "id": "check_theo_stood_by_you",
+      "bullet_type": "none",
+      "text": "<b><i>If Theo stood by you:</i></b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "theo",
+        "id": "theo_stood_by_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "theo_help_story",
+              "theo_is_having_second_thoughts",
+              "theo_relationship"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "theo_mad_story",
+              "delivering_a_package"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "theo_help_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_8_theo_peters_1",
+        "name": "Codex 8: Theo Peters",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“I’ll get you that dog mask right away, Mr. Sanders!” Theo shouts. The young man is inundated by requests from locals and tourists alike, but when he sees you, his face lights up. “Stay there! I wanted to talk to you about last night,” he takes a break and leads you to a small dark room at the back of the store. “I know the Vale has taken care of me. Mother Rachel’s taken care of me. But I...I don’t know anymore. What if my sister was right? What does Mother Rachel think she’s doing?” He bites his lip. “You’re the only one I can talk to about this.”"
+    },
+    {
+      "id": "theo_is_having_second_thoughts",
+      "text": "In Theo Peters’ Notes, record <i>Theo is having second thoughts.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "id": "theo_is_having_second_thoughts",
+          "text": "Theo is having second thoughts."
+        }
+      ]
+    },
+    {
+      "id": "theo_relationship",
+      "text": "Increase Theo Peters’ Relationship Level. Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "theo",
+          "id": "$relationship",
+          "operation": "add",
+          "value": 1
+        },
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all",
+          "special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "theo_mad_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_8_theo_peters_2",
+        "name": "Codex 8: Theo Peters",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“I’ll get you that dog mask right away, Mr. Sanders!” Theo shouts. “Do you mind delivering this to the Commons for me?” He hands you a package. “It’s for my cousins in Portland.”"
+    },
+    {
+      "id": "delivering_a_package",
+      "text": "Remember that “you are delivering a package.”",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "delivering_a_package",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "codex_9",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_9_boarding_house",
+        "name": "Codex 9: Boarding House",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Ms. Olmstead can’t stop laughing as you ask her about the festivities and who is at work around the Vale."
+    },
+    {
+      "id": "codex_9_choice",
+      "text": "Choose one of the options below to resolve. Investigators at Boarding House may spend any number of actions, as a group, to choose that many additional options. An investigator may trigger this codex again.",
+      "bullets": [
+        {
+          "text": "<i>“I think William had something to do at the Old Mill.”</i> Search the set-aside Residents encounter set for William Hemlock and put him into play at The Old Mill, asset side faceup."
+        },
+        {
+          "text": "<i>“Theo was supposed to manage Tad’s Store today.”</i> Search the set-aside Residents encounter set for Theo Peters and put him into play at Tad’s General Store, asset side faceup."
+        },
+        {
+          "text": "<i>“I think I saw River vamping with some of their friends here in the study.”</i> Search the set-aside Residents encounter set for River Hawthorne and put them into play at Boarding House, asset side faceup."
+        }
+      ]
+    },
+    {
+      "id": "firework_hid_retry",
+      "bullet_type": "small",
+      "text": "An investigator may trigger this codex again."
+    },
+    {
+      "id": "firework_hid_success",
+      "bullet_type": "small",
+      "text": "Mark 1 tally next to “The plan is underway.” <i>(Hint: You need to hide 1 [per_investigator] fireworks to help Simeon.)</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "simeon",
+          "id": "plan_is_underway",
+          "text": "the plan is underway.",
+          "remove": true
+        },
+        {
+          "type": "campaign_log_count",
+          "section": "simeon",
+          "id": "plan_is_underway_count",
+          "text": "the plan is underway: #X#",
+          "operation": "add",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "check_crossroads_plan",
+      "bullet_type": "none",
+      "text": "<b>Check Simeon Atwood’s Notes. <i>If The plan is underway</i>:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "simeon_plan_is_underway",
+        "options": [
+          {
+            "boolCondition": true
+          },
+          {
+            "boolCondition": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "crossroads_no_plan",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_10_the_crossroads_1",
+        "name": "Codex 10: The Crossroads",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The Crossroads thrum with activity. Mother Rachel watches the proceedings as the colorful ribbons are hung from the towering effigy."
+    },
+    {
+      "id": "draw_1_card_or_resource",
+      "text": "You may either draw 1 card or gain 1 resource."
+    },
+    {
+      "id": "crossroads_plan_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_10_the_crossroads_2",
+        "name": "Codex 10: The Crossroads",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The Crossorads thrum with activity. You carefully jam some fireworks in the mortar of a flowering fence."
+    },
+    {
+      "id": "crossroads_plan_test",
+      "text": "Test [willpower] or [combat] (3) to hide the fireworks."
+    },
+    {
+      "id": "ask_crossroads_plan_test",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "repeatable": true,
+            "text": "Did the test succeed?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_10",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_crossroads_plan_test",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fhv_final_day_codex_10",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "firework_hid_success"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "firework_hid_retry"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_chapel_plan",
+      "bullet_type": "none",
+      "text": "<b>Check Simeon Atwood’s Notes. <i>If The plan is underway</i>:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "simeon_plan_is_underway",
+        "options": [
+          {
+            "boolCondition": true
+          },
+          {
+            "boolCondition": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "chapel_plan_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_11_hemlock_chapel_1",
+        "name": "Codex 11: Hemlock Chapel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "As a kind of wedding ceremony unfolds in a grove nearby, you attempt to discretly hide a cluster of fireworks in the chapel eaves."
+    },
+    {
+      "id": "maybe_spawn_gideon",
+      "text": "If he is not already in play, search the set-aside <i>Residents</i> encounter set for Gideon Mizrah and put him into play at Hemlock Chapel, asset side faceup"
+    },
+    {
+      "id": "chapel_plan_test",
+      "text": "Test [agility] (2) to hide the fireworks."
+    },
+    {
+      "id": "ask_chapel_plan_test",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the test succeed?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_11",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_chapel_plan_test",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fhv_final_day_codex_11",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "firework_hid_success"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "firework_hid_retry"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chapel_no_plan",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_11_hemlock_chapel_2",
+        "name": "Codex 11: Hemlock Chapel",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "A throng of people stand watching a kind of wedding ceremony in front of the chapel. The couple smile and begin to dance."
+    },
+    {
+      "id": "spawn_gideon",
+      "text": "Search the set-aside <i>Residents</i> encounter set for Gideon Mizrah and put him into play at Hemlock Chapel, asset side faceup."
+    },
+    {
+      "id": "codex_13",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_13_the_atwood_house",
+        "name": "Codex 13: The Atwood House",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The Atwood House’s dour façade sticks out like an ugly sore in the sea of bright flowers and garlands."
+    },
+    {
+      "id": "codex_13_effects",
+      "text": "Search the set-aside <i>Residents</i> encounter set for Leah Atwood and put her into play at The Atwood House, asset side faceup."
+    },
+    {
+      "id": "check_store_plan",
+      "bullet_type": "none",
+      "text": "<b>Check Simeon Atwood’s Notes. <i>If The plan is underway</i>:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "simeon_plan_is_underway",
+        "options": [
+          {
+            "boolCondition": true
+          },
+          {
+            "boolCondition": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "store_plan_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_14_tads_general_store_1",
+        "name": "Codex 14: Tad's General Store",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The rooftop of Tad’s is the perfect place to stick some fireworks. The morning sun is already burning hot as you climb up."
+    },
+    {
+      "id": "store_plan_test",
+      "text": "Test [intellect] or [agility] (3) to hide the fireworks."
+    },
+    {
+      "id": "ask_store_plan_test",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the test succeed?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_14",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_store_plan_test",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fhv_final_day_codex_14",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "firework_hid_success"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "firework_hid_retry"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "store_no_plan",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_14_tads_general_store_2",
+        "name": "Codex 14: Tad's General Store",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The general store is swamped with visitors, buying flower wreaths and bright quilts as workers come and go."
+    },
+    {
+      "id": "search_item",
+      "text": "You may spend 5 resources to search your deck for an [[Item]] card and play it, ignoring its cost. Any other investigator may trigger this codex again."
+    },
+    {
+      "id": "check_school_plan",
+      "bullet_type": "none",
+      "text": "<b>Check Simeon Atwood’s Notes. <i>If The plan is underway</i>:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "simeon_plan_is_underway",
+        "options": [
+          {
+            "boolCondition": true
+          },
+          {
+            "boolCondition": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "school_plan_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_15_vale_schoolhouse_1",
+        "name": "Codex 15: Vale Schoolhouse",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The schoolhouse is deserted. You find a large empty barrel behind the outhouse and try to plant the fireworks."
+    },
+    {
+      "id": "school_plan_test",
+      "text": "Test [combat] or [agility] (3) to hide the fireworks."
+    },
+    {
+      "id": "ask_school_plan_test",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the test succeed?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "fhv_final_day_codex_15",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_school_plan_test",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "fhv_final_day_codex_15",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "firework_hid_success"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "firework_hid_retry"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "school_no_plan",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_15_vale_schoolhouse_2",
+        "name": "Codex 15: Vale Schoolhouse",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "The schoolhouse is empty today. Several hand-drawn pictures on the wall depict dozens of bright, many-colored creatures."
+    },
+    {
+      "id": "check_delivering_a_package",
+      "bullet_type": "none",
+      "text": "<b>If “you are delivering a package”:</b>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "delivering_a_package",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "package_story",
+              "theo_relationship"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "package_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_16_the_commons_1",
+        "name": "Codex 16: The Commons",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "You hand the package across the counter to Martha Jean, who regards you with a long smile. A teacup lies shattered on the floor nearby."
+    },
+    {
+      "id": "codex_16",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.codex_16_the_commons_2",
+        "name": "Codex 16: The Commons",
+        "lang": [
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“Got a gift for a special someone?” Martha Jean slurs, staring. “Why didn’t you ask me to dance last night? I would have said yes.”"
+    },
+    {
+      "id": "doon_lead_investigator",
+      "text": "Place 1 doom on the lead investigator’s investigator card."
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "dr_marquez_has_a_hunch",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "dr_marquez_has_a_hunch",
+          "text": "Dr. Marquez has a hunch."
+        }
+      ]
+    },
+    {
+      "id": "hidden_check_dr_marquez_has_a_plan",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "dr_marquez_has_a_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "dr_marquez_ready_for_fate_of_vale",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_simeon_fireworks",
+      "text": "Update your Campaign Log. In Simeon Atwood’s Notes, if there are at least 1 [per_investigator] tallies next to <i>the plan is underway</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "operation": "compare",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "simeon",
+              "id": "plan_is_underway_count"
+            },
+            "opB": {
+              "type": "scenario_data",
+              "scenario_data": "player_count"
+            },
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "the_vale_is_full_of_fireworks"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_vale_is_full_of_fireworks",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_vale_is_full_of_fireworks",
+          "text": "The Vale is full of fireworks."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns the bonus experience awarded during this prelude. Record each bonus experience earned under “Unspent Experience” in your Campaign Log, <b>but do not spend any of it until the end of the next scenario.</b>"
+    },
+    {
+      "id": "survey_preparations",
+      "text": "Make preparations for your final survey.",
+      "bullets": [
+        {
+          "text": "Choose 1 asset in your play area to keep for the next scenario. It must be one that does not normally start in play. Discard each other asset and attachment in your play area, except for those that start each game in play."
+        },
+        {
+          "text": "Discard down to your opening hand size. Shuffle your discard pile into your deck. <i>(Your current hand is your opening hand for the next scenario; you will not draw a new opening hand or take a mulligan.)</i>"
+        },
+        {
+          "text": "Discard down to your starting resources."
+        }
+      ]
+    },
+    {
+      "id": "next_scenario",
+      "text": "When setting up the next scenario, skip steps 1-8 of ‘Setting Up the Game” on page 27 of the Rules Reference.",
+      "bullets": [
+        {
+          "text": "<i>Note: This means you skip choosing investigators, taking trauma damage/horror, collecting starting resources, and drawing opening hands.</i>"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.no_resolution",
+        "name": "No resolution",
+        "lang": [
+          "ru"
+        ]
+      },
+      "text": "A ring of villagers wearing animal masks pulls you to your feet. As you stand, you can’t help but grin as a soothing bliss washes over you. A woman wearing a deer mask helps you back to the Boarding House to reconvene with the survey.",
+      "steps": [
+        "doon_lead_investigator",
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.resolution_1",
+        "name": "Resolution 1",
+        "lang": [
+          "ru"
+        ]
+      },
+      "text": "Dr. Marquez nods along to Bertie’s observation. “You’re onto something. The bliss is almost a kind of lure. Draw in prey, numb them to pain and drain them of their faculties, then devour what remains.” The professor arches an eyebrow. “It would have to be a highly advanced apex predator. Although I’m still suspicious the odd behavior is due to toxic gas.”",
+      "steps": [
+        "dr_marquez_has_a_hunch",
+        "hidden_check_dr_marquez_has_a_plan",
+        "resolution_2"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.dawn_of_the_final_day.resolution_2",
+        "name": "Resolution 2",
+        "lang": [
+          "ru"
+        ]
+      },
+      "text": "Dr. Marquez looks utterly exhausted as she hefts her pack into the back of Theo’s blue truck. “Today’s the last day,” she says. “Let’s make the most of it.”",
+      "steps": [
+        "check_simeon_fireworks",
+        "earn_xp",
+        "survey_preparations",
+        "next_scenario",
+        "$choose_next_scenario_day"
+      ]
+    }
+  ]
+}

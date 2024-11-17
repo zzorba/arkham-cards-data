@@ -1,0 +1,1266 @@
+{
+  "id": "the_twisted_hollow",
+  "scenario_name": "The Twisted Hollow",
+  "full_name": "Scenario: The Twisted Hollow",
+  "header": "Scenario",
+  "chaos_bag_card": "10605",
+  "setup": [
+    "intro",
+    "decide_intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "night_one_card",
+    "check_mother_rachel_showed_the_way",
+    "check_solo_investigator",
+    "set_aside_locations",
+    "check_player_remove_locations",
+    "check_mother_rachel_showed_the_way_locations",
+    "check_residents",
+    "check_theo",
+    "check_judith",
+    "setup_rosa",
+    "set_aside_bertie",
+    "remove_other_residents",
+    "set_aside_special_agenda",
+    "location_layout",
+    "encounter_deck",
+    "setup_darkness_level",
+    "darkness_level_rule",
+    "location_adjacency_rule",
+    "pursuit_rule",
+    "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "Darkness Level",
+      "steps": ["darkness_level_rule"]
+    },
+    {
+      "title": "Location Adjacency in The Twisted Hollow",
+      "steps": ["location_adjacency_rule"]
+    },
+    {
+      "title": "Pursuit",
+      "steps": ["pursuit_rule"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.intro_1",
+        "name": "Intro 1",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“I should have known better than to let that little twit go off on his own. I swear on his precious little grave, if I find that boy plucking violets and reciting poetry, I will have him expelled,” Dr. Marquez almost spits the words as she leads you to one of the Vale’s supply sheds. Searching the village yielded no results: Just a pile of books and Bertie’s leather satchel in his room at the boarding house. Nobody seems to have seen him since the morning.\nThe professor opens the rickety shed and grabs an old barn lantern from an iron hook. “Look for oil,” she says gruffly. You mention the locals’ warning against going out at night, and the professor raps her cane on an empty oilcan. “All the more reason to find Bertie.”\nA long shadow falls across you both, and you turn to see Mother Rachel silhouetted against the sunset. “You all left so quickly after dinner. Is there something I can help you find?”"
+    },
+    {
+      "id": "decide_intro",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "truth",
+            "text": "<i>Tell the truth.</i>",
+            "steps": ["intro_2", "mother_rachel_showed_the_way", "add_cultist"]
+          },
+          {
+            "id": "lie",
+            "text": "<i>Lie to her.</i>",
+            "steps": ["intro_3", "lost_the_path", "add_elder_thing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.intro_2",
+        "name": "Intro 2",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "As you share the dire situation, the elderly woman nods gravely. “As I said when you arrived in the Vale, we do not venture out at night. However, your friend will likely not survive the night if left alone.” She eyes Dr. Marquez’s old lantern. “Please, take my lantern. Stay in the light, and you will find the way much safer.” She leads you to the edge of the forest as the sun sets. The forest air is unnaturally thick, and you find it hard to breathe, but you follow the matron nonetheless. Eventually, Mother Rachel leads you to a broad, open field and gestures to the tenebrous shadows. “From here, you take your lives into your own hands. The people of the Vale will pray for your safe return.”\nHazy lights dance above the meadow’s yarrow and asters. Mother Rachel points into the murky abyss. “If all else fails, return to the fireflies.”"
+    },
+    {
+      "id": "mother_rachel_showed_the_way",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "mother_rachel_showed_the_way",
+          "text": "Mother Rachel showed the way."
+        }
+      ]
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.intro_3",
+        "name": "Intro 3",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Mother Rachel nods along to your paper-thin story. “I see. Understand that the Vale is here to help. I wish you the best on your survey.” After more polite conversation, the matron leaves you and Dr. Marquez to scour the shed. Finally, you find a chipped mason jar with just a fifth of oil. “We can make it if we portion every bit,” the professor says. You follow the dim lantern light into the maw of gnarled trees toward a quiet stream, then further up and further into the dark.\nEventually, you reach a collapsed bridge and overgrown cobblestones in the ruins of an old village. The trees overhead rustle. “Something’s there,” Dr. Marquez raises her lantern. A pair of beady eyes reflect the light, but quickly vanish in the murk.\n“Watch yourself and keep close. There’s no telling what’s out here.”"
+    },
+    {
+      "id": "lost_the_path",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "lost_the_path",
+          "text": "the investigators lost the path."
+        }
+      ]
+    },
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Scenario Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_first_day",
+        "the_twisted_hollow",
+        "the_forest",
+        "myconids"
+      ]
+    },
+    {
+      "id": "night_one_card",
+      "text": "Put the <b>Night One</b> Time Marker card into play. Make your own path."
+    },
+    {
+      "id": "check_mother_rachel_showed_the_way",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "mother_rachel_showed_the_way",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["vale_with_boon"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_lost_the_path"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "vale_with_boon",
+      "bullet_type": "small",
+      "text": "Find the Vale Lantern story asset <b>with</b> the [[Boon]] trait and put it into play under the control of an investigator, [[Lit]] side faceup. Remove the other Vale Lantern from the game."
+    },
+    {
+      "id": "check_solo_investigator",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["no_hand_slot"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lost_the_path",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "lost_the_path",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["value_without_boon"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "value_without_boon",
+      "bullet_type": "small",
+      "text": "Find the Vale Lantern story asset <b>without</b> the [[Boon]] trait and put it into play under the control of an investigator, [[Lit]] side faceup. Remove the other Vale Lantern from the game."
+    },
+    {
+      "id": "no_hand_slot",
+      "bullet_type": "small",
+      "text": "Because there is only 1 investigator, the Vale Lantern does not take up a hand slot during this scenario."
+    },
+    {
+      "id": "set_aside_locations",
+      "text": "Set the Twisted Hollow and Glimmering Meadow locations aside, out of play (both are the revealed side of a Western Woods location)."
+    },
+    {
+      "id": "check_player_remove_locations",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["remove_2_locations"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["remove_2_locations"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["remove_1_location"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["remove_1_location"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_2_locations",
+      "bullet_type": "small",
+      "text": "Because there are 1 or 2 investigators, remove 2 of the gathered Western Woods locations from the game."
+    },
+    {
+      "id": "remove_1_location",
+      "bullet_type": "small",
+      "text": "Because there are 3 or 4 investigators, remove 1 of the gathered Western Woods locations from the game."
+    },
+
+    {
+      "id": "check_mother_rachel_showed_the_way_locations",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "mother_rachel_showed_the_way",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["glimmering_meadow_in_play", "shuffle_western_woods"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_lost_the_path_location"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "glimmering_meadow_in_play",
+      "bullet_type": "small",
+      "text": "Put the Glimmering Meadow location into play. Each investigator begins play at Glimmering Meadow."
+    },
+    {
+      "id": "check_lost_the_path_location",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "lost_the_path",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_random_woods", "shuffle_glimmering_meadows"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_random_woods",
+      "bullet_type": "small",
+      "text": "Put a random Western Woods location that has not been set aside into play, ignoring any forced effects. Each investigator begins play at that location."
+    },
+    {
+      "id": "shuffle_western_woods",
+      "text": "Shuffle each remaining Western Woods location to form the “Woods deck.” Draw the top 4 cards of the Woods deck and put them into play above, below, and to the right and left of the starting location."
+    },
+    {
+      "id": "shuffle_glimmering_meadows",
+      "text": "Shuffle the set-aside Glimmering Meadow location along with each remaining Western Woods location to form the “Woods deck.” Draw the top 4 cards of the Woods deck and put them into play above, below, and to the right and left of the starting location."
+    },
+    {
+      "id": "check_residents",
+      "text": "Check your Campaign Log and gather each story asset from the <i>Residents</i> encounter set.",
+      "type": "encounter_sets",
+      "encounter_sets": ["residents"]
+    },
+
+    {
+      "id": "check_theo",
+      "bullet_type": "small",
+      "text": "If Theo Peters is at Relationship Level 2 or higher:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "theo",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 2
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          },
+          {
+            "type": "campaign_log_section_exists",
+            "section": "theo",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_theo"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_hollow_theo_set_aside",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_theo",
+      "bullet_type": "small",
+      "text": "Set Theo Peters aside, out of play."
+    },
+    {
+      "id": "check_judith",
+      "bullet_type": "small",
+      "text": "If Judith Park is at Relationship Level 2 or higher:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "judith",
+              "id": "$relationship"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 2
+            },
+            "operation": "compare",
+            "options": [
+              { "numCondition": 0 },
+              { "numCondition": 1 }
+            ]
+          },
+          {
+            "type": "campaign_log_section_exists",
+            "section": "judith",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["set_aside_judith"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_judith",
+      "bullet_type": "small",
+      "text": "Set Judith Park aside, out of play.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "twisted_hollow_judith_set_aside",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "setup_rosa",
+      "bullet_type": "small",
+      "text": "Put Dr. Rosa Marquez under the control of an investigator. For the remainder of this scenario, she does not take up an ally slot."
+    },
+    {
+      "id": "set_aside_bertie",
+      "bullet_type": "small",
+      "text": "Set Bertie Musgrave aside, out of play."
+    },
+    {
+      "id": "remove_other_residents",
+      "bullet_type": "small",
+      "text": "Remove the rest of the <i>Residents</i> encounter set from the game."
+    },
+    {
+      "id": "set_aside_special_agenda",
+      "text": "Set aside the special agenda: Back to the Vale!"
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "setup_darkness_level",
+      "text": "Place 1 resource on the scenario reference card, under “Darkness Level.” For the remainder of the scenario, the number of resources under “Darkness Level” indicates the passage of time."
+    },
+    {
+      "id": "darkness_level_rule",
+      "type": "rule_reminder",
+      "title": "Darkness Level",
+      "text": "Throughout this scenario, the number of resources under “Darkness Level” on the scenario reference card indicate the current stage of night. As time ticks down, resources are added to the current darkness level, and play continues until the investigators reach a certain darkness level, or are defeated. The darker the forest, the deadlier its snares. The current darkness level has no game effect on its own; however, some encounter card effects may change or become stronger depending on the current darkness level."
+    },
+    {
+      "id": "location_adjacency_rule",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Twisted Hollow",
+      "text": "During this scenario, locations will be arranged in a set pattern, with new locations from the Woods deck emerging adjacent to existing locations, unrevealed side faceup. During this scenario, adjacent locations are connected to one another.",
+      "bullets": [
+        {
+          "text": "If a location ever has no shared edges with another location, slide it vertically or horizontally until it is adjacent to the nearest location."
+        }
+      ]
+    },
+    {
+      "id": "pursuit_rule",
+      "type": "rule_reminder",
+      "title": "Pursuit",
+      "text": "Some cards in this scenario reference an area called the “pursuit area.” The pursuit area is an out-of-play area next to the act and agenda deck which enemies can enter and leave via card effects. Generally speaking, enemies in play will move to the pursuit area as the night progresses. <b>Although the pursuit area is out of play, whenever an enemy moves to or from the pursuit area, it keeps all tokens and attachments.</b>\nEnemies in the pursuit area are considered to be “in pursuit.” Enemies that are in pursuit are considered to be out of play, and cannot be affected by player cards or investigator actions. However, enemies that are in pursuit can re-enter play by a variety of card abilities.\n<i>(While enemies are in pursuit, ignore all forced effects on those enemies. Doom on enemies in pursuit is out of play and does not count toward the doom threshold.)</i>"
+    },
+    {
+      "id": "location_layout",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["location_layout_1_or_2"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["location_layout_1_or_2"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["location_layout_3_or_4"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["location_layout_3_or_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "location_layout_1_or_2",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Back to the Vale!",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "woods",
+          "woods",
+          "woods",
+          "woods",
+          "woods"
+        ],
+        [
+          "blank",
+          "woods",
+          "twisted_hollow",
+          "woods",
+          "blank"
+        ],
+        [
+          "woods",
+          "woods",
+          "woods",
+          "woods",
+          "woods"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "woods",
+          "name": "Western Woods"
+        },
+        {
+          "code": "twisted_hollow",
+          "name": "The Twisted Hollow"
+        }
+      ]
+    },
+    {
+      "id": "location_layout_3_or_4",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Back to the Vale!",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "woods",
+          "blank",
+          "blank"
+        ],
+        [
+          "woods",
+          "woods",
+          "woods",
+          "woods",
+          "woods"
+        ],
+        [
+          "blank",
+          "woods",
+          "twisted_hollow",
+          "woods",
+          "blank"
+        ],
+        [
+          "woods",
+          "woods",
+          "woods",
+          "woods",
+          "woods"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "woods",
+          "name": "Western Woods"
+        },
+        {
+          "code": "twisted_hollow",
+          "name": "The Twisted Hollow"
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": ["codex"]
+          },
+          {
+            "id": "defeat",
+            "icon": "residents",
+            "text": "Defeated resident asset",
+            "repeatable": true,
+            "steps": ["$defeat_resident"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_omega",
+            "text": "Ω",
+            "description": "Codex Ω: Bertie Musgrave",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "twisted_hollow_codex_omega",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_omega_story", "codex_omega_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_hollow_codex_omega",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_theta",
+            "text": "Θ",
+            "description": "Codex Θ: Dr. Rosa Marquez",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "twisted_hollow_codex_theta",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["codex_theta_story", "codex_theta_effects"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_hollow_codex_theta",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_sigma",
+            "text": "Σ",
+            "description": "Codex Σ: The Bear",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "twisted_hollow_codex_sigma",
+              "options": [{ "boolCondition": false }]
+            },
+            "steps": ["choose_bravest_investigator", "bear_1", "check_set_aside_cards", "bear_3",
+            "move_to_pursuit",  "spawn_ursine_hybrid","take_vale_lantern", "set_aside_dark_locations", "bear_locations"],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "twisted_hollow_codex_sigma",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_7_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_7_judith_park",
+        "name": "Codex 7: Judith Park",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "title": "Codex 7: Judith Park",
+      "text": "“Eat this, you son of a bitch!” A familiar voice comes from out of the darkness. Several shots impact the bear’s soft, molting body. The bear looks to its right just as another shot cracks its skull. Screeching in pain, it charges into the undergrowth toward the sound. More shots ring out. After what seems like an eternity, Judith Park emerges from the forest clutching a bleeding arm. You rush to dress the wound, but she waves you off. “I’m fine. Just glad you’re alright.” Judith smiles cockily. “Mother Rachel said you might need some help. She also paid me a twenty to come out.”"
+    },
+    {
+      "id": "2_damage_to_judith",
+      "text": "Deal 2 damage to Judith Park."
+    },
+    {
+      "id": "judith_saved_your_ass",
+      "text": "In Judith Park’s Notes, record <i>Judith saved your ass</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "judith",
+          "id": "judith_saved_your_ass",
+          "text": "Judith saved your ass."
+        }
+      ]
+    },
+    {
+      "id": "codex_8_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_8_theo_peters",
+        "name": "Codex 8: Theo Peters",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "title": "Codex 8: Theo Peters",
+      "text": "A barrage of firecrackers fly out of the darkness. “Watch out!” shouts a familiar voice. The bear reels back on its hind legs as more firecrackers follow. Theo emerges from the darkness, grabs your hand, and tears away from the scene. The bear roars somewhere in the dark. “Mother Rachel said you were looking for Billy in the Western Woods,” Theo says breathlessly. “And well, I couldn’t let you go it alone. So I borrowed some of Simeon’s fireworks.” You are too relieved to tell him it’s “Bertie” and not “Billy.”"
+    },
+    {
+      "id": "2_horror_to_theo",
+      "text": "Deal 2 horror to Theo Peters."
+    },
+    {
+      "id": "theo_distracted_the_bear",
+      "text": "In Theo Peters’ Notes, record <i>Theo distracted the Bear</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "theo",
+          "id": "theo_distracted_the_bear",
+          "text": "Theo Distracted the Bear."
+        }
+      ]
+    },
+    {
+      "id": "codex_omega_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_omega_bertie_musgrave",
+        "name": "Codex Omega: Bertie Musgrave",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "“What a predicament,” Bertie mutters under his breath. The young man fumbles with his pocketbook and starts sketching. When you tell him this isn’t the time or place for a nature study, he nods. “Oh no, I apologise. It’s a map. Not a good one, mind you—” his hand shakes as he draws one last line. “I was here before. This is the way,” he points through the trees."
+    },
+    {
+      "id": "codex_omega_effects",
+      "text": "Either (choose one): Each investigator gains 1 clue <i>(from the token pool)</i>, or ready the Vale Lantern asset."
+    },
+    {
+      "id": "codex_theta_story",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_theta_dr_rosa_marquez",
+        "name": "Codex Theta: Dr. Rosa Marquez",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Dr. Marquez leans on her cane as she studies a balsam fir with spiraling branches. Glinting lights in the trees offer faint illumination; looking up, you see shining blue nodes. “I’ve never seen something so beautiful,” the professor says, unable to contain her wonder. A moment later, she looks at you sharply. “Don’t you dare tell Bertie I said that, or I’ll tell Armitage you died on the survey.”"
+    },
+    {
+      "id": "codex_theta_effects",
+      "text": "Choose any location in play. You may reveal that location, ignoring its <b>Forced</b> effect."
+    },
+    {
+      "id": "choose_bravest_investigator",
+      "bullet_type": "none",
+      "text": "<b>Choose the bravest investigator to read the following:</b>",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "campaign",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "brave",
+            "text": "Bravest investigator",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "bravest_investigator",
+                "cards": "$input_value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bear_1",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_sigma_the_bear_1",
+        "name": "Codex Sigma: The Bear 1",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "You find a scrap of torn tweed caught on a branch that is unmistakably Bertie’s. A wretched, wheezing cough sounds behind you, accompanied by the scent of rot. You turn around. A hulking bear glows like ghost fire in the darkness. A colony of shimmering fungus on the creature’s back lights up the murk with an eerie incandescence. The creature roars, then charges."
+    },
+    {
+      "id": "check_set_aside_cards",
+      "text": "Check the set-aside cards. If either Judith Park or Theo Peters are set aside:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "twisted_hollow_judith_set_aside",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "twisted_hollow_theo_set_aside",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["choose_judith_or_theo"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["bear_2", "ask_trauma_choice", "bear_2_cont", "mother_rachel_intervened"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_judith_or_theo",
+      "bullet_type": "small",
+      "text": "Choose one of them to put into play under your control and immediately resolve their codex entry.",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "judith",
+            "text": "Judith Park",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "twisted_hollow_judith_set_aside",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["codex_7_story", "2_damage_to_judith", "judith_saved_your_ass"]
+          },
+          {
+            "id": "theo",
+            "text": "Theo Peters",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "twisted_hollow_theo_set_aside",
+              "options": [{ "boolCondition": true }]
+            },
+            "steps": ["codex_8_story", "2_horror_to_theo", "theo_distracted_the_bear"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bear_2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_sigma_the_bear_2a",
+        "name": "Codex Sigma: The Bear 2a",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Before you can react, the bear swipes at you with razor sharp claws. Its rancid, wheezing breath floods your senses as it presses a gargantuan paw to your chest. Your vision begins to dim as the thing’s weight threatens to snap your ribcage."
+    },
+    {
+      "id": "ask_trauma_choice",
+      "text": "You must either <i>(choose one)</i>:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "physical",
+            "text": "Suffer 1 physical trauma and take 1 direct damage.",
+            "steps": ["bear_physical_trauma"]
+          },
+          {
+            "id": "mental",
+            "text": "Suffer 1 mental trauma and take 1 direct horror.",
+            "steps": ["bear_mental_trauma"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bear_physical_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "bravest_investigator",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "physical": 1,
+                "investigator": "$input_value",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bear_mental_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "bravest_investigator",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "mental": 1,
+                "investigator": "$input_value",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bear_2_cont",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_sigma_the_bear_2b",
+        "name": "Codex Sigma: The Bear 2b",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "Suddenly, a shot rings out, cracking the bear’s exposed skull. It whines in pain as two more shots impact its soft, molting body. The thing lets out a pitiful grunt, then melts into the shadows. You hear Mother Rachel’s voice from somewhere close: “Run!”"
+    },
+    {
+      "id": "mother_rachel_intervened",
+      "text": "In Mother Rachel’s Notes, record <i>Mother Rachel intervened</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "rachel",
+          "id": "mother_rachel_intervened",
+          "text": "Mother Rachel intervened."
+        }
+      ]
+    },
+    {
+      "id": "bear_3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.codex_sigma_the_bear_3",
+        "name": "Codex Sigma: The Bear 3",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "type": "story",
+      "text": "You flee the scene into a copse of dying trees and hold the lantern up, expecting to see the bear’s ghoulish blue eyes reflected back in the dark. The forest is deathly quiet as you struggle to get your bearings."
+    },
+    {
+      "id": "move_to_pursuit",
+      "text": "Move each unengaged enemy to the pursuit area."
+    },
+    {
+      "id": "spawn_ursine_hybrid",
+      "text": "Spawn the Ursine Hybrid enemy at your location, exhausted, and deal 1 damage to it."
+    },
+    {
+      "id": "take_vale_lantern",
+      "text": "If it is not under the control of an investigator, choose an investigator to take control of Vale Lantern."
+    },
+    {
+      "id": "set_aside_dark_locations",
+      "text": "Set aside each empty [[Dark]] location to remake the Woods deck. To do this, perform the following:",
+      "bullets": [
+        {
+          "text": "Shuffle the set-aside Twisted Hollow location with 3 random Western Woods locations together to form the bottom 4 locations of the Woods deck, Western Woods side faceup."
+        },
+        {
+          "text": "Then, place all of the other Western Woods locations on top in a random order. All of the cards in the Woods deck should be showing only the Western Woods side, so that the investigators do not know which is which."
+        }
+      ]
+    },
+    {
+      "id": "bear_locations",
+      "text": "Put locations from the top of the Woods deck into play above, below, and to the left and right of the investigators’ location."
+    },
+    {
+      "id": "bertie_was_lost_in_the_woods",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "bertie_was_lost_in_the_woods",
+          "text": "Bertie was lost in the woods."
+        }
+      ]
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "bertie_was_rescued",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "bertie_was_rescued",
+          "text": "Bertie was rescued."
+        }
+      ]
+    },
+    {
+      "id": "bonus_xp",
+      "text": "Each investigator earns 1 bonus experience as they gain insight into Hemlock Isle’s unique ecosystem.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+
+    {
+      "id": "check_bertie_resigned",
+      "bullet_type": "small",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did an investigator resign with Bertie Musgrave under their control?",
+            "steps": ["bertie_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "bertie_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earns 1 additional experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "bonus": 1,
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. <b>Each investigator may now spend the experience recorded under “Unspent Experience” in your Campaign Log.</b>",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_xp",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "transfer_special_xp": "unspect_xp"
+        }
+      ]
+    },
+    {
+      "id": "ask_ursine_hybrid_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is Ursine Hybrid in the victory display?",
+            "steps": ["the_bear_was_wounded"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_bear_was_wounded",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_bear_was_wounded",
+          "text": "the bear was wounded."
+        }
+      ]
+    },
+    {
+      "id": "update_areas_surveyed",
+      "text": "In the “Areas Surveyed” section of your Campaign Log, check off <i>Western Woods</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "areas_surveyed",
+          "id": "western_woods",
+          "text": "Western Woods"
+        }
+      ]
+    },
+    {
+      "id": "set_next_scenario",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "dawn_of_the_second_day"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.no_resolution",
+        "name": "No Resolution",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Long, spindly branches stretch like grasping hands from the thick canopy overhead. You feel light-headed as strange whispers resound from deep in the surrounding dark. Summoning all your strength, you stagger to the edge of a black lake. The waxing moon is perfectly reflected on the surface of the water, distorted by oily, iridescent whisps of a strange color. Across the lake, a figure stands outlined in the mist. You call out to it, and it moves slowly toward you, over the water. As it approaches, all you can see of its face is a wide, rictus grin.\n“So help me, please wake up!” Dr. Marquez shakes you awake from the nightmare. Her worry quickly turns to annoyance when you open your eyes. “I’m glad you woke up. I wasn’t prepared for the paperwork if we lost you, too.” You are in a flowering field at the edge of the woods. When you ask about Bertie, she brushes a stray hair behind her ear and looks up at the waking dawn. “He’s gone. I lost him.”",
+      "steps": [
+        "bertie_was_lost_in_the_woods",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R1",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.resolution_1",
+        "name": "Resolution 1",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "title": "Resolution 1",
+      "text": "Long, spindly branches stretch like grasping hands as you emerge from the forest into a meadow glowing with shimmering blue wildflowers. The sight of the brilliant carpet of blue and white nearly takes your breath away after the oppressive darkness. Perhaps it is just your tired mind, but the heather and flowers seem to pulse. “Look,” Bertie points with a trembling hand. A dozen luminous stalks rise like floating lamps over the meadow, glimmering in the moonlight. “I feel almost as though we are walking amidst the cosmos. That each of us is a little god.” He plucks a glowing bud from its stalk. “And each of these, an even smaller star.”\nDr. Marquez slaps the flower out of his hand. “That poetic drivel is what got you lost in the woods. We risked life and limb for you! You’ll be lucky if I leave this incident out of the survey report.” Bertie hangs his head in shame as the professor lists a litany of woes and misdemeanors. But still, you can’t help but note the concern in Dr. Marquez’s voice as she excoriates her assistant. As you return to the Vale, the sky stirs with the coming dawn.",
+      "steps": [
+        "bertie_was_rescued",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.resolution_2",
+        "name": "Resolution 2",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "title": "Resolution 2",
+      "text": "The canopy of trees presses in, filled with myriad eyes and the noisome beating of insect wings. You emerge into a small moonlit clearing to hear a familiar hacking cough: the bear emerges, snarling, from the darkness behind you. Bertie looks at you with wide, clear eyes. “This is my fault. I’m so sorry I caused you so much trouble. Say a word for me back in the Vale, will you?” Before you can intervene, Bertie snatches the lantern out of your hands and shouts into the darkness: “Come on, you ugly git!”\nThe bear roars in response. Glowing blue spores scatter in the darkness around it, wreathing the creature in pale blue light. Bertie lets out a brave yell in response and barrels toward it. Realizing the young man’s sacrifice, you take advantage of the distraction to slip away and get to safety.",
+      "steps": [
+        "bertie_was_lost_in_the_woods",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "narration": {
+        "id": "the_feast_of_hemlock_vale.the_twisted_hollow.resolution_3",
+        "name": "Resolution 3",
+        "lang": [
+          "dv",
+          "ru"
+        ]
+      },
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "“Miskatonic Survey, June 1926. Members Marquez, Musgrave, et alii. An unplanned foray into the Western Woods, at night. Local flora and fauna have evolved highly specialized behavior patterns after dark, likely dictated by extreme circadian rhythms and aggressive predation. A highly toxic environment. Identified a hitherto unknown symbiosis with a new strain of parasitic fungus. Further observation necessary.”",
+      "steps": [
+        "bonus_xp",
+        "check_bertie_resigned",
+        "ask_ursine_hybrid_in_victory_display",
+        "earn_xp",
+        "transfer_xp",
+        "$upgrade_decks",
+        "update_areas_surveyed",
+        "set_next_scenario",
+        "$advance_time"
+      ]
+    }
+  ]
+}

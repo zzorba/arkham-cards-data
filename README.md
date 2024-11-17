@@ -1,4 +1,4 @@
-# arkham-cards-data
+# static.arkhamcards.com-data
 
 Repo for campaign guide data for ArkhamCards app.
 

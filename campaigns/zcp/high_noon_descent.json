@@ -246,24 +246,28 @@
     {
       "id": "check_for_greyson_cut_ties",
       "type": "branch",
-      "text": "Check your campaign log. If <i>Greyson cut ties</i> and an investigator's deck contains Agent Greyson:",
+      "text": "Check your campaign log. If <i>Greyson cut ties</i>:",
       "condition": {
-        "type": "multi",
-        "conditions": [
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "greyson_cut_ties",
+        "options": [
           {
-            "type": "has_card",
-            "investigator": "any",
-            "card": "zcp_00138",
-            "options": [{ "boolCondition": true }]
-          },
-          {
-            "type": "campaign_log",
-            "section": "campaign_notes",
-            "id": "greyson_cut_ties",
-            "options": [{ "boolCondition": true }]
+            "boolCondition": true,
+            "steps": ["check_has_agent_greyson"]
           }
-        ],
-        "count": 2,
+        ]
+      }
+    },
+    {
+      "id": "check_has_agent_greyson",
+      "bullet_type": "small",
+      "text": "If an investigator's deck contains Agent Greyson:",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "zcp_00138",
         "options": [
           {
             "boolCondition": true,

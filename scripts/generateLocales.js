@@ -4,7 +4,7 @@ const path = require("path");
 const { keys, forEach, map } = require('lodash');
 const PO = require("pofile");
 const shell = require('shelljs')
-const getFilePaths = require("./utils/getFilePaths");
+const getFilePaths = require(`.${path.sep}utils${path.sep}getFilePaths`);
 const unorm = require('unorm');
 
 const loadPOFile = promisify(PO.load);
@@ -183,6 +183,10 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'zh',
     'Plural-Forms': 'nplurals=1; plural=0;',
   },
+  'zh-cn': {
+    'Language': 'zh-cn',
+    'Plural-Forms': 'nplurals=1; plural=0;',
+  },
   pl: {
     'Language': 'pl',
     'Plural-Forms': 'nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);',
@@ -195,7 +199,12 @@ const SETTINGS_FOR_LANGUAGE = {
     'Language': 'vi',
     'Plural-Forms': 'nplurals=1; plural=0;',
   },
+  cs: {
+    'Language': 'cs',
+    'Plural-Forms': 'nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;',
+  },
 };
+
 
 async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario, quiet) {
   if (await exists(scenarioPoFile)) {
@@ -213,7 +222,7 @@ async function getOrCreatePOFile(scenarioPoFile, localeCode, scenario, quiet) {
  * @param {string} localeCode  - Locale code (en, es, ...)
  */
 async function readEncounterSets(localeCode) {
-  const json = await readJSON(localeCode === 'en' ? 'encounter_sets.json' : `encounter_sets/${localeCode}.json`);
+  const json = await readJSON(localeCode === 'en' ? 'encounter_sets.json' : `encounter_sets${path.sep}${localeCode}.json`);
   const encounter_sets = {};
   for(let i = 0; i < json.length; i++) {
     const entry = json[i];
@@ -242,13 +251,13 @@ function messageId(msgId, context) {
  * @param {string} localeCode - Locale code (fr, it, es ...)
  */
 async function generateLocale(localeCode) {
-  console.log(`${argv.arkham_cards}/assets/i18n/${localeCode}.po`);
-  const coreTranslationFile = await getPOFile(`${argv.arkham_cards}/assets/i18n/${localeCode}.po`);
+  console.log(`${argv.arkham_cards}${path.sep}assets${path.sep}i18n${path.sep}${localeCode}.po`);
+  const coreTranslationFile = await getPOFile(`${argv.arkham_cards}${path.sep}assets${path.sep}i18n${path.sep}${localeCode}.po`);
   const corePoEntries = {};
   const allPoEntries = {};
-  const allScenarios = getFilePaths("./campaigns");
-  const allReturnScenarios = getFilePaths("./return_campaigns");
-  const allCards = getFilePaths("./cards");
+  const allScenarios = getFilePaths(`.${path.sep}campaigns`);
+  const allReturnScenarios = getFilePaths(`.${path.sep}return_campaigns`);
+  const allCards = getFilePaths(`.${path.sep}cards`);
 
   const printErr = (err) => {
     if (err) {
@@ -256,20 +265,20 @@ async function generateLocale(localeCode) {
     }
   };
 
-  fs.mkdirSync("i18n/" + localeCode + "/cards", { recursive: true }, (err) => {
+  fs.mkdirSync(`i18n${path.sep}${localeCode}${path.sep}cards`, { recursive: true }, (err) => {
     console.log(err)
   });
   for (const card of allCards.sort()) {
     if (card.indexOf(".DS_Store") !== -1) {
       continue;
     }
-    const file = card.split("/")[1];
-    const translatedFile = "i18n/" + localeCode + "/cards/" + file;
+    const file = card.split(`${path.sep}`)[1];
+    const translatedFile = `i18n${path.sep}${localeCode}${path.sep}cards${path.sep}` + file;
     if ((await exists(translatedFile))) {
       // File already exists, so continue.
       console.log(`Cards: translation file for ${file} already exists, merging.`);
 
-      const tmpFile = `i18n/${localeCode}/cards/tmp.json`;
+      const tmpFile = `i18n${path.sep}${localeCode}${path.sep}cards${path.sep}tmp.json`;
       shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${tmpFile}`);
       const newTranslations = await readJSON(tmpFile);
       const newCards = {};
@@ -310,7 +319,7 @@ async function generateLocale(localeCode) {
       continue;
     }
     const scenarioPoFile =
-    "i18n/" + localeCode + "/" + scenario.replace(/json$/, "po");
+    `i18n${path.sep}${localeCode}${path.sep}` + scenario.replace(/json$/, "po");
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario, true);
     const toRemove = [];
     for (const item of poFile.items) {
@@ -338,15 +347,15 @@ async function generateLocale(localeCode) {
   for (let i = 0; i < SPECIAL_FILES.length; i++) {
     const file = SPECIAL_FILES[i];
 
-    const poFile = `i18n/${localeCode}/${file}.po`;
+    const poFile = `i18n${path.sep}${localeCode}${path.sep}${file}.po`;
     const po = await getOrCreatePOFile(poFile, localeCode, file);
-    const json = await readJSON(`packs/${file}.json`);
+    const json = await readJSON(`packs${path.sep}${file}.json`);
     for (let j = 0; j < json.length; j++) {
       await translate(json[j], po, allPoEntries, corePoEntries, localeCode);
     }
     await writeJSON(
       json,
-      `build/i18n/${localeCode}/${file}.json`
+      `build${path.sep}i18n${path.sep}${localeCode}${path.sep}${file}.json`
     );
     po.save(poFile, printErr);
     for (const item of po.items) {
@@ -357,10 +366,10 @@ async function generateLocale(localeCode) {
 
   // Translate the encounter_sets
   const encounter_sets = await readEncounterSets('en');
-  await writeJSON(encounter_sets, `build/encounterSets.json`);
+  await writeJSON(encounter_sets, `build${path.sep}encounterSets.json`);
 
   const encounterSetsJson = await readJSON('encounter_sets.json');
-  const encounterPoFile = `i18n/${localeCode}/encounter_sets.po`;
+  const encounterPoFile = `i18n${path.sep}${localeCode}${path.sep}encounter_sets.po`;
   const encountersPo = await getOrCreatePOFile(encounterPoFile, localeCode, "encounter_sets");
   await translate(encounterSetsJson, encountersPo, allPoEntries, corePoEntries, localeCode);
   const result_encounter_sets = {};
@@ -368,7 +377,7 @@ async function generateLocale(localeCode) {
     const entry = encounterSetsJson[i];
     result_encounter_sets[entry.code] = entry.name;
   }
-  await writeJSON(result_encounter_sets, `build/i18n/${localeCode}/encounter_sets.json`);
+  await writeJSON(result_encounter_sets, `build${path.sep}i18n${path.sep}${localeCode}${path.sep}encounter_sets.json`);
   encountersPo.save(encounterPoFile, printErr)
 
   for (const item of encountersPo.items) {
@@ -377,12 +386,12 @@ async function generateLocale(localeCode) {
   // Translate the taboos
   const taboos = await readJSON('taboos.json');
 
-  const taboosPoFileName = "i18n/" + localeCode + "/taboos.po";
+  const taboosPoFileName = `i18n${path.sep}${localeCode}${path.sep}taboos.po`;
   const taboosPoFile = await getOrCreatePOFile(taboosPoFileName, localeCode, "taboos.json");
   await translate(taboos, taboosPoFile, allPoEntries, corePoEntries, localeCode);
   await writeJSON(
     taboos,
-    "build/i18n/" + localeCode + "/taboos.json"
+    `build${path.sep}i18n${path.sep}${localeCode}${path.sep}taboos.json`
   )
   taboosPoFile.save(taboosPoFileName, printErr);
 
@@ -392,14 +401,14 @@ async function generateLocale(localeCode) {
       continue;
     }
     const scenarioPoFile =
-      "i18n/" + localeCode + "/" + scenario.replace(/json$/, "po");
+      `i18n${path.sep}${localeCode}${path.sep}` + scenario.replace(/json$/, "po");
     const poFile = await getOrCreatePOFile(scenarioPoFile, localeCode, scenario);
     const scenarioDesc = await readJSON(scenario);
 
     await translate(scenarioDesc, poFile, allPoEntries, corePoEntries, localeCode);
     await writeJSON(
       scenarioDesc,
-      "build/i18n/" + localeCode + "/" + scenario
+      `build${path.sep}i18n${path.sep}${localeCode}${path.sep}${scenario}`
     );
     fs.mkdirSync(path.dirname(scenarioPoFile), { recursive: true }, (err) => {
       console.log(err)
@@ -412,10 +421,10 @@ async function generateLocale(localeCode) {
   }
 
   const chaosTokensJson = await readJSON("chaos_tokens.json")
-  const chaosTokensPoFileName = "i18n/" + localeCode + "/chaos_tokens.po";
+  const chaosTokensPoFileName = `i18n${path.sep}${localeCode}${path.sep}chaos_tokens.po`;
   const chaosTokenspoFile = await getOrCreatePOFile(chaosTokensPoFileName, localeCode, "chaos_tokens");
   await translate(chaosTokensJson, chaosTokenspoFile, allPoEntries, corePoEntries, localeCode);
-  await writeJSON(chaosTokensJson, "build/chaos_tokens_" + localeCode + ".json");
+  await writeJSON(chaosTokensJson, `build${path.sep}chaos_tokens_${localeCode}.json`);
   chaosTokenspoFile.save(chaosTokensPoFileName, printErr);
 }
 
@@ -427,7 +436,7 @@ async function generateLocale(localeCode) {
 async function getAvailableLocales() {
   const entries = await readdir("i18n");
   return asyncFilter(entries, async e => {
-    return !(await stat("i18n/" + e)).isFile();
+    return (await stat("i18n/" + e)).isDirectory();
   });
 }
 
