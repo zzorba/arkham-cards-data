@@ -1,0 +1,173 @@
+{
+  "id": "core",
+  "scenario_name": "The Colour Out of Oz",
+  "full_name": "The Colour Out of Oz",
+  "header": "",
+  "type": "core",
+  "setup": [
+    "$setup_reminders"
+  ],
+  "steps": [
+    {
+      "id": "$setup_reminders",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "setup_curse_token",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "setup_limited_mulligan",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "setup_fewer_resources",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "setup_fewer_cards",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_reminders",
+              "check_fewer_resources",
+              "check_fewer_cards",
+              "check_limited_mulligan",
+              "check_curse_token"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_reminders",
+      "title": "Investigator Setup",
+      "text": "As a reminder, each investigator has the following setup restrictions:"
+    },
+    {
+      "id": "check_fewer_resources",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "setup_fewer_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name# starts with 1 fewer resource.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_fewer_cards",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "setup_fewer_cards",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name# starts with 1 fewer card.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_limited_mulligan",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "setup_limited_mulligan",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name# can only mulligan 3 cards.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_curse_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "setup_curse_token",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "text": "#name# adds 1 [curse] token to the chaos bag.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
