@@ -1,0 +1,373 @@
+{
+    "id": "zoz",
+    "position": 24,
+    "version": 2,
+    "name": "The Colour Out of Oz",
+    "tarot": [
+    ],
+    "custom": {
+      "creator": "The Beard",
+      "download_link": {
+        "en": "https://mysteriouschanting.wordpress.com/2023/02/17/the-colour-out-of-oz/"
+      }
+    },
+    "campaign_type": "campaign",
+    "campaign_log": [
+      {
+        "id": "campaign_notes",
+        "title": "Campaign Notes"
+      },
+      {
+        "id": "knowledge_of_the_colour",
+        "title": "Knowledge of the Colour's..."
+      },
+      {
+        "id": "advantages",
+        "title": "Advantages"
+      },
+      {
+        "id": "hidden",
+        "hidden": true,
+        "title": "Hidden"
+      }
+    ],
+    "scenarios": [
+      "oz_prologue"
+    ],
+    "setup": [
+      "prologue",
+      "intro",
+      "no_decks",
+      "choose_investigators",
+      "difficulty_choice",
+      "pervasive_rule",
+      "decay_rule",
+      "companion_rule",
+      "fatigue_rule"
+    ],
+    "steps": [
+      {
+        "id": "pervasive_rule",
+        "type": "rule_reminder",
+        "title": "Pervasive",
+        "text": "<b>Pervasive</b> is a new keyword that appears on some enemies in the <i>Colour Out of Oz</i> campaign. Pervasive enemies are put into play next to the agenda deck and are considered to be at each location following the keyword. Pervasive enemies always have the massive keyword as well to avoid engagement issues. Investigators still cannot interact with investigators at other locations during tests against a pervasive enemy that is at both locations.\n<i>(ex. <b>Pervasive</b> -- Each <t>First Floor</t> location.)</i>"
+      },
+      {
+        "id": "decay_rule",
+        "type": "rule_reminder",
+        "title": "Decay X",
+        "text": "<b>Decay X</b> is a new keyword that appears on some scenario cards in the <i>Colour Out of Oz</i> campaign. The <b>Decay X</b> keyword is followed by a connected effect.\n<i>(ex. <b>Decay 1</b> -- Deal 2 damage to each investigator at this location.)</i>\n",
+        "bullets": [
+          {
+            "text": "A card with <b>Decay X</b> enters play with X horror on it."
+          },
+          {
+            "text": "At the start of the upkeep phase, remove 1 horror from each card with <b>Decay X</b>."
+          },
+          {
+            "text": "At the end of the round, resolve the connected effect of each card with <b>Decay X</b> and no horror on it. This effect is considered to be a forced effect for the purposes of other game effects."
+          }
+        ]
+      },
+      {
+        "id": "companion_rule",
+        "type": "rule_reminder",
+        "title": "Companion",
+        "text": "Companion is a new keyword that appears on some story assets in the <i>Colour Out of Oz</i> campaign.  During some scenarios, these assets will be in play next to the act deck and are not considered to be at any one location. Abilities on companion assets cannot be activated except through abilities that specifically reference them."
+      },
+      {
+        "id": "fatigue_rule",
+        "type": "rule_reminder",
+        "title": "Fatigue",
+        "text": "In the <i>Colour Out of Oz</i> campaign, companions gain <b>fatigue</b> over the course of the campaign, representing their own trauma while facing the Colour. Some cards and resolutions will instruct players to add fatigue to specific companion assets in the Campaign Log.  This is done by checking the appropriate boxes on the second page of the Campaign Log. Fatigue has no game effect except when explicitly referenced by the Campaign Guide or by a card effect.\nEach companion cannot have more than 5 fatigue marked to their name. <b>If at any point a companion reaches 5 fatigue, cross that companion's name off in the Campaign Log.</b> Companions with crossed off names cannot be chosen during scenario setups or have corresponding sections in the Campaign Guide read.  Companions in play that reach 5 fatigue during a scenario are immediately removed from the game."
+      },
+      {
+        "id": "maybe_draw_weakness",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_data",
+          "campaign_data": "version",
+          "min_version": 2,
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["draw_weakness"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "draw_weakness",
+        "type": "input",
+        "bullet_type": "none",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "choices": [
+            {
+              "id": "rbw",
+              "text": "Draw Random Basic Weakness",
+              "effects": [
+                {
+                  "type": "add_weakness",
+                  "investigator": "$input_value",
+                  "weakness_traits": [],
+                  "select_traits": false
+                },
+                {
+                  "type": "remove_card",
+                  "investigator": "$input_value",
+                  "card": "01000",
+                  "non_story": true
+                }
+              ],
+              "steps": ["save_decks"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "save_decks",
+        "type": "input",
+        "input": {
+          "type": "save_decks",
+          "trauma": true
+        }
+      },
+      {
+        "id": "prologue",
+        "type": "story",
+        "title": "An Unearthly Spectrum",
+        "text": "\"It was the vegetation.  All the orchard trees blossomed forth in strange colours, and through the stony soil of the yard and adjacent pasturage there sprang up a bizarre growth which only a botanist could connect with the proper flora of the region. No sane wholesome colours were anywhere to be seen except in the green grass and leafage; but everywhere those hectic and prismatic variants of some diseased, underlying primary tone without a place among the known tints of earth.\"\n -- H.P. Lovecraft, The Colour Out of Space",
+        "narration": {
+          "id": "zoz.campaign.prologue",
+          "name": "An Unearthly Spectrum",
+          "lang": []
+        }
+      },
+      {
+        "id": "intro",
+        "text": "<i>The Colour Out of Oz</i> is an eight-part campaign for <i>Arkham Horror: The Card Game</i> for 1-4 players.  This campaign is based on the Oz series of stories by L. Frank Baum as well as H.P. Lovecraft's <i>The Colour Out of Space.</i>"
+      },
+      {
+        "id": "no_decks",
+        "text": "<b>Do not assemble your player decks until the end of the Prologue.</b>"
+      },
+      {
+        "id": "choose_investigators",
+        "type": "input",
+        "input": {
+          "type": "scenario_investigators"
+        }
+      },
+      {
+        "id": "difficulty_choice",
+        "text": "Choose difficulty level:",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "default_choice": "standard",
+          "choices": [
+            {
+              "id": "easy",
+              "text": "Easy",
+              "description": "<i>I want to observe a spectacle</i>",
+              "tokens": [
+                "+1",
+                "+1",
+                "0",
+                "0",
+                "0",
+                "-1",
+                "-1",
+                "-1",
+                "-2",
+                "-3",
+                "skull",
+                "skull",
+                "elder_thing",
+                "auto_fail",
+                "elder_sign"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_data",
+                  "setting": "difficulty",
+                  "value": "easy"
+                },
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "+1",
+                    "+1",
+                    "0",
+                    "0",
+                    "0",
+                    "-1",
+                    "-1",
+                    "-1",
+                    "-2",
+                    "-3",
+                    "skull",
+                    "skull",
+                    "elder_thing",
+                    "auto_fail",
+                    "elder_sign"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "standard",
+              "text": "Standard",
+              "description": "<i>I want to study an alien mystery</i>",
+              "tokens": [
+                "+1",
+                "0",
+                "0",
+                "-1",
+                "-1",
+                "-1",
+                "-2",
+                "-2",
+                "-3",
+                "-4",
+                "skull",
+                "skull",
+                "elder_thing",
+                "auto_fail",
+                "elder_sign"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_data",
+                  "setting": "difficulty",
+                  "value": "standard"
+                },
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "+1",
+                    "0",
+                    "0",
+                    "-1",
+                    "-1",
+                    "-1",
+                    "-2",
+                    "-2",
+                    "-3",
+                    "-4",
+                    "skull",
+                    "skull",
+                    "elder_thing",
+                    "auto_fail",
+                    "elder_sign"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "hard",
+              "text": "Hard",
+              "description": "<i>I want to discover a new spectrum</i>",
+              "tokens": [
+                "0",
+                "0",
+                "-1",
+                "-1",
+                "-1",
+                "-2",
+                "-2",
+                "-3",
+                "-4",
+                "-5",
+                "skull",
+                "skull",
+                "elder_thing",
+                "auto_fail",
+                "elder_sign"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_data",
+                  "setting": "difficulty",
+                  "value": "hard"
+                },
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "0",
+                    "0",
+                    "-1",
+                    "-1",
+                    "-1",
+                    "-2",
+                    "-2",
+                    "-3",
+                    "-4",
+                    "-5",
+                    "skull",
+                    "skull",
+                    "elder_thing",
+                    "auto_fail",
+                    "elder_sign"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "expert",
+              "text": "Expert",
+              "description": "<i>I want to know the Colour from beyond</i>",
+              "tokens": [
+                "0",
+                "-1",
+                "-1",
+                "-1",
+                "-2",
+                "-2",
+                "-3",
+                "-4",
+                "-5",
+                "-6",
+                "skull",
+                "skull",
+                "elder_thing",
+                "auto_fail",
+                "elder_sign"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_data",
+                  "setting": "difficulty",
+                  "value": "expert"
+                },
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "0",
+                    "-1",
+                    "-1",
+                    "-1",
+                    "-2",
+                    "-2",
+                    "-3",
+                    "-4",
+                    "-5",
+                    "-6",
+                    "skull",
+                    "skull",
+                    "elder_thing",
+                    "auto_fail",
+                    "elder_sign"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
