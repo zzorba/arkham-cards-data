@@ -18,8 +18,13 @@
         "title": "Campaign Notes"
       },
       {
+        "id": "preparations",
+        "title": "Preparations"
+      },
+      {
         "id": "knowledge_of_the_colour",
-        "title": "Knowledge of the Colour's..."
+        "title": "Knowledge of the Colour's...",
+        "type": "investigator_checklist"
       },
       {
         "id": "advantages",
@@ -43,14 +48,87 @@
       "pervasive_rule",
       "decay_rule",
       "companion_rule",
-      "fatigue_rule"
+      "fatigue_rule",
+      "setup_campaign_log"
     ],
     "steps": [
+      {
+        "id": "setup_campaign_log",
+        "hidden": true,
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "preparations",
+            "id": "preparations_one",
+            "text": "concerning Miskatonic venture to Pacific 8th April, 1926"
+          },
+          {
+            "type": "campaign_log",
+            "section": "preparations",
+            "id": "preparations_two",
+            "text": "Auxiliary personnel assigned to venture performed additional research concerning expedition subject hereafter referred to as the Colour approved by expedition administrators (J. Park, R. Bradshaw, M. Gutierrez)."
+          },
+          {
+            "type": "campaign_log",
+            "section": "preparations",
+            "id": "preparations_three",
+            "text": "Personnel acknowledge the following items, accepting associated risks:"
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "full_spectroscopic_analysis",
+            "text": "...full spectroscopic analysis."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "scientific_composition",
+            "text": "...scientific composition."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "destructive_methods",
+            "text": "...destructive methods."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "full_effects_on_the_body",
+            "text": "...full effects on the body."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "full_effects_on_the_land",
+            "text": "...full effects on the land."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "physical_limitations",
+            "text": "...physical limitations."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "mental_influence",
+            "text": "...mental influence."
+          },
+          {
+            "type": "campaign_log",
+            "section": "knowledge_of_the_colour",
+            "id": "true_origin",
+            "text": "...true origin"
+          }
+        ]
+      },
       {
         "id": "pervasive_rule",
         "type": "rule_reminder",
         "title": "Pervasive",
-        "text": "<b>Pervasive</b> is a new keyword that appears on some enemies in the <i>Colour Out of Oz</i> campaign. Pervasive enemies are put into play next to the agenda deck and are considered to be at each location following the keyword. Pervasive enemies always have the massive keyword as well to avoid engagement issues. Investigators still cannot interact with investigators at other locations during tests against a pervasive enemy that is at both locations.\n<i>(ex. <b>Pervasive</b> -- Each <t>First Floor</t> location.)</i>"
+        "text": "<b>Pervasive</b> is a new keyword that appears on some enemies in the <i>Colour Out of Oz</i> campaign. Pervasive enemies are put into play next to the agenda deck and are considered to be at each location following the keyword. Pervasive enemies always have the massive keyword as well to avoid engagement issues. Investigators still cannot interact with investigators at other locations during tests against a pervasive enemy that is at both locations.\n<i>(ex. <b>Pervasive</b> -- Each [[First Floor]] location.)</i>"
       },
       {
         "id": "decay_rule",
@@ -80,53 +158,6 @@
         "type": "rule_reminder",
         "title": "Fatigue",
         "text": "In the <i>Colour Out of Oz</i> campaign, companions gain <b>fatigue</b> over the course of the campaign, representing their own trauma while facing the Colour. Some cards and resolutions will instruct players to add fatigue to specific companion assets in the Campaign Log.  This is done by checking the appropriate boxes on the second page of the Campaign Log. Fatigue has no game effect except when explicitly referenced by the Campaign Guide or by a card effect.\nEach companion cannot have more than 5 fatigue marked to their name. <b>If at any point a companion reaches 5 fatigue, cross that companion's name off in the Campaign Log.</b> Companions with crossed off names cannot be chosen during scenario setups or have corresponding sections in the Campaign Guide read.  Companions in play that reach 5 fatigue during a scenario are immediately removed from the game."
-      },
-      {
-        "id": "maybe_draw_weakness",
-        "type": "branch",
-        "hidden": true,
-        "condition": {
-          "type": "campaign_data",
-          "campaign_data": "version",
-          "min_version": 2,
-          "options": [
-            {
-              "boolCondition": true,
-              "steps": ["draw_weakness"]
-            }
-          ]
-        }
-      },
-      {
-        "id": "draw_weakness",
-        "type": "input",
-        "bullet_type": "none",
-        "input": {
-          "type": "investigator_choice",
-          "source": "scenario",
-          "investigator": "all",
-          "choices": [
-            {
-              "id": "rbw",
-              "text": "Draw Random Basic Weakness",
-              "effects": [
-                {
-                  "type": "add_weakness",
-                  "investigator": "$input_value",
-                  "weakness_traits": [],
-                  "select_traits": false
-                },
-                {
-                  "type": "remove_card",
-                  "investigator": "$input_value",
-                  "card": "01000",
-                  "non_story": true
-                }
-              ],
-              "steps": ["save_decks"]
-            }
-          ]
-        }
       },
       {
         "id": "save_decks",
