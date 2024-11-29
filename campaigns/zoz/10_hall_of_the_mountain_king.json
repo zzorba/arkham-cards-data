@@ -1,0 +1,770 @@
+{
+  "id": "hall_of_the_mountain_king",
+  "scenario_name": "Hall of the Mountain King",
+  "header": "Scenario VI",
+  "full_name": "Scenario VI: Hall of the Mountain King",
+  "setup": [
+    "intro",
+    "check_general_guph_surrendered",
+    "$check_tarot_reading",
+    "$setup_reminders",
+    "gather_encounter_sets",
+    "check_the_colour_is_aware_of_your_strength",
+    "gather_companions",
+    "choose_companions",
+    "billinas_eggs",
+    "tunnels_end",
+    "location_layout",
+    "nome_army",
+    "army_patrol",
+    "set_aside_cards",
+    "encounter_deck",
+    "army_patrol_rule",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Layout",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "tunnels_end",
+          "blank",
+          "outer_kingdom",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "inner_kingdom",
+          "blank",
+          "blank"
+        ],
+        [
+          "outer_kingdom",
+          "innter_kingdom",
+          "royal_audience_chamber",
+          "inner_kingdom",
+          "outer_kingdom"
+        ],
+        [
+          "blank",
+          "blank",
+          "inner_kingdom",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "outer_kingdom",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "tunnels_end",
+          "name": "Tunnel's End"
+        },
+        {
+          "code": "outer_kingdom",
+          "name": "Outer Kingdom"
+        },
+        {
+          "code": "inner_kingdom",
+          "name": "Inner Kingdom"
+        },
+        {
+          "code": "royal_audience_chamber",
+          "name": "Royal Audience Chamber"
+        }
+      ]
+    },
+    {
+      "id": "army_patrol_rule",
+      "type": "rule_reminder",
+      "title": "Army Patrol",
+      "text": "During the scenario, the Nome Army patrols the kingdom.  At the start of the game, draw two cards from the Army Patrol Deck and place them to the left of the deck.  The leftmost card is referred to as the Active card.  It is considered to be in play and its effects active.  The other faceup card is the Next card.  This card is visible, but it is not considered to be in play, and its effects are not active."
+    },
+    {
+      "id": "billinas_eggs",
+      "text": "Put a copy of Billina's Eggs into play in each investigator's play area.  Remove each other copy of Billina's Eggs from the game."
+    },
+    {
+      "id": "tunnels_end",
+      "text": "Put the Tunnel's End and Royal Audience Chamber locations into play.  Randomly put four of the six Outer Kingdom locations and four of the six Inner Kingdom locations into play.  Remove each other copy of Outer Kingdom and Inner Kingdom from the game.  Each investigator begins play at Tunnel's End."
+    },
+    {
+      "id": "nome_army",
+      "text": "Put the Nome Army enemy into play next to the agenda deck."
+    },
+    {
+      "id": "army_patrol",
+      "text": "Shuffle the four Army Patrol story cards together to create the Army Patrol deck.  Set up the Army Patrol tableau according to the instructions on the next page."
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The meeting adjourns and you immediately begin preparations for the difficult expedition.  Dorothy walks alongside you to tell you as much about the Nome Kingdom as she knows.  \"Ruggedo used to be the Nome King, back when we first went there to free the royal family of Ev, but his ol' steward Kaliko is Nome King now.  Though I can't reckon if he's in charge now that Ruggedo is back and filled up with the Colour's power.  But if they still act like Nomes at all, then I think we have a secret weapon.\"  Dorothy gives you a weary but confident look, and leads you to the palace gardens where you find a large yellow hen milling about, surrounded by her chicks.  \"Billina!\" Dorothy calls out, \"we've got to go to the Nome Kingdom again.  Do you think you can supply us?\"\nThe hen gives an irritated cluck, not bothering to look up from her chicks.  \"Isn't this Colour enough of a problem without the Nomes?  But yes, I can spare some eggs for the journey.  I'm surprised I'm still laying eggs at all with this uneasy air around us.\"  You look to Dorothy for context, but Billina continues with the same disgruntled tone.  \"Nomes are terrified of eggs.  Ozma said that eggs turn them mortal, but I haven't known a Nome long enough to know if it works.\"  The Nomes' inherent fear may or may not be strong enough to overcome the influence and control of the Colour, but in either case, you must use every advantage to its fullest.  You return to your preparations, wondering how best to proceed into a hostile country deep underground."
+    },
+    {
+      "id": "check_general_guph_surrendered",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "general_guph_surrendered",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["inside_information", "reveal_two_locations"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["unfamiliar_territory"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "inside_information",
+      "type": "story",
+      "title": "Inside Information",
+      "text": "Prisoner though he is, Guph has no qualms about sharing details about the tunnel and its surrounding area.  His early departure from the kingdom gives you no indication of how the caverns have been affected by the Colour, but something is better than nothing it all."
+    },
+    {
+      "id": "reveal_two_locations",
+      "text": "When the game begins, choose any two Outer Kingdom locations and reveal them."
+    },
+    {
+      "id": "unfamiliar_territory",
+      "type": "story",
+      "title": "Unfamiliar Territory",
+      "text": "Ozma's magic painting can only show people, not general places, and unfortunately cannot help scout.  All you can do is trust your instincts and be cautious in the approach.  Enemies will be abundant in the Nome Kingdom, both soldiers of the kingdom and maddened thralls of the Colour."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_hall_of_the_mountain_king",
+        "zoz_nomes",
+        "zoz_alien_vibrance",
+        "zoz_prismatic_evils"
+      ]
+    },
+    {
+      "id": "check_the_colour_is_aware_of_your_strength",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_colour_is_aware_of_your_strength",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cross_out_aware_of_your_strength", "gather_spiraling_decay"]
+            
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_aware_of_your_strength",
+      "bullet_type": "small",
+      "text": "Cross out that entry.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_is_aware_of_your_strength",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "gather_spiraling_decay",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_spiraling_decay"
+      ]
+    },
+    {
+      "id": "gather_companions",
+      "type": "encounter_sets",
+      "text": "Gather the <i>Companions of Oz</i> encounter set.  Put a copy of Boon Companions into each investigator's play area.  Remove each other copy of Boon Companions from the game.",
+      "encounter_sets": [
+        "zoz_companions_of_oz"
+      ]
+    },
+    {
+      "id": "choose_companions",
+      "text": "Choose up to four of the companion assets and put them into play below the act deck.  Remove each other companion asset from the game.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Companions",
+        "min": 0,
+        "max": 4,
+        "choices": [
+          {
+            "id": "capn_bill",
+            "text": "Cap'n Bill",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_capn_bill",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "jack",
+            "text": "Jack Pumpkinhead",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_jack",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shaggy",
+            "text": "Shaggy Man",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_shaggy",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "lion",
+            "text": "The Cowardly Lion",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_lion",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "frogman",
+            "text": "The Frogman",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_frogman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tiger",
+            "text": "The Hungry Tiger",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_tiger",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "patchwork",
+            "text": "The Patchwork Girl",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_patchwork",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sawhorse",
+            "text": "The Sawhorse",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_sawhorse",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "scarecrow",
+            "text": "The Scarecrow",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_scarecrow",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tinman",
+            "text": "The Tin Woodman",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_tinman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wizard",
+            "text": "The Wizard",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_wizard",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tik_tok",
+            "text": "Tik-Tok",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s6_companion_tik_tok",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Iron Giant, Ruggedo."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_iron_giant_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is Iron Giant in the victory display?",
+            "steps": ["the_colour_is_aware_of_your_strength"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_colour_is_aware_of_your_strength",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_is_aware_of_your_strength",
+          "text": "the Colour is aware of your strength."
+        }
+      ]
+    },
+    {
+      "id": "fatigue_companions_in_play",
+      "text": "In the Campaign Log under \"Companions of Oz\", mark 1 fatigue next to the name of each companion asset in play.",
+      "steps": [
+        "check_capn_bill",
+        "check_jack",
+        "check_shaggy",
+        "check_lion",
+        "check_frogman",
+        "check_tiger",
+        "check_patchwork",
+        "check_sawhorse",
+        "check_scarecrow",
+        "check_tinman",
+        "check_wizard",
+        "check_tik_tok"
+      ]
+    },
+    {
+      "id": "check_capn_bill",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_capn_bill",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_capn_bill"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jack",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_jack",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_jack"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_shaggy",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_shaggy",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_shaggy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lion",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_lion",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_lion"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_frogman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_frogman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_frogman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tiger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_tiger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tiger"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_patchwork",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_patchwork",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_patchwork"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sawhorse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_sawhorse",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_sawhorse"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scarecrow",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_scarecrow",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_scarecrow"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tinman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_tinman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tinman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_wizard",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_wizard",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_wizard"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tik_tok",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s6_companion_tik_tok",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$fatigue_tik_tok"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ruggedos_fate_is_unknown",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ruggedos_fate_is_unknown",
+          "text": "Ruggedo's fate is unknown."
+        }
+      ]
+    },
+    {
+      "id": "ruggedo_crumbled_to_dust",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ruggedo_crumbled_to_dust",
+          "text": "Ruggedo crumbled to dust."
+        }
+      ]
+    },
+    {
+      "id": "ruggedo_survived_the_colours_infection",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ruggedo_survived_the_colours_infection",
+          "text": "Ruggedo survived the Colour's infection."
+        }
+      ]
+    },
+    {
+      "id": "earn_1_xp_nome_king",
+      "text": "Each investigator earns 1 bonus experience from the passing of the Nome King.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "earn_2_xp_nome_king",
+      "text": "Each investigator earns 2 bonus experience from the insight of the Nome King.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    }
+
+    
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Beaten back by the fierce resistance of the Colour and the infected Nomes, you trudge slowly back through the tunnel toward Oz.  Your companions try to offer encouragement and begin to formulate plans of a second attack when a strong rumbling begins to shake the tunnel.  You brace yourself against the wall for the tremor to pass, but find another cause for concern.  The ambient glow of the Colour dims, leaving you in near pitch darkness.",
+      "steps": [
+        "ruggedos_fate_is_unknown",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Ruggedo cracks one eye open as you stand above him.  His body is growing brittle and ashen, and beginning to distort beyond a humanoid form.  \"You... can fight the Colour...\" he rasps, trying but failing to reach out toward you, \"Your mind... and your body... must be strong... Maybe even... strong enough... to avenge me...\" Ruggedo's face gives the suggestion of a proud smile before his features dissolve away.  The Nome's body crumbles and spills like a sand castle in the wind, leaving only a featureless pile.  Silence briefly dominates the throne room before motion stirs from beside the golden gong.  Kaliko -- the Nome King once again -- pushes himself to his feet with a dazed expression.  \"The maddening thing... it's gone!  Did you... destroy it?\"  You shake your head, looking about the audience chamber warily.  This was a blow against the Colour, but you'd be a fool to think it was over already.",
+      "steps": [
+        "ruggedo_crumbled_to_dust",
+        "earn_1_xp_nome_king",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "Ruggedo struggles upward with a pained groan.  The Nome is pale and haggard, and visibly straining to stay conscious, but undoubtedly alive.  He sits panting and shivering for nearly a minute before he can summon the strength to speak.  \"Is it gone...?  What happened...?\"  You can only guess the trauma that Ruggedo has suffered since he touched the meteor, so it's clear that now is not the time for a full explanation.  You assure him that he is free from the Colour, but tell him that the fight is far from over.  Ruggedo shakes his head weakly.  \"Of course not... I felt the hunger in that being... its desire to feed and drain... and multiply...\"  The throne room shakes violently, but to your astonishment, the vibrant hues suddenly drain away, leaving you in dim light.  The Nome steadies himself while Kaliko -- the reigning Nome King -- slowly rises from beside the gong.  Ruggedo is a valuable firsthand witness to the Colour, so you hoist the weakened Nome out of the throne for the trip back to Oz.  Kaliko is dazed and distant, but you assure him as best as possible that the Nomes are free from the Colour for now.",
+      "steps": [
+        "ruggedo_survived_the_colours_infection",
+        "earn_2_xp_nome_king",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Though the unearthly Colour fades from the stone halls of the Nome Kingdom, the rock grinds and rumbles with decreasing stability.  The Colour is on the move once more, and you have a pretty good idea where it's headed.  It used the Nomes to protect itself, like the parasite it is, but your incursion has threatened it.  The Colour will retaliate to ensure that you and the others do not keep it from infecting the world.",
+      "steps": [
+        "earn_xp",
+        "ask_iron_giant_in_victory_display",
+        "fatigue_companions_in_play",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
