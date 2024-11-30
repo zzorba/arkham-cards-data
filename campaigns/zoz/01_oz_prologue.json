@@ -1,0 +1,1133 @@
+{
+    "id": "oz_prologue",
+    "scenario_name": "Prologue",
+    "full_name": "Prologue",
+    "header": "",
+    "type": "interlude",
+    "icon": "zoz",
+    "setup": [
+      "intro",
+      "instructions",
+      "explain_alien_display",
+      "ask_alien_display",
+      "explain_scientific_curiosity",
+      "ask_scientific_curiosity",
+      "explain_facts",
+      "ask_facts",
+      "explain_transformation",
+      "ask_transformation",
+      "explain_corruption",
+      "ask_corruption",
+      "explain_source",
+      "ask_source",
+      "explain_creatures",
+      "ask_creatures",
+      "explain_visions",
+      "ask_visions",
+      "outro",
+      "save_decks_note",
+      "draw_weakness",
+      "$save_decks"
+    ],
+    "steps": [
+      {
+        "id": "intro",
+        "type": "story",
+        "text": "<fancy>Thursday, April 8th, 1926.  Arkham, Massachusetts.</fancy>\n<fancy>This was not the first time the brilliant meteorite had struck Earth.  Few but old Ammi Pierce still talked about the strange days when the Gardner farm was transformed into the blasted heath, but the scientific record remained in the archives of Miskatonic University.  That record spoke of the same alien colour that appeared in the spectroscope the astronomers took of a second meteor approaching Earth rapidly last week.  Claims and theories flew, but the scientists agreed that this time, the meteorite must be recovered in full for both study and to protect the world from its possible destruction.  Funding for an expedition was amassed in short order, including stipulations for a team of specialists with experience in the weird mysteries of the universe.</fancy>",
+        "narration": {
+          "id": "zoz.prologue.intro",
+          "name": "Prologue",
+          "lang": []
+        }
+      },
+      {
+        "id": "instructions",
+        "text": "In order, read each of the following sections to decide how each of the investigators prepared for the research expedition:",
+        "bullets": [
+            {
+                "text": "<i>(Warning: You may choose to read any amount of sections, but each option has side effects!) </i>"
+            }
+        ]
+      },
+      {
+        "id": "explain_alien_display",
+        "text": "Each investigator who chooses to observe the meteor's approach at Miskatonic University reads <b>Alien Display</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will add an additional weakness to your deck, unless you are a [[Miskatonic]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_alien_display",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Alien Display",
+                "steps": ["read_alien_display"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10001",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "full_spectroscopic_analysis",
+                    "text": "...full spectroscopic analysis.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_alien_display",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_alien_display",
+        "type": "border",
+        "title": "Alien Display",
+        "border": true,
+        "steps": ["alien_display_story", "alien_display_log", "alien_display_good", "alien_display_bad"]
+      },
+      {
+        "id": "alien_display_story",
+        "border_only": true,
+        "type": "story",
+        "text": "You were alongside the astronomers as they first tracked and calculated the trajectory of the meteor.\nIt was easily traced by the bizarre colour that glowed faintly around it, unlike anything seen in the natural spectrum of light.  The colour flashed and waned in a pattern that defied the usual explanation of atmospheric interference that caused stars to twinkle.  The colour undulated as if it were living... and growing.  A horrid sense of foreboding traveled with the meteor as you bore witness to the start of events that may not be possible to stop.  Your one consolation was that your observations helped the astronomers complete their analysis of the meteor using modern equipment and methods."
+      },
+      {
+        "id": "alien_display_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's full spectroscopic analysis.\""
+      },
+      {
+        "id": "alien_display_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Insight]] cards level 0-2.\""
+      },
+      {
+        "id": "alien_display_bad",
+        "border_only": true,
+        "text": "Search the collection for a random basic [[Omen]], [[Endtimes]], or [[Mystery]] weakness and add it to your deck.  If you are playing as an investigator with the [[Miskatonic]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_alien_display",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Miskatonic"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "Weakness",
+              "effects": [
+                {
+                  "type": "add_weakness",
+                  "weakness_traits": ["Omen", "Endtimes", "Mystery"],
+                  "investigator": "$input_value"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_scientific_curiosity",
+        "text": "Each investigator who chooses to read the archived laboratory report reads <b>Scientific Curiosity</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will add +2 deck size, unless you are a [[Scholar]] or [[Assistant]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_scientific_curiosity",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Scientific Curiosity",
+                "steps": ["read_scientific_curiosity"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10002",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "scientific_composition",
+                    "text": "...scientific composition.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_scientific_curiosity",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_scientific_curiosity",
+        "type": "border",
+        "title": "Scientific Curiosity",
+        "border": true,
+        "steps": ["scientific_curiosity_story", "scientific_curiosity_log", "scientific_curiosity_good", "scientific_curiosity_bad"]
+      },
+      {
+        "id": "scientific_curiosity_story",
+        "border_only": true,
+        "type": "story",
+        "text": "In preparation for testing the Colour, you delved into the notes taken by the scientists over forty years ago.  You quickly discovered that due to the sudden disappearance of their first sample and failure to secure more, research was abandoned and existing notes were filed away haphazardly.  It took you days to locate and organize all the pieces.  By the time you finished, it had eaten up considerable time, effort, and mental space that could have been spent on other preparations, but you at least understood the Colour to some clinical degree."
+      },
+      {
+        "id": "scientific_curiosity_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's scientific composition.\""
+      },
+      {
+        "id": "scientific_curiosity_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Practiced]] cards level 0-2.\""
+      },
+      {
+        "id": "scientific_curiosity_bad",
+        "border_only": true,
+        "text": "You get +2 deck size for the remainder of the campaign.  If you are playing as an investigator with the [[Scholar]] or [[Assistant]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_scientific_curiosity",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Scholar"
+                  },
+                  {
+                    "condition": "Assistant"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "+2 deck size",
+              "effects": [
+                {
+                  "type": "add_card",
+                  "card": "zoz_10003",
+                  "investigator": "$input_value",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_facts",
+        "text": "Each investigator who chooses to hear Ammi Pierce's full account reads <b>Facts of the Case</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will limit your mulligan throughout the campaign, unless you are a [[Civic]], [[Detective]], [[Police]], or [[Agency]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_facts",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Facts of the Case",
+                "steps": ["read_facts"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10004",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "destructive_methods",
+                    "text": "...destructive methods.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_facts",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_facts",
+        "type": "border",
+        "title": "Facts of the Case",
+        "border": true,
+        "steps": ["facts_story", "facts_log", "facts_good", "facts_bad"]
+      },
+      {
+        "id": "facts_story",
+        "border_only": true,
+        "type": "story",
+        "text": "There's only one person who remembers the events at the Gardner farm, and that's Ammi Pierce himself.  You trekked out to his own farmstead and agreed to listen to his rambling stories in hopes of gaining some insight into your mission.  Ammi pried into your sudden interest in the Colour, and when you admitted that the Colour was returning, he flew into a panic.  He ranted about the remnant of the Colour in the well on blasted heath, and declared that a return of the Colour meant the destruction of all life on Earth, all told in vivid detail.  The worst parts of his tirade still linger in your mind, making it harder to focus on anything related to the Colour.  It took time to assure him that no such fate would come to pass, but he was too worn out to continue the interview by that point."
+      },
+      {
+        "id": "facts_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's destructive methods.\""
+      },
+      {
+        "id": "facts_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Developed]] cards level 0-2.\""
+      },
+      {
+        "id": "facts_bad",
+        "border_only": true,
+        "text": "For the remainder of the campaign, if you choose to mulligan, you cannot choose more than 3 cards to set aside.  If you are playing as an investigator with the [[Civic]], [[Detective]], [[Police]], or [[Agency]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_facts",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Civic"
+                  },
+                  {
+                    "condition": "Detective"
+                  },
+                  {
+                    "condition": "Police"
+                  },
+                  {
+                    "condition": "Agency"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "Limited mulligan",
+              "effects": [
+                {
+                  "type": "campaign_log_cards",
+                  "section": "hidden",
+                  "id": "setup_limited_mulligan",
+                  "cards": "$input_value",
+                  "masculine_text": "#name# can only mulligan 3 cards.",
+                  "feminine_text": "#name# can only mulligan 3 cards.",
+                  "nonbinary_text": "#name# can only mulligan 3 cards.",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_transformation",
+        "text": "Each investigator who chooses to study the autopsies of the Gardner family reads <b>Grotesque Transformations</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will have you suffer 1 mental trauma, unless you are a [[Medic]], [[Hunter]], or [[Warden]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_transformation",
+        "text": "Each investigator who chooses to study the autopsies of the Gardner family reads <b>Grotesque Transformations</b>.",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Grotesque Transformations",
+                "steps": ["read_transformation"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10005",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "full_effects_on_the_body",
+                    "text": "...full effects on the body.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_transformation",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_transformation",
+        "type": "border",
+        "title": "Grotseque Transformations",
+        "border": true,
+        "steps": ["transformation_story", "transformation_log", "transformation_good", "transformation_bad"]
+      },
+      {
+        "id": "transformation_story",
+        "border_only": true,
+        "type": "story",
+        "text": "Grim as it was, you paid a visit to St. Mary's and scoured their medical records for the report of the misfortunate Gardners.  The medical examiner and the coroner gave brief descriptions of Merwin and Zenas as skeletons they found amid the ooze in the well, but went into extreme detail as to the state they found Nahum.  He was utterly drained of life, gray and brittle as plaster, and his body had completely collapsed in on itself.  One photograph survived the event, and bleached as it was, it showed Nahum as they described.  The degradation disturbed you deeply, but it cemented in your mind that the Colour is a great threat to anyone who happens to fall inside its area of influence."
+      },
+      {
+        "id": "transformation_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's full effects on the body.\""
+      },
+      {
+        "id": "transformation_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Spirit]] cards level 0-2.\""
+      },
+      {
+        "id": "transformation_bad",
+        "border_only": true,
+        "text": "You suffer 1 mental trauma.  If you are playing as an investigator with the [[Medic]], [[Veteran]], [[Hunter]], or [[Warden]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_transformation",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Medic"
+                  },
+                  {
+                    "condition": "Veteran"
+                  },
+                  {
+                    "condition": "Hunter"
+                  },
+                  {
+                    "condition": "Warden"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "trauma",
+              "text": "Mental Trauma",
+              "effects": [
+                {
+                  "type": "trauma",
+                  "mental": 1,
+                  "investigator": "$input_value",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_corruption",
+        "text": "Each investigator who chooses to visit the blasted heath in person reads <b>Lingering Corruption</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will have you suffer 1 physical trauma, unless you are a [[Believer]], [[Chosen]], [[Blessed]], or [[Cursed]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_corruption",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Lingering Corruption",
+                "steps": ["read_corruption"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10006",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "full_effects_on_the_land",
+                    "text": "...full effects on the land.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_corruption",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_corruption",
+        "type": "border",
+        "title": "Lingering Corruption",
+        "border": true,
+        "steps": ["corruption_story", "corruption_log", "corruption_good", "corruption_bad"]
+      },
+      {
+        "id": "corruption_story",
+        "border_only": true,
+        "type": "story",
+        "text": "Determined to see for yourself, you made the journey west of Arkham to the blasted heath.  Over forty years later and the land is still blanched and forsaken.  As you walked the grounds, a luminous glow from the remains of the well drew your attention.  Splotches of colour began to seep up through the dead land, and before you could even reach the edge of the well, the glow flared with horrid brightness.  You fled at once, and only once you had run clear of the blighted land did the light die down and recede into the gray soil.  You escaped with your life and some knowledge of the dormant colour's spread throughout the affected land."
+      },
+      {
+        "id": "corruption_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's full effects on the land.\""
+      },
+      {
+        "id": "corruption_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Fortune]] cards level 0-2.\""
+      },
+      {
+        "id": "corruption_bad",
+        "border_only": true,
+        "text": "You suffer 1 physical trauma.  If you are playing as an investigator with the [[Believer]], [[Chosen]], [[Blessed]], or [[Cursed]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_corruption",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Believer"
+                  },
+                  {
+                    "condition": "Chosen"
+                  },
+                  {
+                    "condition": "Blessed"
+                  },
+                  {
+                    "condition": "Cursed"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "trauma",
+              "text": "Physical Trauma",
+              "effects": [
+                {
+                  "type": "trauma",
+                  "physical": 1,
+                  "investigator": "$input_value",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_source",
+        "text": "Each investigator who chooses to question the former residents near the farm reads <b>First Person Source</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will have you start scenarios with 1 fewer resource, unless you are a [[Reporter]], [[Socialite]], [[Entrepeneur]], [[Criminal]], or [[Performer]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_source",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read First Person Source",
+                "steps": ["read_source"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10007",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "physical_limitations",
+                    "text": "...physical limitations.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_source",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_source",
+        "type": "border",
+        "title": "First Person Source",
+        "border": true,
+        "steps": ["source_story", "source_log", "source_good", "source_bad"]
+      },
+      {
+        "id": "source_story",
+        "border_only": true,
+        "type": "story",
+        "text": "Ammi Pierce is the sole primary witness to the event, but other farmers that used to live near the Gardners' farm remember the strange times as well.  Sadly, many of the former residents had either blocked the events from memory or passed away without telling what they knew.  You were still able to find a former neighbor who was passing by at the time that the scientists first conducted their tests.  However, anything related to the Gardners was taboo, and the man had to be persuaded to set his superstitions aside.  While embellished, the old farmer told of watching the tests of the first globule they found, and how the Colour was fragile in its early stages."
+      },
+      {
+        "id": "source_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's physical limitations.\""
+      },
+      {
+        "id": "source_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Ally]] cards level 0-2.\""
+      },
+      {
+        "id": "source_bad",
+        "border_only": true,
+        "text": "For the remainder of the campaign, you begin each scenario with 1 fewer resource in your resource pool.  If you are playing as an investigator with the [[Reporter]], [[Socialite]], [[Entrepeneur]], [[Criminal]], or [[Performer]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_source",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Reporter"
+                  },
+                  {
+                    "condition": "Socialite"
+                  },
+                  {
+                    "condition": "Entrepeneur"
+                  },
+                  {
+                    "condition": "Criminal"
+                  },
+                  {
+                    "condition": "Performer"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "1 fewer resource",
+              "effects": [
+                {
+                  "type": "campaign_log_cards",
+                  "section": "hidden",
+                  "id": "setup_fewer_resources",
+                  "cards": "$input_value",
+                  "masculine_text": "#name# begins the scenario with 1 fewer resource.",
+                  "feminine_text": "#name# begins the scenario with 1 fewer resource.",
+                  "nonbinary_text": "#name# begins the scenario with 1 fewer resource.",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_creatures",
+        "text": "Each investigator who chooses to study the affected wildlife reads <b>Altered Creatures</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will have you start scenarios with 1 fewer card, unless you are a [[Artist]], [[Dreamer]], [[Drifter]], or [[Wayfarer]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_creatures",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Altered Creatures",
+                "steps": ["read_creatures"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10008",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "mental_influence",
+                    "text": "...mental influence.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_creatures",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_creatures",
+        "type": "border",
+        "title": "Altered Creatures",
+        "border": true,
+        "steps": ["creatures_story", "creatures_log", "creatures_good", "creatures_bad"]
+      },
+      {
+        "id": "creatures_story",
+        "border_only": true,
+        "type": "story",
+        "text": "Though the blasted heath has been long abandoned by humans, the animals of the surrounding woods continue to inhabit the border region, and reportedly mutated by the lingering Colour.  You journeyed into the woods, and found that the creatures were indeed mutated, but their physical state was nothing compared to their mental one.  The animals spoke -- or perhaps something within them, rather -- in unearthly tones with unrecognizable words, but still clearly speaking to each other.  The spectacle taxed your psyche, but having recorded the effect, you can now better formulate theories about the cause."
+      },
+      {
+        "id": "creatures_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's mental influence.\""
+      },
+      {
+        "id": "creatures_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Augury]] cards level 0-2.\""
+      },
+      {
+        "id": "creatures_bad",
+        "border_only": true,
+        "text": "For the remainder of the campaign, you begin each scenario with 1 fewer card in your hand.  If you are playing as an investigator with the [[Artist]], [[Dreamer]], [[Drifter]], or [[Wayfarer]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_creatures",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Artist"
+                  },
+                  {
+                    "condition": "Dreamer"
+                  },
+                  {
+                    "condition": "Drifter"
+                  },
+                  {
+                    "condition": "Wayfarer"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "1 fewer card",
+              "effects": [
+                {
+                  "type": "campaign_log_cards",
+                  "section": "hidden",
+                  "id": "setup_fewer_cards",
+                  "cards": "$input_value",
+                  "masculine_text": "#name# begins the scenario with 1 fewer card.",
+                  "feminine_text": "#name# begins the scenario with 1 fewer card.",
+                  "nonbinary_text": "#name# begins the scenario with 1 fewer card.",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "explain_visions",
+        "text": "Each investigator who chooses to use occult methods to learn about the Colour reads <b>Visions of Space</b>.",
+        "bullets": [
+          {
+            "text": "Reading this section will add a [curse] token at the start of each scenario, unless you are a [[Sorcerer]], [[Cultist]], or [[Silver Twilight]] investigator."
+          }
+        ]
+      },
+      {
+        "id": "ask_visions",
+        "type": "input",
+        "input": {
+            "type": "investigator_choice",
+            "source": "scenario",
+            "investigator": "all",
+            "choices": [
+              {
+                "id": "read",
+                "text": "Read Visions of Space",
+                "steps": ["read_visions"],
+                "effects": [
+                  {
+                    "type": "add_card",
+                    "card": "zoz_10009",
+                    "investigator": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "knowledge_of_the_colour",
+                    "id": "true_origin",
+                    "text": "...true origin.",
+                    "cards": "$input_value",
+                    "hidden": true
+                  },
+                  {
+                    "type": "campaign_log_cards",
+                    "section": "hidden",
+                    "id": "prologue_visions",
+                    "cards": "$input_value"
+                  }
+                ]
+              }
+            ]
+        }
+      },
+      {
+        "id": "read_visions",
+        "type": "border",
+        "title": "Visions of Space",
+        "border": true,
+        "steps": ["visions_story", "visions_log", "visions_good", "visions_bad"]
+      },
+      {
+        "id": "visions_story",
+        "border_only": true,
+        "type": "story",
+        "text": "Having exhausted all other methods, you turned to magic to discover more about the Colour that couldn't be found scientifically.  The colour was an alien entity, and it surely must have originated from somewhere.  You prepared a ritual to gaze across time and space in search of the Colour's origins.  A certain price had to be paid for this knowledge, but the vision you received was payment enough.  Swirling vistas appeared before you of a world a thousand lifetimes away.  Creatures that you could only tell were alive by motion and sound, all bathed in light tinged an unnatural hue.  You watched the bizarre spectacle as long as you could stand to glean any details of how it lives -- if it lives at all."
+      },
+      {
+        "id": "visions_log",
+        "border_only": true,
+        "text": "In the Campaign Log, under \"Preparations,\" record that you \"know the Colour's true origin.\""
+      },
+      {
+        "id": "visions_good",
+        "border_only": true,
+        "text": "Your deckbuilding options gain \"Up to 2 other [[Ritual]] cards level 0-2.\""
+      },
+      {
+        "id": "visions_bad",
+        "border_only": true,
+        "text": "For the remainder of the campaign, at the start of each scenario, add a [curse] token to the chaos bag.  If you are playing as an investigator with the [[Sorcerer]], [[Clairvoyant]], [[Cultist]], or [[Silver Twilight]] trait, you may ignore this effect.",
+        "type": "input",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "condition": {
+            "type": "campaign_log_cards",
+            "section": "hidden",
+            "id": "prologue_visions",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          "choices": [
+            {
+              "id": "ignore",
+              "text": "Ignore",
+              "condition": {
+                "type": "investigator",
+                "investigator": "each",
+                "investigator_data": "trait",
+                "options": [
+                  {
+                    "condition": "Sorcerer"
+                  },
+                  {
+                    "condition": "Clairvoyant"
+                  },
+                  {
+                    "condition": "Cultist"
+                  },
+                  {
+                    "condition": "Silver Twilight"
+                  }
+                ]
+              }
+            },
+            {
+              "id": "draw",
+              "text": "Curse token",
+              "effects": [
+                {
+                  "type": "campaign_log_cards",
+                  "section": "hidden",
+                  "id": "setup_curse_token",
+                  "cards": "$input_value",
+                  "masculine_text": "#name# adds 1 [curse] token to the chaos bag.",
+                  "feminine_text": "#name# adds 1 [curse] token to the chaos bag.",
+                  "nonbinary_text": "#name# adds 1 [curse] token to the chaos bag.",
+                  "hidden": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "outro",
+        "type": "story",
+        "text": "With physical preparations handled by the University, you and your companions set out for Kingsport.  Over the course of a week, the chartered ship navigated around the continent to make port in San Francisco.  Initial estimations of the meteor's trajectory placed its landing site in the Pacific Ocean.  The scientists earnestly hoped that it would impact on an island or at the very least somewhere shallow enough for their equipment to reach it, but the Pacific is nothing if not vast.  All they could do is sail to the general region and keep their fingers crossed.  With your knowledge of the Colour, you didn't know which outcome to hope for, only to keep ready.\nIt was just after dawn, three days into Pacific waters when the meteor finally entered Earth's atmosphere.  The expedition stood on deck with eyes skyward for the spectacle Ammi Pierce described, only this time much larger.  An explosion rocked the cloud layer as friction slowed the meteor's descent, and a long plume of white smoke flared out behind it.  Your eyes followed the trail of smoke down until it vanished just beyond the horizon north of the ship.  The captain gave a call to stations to brace for the expected wave of water from the impact.  Tense minutes passed but the sea remained placid.  Confused, the officers confirmed their position and checked charts.  By all accounts there should be only open water for hundreds of miles in any direction, but the evidence was clear.  Somehow, the meteor made landfall."
+      },
+      {
+        "id": "save_decks_note",
+        "text": "Note: because of the custom deck building unlocked by this campaign, decks cannot be saved to ArkhamDB. The app will enforce the rules based on your choices above, but only if you select an ArkhamCards deck. Otherwise the additional deckbuilding rules will be ignored.",
+        "bullets": [
+          {
+            "text": "Please choose blank at this time on the main screen of the campaign before saving below."
+          }
+        ]
+      },
+      {
+        "id": "$save_decks",
+        "type": "input",
+        "input": {
+          "type": "save_decks"
+        }
+      },
+      
+      {
+        "id": "draw_weakness",
+        "type": "input",
+        "bullet_type": "none",
+        "input": {
+          "type": "investigator_choice",
+          "source": "scenario",
+          "investigator": "all",
+          "choices": [
+            {
+              "id": "rbw",
+              "text": "Draw Random Basic Weakness",
+              "effects": [
+                {
+                  "type": "add_weakness",
+                  "investigator": "$input_value",
+                  "weakness_traits": [],
+                  "select_traits": false
+                },
+                {
+                  "type": "remove_card",
+                  "investigator": "$input_value",
+                  "card": "01000",
+                  "non_story": true
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+}

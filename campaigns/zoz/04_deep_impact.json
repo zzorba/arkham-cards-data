@@ -1,0 +1,947 @@
+{
+  "id": "deep_impact",
+  "scenario_name": "Deep Impact",
+  "header": "Scenario II",
+  "full_name": "Scenario II: Deep Impact",
+  "icon": "zoz_deep_impact",
+  "setup": [
+    "set_hidden_country",
+    "intro",
+    "$check_tarot_reading",
+    "$setup_reminders",
+    "gather_encounter_sets",
+    "check_entered_the_island_quickly",
+    "gather_companions",
+    "choose_companions",
+    "$gather_country_encounter_set",
+    "$country_location_layout",
+    "$add_country_symbol_token",
+    "setup_c_act",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+    {
+      "id": "set_hidden_country",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "current_country",
+          "operation": "set",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The situation has changed drastically from what you expected when you first landed.  While you do have the direct support of the locals, however eclectic they are, you are cut off from the expedition.  Even if you weren't, you doubt that they could lend you any meaningful support, given how difficult it was to enter Oz the first time.  You must rely on your own skills and those of your new companions.\nOzma and Glinda escort you to the gates of the city as the citizens look on with a mix of wonder and concern.  Ozma waves to them, trying to keep up appearances.  \"You've made the danger of the Colour very clear.  We must evacuate the surrounding countries until the threat is purged.  I will need several of our bravest to rally the people, so please, pick a handful to accompany you for now.\"\nThe Guardian of the Gates sees you rapidly through to the open fields around the city.  Glinda gestures out into the forests beyond with an aloof grace.  \"The meteorite lies in that direction, but where precisely I cannot say.  You must find its location and gauge the strength of the immediate threat.  We have much work to do before we can expel the Colour from Oz.\"  She touches a finger to her lips in thought.  \"In fact, there are several avenues we might try in the surrounding countries to increase our fighting chances.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_deep_impact",
+        "zoz_emerald_city",
+        "zoz_alien_vibrance",
+        "zoz_ferocious_beasts",
+        "zoz_horrid_infection",
+        "zoz_prismatic_evils"
+      ]
+    },
+    {
+      "id": "check_entered_the_island_quickly",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "entered_the_island_quickly",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_spiraling_decay"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_spiraling_decay",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_spiraling_decay"
+      ]
+    },
+    {
+      "id": "gather_companions",
+      "type": "encounter_sets",
+      "text": "Gather the <i>Companions of Oz</i> encounter set.  Put a copy of Boon Companions into each investigator's play area.  Remove each other copy of Boon Companions from the game.",
+      "encounter_sets": [
+        "zoz_companions_of_oz"
+      ]
+    },
+    {
+      "id": "choose_companions",
+      "text": "Choose up to four of the companion assets and put them into play below the act deck.  Remove each other companion asset from the game.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Companions",
+        "min": 0,
+        "max": 4,
+        "choices": [
+          {
+            "id": "capn_bill",
+            "text": "Cap'n Bill",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "capn_bill",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_capn_bill",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "jack",
+            "text": "Jack Pumpkinhead",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "jack",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_jack",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shaggy",
+            "text": "Shaggy Man",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "shaggy",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_shaggy",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "lion",
+            "text": "The Cowardly Lion",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "lion",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_lion",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "frogman",
+            "text": "The Frogman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "frogman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_frogman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tiger",
+            "text": "The Hungry Tiger",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tiger",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_tiger",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "patchwork",
+            "text": "The Patchwork Girl",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "patchwork",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_patchwork",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sawhorse",
+            "text": "The Sawhorse",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "sawhorse",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_sawhorse",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "scarecrow",
+            "text": "The Scarecrow",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "scarecrow",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_scarecrow",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tinman",
+            "text": "The Tin Woodman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tinman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_tinman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wizard",
+            "text": "The Wizard",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "wizard",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_wizard",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tik_tok",
+            "text": "Tik-Tok",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tik_tok",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_companion_tik_tok",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_c_act",
+      "text": "Put the 'c' act into play below the 'a' act.  During this scenario, each act deck is active at the same time."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Meteorite Crater, the [[Oz]] asset and [[Nemesis]] enemy from the country encounter set."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_completed_a_deck",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators complete the 'a' act deck?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s2_completed_a_deck",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_completed_a_deck",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_completed_a_deck",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "meteor_observations",
+      "text": "In your Campaign Log, under \"Advantages,\" record <i>Meteor Observation.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "advantages",
+          "id": "meteor_observation",
+          "text": "Meteor Observation"
+        }
+      ]
+    },
+    {
+      "id": "ask_nemesis_in_victory_display",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is there a [[Nemesis]] enemy in the victory display?",
+            "steps": ["the_colour_is_aware_of_your_strength"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_colour_is_aware_of_your_strength",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_is_aware_of_your_strength",
+          "text": "the Colour is aware of your strength."
+        }
+      ]
+    },
+    {
+      "id": "fatigue_companions_in_play",
+      "text": "In the Campaign Log under \"Companions of Oz\", mark 1 fatigue next to the name of each companion asset in play.",
+      "steps": [
+        "check_capn_bill",
+        "check_jack",
+        "check_shaggy",
+        "check_lion",
+        "check_frogman",
+        "check_tiger",
+        "check_patchwork",
+        "check_sawhorse",
+        "check_scarecrow",
+        "check_tinman",
+        "check_wizard",
+        "check_tik_tok"
+      ]
+    },
+    {
+      "id": "check_capn_bill",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_capn_bill",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_capn_bill"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jack",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_jack",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_jack"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_shaggy",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_shaggy",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_shaggy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lion",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_lion",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_lion"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_frogman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_frogman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_frogman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tiger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_tiger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tiger"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_patchwork",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_patchwork",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_patchwork"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sawhorse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_sawhorse",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_sawhorse"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scarecrow",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_scarecrow",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_scarecrow"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tinman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_tinman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tinman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_wizard",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_wizard",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_wizard"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tik_tok",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s2_companion_tik_tok",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$fatigue_tik_tok"]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_completed_a_deck",
+        "check_completed_a_deck"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "If you needed proof of the dangers invading Oz, you have it now.  There was little you could do to locate and study the meteor with the Colour already this strong.  You and your companions recuperate at the city gates and plan your next moves carefully.\nAs you talk amongst yourselves, the forest flares brightly an all too familiar hue.  The light dims back down in a matter of seconds, leaving you bewildered and worried.  Citizens of the country were already filtering toward the capital during your mission, but you begin to question each person about the flare.  None have any idea until finally a stout woman stops with a disturbed expression.  \"Yes, I did see... and I'll never forget it, either!  It was the meteor of course, but... it was only once Ruggedo touched it.\"",
+      "steps": [
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You stand a safe distance from the meteorite crater, recording your findings diligently.  Its growth is far faster than the one that landed outside Arkham, and its effects much stronger on first infection.  You estimate that with this level of deterioration, you have only a few days before most of Oz is under the Colour's influence.\nYour focus is broken by a sudden cry from one of the other onlookers.  Ruggedo -- the stocky little man from earlier -- has wandered into the crater once again, moving in a complete trance.  He mumbles incoherently with his arms stretched out toward the meteor.  You and your companions vault forward to stop him, but Ruggedo's hands plant firmly on the glowing meteorite.  A horrid flash sears out at his touch, and you stagger back, covering your eyes.  The light dims rapidly, but by the time you recover your sight, both the meteorite and Ruggedo have vanished.  The earth where they once stood shifts like dough in a baker's hands, speckled with fragments of the vile Colour.",
+      "steps": [
+        "meteor_observations",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "One of your companions shakes their head sagely with a knowing sigh.  You turn to them and ask why they seem somehow less surprised than you.  \"It's Ruggedo.  He's a nome -- a spirit of the earth.  In fact, he once was the King of the Nomes, and a rather bitter enemy of Oz until his memories were lost.  He had been living as a pleasant citizen of Oz since then, but with the Colour poisoning the earth, it must have affected him even more strongly.  And now the both of them have vanished below the ground...\"\nThis is a horrible complication.  You had hoped to develop countermeasures and bring them back to the crater, but with the source of the Colour now missing, there are several more unknowns to account for.  All you can do for now is focus on your work and strike down the threats as they appear.... though after first exposure to the Colour, some of your companions are looking a bit worse for wear.",
+      "steps": [
+        "earn_xp",
+        "ask_nemesis_in_victory_display",
+        "$ask_country_story_assets",
+        "fatigue_companions_in_play",
+        "$cross_out_killed_companions",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

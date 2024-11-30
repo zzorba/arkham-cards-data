@@ -1,0 +1,381 @@
+{
+  "id": "desaturation",
+  "scenario_name": "Desaturation",
+  "full_name": "Interlude II: Desaturation",
+  "header": "Interlude II",
+  "type": "interlude",
+  "icon": "zoz_prismatic_evils",
+  "setup": [
+    "intro",
+    "choose_introductions",
+    "rainbow_connection"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Your return to the palace is met by Jellia Jamb, the cheerful palace housekeeper, though it is hard to return her cheerfulness in these circumstances.  She directs you toward the royal dining hall, where Ozma and Glinda are already seated.  Your new companions file in close behind you, but you all seat yourselves in sobered silence.  In great contrast to your first meeting at the palace, everyone now understands just how serious a threat the Colour is, and are coming to terms with it at their own paces.\nOzma herself is tense, having never led her people through events as grim and dire as these.  Dorothy helps to reassure her friend that you are doing all you can to stop the Colour, but progress is hard to measure at this stage.  On the contrary, it seems that the Colour is making more progress against you and your comrades."
+    },
+    {
+      "id": "choose_introductions",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "read",
+            "text": "\"We should see how they're coping with the mythos.\"",
+            "description": "<i>This is only for character status and can be skipped.</i>",
+            "steps": [
+              "round_table", 
+              "check_fatigue", "check_wizard", "check_scarecrow", "check_tinman", 
+              "check_tik_tok", "check_jack", "check_patchwork",
+              "check_frogman", "check_capn_bill", "check_shaggy",
+              "check_lion", "check_tiger", "check_sawhorse",
+              "outro"
+            ]
+          },
+          {
+            "id": "skip",
+            "text": "\"There's plenty worse to come. Let's talk about action.\""
+          }
+        ]
+      }
+    },
+    {
+      "id": "round_table",
+      "title": "Round Table",
+      "type": "story",
+      "text": "You try to encourage the group by asking their thoughts on their experiences so far.  Many are still doing well, but the ones who have been at the center of events are quite troubled."
+    },
+    {
+      "id": "check_fatigue",
+      "text": "Check the Campaign Log under \"Companions of Oz.\"  Read the corresponding section of each companion with 2 or more fatigue."
+    },
+    {
+      "id": "check_wizard",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "wizard",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_wizard_story"] },
+          { "numCondition": 1, "steps": ["the_wizard_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_wizard_story",
+      "type": "story",
+      "text": "<b>The Wizard</b> rubs his forehead between his thumb and fingers as he picks at his dinner.  \"Back before I knew real magic, I thought I knew everything.  Then I realized I knew nothing, and Glinda taught me everything again from scratch.  And now... it feels like I know nothing once again.  Only this time, it feels somehow wrong to learn about the Colour.  My mind is trying to reject what I've experienced so far, but I can't let it.  Not with all of Oz at stake.\""
+    },
+    {
+      "id": "check_scarecrow",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "scarecrow",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_scarecrow_story"] },
+          { "numCondition": 1, "steps": ["the_scarecrow_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_scarecrow_story",
+      "type": "story",
+      "text": "<b>The Scarecrow</b> stares into space with his fist pressed into his cheek, deep in thought.  After a long silence, he finally shakes his head and removes his hat.  \"It's impossible that my brains shouldn't be working as they always do, but something has been different since we found the Colour.  There are words and pictures in my head that don't belong.  I'm not afraid of being destroyed, but what if the Colour doesn't try to destroy me?  What if it just changes me with these strange thoughts?  Will my thoughts want to help the Colour instead?  I can scarely bear to think of it!  We must do all we can to protect our brains from it!\""
+    },
+    {
+      "id": "check_tinman",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "tinman",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_tinman_story"] },
+          { "numCondition": 1, "steps": ["the_tinman_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_tinman_story",
+      "type": "story",
+      "text": "<b>The Tin Woodman</b> wipes the trickles of tears from his face with an oilrag as he looks to you.  \"So much loss in such a short time!  My tender heart can barely contain my sorrow on behalf of the poor citizens.\"  He inspects his face in a mirror to check for rust, and his tin hands slide roughly over several spots.  \"This isn't rust... but what is it?  My tin isn't shining as it should be.  Don't tell me that... the Colour can drain the luster out of me!  It's yet another reason to put a stop to this cruel force!\""
+    },
+    {
+      "id": "check_tik_tok",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "tik_tok",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_tik_tok_story"] },
+          { "numCondition": 1, "steps": ["the_tik_tok_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_tik_tok_story",
+      "type": "story",
+      "text": "<b>Tik-Tok</b> stands apart from the table, lifting his arms and inspecting the clockwork mechanisms through the gaps.  \"I am ful-ly wound but some-thing is not quite right.  My gears are out of or-der.  They are not bro-ken or bent, but they do not fit to-ge-ther as Smith and Tin-ker in-ten-ded.  My thin-king pro-cess-es have con-sid-ered the Co-lour as the rea-son why, but it is un-clear how.  I will go forth once a-gain and stop it from twis-ting my ma-chi-ne-ry.\""
+    },
+    {
+      "id": "check_jack",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "jack",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_jack_story"] },
+          { "numCondition": 1, "steps": ["the_jack_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_jack_story",
+      "type": "story",
+      "text": "<b>Jack Pumpkinhead</b> sits quietly, probing various spots of his pumpkin until at last turning to you.  \"My head feels soft, but I can't find any mushy spots.  It's too early for this head to be spoiling.  Can a pumpkin spoil without rotting?\"  He knocks on the top tentatively, but shakes his head in disappointment.  \"Maybe the Colour is changing what my head is.  It was once a growing pumpkin, but stopped when it was picked and carved.  Maybe it's growing the wrong way.  If it is, then I need to work harder to stop the Colour.\""
+    },
+    {
+      "id": "check_patchwork",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "patchwork",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_patchwork_story"] },
+          { "numCondition": 1, "steps": ["the_patchwork_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_patchwork_story",
+      "type": "story",
+      "text": "<b>The Patchwork Girl</b> would normally be spinning and tumbling about, but is instead sitting at the table, looking her colorful body over.  \"I'm not sure that these colors are the same ones I had this morning.  Or maybe my button eyes can't see like they did before.  Or perhaps it's neither!\"  She lets out a laugh that clashes with the mood in the room, but she is unconcerned as ever.  \"You said that the Colour changes how people think or how they look, but maybe it changes what people are supposed to be instead!  Maybe my patches are still the same, but thanks to the Colour, what I'm supposed to be is different, and that's why it doesn't seem right!  The Colour is surely a strange thing!\""
+    },
+    {
+      "id": "check_frogman",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "frogman",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_frogman_story"] },
+          { "numCondition": 1, "steps": ["the_frogman_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_frogman_story",
+      "type": "story",
+      "text": "<b>The Frogman</b> eats pensively, his face the picture of unhappiness. \"I wonder if the waters of the Truth Pond are stronger than the Colour, or if the reverse is true.  I am bound to say the truth, and I know that I am a frogman.  If I state aloud that I am a frogman, am I preserved from the Colour's changes?  Or can the Colour make the untrue true?  Will my wisdom be for nothing then?  I cannot let this come to pass, for the good of all who depend upon my truths.\""
+    },
+    {
+      "id": "check_capn_bill",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "capn_bill",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_capn_bill_story"] },
+          { "numCondition": 1, "steps": ["the_capn_bill_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_capn_bill_story",
+      "type": "story",
+      "text": "<b>Cap'n Bill</b> eats heartily and at a steady pace, in contrast to the others at the table.  He turns to you with a confident look.  \"Every good sailor knows to eat before the rough weather strikes.  You can't focus on what needs doing with an empty belly.  Though I must confess... I still feel hollow.  I'd heard of other sailors affected by strange things out at sea, driving them to madness, but I never imagined it could feel like this.  It's a wasting away that I never thought possible.  There has to be a way to stop this.\""
+    },
+    {
+      "id": "check_shaggy",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "shaggy",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_shaggy_story"] },
+          { "numCondition": 1, "steps": ["the_shaggy_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_shaggy_story",
+      "type": "story",
+      "text": "<b>Shaggy Man</b> idly brushes the frayed hem of his coat as he sits slouched in his chair.  \"You know, I feel a bit frayed myself.  But not like this coat.  They made that for me in the palace here to be just as shaggy as I am.  It's that Colour that's making me feel ragged.  Slowly worn down and fading away.  I can't even describe how it's happening in a way that makes sense.  I'm just... not as much as I used to be.  If feeling a bit empty is what it takes to save a wondrous place like Oz, I'll do it, but I sure hope it happens fast.\""
+    },
+    {
+      "id": "check_lion",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "lion",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_lion_story"] },
+          { "numCondition": 1, "steps": ["the_lion_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_lion_story",
+      "type": "story",
+      "text": "<b>The Cowardly Lion</b> whimpers beside Ozma's chair, looking nervously about the room.  \"It's no use... I just can't stand up to such a frightening thing as the Colour.  Even though I've already faced it, I was terrified the entire time.  Even now I can hear things that aren't there... at least I hope they aren't there.  I hope I won't have to go back out to face the Colour again... but if you need me to, I will.\""
+    },
+    {
+      "id": "check_tiger",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "tiger",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_tiger_story"] },
+          { "numCondition": 1, "steps": ["the_tiger_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_tiger_story",
+      "type": "story",
+      "text": "<b>The Hungry Tiger</b> growls unhappily as he licks his chops, dinner already long finished.  \"I have always been hungry, but this adventure with the Colour has made me hungrier still!  The food tasted less savory today, less mouth-watering... and no one else has complained of its taste, have they?  If the Colour has stolen my taste, then I shall be inconsolable!  I will devour it -- if it can be devoured.\""
+    },
+
+
+    {
+      "id": "check_sawhorse",
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "sawhorse",
+          "id": "$fatigue"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 2
+        },
+        "operation": "compare",
+        "options": [
+          { "numCondition": 0, "steps": ["the_sawhorse_story"] },
+          { "numCondition": 1, "steps": ["the_sawhorse_story"] }
+        ]
+      }
+    },
+    {
+      "id": "the_sawhorse_story",
+      "type": "story",
+      "text": "<b>The Sawhorse</b> does not often visit the castle interior, but with the recent events, he has been restless.  He trots slowly about the table, gold tipped legs clanking on the marble floor.  Gradually he comes to a stop beside you and looks down at his feet.  \"Friend human, do you know if the Colour can ruin gold?  My feet were freshly shod last week, but they look to be worn out already.  I am fast, but I do not know if I can outrun a color.  Light is very fast, and color shows up when light does, so it must be very fast too.  I shall keep trying.\""
+    },
+    {
+      "id": "outro",
+      "type": "story",
+      "text": "It's clear that while grim matters may be easier to adjust to in a place like Arkham, the citizens of Oz have never dealt with a tragedy even a fraction as serious or horrid as the Colour's arrival.  You will have to keep close tabs on your new allies to ensure that they last as long as possible against the otherworldly force.  However, there are advantages that the citizens of Oz possess that you haven't tapped into just yet."
+    },
+    {
+      "id": "rainbow_connection",
+      "type": "story",
+      "title": "Rainbow Connection",
+      "text": "Hoping to add new variables in your favor, you ask Ozma more about the nature of Oz.  They claimed when you first arrived that it was a fairy country, and surely that must mean that there are powerful spirits somewhere about.\n\"Yes, fairies do exist in Oz, though they live apart from the rest of its citizens, as is their nature.  The Nomes are earth fairies of a sort, but they mostly live in the Nome kingdom across the desert near the Kingdom of Ev, and are rarely agreeable.  There are some like the mist maidens of Gillikin Country who do obey my commands, but do not stray from their misty valley.  And then there are the fairies of the air, which--\"  Ozma pauses and her eyes widen in realization.  \"Of course!  The cloud fairies!\"  You like her sudden change in tone, but fail to see how clouds could come to your aid.\nOzma stands briskly to address the court.  \"It did not occur to us sooner because our meetings with her are often chance encounters, but we have a friend and ally who may aid us greatly against the Colour!  Many of you have journeyed with her in past adventures, and we must find her once again!\"\nDorothy rises with her hands clasped in hope.  \"Do you mean--?\"\nOzma nods with a serene smile.  \"We must find Polychrome!\""
+    }
+  ]
+}

@@ -1,0 +1,1249 @@
+{
+  "id": "defense_of_the_realm",
+  "scenario_name": "Defense of the Realm",
+  "header": "Scenario VII",
+  "full_name": "Scenario VII: Defense of the Realm",
+  "icon": "zoz_defense_of_the_realm",
+  "setup": [
+    "intro",
+    "check_ruggedo_survived_the_colours_infection",
+    "$check_tarot_reading",
+    "$setup_reminders",
+    "gather_encounter_sets",
+    "check_the_colour_is_aware_of_your_strength",
+    "gather_companions",
+    "choose_companions",
+    "setup_locations",
+    "location_layout",
+    "setup_ozma_and_glinda",
+    "attach_story_cards",
+    "setup_colour",
+    "add_difficulty_token",
+    "explain_campaign_log_checks",
+    "check_the_emerald_city_was_damaged_by_witches",
+    "check_the_emerald_city_was_damaged_by_the_invading_army",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+
+    {
+      "id": "explain_campaign_log_checks",
+      "text": "Check the Campaign Log and resolve each of the following:",
+      "bullet_type": "none"
+    },
+    {
+      "id": "check_the_emerald_city_was_damaged_by_witches",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_emerald_city_was_damaged_by_witches",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["second_country_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "second_country_doom",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "order_of_events_second",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["second_munchkin_doom"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["second_winkie_doom"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["second_quadling_doom"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["second_gillikin_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "second_munchkin_doom",
+      "bullet_type": "small",
+      "text": "Because Munchkin Country is the second country under \"Order of Events\", place 1 doom on the East Wall location."
+    },
+    {
+      "id": "second_winkie_doom",
+      "bullet_type": "small",
+      "text": "Because Winkie Country is the second country under \"Order of Events\", place 1 doom on the West Wall location."
+    },
+    {
+      "id": "second_quadling_doom",
+      "bullet_type": "small",
+      "text": "Because Quadling Country is the second country under \"Order of Events\", place 1 doom on the South Wall location."
+    },
+    {
+      "id": "second_gillikin_doom",
+      "bullet_type": "small",
+      "text": "Because Gillikin Country is the second country under \"Order of Events\", place 1 doom on the North Wall location."
+    },
+
+
+
+
+    {
+      "id": "check_the_emerald_city_was_damaged_by_the_invading_army",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_emerald_city_was_damaged_by_the_invading_army",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["fourth_country_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fourth_country_doom",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "hidden",
+        "id": "order_of_events_fourth",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": ["fourth_munchkin_doom"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["fourth_winkie_doom"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["fourth_quadling_doom"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["fourth_gillikin_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "fourth_munchkin_doom",
+      "bullet_type": "small",
+      "text": "Because Munchkin Country is the fourth country under \"Order of Events\", place 1 doom on the East Wall location."
+    },
+    {
+      "id": "fourth_winkie_doom",
+      "bullet_type": "small",
+      "text": "Because Winkie Country is the fourth country under \"Order of Events\", place 1 doom on the West Wall location."
+    },
+    {
+      "id": "fourth_quadling_doom",
+      "bullet_type": "small",
+      "text": "Because Quadling Country is the fourth country under \"Order of Events\", place 1 doom on the South Wall location."
+    },
+    {
+      "id": "fourth_gillikin_doom",
+      "bullet_type": "small",
+      "text": "Because Gillikin Country is the fourth country under \"Order of Events\", place 1 doom on the North Wall location."
+    },
+    {
+      "id": "add_difficulty_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-2"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Layout",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "north_wall",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "emerald_city_streets",
+          "blank",
+          "emerald_city_streets",
+          "blank"
+        ],
+        [
+          "west_wall",
+          "blank",
+          "royal_palace_of_oz",
+          "blank",
+          "east_wall"
+        ],
+        [
+          "blank",
+          "emerald_city_streets",
+          "blank",
+          "emerald_city_streets",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "south_wall",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "north_wall",
+          "name": "North Wall"
+        },
+        {
+          "code": "south_wall",
+          "name": "South Wall"
+        },
+        {
+          "code": "east_wall",
+          "name": "East Wall"
+        },
+        {
+          "code": "west_wall",
+          "name": "West Wall"
+        },
+        {
+          "code": "emerald_city_streets",
+          "name": "Emerald City Streets"
+        },
+        {
+          "code": "royal_palace_of_oz",
+          "name": "Royal Palace of Oz"
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Royal Palace of Oz, East Wall, West Wall, South Wall, and North Wall locations into play with their [[Intact]] sides faceup.  Randomly choose four of the Emerald City Streets location and put them into play with their [[Intact]] sides faceup.  Remove the other two copies of Emerald City Streets from the game.  Each investigator begins play at Royal Palace of Oz."
+    },
+    {
+      "id": "setup_ozma_and_glinda",
+      "text": "Put Ozma and Glinda into play at Royal Palace of Oz."
+    },
+    {
+      "id": "attach_story_cards",
+      "text": "Attach each of the four story cards to a different copy of Emerald City Streets."
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You have barely begun the return trip when a sudden magical glow surrounds you.  Its color is familiar, giving you no reason to panic, but the rocky scenery suddenly transforms.  You are once again in the throne room of Queen Ozma, with both she and Glinda looking anxiously at you.  The screams of citizens and rumble of stone roar dully from outside, and you rush to the upper floors of the palace to take rapid stock.\nThe Emerald City is in utter chaos as buildings shake and unearthly hues flash at the city walls.  Large arcs of protoplasmic mass rise up and collide into city's defenses -- both physical and magical -- steadily wearing away both of them.  Beyond, you at last see the Colour in a single, concentrated mass.  It roils like boiling tar, unpredictable and lethal, its unearthly glow bathing the withered landscape in the same maddening shade."
+    },
+    {
+      "id": "check_ruggedo_survived_the_colours_infection",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "ruggedo_survived_the_colours_infection",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["provoked", "place_1_doom"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["probing"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "provoked",
+      "type": "story",
+      "title": "Provoked",
+      "text": "The surges of Colour lash towards the city wildly, striking viciously but with surprising focus.  Ruggedo -- still barely recovered from the possession -- clutches his temples and stamps his feet in painful resistance.  \"I can feel the poisoned Earth all around us...\" he hisses, \"The Colour is straining... hurrying...\" The Nome struggles to remain conscious as palace servants summoned by Ozma carry him away to rest.  You brace yourself to face the fury of the Colour -- if it is even capable of any such emotion at all.  If the Emerald City falls, the world falls."
+    },
+    {
+      "id": "place_1_doom",
+      "text": "When the game begins, place 1 doom on the agenda. <i>(This doom triggers the forced effect on the agenda.)"
+    },
+    {
+      "id": "probing",
+      "type": "story",
+      "title": "Probing",
+      "text": "The Colour's attacks are powerful, but surprisingly pensive.  It recognizes you and the rest of Oz as threats, but you have only fought its symptoms at the surface, and did not succeed against it in the Nome Kingdom.  Regardless, time is of the essence.  Any chance of repelling the Colour from Earth lies in defending the Emerald City and striking back against the entity.  Now your fight truly begins."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_defense_of_the_realm",
+        "zoz_horrid_infection",
+        "zoz_terror_out_of_space",
+        "zoz_violent_invasion",
+        "zoz_the_colour_itself"
+      ]
+    },
+    {
+      "id": "check_the_colour_is_aware_of_your_strength",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_colour_is_aware_of_your_strength",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cross_out_aware_of_your_strength", "gather_spiraling_decay"]
+            
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_aware_of_your_strength",
+      "bullet_type": "small",
+      "text": "Cross out that entry.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_is_aware_of_your_strength",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "gather_spiraling_decay",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_spiraling_decay"
+      ]
+    },
+    {
+      "id": "gather_companions",
+      "type": "encounter_sets",
+      "text": "Gather the <i>Companions of Oz</i> encounter set.  Put a copy of Boon Companions into each investigator's play area.  Remove each other copy of Boon Companions from the game.",
+      "encounter_sets": [
+        "zoz_companions_of_oz"
+      ]
+    },
+    
+    {
+      "id": "choose_companions",
+      "text": "Choose up to four of the companion assets and put them into play below the act deck.  Remove each other companion asset from the game.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Companions",
+        "min": 0,
+        "max": 4,
+        "choices": [
+          {
+            "id": "capn_bill",
+            "text": "Cap'n Bill",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "capn_bill",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_capn_bill",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "jack",
+            "text": "Jack Pumpkinhead",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "jack",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_jack",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shaggy",
+            "text": "Shaggy Man",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "shaggy",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_shaggy",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "lion",
+            "text": "The Cowardly Lion",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "lion",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_lion",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "frogman",
+            "text": "The Frogman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "frogman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_frogman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tiger",
+            "text": "The Hungry Tiger",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tiger",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_tiger",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "patchwork",
+            "text": "The Patchwork Girl",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "patchwork",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_patchwork",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sawhorse",
+            "text": "The Sawhorse",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "sawhorse",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_sawhorse",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "scarecrow",
+            "text": "The Scarecrow",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "scarecrow",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_scarecrow",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tinman",
+            "text": "The Tin Woodman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tinman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_tinman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wizard",
+            "text": "The Wizard",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "wizard",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_wizard",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tik_tok",
+            "text": "Tik-Tok",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tik_tok",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s7_companion_tik_tok",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_colour",
+      "text": "Put The Colour Out of Space into play next to the agenda deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fatigue_companions_in_play",
+      "text": "In the Campaign Log under \"Companions of Oz\", mark 1 fatigue next to the name of each companion asset in play.",
+      "steps": [
+        "check_capn_bill",
+        "check_jack",
+        "check_shaggy",
+        "check_lion",
+        "check_frogman",
+        "check_tiger",
+        "check_patchwork",
+        "check_sawhorse",
+        "check_scarecrow",
+        "check_tinman",
+        "check_wizard",
+        "check_tik_tok"
+      ]
+    },
+    {
+      "id": "check_capn_bill",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_capn_bill",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_capn_bill"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_jack",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_jack",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_jack"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_shaggy",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_shaggy",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_shaggy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_lion",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_lion",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_lion"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_frogman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_frogman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_frogman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tiger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_tiger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tiger"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_patchwork",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_patchwork",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_patchwork"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_sawhorse",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_sawhorse",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_sawhorse"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_scarecrow",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_scarecrow",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_scarecrow"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tinman",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_tinman",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_tinman"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_wizard",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_wizard",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$fatigue_wizard"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_tik_tok",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s7_companion_tik_tok",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$fatigue_tik_tok"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_emerald_city_lies_in_ruins",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_emerald_city_lies_in_ruins",
+          "text": "the Emerald City lies in ruins."
+        }
+      ]
+    },
+    {
+      "id": "the_colour_consumed_oz_and_the_world",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_consumed_oz_and_the_world",
+          "text": "the Colour consumed Oz and the world."
+        }
+      ]
+    },
+    
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "illumination"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "true_colours"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "oz_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "the_investigators_defended_the_emerald_city",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_investigators_defended_the_emerald_city",
+          "text": "the investigators defended the Emerald City."
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The Colour's advance cannot be stopped any further.  Surrounded by the encroaching entity, the Emerald City is no longer your last bastion.  It is your mausoleum.  As the Colour washes over you, you feel the burning cold that Ammi Pierce described secondhand... the distortion of your body... the crumbling of your brain... the self you once knew grows alien... and though you know the world will succumb in time... it ceases to matter.",
+      "steps": [
+        "the_colour_consumed_oz_and_the_world",
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "In the eerie silence of the Colour's retreat, you take weary pause to appraise the city's state.  With few exceptions, the buildings are collapsed and faded.  Even with the Colour expunged, the gray, cracked destruction in its wake covers much of the city.  Only time will tell if the grand city will ever be the same again, but there is still work to be done.  One final task lies just beyond the warped treeline.",
+      "steps": [
+        "the_emerald_city_lies_in_ruins",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "In the eerie silence of the Colour's retreat, you take weary pause to appraise the city's state.  The green glint of emeralds still catch your eye intermittently as sun filters through the gray cloud cover.  Against all odds, the Emerald City stands, tarnished perhaps but still proud.  Now all that remains is to secure its future -- and a future for the whole world -- by going on the attack at long last.",
+      "steps": [
+        "the_investigators_defended_the_emerald_city",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The surviving citizens of Oz emerge timidly from the least damaged structures, wondering their fears aloud.  Ozma and Glinda do their best to assure the public as you take what brief respite you can.  You will need every bit of your strength and cunning to finish the task ahead, for it will decide whether the Colour meets its match, or if Earth is destined to be as barren and alien as the countries outside the city.",
+      "steps": [
+        "earn_xp",
+        "fatigue_companions_in_play",
+        "$cross_out_killed_companions",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

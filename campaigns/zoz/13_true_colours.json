@@ -1,0 +1,1090 @@
+{
+  "id": "true_colours",
+  "scenario_name": "True Colours",
+  "header": "Scenario VIII",
+  "full_name": "Scenario VIII: True Colours",
+  "icon": "zoz_true_colours",
+  "setup": [
+    "intro",
+    "check_mombi_was_subdued",
+    "$check_tarot_reading",
+    "$setup_reminders",
+    "gather_encounter_sets",
+    "check_the_investigators_defended_the_emerald_city",
+    "gather_companions",
+    "choose_companions",
+    "setup_locations",
+    "check_emerald_city_location",
+    "location_layout",
+    "place_doom_on_all_colour",
+    "setup_colour",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+
+    {
+      "id": "place_doom_on_all_colour",
+      "text": "Place 1 doom on each [[Colour]] location."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Layout",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "warped_woods",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "scarred_hollow",
+          "blank",
+          "heart_of_the_infection",
+          "blank",
+          "chromatic_corpse",
+          "blank"
+        ],
+        [
+          "blank",
+          "luminescent_forest",
+          "blank",
+          "faded_glen",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "emerald_city",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "warped_woods",
+          "name": "Warped Woods"
+        },
+        {
+          "code": "scarred_hollow",
+          "name": "Scarred Hollow"
+        },
+        {
+          "code": "heart_of_the_infection",
+          "name": "Heart of the Infection"
+        },
+        {
+          "code": "chromatic_corpse",
+          "name": "Chromatic Corpse"
+        },
+        {
+          "code": "luminescent_forest",
+          "name": "Luminescent Forest"
+        },
+        {
+          "code": "faded_glen",
+          "name": "Faded Glen"
+        },
+        {
+          "code": "emerald_city",
+          "name": "The Emerald City"
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Heart of the Infection location into play.  Randomly choose one of the Luminescent Forest, Faded Glen, Warped Woods, Scarred Hollow, and Chromatic Copse locations and put them into play.  Remove the other copy of each of these locations from the game."
+    },
+    {
+      "id": "check_emerald_city_location",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_investigators_defended_the_emerald_city",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["crown_jewel"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["whats_left_of_it"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "crown_jewel",
+      "bullet_type": "small",
+      "text": "Put Emerald City <i>(Crown Jewel of Oz)</i> into play. Each investigator begins play at Emerald City."
+    },
+    {
+      "id": "whats_left_of_it",
+      "bullet_type": "small",
+      "text": "Put Emerald City <i>(Or What's Left of It...)</i> into play. Each investigator begins play at Emerald City."
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Before you lies the blasted landscape of Oz, as gray and desolate as the Gardner farm outside Arkham.  Only the loathsome Colour, churning beyond the treeline, gives any semblance of life at all here.  Through trial and tribulation, you have the means to repel the Colour -- a method perhaps only possible here in Oz -- and you must apply it to force the entity to abandon Earth once more."
+    },
+    {
+      "id": "check_mombi_was_subdued",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "mombi_was_subdued",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["subtle_changes", "action_no_aoo"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["ever_onward"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "subtle_changes",
+      "type": "story",
+      "title": "Subtle Changes",
+      "text": "A hoarse cough directs your attention back toward the city gates.  Old Mombi -- the witch who once attempted to bend the Colour to her will -- leans against the gate with Ozma and Glinda close behind her.  \"Wait...\" she rasps weakly, \"and listen to a sadder but wiser woman...\"  Mombi hobbles forward, close enough to clutch to your shoulder and speak with less strain.  \"The spells I once wove... they had a flow to them that reflected the Colour.  The magic of Oz --\" she glares resentfully back at Ozma and Glinda still, \"-- does not have this quality.  I wish for you to destroy the Colour... for what it did to my body.  Listen well...\""
+    },
+    {
+      "id": "action_no_aoo",
+      "text": " For the remainder of the scenario, the [action] ability on act 1a gains: \"This action does not provoke attacks of opportunity from [[Colour]] enemies.\""
+    },
+    {
+      "id": "ever_onward",
+      "type": "story",
+      "title": "Ever Onward",
+      "text": "You once again draw the enchanted emeralds from your pockets as you ready yourself for the ordeal.  Effective as they were, the magic is still unfamiliar in your hands."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_true_colours",
+        "zoz_emerald_city",
+        "zoz_blighted_land",
+        "zoz_horrid_infection",
+        "zoz_prismatic_evils",
+        "zoz_violent_invasion",
+        "zoz_the_colour_itself"
+      ]
+    },
+    {
+      "id": "check_the_investigators_defended_the_emerald_city",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_investigators_defended_the_emerald_city",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_spiraling_decay"]
+            
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_spiraling_decay",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zoz_spiraling_decay"
+      ]
+    },
+    {
+      "id": "gather_companions",
+      "type": "encounter_sets",
+      "text": "Gather the <i>Companions of Oz</i> encounter set.  Put a copy of Boon Companions into each investigator's play area.  Remove each other copy of Boon Companions from the game.",
+      "encounter_sets": [
+        "zoz_companions_of_oz"
+      ]
+    },
+    
+    {
+      "id": "choose_companions",
+      "text": "Choose <b>any amount</b> of the companion assets and put them into play below the act deck.  Remove each other companion asset from the game.",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Companions",
+        "choices": [
+          {
+            "id": "capn_bill",
+            "text": "Cap'n Bill",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "capn_bill",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_capn_bill",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "jack",
+            "text": "Jack Pumpkinhead",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "jack",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_jack",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "shaggy",
+            "text": "Shaggy Man",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "shaggy",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_shaggy",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "lion",
+            "text": "The Cowardly Lion",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "lion",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_lion",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "frogman",
+            "text": "The Frogman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "frogman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_frogman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tiger",
+            "text": "The Hungry Tiger",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tiger",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_tiger",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "patchwork",
+            "text": "The Patchwork Girl",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "patchwork",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_patchwork",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "sawhorse",
+            "text": "The Sawhorse",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "sawhorse",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_sawhorse",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "scarecrow",
+            "text": "The Scarecrow",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "scarecrow",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_scarecrow",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tinman",
+            "text": "The Tin Woodman",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tinman",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_tinman",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "wizard",
+            "text": "The Wizard",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "wizard",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_wizard",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tik_tok",
+            "text": "Tik-Tok",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "tik_tok",
+                    "id": "$fatigue"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [{ "boolCondition": true }]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_companion_tik_tok",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_colour",
+      "text": "Put The Colour Out of Space into play next to the agenda deck."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "Each investigator earns 5 bonus experience as they have saved Oz and the world from the Colour's corruption.",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "the_colour_consumed_oz_and_the_world",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_consumed_oz_and_the_world",
+          "text": "the Colour consumed Oz and the world."
+        }
+      ]
+    },
+    
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "oz_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "win_campaign_but_do_not_survive",
+      "text": "The investigators win the campaign, but do not survive the ordeal.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "oz_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "the_colour_has_returned_to_the_depths_of_space",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_colour_has_returned_to_the_depths_of_space",
+          "text": "the Colours has returned to the depths of space."
+        }
+      ]
+    },
+
+    {
+      "id": "the_investigators_survived_the_colours_departure",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_investigators_survived_the_colours_departure",
+          "text": "the investigators survived the Colour's departure."
+        }
+      ]
+    },
+
+    {
+      "id": "ask_act_1_or_2",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is it act 1 or 2?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_completed_act",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_act_1_or_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "s8_completed_act",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "explain_killed_not_resigned_or_emerald",
+      "text": "Each investigator who has not resigned or is not at Emerald City is <b>kiled</b>."
+    },
+    {
+      "id": "handle_killed_resigned",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "not_resigned",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "maybe_ask_final_location"
+            ],
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "defeated",
+                "killed": true,
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_someone_alive",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_ask_final_location",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "alive",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_final_location"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_any_resigned"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_final_location",
+      "text": "Location",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "alive",
+        "choices": [
+          {
+            "id": "emerald",
+            "text": "The Emerald City",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_someone_alive",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "not_emerald",
+            "text": "Somewhere elese",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "killed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_any_resigned",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "investigator_status",
+        "investigator": "resigned",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "s8_someone_alive",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_someone_alive",
+      "text": "If each investigator was <b>killed</b>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          { 
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "s8_someone_alive",
+            "options": [{ "boolCondition": false }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["resolution_4"]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "remove_chromatic_infection",
+      "text": "Remove Chromatic Infection from each investigator's deck.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "zoz_chromatic_infection"
+        }
+      ]
+    },
+    {
+      "id": "win_trauma",
+      "text": "Each investigator takes 1 physical and 1 mental trauma from the final confrontation with the Colour.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 1,
+          "mental": 1
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!"
+    },
+    {
+      "id": "actually_win",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was resigned or reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "ask_act_1_or_2",
+        "check_act_1_or_2"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The sudden flood of the Colour engulfs the Emerald City, and with it, the last survivors of Oz.  For days, the decayed fairy country festers as the Colour rebuilds its strength.  The world does not have time to brace or fight before the Colour explodes out of Oz, corrupting everything in its path at a vastly accelerated pace.  Within a fortnight of the fall of Oz, all life on earth has been utterly subsumed.  The Colour is the single inhabitant of Earth, and it will not stay long.  Soon it will return to space and continue its parasitic quest for infection and assimilation.  The reasons why will never be understood.  The Colour simply is.",
+      "steps": [
+        "the_colour_consumed_oz_and_the_world",
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "The Colour lashes out violently as it funnels beyond the atmosphere, driven out by the enchanted prisms.  Despite your triumph, time was not on your side.  There was no chance of reaching the safety of the Emerald City and its magical barrier.  The burning cold of the Colour flooding your mind and body is countered by the faint warmth of victory.  The Colour may have claimed you, but Earth is free of its corruption once more.  As your mind fades and your body dissolves, you hope that others in the future may stand vigil against the dread entity from beyond.",
+      "steps": [
+        "explain_killed_not_resigned_or_emerald",
+        "handle_killed_resigned",
+        "check_someone_alive"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The citizens of Oz cautiously emerge from the Emerald City, wondering and waiting in the silence after the Colour's departure.  Try as they might, not even Ozma's magic picture could find any sign of the foreigners who had saved Oz -- and the world -- from utter destruction.  They were lost forever, but would never be forgotten.  As the fairy country rebuilt, monuments were constructed in honor of those heroes, and to remind all of Oz that somewhere in the void of space, the Colour still lived... if indeed it had life.",
+      "steps": [
+        "the_colour_has_returned_to_the_depths_of_space",
+        "win_campaign_but_do_not_survive"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "Ozma and Glinda focus their magic on the city's defenses as the barrier shimmers wildly.  Loose stones levitate and the city's buildings rattle from the cosmic event of the Colour's spectacular ejection.  Your eyes are forced shut from the blinding glare, and you grit your teeth from the ambient dissonance until all at once, it ceases.  You open your eyes once more to the dim and ashen landscape of Oz.  No unearthly hues flood your vision, no sinister glow lingers in the cracks and crevasses of the broken landscape.  Only stillness remains.  But like the ash after a volcanic disaster, the faint aura of hope is slowly building.  The survivors of Oz erupt into an exhausted but enthusiastic cheer as they cluster around you and your companions, heaping congratulations and praise onto you.  Gratifying as it is, your mind and body both yearn for some simple rest, for the first time in who knows how long.  You've certainly earned some.",
+      "steps": [
+        "the_colour_has_returned_to_the_depths_of_space",
+        "the_investigators_survived_the_colours_departure",
+        "remove_chromatic_infection",
+        "win_trauma",
+        "earn_xp",
+        "win_campaign",
+        "$upgrade_decks",
+        "actually_win"
+      ]
+    }
+  ]
+}
