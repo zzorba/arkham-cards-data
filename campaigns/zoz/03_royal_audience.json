@@ -22,7 +22,8 @@
       "ask_second_token",
       "ask_third_token",
       "set_fourth_token",
-      "add_colour_weakness"
+      "add_colour_weakness",
+      "$save_decks"
     ],
     "steps": [
       {
@@ -78,7 +79,7 @@
               }
             ]
           }
-        ]   
+        ]
       }
     },
     {
@@ -132,8 +133,8 @@
                 ]
               }
             ]
-          }        
-        ]   
+          }
+        ]
       }
     },
 
@@ -314,8 +315,11 @@
       "type": "input",
       "text": "Which token was revealed first?",
       "input": {
-        "type": "choose_one",
+        "type": "checklist",
         "random": true,
+        "text": "First token",
+        "min": 1,
+        "max": 1,
         "choices": [
           {
             "id": "skull",
@@ -429,8 +433,11 @@
       "type": "input",
       "text": "Which token was revealed next?",
       "input": {
-        "type": "choose_one",
+        "type": "checklist",
         "random": true,
+        "text": "Second token",
+        "min": 1,
+        "max": 1,
         "choices": [
           {
             "id": "skull",
@@ -568,8 +575,11 @@
       "type": "input",
       "text": "Which token was revealed next?",
       "input": {
-        "type": "choose_one",
+        "type": "checklist",
         "random": true,
+        "text": "Third token",
+        "min": 1,
+        "max": 1,
         "choices": [
           {
             "id": "skull",
@@ -710,7 +720,7 @@
         "type": "math",
         "opA": {
           "type": "campaign_log_count",
-          "section": "hiddem",
+          "section": "hidden",
           "id": "total_order_of_events"
         },
         "opB": {
@@ -718,7 +728,8 @@
           "value": -6
         },
         "operation": "sum",
-        "default_option": {},
+        "default_option": {
+        },
         "options": [
           {
             "numCondition": -3,
@@ -726,44 +737,28 @@
               {
                 "type": "campaign_log",
                 "section": "order_of_events",
-                "id": "munchkin_country",
-                "text": "Munchin Country"
+                "id": "gillikin_country",
+                "text": "Gillikin Country",
+                "hidden": true
               },
               {
                 "type": "campaign_log_count",
                 "section": "hidden",
                 "id": "order_of_events_fourth",
                 "operation": "set",
-                "value": 0
+                "value": 3
               }
             ]
-          }, 
+          },
           {
             "numCondition": -2,
             "effects": [
               {
                 "type": "campaign_log",
                 "section": "order_of_events",
-                "id": "winkie_country",
-                "text": "Winkie Country"
-              },
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "order_of_events_fourth",
-                "operation": "set",
-                "value": 1
-              }
-            ]
-          },
-          {
-            "numCondition": -1,
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "order_of_events",
                 "id": "quadling_country",
-                "text": "Quadling Country"
+                "text": "Quadling Country",
+                "hidden": true
               },
               {
                 "type": "campaign_log_count",
@@ -775,20 +770,40 @@
             ]
           },
           {
-            "numCondition": 0,
+            "numCondition": -1,
             "effects": [
               {
                 "type": "campaign_log",
                 "section": "order_of_events",
-                "id": "gillikin_country",
-                "text": "Gillikin Country"
+                "id": "winkie_country",
+                "text": "Winkie Country",
+                "hidden": true
               },
               {
                 "type": "campaign_log_count",
                 "section": "hidden",
                 "id": "order_of_events_fourth",
                 "operation": "set",
-                "value": 3
+                "value": 1
+              }
+            ]
+          },
+          {
+            "numCondition": 0,
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "order_of_events",
+                "id": "munchkin_country",
+                "text": "Munchin Country",
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_count",
+                "section": "hidden",
+                "id": "order_of_events_fourth",
+                "operation": "set",
+                "value": 0
               }
             ]
           }
