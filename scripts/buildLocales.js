@@ -8,6 +8,7 @@ const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const yargs = require('yargs');
+require('dotenv').config()
 
 const argv = yargs
   .option(
@@ -15,7 +16,7 @@ const argv = yargs
       alias: 'ac',
       description: 'Arkham Cards directory',
       type: 'string',
-      default: '.',
+      default: process.env.ARKHAM_CARDS || '.',
     }
   ).help()
   .alias('help', 'h')

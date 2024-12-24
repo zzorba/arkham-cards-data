@@ -1,5 +1,6 @@
 const promisify = require("util").promisify;
 const fs = require("fs");
+const fsprom = require("fs/promises");
 const path = require("path");
 const { keys, forEach, map } = require('lodash');
 const PO = require("pofile");
@@ -15,6 +16,9 @@ const exists = promisify(fs.exists);
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 const yargs = require('yargs');
+require('dotenv').config()
+const jsonata = require('jsonata');
+
 
 const argv = yargs
   .option(
@@ -22,7 +26,7 @@ const argv = yargs
       alias: 'ac',
       description: 'Arkham Cards directory',
       type: 'string',
-      default: '.',
+      default: process.env.ARKHAM_CARDS || '.',
     }
   ).help()
   .alias('help', 'h')
@@ -245,6 +249,29 @@ function messageId(msgId, context) {
   return unorm.nfc(msgId);
 }
 
+async function translateCards(source_file, target_file){
+  const content = await fsprom.readFile(source_file, 'utf-8');
+  const json = JSON.parse(content);
+
+  // For every item in the array, create a new object with the selected properties.
+  // Null or undefined properties won't be returned
+  const result = await jsonata(`$.{
+    "code": code ? code : undefined,
+    "flavor": flavor ? flavor : undefined,
+    "name": name ? name : undefined,
+    "slots": slots ? slots : undefined,
+    "subname": subname ? subname : undefined,
+    "text": text ? text : undefined,
+    "traits": traits ? traits : undefined,
+    "back_flavor": back_flavor ? back_flavor : undefined,
+    "back_text": back_text ? back_text : undefined,
+    "back_name": back_name ? back_name : undefined
+}`).evaluate(json);
+
+  const translated_content = JSON.stringify(result);
+  await fsprom.writeFile(target_file, translated_content, 'utf-8');
+}
+
 /**
  * Generate localized JSON files for a specific locale.
  *
@@ -279,7 +306,7 @@ async function generateLocale(localeCode) {
       console.log(`Cards: translation file for ${file} already exists, merging.`);
 
       const tmpFile = `i18n${path.sep}${localeCode}${path.sep}cards${path.sep}tmp.json`;
-      shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${tmpFile}`);
+      await translateCards(card, tmpFile);
       const newTranslations = await readJSON(tmpFile);
       const newCards = {};
       forEach(newTranslations, card => {
@@ -309,7 +336,7 @@ async function generateLocale(localeCode) {
 
     } else {
       console.log(`Cards: extracting translations for ${file}.`);
-      shell.exec(`jq -f ./scripts/jq/translate_cards.jq ${card} > ${translatedFile}`);
+      await translateCards(card, translatedFile)
     }
   }
 
