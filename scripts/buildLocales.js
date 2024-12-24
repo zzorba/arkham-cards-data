@@ -44,15 +44,15 @@ async function run() {
   shell.exec(`node ./scripts/generateLocales.js --arkham_cards ${argv.arkham_cards}`)
   for (const localeCode of localeCodes) {
     // Check rules script
-    const checkRulesResult = shell.exec(`sh ./scripts/check_rules.sh ${localeCode}`);
+    const checkRulesResult = shell.exec(`node ./scripts/check_rules.js --lang ${localeCode}`);
     if (checkRulesResult.code !== 0) {
-      console.error(`Error: Duplicate rule IDs found for locale ${localeCode}`);
-      process.exit(1);
+       console.error(`Error: Duplicate rule IDs found for locale ${localeCode}`);
+       process.exit(1);
     }
 
     shell.exec(`node ./scripts/generateReturnCampaigns.js -i build/i18n/${localeCode} -o build/i18n/${localeCode}/build`);
     shell.exec(`node ./scripts/build.js -i build/i18n/${localeCode}/campaigns -o build/i18n/${localeCode}/build -r build/i18n/${localeCode}/build/return_campaigns`);
-    shell.exec(`sh ./scripts/generate-campaign-logs.sh -o build/i18n/${localeCode}/build`);
+    shell.exec(`node ./scripts/generate-campaign-logs.js -o build/i18n/${localeCode}/build`);
     shell.cp(`./build/i18n/${localeCode}/build/allCampaigns.json`, `./build/allCampaigns_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/scenarioNames.json`, `./build/scenarioNames_${localeCode}.json`);
     shell.cp(`./build/i18n/${localeCode}/build/campaignLogs.json`, `./build/campaignLogs_${localeCode}.json`);
