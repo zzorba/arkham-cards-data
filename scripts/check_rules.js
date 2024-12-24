@@ -31,8 +31,7 @@ async function run(lang_code){
             return true; // Already removed from Set, thus a duplicate
         });
 
-      console.log(`(${lang_code}) Rules, duplicate ids found:`, duplicates);
-      process.exit(1);
+      throw new Error(`(${lang_code}) Rules, duplicate ids found: ${duplicates}`);
     }
 }
 
