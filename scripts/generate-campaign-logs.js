@@ -14,14 +14,14 @@ async function buildCampaignLogs(outDir){
 $map($, function($item) {
     (
 
-        $effects := $item.scenarios.**.effects
+        $effects := $item.**
         [type in ["campaign_log" ,"campaign_log_count", "campaign_log_cards"]]
         [text or masculine_text or feminine_text or nonbinary_text]
         [$not($exists(cross_out)) or cross_out != true];
 
         $supplies := $item.**.supplies;
 
-        $section_names := $distinct($effects.section);
+        $section_names := $sort($distinct($effects.section));
 
         {
             "campaignId": $item.campaign.id,
@@ -29,13 +29,14 @@ $map($, function($item) {
 
                 return {
                     "section": $section_name,
-                    "entries": $distinct($effects[section=$section_name].{
+                    "entries": [$distinct($effects[section=$section_name].{
                         "id": $.id,
-                        "text": $.text ? $.text :  
-                            $.masculine_text ? $.masculine_text : 
-                            $.feminine_text ? $.feminine_text :   
-                            $.nonbinary_text ? $.nonbinary_text : null
+                        "text": $.text,
+                        "masculine_text": $.masculine_text,
+                        "feminine_text": $.feminine_text,
+                        "nonbinary_text": $.nonbinary_text
                     })
+                    ^(id)]
                 }
 
             }),
@@ -43,7 +44,7 @@ $map($, function($item) {
         }
 
    )
-})
+})^(campaignId)
     `);
   const result = await expression.evaluate(json);
 
