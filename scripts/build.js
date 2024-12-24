@@ -1,3 +1,4 @@
+const fs = require('fs');
 const fsprom = require('fs/promises');
 const path = require('path');
 const jsonata = require('jsonata');
@@ -48,17 +49,24 @@ async function buildCampaign(directory, outDir) {
 async function buildAllCampaigns(outDir) {
     console.log("Building allCampaigns.json")
     const allCampaigns = [];
-    const campaigns = await listFiles(`${outDir}/campaigns`);
-    await Promise.all(campaigns.map( async campaign_file =>{
-        const content = await fsprom.readFile(campaign_file, 'utf-8');
+    const campaigns_files = await listFiles(`${outDir}/campaigns`);
+    campaigns_files.sort();
+
+    // Async version does not keep items sorted.
+    // await Promise.all(campaigns_files.map( async campaign_file =>{
+    //     const content = await fsprom.readFile(campaign_file, 'utf-8');
+    //     const json = JSON.parse(content);
+    //     allCampaigns.push(json);
+    // }));
+    campaigns_files.forEach( campaign_file =>{
+        const content = fs.readFileSync(campaign_file, 'utf-8');
         const json = JSON.parse(content);
         allCampaigns.push(json);
-    }));
+    });
 
     const allCampaignsPath = `${outDir}/allCampaigns.json`;
     const allCampaignsContent = JSON.stringify(allCampaigns, null, 2);
     await fsprom.writeFile(allCampaignsPath, allCampaignsContent, 'utf-8');
-
 }
 
 async function buildScenarioNames(outDir) {
@@ -68,7 +76,7 @@ async function buildScenarioNames(outDir) {
     const json = JSON.parse(content);
 
     const expression = jsonata('scenarios.{ "id": $.id, "name":$.scenario_name}');
-    const result = await expression.evaluate(json);  // returns 24
+    const result = await expression.evaluate(json);
 
     const scenarioNamesPath = `${outDir}/scenarioNames.json`;
     const scenarioNamesContent = JSON.stringify(result, null, 2);
