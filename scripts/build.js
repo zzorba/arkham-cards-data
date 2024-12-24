@@ -75,7 +75,7 @@ async function buildScenarioNames(outDir) {
     const content = await fsprom.readFile(allCampaignsPath, 'utf-8');
     const json = JSON.parse(content);
 
-    const expression = jsonata('scenarios.{ "id": $.id, "name":$.scenario_name}');
+    const expression = jsonata('scenarios.{ "id": $.id, "name":$.scenario_name}^(id)');
     const result = await expression.evaluate(json);
 
     const scenarioNamesPath = `${outDir}/scenarioNames.json`;
