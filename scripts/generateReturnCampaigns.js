@@ -1,4 +1,3 @@
-const Ajv = require('ajv');
 const fs = require('fs');
 const path = require('path');
 const jsonlint = require('jsonlint');
@@ -44,7 +43,9 @@ const input_replace_dir = input_dir === '.' ? '' : `${input_dir}${path.sep}`;
 
 console.log(`Generating Return Campaigns: (${input_dir}) -> (${output_dir})`);
 
-getFilePaths(`${input_dir}${path.sep}return_campaigns`).sort().map(file => {
+getFilePaths(`${input_dir}${path.sep}return_campaigns`)
+.sort()
+.map(file => {
   if (file.endsWith('.schema.json') || !file.endsWith('.json')) {
     return;
   }
