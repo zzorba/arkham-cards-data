@@ -75,11 +75,30 @@ async function buildScenarioNames(outDir) {
     const content = await fsprom.readFile(allCampaignsPath, 'utf-8');
     const json = JSON.parse(content);
 
-    const expression = jsonata('scenarios.{ "id": $.id, "name":$.scenario_name}^(id)');
+    // Select only scenarios with "id" and "scenario_name" properties; this ensures the creation of objects with two properties.
+    // Map the scenario to new object with "id" and "name" property.
+    // Sort the items by id.
+    const expression = jsonata(`
+        scenarios
+          [id and scenario_name]
+          .{ "id": $.id, "name":$.scenario_name}
+          ^(id)
+`);
     const result = await expression.evaluate(json);
 
+    // Remove items with duplicate "id" (keep only he first)
+    // BUG: Some items are just duplicated, but some other have same "id" and different "name" (look at  id: core)
+    const usedIds = new Set();
+    const unique = result.filter((item)=>{
+        const ID = item.id;
+        if (usedIds.has(ID)) return false;
+
+        usedIds.add(ID);
+        return true;
+    });
+
     const scenarioNamesPath = `${outDir}/scenarioNames.json`;
-    const scenarioNamesContent = JSON.stringify(result, null, 2);
+    const scenarioNamesContent = JSON.stringify(unique, null, 2);
     await fsprom.writeFile(scenarioNamesPath, scenarioNamesContent, 'utf-8');
 }
 
