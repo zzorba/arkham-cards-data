@@ -2,6 +2,7 @@ const fs = require('fs');
 const fsprom = require('fs/promises');
 const path = require('path');
 const jsonata = require('jsonata');
+const yargs = require('yargs');
 
 async function listSubfolders(directory) {
     const files = await fsprom.readdir(directory, { withFileTypes: true });
@@ -27,8 +28,11 @@ async function buildCampaign(directory, outDir) {
 
     // list and parse everey json file inside campaign folder
     const campaignFiles = await listFiles( directory );
-    await Promise.all(campaignFiles.map( async filepath =>{
-        const content = await fsprom.readFile(filepath, 'utf-8');
+    campaignFiles.sort();
+
+    // Async version does not keep items sorted, sync do.
+    campaignFiles.forEach( filepath =>{
+        const content = fs.readFileSync(filepath, 'utf-8');
         const json = JSON.parse(content);
 
         // campaign.json is copied in 'campaign' property,
@@ -38,7 +42,7 @@ async function buildCampaign(directory, outDir) {
         }else{
             data.scenarios.push(json);
         }
-    }));
+    });
 
     const base = path.basename(directory);
     const OUTPUT_FILE = `${outDir}/campaigns/${base}.json`;
@@ -102,7 +106,7 @@ async function buildScenarioNames(outDir) {
     await fsprom.writeFile(scenarioNamesPath, scenarioNamesContent, 'utf-8');
 }
 
-async function run(){
+async function run(OUTPUT_DIR, INPUT_DIR, RETURN_INPUT_DIR){
 
     await fsprom.mkdir(OUTPUT_DIR, {recursive: true});
     await fsprom.copyFile(`${INPUT_DIR}/../encounter_sets.json`, `${OUTPUT_DIR}/encounterSets.json`)
@@ -122,43 +126,32 @@ async function run(){
 }
 
 
-// Read command line arguments
-const args = process.argv.slice(2);
+const argv = yargs
+  .option(
+    'output', {
+      alias: 'o',
+      description: 'Output directory',
+      type: 'string',
+      default: './build',
+    }
+  )
+  .option(
+    'input', {
+      alias: 'i',
+      description: 'Campaigns definions directory',
+      type: 'string',
+      default: './campaigns',
+    }
+  )
+  .option(
+    'return', {
+      alias: 'r',
+      description: 'Return campaigns definions directory',
+      type: 'string',
+      default: './return_campaigns',
+    }
+  )
+  .help().alias('help', 'h')
+  .argv;
 
-let OUTPUT_DIR, INPUT_DIR, RETURN_INPUT_DIR;
-
-while (args.length > 0) {
-  const key = args.shift();
-  switch (key) {
-    case '-o':
-    case '--output':
-      OUTPUT_DIR = args.shift();
-      break;
-    case '-i':
-    case '--input':
-      INPUT_DIR = args.shift();
-      break;
-    case '-r':
-    case '--return':
-        RETURN_INPUT_DIR = args.shift();
-      break;
-    default:
-      console.error(`Unknown option: ${key}`);
-      process.exit(1);
-  }
-}
-
-// Set default values if not provided
-if (!OUTPUT_DIR) {
-    OUTPUT_DIR = './build';
-}
-
-if (!INPUT_DIR) {
-    INPUT_DIR = './campaigns';
-}
-
-if (!RETURN_INPUT_DIR) {
-    RETURN_INPUT_DIR = './return_campaigns';
-}
-
-run();
+run(argv.output, argv.input, argv.return);
