@@ -1,0 +1,108 @@
+{
+  "id": "au_epilogue",
+  "scenario_name": "Epilogue",
+  "header": "",
+  "full_name": "Epilogue",
+  "icon": "zau_ages_unwound",
+  "type": "epilogue",
+  "setup": [
+    "check_waning",
+    "check_marked",
+    "check_silver_twilight",
+    "$upgrade_decks"
+  ],
+  "steps": [
+    {
+      "id": "check_waning",
+      "text": "Read only if at least one investigator's <i>existence is waning</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "waning",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "waning",
+              "erase_waning"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "waning",
+      "type": "story",
+      "text": "You're tired. This isn't exactly surprising; you just fought a god. As you wend your way through the early-morning Arkham streets, though, you feel surprisingly light on your feet - if fatigue weighs you down, this feeling lifts you up, until you're practically floating. You feel yourself drift off, still walking, into a cozy, endless sleep..."
+    },
+    {
+      "id": "erase_waning",
+      "text": "Each investigator whose <i>existence is waning</i> is erased from reality. Remove that investigator's entry from your Campaign Log as thoroughly as possible, as that investigator never existed.",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "campaign_notes",
+        "id": "waning",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "insane": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_marked",
+      "text": "Read only if at least one surviving investigator <i>still bears Aforgomon's mark</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "marked",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "marked"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "marked",
+      "type": "story",
+      "text": "In the years that follow, you remain fascinated with time. After all, you understand spacetime perhaps better than anyone else alive. You try to share your findings a few times; each time, your theories are shot down as outlandish and unfounded. There's</i> so much<i> you could teach the world - you could advance the field of physics by decades with what you know - but nobody wants to listen.\nFour years after your final confrontation with Aforgomon, you knock three times on the front door of an elegant manor on the outskirts of Arkham. A silent butler leads you to a bedchamber, where thick velvet curtains block out all light and the smell of death hangs heavy in the air. The room's occupant stirs slightly.\n\"I'm so, so glad that you accepted my invitation.\" The voice is barely more than a whisper. The withered form of Joseph Baxter, the Myriad Gentleman, looks at least a hundred years old. He smiles at you, the predatory smile looking rather out of place on the old man's face. \"We have much work to do.\""
+    },
+    {
+      "id": "check_silver_twilight",
+      "text": "Read only if <i>you have advanced the schemes of the Silver Twilight Lodge</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "lodge"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lodge",
+      "type": "story",
+      "text": "\"And we're quite certain it's real?\" Carl Sanford's eyes rest on the slight man sat nervously before him. Mr. Sanford was an intimidating man at the best of times, but the intensity he was focusing on the messenger made the man want to shrink into nothingness.\n\"Y-yes sir,\" he managed, \"Our trials were conclusive. We now only miss one component-\"\n\"Not quite. Our new friends helped us with that as well.\" Eyes twinkling, Sanford produces a loose array of singed papers from his desk. \"After helping dispatch Baxter's operation, one of our agents recovered some of his research. We have everything we need.\n\"Let the great work begin.\""
+    }
+  ]
+}

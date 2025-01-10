@@ -1,0 +1,125 @@
+{
+    "id": "an_unknown_benefactor",
+    "scenario_name": "An Unknown Benefactor",
+    "full_name": "Interlude I: An Unknown Benefactor",
+    "header": "Interlude I",
+    "type": "interlude",
+    "icon": "zau",
+    "setup": [
+        "intro",
+        "assist_choice"
+    ],
+    "steps": [
+        {
+            "id": "intro",
+            "type": "story",
+            "text": "Blessedly, the morning has come. Tiredness weighs you down like lead, and you want nothing more than to sink into your bed, but your bed perished in flames and sleep is a distant dream. Not to mention that with armed thugs still potentially after your head, you're not sure you'd sleep a wink. \nYou decide to settle for a hot breakfast and a pot of strong coffee at Velma's. While you wait for your food, a confused-looking waitress approaches your table, depositing on it a brown paper package with an envelope taped to the top. \"This is for you,\" she adds unnecessarily.\nThe letter in the envelope is short and to the point: \n<i>They wish to see you dead. I do not. This may help. </i> \nGod knows, you could use an ally, and certainly somebody out there seems to be aiding you from afar. But you hesitate - it could be a trap, and if someone does want to help you, why not show their face?"
+        },
+        {
+            "id": "assist_choice",
+            "text": "The investigators must decide (choose one):",
+            "type": "input",
+            "input": {
+                "type": "choose_one",
+                "choices": [
+                    {
+                        "id": "reject",
+                        "text": "I don't know what this is, and I don't trust it.",
+                        "steps": [
+                            "going_it_alone"
+                        ]
+                    },
+                    {
+                        "id": "accept",
+                        "text": "We're out of our depth, here. We need all the help we can get.",
+                        "steps": [
+                            "leap_of_faith"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "id": "going_it_alone",
+            "text": "You shovel toast and eggs into your mouth, studiously ignoring the package before you. On your way out, you toss it into the trash.",
+            "steps": [
+                "offer_declined",
+                "add_tablet"
+            ]
+        },
+        {
+            "id": "leap_of_faith",
+            "text": "If someone wants to help prevent your untimely death, you have no objections. You carefully unwrap the package before you...",
+            "steps": [
+                "offer_accepted",
+                "add_cultist"
+            ]
+        },
+        {
+            "id": "offer_declined",
+            "text": "In your Campaign Log, record that <i>the investigators declined an offer of help.</i>",
+            "effects": [
+                {
+                    "type": "campaign_log",
+                    "section": "campaign_notes",
+                    "id": "offer_declined",
+                    "text": "the investigators declined an offer of help."
+                }
+            ]
+        },
+        {
+            "id": "add_tablet",
+            "text": "Remove each [cultist] token from the chaos bag. Add 1 [tablet] token to the chaos bag.",
+            "effects": [
+                {
+                    "type": "remove_chaos_token",
+                    "tokens": [
+                      "cultist"
+                    ]
+                },
+                {
+                    "type": "add_chaos_token",
+                    "tokens": [
+                      "tablet"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "offer_accepted",
+            "text": "In your Campaign Log, mark 1 <b>Strange Assistance</b> and record that <i>the investigators accepted an offer of help.</i>",
+            "effects": [
+                {
+                    "type": "campaign_log",
+                    "section": "campaign_notes",
+                    "id": "offer_accepted",
+                    "text": "the investigators accepted an offer of help."
+                },
+                {
+                    "type": "campaign_log_count",
+                    "section": "strange_assistance",
+                    "operation": "add",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "id": "add_cultist",
+            "text": "Remove each [tablet] token from the chaos bag. Add 1 [cultist] token to the chaos bag.",
+            "effects": [
+                {
+                    "type": "remove_chaos_token",
+                    "tokens": [
+                      "tablet"
+                    ]
+                },
+                {
+                    "type": "add_chaos_token",
+                    "tokens": [
+                      "cultist"
+                    ]
+                }
+            ]
+        }
+    ]
+}

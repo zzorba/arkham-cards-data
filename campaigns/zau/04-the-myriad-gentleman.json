@@ -1,0 +1,219 @@
+{
+    "id": "the_myriad_gentleman",
+    "scenario_name": "The Myriad Gentleman",
+    "header": "Scenario II",
+    "full_name": "Scenario II: The Myriad Gentleman",
+    "icon": "zau_myriad_gentleman",
+    "setup": [
+      "check_intro_offer",
+      "$check_tarot_reading",
+      "gather_encounter_sets",
+      "setup_locations",
+      "set_aside_cards",
+      "encounter_deck",
+      "copy_rule",
+      "$play_scenario"
+    ],
+    "rules": [
+    ],
+    "steps": [
+      {
+        "id": "check_intro_offer",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "offer_accepted",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["intro_1", "intro_3"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["check_intro_offer_2"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_intro_offer_2",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "offer_declined",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["intro_2", "starting_doom", "intro_3"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "intro_1",
+        "type": "story",
+        "text": "The package contains a wealth of information - newspaper clippings, mostly, accompanied by sheets of typed notes. The information all concerns one Joseph Baxter, a self-made millionaire with a manor house on the outskirts of Arkham. His relevance to you is unclear, until you find a series of letters between Joseph and the Sheldon gang, negotiating pay for a variety of shady work, including the 'cleaning up' of, well, you. It's not clear exactly why he wanted you dead - he refers to you as 'a thorn in his side', but you'd not even heard of the man before today. Curious. And terrifying. Mostly the latter, come to think of it."
+      },
+      {
+        "id": "intro_2",
+        "type": "story",
+        "text": "With a full stomach and a caffeine buzz, you set out to determine just why you were targeted. It's slow work, tapping any resources you can find, but it pays dividends: buried in today's Arkham Advertiser is a report of three men arrested in your neighbourhood in the early hours of the morning, suspected to be members of the Sheldon gang. A contact of yours manages to dig up another useful tidbit: the Sheldon gang have been doing a considerable amount of work for a new benefactor, one Joseph Baxter. It's not much to show for a morning's work, but it's a start."
+      },
+      {
+        "id": "starting_doom",
+        "text": "Place 1 doom on the current agenda."
+      },
+      {
+        "id": "intro_3",
+        "type": "story",
+        "text": "The gate to Joseph Baxter's mansion is closed and barred, but you've been through too much to let that deter you. You scale a low wall, dropping over it onto a fine manicured lawn. It's time to meet your would-be executioner."
+      },
+      {
+        "id": "gather_encounter_sets",
+        "title": "Setup",
+        "type": "encounter_sets",
+        "encounter_sets": [
+          "zau_myriad_gentleman",
+          "zau_shifting_reality",
+          "zau_unravelling_years",
+          "agents_of_yog",
+          "locked_doors"
+        ]
+      },
+      {
+        "id": "setup_locations",
+        "text": "Put the Lawn, Hedge Maze, Ornate Fountain and Stables locations into play. Each investigator begins play at the Lawn."
+      },
+      {
+        "id": "set_aside_cards",
+        "text": "Set each remaining location aside, out of play, along with each copy of The Myriad Gentleman, Ex Uno Plures, They Just Keep Coming, Not Welcome Here, Aforgomon's Blade and Gaze of Aforgomon."
+      },
+      {
+        "id": "encounter_deck",
+        "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+      },
+      {
+        "id": "copy_rule",
+        "type": "rule_reminder",
+        "title": "Copies of Enemies",
+        "text": "During this scenario, investigators may be instructed to spawn copies of a displayed enemy. To do this, that investigator places the top card of their deck into play in their threat area, treating it as a copy of the specified enemy until it leaves play <i>(if it is ever unclear who should do this, the lead investigator does so).</i> When that enemy leaves play, the card's owner places it on the bottom of their deck."
+      },
+      {
+        "id": "resolution_2",
+        "type": "resolution",
+        "resolution": "R2"
+      },
+      {
+        "id": "learnt_of_ritual",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "learnt_of_ritual",
+                "text": "the investigators learnt of the Myriad's ritual."
+            }
+        ]
+      },
+      {
+        "id": "add_aforgomons_blade",
+        "text": "If the Myriad Gentleman <i>(Master of the House)</i> is in the victory display, any one investigator may choose to add Aforgomon's Blade to their deck. If an investigator chooses to include Aforgomon's Blade in their deck, they must also add the Gaze of Aforgomon weakness to their deck. These cards do not count towards that investigator's deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00042"
+          }
+        ]
+      },
+      {
+        "id": "check_aforgomons_blade",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "has_card",
+          "investigator": "each",
+          "card": "zau_00042",
+          "options": [
+            {
+              "boolCondition": true,
+              "effects": [
+                {
+                  "type": "add_card",
+                  "investigator": "$input_value",
+                  "card": "zau_00043"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "fled_manor",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "fled_manor",
+                "text": "the investigators fled the Gentleman's manor."
+            }
+        ]
+      },
+    {
+        "id": "earn_xp",
+        "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Victory display:",
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all"
+            }
+          ]
+        }
+      }
+    ],
+    "resolutions": [
+      {
+        "id": "no_resolution",
+        "title": "No resolution was reached",
+        "description": "Each investigator was defeated",
+        "investigator_status": [
+          "eliminated",
+          "physical",
+          "mental"
+        ],
+        "steps": [
+          "resolution_2"
+        ]
+      },
+      {
+        "id": "R1",
+        "title": "Resolution 1",
+        "text": "Joseph Baxter, the man whose house you've invaded, is part of a cult dedicated to an entity known as Aforgomon. Quite a large part of it, judging by the quantity of him you've encountered today. They're still coming for you though, endless waves of an impossible man, and you have no choice but to make your escape. \nYou've found very little of why he wants you dead - a scrawled note linking you to an event in Cairo, and a letter from the Sheldon gang promising you'll soon be dealt with. \nYou've never even been to Cairo. Perhaps he's mad. Then again, considering what you've seen today, perhaps you are. \nAs the sun dips below the horizon, you consider your options. You could go to the police, but there's no chance they'd believe you. You could walk away, just disappear into the night... but you've seen what this cult can do, and you can't stand back and let them carry out their plan. And besides, insane or not, they still want you dead. Taking the fight to them seems more appealing than simply being hunted down. \nYou have a location, and no time to lose. Better get to it.",
+        "steps": [
+          "learnt_of_ritual",
+          "add_aforgomons_blade",
+          "check_aforgomons_blade",
+          "earn_xp",
+          "$upgrade_decks"
+        ]
+      },
+      {
+        "id": "R2",
+        "hidden": true,
+        "title": "Resolution 2",
+        "text": "You barely remember your flight from Joseph Baxter's manor house. The wounds you nurse are severe, but you made it out alive, which is something. \nYou don't like what's happening here, not at all. Between the <i>things</i> that pursued you last night, and the unnatural proliferation of the man you faced today... It's enough to make you question your own sanity. Certainly more than you can take to the police, lest you end up in the local asylum. Which means, you conclude with a sinking feeling, that the only force in a position to stand against them is you.",
+        "steps": [
+          "fled_manor",
+          "add_aforgomons_blade",
+          "check_aforgomons_blade",
+          "earn_xp",
+          "$upgrade_decks"
+        ]
+      }
+    ]
+  }
