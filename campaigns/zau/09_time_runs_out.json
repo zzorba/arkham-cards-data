@@ -1,0 +1,373 @@
+{
+    "id": "time_runs_out",
+    "scenario_name": "Time Runs Out",
+    "header": "Scenario VII",
+    "full_name": "Scenario VII: Time Runs Out",
+    "chaos_bag_card": "zau_00182",
+    "chaos_bag_card_text": "[skull]: -X. X is the current act number.\n[cultist]: -2. If you succeed and it is your turn, gain an action.\n[tablet]: -4. If you fail and it is your turn, lose 1 action.\n[elder_thing]: -5. If you fail, either exile a card from your hand or place 1 doom on your location.",
+    "chaos_bag_card_back_text": "[skull]: -X. X is twice the current act number.\n[cultist]: -3. If you succeed and it is your turn, gain an action.\n[tablet]: -5. If it is your turn and you did not succeed by at least 2, lose 1 action.\n[elder_thing]: -8. If you fail, either exile a card from your hand or place 1 doom on your location.",
+    "icon": "zau_time_runs_out",
+    "setup": [
+      "intro",
+      "$check_tarot_reading",
+      "gather_encounter_sets",
+      "check_chaos",
+      "setup_locations",
+      "set_aside_cards",
+      "encounter_deck",
+      "random_location_rule",
+      "exile_rule",
+      "$play_scenario"
+    ],
+    "steps": [
+      {
+        "id": "intro",
+        "type": "story",
+        "text": "\"Even as I write this at my library table, it seems that an ancient midnight plucks at the lamp. The bookcases turn to walls of oozing, nighted stone. There is no longer a table ... nor one who writes... and I breathe the noisome dankness of a dungeon lying unfathomed by any sun, in a lost world.\"\n<right><i>- Clark Ashton Smith, \"The Chain of Aforgomon\"</i></right>\nTime lies before you, an endless expanse of realities.\nEven in the midst of your current mission, you're forced to take a moment to gawk. Everything that ever was, everything that ever will be, could be, is here, open to you like the pages of a book. The knowledge, the opportunity, the sheer beauty of it all... it's a lot to take in.\nStill, the moment passes, and the beauty of the scene is marred somewhat by the formless presence rising above it. Aforgomon, god of the minutes and the cycles; an unfathomable being who seeks nothing less than to unmake everything you see here. Mount Hollyoke's disrupted ritual is the fulcrum through which Aforgomon can reach into your universe.\nAnd between this cosmic force and the universe it seeks to annihilate... you. You suddenly feel very, very small."
+      },
+      {
+        "id": "gather_encounter_sets",
+        "title": "Setup",
+        "type": "encounter_sets",
+        "encounter_sets": [
+          "zau_time_runs_out",
+          "zau_agents_of_aforgomon",
+          "zau_paradox",
+          "zau_unravelling_years"
+        ]
+      },
+      {
+        "id": "check_chaos",
+        "type": "branch",
+        "text": "Check Ritual Timeline. <i>If the investigators unleashed chaos.</i>",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "unleashed_chaos",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "add_unleashed_chaos"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_unleashed_chaos",
+        "type": "encounter_sets",
+        "encounter_sets": [ "zau_unleashed_chaos"],
+        "text": "Also gather the <i>Unleashed Chaos</i> encounter set."
+      },
+      {
+        "id": "setup_locations",
+        "text": "Put one of the two versions of the following locations into play at random, revealed side faceup: Fulcrum of Possibility, Days That Never Were, Secrets Long Forgotten, Today, a Thousand Times, What Could Be, What Could Never Be, Dawn of the Universe and The End of All Things. Remove the other versions of each of those locations from the game. Each investigator begins play in Fulcrum of Possibility."
+      },
+      {
+        "id": "set_aside_cards",
+        "text": "Set The Past, The Present, The Future, and Yourself  aside, out of play."
+      },
+      {
+        "id": "encounter_deck",
+        "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+      },
+      {
+        "id": "random_location_rule",
+        "type": "rule_reminder",
+        "title": "Locations Outside of Time",
+        "text": "Many of the locations in this scenario have no unrevealed side, and therefore enter play with their revealed side faceup. For the best experience, do not look at the reverse of these cards unless an effect instructs you to do so.During this scenario, you will sometimes be instructed to choose a random location. This should be done by shuffling together the 8 locations removed from the game during setup (the versions of each location in play not currently being used) and drawing 1 at random. If you are instructed to choose a random location that fits a certain criterion, keep drawing locations until one is drawn that satisfies the effect's requirements."
+      },
+      {
+        "id": "exile_rule",
+        "type": "rule_reminder",
+        "title": "Exile",
+        "text": "When a card is exiled, it is removed from the game and returned to your collection. During campaign play, a card that has been exiled must be purchased again with experience points (between scenarios) if you wish to re-include it in your deck. <b>If a game effect forces you to choose a target to exile, weaknesses and permanent assets are not valid targets.</b>"
+      },
+      {
+        "id": "$play_scenario",
+        "type": "input",
+        "input": {
+          "type": "play_scenario",
+          "branches": [
+            {
+              "id": "randomize_locations",
+              "text": "Choose a random location",
+              "steps": [
+                "choose_random_location"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "choose_random_location",
+        "type": "input",
+        "input": {
+          "type": "random_location",
+          "cards": [
+            "zau_00189",
+            "zau_00190",
+            "zau_00191",
+            "zau_00192",
+            "zau_00193",  
+            "zau_00194",
+            "zau_00195",
+            "zau_00196"
+          ]
+        }
+      },
+      {
+        "id": "all_times_are_one",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "all_times_are_one",
+            "text": "all times are one."
+          }
+        ]
+      },
+      {
+        "id": "all_insane",
+        "text": "Each investigator is driven <b>insane</b>.",
+        "effects": [
+          {
+            "type": "trauma",
+            "investigator": "all",
+            "insane": true
+          }
+        ]
+
+      },
+      {
+        "id": "campaign_loss",
+        "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "au_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+      },
+      {
+        "id": "bound_aforgomon_in_a_prison_of_time",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "bound_aforgomon_in_a_prison_of_time",
+            "text": "the investigators bound Aforgomon in a prison of time."
+          }
+        ]
+      },
+      {
+        "id": "check_unspeakable_oath",
+        "type": "input",
+        "text": "For each investigator who ended the game with at least 1 copy of the Unspeakable Oath weakness in their hand, and whose existence is not waning, record in your Campaign Log that <i>[investigator name] still bears Aforgomon's mark</i>",
+        "input": {
+          "type": "investigator_choice",
+          "investigator": "all",
+          "source": "scenario",
+          "choices": [
+            {
+              "id": "marked",
+              "text": "At least 1 Unspeakable Oath weakness in hand.",
+              "effects": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "marked",
+                  "text": "one or more investigators still bear Aforgomon's mark."
+                },
+                {
+                  "type": "campaign_log_cards",
+                  "section": "campaign_notes",
+                  "id": "marked",
+                  "cards": "$input_value",
+                  "masculine_text": "#name# still bears Aforgomon's mark.",
+                  "feminine_text": "#name# still bears Aforgomon's mark.",
+                  "nonbinary_text": "#name# still bears Aforgomon's mark."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_existence_waning",
+        "type": "input",
+        "text": "In your Campaign Log, record the names of each investigator whose 'existence is waning'.",
+        "input": {
+          "type": "investigator_choice",
+          "investigator": "all",
+          "source": "scenario",
+          "choices": [
+            {
+              "id": "waning",
+              "text": "Existence is waning",
+              "effects": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "waning",
+                  "text": "one or more investigators' existence is waning."
+                },
+                {
+                  "type": "campaign_log_cards",
+                  "section": "campaign_notes",
+                  "id": "waning",
+                  "cards": "$input_value",
+                  "masculine_text": "#name#'s existence is waning.",
+                  "feminine_text": "#name#'s existence is waning.",
+                  "nonbinary_text": "#name#'s existence is waning."
+                },
+                {
+                  "type": "trauma",
+                  "hidden": true,
+                  "investigator": "$input_value",
+                  "insane": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "win_campaign",
+        "text": "The investigators win the campaign!",
+        "effects": [
+          {
+            "type": "campaign_data",
+            "setting": "result",
+            "value": "win"
+          }
+        ]
+      },
+      {
+        "id": "maybe_add_elder_thing",
+        "text": "Add 1 [elder_thing] token to the chaos bag. If you cannot, each investigator takes 1 mental trauma instead.",
+        "type": "branch",
+        "condition": {
+          "type": "multi",
+          "count": 1,
+          "conditions": [
+            {
+              "type": "campaign_data",
+              "campaign_data": "chaos_bag",
+              "token": "elder_thing",
+              "options": [
+                {
+                  "numCondition": 4
+                }
+              ]
+            }
+          ],
+          "options": [
+            {
+              "boolCondition": true,
+              "effects": [
+                {
+                  "type": "trauma",
+                  "investigator": "all",
+                  "mental": 1
+                }
+              ]
+            },
+            {
+              "boolCondition": false,
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": ["elder_thing"]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "repeat_scenario",
+        "text": "The investigators must replay <b>Scenario VII: Time Runs Out</b>. Reset the game to this scenario’s Setup. Do not record anything else in your Campaign Log except for any trauma suffered from your previous game. No experience points are earned from your previous game. Players may not alter their decks, even if they are in an illegal state, or remove any weaknesses added during the scenario. Any player whose investigator was killed or driven insane is eliminated and may not choose a new investigator to play.",
+        "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "replay_scenario",
+          "scenario": "time_runs_out"
+        }
+      ]
+      },
+      {
+        "id": "resolution_1",
+        "type": "resolution",
+        "resolution": "R1"
+      },
+      {
+        "id": "earn_xp",
+        "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Victory display:",
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all"
+            }
+          ]
+        }
+      }
+    ],
+    "resolutions": [
+      {
+        "id": "no_resolution",
+        "title": "No resolution was reached",
+        "description": "Each investigator was defeated",
+        "investigator_status": [
+          "eliminated",
+          "physical",
+          "mental"
+        ],
+        "steps": [
+          "resolution_1"
+        ]
+      },
+      {
+        "id": "R1",
+        "title": "Resolution 1",
+        "text": "The end of time is an experience unlike any other. Everything will be still; any sense of movement or causality was gone. Everything that was or could be or never was will be happening now, inasmuch as 'now' would have any meaning here.\nAll times are one. Everything will be now. And here is where you were stuck, where you would have been made part of an unchanging tapestry of reality, where you could be, would be, were, are, will be trapped forever. That is, if forever still existed.",
+        "steps": [
+          "all_times_are_one",
+          "all_insane",
+          "campaign_loss"
+        ]
+      },
+      {
+        "id": "R2",
+        "title": "Resolution 2",
+        "text": "You find yourself, eventually, lying on a smooth, flat surface. Every inch of your body wants to sink into the floor, become one with the ground. You stay that way for a long, long time.\nIt's the smell of smoke that finally makes you pull yourself up. You're in the gymnasium of Mount Hollyoke Elementary School. The cultists and gangsters seem to be long gone, leaving behind only dormant runes and abandoned texts. The smoke drifts in from the rear door, so you exit out the front.\nDay broke at some point, perhaps more than once. But you made it through, reality made it through, and perhaps, now, you can return to some semblance of normality. You've not lived that life for a year, sure, but you're the only you in the present now. You'll need to find somewhere new to live...\nLost in your thoughts, you watch as a conflagration consumes the school, presumably set by the backfiring ritual. This whole thing started with a fire; it seems only fitting that it should end the same way.",
+        "steps": [
+          "bound_aforgomon_in_a_prison_of_time",
+          "check_existence_waning",
+          "check_unspeakable_oath",
+          "earn_xp",
+          "win_campaign"
+        ]
+      },
+      {
+        "id": "R3",
+        "title": "Resolution 3",
+        "text": "Time spins and whirls, which is an especially strange experience when you're standing outside it. Keeping a firm grip on the streams you're manipulating, you unwind the works of you and Aforgomon alike, until...\nTime lies before you, an endless expanse of realities.\nEverything that ever was, everything that ever will be, could be, is here, open to you like the pages of a book, reset to how it was before this fight begun. As Aforgomon's unholy presence once again looms above you, you let out a long breath, ready for round two.",
+        "steps": [
+          "maybe_add_elder_thing",
+          "repeat_scenario"
+        ]
+      }
+    ]
+  }

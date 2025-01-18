@@ -1,0 +1,1449 @@
+{
+    "id": "a_world_torn_down",
+    "scenario_name": "A World Torn Down",
+    "header": "Scenario III",
+    "full_name": "Scenario III: A World Torn Down",
+    "chaos_bag_card": "zau_00048",
+    "chaos_bag_card_text": "[skull]: -X. X is half the number of actions you have remaining (rounded up).\n[cultist]: -3. If you succeed, you get +1 skill value during skill tests until the end of the round.\n[tablet]: -3. If you fail, you get -1 skill value during skill test until the end of the round.\n[elder_thing]: Reveal another token. If you fail, and it is your turn, end your turn.",
+    "chaos_bag_card_back_text": "[skull]: -X. X is the number of actions you have remaining.\n[cultist]: -5. If you succeed, you get +1 skill value during skill tests until the end of the round.\n[tablet]: -5. If you fail, you get -1 skill value during skill test until the end of the round.\n[elder_thing]: Reveal another token. If it is your turn, end your turn after resolving this skill test.",
+    "icon": "zau_world_torn_down",
+    "setup": [
+      "check_fled",
+      "$check_tarot_reading",
+      "gather_encounter_sets",
+      "set_aside_cards",
+      "setup_locations",
+      "encounter_deck",
+      "action_rule",
+      "$haunted_rule",
+      "time_rule",
+      "time_ahc_rule",
+      "$play_scenario"
+    ],
+    "steps": [
+      {
+        "id": "check_fled",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "fled_manor",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["intro_1"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["intro_2"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "intro_1",
+        "type": "story",
+        "text": "Lacking other leads to pursue, you stay awhile to observe the Myriad Gentleman's home. You spend a long time waiting, watching the property's exits for any sign of movement. Sure enough, as the sun sets, a convoy of vehicles sets out from the manor. You follow as best you can, careful not to be spotted. \nBefore too long, the Myriad Gentleman reaches their destination. A school, by the look of it. You go to follow them, but before you're able to make it inside, the school is suffused with a dim green glow, rebuffing you, as a muffled chanting flows from the building..."
+      },
+      {
+        "id": "intro_2",
+        "type": "story",
+        "text": "Mount Hollyoke Elementary was condemned by Arkham's town council several years ago, but for unknown reasons was never demolished. This seems to suit the Myriad just fine - they've repurposed it to their own ends. A ritual takes place here tonight - one that could spell the end of everything and everywhen."
+      },
+      {
+        "id": "gather_encounter_sets",
+        "title": "Setup",
+        "type": "encounter_sets",
+        "encounter_sets": [
+          "zau_world_torn_down",
+          "zau_night_of_the_ritual",
+          "zau_agents_of_aforgomon",
+          "zau_myriad",
+          "zau_nyctophobia",
+          "zau_thugs",
+          "zau_unleashed_chaos"
+        ]
+      },
+      {
+        "id": "setup_locations",
+        "text": "Put Front Gates, Side Building, Children's Playground, Sports Field, Front Hallway and Rear Corridors into play. Each investigator begins play at the Front Gates."
+      },
+      {
+        "id": "set_aside_cards",
+        "text": "Set each other location aside, out of play, along with Hound of Unmaking, Unstable Warding, each copy of Unleashed Chaos and Stirring Titan, Unstable Energies and The Myriad Gentleman <i>(The High Priest)</i> "
+      },
+      {
+        "id": "encounter_deck",
+        "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+      },
+      {
+        "id": "action_rule",
+        "type": "rule_reminder",
+        "title": "Gaining and Losing Actions",
+        "text": "As time becomes increasingly unstable, the number of actions you may take on a turn may also change.",
+        "bullets": [
+          {
+            "text": "Several effects refer to standard actions. A standard action is any action that does not have a limitation on its use, regardless of its source. <i>For example, Finn Edwards has a copy of Leo De Luca in play. He has four standard actions on his turns - the default three and an additional action from Leo - as well as an additional, non-standard action from his investigator ability that can only be used to evade.</i>"
+          },
+          {
+            "text": "Each investigator is considered to gain their actions for the next round in step 4.2 of the upkeep phase. Effects that grant you additional actions on each of your turns are also considered to grant you actions at this point. This means that effects after aninvestigator's turn cannot make them lose actions for the nextround, unless they happen after the the upkeep phase. <i>For example, Finn Edwards is attacked by a Chronophage in the enemy phase. This would cause him to lose an action, but as his turn has ended he has no actions remaining. During the upkeep phase of the same round, he draws the weakness Overzealous; if an encounter card drawn from this effect would cause him to lose actions, this happens as normal.</i>"
+          },
+          {
+            "text": "If a player card effect (such as the Gold Pocket Watch) causes the investigator phase to repeat, investigators are considered to gain their actions for their turns at the start of the phase. If a player card effect allows an investigator to take an additional turn, they are considered to gain their actions at the start of that turn."
+          }
+        ]
+      },
+      {
+        "id": "time_rule",
+        "type": "rule_reminder",
+        "title": "Recording the Time",
+        "text": "At various points during this scenario, you will be asked to <i>record the time</i> next to entries in your Campaign Log. To do this, simply record, in brackets, the current agenda number and the number of doom on the current agenda. <i>For example: If there is 4 doom on agenda 1a, you would record the time as (1,4).</i>"
+      },
+      {
+        "id": "time_ahc_rule",
+        "type": "rule_reminder",
+        "title": "ArkhamCards Note",
+        "text": "When you make a campaign log entry that asks you to <i>record the time</i>, input the agenda and doom as described above. Those entries, along with other campaign log entries from this scenario, will be kept in the Ritual Timeline section of the campaign log."
+      },
+      { "id": "$play_scenario", 
+        "type": "input",
+        "input": {
+          "type": "play_scenario",
+          "campaign_log": [
+            {
+              "id": "somebody_disappeared_unexpectedly",
+              "condition": {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "somebody_disappeared_unexpectedly",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "text": "[An enemy] disappeared unexpectedly.",
+              "steps": [
+                "who_disappeared_unexpectedly"
+              ]
+            },
+            {
+              "id": "boundary_broken",
+              "condition": {
+                "type": "campaign_log",
+                "section": "timeline",
+                "id": "boundary_broken",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "text": "The boundary is broken.",
+              "steps": [
+                "boundary_broken",
+                "boundary_broken_doom",
+                "front_back_choice"
+              ]
+            },
+            {
+              "id": "repelled_hound",
+              "condition": {
+                "type": "multi",
+                "count": 2,
+                "conditions": [
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "timeline_act_3",
+                    "options": [
+                      {
+                        "boolCondition": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "campaign_log",
+                    "section": "timeline",
+                    "id": "used_front_door",
+                    "options": [
+                      {
+                        "boolCondition": true
+                      }
+                    ]
+                  }
+                ],
+                "options": [
+                  {
+                    "boolCondition": true
+                  }
+                ]
+              },
+              "text": "The investigators repelled the Hound of Unmaking.",
+              "steps": [
+                "repelled_hound",
+                "repelled_hound_doom"
+              ]
+            },
+            {
+              "id": "put_down_hound",
+              "condition": {
+                "type": "multi",
+                "count": 2,
+                "conditions": [
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "timeline_act_3",
+                    "options": [
+                      {
+                        "boolCondition": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "campaign_log",
+                    "section": "timeline",
+                    "id": "used_front_door",
+                    "options": [
+                      {
+                        "boolCondition": true
+                      }
+                    ]
+                  }
+                ],
+                "options": [
+                  {
+                    "boolCondition": true
+                  }
+                ]
+              },
+              "text": "The investigators put down the Hound of Unmaking.",
+              "steps": [
+                "put_down_hound",
+                "put_down_hound_doom"
+              ]
+            },
+            {
+              "id": "dispelled_ward",
+              "condition": {
+                "type": "multi",
+                "count": 2,
+                "conditions": [
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "timeline_act_3",
+                    "options": [
+                      {
+                        "boolCondition": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "campaign_log",
+                    "section": "timeline",
+                    "id": "snuck_in_back",
+                    "options": [
+                      {
+                        "boolCondition": true
+                      }
+                    ]
+                  }
+                ],
+                "options": [
+                  {
+                    "boolCondition": true
+                  }
+                ]
+              },
+              "text": "The investigators dispelled the ward.",
+              "steps": [
+                "dispelled_ward", 
+                "dispelled_ward_doom"
+              ]
+            },
+            {
+              "id": "unleashed_chaos",
+              "condition": {
+                "type": "multi",
+                "count": 2,
+                "conditions": [
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "timeline_act_3",
+                    "options": [
+                      {
+                        "boolCondition": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "campaign_log",
+                    "section": "timeline",
+                    "id": "snuck_in_back",
+                    "options": [
+                      {
+                        "boolCondition": true
+                      }
+                    ]
+                  }
+                ],
+                "options": [
+                  {
+                    "boolCondition": true
+                  }
+                ]
+              },
+              "text": "The investigators unleashed chaos.",
+              "steps": [
+                "unleashed_chaos",
+                "unleashed_chaos_doom"
+              ]
+            },
+            {
+              "id": "broke_first_circle",
+              "condition": {
+                "type": "multi",
+                "count": 2,
+                "conditions": [
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "timeline_act_3",
+                    "options": [
+                      {
+                        "boolCondition": true
+                      }
+                    ]
+                  },
+                  {
+                    "type": "campaign_log",
+                    "section": "hidden",
+                    "id": "first_circle_check",
+                    "options": [
+                      {
+                        "boolCondition": false
+                      }
+                    ]
+                  }
+                ],
+                "options": [
+                  {
+                    "boolCondition": true
+                  }
+                ]
+              },
+              "text": "The investigators broke the first circle.",
+              "steps": [
+                "broke_first_circle",
+                "broke_first_circle_doom"
+              ]
+            }
+          ],
+          "branches": [
+            {
+              "id": "strange_assistance",
+              "icon": "zau",
+              "text": "Add Strange Assistance",
+              "steps": [
+                "strange_assistance"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "strange_assistance",
+        "text": "Mark 1 Strange Assistance in your Campaign Log.",
+        "effects": [
+          {
+            "type": "campaign_log_count",
+            "section": "strange_assistance",
+            "operation": "add",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "who_disappeared_unexpectedly",
+        "type": "input",
+        "text": "Select an enemy:",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "chronophage",
+              "text": "Chronophage",
+              "steps": [
+                "chronophage_disappeared"
+              ]
+            },
+            {
+              "id": "the_myriad_gentleman",
+              "text": "The Myriad Gentleman",
+              "steps": [
+                "the_myriad_gentleman_disappeared"
+              ]
+            },
+            {
+              "id": "hired_thugs",
+              "text": "Hired Thugs",
+              "steps": [
+                "hired_thugs_disappeared"
+              ]
+            },
+            {
+              "id": "myriad_assassin",
+              "text": "Myriad Assassin",
+              "steps": [
+                "myriad_assassin_disappeared"
+              ]
+            },
+            {
+              "id": "irregulars",
+              "text": "Irregulars",
+              "steps": [
+                "irregulars_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "chronophage_disappeared",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "chronophage_disappeared_unexpectedly",
+            "text": "Chronophage disappeared unexpectedly."
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "text": "dummy"
+          } 
+        ]
+      },
+      {
+        "id": "the_myriad_gentleman_disappeared",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "gentleman_disappeared_unexpectedly",
+            "text": "the Myriad Gentleman disappeared unexpectedly."
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "text": "dummy"
+          } 
+        ]
+      },
+      {
+        "id": "hired_thugs_disappeared",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "thugs_disappeared_unexpectedly",
+            "text": "Hired Thugs disappeared unexpectedly."
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "text": "dummy"
+          }  
+        ]
+      },
+      {
+        "id": "myriad_assassin_disappeared",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "assassin_disappeared_unexpectedly",
+            "text": "Myriad Assassin disappeared unexpectedly."
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "text": "dummy"
+          }  
+        ]
+      },
+      {
+        "id": "irregulars_disappeared",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "irregulars_disappeared_unexpectedly",
+            "text": "Irregulars disappeared unexpectedly."
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "text": "dummy"
+          }  
+        ]
+      },
+      {
+        "id": "boundary_broken",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "boundary_broken",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "boundary_broken_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "boundary_broken",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the boundary is broken (#X#, #Y#)."
+            }
+          ]
+        }
+      },
+      {
+        "id": "front_back_choice",
+        "type": "input",
+        "text": "Choose one to record:",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "front",
+              "text": "The investigators used the school's front door.",
+              "effects": [
+                {
+                  "type": "campaign_log",
+                  "section": "timeline",
+                  "id": "used_front_door",
+                  "text": "the investigators used the school's front door."
+                }
+              ]
+            },
+            {
+              "id": "back", 
+              "text": "The investigators snuck into the back of the school.",
+              "effects": [
+                {
+                  "type": "campaign_log",
+                  "section": "timeline",
+                  "id": "snuck_in_back",
+                  "text": "the investigators snuck into the back of the school."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "repelled_hound",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "repelled_hound",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "repelled_hound_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "repelled_hound",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators repelled the Hound of Unmaking (#X#, #Y#)."
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "past_circle",
+              "text": "past circle is in play"
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "timeline_act_3",
+              "text": "dummy"
+            }
+          ]
+        }
+      },
+      {
+        "id": "put_down_hound",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "put_down_hound",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "put_down_hound_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "put_down_hound",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators put down the Hound of Unmaking (#X#, #Y#)."
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "past_circle",
+              "text": "past circle is in play"
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "timeline_act_3",
+              "text": "dummy"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dispelled_ward",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "dispelled_ward",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "dispelled_ward_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "dispelled_ward",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators dispelled the ward (#X#, #Y#)."
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "future_circle",
+              "text": "future circle is in play"
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "timeline_act_3",
+              "text": "dummy"
+            }
+          ]
+        }
+      },
+      {
+        "id": "unleashed_chaos",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "unleashed_chaos",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "unleashed_chaos_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "unleashed_chaos",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators unleashed chaos (#X#, #Y#)."
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "future_circle",
+              "text": "future circle is in play"
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "timeline_act_3",
+              "text": "dummy"
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "unleashed_chaos_check",
+              "text": "dummy"
+            }
+          ]
+        }
+      },
+      {
+        "id": "broke_first_circle",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "broke_first_circle",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "broke_first_circle_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "broke_first_circle",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators broke the first circle (#X#, #Y#)."
+            },
+            {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "first_circle_check",
+              "text": "dummy"
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_act_1",
+        "type": "branch",
+        "text": "Check Ritual Timeline. <i>If the boundary is broken.</i>",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "boundary_broken",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["resolution_2"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["resolution_1"]
+            }
+          ]
+        }
+      },
+      {
+        "id":"check_timeline_weakened",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "timeline_was_weakened",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["resolution_4"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["resolution_5"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "fell_to_the_myriad",
+        "type": "input",
+
+        "input": {
+          "type": "counter",
+          "text": "Current agenda:",
+          "min": {
+            "type": "constant",
+            "value": 1
+          },
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "fell_to_the_myriad",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "fell_to_the_myriad_doom",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Current doom on agenda:",
+          "max": {
+            "type": "constant",
+            "value": 9
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "timeline",
+              "id": "fell_to_the_myriad",
+              "alternate": true,
+              "operation": "set_input",
+              "text": "the investigators fell to the Myriad (#X#, #Y#)."
+            }
+          ]
+        }
+      },
+      {
+        "id": "fell_to_the_myriad_tokens",
+        "text": "Remove all [cultist] and [tablet] tokens from the chaos bag. Then add 1 [cultist] token, 1 [tablet] token, and 2 [elder_thing] tokens to the chaos bag.",
+        "effects": [
+          {
+            "type": "remove_chaos_token",
+            "tokens": [
+              "cultist",
+              "cultist",
+              "tablet",
+              "tablet"
+            ]
+          },
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "elder_thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ask_high_priest",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "yes",
+              "text": "Is The Myriad Gentleman <i>(The High Priest)</i> in the victory display?",
+              "steps": [
+                "eliminated_priest"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "eliminated_priest",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "investigators_eliminated_the_high_priest",
+            "text": "the investigators eliminated the high priest."
+        }
+        ]
+      },
+      {
+        "id": "check_past",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "past_circle",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["step_past", "step_past_tokens"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["check_future"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "step_past",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "timeline",
+                "id": "investigators_stepped_into_past",
+                "text": "the investigators stepped into the past."
+            }
+        ]
+      },
+      {
+        "id": "step_past_tokens",
+        "text": "Remove all [cultist] and [tablet] tokens from the chaos bag. Then add 2 [tablet] tokens and 1 [elder_thing] token to the chaos bag.",
+        "effects": [
+          {
+            "type": "remove_chaos_token",
+            "tokens": [
+              "cultist",
+              "cultist",
+              "tablet",
+              "tablet"
+            ]
+          },
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "tablet",
+              "tablet",
+              "elder_thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "check_future",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "future_circle",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["step_future", "step_future_tokens"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "step_future",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "timeline",
+                "id": "investigators_stepped_into_future",
+                "text": "the investigators stepped into the future."
+            }
+        ]
+      },
+      {
+        "id": "step_future_tokens",
+        "text": "Remove all [cultist] and [tablet] tokens from the chaos bag. Then add 2 [cultist] tokens and 1 [elder_thing] token to the chaos bag.",
+        "effects": [
+          {
+            "type": "remove_chaos_token",
+            "tokens": [
+              "cultist",
+              "cultist",
+              "tablet",
+              "tablet"
+            ]
+          },
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "cultist",
+              "cultist",
+              "elder_thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "all_times_are_one",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "all_times_are_one",
+            "text": "all times are one."
+          }
+        ]
+      },
+      {
+        "id": "all_insane",
+        "text": "Each investigator is driven <b>insane</b>.",
+        "effects": [
+          {
+            "type": "trauma",
+            "investigator": "all",
+            "insane": true
+          }
+        ]
+
+      },
+      {
+        "id": "campaign_loss",
+        "text": "The investigators lose the campaign.",
+        "effects": [
+          {
+            "type": "campaign_data",
+            "setting": "skip_scenario",
+            "scenario": "au_epilogue"
+          },
+          {
+            "type": "campaign_data",
+            "setting": "result",
+            "value": "lose"
+          }
+        ]
+      },
+      {
+        "id": "timeline_weakened",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "timeline_was_weakened",
+                "text": "the timeline was weakened."
+            }
+        ]
+      },
+      {
+        "id": "timeline_weakened_chaos_tokens",
+        "text": "Add 2 [elder_thing] tokens to the chaos bag.",
+        "effects": [
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "elder_thing",
+              "elder_thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "repeat_scenario",
+        "text": "The investigators must replay <b>Scenario III: A World Torn Down</b>. Reset the game to this scenario’s Setup. No experience points are earned from your previous game.",
+        "steps": [
+          "restore_strange_assistance"
+        ],
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "somebody_disappeared_unexpectedly",
+            "remove": true
+          },
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "chronophage_disappeared_unexpectedly",
+            "remove": true
+          },
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "gentleman_disappeared_unexpectedly",
+            "remove": true
+          },
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "thugs_disappeared_unexpectedly",
+            "remove": true
+          },  
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "assassin_disappeared_unexpectedly",
+            "remove": true
+          },
+          {
+            "type": "campaign_log",
+            "section": "timeline",
+            "id": "irregulars_disappeared_unexpectedly",
+            "remove": true
+          },
+          {
+            "type": "campaign_data",
+            "setting": "replay_scenario",
+            "scenario": "a_world_torn_down"
+          }
+        ]
+      },
+      {
+        "id": "restore_strange_assistance",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "offer_accepted",
+          "options": [
+            {
+              "boolCondition": true,
+              "effects": [
+                {
+                  "type": "campaign_log_count",
+                  "section": "strange_assistance",
+                  "operation": "set",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "boolCondition": false,
+              "effects": [
+                {
+                  "type": "campaign_log_count",
+                  "section": "strange_assistance",
+                  "operation": "set",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "defeat_guardrail",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "first_circle_check",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["defeat_guardrail_visible"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["check_act_1"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "defeat_guardrail_visible",
+        "type": "branch",
+        "text": "Check Ritual Timeline. <i>If the investigators broke the first cicrle.</i>",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "broke_first_circle",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["defeat_error"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "defeat_error",
+        "text": "You must proceed to Resolution 3. Please undo, and select the correct resolution.",
+        "effects": [
+          {
+            "type": "campaign_data",
+            "setting": "result",
+            "value": "lose"
+          }
+        ]
+      },
+      {
+        "id": "circle_guardrail",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "first_circle_check",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "r3_story",
+                "check_past",
+                "ask_high_priest",
+                "earn_xp",
+                "$upgrade_decks"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["circle_error"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "r3_story",
+        "type": "story",
+        "text": "Tearing apart the first ritual circle, you turn your attention to the other two. The cultists surrounding them advance on you; they don't look like particularly capable fighters, but they outnumber you ten to one. Taking a few cautious steps backwards, you find yourself on the precipice of a swirling, many-hued rift in reality, the untamed schism that was once contained by the arcane circle you broke. It's a way out, maybe, but an unfathomable one...\nThen, a commotion on the far side of the auditorium. New arrivals, cutting their way through the cultists, making a beeline for the other circles. It's difficult to see past the encroaching cultists, but you manage to catch the eye of-\nNo, that <i>can't </i> be.\nYou glance at the rift behind you. The figure nods, once. You step into the unknown."
+      },
+      {
+        "id": "circle_error",
+        "text": "Before proceeding to resolution 3, the campaign log entries for the act advancements need to be completed. Please undo, and complete those entries.",
+        "effects": [
+          {
+            "type": "campaign_data",
+            "setting": "result",
+            "value": "lose"
+          }
+        ]
+      },
+      {
+        "id": "resolution_1",
+        "type": "resolution",
+        "resolution": "R1"
+      },
+      {
+        "id": "resolution_2",
+        "type": "resolution",
+        "resolution": "R2"
+      },
+      {
+        "id": "resolution_4",
+        "type": "resolution",
+        "resolution": "R4"
+      },
+      {
+        "id": "resolution_5",
+        "type": "resolution",
+        "resolution": "R5"
+      },
+      {
+        "id": "earn_xp",
+        "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Victory display:",
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all"
+            }
+          ]
+        }
+      }
+    ],
+    "resolutions": [
+      {
+        "id": "no_resolution",
+        "title": "No resolution was reached",
+        "description": "Each investigator was defeated",
+        "investigator_status": [
+          "eliminated",
+          "physical",
+          "mental"
+        ],
+        "steps": [
+          "defeat_guardrail"
+        ]
+      },
+      {
+        "id": "R1",
+        "hidden": true,
+        "title": "Resolution 1",
+        "text": "Try as you might, the Myriad's fortress is virtually impenetrable. As the ritual inside builds towards its terrible conclusion, you throw yourself at it in desperation, seeking any way to break-",
+        "steps": [
+          "check_timeline_weakened"
+        ]
+      },
+      {
+        "id": "R2",
+        "hidden": true,
+        "title": "Resolution 2",
+        "text": "The distortions around you grow more and more severe. You can barely stand, can hardly move as broken realities circle and shift. Time melts like butter on a stove, and you find yourself falling, falling outside of time...",
+        "steps": [
+          "fell_to_the_myriad",
+          "fell_to_the_myriad_doom",
+          "fell_to_the_myriad_tokens",
+          "ask_high_priest",
+          "earn_xp",
+          "$upgrade_decks"
+        ]
+      },
+      {
+        "id": "R3",
+        "title": "Resolution 3",
+        "steps": [
+          "circle_guardrail"
+        ]
+      },
+      {
+        "id": "R4",
+        "hidden": true,
+        "title": "Resolution 4",
+        "text": "You run, panting, down an alley. The armed men are still in pursuit-\nAs you explore the manor's garden, a tall man in a fine suit strolls out to meet you-\nYour family, such as it is, stands at your bedside, awaiting-\nYou let out an ear-piercing wail, unsteady on your tiny legs-\n-through the barrier. There must be a way, there-\n\"Mama.\" Your first word.\n\"I'm sorry. I failed you all.\" Your last.",
+        "steps": [
+          "all_times_are_one",
+          "all_insane",
+          "campaign_loss"
+        ]
+      },
+      {
+        "id": "R5",
+        "hidden": true,
+        "title": "Resolution 5",
+        "text": "Mount Hollyoke Elementary was condemned by Arkham's town council several years ago, but for unknown reasons was never demolished. This seems to suit the Myriad just fine - they've repurposed it to their own ends. A ritual takes place here tonight - one that could spell the end of everything and everywhen.",
+        "steps": [
+          "timeline_weakened",
+          "timeline_weakened_chaos_tokens",
+          "repeat_scenario"
+        ]
+      }
+    ]
+  }

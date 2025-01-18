@@ -29,6 +29,7 @@ const FIXED_MAGIC_STEPS = {
   $choose_investigators: true,
   $check_tarot_reading: true,
   $pr_R1: true,
+  $pr_R3: true,
   $pr_no_resolution: true,
   $embark: true,
   $embark_return: true,

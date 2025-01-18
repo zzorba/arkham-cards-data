@@ -1,0 +1,810 @@
+{
+    "id": "a_world_torn_down_again",
+    "scenario_name": "A World Torn Down, Again",
+    "header": "Scenario VI",
+    "full_name": "Scenario VI: A World Torn Down, Again",
+    "chaos_bag_card": "zau_00155",
+    "chaos_bag_card_text": "[skull]: -X. X is the number of actions you have remaining.\n[cultist]: -1. If you succeed, you get +1 skill value during skill tests until the end of the round.\n[tablet]: -3. If you fail, place 1 doom on the current agenda.\n[elder_thing]: -5. Take 1 horror.",
+    "chaos_bag_card_back_text": "[skull]: -X. X is 1 more than the number of actions you have remaining.\n[cultist]: -3. If you succeed, you get +1 skill value during skill tests until the end of the round.\n[tablet]: -5. If you fail, place 1 doom on current agenda.\n[elder_thing]: You automatically fail. Take 1 horror.",
+    "icon": "zau_world_torn_down_again",
+    "setup": [
+      "check_quarry",
+      "$check_tarot_reading",
+      "gather_encounter_sets",
+      "check_causality",
+      "setup_locations",
+      "check_late_return",
+      "add_chaos_token",
+      "check_warding",
+      "check_color",
+      "check_schemes",
+      "check_riddle",
+      "check_chronophage_disappeared_invisible",
+      "check_future",
+      "set_aside_cards",
+      "encounter_deck",
+      "past_and_present_rule",
+      "$play_scenario"
+    ],
+    "steps": [
+      {
+        "id": "check_quarry",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "new_quarry",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "intro_1",
+                "investigator_damage_horror",
+                "check_realm"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "check_realm"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "intro_1",
+        "type": "story",
+        "text": "There was, in the end, a simple way to lure the Sheldon gang and their supernatural compatriots away from your past self. Their target was you, after all.\nThat said, your encounters with them mean you reach the ritual site rather the worse for wear."
+      },
+      {
+        "id": "investigator_damage_horror",
+        "text": "Each investigator takes 1 direct damage and 1 direct horror."
+      },
+      {
+        "id": "check_realm",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "myriad_harnessed_the_power_of_another_realm",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "intro_2"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "intro_3"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "intro_2",
+        "type": "story",
+        "text": "Mount Hollyoke Elementary School - the site of the Myriad's profane ritual, the place that sent you tumbling into the past a year ago - is absent. You've reached its address, the place where you distinctly remember it being, and yet, it is not.\nThe air thrums with energy, and a green light glows very faintly in your periphery. The ritual's still happening, then. This... This could pose an issue."
+      },
+      {
+        "id": "intro_3",
+        "type": "story",
+        "text": "Mount Hollyoke Elementary School. It's been a long time since you last visited. You can't say you missed it, honestly.\nThe barrier erected by the Myriad stands firm around it, and the air is rich with temporal energy. The ritual has begun, which means it's time for you to intervene."
+      },
+      {
+        "id": "gather_encounter_sets",
+        "title": "Setup",
+        "type": "encounter_sets",
+        "encounter_sets": [
+          "zau_world_torn_down_again",
+          "zau_night_of_the_ritual",
+          "zau_agents_of_aforgomon",
+          "zau_myriad",
+          "zau_nyctophobia",
+          "zau_thugs",
+          "zau_unleashed_chaos"
+        ]
+      },
+      {
+        "id": "check_causality",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "violated_causality",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "add_paradox"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_paradox",
+        "type": "encounter_sets",
+        "encounter_sets": [ "zau_paradox"],
+        "text": "Also gather the <i>Paradox</i> encounter set."
+      },
+      {
+        "id": "setup_locations",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "myriad_harnessed_the_power_of_another_realm",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "featureless_streets_setup"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "ordinary_setup",
+                "check_front_door"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "featureless_streets_setup",
+        "bullet_type": "small",
+        "text": "Put Featureless Streets into play. The starting location is Featureless Streets."
+      },
+      {
+        "id": "ordinary_setup",
+        "bullet_type": "small",
+        "text": "Otherwise, remove Featureless Streets and act 1a from the game. The game begins at act 2a. Put Front Gates, Sports Field, Children's Playground and Side Building into play. The starting location is Sports Field."
+      },
+      {
+        "id": "check_front_door",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "used_front_door",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "check_front_door_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "check_back_door_visible"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_front_door_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "used_front_door",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "rear_corridors"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_back_door_visible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "snuck_in_back",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "front_hallway"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "rear_corridors",
+        "bullet_type": "small",
+        "text": "Also put Rear Corridors into play."
+      },
+      {
+        "id": "front_hallway",
+        "bullet_type": "small",
+        "text": "Also put Front Hallway into play."
+      },
+      {
+        "id": "check_late_return",
+        "text": "Each investigator who <i>returned to Arkham late</i> performs setup normally, but begins the game at no location. They are not considered to be in play, and cannot interact with the game in any way. At the end of the first round of the game, each of these investigators enters play at the starting location. Each other investigator begins play at the starting location."
+      },
+      {
+        "id": "add_chaos_token",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_data",
+          "campaign_data": "difficulty",
+          "options": [
+            {
+              "condition": "easy",
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "-3"
+                  ]
+                }
+              ]
+            },
+            {
+              "condition": "standard",
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "-5"
+                  ]
+                }
+              ]
+            },
+            {
+              "condition": "hard",
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "-6"
+                  ]
+                }
+              ]
+            },
+            {
+              "condition": "expert",
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "-7"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_warding",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "myriad_raised_a_powerful_warding",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "place_nexus_of_aforgomon"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "remove_nexus_of_aforgomon"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "place_nexus_of_aforgomon",
+        "bullet_type": "small",
+        "text": "Put Nexus of Aforgomon into play next to the agenda deck."
+      },
+      {
+        "id": "remove_nexus_of_aforgomon",
+        "bullet_type": "small",
+        "text": "Remove Nexus of Aforgomon from the game."
+      },
+      {
+        "id": "check_color",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "myriad_took_control_of_a_color_out_of_space",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "place_colors_spread"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "remove_colors_spread"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "place_colors_spread",
+        "bullet_type": "small",
+        "text": "Put The Color's Spread into play next to the agenda deck."
+      },
+      {
+        "id": "remove_colors_spread",
+        "bullet_type": "small",
+        "text": "Remove The Color's Spread from the game."
+      },
+      {
+        "id": "check_schemes",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "no_changes"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "remove_lodge_assistance"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "no_changes",
+        "bullet_type": "small",
+        "text": "No changes are made."
+      },
+      {
+        "id": "remove_lodge_assistance",
+        "bullet_type": "small",
+        "text": "Remove each copy of Assistance from the Lodge from the game."
+      },
+      {
+        "id": "check_riddle",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "solved_the_riddle_of_the_sphinx",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "riddle_reward"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "check_myriad_riddle"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "riddle_reward",
+        "bullet_type": "small",
+        "text": "Each investigator begins the game with 1 additional card and 2 additional resources."
+      },
+      {
+        "id": "check_myriad_riddle",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "myriad_solved_the_riddle_of_the_sphinx",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "riddle_punishment"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "riddle_punishment",
+        "bullet_type": "small",
+        "text": "Place 1 doom on the current agenda."
+      },
+      {
+        "id": "check_chronophage_disappeared_invisible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "chronophage_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "check_chronophage_disappeared_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [ "check_gentleman_disappeared_invisible"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_chronophage_disappeared_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "chronophage_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "set_aside_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_gentleman_disappeared_invisible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "gentleman_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "check_gentleman_disappeared_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [ "check_thugs_disappeared_invisible"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_gentleman_disappeared_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "gentleman_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "set_aside_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_thugs_disappeared_invisible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "thugs_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "check_thugs_disappeared_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [ "check_assassin_disappeared_invisible"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_thugs_disappeared_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "thugs_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "set_aside_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_assassin_disappeared_invisible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "assassin_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "check_assassin_disappeared_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [ "check_irregulars_disappeared_invisible"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_assassin_disappeared_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "assassin_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "set_aside_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_irregulars_disappeared_invisible",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "irregulars_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "check_irregulars_disappeared_visible"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [ "no_disappearance"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_irregulars_disappeared_visible",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "irregulars_disappeared_unexpectedly",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [ "set_aside_disappeared"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "set_aside_disappeared",
+        "bullet_type": "small",
+        "text": "Set a copy of that enemy aside, out of play."
+      },
+      {
+        "id": "no_disappearance", 
+        "text": "No enemy <i>disappeared unexpectedly</i>, so no further changes are made."
+      },
+      {
+        "id": "check_future",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "investigators_stepped_into_future",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["future_remove"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["check_past"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_past",
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "timeline",
+          "id": "investigators_stepped_into_past",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["past_remove"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "future_remove",
+        "bullet_type": "small",
+        "text": "Remove Ritual Circle (A Harnessed Future) from the game."
+      },
+      {
+        "id": "past_remove",
+        "bullet_type": "small",
+        "text": "Remove Ritual Circle (Gateway to the Past) from the game."
+      },
+      {
+        "id": "set_aside_cards",
+        "text": " Set each remaining location aside, out of play, along with Estravius Malone, Hound of Unmaking, Unstable Warding,Unstable Energies, The Myriad Gentleman <i>(The High Priest)</i> and each copy of Unleashed Chaos, Stirring Titan and Hired Thugs. "
+      },
+      {
+        "id": "encounter_deck",
+        "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+      },
+      {
+        "id": "past_and_present_rule",
+        "type": "rule_reminder",
+        "title": "The Past and the Present",
+        "text": "This scenario has two act decks. The \"a/b\" deck represents the progress of the present investigators, and behaves as normal, while the \"c/d\" act deck tracks the actions of the investigators' past selves.\nEach \"c/d\" act has one or more conditions for advancing, at least one of which should be recorded in your Campaign Log with a time next to it. After checking the doom threshold each round, compare these times to the current agenda number and amount of doom on the agenda. Advance the act if:",
+        "bullets": [
+          {
+            "text": "The current agenda number is equal to the one recorded, and there is at least as much doom on the current agenda as is recorded, or:"
+          },
+          {
+            "text": "The current agenda number is greater than the one recorded."
+          }
+        ],
+        "example": "<i>For example: Act 1c advances when</i> the boundary is broken. <i>Agnes Baker has this statement in her Campaign Log, with (1,5) written next to it. After checking the doom threshold each round, she checks this, and when the agenda has 5 or more doom on it, she advances to act 1d. If, due to her Dark Memory weakness, agenda 1 advanced after having only 4 doom on it the previous round, she would still advance act 1c that round, as the agenda number, 2, is greater than the recorded agenda number, 1.</i>"
+      },
+      {
+        "id": "resolution_2",
+        "type": "resolution",
+        "resolution": "R2"
+      },
+      {
+        "id": "all_times_are_one",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "all_times_are_one",
+            "text": "all times are one."
+          }
+        ]
+      },
+      {
+        "id": "all_insane",
+        "text": "Each investigator is driven <b>insane</b>.",
+        "effects": [
+          {
+            "type": "trauma",
+            "investigator": "all",
+            "insane": true
+          }
+        ]
+
+      },
+      {
+        "id": "campaign_loss",
+        "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "time_runs_out"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "au_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+      },
+      {
+        "id": "earn_xp",
+        "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Victory display:",
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all"
+            }
+          ]
+        }
+      }
+    ],
+    "resolutions": [
+      {
+        "id": "no_resolution",
+        "title": "No resolution was reached",
+        "description": "Each investigator was defeated",
+        "investigator_status": [
+          "eliminated",
+          "physical",
+          "mental"
+        ],
+        "steps": [
+          "resolution_2"
+        ]
+      },
+      {
+        "id": "R1",
+        "title": "Resolution 1",
+        "text": "Minutes and eons rush past you, ancient secrets and terrible futures. A force tugs on you, urging you to fall, to be lost in the timestream once more.\nThis time, however, you are not so easily taken. You stand, holding firm against the pull of entropy, and <i>step.</i> One step, then another, dragging yourself through time. You can control this, forge your own path, straight towards Aforgomon. Pushing towards an ending, one way or another.",
+        "steps": [
+          "earn_xp",
+          "$upgrade_decks"
+        ]
+      },
+      {
+        "id": "R2",
+        "hidden": true,
+        "title": "Resolution 2",
+        "text": "You run, panting, down an alley. The armed men are still in pursuit-\nAs you explore the manor's garden, a tall man in a fine suit strolls out to meet you-\nYour family, such as it is, stands at your bedside, awaiting-\nYou let out an ear-piercing wail, unsteady on your tiny legs-\n-scratching desperately at the runes painted on the floor, hoping against hope that-\n\"Mama.\" Your first word.\n\"I'm sorry. I failed you all.\" Your last.",
+        "steps": [
+          "all_times_are_one",
+          "all_insane",
+          "campaign_loss"
+        ]
+      }
+    ]
+  }

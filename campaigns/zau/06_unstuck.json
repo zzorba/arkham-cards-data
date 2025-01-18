@@ -1,0 +1,312 @@
+{
+  "id": "unstuck",
+  "scenario_name": "Unstuck",
+  "header": "Scenario IV",
+  "full_name": "Scenario IV: Unstuck",
+  "chaos_bag_card": "zau_00062",
+  "chaos_bag_card_text": "[skull]: -X. X is the current agenda number.\n[cultist]: Reveal another token. If you fail, resolve the effects of the failed skill test an additional time.\n[tablet]: -2. If you fail, draw the topmost treachery in the encounter discard pile.\n[elder_thing]: -4. If you fail and you are at an [[Adrift]] location, after this test ends, swap the positions of your location and the location across from you.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the sum of the current act number and the current agenda number.\n[cultist]: Reveal another token. If you fail, resolve the effects of the failed skill test an additional time.\n[tablet]: -3. If you fail, draw the topmost treachery in the encounter discard pile.\n[elder_thing]: -5. If you are at an [[Adrift]] location, after this test ends, swap the positions of your location and the location across from you.",
+  "icon": "zau_unstuck",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "set_aside_cards",
+    "elite_setup",
+    "setup_locations",
+    "check_starting_location",
+    "add_chaos_token",
+    "encounter_deck",
+    "random_location_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "\"With a sense of troublous familiarity, I beheld the blurred unstable pictures which flowed past me upon this never-resting medium. Orient temples, flashing with sun-struck bronze and gold; the sharp, crowded gables and spires of medieval cities; tropic and northern forests; the costumes and physiognomies of the Levant, of Persia, of old Rome and Carthage, went by like blown, flying mirages. Each succeeding tableau belonged to a more ancient period than the one before it — and I knew that each was a scene from some former existence of my own.\" \n\n<right>- <i>Clark Ashton Smith, \"The Chain of Aforgomon\"</i></right>\n\nYou fall. Though fall is maybe the wrong word - fall implies a sense of<i>down.</i> You tumble through realities, flashes of years long past and dizzying futures muddling your senses. You feel sick, faint, close to passing out. \nA sudden stillness. You lie on solid ground. It takes you a minute to pull yourself to your feet, and your head still pounds. You're in a forest. Not one that looks familiar, but it's something. It's reality. \nA roar cuts through your musings, painfully loud. Three creatures burst from the foliage, screeching as they flee past you, lizard-like beasts almost as tall as you are. You watch them flee, turning back just in time to spot a colossal beast crushing the trees in front of you. It roars again, the sound pounding your bones to jelly, as it charges you... \nExistence gives way, and you find yourself falling once more."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zau_unstuck",
+        "zau_paradox"
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set  each copy of the Time Runs Backwards weakness, the <i>Paradox</i> encounter set, and The Timestream and Arkham, Massachusetts <i>(Present Day?)</i> locations aside, out of play."
+    },
+    {
+      "id": "elite_setup",
+      "text": "Shuffle the four [[Elite]] enemies together. Set three of them aside, out of play, without looking at them. <i>(The fourth will be shuffled into the encounter deck.)</i>"
+    },
+    {
+      "id": "setup_locations",
+      "text": "Remove one of the two copies of each other location from the game, at random. Then shuffle the eight remaining locations together and put them into play in a random order, forming a circle."
+    },
+    {
+      "id": "check_starting_location",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "timeline",
+        "id": "investigators_stepped_into_past",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_past_visible"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_starting_location_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_starting_location_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "timeline",
+        "id": "investigators_stepped_into_future",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_future_visible"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_starting_location_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_starting_location_3",
+      "type": "branch",
+      "text": "Check Ritual Timeline. <i>If the investigators fell to the Myriad.</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "timeline",
+        "id": "fell_to_the_myriad",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["divided_start"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_past_visible",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "timeline",
+        "id": "investigators_stepped_into_past",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["arkham_start"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_future_visible",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "timeline",
+        "id": "investigators_stepped_into_future",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["future_start"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arkham_start",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at Arkham Massachussetts <i>(16th Century).</i>"
+    },
+    {
+      "id": "future_start",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at A Disquieting Future"
+    },
+    {
+      "id": "divided_start",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at a different random <b>Extradimensional</b> location."
+    },
+    {
+      "id": "add_chaos_token",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-2"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "standard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-3"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "hard",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-4"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "expert",
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "-5"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "random_location_rule",
+      "type": "rule_reminder",
+      "title": "Locations Outside of Time",
+      "text": "During this scenario, you will sometimes be instructed to choose a random [[Adrift]] location. This should be done by shuffling together the 8 locations removed from the game during setup (the versions of each [[Adrift]] location in play not currently being used) and drawing 1 at random. If you are instructed to choose a random location that fits a certain criterion, keep drawing locations until one is drawn that satisfies the effect's requirements."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "randomize_locations",
+            "text": "Choose a random location",
+            "steps": [
+              "choose_random_location"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_random_location",
+      "type": "input",
+      "input": {
+        "type": "random_location",
+        "cards": [
+          "zau_00069",
+          "zau_00071",
+          "zau_00073",
+          "zau_00075",
+          "zau_00077",  
+          "zau_00079",
+          "zau_00081",
+          "zau_00083"
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "time_runs_backwards",
+      "text": "Each investigator who was defeated gains the Time Runs Backwards weakness, and must add it to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "defeated",
+          "card": "zau_00087"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "You come to in a moonlit jail cell. Your head pounds like nothing you've ever felt before, and as you try and get someone's attention you feel the flow of time slip around you, and suddenly the sun is high in the sky. You manage to attract the attention of a very confused police officer, who doesn't remember you ever being brought in. \nHe asks you a few questions - which you do your best to answer, though your memories are of little help to you - before releasing you onto the streets of Arkham, nonplussed but without reason to hold you. \nEmerging from the station, you're forced to duck into an alleyway as you spot an officer approaching, supporting a barely-conscious you. \"Picked this one up right off the street,\" you hear him comment to the desk sergeant. \"Bold as brass, just lying there in a drunken stupor.\" He's not got it quite right, but you can hardly stop to correct him.",
+      "steps": [
+        "time_runs_backwards"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "With your feet firmly on the ground, you take a moment to stop and breathe in the air. Arkham's distinct ashy, slightly mildewed scent fills you with a sense of peace. You're home.\nYour reverie doesn't last long. The Myriad's ritual was disrupted by your efforts, but could still continue. It's daytime now, so presumably it's the next day... or the previous one. You spot a newsagent with a stack of papers on sale, and your heart sinks as you read the date: \n<center><b>Tuesday, August 26th, 1924</b></center> \nYou're early. You've arrived a whole year before you left.",
+      "steps": [
+        "earn_xp",
+          "$upgrade_decks"
+      ]
+    }
+  ]
+}
