@@ -1,0 +1,1084 @@
+{
+    "id": "a_year_to_plan",
+    "scenario_name": "A Year to Plan",
+    "header": "Scenario V",
+    "full_name": "Scenario V: A Year to Plan",
+    "chaos_bag_card": "zau_00105",
+    "chaos_bag_card_text": "[skull]: -X. X is half the number of completed [[Tasks]] (rounded down).\n[cultist]: -5. Draw a card or gain a resource.\n[tablet]: -2. If you fail and it is your turn, lose all remaining actions and end your turn.\n[elder_thing]: -3. If you fail, take 1 damage and 1 horror.",
+    "chaos_bag_card_back_text": "[skull]: -X. X is the number of completed [[Tasks]].\n[cultist]: -8. Draw a card or gain a resource.\n[tablet]: -4. If you fail and it is your turn, lose all remaining actions and end your turn.\n[elder_thing]: -5. If you fail, take 1 damage and 1 horror.",
+    "icon": "zau_year_to_plan",
+    "setup": [
+      "intro",
+      "$check_tarot_reading",
+      "gather_encounter_sets",
+      "setup_locations",
+      "helping_yourself",
+      "list_strange_assistance",
+      "setup_task_deck",
+      "set_aside_cards",
+      "encounter_deck",
+      "task_rules",
+      "$play_scenario"
+    ],
+    "rules": [
+    ],
+    "steps": [
+      {
+        "id": "intro",
+        "type": "story",
+        "text": "It takes a little time to get used to being in the past. There's a second <i>you</i> here - you've seen them, though you made sure they didn't see you. That means you don't have a home, or a family, unless you want to meddle with your own past.\nOnce you get yourself set up, though, you're able to do some research. A few days at the Miskatonic University library dig up some interesting leads you intend to follow up on. The Myriad are operating in this time, it seems - so why not interfere with their plans?"
+      },
+      {
+        "id": "gather_encounter_sets",
+        "title": "Setup",
+        "type": "encounter_sets",
+        "encounter_sets": [
+          "zau_year_to_plan",
+          "zau_missions",
+          "zau_myriad",
+          "zau_shifting_reality",
+          "zau_unravelling_years",
+          "pentagram",
+          "arkham"
+        ],
+        "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the five treachery cards (2x False Lead and 3x Hunting Shadow). Do not gather any other cards from that encounter set."
+      },
+      {
+        "id": "setup_locations",
+        "text": "Put each [[City]] and [[Wilderness]] location into play. Each investigator begins play in Arkham, Massachusetts."
+      },
+      {
+        "id": "helping_yourself",
+        "text": "Put the Helping Yourself treachery into play next to the act deck with X resources on it. X is the number of marks under <b>Strange Assistance</b> in your Campaign Log."
+      },
+      {
+        "id": "list_strange_assistance",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log_count",
+          "section": "strange_assistance",
+          "id": "$count",
+          "options": [],
+          "default_option": {
+            "effects": [
+              {
+                "type": "check_campaign_log_count",
+                "bullet_type": "small",
+                "text": "#X# Strange Assistance marked."
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "setup_task_deck",
+        "text": "Shuffle the following treachery cards together to form the task deck: Enemy of my Enemy, A Treasure Unearthed, The Devil You Know, Higher Powers, Entreating the Gods, and Up To Something. Place this deck near the scenario reference card."
+      },
+      {
+        "id": "set_aside_cards",
+        "text": "Set the remainder of the <i>Missions</i> encounter set aside, out of play, along with each copy of Curse of a Thousand Winters."
+      },
+      {
+        "id": "encounter_deck",
+        "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+      },
+      {
+        "id": "task_rules",
+        "type": "rule_reminder",
+        "title": "Tasks",
+        "text": "Some treacheries in this scenario have the [[Task]] trait. These cards have objectives on them, which provide goals to complete throughout the scenario. When you meet the objective printed on a [[Task]], or when another card tells you to complete it, remove it from the game, making sure to keep track of which [[Tasks]] you've completed."
+      },
+      {
+        "id": "$play_scenario",
+        "type": "input",
+        "input": {
+          "type": "play_scenario",
+          "campaign_log": [
+            {
+              "id": "solved_riddle",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "solved_the_riddle_of_the_sphinx",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "text": "You solved the riddle of the sphinx.",
+              "steps": [
+                "solved_riddle"
+              ]
+            },
+            {
+              "id": "took_tea",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "took_tea_with_the_ruler_of_a_strange_dimension",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "text": "You took tea with the ruler of a strange dimension.",
+              "steps": [
+                "took_tea"
+              ]
+            },
+            {
+              "id": "advanced_schemes",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "text": "You have advanced the schemes of the Silver Twilight Lodge.",
+              "steps": [
+                "advanced_schemes"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "solved_riddle",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "solved_the_riddle_of_the_sphinx",
+            "text": "you solved the riddle of the sphinx."
+          }
+        ]
+      },
+      {
+        "id": "took_tea",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "took_tea_with_the_ruler_of_a_strange_dimension",
+            "text": "You took tea with the ruler of a strange dimension."
+          }
+        ]
+      },
+      {
+        "id": "advanced_schemes",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+                "text": "you have advanced the schemes of the Silver Twilight Lodge."
+            }
+        ]
+      },
+      {
+        "id": "ritual_is_nigh",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "ritual_is_nigh",
+                "text": "the ritual is nigh."
+            }
+        ]
+      },
+      {
+        "id": "late_return",
+        "text": "For each investigator that did not resign, record in your campaign log that <i>[investigator name] returned to Arkham late.</i>",
+        "effects": [
+          {
+            "type": "campaign_log_cards",
+            "section": "campaign_notes",
+            "id": "late_return",
+            "cards": "$not_resigned",
+            "masculine_text": "#name# returned to Arkham late.",
+            "feminine_text": "#name# returned to Arkham late.",
+            "nonbinary_text": "#name# returned to Arkham late."
+          }
+        ]
+      },
+      {
+        "id": "ask_multitude_of_plots",
+        "text": "How many copies of A Multitude of Plots are in the victory display?",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "A Multitude of Plots:",
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "multitude_of_plots",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_multitude_of_plots",
+        "type": "branch",
+        "hidden": true,
+        "loop": true,
+        "condition": {
+          "type": "math",
+          "opA": {
+            "type": "campaign_log_count",
+            "section": "hidden",
+            "id": "multitude_of_plots"
+          },
+          "opB": {
+            "type": "constant",
+            "value": 1
+          },
+          "operation": "compare",
+          "options": [
+            {
+              "numCondition": 1,
+              "steps": ["choose_plot"]
+            },
+            {
+              "numCondition": 0,
+              "steps": ["choose_plot"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "choose_plot",
+        "text": "For each copy, choose one:",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "powerful_warding",
+              "text": "The Myriad raised a powerful warding.",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "myriad_raised_a_powerful_warding",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "steps": [
+                "record_powerful_warding"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_log_count",
+                  "section": "hidden",
+                  "id": "multitude_of_plots",
+                  "operation": "add",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "id": "cruel_sorcerer",
+              "text": "The Myriad recruited a cruel sorcerer.",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "myriad_recruited_a_cruel_sorcerer",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "steps": [
+                "record_cruel_sorcerer"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_log_count",
+                  "section": "hidden",
+                  "id": "multitude_of_plots",
+                  "operation": "add",
+                  "value": -1
+                }
+              ]
+            },
+            {
+              "id": "dread_curse",
+              "text": "The Myriad weaved a dread curse.",
+              "condition": {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "myriad_weaved_a_dread_curse",
+                "options": [
+                  {
+                    "boolCondition": false
+                  }
+                ]
+              },
+              "steps": [
+                "record_dread_curse",
+                "curse_of_thousand_winters"
+              ],
+              "effects": [
+                {
+                  "type": "campaign_log_count",
+                  "section": "hidden",
+                  "id": "multitude_of_plots",
+                  "operation": "add",
+                  "value": -1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "record_powerful_warding",
+        "bullet_type": "small",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_raised_a_powerful_warding",
+            "text": "the Myriad raised a powerful warding."
+          }
+        ]
+      },
+      {
+        "id": "record_cruel_sorcerer",
+        "bullet_type": "small",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_recruited_a_cruel_sorcerer",
+            "text": "the Myriad recruited a cruel sorcerer."
+          }
+        ]
+      },
+      {
+        "id": "record_dread_curse",
+        "bullet_type": "small",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_weaved_a_dread_curse",
+            "text": "the Myriad weaved a dread curse."
+          }
+        ]
+      },
+      {
+        "id": "curse_of_thousand_winters",
+        "bullet_type": "small",
+        "text": "Each investigator must add 1 copy of Curse of a Thousand Winters to their deck. This card does not count towards deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "all",
+            "card": "zau_00128"
+          }
+        ]
+      },
+      {
+        "id": "reset_tokens",
+        "text": "Remove all [cultist], [tablet], and [elder_thing] tokens from the chaos bag. Then add 1 [cultist] token and 1 [tablet] token to the chaos bag.",
+        "effects": [
+          {
+            "type": "remove_chaos_token",
+            "tokens": [
+              "cultist",
+              "cultist",
+              "tablet",
+              "tablet",
+              "elder_thing",
+              "elder_thing"
+            ]
+          },
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "cultist",
+              "tablet"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ask_final_preparations",
+        "text": "For each resource on the act, add 1 [cultist] token to the chaos bag.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Resources on the act:",
+          "max": {
+            "type": "constant",
+            "value": 3
+          },
+          "effects": [
+            {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "final_preparations",
+              "text": "dummy",
+              "operation": "set_input"
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_final_preparations",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log_count",
+          "section": "hidden",
+          "id": "final_preparations",
+          "max": 3,
+          "options": [
+            {
+              "numCondition": 0,
+              "steps": [
+              ]
+            },
+            {
+              "numCondition": 1,
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "cultist"
+                  ]
+                }
+              ]
+            },
+            {
+              "numCondition": 2,
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "cultist",
+                    "cultist"
+                  ]
+                }
+              ]
+            },
+            {
+              "numCondition": 3,
+              "effects": [
+                {
+                  "type": "add_chaos_token",
+                  "tokens": [
+                    "cultist",
+                    "cultist",
+                    "cultist"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_helping_yourself",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "helping_yourself",
+              "text": "Was [[Helping Yourself]] completed?",
+              "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "helping_yourself_complete",
+                "text": "dummy"
+              }
+            ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "invert_helping_yourself",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "helping_yourself_complete",
+          "options": [
+            {
+              "boolCondition": false,
+              "steps": [
+                "violate_causality",
+                "record_causality",
+                "causality_tokens"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "violate_causality",
+        "type": "story",
+        "text": "As you prepare for your assault on the Myriad's ceremony, you feel time twist and distort around you. For one panicked moment, you think the ritual has started early. Then, you remember: your past self had help from a mysterious benefactor. Help you have failed to provide."
+      },
+      {
+        "id": "record_causality",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "violated_causality",
+            "text": "the investigators violated causality."
+          }
+        ]
+      },
+      {
+        "id": "causality_tokens",
+        "bullet_type": "small",
+        "text": "Add 2 [elder_thing] tokens to the chaos bag.",
+        "effects": [
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "elder_thing",
+              "elder_thing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "check_riddle",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section":"campaign_notes",
+          "id": "solved_the_riddle_of_the_sphinx",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["keeper_of_knowledge_complete"]
+            },
+            {
+              "boolCondition": false,
+              "steps": ["check_ancient_sphinx"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "keeper_of_knowledge_complete",
+        "text": "[[Keeper of Knowledge]] was completed."
+      },
+      {
+        "id": "check_ancient_sphinx",
+        "type": "input",
+        "text": "Where is the Ancient Sphinx?",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "victory_display",
+              "text": "Victory display.",
+              "steps": [
+                "catchup_riddle"
+              ]
+            },
+            {
+              "id": "in_play",
+              "text": "In play.",
+              "steps": [
+                "myriad_riddle",
+                "record_myriad_riddle",
+                "myriad_riddle_tokens"
+              ]
+            },
+            {
+              "id": "neither",
+              "text": "Neither.",
+              "steps": [
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "catchup_riddle",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "solved_the_riddle_of_the_sphinx",
+            "text": "you solved the riddle of the sphinx."
+          }
+        ]
+      },
+      {
+        "id": "myriad_riddle",
+        "type": "story",
+        "text": "The sphinx has since disappeared from Egypt. You don't imagine it would deign to fly to Arkham just to assist the cult of Aforgomon, but there's no telling what dark knowledge they may have extracted from it."
+      },
+      {
+        "id": "record_myriad_riddle",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_solved_the_riddle_of_the_sphinx",
+            "text": "the Myriad solved the riddle of the sphinx."
+          }
+        ]
+      },
+      {
+        "id": "myriad_riddle_tokens",
+        "bullet_type": "small",
+        "text": "Add 2 [tablet] tokens to the chaos bag.",
+        "effects": [
+          {
+            "type": "add_chaos_token",
+            "tokens": [
+              "tablet",
+              "tablet"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "check_tea",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section":"campaign_notes",
+          "id": "took_tea_with_the_ruler_of_a_strange_dimension",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": ["strange_portal_complete"]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "check_strange_portal",
+                "invert_strange_portal"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "strange_portal_complete",
+        "text": "[[Strange Portal]] was completed."
+      },
+      {
+        "id": "check_strange_portal",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "helping_yourself",
+              "text": "Was [[Strange Portal]] completed?",
+              "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "strange_portal_complete",
+                "text": "dummy"
+              }
+            ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "invert_strange_portal",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "strange_portal_complete",
+          "options": [
+            {
+              "boolCondition": true,
+              "steps": [
+                "catchup_tea"
+              ]
+            },
+            {
+              "boolCondition": false,
+              "steps": [
+                "myriad_harnessed",
+                "record_myriad_harnessed"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "catchup_tea",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "took_tea_with_the_ruler_of_a_strange_dimension",
+            "text": "You took tea with the ruler of a strange dimension."
+          }
+        ]
+      },
+      {
+        "id": "myriad_harnessed",
+        "type": "story",
+        "text": "Paris is quiet for the most part, but if you dig deep enough you find report after report of unexplained disappearances. Possessions, people, even whole buildings on occasion."
+      },
+      {
+        "id": "record_myriad_harnessed",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_harnessed_the_power_of_another_realm",
+            "text": "the Myriad harnessed the power of another realm."
+          }
+        ]
+      },
+      {
+        "id": "check_tunguska",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "tunguska",
+              "text": "Was [[The Tunguska Event]] completed?",
+              "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tunguska_complete",
+                "text": "dummy"
+              }
+            ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "invert_tunguska",
+        "hidden": true,
+        "type": "branch",
+        "condition": {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "tunguska_complete",
+          "options": [
+            {
+              "boolCondition": false,
+              "steps": [
+                "myriad_color",
+                "record_myriad_color"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "myriad_color",
+        "type": "story",
+        "text": "You still don't know what exactly happened in Tunguska, but some of the Myriad Gentlemen you've encoountered recently have been... different. Changed."
+      },
+      {
+        "id": "record_myriad_color",
+        "effects": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "myriad_took_control_of_a_color_out_of_space",
+            "text": "the Myriad took control of a color out of space."
+          }
+        ]
+      },
+      {
+        "id": "check_enemy_of_my_enemy",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "enemy_of_my_enemy",
+              "text": "Was [[Enemy of my Enemy]] completed?",
+              "steps": [
+                "add_monastic_training"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_monastic_training",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Monastic Training to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00149"
+          }
+        ]
+      },
+      {
+        "id": "check_treasure_unearthed",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "treasure_unearthed",
+              "text": "Was [[A Treasure Unearthed]] completed?",
+              "steps": [
+                "add_chronal_atlas"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_chronal_atlas",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Chronal Atlas to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00150"
+          }
+        ]
+      },
+      {
+        "id": "check_devil_you_know",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "devil_you_know",
+              "text": "Was [[The Devil You Know]] completed?",
+              "steps": [
+                "check_advanced_schemes",
+                "add_ionian_pendant"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "check_advanced_schemes",
+        "type": "branch",
+        "hidden": true,
+        "condition": {
+          "type": "campaign_log",
+          "section":"campaign_notes",
+          "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+          "options": [
+            {
+              "boolCondition": false,
+              "steps": ["catchup_advanced_schemes"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "catchup_advanced_schemes",
+        "bullet_type": "small",
+        "effects": [
+            {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "advanced_the_schemes_of_the_silver_twilight_lodge",
+                "text": "you have advanced the schemes of the Silver Twilight Lodge."
+            }
+        ]
+      },
+      {
+        "id": "add_ionian_pendant",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Ionian Pendant to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00151"
+          }
+        ]
+      },
+      {
+        "id": "check_higher_powers",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "higher_powers",
+              "text": "Was [[Higher Powers]] completed?",
+              "steps": [
+                "add_agency_strike_team"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_agency_strike_team",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Agency Strike Team to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00152"
+          }
+        ]
+      },
+      {
+        "id": "check_entreating_the_gods",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "entreating_the_gods",
+              "text": "Was [[Entreating the Gods]] completed?",
+              "steps": [
+                "add_wings_of_damakairon"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_wings_of_damakairon",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Wings of Damakairon to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00153"
+          }
+        ]
+      },
+      {
+        "id": "check_up_to_something",
+        "type": "input",
+        "input": {
+          "type": "choose_one",
+          "choices": [
+            {
+              "id": "up_to_something",
+              "text": "Was [[Up To Something]] completed?",
+              "steps": [
+                "add_forestall_fate"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "add_forestall_fate",
+        "bullet_type": "small",
+        "text": "Any one investigator may choose to add Forestall Fate to their deck. This card does not count toward that investigator’s deck size.",
+        "effects": [
+          {
+            "type": "add_card",
+            "investigator": "choice",
+            "card": "zau_00154"
+          }
+        ]
+      },
+      {
+        "id": "resolution_1",
+        "type": "resolution",
+        "resolution": "R1"
+      },
+      {
+        "id": "earn_xp",
+        "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+        "type": "input",
+        "input": {
+          "type": "counter",
+          "text": "Victory display:",
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "all"
+            }
+          ]
+        }
+      }
+    ],
+    "resolutions": [
+      {
+        "id": "no_resolution",
+        "title": "No resolution was reached",
+        "description": "Each investigator resigned or was defeated",
+        "investigator_status": [
+          "resigned",
+          "eliminated",
+          "physical",
+          "mental"
+        ],
+        "steps": [
+          "resolution_1"
+        ]
+      },
+      {
+        "id": "R1",
+        "title": "Resolution 1",
+        "text": "It's been a long year. It feels like you've been fighting forever, never stopping, never able to relax. <i>One more night,</i> you tell yourself, as you ready to head out. After tonight, whatever happens, your fight will be over.",
+        "steps": [
+          "ritual_is_nigh",
+          "late_return",
+          "ask_multitude_of_plots",
+          "check_multitude_of_plots",
+          "reset_tokens",
+          "ask_final_preparations",
+          "check_final_preparations",
+          "check_helping_yourself",
+          "invert_helping_yourself",
+          "check_riddle",
+          "check_tea",
+          "check_tunguska",
+          "invert_tunguska",
+          "check_enemy_of_my_enemy",
+          "check_treasure_unearthed",
+          "check_devil_you_know",
+          "check_higher_powers",
+          "check_entreating_the_gods",
+          "check_up_to_something",
+          "earn_xp",
+          "$upgrade_decks"
+        ]
+      }
+    ]
+  }
