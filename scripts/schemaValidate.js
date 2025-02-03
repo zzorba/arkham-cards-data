@@ -274,7 +274,7 @@ function validate(validator, file, json, schemaName, magicSteps) {
 
 async function validateChaosTokens() {
   const chaosTokensSchema = fs
-    .readFileSync('./schema/chaosTokens.schema.json')
+    .readFileSync(`.${path.sep}schema${path.sep}chaosTokens.schema.json`)
     .toString();
   return await new Promise((resolve, reject) => {
     $RefParser.dereference(jsonlint.parse(chaosTokensSchema), (err, schema) => {
@@ -288,7 +288,7 @@ async function validateChaosTokens() {
         const validator = ajv.addSchema(schema, "chaosTokens");
         const QUIET = false;
 
-        const data = fs.readFileSync("./chaos_tokens.json", "utf-8").toString();
+        const data = fs.readFileSync(`.${path.sep}chaos_tokens.json`, "utf-8").toString();
         if (!QUIET) {
           console.log("Validating chaos_tokens");
         }
@@ -307,8 +307,8 @@ async function validateChaosTokens() {
 }
 
 function loadCoreSteps(file, magicSteps) {
-  const parts = file.split('/');
-  const coreFile = parts.slice(0, parts.length - 1).join('/') + '/core.json';
+  const parts = file.split(`${path.sep}`);
+  const coreFile = parts.slice(0, parts.length - 1).join(`${path.sep}`) + `${path.sep}core.json`;
   if (fs.existsSync(coreFile)) {
     const coreData = fs.readFileSync(coreFile, 'utf-8').toString();
     try {
@@ -331,15 +331,15 @@ function loadCoreSteps(file, magicSteps) {
 async function validateScenarios() {
   console.log('****Validating Scenarios****');
   const files = [
-    './schema/scenario.schema.json',
-    './schema/refs/scenario.schema.json',
-    './schema/refs/condition.schema.json',
-    './schema/refs/effect.schema.json',
-    './schema/refs/input.schema.json',
-    './schema/refs/option.schema.json',
-    './schema/refs/resolution.schema.json',
-    './schema/refs/step.schema.json',
-    './schema/refs/types.schema.json',
+    `.${path.sep}schema${path.sep}scenario.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}scenario.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}condition.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}effect.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}input.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}option.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}resolution.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}step.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}types.schema.json`,
   ];
   const schemas = files.map(file => JSON.parse(fs.readFileSync(file).toString()));
   return await new Promise((resolve, reject) => {
@@ -349,8 +349,8 @@ async function validateScenarios() {
       const validator = new Ajv({ verbose: true, allErrors: true, strictTuples: false, inlineRefs: false, schemas });
       const QUIET = false;
       [
-        ...getFilePaths("./campaigns").sort(),
-        ...getFilePaths("./build/return_campaigns").sort()
+        ...getFilePaths(`.${path.sep}campaigns`).sort(),
+        ...getFilePaths(`.${path.sep}build${path.sep}return_campaigns`).sort()
       ]
         .sort()
         .forEach(file => {
@@ -368,7 +368,7 @@ async function validateScenarios() {
               const magicSteps = {
                 ...FIXED_MAGIC_STEPS,
               };
-              if (!file.endsWith('/core.json')) {
+              if (!file.endsWith(`${path.sep}core.json`)) {
                 loadCoreSteps(file, magicSteps);
               }
               validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario", magicSteps);
@@ -387,16 +387,16 @@ async function validateScenarios() {
 async function validateCampaigns() {
   console.log('****Validating Campaigns****');
   const files = [
-    './schema/campaign.schema.json',
-    './schema/refs/campaign.schema.json',
-    './schema/refs/scenario.schema.json',
-    './schema/refs/condition.schema.json',
-    './schema/refs/effect.schema.json',
-    './schema/refs/input.schema.json',
-    './schema/refs/option.schema.json',
-    './schema/refs/resolution.schema.json',
-    './schema/refs/step.schema.json',
-    './schema/refs/types.schema.json',
+    `.${path.sep}schema${path.sep}campaign.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}campaign.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}scenario.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}condition.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}effect.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}input.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}option.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}resolution.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}step.schema.json`,
+    `.${path.sep}schema${path.sep}refs${path.sep}types.schema.json`,
   ];
   const schemas = files.map(file => JSON.parse(fs.readFileSync(file).toString()));
   return await new Promise((resolve, reject) => {
@@ -407,10 +407,10 @@ async function validateCampaigns() {
       const validator = new Ajv({ verbose: true, allErrors: true, strictTuples: false, inlineRefs: false, schemas });
       const QUIET = false;
       [
-        ...getFilePaths("./campaigns").sort(),
-        ...getFilePaths("./build/return_campaigns").sort()
+        ...getFilePaths(`.${path.sep}campaigns`).sort(),
+        ...getFilePaths(`.${path.sep}build${path.sep}return_campaigns`).sort()
       ].forEach(file => {
-        if (file.indexOf("side/campaign.json") !== -1) {
+        if (file.indexOf(`side${path.sep}campaign.json`) !== -1) {
           return;
         }
         if (file.endsWith("campaign.json")) {
@@ -438,7 +438,7 @@ async function validateCampaigns() {
 async function validateErrata() {
   console.log('****Validating Errata****');
   const errataSchema = fs
-    .readFileSync('./schema/errata.schema.json')
+    .readFileSync(`.${path.sep}schema${path.sep}errata.schema.json`)
     .toString();
   return await new Promise((resolve, reject) => {
     $RefParser.dereference(jsonlint.parse(errataSchema), (err, schema) => {
@@ -453,7 +453,7 @@ async function validateErrata() {
           const validator = ajv.addSchema(schema, "errata");
           const QUIET = false;
 
-          getFilePaths("./errata").sort().map(file => {
+          getFilePaths(`.${path.sep}errata`).sort().map(file => {
             if (file.endsWith('errata.json')) {
               const data = fs.readFileSync(file, "utf-8").toString();
               if (!QUIET) {
@@ -481,7 +481,7 @@ async function validateErrata() {
 async function validateTaboos() {
   console.log('****Validating Taboos****');
   const taboosSchema = fs
-    .readFileSync('./schema/taboo.schema.json')
+    .readFileSync(`.${path.sep}schema${path.sep}taboo.schema.json`)
     .toString();
   return await new Promise((resolve, reject) => {
     $RefParser.dereference(jsonlint.parse(taboosSchema), (err, schema) => {
