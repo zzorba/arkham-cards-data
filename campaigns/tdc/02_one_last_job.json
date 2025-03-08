@@ -1,0 +1,259 @@
+{
+  "id": "one_last_job",
+  "scenario_name": "One Last Job",
+  "full_name": "Scenario: One Last Job",
+  "header": "Scenario",
+  "setup": [
+    "intro",
+    "check_wendy_adams",
+    "intro_continued",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_act",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_wendy_adams",
+      "type": "branch",
+      "text": "If Wendy Adams was chosen as an investigator for this campaign:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "01005",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "wendy_story"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "01505",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "wendy_story"
+                ]
+              }
+            ]
+          },
+          {
+            "condition": "90037",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "wendy_story"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "wendy_story",
+      "type": "story",
+      "border_only": true,
+      "text": ""
+    },
+    {
+      "id": "intro_continued",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "one_last_job",
+        "dreams",
+        "chilling_cold",
+        "locked_doors",
+        "arkham",
+        "rats",
+        "striking_fear"
+      ],
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the location cards. Do not gather the act, agenda, or encounter cards from that set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "TODO",
+      "bullets": [
+        {
+          "text": "Place all remaining Locations into play according to the diagram."
+        },
+        {
+          "text": "Each investigator begins the game in the Tillinghast Shop."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "01134_back",
+          "01130_back",
+          "01132_back"
+        ],
+        [
+          "shop",
+          "01129_back",
+          "01125_back",
+          "blank"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "shop",
+          "name": "Esoteric shope of Tingalos"
+        }
+      ]
+    },
+    {
+      "id": "setup_act",
+      "text": "Create the Act deck using one of the two copies of the Act \"Ask the Gangs\", chosen at random. Remove the other copy of the deck. Set aside all copies of Act 2 and Act 3, outside of play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Pon aparte cada uno de los siguientes Enemigos, fuera del juego: Sheldon, Naomi O'Bannion y ambas copias de la Sicaria de band"
+    },
+
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "ruby_won_the_bet",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campiagn_notes",
+          "id": "ruby_won_the_bet",
+          "text": "Ruby won the bet."
+        }
+      ]
+    },
+
+    {
+      "id": "ruby_lost_the_bet",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campiagn_notes",
+          "id": "ruby_lost_the_bet",
+          "text": "Ruby lost the bet."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_discovered_an_alien_language",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators discover an alien language?",
+            "steps": ["discover_hash_symbol"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "discover_hash_symbol",
+      "bullet_type": "small",
+      "text": "You discover this symbol: [tdc_hash]. Note \"Depths\" in the campaign log, under [tdc_hash] in the symbols section. This symbol has been translated.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "symbols",
+          "id": "tdc_hash",
+          "text": "[tdc_hash]: Depths"
+        },
+        {
+          "type": "campaign_log",
+          "section": "symbols",
+          "id": "tdc_hash_placeholder",
+          "text": "[tdc_hash]: ???",
+          "remove": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "ruby_won_the_bet",
+        "earn_xp",
+        "ask_discovered_an_alien_language",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "ruby_lost_the_bet",
+        "earn_xp",
+        "ask_discovered_an_alien_language",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
