@@ -29,7 +29,7 @@
             "steps": [
               "west_story", "check_do_no_harm",
               "setup_v1", "setup_locations_v1", "location_layout_v1", "set_aside_cards_v1",
-              "set_aside_star_spawn", "setup_act_v1", "choose_artifacts_v1",
+              "set_aside_star_spawn", "setup_act_v1", "$choose_support",
               "setup_flood_v1", "encounter_deck", "locations_rule_v1"]
           },
           {
@@ -55,35 +55,15 @@
 
               "setup_v2", "setup_locations_v2", "location_layout_v2",
               "setup_act_v2",
-              "check_killed_inescapable",
+              "$check_killed_creature",
               "set_aside_cards_v2",
               "set_aside_star_spawn",
-              "choose_artifacts_v2",
+              "$choose_artifacts_or_support",
               "setup_flood_v2", "encounter_deck", "locations_rule_v2"
             ]
           }
         ]
       }
-    },
-    {
-      "id": "check_killed_inescapable",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "the_creature_has_been_defeated",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["remove_unescapable_encounter_set"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "remove_unescapable_encounter_set",
-      "bullet_type": "small",
-      "text": "Remove unescapable encounter set from the game."
     },
     {
       "id": "west_story",
@@ -157,13 +137,13 @@
       "id": "setup_v1",
       "title": "Setup (v.I) - Western Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inescapable", "underwater_creatures", "agents_of_cthulhu"]
+      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inevitable", "underwater_creatures", "agents_of_cthulhu"]
     },
     {
       "id": "setup_v2",
       "title": "Setup (v.II) - Eastern Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inescapable", "underwater_creatures", "agents_of_cthulhu"]
+      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inevitable", "underwater_creatures", "agents_of_cthulhu"]
     },
     {
       "id": "setup_locations_v1",
@@ -412,7 +392,7 @@
     },
     {
       "id": "set_aside_cards_v1",
-      "text": "Set aside, out of the game, the Inescapable Enemy, the Weakness Hunter Parasite and the Double-sided Betrayal Seabed Mural*."
+      "text": "Set aside, out of the game, the Inevitable Enemy, the Weakness Hunter Parasite and the Double-sided Betrayal Seabed Mural*."
     },
     {
       "id": "set_aside_cards_v2",
@@ -429,19 +409,6 @@
     {
       "id": "setup_act_v2",
       "text": "Crea el mazo de Acto usando el acto la - \"Ascenso por la muralla\". Retira el otro acto de la partida."
-    },
-    {
-      "id": "choose_artifacts_v1",
-      "type": "encounter_sets",
-      "encounter_sets": ["expedition"],
-      "text": "Following the order of play, each player may choose 1 Support Item from the Expedition encounter set to start in play under their control."
-    },
-
-    {
-      "id": "choose_artifacts_v2",
-      "type": "encounter_sets",
-      "encounter_sets": ["expedition"],
-      "text": "Following the order of play, each player may choose 1 Support Artifact obtained or 1 Support Item from the Expedition encounter set to begin in play under their control."
     },
     {
       "id": "setup_flood_v1",
@@ -560,8 +527,8 @@
             "steps": ["next_the_sunken_quarter"]
           },
           {
-            "id": "submerged_quarter",
-            "text": "To continue towards the surface, go to <b>The Submerged Quarter</b>.",
+            "id": "apiary",
+            "text": "To continue towards the surface, go to <b>The Apiary</b>.",
             "steps": ["next_the_apiary"]
           }
         ]

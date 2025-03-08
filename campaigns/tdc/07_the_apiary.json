@@ -3,7 +3,955 @@
   "scenario_name": "The Apiary",
   "full_name": "Scenario: The Apiary",
   "header": "Scenario",
-  "setup": ["$play_scenario"],
-  "steps": [],
-  "resolutions": []
+  "setup": [
+    "check_direction",
+    "check_west",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story", "check_ursula", "west_story_cont",
+              "add_cultist", "check_walking_in_faith",
+              "setup_v1", "setup_location", "act_deck_v1", "remove_mother_enemy",
+              "set_aside_v1",
+              "$choose_artifacts_or_support",
+              "encounter_deck_v1"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "east_story",
+              "add_tablet", "check_walking_in_faith",
+              "setup_v2", "setup_location", "act_deck_v2",
+              "remove_maria", "set_aside_v2",
+              "$choose_artifacts_or_support",
+              "$check_killed_creature",
+              "encounter_deck_v2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_maria",
+      "text": "Remove Story Support Maria Rivera from the game."
+    },
+
+    {
+      "id": "check_ursula",
+      "type": "branch",
+      "text": "If Ursula Downs was chosen as an investigator:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "04002",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "ursula_story"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ursula_story",
+      "type": "story",
+      "border_only": true,
+      "text": ""
+    },
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "west_story_cont",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "check_walking_in_faith",
+      "text": "If an investigator has the Walking in Faith task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_walking_in_faith",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["walking_in_faith_story", "walking_in_faith_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "walking_in_faith_story",
+      "title": "Task: Walking in Faith",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "walking_in_faith_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "doubt",
+            "text": "<i>I have doubts.</i>",
+            "description": "Erase 1 \"Walk with Faith\" progress from the campaign log. The first time each investigator would draw from the encounter deck in the next scenario, they may draw 1 card from their deck instead.",
+            "steps": ["walking_in_faith_doubt"]
+          },
+
+          {
+            "id": "firm",
+            "text": "<i>My resolve is firm.</i>",
+            "description": "Mark 2 \"Walk with Faith\" progress on the campaign log and suffer 1 mental trauma. The first time each investigator draws an encounter card in the next scenario, that encounter card gains Surge.",
+            "steps": ["walking_in_faith_firm"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "walking_in_faith_doubt",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_walking_in_faith",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "walking_in_faith_firm",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_walking_in_faith",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+
+    {
+      "id": "setup_v1",
+      "title": "Setup (v.I) - Western Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["the_apiary", "cosmic_legacy", "primordial_fog", "the_inevitable", "pilgrims", "pentagram", "striking_fear"]
+    },
+    {
+      "id": "setup_v2",
+      "title": "Setup (v.II) - Eastern Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["the_apiary", "cosmic_legacy", "primordial_fog", "the_inevitable", "star_spawn", "stowaways","striking_fear"],
+      "subtext": "When collecting the <i>Star Spawn</i> encounter set, only pick up the Infected Star Spawn Enemy. Remove all other Star Spawn Enemies from the game."
+    },
+    {
+      "id": "setup_location",
+      "text": "Put the Apiary Entrance into play, <i>(Attractive Light)</i> side face up.",
+      "bullets": [
+        {
+          "text": "Each investigator starts the game at the Apiary Entrance."
+        }
+      ]
+    },
+    {
+      "id": "act_deck_v1",
+      "text": "Create the Act deck using Act 1 - \"Haunting Signs\" and Act 2a - \"Lost Pilgrims.\" Remove the other Act from the game."
+    },
+    {
+      "id": "act_deck_v2",
+      "text": "Create the Act deck using Act 1 - \"Disturbing Signs\" and Act 2a - \"The Hive Mind\". Remove the other Act from the game."
+    },
+    {
+      "id": "remove_mother_enemy",
+      "text": "Remove the Mother Enemy from the game."
+    },
+    {
+      "id": "set_aside_v1",
+      "text": "Set aside, out of play, each of the following cards: all Apiary Locations, the Double-Faced Grotesque Amalgam and Scaly Parasite O Enemies, the Maria Rivera, Ancient Relics, and Ghoulish \"Mask\" Story Props, the Pilgrims and The Includible encounter sets, and all copies of the Parasitic Transformation Weakness."
+    },
+    {
+      "id": "set_aside_v2",
+      "text": "Set aside, out of play, each of the following cards: all Apiary Locations, the Grotesque Amalgam, Mother, and Scaly or Double-Faced Parasite Enemies, the Ancient Relic only and Ghoulish \"Mask\" Story Props, and all copies of the Parasitic Transformation Weakness."
+    },
+    {
+      "id": "encounter_deck_v1",
+      "text": "Shuffle all remaining encounter cards to create the encounter deck, along with the following set aside <b>Apiary</b> Locations: Crop Fields and both copies of Fleshy Paths.",
+      "bullets": [
+        {
+          "text": "After doing so, take the last 10 cards from the encounter deck, add the set aside Luminous Tunnels Location to them, shuffle them, and return them to the bottom of the encounter deck."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck_v2",
+      "text": "Shuffle all remaining encounter cards to create the encounter deck, along with the following set aside <b>Apiary</b> Locations: Crop Fields and both copies of Fleshy Paths.",
+      "bullets": [
+        {
+          "text": "After doing so, take the last 10 cards from the encounter deck, add the set aside Grasping Corridor Location to them, shuffle them, and return them to the bottom of the encounter deck."
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "lost_pilgrims",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "tdc_lost_pilgrims",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "expedition_headed_west",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "Lost Pilgrims",
+            "style": "interlude",
+            "steps": [
+              "lost_pilgrims_story",
+              "flip_apiary_entrance",
+              "find_cultists",
+              "take_maria",
+              "reveal_inescapable",
+              "replinish_clues",
+              "continue_playing"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tdc_lost_pilgrims",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "hive_mind",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "tdc_hive_mind",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "campaign_notes",
+                  "id": "expedition_headed_east",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "Hive Mind",
+            "style": "interlude",
+            "steps": [
+              "hive_mind_story",
+              "hive_mind_locations",
+              "hive_mind_location_layout",
+              "hive_mind_remove_locations",
+              "setup_center_location",
+              "spawn_mother",
+              "maybe_spawn_inescapable",
+              "replinish_clues",
+              "continue_playing",
+              "rotating_locations_rule"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tdc_hive_mind",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lost_pilgrims_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "flip_apiary_entrance",
+      "text": "Flip the Apiary Entrance over to show its dangerous side."
+    },
+    {
+      "id": "find_cultists",
+      "text": "Search for all non-Weakness Cultist Enemies in the encounter discard pile and in all in-play areas of the game. Shuffle them together and place them in a mound below the Lost Camp."
+    },
+    {
+      "id": "take_maria",
+      "text": "Choose an investigator to take control of the Saveable Cultist Support Maria Rivera Set Aside (remember, Maria is also a saveable Cultist!)"
+    },
+    {
+      "id": "reveal_inescapable",
+      "text": "Reveal the Inescapable Enemy Set Aside away from all investigators and exhausted. Add Encounter cards and the rest of the huge encounter deck and shuffle it."
+    },
+    {
+      "id": "replinish_clues",
+      "text": "Place clues at each revealed Location that does not have its clue value."
+    },
+    {
+      "id": "continue_playing",
+      "text": "Continue playing."
+    },
+
+    {
+      "id": "hive_mind_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "hive_mind_locations",
+      "text": "eposition the Apiary Entrance, Grasping Corridor, Starving Corridor, and Acid Coelom in a circle, as shown in the Location placement diagram. Place all other Locations with Victory X and no clues in the victory zone, discarding all tokens and cards on them."
+    },
+    {
+      "id": "hive_mind_location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2a - The Hive Mind",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+      ]
+    },
+    {
+      "id": "hive_mind_remove_locations",
+      "text": "Search the Encounter deck, discard pile, and play area for all remaining Locations and remove them from the game."
+    },
+    {
+      "id": "setup_center_location",
+      "text": "Find the Set-Aside Center Room Location and place it in the center slot, with its bottom edge facing the Acid Coelom, as shown in the Location placement diagram on the right."
+    },
+    {
+      "id": "spawn_mother",
+      "text": "Spawn the Set-Aside Mother Enemy in the Center Room."
+    },
+    {
+      "id": "maybe_spawn_inescapable",
+      "text": "If the Inescapable Encounter Set is set aside:",
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_has_been_defeated",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "spawn_inescapable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_inescapable",
+      "bullet_type": "small",
+      "text": "Spawn the Inescapable Enemy in the Location furthest from all investigators. Add the Encounter discard pile and the rest of the Inescapable encounter set to the Encounter deck and shuffle it."
+    },
+    {
+      "id": "rotating_locations_rule",
+      "type": "rule_reminder",
+      "title": "Rotating Locations",
+      "text": "During this scenario, the Center Room Location comes into play in the center of a circle of four Locations.",
+      "bullets": [
+        {
+          "text": "The Location that is \"under\" the Center Room is the Location that is directly adjacent to the bottom edge of the Center Room card."
+        },
+        {
+          "text": "Although the other Locations are connected by their Location connections, the Center Room is only connected to the Location under it and vice versa."
+        },
+        {
+          "text": "If you are instructed to rotate the Center Room once clockwise or counterclockwise, rotate it in the indicated direction so that the Center Room \"faces\" the next Location in the indicated direction relative to the one currently under it."
+        }
+      ]
+    },
+
+    {
+      "id": "defeated_killed",
+      "text": "Each defeated investigator is <b>killed</b>. If there are no surviving investigators to continue the campaign, the investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "trauma",
+          "killed": true,
+          "investigator": "defeated"
+        }
+      ]
+    },
+    {
+      "id": "transfer_story_assets",
+      "text": "If Any Van Nortwick or Ruby Standish were in the deck of an investigator who died:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "has_card",
+            "card": "TDC_ANDY",
+            "investigator": "defeated",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "has_card",
+            "card": "TDC_RUBY",
+            "investigator": "defeated",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "maybe_transfer_andy",
+              "maybe_transfer_ruby"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_transfer_andy",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "TDC_ANDY",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_andy"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_andy",
+      "bullet_type": "small",
+      "text": "Choose a surviving investigator to take control of Andy Van Nortwick and add them to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "TDC_ANDY"
+        },
+        {
+          "type": "add_card",
+          "card": "TDC_ANDY",
+          "investigator": "choice"
+        }
+      ]
+    },
+
+
+    {
+      "id": "maybe_transfer_ruby",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "card": "TDC_RUBY",
+        "investigator": "defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["transfer_ruby"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "transfer_ruby",
+      "bullet_type": "small",
+      "text": "Choose a surviving investigator to take control of Ruby Standish and add them to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_card",
+          "card": "TDC_RUBY"
+        },
+        {
+          "type": "add_card",
+          "card": "TDC_RUBY",
+          "investigator": "choice"
+        }
+      ]
+    },
+    {
+      "id": "check_all_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "trauma",
+        "trauma": "killed",
+        "investigator": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "lose_campaign"
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "lose_campaign",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "tdc_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "earn_parasitic_transformation",
+      "text": "Each investigator must search the encounter set <i>The Apiary</i> for a copy of Parasitic Transformation and add it to his or her deck. This card does not count toward your deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "card": "TDC_PARASITIC_TRANSFORMATION",
+          "investigator": "all"
+        }
+      ]
+    },
+    {
+      "id": "cross_out_apiary",
+      "text": "Cross out the Apiary location on the R'lyeh map in the Campaign Log."
+    },
+    {
+      "id": "ask_ghoulish_mask",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Ghoulish Mask under the control of an investigator when the scenario ended?",
+            "steps": ["earn_ghoulish_mask"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_ghoulish_mask",
+      "text": "Check the \"Ghoulish Mask\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "ghoulish_mask",
+          "text": "Ghoulish Mask"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_artifacts",
+          "id": "ghoulish_mask",
+          "text": "Ghoulish Mask",
+          "remove": true
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "next_great_chamber",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_great_chamber"
+        }
+      ]
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_great_chamber"]
+
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "saved_the_pilgrims",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "saved_the_pilgrims",
+          "text": "the investigators saved the pilgrims."
+        }
+      ]
+    },
+    {
+      "id": "pilgrims_were_devoured",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "pilgrims_were_devoured",
+          "text": "the pilgrims were devoured."
+        }
+      ]
+    },
+    {
+      "id": "exterminated_the_alien_pests",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "exterminated_the_alien_pests",
+          "text": "the investigators exterminated the alien pests."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_pilgrims",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "confirm_text": "Each investigator earns 2 bonus experience for saving the pilgrims from almost certain death!",
+
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_east_path",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "submerged_quarter",
+            "text": "<i>We've come this far and we're not leaving a single corner unexplored.</i>",
+            "description": "To discover the secrets of the deep, go to <b>The Submerged Quarter</b>.",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_sunken_quarter"
+              }
+            ]
+          },
+          {
+            "id": "western_wall",
+            "text": "<i>Are you crazy? We have to get out of here!</i>",
+            "description": "To scale the wall and return to camp, go to: <b>Western Wall</b>.",
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_western_wall"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
+      "steps": [
+        "defeated_killed",
+        "check_all_defeated",
+        "transfer_story_assets"
+      ]
+    },
+
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "earn_parasitic_transformation",
+        "cross_out_apiary",
+        "ask_ghoulish_mask",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "saved_the_pilgrims",
+        "cross_out_apiary",
+        "ask_ghoulish_mask",
+        "earn_xp_pilgrims",
+        "$upgrade_decks",
+        "next_great_chamber"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "earn_parasitic_transformation",
+        "pilgrims_were_devoured",
+        "cross_out_apiary",
+        "ask_ghoulish_mask",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_great_chamber"
+      ]
+    },
+
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "",
+      "steps": [
+        "exterminated_the_alien_pests",
+        "cross_out_apiary",
+        "ask_ghoulish_mask",
+        "earn_xp",
+        "$upgrade_decks",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "",
+      "steps": [
+        "choose_east_path"
+      ]
+    }
+  ]
 }

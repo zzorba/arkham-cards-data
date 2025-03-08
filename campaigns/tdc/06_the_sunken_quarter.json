@@ -12,7 +12,7 @@
     "setup_locations",
     "location_layout",
     "set_aside_cards",
-    "choose_artifacts",
+    "$choose_artifacts_or_support",
     "setup_flood",
     "check_flood_east",
     "encounter_deck",
@@ -148,7 +148,8 @@
                 "id": "$count",
                 "investigator": "$input_value",
                 "operation": "add",
-                "value": -1
+                "value": -1,
+                "min": 0
               }
             ]
           }
@@ -251,14 +252,6 @@
       "id": "set_aside_cards",
       "text": "Set aside, outside of the game, the Story Support Barrier Node and the double-sided cards Underwater Parasite [tdc_dots] and Obsidian Relic [tdc_slash_n]."
     },
-
-    {
-      "id": "choose_artifacts",
-      "type": "encounter_sets",
-      "encounter_sets": ["expedition"],
-      "text": "Following the order of play, each player may choose 1 Support Artifact obtained or 1 Support Item from the Expedition encounter set to begin in play under their control."
-    },
-
     {
       "id": "setup_flood",
       "text": "Add Flood tokens to the token pool and check the campaign log."
@@ -322,7 +315,22 @@
     },
     {
       "id": "barrier_node_artifact",
-      "text": "Check the \"Barrier Node\" box in the \"Artifacts Obtained\" section of the campaign log."
+      "text": "Check the \"Barrier Node\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "barrier_node",
+          "text": "Barrier Node"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_artifacts",
+          "id": "barrier_node",
+          "text": "Barrier Node",
+          "remove": true
+        }
+      ]
     },
     {
       "id": "the_power_was_diverted",

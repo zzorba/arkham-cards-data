@@ -12,9 +12,44 @@
     "$relentless_rule",
     "$alert_rule",
     "$seal_rule",
-    "$tasks_rule"
+    "$tasks_rule",
+    "$choose_support",
+    "$choose_artifacts_or_support",
+    "$check_killed_creature"
   ],
   "steps": [
+    {
+      "id": "$check_killed_creature",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_has_been_defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$remove_unescapable_encounter_set"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$remove_unescapable_encounter_set",
+      "bullet_type": "small",
+      "text": "Remove unescapable encounter set from the game."
+    },
+    {
+      "id": "$choose_support",
+      "type": "encounter_sets",
+      "encounter_sets": ["expedition"],
+      "text": "Following the order of play, each player may choose 1 Support Item from the Expedition encounter set to start in play under their control."
+    },
+    {
+      "id": "$choose_artifacts_or_support",
+      "type": "encounter_sets",
+      "encounter_sets": ["expedition"],
+      "text": "Following the order of play, each player may choose 1 Support Artifact obtained or 1 Support Item from the Expedition encounter set to begin in play under their control."
+    },
     {
       "id": "$artifacts_rule",
       "title": "Artifacts",
