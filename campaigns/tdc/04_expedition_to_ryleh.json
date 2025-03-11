@@ -1,0 +1,136 @@
+{
+  "id": "expedition_to_ryleh",
+  "scenario_name": "Expedition to R'lyeh",
+  "full_name": "Interlude II: Expedition to R'lyeh",
+  "header": "Interlude II",
+  "type": "interlude",
+  "icon": "",
+  "setup": [
+    "intro",
+    "choose_direction"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "choose_direction",
+      "text": "Depending on which character you want to follow, you will explore the ancient city from west to east or from east to west. The investigators, as a group, must decide:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "west",
+            "text": "West",
+            "steps": ["west_story", "expedition_headed_west", "earn_andy", "west_tokens", "west_scenario"]
+          },
+          {
+            "id": "east",
+            "text": "East",
+            "steps": ["east_story", "expedition_headed_east", "earn_ruby", "east_scenario"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "expedition_headed_west",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "expedition_headed_west",
+          "text": "the expedition headed west."
+        }
+      ]
+    },
+    {
+      "id": "earn_andy",
+      "text": "Choose an investigator to add Andy Van Nortwick to their deck. It does not count toward their deck size.",
+      "type": "encounter_sets",
+      "encounter_sets": ["expedition"],
+      "effects": [
+        {
+          "type": "add_card",
+          "card": "TDC_ANDY",
+          "investigator": "any"
+        }
+      ]
+    },
+
+    {
+      "id": "west_tokens",
+      "text": "Remove 1 [tablet] token from the chaos bag. Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        },
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "west_scenario",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_western_wall"
+        }
+      ]
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "earn_ruby",
+      "text": "Choose an investigator to add Ruby to their deck. It does not count toward their deck size.",
+      "type": "encounter_sets",
+      "encounter_sets": ["expedition"],
+      "effects": [
+        {
+          "type": "add_card",
+          "card": "TDC_RUBY",
+          "investigator": "any"
+        }
+      ]
+    },
+    {
+      "id": "expedition_headed_east",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "expedition_headed_east",
+          "text": "the expedition headed east."
+        }
+      ]
+    },
+    {
+      "id": "east_scenario",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "obsidian_canyons"
+        }
+      ]
+    }
+  ]
+}

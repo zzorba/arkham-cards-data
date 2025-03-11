@@ -1,0 +1,476 @@
+{
+  "id": "the_sunken_quarter",
+  "scenario_name": "The Sunken Quarter",
+  "full_name": "Scenario: The Sunken Quarter",
+  "header": "Scenario",
+  "setup": [
+    "intro",
+    "check_direction",
+    "check_west",
+    "check_no_place_like_home",
+    "encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "$choose_artifacts_or_support",
+    "setup_flood",
+    "check_flood_east",
+    "encounter_deck",
+    "locations_rule",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["west_story"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["east_story"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "check_no_place_like_home",
+      "text": "If an investigator has the No Place Like Home task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_no_place_like_home",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["no_place_like_home_story", "no_place_like_home_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_place_like_home_story",
+      "title": "Task: No Place Like Home",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "no_place_like_home_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "trust",
+            "text": "<i>Mr. Tillinghast has treated me well. I trust him.</i>",
+            "description": "Heal 1 mental and physical trauma from your investigator. Erase 1 progress from No Place Like Home in the campaign log.",
+            "steps": ["no_place_like_home_trust"]
+          },
+          {
+            "id": "fear",
+            "text": "<i>I'm alone. I can't trust anyone.</i>",
+            "description": "Mark 2 progress on No Place Like Home in the campaign log and suffer 1 mental trauma. Each investigator begins the next year with 2 fewer cards in their starting hand.",
+            "steps": ["no_place_like_home_alone"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_place_like_home_trust",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_no_place_like_home",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": -1,
+                "physical": -1,
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "no_place_like_home_alone",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_no_place_like_home",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_sunken_qurater", "alien_machinery", "cosmic_legacy", "deep_ones",
+        "primordial_mists", "flood", "rlyeh", "underwater_creatures"]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Barrier Core into play, (Inactive) side up.",
+      "bullets": [
+        {
+          "text": "Gather all the Seafloor Locations and remove one copy of the Coral Reef and one copy of the Submerged Acropolis at random from the game."
+        },
+        {
+          "text": "Shuffle the remaining eight Seafloor Locations and put them into play in a 3x3 grid around the Barrier Core, as shown in the Location Placement."
+        },
+        {
+          "text": "Each investigator begins the game in the Barrier Core."
+        }
+      ]
+    },
+
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "seafloor",
+          "seafloor",
+          "seafloor"
+        ],
+        [
+          "seafloor",
+          "barrier_core",
+          "seafloor"
+        ],
+        [
+          "seafloor",
+          "seafloor",
+          "seafloor"
+        ]
+      ],
+
+      "location_names": [
+        {
+          "code": "seafloor",
+          "name": "Seafloor"
+        },
+        {
+          "code": "barrier_core",
+          "name": "Barrier Core"
+        }
+
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set aside, outside of the game, the Story Support Barrier Node and the double-sided cards Underwater Parasite [tdc_dots] and Obsidian Relic [tdc_slash_n]."
+    },
+    {
+      "id": "setup_flood",
+      "text": "Add Flood tokens to the token pool and check the campaign log."
+    },
+    {
+      "id": "check_flood_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["flood_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "flood_east",
+      "bullet_type": "small",
+      "text": "The rise of the city has affected the old dome. Increase the flood level by 1 [per_investigator] Locations Seabed."
+    },
+
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "locations_rule",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Sunken Quarter",
+      "text": "During this scenario, locations are placed on a fixed grid. <b>Each location is connected to every Place adjacent to it.</b>",
+      "bullets": [
+        {
+          "text": "Adjacent Locations share a side (left, right, top, or bottom). Places that only share a corner are not considered adjacent."
+        }
+      ]
+    },
+    {
+      "id": "clear_one_progress",
+      "text": "Your failure has distracted you from your goals. Each investigator must clear 1 progress from their task if possible.",
+      "effects": [
+        {
+          "type": "campaign_log_investigator_count",
+          "section": "task_progress",
+          "id": "$count",
+          "investigator": "all",
+          "operation": "add",
+          "value": -1,
+          "min": 0
+        }
+      ]
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "barrier_node_artifact",
+      "text": "Check the \"Barrier Node\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "barrier_node",
+          "text": "Barrier Node"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_artifacts",
+          "id": "barrier_node",
+          "text": "Barrier Node",
+          "remove": true
+        }
+      ]
+    },
+    {
+      "id": "the_power_was_diverted",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "the_power_was_diverted",
+          "text": "the power was diverted."
+        }
+      ]
+    },
+    {
+      "id": "earn_2_bonus_xp",
+      "text": "Each investigator gains 2 additional experience points for thoroughly studying the sunken neighborhood.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "cross_out_sunken_quarter",
+      "text": "Cross out the Sunken Quarter location on the R'lyeh map in the Campaign Log."
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_apiary"
+              }
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_western_wall"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "clear_one_progress",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "barrier_node_artifact",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "the_power_was_diverted",
+        "earn_2_bonus_xp",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "",
+      "steps": [
+        "cross_out_sunken_quarter",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,770 @@
+{
+  "id": "the_western_wall",
+  "scenario_name": "The Western Wall",
+  "full_name": "Scenario: The Western Wall",
+  "header": "Scenario",
+  "setup": [
+    "check_direction",
+    "check_west",
+    "$play_scenario"
+  ],
+  "rules": [
+  ],
+  "steps": [
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story", "check_do_no_harm",
+              "setup_v1", "setup_locations_v1", "location_layout_v1", "set_aside_cards_v1",
+              "set_aside_star_spawn", "setup_act_v1", "$choose_support",
+              "setup_flood_v1", "encounter_deck", "locations_rule_v1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["east_story", "check_do_no_harm",
+
+              "setup_v2", "setup_locations_v2", "location_layout_v2",
+              "setup_act_v2",
+              "$check_killed_creature",
+              "set_aside_cards_v2",
+              "set_aside_star_spawn",
+              "$choose_artifacts_or_support",
+              "setup_flood_v2", "encounter_deck", "locations_rule_v2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "check_do_no_harm",
+      "text": "If an investigator has the Do No Harm task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_do_no_harm",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["do_no_harm_story", "do_no_harm_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "do_no_harm_story",
+      "title": "Task: Do No Harm",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "do_no_harm_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "help",
+            "text": "<i>Let's take him with us. We can still save him.</i>",
+            "description": "After setting up this scenario, place 1 Doom token on the agenda. Note in the campaign log that <i>the expedition helped the pilgrim</i>.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "expedition_helped_pilgrim",
+                "text": "the expedition helped the pilgrim."
+              }
+            ]
+          },
+          {
+            "id": "abandon",
+            "text": "<i>Let's leave him here.</i>",
+            "description": "When you reveal the starting location in the next scenario, don't place any clues at that location. Note in the campaign log that <i>the expedition abandoned the pilgrim</i>.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "expedition_abandoned_pilgrim",
+                "text": "the expedition abandoned the pilgrim."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_v1",
+      "title": "Setup (v.I) - Western Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inevitable", "underwater_creatures", "agents_of_cthulhu"]
+    },
+    {
+      "id": "setup_v2",
+      "title": "Setup (v.II) - Eastern Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "flood", "rlyeh", "star_spawn", "the_inevitable", "underwater_creatures", "agents_of_cthulhu"]
+    },
+    {
+      "id": "setup_locations_v1",
+      "text": "Gather all locations from the <i>Western Wall</i> encounter set.",
+      "bullets": [
+        {
+          "text": "Put the Western Wall into play on level 1 as shown."
+        },
+        {
+          "text": "Put the Obsidian Foundation, Sunken Shanty, Submerged Staircase, Shattered Ruins 1, and Underwater Chamber A aside, out of play."
+        },
+        {
+          "text": "Collect all other Walkway Locations and remove two of them at random from the game"
+        },
+        {
+          "text": "Shuffle the five remaining Walkway Locations with the Sunken Shanty, Submerged Staircase, and Shattered Ruins or set aside. Put six of those cards into play on levels 2-4, below the Western Wall, unrevealed side up."
+        },
+        {
+          "text": "Shuffle the two remaining Walkway Locations with the Obsidian Foundation set aside, so you can't tell which is which, and put them into play on level 5, unrevealed side up."
+        },
+        {
+          "text": "Each investigator begins the game at the Western Wall."
+        }
+      ]
+    },
+
+    {
+      "id": "setup_locations_v2",
+      "text": "Gather all locations from the <i>Western Wall</i> encounter set.",
+      "bullets": [
+        {
+          "text": "Put the Obsidian Foundations into play on level 1 as shown."
+        },
+        {
+          "text": "Put the Western Wall, Sunken Shanty, Submerged Staircase, Shattered Ruins 1, and Underwater Chamber A aside, out of play."
+        },
+        {
+          "text": "Collect all other Walkway Locations and remove two of them at random from the game"
+        },
+        {
+          "text": "Shuffle the five remaining Walkway Locations with the Sunken Shanty, Submerged Staircase, and Shattered Ruins or set aside. Put six of those cards into play on levels 2-4, below the Western Wall, unrevealed side up."
+        },
+        {
+          "text": "Shuffle the two remaining Walkway Locations with the Western Wall set aside, so you can't tell which is which, and put them into play on level 5, unrevealed side up."
+        },
+        {
+          "text": "Each investigator begins the game at the Obsidian Fondation."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_v1",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "western_wall",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "walkway",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "blank"
+        ],
+        [
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank"
+        ],
+        [
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "western_wall",
+          "name": "The Western Wall"
+        },
+        {
+          "code": "walkway",
+          "name": "Sunken Walkway"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "1st Floor",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "2nd Floor",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "3rd Floor",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "4th Floor",
+          "x": 1,
+          "y": 4,
+          "position": "left"
+        },
+        {
+          "text": "5th Floor",
+          "x": 1,
+          "y": 5,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "id": "location_layout_v2",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank"
+        ],
+        [
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank"
+        ],
+        [
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "walkway",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "obsidian_foundations",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "obsidian_foundations",
+          "name": "Obsidian Foundations"
+        },
+        {
+          "code": "walkway",
+          "name": "Sunken Walkway"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "5th Floor",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "4th Floor",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "3rd Floor",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "2nd Floor",
+          "x": 1,
+          "y": 4,
+          "position": "left"
+        },
+        {
+          "text": "1st Floor",
+          "x": 1,
+          "y": 5,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards_v1",
+      "text": "Set aside, out of the game, the Inevitable Enemy, the Weakness Hunter Parasite and the Double-sided Betrayal Seabed Mural*."
+    },
+    {
+      "id": "set_aside_cards_v2",
+      "text": "Set aside, out of play, the Weakness Hunter Parasite and the double-sided Betrayal Seabed Mural $."
+    },
+    {
+      "id": "set_aside_star_spawn",
+      "text": "Search the Starseed Encounter Pool for the Coral Starseed Enemy and set it aside, out of the game. Remove all other cards from the Starseed Encounter Pool from the game."
+    },
+    {
+      "id": "setup_act_v1",
+      "text": "Crea el mazo de Acto usando el acto la -\"Descenso al abismo\". Retira el otro acto de la partida."
+    },
+    {
+      "id": "setup_act_v2",
+      "text": "Crea el mazo de Acto usando el acto la - \"Ascenso por la muralla\". Retira el otro acto de la partida."
+    },
+    {
+      "id": "setup_flood_v1",
+      "text": "Add Flood tokens to the token pool.",
+      "bullets": [
+        {
+          "text": "Increase the flood level of each Location on levels 2-5."
+        },
+        {
+          "text": "Increase the flood level of levels 4 and 5 so that they are completely flooded."
+        }
+      ]
+    },
+    {
+      "id": "setup_flood_v2",
+      "text": "Add Flood tokens to the token pool.",
+      "bullets": [
+        {
+          "text": "Increase the flood level of each Location on levels 1-4."
+        },
+        {
+          "text": "Increase the flood level of levels 1 and 2 so that they are completely flooded."
+        }
+      ]
+    },
+
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "locations_rule_v1",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Western Wall",
+      "text": "During this scenario, Locations are placed in a fixed layout of 5 levels.",
+      "bullets": [
+        {
+          "text": "Each Location's position has its own level from 1 to 5, starting with the Western Wall on level 1 and going down to the bottommost Locations on level 5."
+        },
+        {
+          "text": "Any card effects that refer to a Location's level refer to its numbered row, as shown in the Location placement diagram."
+        },
+        {
+          "text": "During this scenario, each Location is connected to every Location in the rows immediately above and below it. Locations in the same row are not connected to each other."
+        }
+      ]
+    },
+    {
+      "id": "locations_rule_v2",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Western Wall",
+      "text": "During this scenario, Locations are placed in a fixed layout of 5 levels.",
+      "bullets": [
+        {
+          "text": "Each Location's position has its own level from 1 to 5, starting with the Obsidian Foundations on level 1 and going down to the Locations on level 5."
+        },
+        {
+          "text": "Any card effects that refer to a Location's level refer to its numbered row, as shown in the Location placement diagram."
+        },
+        {
+          "text": "During this scenario, each Location is connected to every Location in the rows immediately above and below it. Locations in the same row are not connected to each other."
+        }
+      ]
+    },
+    {
+      "id": "cross_out_western_wall",
+      "text": "Cross out the Western Wall location on the R'lyeh map in the Campaign Log."
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "next_the_sleepers_tomb",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_sleepers_tomb"
+        }
+      ]
+    },
+    {
+      "id": "next_the_sunken_quarter",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_sunken_quarter"
+        }
+      ]
+    },
+    {
+      "id": "next_the_apiary",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_apiary"
+        }
+      ]
+    },
+    {
+      "id": "choose_west_path",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "submerged_quarter",
+            "text": "To discover the secrets of the deep, go to <b>The Submerged Quarter</b>.",
+            "steps": ["next_the_sunken_quarter"]
+          },
+          {
+            "id": "apiary",
+            "text": "To continue towards the surface, go to <b>The Apiary</b>.",
+            "steps": ["next_the_apiary"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["resolution_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_the_sleepers_tomb"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_do_no_harm_resolution",
+      "text": "If an investigator has the Do No Harm task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_do_no_harm",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_helped_the_pilgrim"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_helped_the_pilgrim",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_helped_pilgrim",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["helped_pilgrim_resolution", "add_parasite_weakness", "actually_add_parasite", "mark_2_do_no_harm_progress"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["abandoned_pilgrim_resolution", "mental_trauma", "actually_mental_trauma", "erase_1_progress"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helped_pilgrim_resolution",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "abandoned_pilgrim_resolution",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "add_parasite_weakness",
+      "text": "Find the set aside Hunter Parasite Weakness and add it to your deck permanently. This card does not count toward your investigator's deck size."
+    },
+    {
+      "id": "actually_add_parasite",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_do_no_harm",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "add_card",
+                "card": "TDC_PARASITE_HUNTER",
+                "investigator": "$input_value",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "mark_2_do_no_harm_progress",
+      "text": "You did everything you could to help the victim. Mark 2 \"Do No Harm\" progress in the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "tasks",
+          "id": "do_no_harm",
+          "operation": "add",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "id": "mental_trauma",
+      "text": "You abandoned someone in distress. Suffer 1 mental trauma."
+    },
+    {
+      "id": "actually_mental_trauma",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_do_no_harm",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "mental": 1,
+                "investigator": "$input_value",
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "erase_1_progress",
+      "text": "Erase 1 progress in \"Do No Harm\" in the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log_count",
+          "section": "tasks",
+          "id": "do_no_harm",
+          "operation": "add",
+          "value": -1
+        }
+      ]
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "cross_out_western_wall",
+        "check_do_no_harm_resolution",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "cross_out_western_wall",
+        "check_do_no_harm_resolution",
+        "earn_xp",
+        "$upgrade_decks",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "cross_out_western_wall",
+        "check_do_no_harm_resolution",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_the_sleepers_tomb"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "",
+      "steps": [
+        "choose_west_path"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "id": "an_offer_you_cant_refuse",
+  "scenario_name": "An Offer You Can't Refuse",
+  "full_name": "Interlude I: An Offer You Can't Refuse",
+  "header": "Interlude I",
+  "type": "interlude",
+  "icon": "",
+  "setup": [
+    "intro",
+    "check_detective",
+    "intro_cont",
+    "explain_tasks",
+    "$tasks_rule",
+    "choose_tasks",
+    "continue_story",
+    "choice"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_cont",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "continue_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "refuse",
+            "text": "Refuse",
+            "steps": ["refuse_story", "lose_campaign"]
+          },
+          {
+            "id": "accept",
+            "text": "Accept",
+            "steps": ["accept_story"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "refuse_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "accept_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "tdc_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "check_detective",
+      "type": "branch",
+      "text": "If an investigator has the [[Agency]], [[Detective]], or [[Criminal]] trait:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "investigator",
+            "investigator_data": "trait",
+            "options": [
+              { "condition": "Agency" },
+              { "condition": "Detective" },
+              { "condition": "Criminal" }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [{
+              "type": "story_step",
+              "steps": ["detective_story"]
+            }]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "detective_story",
+      "border_only": true,
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "explain_tasks",
+      "text": "In player order, each investigator chooses a different Task."
+    },
+    {
+      "id": "choose_tasks",
+      "bullet_type": "default",
+      "text": "Choose a task:",
+      "prompt_type": "header",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "confirm_text": "Chosen dream:",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "choices": [
+          {
+            "id": "no_place_like_home",
+            "text": "There's No Place Like Home",
+            "description": "Recommended for Survivor ([survivor]), [[Vagabond]], [[Hunter]], or [[Traveler]] investigators.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "task_no_place_like_home",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "task_no_place_like_home",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "investigator_section": "task_progress",
+                "id": "no_place_like_home",
+                "text": "No Place Like Home: ",
+                "hidden": true
+              },
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "TDC_NO_PLACE_LIKE_HOME",
+                "hidden": true
+              }
+            ],
+            "steps": [
+              "no_place_like_home_story",
+              "no_place_like_home_campaign_log",
+              "no_place_like_home_card"
+            ]
+          },
+          {
+            "id": "walking_with_faith",
+            "text": "Walking with Faith",
+            "description": "Recommended for Guardian ([guardian]), Mystic ([mystic]), [[Believer]], [[Blessed]], [[Chosen]], [[Hunter]], or [[Sorcerer]] investigators.",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "task_walking_with_faith",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "task_walking_with_faith",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "investigator_section": "task_progress",
+                "id": "walking_with_faith",
+                "text": "Walking with Faith: ",
+                "hidden": true
+              },
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "TDC_WALKING_WITH_FAITH",
+                "hidden": true
+              }
+            ],
+            "steps": [
+              "walking_with_faith_story",
+              "walking_with_faith_campaign_log",
+              "walking_with_faith_card"
+            ]
+          },
+          {
+            "id": "follow_the_rules",
+            "text": "Follow the Rules",
+            "description": "Recommended for",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "task_follow_the_rules",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "task_follow_the_rules",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "$input_value",
+                "investigator_section": "task_progress",
+                "id": "follow_the_rules",
+                "text": "Follow the Rules: ",
+                "hidden": true
+              },
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "TDC_FOLLOW_THE_RULES",
+                "hidden": true
+              }
+            ],
+            "steps": [
+              "follow_the_rules_story",
+              "follow_the_rules_campaign_log",
+              "follow_the_rules_card"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_place_like_home_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "no_place_like_home_campaign_log",
+      "text": "Note \"No Place Like Home\" as your investigator's task in the campaign log."
+    },
+    {
+      "id": "no_place_like_home_card",
+      "text": "Find the No Place Like Home Permanent Story Support from the Tasks encounter set and add it to your deck for the remainder of the campaign."
+    },
+    {
+      "id": "walking_with_faith_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "walking_with_faith_campaign_log",
+      "text": "Note \"Walking with Faith\" as your investigator's task in the campaign log."
+    },
+    {
+      "id": "walking_with_faith_card",
+      "text": "Find the Walking with Faith Permanent Story Support from the Tasks encounter set and add it to your deck for the remainder of the campaign."
+    },
+    {
+      "id": "follow_the_rules_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "follow_the_rules_campaign_log",
+      "text": "Note \"Follow the Rules\" as your investigator's task in the campaign log."
+    },
+    {
+      "id": "follow_the_rules_card",
+      "text": "Find the Follow the Rules Permanent Story Support from the Tasks encounter set and add it to your deck for the remainder of the campaign."
+    }
+  ]
+}
