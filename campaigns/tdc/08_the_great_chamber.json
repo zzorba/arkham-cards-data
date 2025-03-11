@@ -3,7 +3,681 @@
   "scenario_name": "The Great Chamber",
   "full_name": "Scenario: The Great Chamber",
   "header": "Scenario",
-  "setup": ["$play_scenario"],
-  "steps": [],
-  "resolutions": []
+  "setup": [
+    "check_direction",
+    "check_west",
+    "intro_3",
+    "add_elder_thing",
+    "check_enforce_the_rules",
+    "encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "check_power_diverted",
+    "shuffle_star_spawn",
+    "set_aside_cards",
+    "$choose_artifacts_or_support",
+    "flood_locations",
+    "encounter_deck",
+    "moving_platform_rule",
+    "activating_rule",
+    "activating_rule_a",
+    "activating_rule_b",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "east_story"
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": ""
+    },
+
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+
+    {
+      "id": "check_enforce_the_rules",
+      "text": "If an investigator has the Enforce the Rules task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_enforce_the_rules",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["enforce_the_rules_story", "enforce_the_rules_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "enforce_the_rules_story",
+      "type": "story",
+      "title": "Enforce the Rules",
+      "text": ""
+    },
+
+    {
+      "id": "enforce_the_rules_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "beg",
+            "text": "Get your old job back at all costs.",
+            "description": "Erase 1 \"Enforce the Rules\" progress from the campaign log. During the next scenario, you get +1 to each of your skills for the first round.",
+            "steps": ["task_beg"]
+          },
+
+          {
+            "id": "firm",
+            "text": "Act with conscience. It's not worth it.",
+            "description": "Mark 2 progress on \"Enforce the Rules\" in your campaign log and suffer 1 mental trauma. During the next scenario, you get -1 to each of your skills for the first plan.",
+            "steps": ["task_firm"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "task_beg",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_enforce_the_rules",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "task_firm",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_enforce_the_rules",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_great_chamber", "alien_machinery", "flood", "the_inescapable",
+        "rlyeh", "star_spawn"]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Place The Grand Staircase, Moving Platform, Sealed Room, and Chamber Core into play as indicated in Location Placement below",
+      "bullets": [
+        {
+          "text": "Remove one copy of Otherworldly Gear from the game at random (Otherworldly Gear is on the revealed side of some Chamber Room Locations)."
+        },
+        {
+          "text": "Shuffle all remaining copies of Chamber Room and put them into play according to the Location Placement."
+        },
+        {
+          "text": "Each investigator begins the game on The Grand Staircase."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+      ]
+    },
+    {
+      "id": "check_power_diverted",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_power_was_diverted",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["activate_lower_left"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["activate_other_locations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "activate_lower_left",
+      "bullet_type": "small",
+      "text": "Place 1 resource in the Lower Left Chamber Room. This Location has been \"activated.\""
+    },
+    {
+      "id": "activate_other_locations",
+      "bullet_type": "small",
+      "text": "Place 1 resource in the Lower Left, Lower Right, and Upper Right Chamber Room Locations. These Locations have been \"activated.\""
+    },
+    {
+      "id": "shuffle_star_spawn",
+      "text": "Shuffle all of the Enemies from the Starseed encounter set and randomly remove two from the game. Set the rest aside, out of the game."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of the game: all copies of the double-sided Ancient Chamber Betrayal (®, **, ©), all copies of the Chamber Assistant Enemy, the Tide Tablet Story Prop, and the <i>Inescapable</i> encounter set."
+    },
+    {
+      "id": "flood_locations",
+      "text": "Add the Flood tokens to the token pool.",
+      "bullets": [
+        {
+          "text": "Increase the Flood level of the three Chamber Room Locations in the bottom row."
+        },
+        {
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "moving_platform_rule",
+      "type": "rule_reminder",
+      "title": "The Moving Platform and Location Connections",
+      "text": "During this scenario, investigators will need to use the Moving Platform to navigate the Great Chamber.",
+      "bullets": [
+        {
+          "text": "Locations are not connected to each other except by the Moving Platform or its connecting icons."
+        },
+        {
+          "text": "The Moving Platform is connected to each Location adjacent to it and vice versa"
+        },
+        {
+          "text": "Adjacent Locations share a side (left, right, top, or bottom)."
+        },
+        {
+          "text": "Locations that share only a corner are not considered adjacent."
+        },
+        {
+          "text": "When instructed to swap the Moving Platform with an adjacent Chamber Location, simultaneously move each of those Locations (along with all cards and tokens on them) to the space previously occupied by the other."
+        }
+      ]
+    },
+    {
+      "id": "activating_rule",
+      "type": "rule_reminder",
+      "title": "Activating and Deactivating Locations",
+      "text": "During this scenario, Locations can be \"activated\" or \"deactivated\" by setup instructions or scenario effects. An activated Location has no game effect per se, but some scenario effects will reference whether or not a Location is activated."
+    },
+    {
+      "id": "activating_rule_a",
+      "text": "When you are instructed to \"activate\" a Location, place I resource on that Location, which becomes activated.",
+      "bullets": [
+        {
+          "text": "You cannot activate a Location that is already activated."
+        }
+      ]
+    },
+    {
+      "id": "activating_rule_b",
+      "text": "When you are instructed to \"deactivate\" a Location, remove the resource from the Location, which becomes deactivated.",
+      "bullets": [
+        {
+          "text": "You cannot deactivate a Location that is not currently activated."
+        }
+      ]
+    },
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "chamber_core",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tdc_chamber_core",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "The Chamber Core",
+            "style": "interlude",
+            "steps": [
+              "chamber_core_story",
+              "chamber_core_choice",
+              "continue_playing"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tdc_chamber_core",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "continue_playing",
+      "text": "Continue playing."
+    },
+    {
+      "id": "chamber_core_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "chamber_core_choice",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "press",
+            "text": "Press the button",
+            "description": "Note in the campaign log that <i>the investigators opened the inner sanctum</i>.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "opened_the_inner_sanctum",
+                "text": "the investigators opened the inner sanctum."
+              }
+            ]
+          },
+          {
+            "id": "leave",
+            "text": "Leave it alone",
+            "description": "Each investigator gains 1 additional experience point.",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "cross_out_great_chamber",
+      "text": "Cross out the Great Chamber location on the R'lyeh map in the Campaign Log."
+    },
+
+    {
+      "id": "ask_tide_tablet",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Tide Tablet under the control of an investigator when the scenario ended?",
+            "steps": ["earn_tide_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_tide_tablet",
+      "text": "Check the \"Tide Tablet\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "tide_tablet",
+          "text": "Tide Tablet"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_artifacts",
+          "id": "tide_tablet",
+          "text": "Tide Tablet",
+          "remove": true
+        }
+      ]
+    },
+
+
+    {
+      "id": "check_good_money_task",
+      "text": "If an investigator has the Good Money task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["good_money_story", "good_money_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "good_money_story",
+      "type": "story",
+      "title": "Good Money",
+      "text": ""
+    },
+    {
+      "id": "good_money_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "safe",
+            "text": "Play it safe.",
+            "description": "Erase the progress of \"A good money\" in the campaign log. During the next scenario, you start the game with 3 additional resources.",
+            "steps": ["good_money_safe"]
+          },
+          {
+            "id": "squeeze",
+            "text": "Squeeze both sides.",
+            "description": "Mark 2 progresses in \"A good money\" in the campaign log. During the next scenario, you cannot gain resources during the Upkeep phase.",
+            "steps": ["good_money_squeeze"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "good_money_safe",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "good_money_squeeze",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "next_court_of_the_ancients",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_court_of_the_ancients"
+        }
+      ]
+    },
+    {
+      "id": "next_apiary",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_apiary"
+        }
+      ]
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_court_of_the_ancients"]
+
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_apiary"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned during Act 1 or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "cross_out_great_chamber",
+        "ask_tide_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "cross_out_great_chamber",
+        "ask_tide_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_court_of_the_ancients"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "cross_out_great_chamber",
+        "ask_tide_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_apiary"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,597 @@
+{
+  "id": "the_doom_of_arkham_part_2",
+  "scenario_name": "The Doom of Arkham: Part II",
+  "full_name": "Grand Finale: The Doom of Arkham, Part II",
+  "header": "Grand Finale",
+  "setup": [
+    "intro",
+    "choose_approach",
+    "encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_cthulhu",
+    "cthulhu_diagram",
+    "cthulhu_deck",
+    "check_act_deck",
+    "distribute_artifacts",
+    "set_aside_star_spawn",
+    "setup_rage",
+    "encounter_deck",
+    "cthulhu_board_rule",
+    "cthulhu_deck_rule",
+    "fury_of_cthulhu_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "choose_approach",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "show_hidden_choices": true,
+        "choices": [
+          {
+            "id": "direct",
+            "text": "We have to stand up to him and take him out with all the firepower we have.",
+            "steps": [
+              "intro_2",
+              "held_out_together",
+              "take_control_friends",
+              "add_elder_thing_token"
+            ]
+          },
+          {
+            "id": "alternate",
+            "text": "There has to be another way.",
+            "description": "You can only choose this option if there are 5 or more Artifacts marked/annotated and not crossed out under \"Artifacts Obtained\" in the Campaign Log.)",
+            "condition": {
+              "type": "multi",
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "artifacts_obtained",
+                    "id": "$num_entries"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 5
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 0
+                    },
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "count": 1,
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "steps": [
+              "intro_3",
+              "your_allies_have_a_plan",
+              "gather_friends",
+              "add_elder_thing_token"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "held_out_together",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "held_out_together",
+          "text": "the investigators held out together."
+        }
+      ]
+    },
+    {
+      "id": "take_control_friends",
+      "text": "Search the Expedition and Doom of Arkham encounter sets, all investigator decks, and all in-play and out-of-play zones for the following story props: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Put each of these props into play under the control of any investigator or investigators. None of these props take up a winged space during this scenario."
+    },
+    {
+      "id": "add_elder_thing_token",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+
+    {
+      "id": "your_allies_have_a_plan",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "your_allies_have_a_plan",
+          "text": "your allies have a plan."
+        }
+      ]
+    },
+    {
+      "id": "gather_friends",
+      "text": "Search the Expedition and Doom of Arkham encounter sets, all investigator decks, and all in-play and out-of-play zones for the following Story Props: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Set them aside, out of play."
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_doom_of_arkham_part_2", "domination", "primordial_fog", "flood", "star_spawn", "agents_of_cthulhu", "arkham"
+      ],
+      "subtext": "When collecting the <i>Midnight Masks</i> encounter set, collect only the Location cards. Do not collect any of the other cards from that set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Place all locations into play according to the Locations placement below.",
+      "bullets": [
+        {
+          "text": "Gather all locations from the Midnight Masks set along with the East Rooftops and West Rooftops. Place one of the two Center Locations and one of the two South Quarter Locations into play, at random, and remove the other versions of those locations from the game. Place the North Quarter, the East Quarter, St. Mary’s Hospital, and Miskatonic University into play."
+        },
+        {
+          "text": "Place the River Quarter (Ruins) from the Doom of Arkham Part II encounter set. Remove the other version of the River Quarter from the game."
+        },
+        {
+          "text": "Set all other locations aside, out of play."
+        },
+        {
+          "text": "Place the single-sided Enemy Cthulhu (Primordial Evil) in the River Quarter."
+        },
+        {
+          "text": "Each investigator begins the game in the River Quarter."
+        }
+      ]
+    },
+
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "01134_back",
+          "01130_back",
+          "01132_back"
+        ],
+        [
+          "western_rooftops",
+          "01129_back",
+          "flooded_district",
+          "eastern_rooftops"
+        ],
+        [
+          "blank",
+          "01128_back",
+          "01126_back",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "western_rooftops",
+          "text": "Western Rooftops"
+        },
+        {
+          "code": "flooded_district",
+          "text": "Flooded District"
+        },
+        {
+          "code": "eastern_rooftops",
+          "text": "Eastern Rooftops"
+        }
+      ]
+    },
+    {
+      "id": "setup_cthulhu",
+      "text": "Set up the Cthulhu board according to the diagram.",
+      "bullets": [
+        {
+          "text": "Take the double-sided die-cut board included in this box and place it on top of the Action and Plan decks, with the Cthulhu side face up."
+        },
+        {
+          "text": "Place each copy of the 3 Cthulhu Enemies (Ancient Wings, Fierce Visage, and Grim Claw) on the Cthulhu board, with the non-Enraged side face up, so that they form a complete image of Cthulhu."
+        }
+      ]
+    },
+    {
+      "id": "cthulhu_diagram",
+      "type": "location_setup",
+      "text": "Cthulhu Diagram",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "right_hand",
+          "face",
+          "left_hand",
+          "blank",
+          "deck"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "right_hand",
+          "text": "Right hand"
+        },
+        {
+          "code": "face",
+          "text": "Face"
+        },
+        {
+          "code": "left_hand",
+          "text": "Left hand"
+        },
+        {
+          "code": "deck",
+          "text": "Cthulhu Deck"
+        }
+      ]
+    },
+    {
+      "id": "cthulhu_deck",
+      "text": "Shuffle the 18 Cthulhu cards to form the Cthulhu deck. Place this deck next to the Cthulhu board."
+    },
+    {
+      "id": "check_act_deck",
+      "text": "Check the campaign log. If the investigators stood together:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "held_out_together",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["act_fight"]
+          },
+
+          {
+            "boolCondition": false,
+            "steps": ["check_your_allies_have_a_plan"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_your_allies_have_a_plan",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "your_allies_have_a_plan",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["act_plan"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "act_fight",
+      "bullet_type": "small",
+      "text": "create the Plan deck using the plan - \"The Doom of Arkham\" and the Act deck using the act - \"Let's Fight!\". Remove all other acts and plans from the game."
+    },
+    {
+      "id": "act_plan",
+      "bullet_type": "small",
+      "text": "Create the Plan deck using the plan \"The Doom of Arkham\" and the Act deck using the act - \"Let's Banish Him!\". Set aside, out of the game, the special plan - \"The Last Seal.\" Remove all other acts and plans from the game."
+    },
+    {
+      "id": "distribute_artifacts",
+      "text": "Check the campaign log.",
+      "bullets": [
+        {
+          "text": "Gather all the artifacts you have obtained that are not marked off under \"Artifacts Obtained.\" Put each of them into play under the control of an investigator, spread out as evenly as possible."
+        },
+        {
+          "text": "Add the Flood tokens to the token pool and increase the flood level of each Location listed under \"Flooded Districts.\""
+        }
+      ]
+    },
+    {
+      "id": "set_aside_star_spawn",
+      "text": "Set the Starseed encounter set aside, outside of the game."
+    },
+    {
+      "id": "setup_rage",
+      "text": "Place 1 resource on the scenario reference card under \"Rage of Cthulhu\" (see Rage of Cthulhu, right). If there are only 1 or 2 players, place 1 additional resource on the scenario reference card."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "cthulhu_board_rule",
+      "type": "rule_reminder",
+      "title": "The Cthulhu Board",
+      "text": "Cthulhu is represented on the map as a single Enemy, but is composed of multiple Enemy cards on the Cthulhu board. Investigators engaged with Cthulhu (Primordial Evil) are also engaged with each card on the Cthulhu board, as if they were a single Enemy. When interacting with Cthulhu (through combat, avoiding, etc.), choose one of the double-sided Enemy cards on the Cthulhu board to interact with.\nCthulhu attacks each investigator in place during the Enemy Phase using the combined damage and horror values ​​of all Cthulhu Enemies on the Cthulhu board. This attack is made in addition to any other attacks and/or effects triggered by the Cthulhu deck (see below).\nIf a card on the Cthulhu board would attack via a keyword or other effect while combating or avoiding, only that card attacks Card effects that deal damage to multiple enemies at a location can deal damage to each individual enemy on the Cthulhu board."
+    },
+    {
+      "id": "cthulhu_deck_rule",
+      "type": "rule_reminder",
+      "title": "The Cthulhu Deck",
+      "text": "During setup for this scenario, a second deck with a different card back is created: the Cthulhu deck. This deck is a separate deck made up of only \"Action\" cards. <b>The Cthulhu deck is not an encounter deck, and Action cards are not Betrayals.</b>\nAfter moving and attacking normally during the Enemies phase, Cthulhu takes additional actions using Action cards from the Cthulhu deck. At the end of the Enemies phase, the plan's Forced effect causes investigators to draw the top card from the Cthulhu deck. As you draw cards from the Cthulhu deck, resolve each effect one at a time, top to bottom. After resolving an Action card, it is discarded into the Cthulhu discard pile. If the Cthulhu deck is empty, immediately shuffle the Cthulhu discard pile back into the Cthulhu deck."
+    },
+    {
+      "id": "fury_of_cthulhu_rule",
+      "type": "rule_reminder",
+      "title": "The Fury of Cthulhu",
+      "text": "Throughout this scenario, the amount of resources on the \"Rage of Cthulhu\" scenario reference card indicates Cthulhu's rage against the investigators. The greater Cthulhu's rage, the more dangerous and deadly the awakened sleeper becomes. Cthulhu's rage has no game effect of its own; however, some encounter card effects may change or become stronger based on the current level of Cthulhu's rage."
+    },
+    {
+      "id": "cthulhu_wiped_out_arkham_city",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "cthulhu_wiped_out_arkham_city",
+          "text": "Cthulhu wiped out Arkham City."
+        }
+      ]
+    },
+    {
+      "id": "all_killed",
+      "text": "The investigators are <b>killed</b> along with all the other inhabitants of Arkham.",
+      "effects": [
+        {
+          "type": "trauma",
+          "killed": true,
+          "investigator": "all",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "setup_epilogue",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "tdc_epilogue"
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+
+    {
+      "id": "drove_cthulhu_away",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "drove_cthulhu_away",
+          "text": "the investigators drove Cthulhu away."
+        }
+      ]
+    },
+    {
+      "id": "trauma_3",
+      "text": "Each investigator suffers 3 physical traumas and 3 mental traumas from their fight with Cthulhu.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 3,
+          "mental": 3,
+          "investigator": "all",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_5",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator gains 5 additional experience points for dispelling an ancient evil.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "win_campaign_maybe",
+      "text": "The investigators win the campaign! But how long will it be until Cthulhu's inevitable return?",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "banished_cthulhu",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "banished_cthulhu",
+          "text": "the investigators banished Cthulhu."
+        }
+      ]
+    },
+    {
+      "id": "trauma_1",
+      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma from their fight with Cthulhu.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 1,
+          "mental": 1,
+          "investigator": "all",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "remove_weakness",
+      "text": "Each investigator may remove 1 random Basic Weakness from their deck (ignoring deck-building requirements) for saving Arkham from an ancient evil."
+    },
+    {
+      "id": "found_cthulhu_but_failed",
+
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "found_cthulhu_but_failed",
+          "text": "the investigators found Cthulhu, but Arkham was destroyed."
+        }
+      ]
+    },
+
+    {
+      "id": "trauma_2",
+      "text": "Each investigator suffers 2 physical trauma and 2 mental trauma from their fight with Cthulhu.",
+      "effects": [
+        {
+          "type": "trauma",
+          "physical": 2,
+          "mental": 2,
+          "investigator": "all",
+          "hidden": true
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "cthulhu_wiped_out_arkham_city",
+        "all_killed",
+        "setup_epilogue",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "drove_cthulhu_away",
+        "trauma_3",
+        "earn_xp",
+        "$upgrade_decks",
+        "setup_epilogue",
+        "win_campaign_maybe"
+
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "banished_cthulhu",
+        "trauma_1",
+        "earn_xp",
+        "remove_weakness",
+        "$upgrade_decks",
+        "setup_epilogue",
+        "win_campaign"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "",
+      "steps": [
+        "found_cthulhu_but_failed",
+        "trauma_2",
+        "earn_xp_plus_5",
+        "$upgrade_decks",
+        "setup_epilogue",
+        "win_campaign"
+      ]
+    }
+  ]
+}

@@ -6,13 +6,164 @@
   "type": "interlude",
   "icon": "",
   "setup": [
-    "intro"
+    "check_at_least_one_artifact",
+    "gain_task_xp",
+    "explain_check_tasks",
+    "check_walking_with_faith",
+    "next_scenario"
   ],
   "steps": [
     {
-      "id": "intro",
+      "type": "campaign_data",
+      "setting": "next_scenario",
+      "scenario": "the_doom_of_arkham"
+    },
+    {
+      "id": "check_at_least_one_artifact",
+      "text": "Check Campaign Log. If there is at least 1 artifact marked in \"Artifacts Obtained\"",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "artifacts_obtained",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 1
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
       "type": "story",
-      "text": "<fancy>Friday, February 13th, 1925</fancy>\nSomething odd was happening in Arkham, Massachusetts.\nTypically, this would not be a surprise to the residents of the dreary New England town. Indeed, Arkham has always been well-known for its strange—some would say supernatural—occurrences. The nature of this particular circumstance, however, was anything but typical.\nIt all began in the latest issue of <i>Tales from Nevermore</i>. A writer by the name of Virgil Gray described a journey he had taken in his dreams—a journey he claimed was not a work of fiction on his part. He wrote of a long, spiraling staircase, an unbearably hot pillar of sentient fire, a tree that came from the moon, and a curious talking cat…among other things equally difficult to believe. But it wasn’t this extraordinary tale that first drew your attention. Soon after Virgil’s tale was published, <i>Tales from Nevermore</i> began to receive and publish letter after letter from those who had read Virgil’s story and claimed to have experienced the same exact dream. Before long, the Arkham Advertiser picked up the story, and news of this strange phenomenon reached the ears of experts.\nVirgil Gray was convinced to undergo therapy at the local asylum, and many more who shared in the writer’s psychosis were committed as well. The prevailing theory among academics is that Virgil’s dream felt so real that he could not separate fact from fiction, and his writings spread his delusions to others like a form of shared hysteria. You remain unconvinced. After all, there is much that is not known about the simple act of dreaming. Medical experts have wildly differing theories on the state of one’s brain during sleep. Recently, experts like Sigmund Freud have proposed that dreams are manifestations of one’s subconscious desires, fears, or obsessions. Fortune tellers, for their part, have long believed that dreams can be sifted and interpreted in order to tell the dreamer’s past or future. But if these theories are true, how could multiple parties—all from very different walks of life—have the same shared experiences in their dreams? What if our modern understanding of sleep is all wrong? What if there really is a place our consciousness travels to when we sleep—a land of dreams that exists beyond our waking world?\nYou and your companions have gathered together to get to the bottom of this strange phenomenon. If others in town can travel to another world in their dreams, perhaps you can, too. You’ve re-created the circumstances of Virgil’s journey perfectly. If all goes well, half of you will take the trip to this “dreamland” and back. The rest will stay in the waking world, studying your companions’ sleep patterns to ensure nothing goes wrong…"
+      "text": ""
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "gain_task_xp",
+      "text": "For each progress you have marked on your task, you (and only you) gain 1 additional experience point."
+    },
+    {
+      "id": "explain_check_tasks",
+      "text": "Each investigator resolves his or her corresponding task on pages."
+    },
+    {
+      "id": "check_walking_with_faith",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_walking_with_faith",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "actually_check_walking_with_faith"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_walking_with_faith_xp",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_walking_in_faith",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value"
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_check_walking_with_faith",
+      "title": "Walking with Faith",
+      "type": "branch",
+      "text": "If there are 5 or more progress marked in your task:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "hidden",
+              "id": "task_walking_with_faith_count"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 5
+            },
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "walking_with_faith_good_story"
+            ]
+          }
+        ]
+      }
     }
   ]
 }

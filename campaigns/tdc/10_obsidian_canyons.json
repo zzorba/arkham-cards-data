@@ -3,7 +3,1214 @@
   "scenario_name": "Obsidian Canyons",
   "full_name": "Scenario: Obsidian Canyons",
   "header": "Scenario",
-  "setup": ["$play_scenario"],
-  "steps": [],
-  "resolutions": []
+  "setup": [
+    "check_direction",
+    "check_west",
+    "intro_3",
+    "check_dreams_of_destruction",
+    "check_prove_your_worth",
+    "check_direction",
+    "setup_check_west",
+    "encounter_deck",
+    "open_skies_rule",
+    "summits_sliding_rule",
+    "storm_intensity_rule",
+    "location_adjacency_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "east_story"
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": ""
+    },
+
+
+    {
+      "id": "check_dreams_of_destruction",
+      "text": "If an investigator has the Dreams of Destruction task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_dreams_of_destruction",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["dreams_of_destruction_story", "dreams_of_destruction_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dreams_of_destruction_story",
+      "title": "Task: Dreams of Destruction",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "dreams_of_destruction_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "drown",
+            "text": "Drown out the whispers.",
+            "description": "Erase 1 \"Dreams of Destruction\" progress from the campaign log and suffer 1 mental trauma. You (and only you) gain 2 additional experience points.",
+            "steps": ["dreams_of_destruction_drown"]
+          },
+
+          {
+            "id": "allow",
+            "text": "Let it in.",
+            "description": "Mark 2 \"Dreams of Destruction\" progress on the campaign log. At the start of each investigator's first turn in the Obsidian Cannons scenario, he or she must draw the top card from the encounter deck.",
+            "steps": ["dreams_of_destruction_allow"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "dreams_of_destruction_drown",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_dreams_of_destruction",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              },
+
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dreams_of_destruction_allow",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_dreams_of_destruction",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_prove_your_worth",
+      "text": "If an investigator has the Prove Your Worth task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_prove_your_worth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["prove_your_worth_story", "prove_your_worth_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "prove_your_worth_story",
+      "title": "Task: Prove Your Worth",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "prove_your_worth_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fix",
+            "text": "These ropes aren't right. I can do much better.",
+            "description": "Choose an investigator to help without consulting them (other than yourself if possible). Remember that \"[your investigator's name] helped with the ropes\" (and the name of the chosen investigator). Each investigator starts the next scenario with 2 fewer starting resources.",
+            "steps": ["prove_your_worth_fix"]
+          },
+
+          {
+            "id": "trust",
+            "text": "I trust their work.",
+            "description": "Each investigator starts the next scenario with 1 additional starting resource."
+          }
+        ]
+      }
+    },
+    {
+      "id": "prove_your_worth_fix",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_prove_your_worth",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "tdc_helped_with_the_ropes",
+                "cards": "$input_value",
+                "text": "#name# helped with the ropes"
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "setup_check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_v1",
+              "setup_locations_v1",
+              "location_layout_act_1",
+              "location_layout_act_2",
+              "location_layout_act_3",
+              "setup_winds_v1",
+              "setup_act_v1",
+              "setup_storm_intensity",
+              "remove_star_spawn_v1",
+              "set_aside_cards_v1",
+              "maybe_spawn_inescapable",
+              "$choose_artifacts_or_support"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["setup_check_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_v2",
+              "setup_locations_v2",
+              "location_layout_act_1",
+              "location_layout_act_2",
+              "location_layout_act_3",
+              "setup_winds_v2",
+              "setup_act_v2",
+              "setup_storm_intensity",
+              "remove_star_spawn_v2",
+              "set_aside_cards_v2",
+              "remove_star_vampire",
+              "$choose_artifacts_or_support"
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "setup_v1",
+      "title": "Setup (v.I) - Western Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["obsidian_canyons", "cosmic_legacy", "primordial_fog", "the_inevitable", "rlyeh", "ancient_evils", "chilling_cold", "nightgaunts", "striking_fear"],
+      "subtext": "Set the 14 cards from the <i>Ancient Evils</i>, <i>Chilling Cold</i>, and <i>Striking Fear</i> encounter sets aside, outside of the game, as \"open skies\" (see Open Skies below)."
+    },
+
+    {
+      "id": "setup_v2",
+      "title": "Setup (v.II) - Eastern Expedition",
+      "type": "encounter_sets",
+      "encounter_sets": ["obsidian_canyons", "cosmic_legacy", "primordial_fog", "the_inevitable", "rlyeh", "star_spawn", "chilling_cold", "nightgaunts", "striking_fear"],
+      "subtext": "Set the 11 cards from the <i>Chilling Cold</i>, and <i>Striking Fear</i> encounter sets aside, outside of the game, as \"open skies\" (see Open Skies below)."
+    },
+    {
+      "id": "setup_locations_v1",
+      "text": "Gather all the locations from the Obsidian Cannons encounter set.",
+      "bullets": [
+        {
+          "text": "Remove the Ancient Dome from play."
+        },
+        {
+          "text": "Set aside, out of play, the Streets of R'lyeh, the Central Tower, the Floating Tower, the Skyfall, the & Symbol Planetarium, and the Western Wall."
+        },
+        {
+          "text": "Shuffle all remaining Summit locations into a separate deck, unrevealed side up. This is the Summit deck (see The Summit Deck and Sliding Locations below)."
+        },
+        {
+          "text": "Put the Streets of R'lyeh into play along with four of the set-aside open sky cards, according to the Act 1 Locations placement below."
+        },
+        {
+          "text": "Fill all empty spaces in the diagram with the bottom card from the Summit deck above and to the right of the Streets of R'lyeh until there are 3 rows and 4 columns."
+        },
+        {
+          "text": "Shuffle the central Tower set aside with the top three cards from the Peaks deck."
+        },
+        {
+          "text": "Each investigator begins the game in the Streets of R'lyeh."
+        }
+      ]
+    },
+
+
+    {
+      "id": "setup_locations_v2",
+      "text": "Gather all the locations from the Obsidian Cannons encounter set.",
+      "bullets": [
+        {
+          "text": "Remove the Western Wall and the Floating Tower from the deck."
+        },
+        {
+          "text": "Set aside, out of play, the Streets of R'lyek, the Skyfall, the Planetarium of Symbols & and the C"
+        },
+        {
+          "text": "Shuffle all remaining Summit Locations into a unrevealed deck face up. This is the Summit deck (see The Summit Deck and Slide Locations below)."
+        },
+        {
+          "text": "Put the Streets of R'lyeh into play along with four of the set-aside open sky cards, according to the placement diagram Locations for Act 1 on below."
+        },
+        {
+          "text": "Fill all empty spaces in the diagram with the bottom card from the Summit deck above and to the right of the Streets of R'ly until there are 3 rows and 4 columns."
+        },
+        {
+          "text": "Shuffle the set-aside central Tower into the top three cards from the Summit deck."
+        },
+        {
+          "text": "Each investigator begins the game in the Streets of R'lyeh."
+        }
+      ]
+    },
+
+    {
+      "id": "setup_winds_v1",
+      "text": "Find the Eastwinds/Westwinds story card and put it into play, Eastwinds side up."
+    },
+    {
+      "id": "setup_winds_v2",
+      "text": "Find the Eastwinds/Westwinds story card and put it into play, Westwinds side up."
+    },
+    {
+      "id": "setup_act_v1",
+      "text": "Create the Act deck and Plan deck using the plan 1a - \"Invading Storms\", act 1a - \"Exploring the Towers\", act 2a - \"Deadly Skies\", and act 3a - \"Return to the Coast\". Remove all other acts and plans from the game."
+    },
+    {
+      "id": "setup_act_v2",
+      "text": "Build the Action Deck and Plan Deck using the “Eldritch Storms” Action Deck, “Searching the Towers” ​​Action Deck, and “To the Ancient Dome!” Action Deck. Remove all other Action Decks and Plans from the game."
+    },
+    {
+      "id": "setup_storm_intensity",
+      "text": "Place 1 resource on the scenario reference card under Storm Intensity."
+    },
+    {
+      "id": "remove_star_spawn_v1",
+      "text": "Shuffle all enemies from the Starseed encounter set and randomly remove two from the game."
+    },
+    {
+      "id": "remove_star_spawn_v2",
+      "text": "Shuffle all enemies from the Starseed encounter set and randomly remove three from the game."
+    },
+    {
+      "id": "set_aside_cards_v1",
+      "text": "Set aside, out of the game, the Celestial Relic 7 story prop, the Weathered Mural Betrayal 2, and the Double-sided Obsidian Claw story prop."
+    },
+    {
+      "id": "set_aside_cards_v2",
+      "text": "Set aside, out of the game, the Celestial Relic Betrayal Eroded Mural 2 Story Prop and the Double-Sided Obsidian Claw Story  Prop, along with the Inescapable encounter set."
+    },
+    {
+      "id": "remove_star_vampire",
+      "text": "Search the Obsidian Cannons encounter set for a Star Vampire Enemy, and remove it from the game."
+    },
+    {
+      "id": "maybe_spawn_inescapable",
+      "text": "Check the campaign log. If the creature has been defeated:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_has_been_defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$remove_unescapable_encounter_set"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "spawn_inescapable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_inescapable",
+      "bullet_type": "small",
+      "text": "Spawn the exhausted Inescapable Enemy in the Location furthest from all investigators."
+    },
+    {
+      "id": "location_layout_act_1",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 1",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "question",
+          "encounter_back",
+          "question",
+          "question"
+        ],
+        [
+          "blank",
+          "encounter_back",
+          "question",
+          "encounter_back",
+          "question"
+        ],
+        [
+          "blank",
+          "streets_of_rlyeh",
+          "encounter_back",
+          "question",
+          "question"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "streets_of_rlyeh",
+          "name": "Streets of R'lyeh"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "Column",
+          "x": 2,
+          "y": 0,
+          "position": "left"
+        },
+        {
+          "text": "I",
+          "x": 1,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "II",
+          "x": 2,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "III",
+          "x": 3,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "IV",
+          "x": 4,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "1",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "2",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "3",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "Note: Each ? location is drawn from the bottom of the Summit deck.",
+          "x": 0,
+          "y": 4,
+          "width": 3,
+          "position": "right",
+          "style": "description"
+        }
+      ]
+    },
+
+    {
+      "id": "location_layout_act_2",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "question",
+          "encounter_back",
+          "question",
+          "question",
+          "encounter_back"
+        ],
+        [
+          "blank",
+          "something",
+          "question",
+          "encounter_back",
+          "question",
+          "question"
+        ],
+        [
+          "blank",
+          "encounter_back",
+          "question",
+          "question",
+          "question",
+          "encounter_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "something",
+          "name": "???"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "Column",
+          "x": 2,
+          "y": 0,
+          "position": "left"
+        },
+        {
+          "text": "I",
+          "x": 1,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "II",
+          "x": 2,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "III",
+          "x": 3,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "IV",
+          "x": 4,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "V",
+          "x": 5,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "1",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "2",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "3",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "Note: Each ? location is drawn from the bottom of the Summit deck.",
+          "x": 0,
+          "y": 4,
+          "width": 3,
+          "position": "right",
+          "style": "description"
+        }
+      ]
+    },
+    {
+      "id": "location_layout_act_3",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 3",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "something",
+          "encounter_back",
+          "question",
+          "encounter_back",
+          "question"
+        ],
+        [
+          "blank",
+          "encounter_back",
+          "question",
+          "question",
+          "question",
+          "question"
+        ],
+        [
+          "blank",
+          "question",
+          "encounter_back",
+          "question",
+          "question",
+          "question"
+        ],
+        [
+          "blank",
+          "question",
+          "question",
+          "encounter_back",
+          "question",
+          "question"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "something",
+          "name": "???"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "Column",
+          "x": 2,
+          "y": 0,
+          "position": "left"
+        },
+        {
+          "text": "I",
+          "x": 1,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "II",
+          "x": 2,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "III",
+          "x": 3,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "IV",
+          "x": 4,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "V",
+          "x": 5,
+          "y": 1,
+          "position": "top"
+        },
+        {
+          "text": "1",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "2",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "3",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "4",
+          "x": 1,
+          "y": 4,
+          "position": "left"
+        },
+        {
+          "text": "Note: Each ? location is drawn from the bottom of the Summit deck.",
+          "x": 0,
+          "y": 5,
+          "width": 3,
+          "position": "right",
+          "style": "description"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "open_skies_rule",
+      "type": "rule_reminder",
+      "title": "Open Skies",
+      "text": "",
+      "bullets": [
+        {
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "summits_sliding_rule",
+      "type": "rule_reminder",
+      "title": "Summit Locations and Sliding",
+      "text": "",
+      "bullets": [
+        {
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "storm_intensity_rule",
+      "type": "rule_reminder",
+      "title": "Storm Intensity",
+      "text": "",
+      "bullets": [
+        {
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "location_adjacency_rule",
+      "type": "rule_reminder",
+      "title": "Location Adjacency",
+      "text": "",
+      "bullets": [
+        {
+          "text": ""
+        }
+      ]
+    },
+    {
+      "id": "cross_out_obsidian_canyons",
+      "text": "Cross out the Obsidian Canyons location on the R'lyeh map in the Campaign Log."
+    },
+
+    {
+      "id": "earn_random_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Madness]] or [[Omen]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": [
+            "Madness",
+            "Omen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "next_sleepers_tomb",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_sleepers_tomb"
+        }
+      ]
+    },
+    {
+      "id": "next_court_of_the_ancients",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_court_of_the_ancients"
+        }
+      ]
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_sleepers_tomb"]
+
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_court_of_the_ancients"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_obsidian_claw",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Obsidian Claw under the control of an investigator when the scenario ended?",
+            "steps": ["earn_obsidian_claw"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_obsidian_claw",
+      "text": "Check the \"Obsidian Claw\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "obsidian_claw",
+          "text": "Obsidian Claw"
+        },
+        {
+          "type": "campaign_log",
+          "section": "possible_artifacts",
+          "id": "obsidian_claw",
+          "text": "Obsidian Claw",
+          "remove": true
+        }
+      ]
+    },
+
+    {
+      "id": "check_prove_your_worth_resolution",
+      "text": "If an investigator has the Prove Your Worth task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "task_prove_your_worth",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["check_helped_with_ropes"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_helped_with_ropes",
+      "text": "If you <i>helped with the ropes</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "tdc_helped_with_the_ropes",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "helping_story",
+              "helping_trauma",
+              "ask_who_you_helped",
+              "helping_consequences",
+              "record_prove_yourself_progress"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["not_helping_story", "erase_progress", "everyone_else_xp", "record_prove_yourself_loss"],
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "helping_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "not_helping_story",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "erase_progress",
+      "text": "It's true, you'll never measure up. Erase the progress on \"Prove Yourself\" and suffer the mental trauma."
+    },
+    {
+      "id": "everyone_else_xp",
+      "text": "Each of the other investigators (except you) gains 1 additional experience point."
+    },
+    {
+      "id": "record_prove_yourself_progress",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_prove_your_worth",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_prove_yourself_loss",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "task_prove_your_worth",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              },
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "helping_trauma",
+      "text": "The investigator you chose to help earlier suffers 1 physical trauma and gains 2 additional experience points."
+    },
+    {
+      "id": "helping_consequences",
+      "text": "You'll feel pretty good, don't you? Mark 2 progress on \"Prove Yourself\" in the campaign log."
+    },
+    {
+      "id": "ask_who_you_helped",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "helped",
+            "text": "Who you \"helped\"",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": 1
+              },
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "cross_out_obsidian_canyons",
+        "earn_random_weakness",
+        "check_prove_your_worth_resolution",
+        "earn_xp",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "ask_obsidian_claw",
+        "cross_out_obsidian_canyons",
+        "check_prove_your_worth_resolution",
+        "earn_xp",
+        "next_sleepers_tomb"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "ask_obsidian_claw",
+        "cross_out_obsidian_canyons",
+        "check_prove_your_worth_resolution",
+        "earn_xp",
+        "next_court_of_the_ancients"
+      ]
+    }
+  ]
 }

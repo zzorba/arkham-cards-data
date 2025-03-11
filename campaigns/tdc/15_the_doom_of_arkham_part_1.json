@@ -1,0 +1,577 @@
+{
+  "id": "the_doom_of_arkham_part_1",
+  "scenario_name": "The Doom of Arkham: Part I",
+  "full_name": "Grand Finale: The Doom of Arkham, Part I",
+  "header": "Grand Finale",
+  "setup": [
+    "intro",
+    "encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_shoppe",
+    "randomize_star_spawn",
+    "gather_artifacts",
+    "earn_john",
+    "place_doom",
+    "flood_tokens",
+    "encounter_deck",
+    "multi_part_rule",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": ""
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_doom_of_arkham_part_1",
+        "deep_ones",
+        "domination",
+        "dreams",
+        "star_spawn",
+        "agents_of_cthulhu",
+        "arkham"
+      ],
+      "subtext": "When collecting the <i>Midnight Masks</i> encounter set, collect only the Location and Treachery cards. Do not collect the Act or Agenda cards from that set."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Find all of the locations in the Masks of Midnight encounter set and put them into play as follows:",
+      "bullets": [
+        {
+          "text": "Put one of the two Center Locations and one of the two South Quarter Locations into play, at random, and remove the other versions of those locations from the game. Put the North Quarter, East Quarter, River Quarter, St. Mary’s Hospital, and Miskatonic University into play, according to the location placement diagram."
+        },
+        {
+          "text": "Put all other locations aside, out of play."
+        },
+        {
+          "text": "Each investigator begins the game in the River Quarter."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "01134_back",
+          "01130_back",
+          "01132_back"
+        ],
+        [
+          "01129_back",
+          "01125_back",
+          "blank"
+        ],
+        [
+          "01128_back",
+          "01126_back",
+          "blank"
+        ]
+      ]
+    },
+    {
+      "id": "setup_shoppe",
+      "text": "Shuffle the single-sided Location Esoteric Shop of Tillinghast along with all the Betrayals from the Masks of Midnight encounter set and put one card under each Location except under the Rivertown."
+    },
+    {
+      "id": "randomize_star_spawn",
+      "text": "Shuffle all the Enemies from the Starseed encounter set and randomly remove two from the game (or remove three if playing on Easy difficulty)."
+    },
+    {
+      "id": "gather_artifacts",
+      "text": "Gather all the artifacts obtained along with the Clay Horror story prop and set them aside, outside of the game."
+    },
+    {
+      "id": "earn_john",
+      "text": "Choose an investigator to add the John Raymond Legrasse story prop to their deck. This card does not count toward their deck size.",
+      "bullets": [
+        {
+          "text": "Put the John Raymond Legrasse story prop into play under that investigator's control. It does not occupy an ally space during Parts 1 or II of this scenario."
+        }
+      ],
+      "effects": [
+        {
+          "type": "add_card",
+          "card": "TDC_JOHN_RAYMOND_LEGRASSE",
+          "investigator": "any"
+        }
+      ]
+    },
+    {
+      "id": "place_doom",
+      "text": "Place a number of doom equal to the number of investigators on the plan."
+    },
+    {
+      "id": "flood_tokens",
+      "text": "Add the Flood tokens to the token pool."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+    },
+    {
+      "id": "multi_part_rule",
+      "type": "rule_reminder",
+      "title": "Part I and Part II of The Doom of Arkham",
+      "text": "This scenario is divided into two parts. Players may choose to play these parts one at a time (taking a break between them) or play both parts back-to-back in one longer session. Each part is a game with its own setup and resolution.\n<b>Investigators may upgrade their decks between Part I and Part II.</b>"
+    },
+
+    {
+      "id": "earn_random_weakness",
+      "text": "Each investigator searches the collection for a random basic [[Injury]] or [[Madness]] weakness and adds it to their deck for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": [
+            "Injury",
+            "Madness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "ask_controlled_artifacts",
+      "text": "Which artifacts were controlled by investigators when the scenario ended?",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Controlled",
+        "choices": [
+          {
+            "id": "barrier_node",
+            "text": "Barrier Node",
+            "condition": {
+              "type": "campaign_log",
+              "section": "artifacts_obtained",
+              "id": "barrier_node",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "kept_barrier_node",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "obsidian_jar",
+            "text": "Obsidian Jar",
+            "condition": {
+              "type": "campaign_log",
+              "section": "artifacts_obtained",
+              "id": "obsidian_jar",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "kept_obsidian_jar",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "fragment",
+            "text": "Fragment of Y'chlecht",
+            "condition": {
+              "type": "campaign_log",
+              "section": "artifacts_obtained",
+              "id": "fragment",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "kept_fragment",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "Tidal Tablet",
+            "condition": {
+              "type": "campaign_log",
+              "section": "artifacts_obtained",
+              "id": "tide_tablet",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "kept_tide_tablet",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "mask",
+            "text": "Ghoulish Mask",
+            "condition": {
+              "type": "campaign_log",
+              "section": "artifacts_obtained",
+              "id": "ghoulish_mask",
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "kept_ghoulish_mask",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "clay",
+            "text": "Clay Horror",
+            "steps": ["earn_clay_horror"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_clay_horror",
+      "text": "Update campaign log. Under Artifacts Obtained, record that Clay Horror.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "clah_horror",
+          "text": "Clay Horror"
+        }
+      ]
+    },
+    {
+      "id": "cross_out_uncontrolled",
+      "text": "Cross out the name of each Artifact Support that was not under the control of any investigator when the scenario ended."
+    },
+    {
+      "id": "maybe_cross_out_barrier_node",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "kept_barrier_node",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cross_out_barrier_node"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_barrier_node",
+      "bullet_type": "small",
+      "text": "Cross out Barrier Node.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "barrier_node",
+          "text": "Barrier Node",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "maybe_cross_out_obsidian_jar",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "kept_obsidian_jar",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cross_out_obsidian_jar"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_obsidian_jar",
+      "bullet_type": "small",
+      "text": "Cross out Obsidian Jar.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "obsidian_jar",
+          "text": "Obsidian jar",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "maybe_cross_out_fragment",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "kept_fragment",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cross_out_fragment"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_fragment",
+      "bullet_type": "small",
+      "text": "Cross out Fragment.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "fragment",
+          "text": "Fragment",
+          "cross_out": true
+        }
+      ]
+    },
+
+
+    {
+      "id": "maybe_cross_out_tablet",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "kept_tide_tablet",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cross_out_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_tablet",
+      "bullet_type": "small",
+      "text": "Cross out Tidal Tablet.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "tide_tablet",
+          "text": "Tide Tablet",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "maybe_cross_out_mask",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "kept_ghoulish_mask",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["cross_out_mask"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross_out_mask",
+      "bullet_type": "small",
+      "text": "Cross out Ghoulish Mask.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_obtained",
+          "id": "ghoulish_mask",
+          "text": "Ghoulish Mask",
+          "cross_out": true
+        }
+      ]
+    },
+    {
+      "id": "explain_flooded_locations",
+      "text": "Write \"Flooded Districts:\" in the campaign log followed by a list of all flooded locations."
+    },
+    {
+      "id": "ask_flooded_locations",
+      "text": "Which locations are flooded?",
+      "type": "input",
+      "input": {
+        "type": "checklist",
+        "text": "Flooded",
+        "choices": [
+          {
+            "id": "rivertown",
+            "text": "Rivertown"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_continue",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "continue",
+            "text": "We are ready to fight.",
+            "description": "You want to continue playing immediately.",
+            "steps": ["resolution_2"]
+          },
+          {
+            "id": "pause",
+            "text": "We need more time.",
+            "description": "You want to take a break and continue in the next game session.",
+            "steps": ["resolution_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "put_away_game",
+      "text": "Put away the game as normal."
+    },
+    {
+      "id": "next_scenario",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_doom_of_arkham_part_2"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+        "earn_random_weakness",
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "",
+      "steps": [
+        "ask_controlled_artifacts",
+        "cross_out_uncontrolled",
+        "maybe_cross_out_barrier_node",
+        "maybe_cross_out_obsidian_jar",
+        "maybe_cross_out_fragment",
+        "maybe_cross_out_tablet",
+        "maybe_cross_out_mask",
+        "explain_flooded_locations",
+        "ask_flooded_locations",
+        "earn_xp",
+        "$upgrade_decks",
+        "ask_continue"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "",
+      "steps": [
+        "put_away_game",
+        "next_scenario"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "",
+      "steps": [
+        "put_away_game",
+        "next_scenario"
+      ]
+    }
+  ]
+}
