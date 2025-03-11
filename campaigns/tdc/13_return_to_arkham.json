@@ -14,9 +14,15 @@
   ],
   "steps": [
     {
-      "type": "campaign_data",
-      "setting": "next_scenario",
-      "scenario": "the_doom_of_arkham"
+      "id": "next_scenario",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_doom_of_arkham"
+        }
+      ]
     },
     {
       "id": "check_at_least_one_artifact",
@@ -90,7 +96,6 @@
           {
             "boolCondition": true,
             "steps": [
-              "actually_check_walking_with_faith"
             ]
           }
         ]
@@ -120,46 +125,6 @@
                 "operation": "add",
                 "value": 2
               }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "actually_check_walking_with_faith",
-      "title": "Walking with Faith",
-      "type": "branch",
-      "text": "If there are 5 or more progress marked in your task:",
-      "condition": {
-        "type": "multi",
-        "count": 1,
-        "conditions": [
-          {
-            "type": "math",
-            "opA": {
-              "type": "campaign_log_count",
-              "section": "hidden",
-              "id": "task_walking_with_faith_count"
-            },
-            "opB": {
-              "type": "constant",
-              "value": 5
-            },
-            "options": [
-              {
-                "numCondition": 0
-              },
-              {
-                "numCondition": 1
-              }
-            ]
-          }
-        ],
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": [
-              "walking_with_faith_good_story"
             ]
           }
         ]
