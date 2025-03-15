@@ -16,7 +16,7 @@
     "$choose_support",
     "$choose_artifacts_or_support",
     "$check_killed_creature",
-    "$remove_unescapable_encounter_set"
+    "$remove_the_inescapable_encounter_set"
   ],
   "steps": [
     {
@@ -25,31 +25,31 @@
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "the_creature_has_been_defeated",
+        "id": "the_creature_was_defeated",
         "options": [
           {
             "boolCondition": true,
-            "steps": ["$remove_unescapable_encounter_set"]
+            "steps": ["$remove_the_inescapable_encounter_set"]
           }
         ]
       }
     },
     {
-      "id": "$remove_unescapable_encounter_set",
+      "id": "$remove_the_inescapable_encounter_set",
       "bullet_type": "small",
-      "text": "Remove unescapable encounter set from the game."
+      "text": "Remove <i>The Inescapable</i> encounter set from the game."
     },
     {
       "id": "$choose_support",
       "type": "encounter_sets",
-      "encounter_sets": ["the_expedition"],
-      "text": "Following the order of play, each player may choose 1 Support Item from the Expedition encounter set to start in play under their control."
+      "encounter_sets": ["tdc_expedition"],
+      "text": "In player order, each player may choose 1 [[Item]] asset from the <i>Expedition</i> encounter set to begin in play under their control."
     },
     {
       "id": "$choose_artifacts_or_support",
       "type": "encounter_sets",
-      "encounter_sets": ["the_expedition"],
-      "text": "Following the order of play, each player may choose 1 Support Artifact obtained or 1 Support Item from the Expedition encounter set to begin in play under their control."
+      "encounter_sets": ["tdc_expedition"],
+      "text": "In player order, each player may choose 1 earned [[Artifact]] asset or 1 [[Item]] asset from the <i>Expedition</i> encounter set to begin in play under their control."
     },
     {
       "id": "$artifacts_rule",
@@ -98,12 +98,7 @@
       "id": "$relentless_rule",
       "title": "Relentless",
       "type": "rule_reminder",
-      "text": "",
-      "bullets": [
-        {
-          "text": ""
-        }
-      ]
+      "text": "Some enemies in this campaign have the relentless keyword. During the enemy phase(after framework step 3.3), each enemy with the relentless keyword that has attacked this phase (even if that attack was canceled) readies and attacks the investigator(s) it is engaged with a second time."
     },
     {
       "id": "$patrol_rule",
@@ -156,14 +151,41 @@
       "id": "$seal_rule",
       "type": "rule_reminder",
       "title": "Seal",
-      "text": ""
+      "text": "Aan additional cost for a card with the seal keyword to enter play, its controller must search the chaos bag for the specified chaos token and place it on top of the card, thereby sealing the token. If there is a choice of which token to seal, the card's controller chooses. If the specified token is not in the chaos bag, the card cannot enter play.\nA sealed chaos token is not considered to be in the chaos bag, and therefore cannot be revealed from the chaos bag as part of a skill test or ability.\nWhen a chaos token is \"released,\" it is returned to the chaos bag and is no longer considered sealed. <b>If a card with one or more chaos tokens sealed on it leaves play for any reason, any chaos tokens sealed on it are immediately released</b>.\nSome cards (with or without the seal keyword) may also have abilities that seal one or more chaos tokens as part of their effect. This is done following the same process as above: searching the chaos bag for the specified token, removing it from the chaos bag, and placing it on the card. If the specified token is not in the chaos bag, the effect fails."
     },
 
     {
       "id": "$tasks_rule",
       "type": "rule_reminder",
-      "title": "Tasks",
-      "text": ""
+      "title": "Tasks in the Drowned City Campaign",
+      "text": "Each investigator must select a different \"Task\" to complete over the course of The Drowned City campaign. Tasks represent the investigators' obligations and their reasons for becoming involved with Tillinghast and his shady dealings.",
+      "bullets": [
+        {
+          "text": "Each investigator must choose a different Task."
+        },
+        {
+          "text": "Each Task is recommended for a specific kind of investigator. However, an investigator may choose any Task, even if it is not recommended. <i>(It is up to you to justify how your investigator got into this mess in the first place!)</i>"
+        }
+      ],
+      "steps": ["$tasks_rule_2", "$tasks_rule_3", "$tasks_rule_4", "$tasks_rule_5"]
+    },
+    {
+      "id": "tasks_rule_2",
+      "type": "encounter_sets",
+      "encounter_sets": ["tasks"],
+      "text": "Each Task corresponds to a double-sided [[Task]] card, which can be found in the <i>Tasks</i> encounter set."
+    },
+    {
+      "id": "$tasks_rule_3",
+      "text": "Investigators should attempt to complete objectives on their [[Task]] card once per scenario over the course of a campaign. Each investigator will also be prompted to resolve story text during setup and/or resolution of a scenario. <i>(Be aware that some outcomes may impact setup.)</i>"
+    },
+    {
+      "id": "$tasks_rule_4",
+      "text": "When instructed to mark or erase 1 or more progress in your Campaign Log, check or uncheck that many boxes under your Task."
+    },
+    {
+      "id": "$tasks_rule_5",
+      "text": "Completing Task objectives will earn experience and /or rewards later in the campaign. The more times an investigator completes their Task, the better. For a more positive outcome, do not ignore your Task!"
     }
   ]
 }
