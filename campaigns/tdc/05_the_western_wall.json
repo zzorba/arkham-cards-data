@@ -68,21 +68,21 @@
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "It becomes increasingly clear as you proceed westward that the beach you are walking along is the top of an ancient ring wall. Fathoms below, the wall forms a sheer drop to a round plaza on the ocean floor. With some planning, you could descend safely to the ocean floor by moving from pocket to pocket of trapped air in the old ruins. If you’re careful, you may just be able to reach the sea floor alive."
     },
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "The unsteady foundations of the ancient city shudder as R’lyeh continues to rise. Collapsing layers of crumbling masonry and exposed hallways form a treacherous path up to the surface. In order to safely ascend, you will need to climb the sheer face of the ancient wall by moving from pocket to pocket of trapped air. Knowing the dangers of pressure sickness, you can’t simply float to the top. If you’re careful, you may just be able to reach the surface alive."
     },
     {
       "id": "check_do_no_harm",
-      "text": "If an investigator has the Do No Harm task:",
+      "text": "If an investigator has the \"Do No Harm\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_do_no_harm",
+        "id": "picked_do_no_harm",
         "options": [
           {
             "boolCondition": true,
@@ -95,7 +95,7 @@
       "id": "do_no_harm_story",
       "title": "Task: Do No Harm",
       "type": "story",
-      "text": ""
+      "text": "As you prepare to traverse the wall, you spot a body lying prone on the black sand. It is a man in a tattered patchwork cloak. Pushing aside questions of how he got here, you approach and take his pulse. He is still alive, though heavily wounded. Yellow pus oozes from round sucker marks on his neck, arms, and chest. You bandage his wounds as best you can, then wake him with some smelling salts. His eyes flutter open and he rasps one word: \"Mother.\" You look to the others. This man clearly needs help."
     },
     {
       "id": "do_no_harm_choice",
@@ -106,27 +106,29 @@
         "choices": [
           {
             "id": "help",
-            "text": "<i>Let's take him with us. We can still save him.</i>",
-            "description": "After setting up this scenario, place 1 Doom token on the agenda. Note in the campaign log that <i>the expedition helped the pilgrim</i>.",
+            "text": "<i>\"Bring hum along. We can still save him.\"</i>",
+            "description": "After setting up this scenario, place 1 doom on the agenda. In your Campaign Log, record <i>the expedition helped the pilgrim.</i>",
             "effects": [
               {
                 "type": "campaign_log",
                 "section": "campaign_notes",
                 "id": "expedition_helped_pilgrim",
-                "text": "the expedition helped the pilgrim."
+                "text": "the expedition helped the pilgrim.",
+                "hidden": true
               }
             ]
           },
           {
             "id": "abandon",
-            "text": "<i>Let's leave him here.</i>",
-            "description": "When you reveal the starting location in the next scenario, don't place any clues at that location. Note in the campaign log that <i>the expedition abandoned the pilgrim</i>.",
+            "text": "<i>\"Leave him behind.\"</i>",
+            "description": "When you reveal the starting location in the next scenario, do not place clues on that location. In your Campaign Log, record  <i>the expedition left the pilgrim behind</i>.",
             "effects": [
               {
                 "type": "campaign_log",
                 "section": "campaign_notes",
                 "id": "expedition_abandoned_pilgrim",
-                "text": "the expedition abandoned the pilgrim."
+                "text": "the expedition left the pilgrim behind.",
+                "hidden": true
               }
             ]
           }
@@ -558,12 +560,12 @@
     },
     {
       "id": "check_do_no_harm_resolution",
-      "text": "If an investigator has the <i>Do No Harm</i> task:",
+      "text": "If an investigator has the \"Do No Harm\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_do_no_harm",
+        "id": "picked_do_no_harm",
         "options": [
           {
             "boolCondition": true,
@@ -611,18 +613,26 @@
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_do_no_harm",
+        "id": "do_no_harm",
         "options": [
           {
             "boolCondition": true,
             "effects": [
               {
                 "type": "add_card",
-                "card": "TDC_PARASITE_HUNTER",
+                "card": "11535",
                 "investigator": "$input_value",
                 "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
               }
             ]
           }
@@ -631,16 +641,7 @@
     },
     {
       "id": "mark_2_do_no_harm_progress",
-      "text": "You tried your best to help the victim. Mark 2 progress under \"Do No Harm\" in your Campaign Log",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "tasks",
-          "id": "do_no_harm",
-          "operation": "add",
-          "value": 2
-        }
-      ]
+      "text": "You tried your best to help the victim. Mark 2 progress under \"Do No Harm\" in your Campaign Log"
     },
     {
       "id": "mental_trauma",
@@ -651,9 +652,9 @@
       "hidden": true,
       "type": "branch",
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_do_no_harm",
+        "id": "do_no_harm",
         "options": [
           {
             "boolCondition": true,
@@ -663,6 +664,15 @@
                 "mental": 1,
                 "investigator": "$input_value",
                 "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
               }
             ]
           }
@@ -671,16 +681,7 @@
     },
     {
       "id": "erase_1_progress",
-      "text": "Erase 1 progress under \"Do No Harm\" in your Campaign Log.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "tasks",
-          "id": "do_no_harm",
-          "operation": "add",
-          "value": -1
-        }
-      ]
+      "text": "Erase 1 progress under \"Do No Harm\" in your Campaign Log."
     },
     {
       "id": "earn_xp",
@@ -708,7 +709,7 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "With the rest of the expedition’s help, you limp to your destination, taking refuge in intermittent pockets of air in the crumbling ruins. Nightmarish shapes flit to and fro in the dark ocean beyond the wall. The creatures that live in and around R’lyeh’s foundation are warped and strange; you have a feeling you will be seeing them again soon, in your own nightmares.",
       "steps": [
         "cross_out_western_wall",
         "check_do_no_harm_resolution",
@@ -720,7 +721,7 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "The ocean floor is a dreamlike phantasmagoria of sinister flora and nightmarish creatures. A mutated lanternfish that could only be described as antediluvian swims placidly through a forest of deep water seagrass. Another deep sea creature with glowing eyes and a jagged maw swims straight at you, but turns away at the last moment from the shimmering field that keeps the water at bay.",
       "steps": [
         "cross_out_western_wall",
         "check_do_no_harm_resolution",
@@ -732,7 +733,7 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "A tremor shakes the ancient city, knocking you down. Ruby curses as you steady yourself on a fallen pillar. The city of R’lyeh continues to rise. Eventually, the tremors subside. Ruby stands next to you and looks out at the perfect circle of the black water bay. “Damn,” she says. “I made a bet with Andy we’d get back first. But that softie wouldn’t dare collect if I pretend I broke my leg, don’t you think?” You sigh and lead the way back to the <i>Cassandra</i>, leaving Ruby to bandage her right calf. It will be good to return.",
       "steps": [
         "cross_out_western_wall",
         "check_do_no_harm_resolution",
@@ -745,7 +746,7 @@
       "id": "R3",
       "title": "Resolution 3",
       "hidden": true,
-      "text": "",
+      "text": "An ancient dome shimmers enticingly on the sea floor. As you marvel at the strange sights, a chunk of obsidian loosens and falls from up above onto the seafloor dome. Rather than shatter, the dome ripples, pliant, as the rock falls through with a thunderous crash. Something in the center projects a barrier that repels water, but allows solid things to pass through.\nWhatever strange technology is in the dome, Tillinghast will likely be interested in it. However, you could also proceed into R’lyeh: a round door in the base of the wall, contained under the same shimmering field as the dome, beckons you into the city.",
       "steps": [
         "choose_west_path"
       ]

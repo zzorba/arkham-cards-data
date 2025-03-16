@@ -14,7 +14,7 @@
                   )
               | group_by(.section)
               | .[]
-              | { section: .[0].section, entries: map(. | { id: .id } + if has("text") then { text } else null end + if has("masculine_text") then { masculine_text } else null end + if has("feminine_text") then { feminine_text } else null end + if has("nonbinary_text") then { nonbinary_text } else null end) | unique},
+              | { section: (if .[0] | has("investigator_section") then .[0].investigator_section else .[0].section end), entries: map(. | { id: .id } + if has("text") then { text } else null end + if has("masculine_text") then { masculine_text } else null end + if has("feminine_text") then { feminine_text } else null end + if has("nonbinary_text") then { nonbinary_text } else null end) | unique},
       supplies: map(.. .supplies? | .[]? ) | flatten
     }
 ]

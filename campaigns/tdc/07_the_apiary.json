@@ -26,7 +26,7 @@
             "boolCondition": true,
             "steps": [
               "west_story", "check_ursula", "west_story_cont",
-              "add_cultist", "check_walking_in_faith",
+              "add_cultist", "check_walk_in_faith",
               "setup_v1", "setup_location", "act_deck_v1", "remove_mother_enemy",
               "set_aside_v1",
               "$choose_artifacts_or_support",
@@ -54,7 +54,7 @@
             "boolCondition": true,
             "steps": [
               "east_story",
-              "add_tablet", "check_walking_in_faith",
+              "add_tablet", "check_walk_in_faith",
               "setup_v2", "setup_location", "act_deck_v2",
               "remove_maria", "set_aside_v2",
               "$choose_artifacts_or_support",
@@ -98,22 +98,22 @@
       "id": "ursula_story",
       "type": "story",
       "border_only": true,
-      "text": ""
+      "text": "You and your assistant Jake each chime in with a few details of your own as Andy recounts the story that brought you together. You suppress a shudder as you recall the horrors you witnessed in the Amazon, and the incident that took Jake’s leg."
     },
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "The dank tunnels beneath R’lyeh branch and thread endlessly like the capillaries of some giant beast. Shining nodules are stationed at intervals in the walls, pulsing with soft light. After making camp on the third evening, you sit across the tunnel from Andy as he scribbles furiously in his notebook. The conversation soon turns to the events that led you both into Tillinghast’s employ."
     },
     {
       "id": "west_story_cont",
       "type": "story",
-      "text": ""
+      "text": "“The long and short of it is… Mr. Tillinghast said he had another big story for me. A chance for me to make my big break. And, well, maybe enough money to pay off my tab at Hibb’s.” He looks bashful. “I had to let off some steam after my last gig! A lot of steam.”\nA tremor rocks the tunnels. Andy’s face grows ashen as he leans in. “I have a theory. This city? It’s rising. I mean, <i>still</i> rising. The shakes, the crumbling foundation, the fact that it was underwater before and now it isn’t. You saw the ship graveyard in the city spires, right? Ships’ve been going missing in this stretch of ocean for centuries. I don’t know what’s causing it, but I keep having these dreams…”\nThe next day, you discover a vast cavern. The walls and ceiling are honeycombed with small round holes that branch off haphazardly into a labyrinthe warren. Andy rushes to the entrance of one particularly foul-smelling tunnel and picks up a bloody scrap of cloth. “I don’t know what lives here, but I think they like eating people.”\nFurther in, fleshy, bilious growths line the tunnel, oozing a thick, phlegmy ichor. Could anyone actually be left alive down here?"
     },
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "The tunnels beyond the heart of the city slope ever-downward through a series of complexes: ancient alien factories frozen in time. “I wonder what they made here,” Ruby says. Clawed metal appendages hang over mile-long tracks while gargantuan statues stare down from high alcoves. Rather than walk in the eerie silence, you ask your companions what brought them into Tillinghast’s employ.\n“Truth is, Tillinghast caught me trying to sneak off with some of his, er, stock,” Ruby says. “Not my best work. But that man knows how to spin any deal in his favor. He offered me a job, instead. The money was good⸺better than the stuff I’d nabbed⸺so I said yes. I’ve been saving up for retirement for a while now.”\nThe factories give way to a labyrinthine tunnel system. After days of exploration, you discover a vast cavern. The walls and ceiling are honeycombed with small round holes that branch off haphazardly into a labyrinthine warren. The gory remains of a young man in a patchwork cloak lies prone in front of one tunnel. The stench is unbearable.\n“This is the same kind of cloak the other fella was wearing,” Ruby holds a handkerchief to her mouth as she pulls a small scrap of paper out of the man’s pocket. Scrawled in blood are two words: SEND HELP. You look down the tunnel. Fleshy, bilious growths line the sides, giving it the look of a giant esophagus. A far worse stench emanates from within.\n“Something tells me there’s nobody left to help. Still, there could be something worthwhile down there,” Ruby says, the usual panache noticeably absent from her voice."
     },
     {
       "id": "add_cultist",
@@ -136,13 +136,13 @@
       ]
     },
     {
-      "id": "check_walking_in_faith",
-      "text": "If an investigator has the Walking in Faith task:",
+      "id": "check_walk_in_faith",
+      "text": "If an investigator has the \"Walk in Faith\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "picked_walk_in_faith",
         "options": [
           {
             "boolCondition": true,
@@ -155,7 +155,7 @@
       "id": "walking_in_faith_story",
       "title": "Task: Walking in Faith",
       "type": "story",
-      "text": ""
+      "text": "An overwhelming sense of dread and awe fills your chest as you stare at the honeycomb of spongy, fleshy tunnels and the littered debris on the ground. There are several torn cloaks and a broken lantern. A massive chalk arcle composed of Latinate words and eldritch symbols has been drawn i the center of the room. A ritual of protection, perhaps? More disturbigly, a sacred symbol of your own faith is inscribed in its center. Were the ones who drew it fellow adherents of your faith? They could be heretics, but as you think about it, you wonder if they were drawn, much like you, to this ancient city by fate. As you descend into the belly of the beast, your stomach aches. Has your faith led you astray?"
     },
     {
       "id": "walking_in_faith_choice",
@@ -166,29 +166,28 @@
         "choices": [
           {
             "id": "doubt",
-            "text": "<i>I have doubts.</i>",
-            "description": "Erase 1 \"Walk with Faith\" progress from the campaign log. The first time each investigator would draw from the encounter deck in the next scenario, they may draw 1 card from their deck instead.",
-            "steps": ["walking_in_faith_doubt"]
+            "text": "<i>\"I have such doubts.\"</i>",
+            "description": "Erase 1 progress under \"Walk in Faith\" in your Campaign Log. The first time each investigator would draw from the encounter deck in the next scenario, they may draw 1 card from their deck instead.",
+            "steps": ["walk_in_faith_doubt"]
           },
 
           {
             "id": "firm",
-            "text": "<i>My resolve is firm.</i>",
-            "description": "Mark 2 \"Walk with Faith\" progress on the campaign log and suffer 1 mental trauma. The first time each investigator draws an encounter card in the next scenario, that encounter card gains Surge.",
-            "steps": ["walking_in_faith_firm"]
+            "text": "<i>\"I am firm in my resolve.\"</i>",
+            "description": "Mark 2 progress under \"Walk in Faith\" in your Campaign Log and suffer 1 mental trauma. The first time each investigator draws an encounter card in the next scenario, that encounter card gains surge.",
+            "steps": ["walk_in_faith_firm"]
           }
         ]
       }
     },
-
     {
-      "id": "walking_in_faith_doubt",
+      "id": "walk_in_faith_doubt",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "walk_in_faith",
         "options": [
           {
             "boolCondition": true,
@@ -209,21 +208,22 @@
     },
 
     {
-      "id": "walking_in_faith_firm",
+      "id": "walk_in_faith_firm",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "walk_in_faith",
         "options": [
           {
             "boolCondition": true,
             "effects": [
               {
                 "type": "trauma",
-                "investigator": "$input_value",
                 "mental": 1,
+                "investigator": "$input_value",
                 "hidden": true
               },
               {
@@ -424,7 +424,7 @@
     {
       "id": "lost_pilgrims_story",
       "type": "story",
-      "text": ""
+      "text": "Coughing weakly, the woman introduces herself as Maria Rivera. She and the others are a collective of pilgrims from all walks of life, led to this place by their dreams. “This is the domain of the drowned god, the dead monarch Cthulhu. We have been instructed by our leader, Lady Dao, to await his return in this ancient city.” The name “Cthulhu” rings in your ears. You have heard it time and again in your dreams.\nMaria continues. “However, there is something malevolent living in these tunnels. Something I fear we awakened by our presence. We sent one of our own to find help, but they haven’t returned.”\nYour discussion is cut short by a dreadful roar. Maria lowers her gaze. “Since we arrived, we’ve been pursued by something… something awful. It hunted us through the streets, the ancient archive, and even through the city’s heart. I hoped it would not follow us to this corrupt and horrible place.” She coughs weakly. “I do not have the strength to lead them out of these tunnels. Please, I beg you, lead us to safety.”\nAnother roar echoes through the tunnels, closer this time, accompanied by the trilling of parasites. Andy looks to you, then to Maria and says, “Gather your people. Nobody deserves to die down here.”"
     },
     {
       "id": "flip_apiary_entrance",
@@ -454,7 +454,7 @@
     {
       "id": "hive_mind_story",
       "type": "story",
-      "text": ""
+      "text": "You feel the rush of an alien consciousness as a thousand thoughts and memories encroach upon yours. She is your Mother. You feel it deep within. You see a legion of winged, tentacled monstrosities entering an otherworldly vessel. You see Mother, small as a worm, crawl out of her host. You see her enter another host, and then another, laying eggs within their gullets. You feel her need to grow, to spread, to proliferate. Then the taste of alien flesh, of human flesh, of your own flesh as Mother tastes you even now.\nYou awaken to see Ruby standing over you, knife in hand. You are in a pulsing, fetid chamber, the cord that linked you to the Mother flails like a lizard’s tail on the ground before you. Embedded in the walls of the chamber is a massive corpse of an alien creature held up like a grisly puppet. Mother herself. You feel her desire to absorb you, to become you, to devour you.\n“We have to kill it,” Ruby growls."
     },
     {
       "id": "hive_mind_locations",
@@ -544,13 +544,13 @@
         "conditions": [
           {
             "type": "has_card",
-            "card": "TDC_ANDY",
+            "card": "11766",
             "investigator": "defeated",
             "options": [{ "boolCondition": true }]
           },
           {
             "type": "has_card",
-            "card": "TDC_RUBY",
+            "card": "11765",
             "investigator": "defeated",
             "options": [{ "boolCondition": true }]
           }
@@ -572,7 +572,7 @@
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "card": "TDC_ANDY",
+        "card": "11766",
         "investigator": "defeated",
         "options": [
           {
@@ -589,11 +589,11 @@
       "effects": [
         {
           "type": "remove_card",
-          "card": "TDC_ANDY"
+          "card": "11766"
         },
         {
           "type": "add_card",
-          "card": "TDC_ANDY",
+          "card": "11766",
           "investigator": "choice"
         }
       ]
@@ -606,7 +606,7 @@
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "card": "TDC_RUBY",
+        "card": "11765",
         "investigator": "defeated",
         "options": [
           {
@@ -623,11 +623,11 @@
       "effects": [
         {
           "type": "remove_card",
-          "card": "TDC_RUBY"
+          "card": "11765"
         },
         {
           "type": "add_card",
-          "card": "TDC_RUBY",
+          "card": "11765",
           "investigator": "choice"
         }
       ]
@@ -673,7 +673,7 @@
       "effects": [
         {
           "type": "add_card",
-          "card": "TDC_PARASITIC_TRANSFORMATION",
+          "card": "11583",
           "investigator": "all"
         }
       ]
@@ -873,7 +873,7 @@
     {
       "id": "investigator_defeat",
       "title": "Investigator Defeat",
-      "text": "Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
+      "text": "You don’t feel any pain. In fact, there is no “you” to feel pain. Instead, “you” have become part of an endless interconnected mind that dwells beneath this city. You have always been here. And you always will be.",
       "steps": [
         "defeated_killed",
         "check_all_defeated",
@@ -890,7 +890,7 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "You pull a flailing worm from your neck as you escape the putrid tunnels. Hopefully you aren’t infected…",
       "steps": [
         "earn_parasitic_transformation",
         "cross_out_apiary",
@@ -903,7 +903,7 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "The last of the survivors emerges from the fetid tunnels. After thanking you, the pilgrims show you the tunnel they took from the “heart of the city.” As you leave, Andy wipes ichor off of his camera lens. “There’s another roll of worthless film. One shot could’ve made my career. I might as well have thrown all my film overboard on the way here.”",
       "steps": [
         "pilgrims_were_saved",
         "cross_out_apiary",
@@ -916,7 +916,7 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "Shell-shocked, you emerge from the tunnels to find the vast antechamber where you began. If any pilgrims survived, they did not linger. After a long silence, the expedition prepares to move on. Andy narrows his eyes at a trail of blood on the floor, noting that if a pilgrim had been dragged away, it would be much messier. Their trail may lead to “the city core” as Maria put it.",
       "steps": [
         "earn_parasitic_transformation",
         "pilgrims_were_devoured",
@@ -931,7 +931,7 @@
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "",
+      "text": "The expedition treks back to the apiary entrance, covered in gore. You scratch a persistent itch on the back of your neck, hoping you weren’t infected. Splintered memories from your brief moment as part of the hive mind continue to encroach on your thoughts. You doubt you will ever feel quite the same again.",
       "steps": [
         "exterminated_the_alien_parasites",
         "cross_out_apiary",
@@ -945,7 +945,7 @@
       "id": "R4",
       "title": "Resolution 4",
       "hidden": true,
-      "text": "",
+      "text": "You eventually find your old route. Several more days’ journey brings you to a large round door the size of a bank vault. After pressing several alien glyphs in turn, the door rolls back to reveal a dry path winding along the seafloor toward a softly glowing dome. A shimmering, gossamer energy field holds back the weight of the ocean. As you marvel at the miraculous path and dome, a chunk of obsidian loosens and falls from above onto the dome. Rather than shatter, the dome ripples, pliant, as the rock falls through with a thunderous crash.\n“This is impossible,” gasps Ruby. “Something in that dome is powering the barrier. Looks like it holds back water, but lets other things pass through. Whatever’s doing it could be a good find for Randall.” She looks up the sheer wall leading to the surface.",
       "steps": [
         "choose_east_path"
       ]
