@@ -9,7 +9,7 @@
     "setup_locations",
     "location_layout",
     "setup_shoppe",
-    "randomize_star_spawn",
+    "check_star_spawn_difficulty",
     "gather_artifacts",
     "earn_john",
     "place_doom",
@@ -37,20 +37,20 @@
         "agents_of_cthulhu",
         "arkham"
       ],
-      "subtext": "When collecting the <i>Midnight Masks</i> encounter set, collect only the Location and Treachery cards. Do not collect the Act or Agenda cards from that set."
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the location and treachery cards. Do not gather the acts or agendas from this set."
     },
     {
       "id": "setup_locations",
-      "text": "Find all of the locations in the Masks of Midnight encounter set and put them into play as follows:",
+      "text": "Find each location in <i>The Midnight Masks</i> encounter set and put them into play as follows:",
       "bullets": [
         {
-          "text": "Put one of the two Center Locations and one of the two South Quarter Locations into play, at random, and remove the other versions of those locations from the game. Put the North Quarter, East Quarter, River Quarter, St. Mary’s Hospital, and Miskatonic University into play, according to the location placement diagram."
+          "text": "Put one of the two Downtown locations and one of the two Southside locations into play at random and remove the other versions of those locations from the game. Put Northside, Easttown, Rivertown, St. Mary's Hospital, and Miskatonic University into play according to the location placement diagram to the right."
         },
         {
-          "text": "Put all other locations aside, out of play."
+          "text": "Set each other location aside, out of play."
         },
         {
-          "text": "Each investigator begins the game in the River Quarter."
+          "text": "Each investigator begins play at Rivertown."
         }
       ]
     },
@@ -80,22 +80,57 @@
     },
     {
       "id": "setup_shoppe",
-      "text": "Shuffle the single-sided Location Esoteric Shop of Tillinghast along with all the Betrayals from the Masks of Midnight encounter set and put one card under each Location except under the Rivertown."
+      "text": "Shuffle the single-sided Tillinghast Esoterica location with each treachery from <i>The Midnight Masks</i> encounter set and place one of them under each location except for Rivertown."
+    },
+    {
+      "id": "check_star_spawn_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["randomize_star_spawn_easy"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["randomize_star_spawn"]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "randomize_star_spawn"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "randomize_star_spawn"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "randomize_star_spawn",
-      "text": "Shuffle all the Enemies from the Starseed encounter set and randomly remove two from the game (or remove three if playing on Easy difficulty)."
+      "text": "Shuffle each enemy from the <i>Star Spawn</i> encounter set and remove two at random from the game. (Remove three instead if playing on easy mode.)"
+    },
+    {
+      "id": "randomize_star_spawn_easy",
+      "text": "Shuffle each enemy from the <i>Star Spawn</i> encounter set and remove three at random from the game."
     },
     {
       "id": "gather_artifacts",
-      "text": "Gather all the artifacts obtained along with the Horror in Clay story prop and set them aside, outside of the game."
+      "text": "Gather all earned artifacts along with the Horror in Clay story asset and set them aside, out of play."
     },
     {
       "id": "earn_john",
-      "text": "Choose an investigator to add the John Raymond Legrasse story prop to their deck. This card does not count toward their deck size.",
+      "text": "Choose an investigator to add the John Raymond Legrasse story asset to their deck. This card does not count toward their deck size.",
       "bullets": [
         {
-          "text": "Put the John Raymond Legrasse story prop into play under that investigator's control. It does not occupy an ally space during Parts 1 or II of this scenario."
+          "text": "Put the John Raymond Legrasse story asset into play under that investigator's control. He does not take up an ally slot during Part I or Part II of this scenario."
         }
       ],
       "effects": [
@@ -108,15 +143,15 @@
     },
     {
       "id": "place_doom",
-      "text": "Place a number of doom equal to the number of investigators on the plan."
+      "text": "Place doom on the agenda equal to the number of investigators."
     },
     {
       "id": "flood_tokens",
-      "text": "Add the Flood tokens to the token pool."
+      "text": "Add the flood tokens to the token pool."
     },
     {
       "id": "encounter_deck",
-      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
     },
     {
       "id": "multi_part_rule",
