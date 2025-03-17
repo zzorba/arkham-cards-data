@@ -35,6 +35,7 @@
       "id": "check_west",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -58,6 +59,7 @@
       "id": "check_east",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -76,18 +78,18 @@
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "You hear the echoing churn of great machinery long before you see it. After emerging from the claustrophobic tunnels, you stand on a precipice overlooking a large cavernous expanse. It is so vast that you cannot see the far side. An array of interconnected chambers are laid out like a labyrinth, thrumming with the sound of alien constructs. Amid the clamor is the sound of running water even farther below."
     },
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "You hear the echoing churn of great machinery long before you see it. You reach the bottom of the spiraling staircase to stand on a precipice overlooking a large cavernous expanse. It is so vast that you cannot see the far side. An array of interconnected chambers are laid out like a labyrinth, thrumming with the sound of alien constructs. Amid the clamor is the sound of running water even farther below."
     },
 
     {
       "id": "intro_3",
       "type": "story",
-      "text": ""
+      "text": "This is the pulsing core of R'Iyeh. Colossal sluices channel floodwater from the city above, filling and draining vaults like the chambers of a heart. This seems to be some source of power, and the reason for the city's steady rise. After discussing with the expedition, you resolve to explore the massive complex before moving on. If ever there was a place to find one of those elusive artifacts, it would be here."
     },
 
     {
@@ -103,12 +105,12 @@
 
     {
       "id": "check_toe_the_line",
-      "text": "If an investigator has the Toe the Line task:",
+      "text": "If an investigator has the \"Toe the Line\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_toe_the_line",
+        "id": "picked_toe_the_line",
         "options": [
           {
             "boolCondition": true,
@@ -121,7 +123,7 @@
       "id": "toe_the_line_story",
       "type": "story",
       "title": "Toe the Line",
-      "text": ""
+      "text": "The expedition makes camp before descending into the vault below. Over a bland but filling meal, one of your fellow expedition members reveals they have a history with your former employer. \"Wait, you're the one everyone talks about?\" they snort. \"Trust me, from the things I've heard, you don't want your old job back. Your old boss still jokes about you. Even if Tillinghast could get you the job, nobody back there respects you. You're looking at a life of grunt work, pal.\" You finish your meal in silence as you ponder their words. Your old colleagues might not respect you, but with Tillinghast's connections, you could make them fear you. A few bribes, well-timed threats— even a call from the mob — might put them in their place. It's not exactly above-board, but if you play the cards right, you could oust your former employer. You have the rest of the expedition to plan your move once you get back to Arkham."
     },
 
     {
@@ -133,15 +135,15 @@
         "choices": [
           {
             "id": "beg",
-            "text": "Get your old job back at all costs.",
-            "description": "Erase 1 \"Toe the Line\" progress from the campaign log. During the next scenario, you get +1 to each of your skills for the first round.",
+            "text": "<i>Take your old job back, at any cost.</i>",
+            "description": "Erase I progress under \"Toe the Line\" in your Campaign Log. During the next scenario, you get +1 to each of your skills during the first agenda.",
             "steps": ["task_beg"]
           },
 
           {
             "id": "firm",
-            "text": "Act with conscience. It's not worth it.",
-            "description": "Mark 2 progress on \"Toe the Line\" in your campaign log and suffer 1 mental trauma. During the next scenario, you get -1 to each of your skills for the first plan.",
+            "text": "<i>Take the high road. It ain't worth it.</i>",
+            "description": "Mark 2 progress under \"Toe the Line\" in your Campaign Log and suffer 1 mental trauma. During the next scenario, you get -1 to each of your skills during the first agenda.",
             "steps": ["task_firm"]
           }
         ]
@@ -153,9 +155,9 @@
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_toe_the_line",
+        "id": "toe_the_line",
         "options": [
           {
             "boolCondition": true,
@@ -180,19 +182,13 @@
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_toe_the_line",
+        "id": "toe_the_line",
         "options": [
           {
             "boolCondition": true,
             "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental": 1,
-                "hidden": true
-              },
               {
                 "type": "campaign_log_investigator_count",
                 "section": "task_progress",
@@ -200,13 +196,18 @@
                 "investigator": "$input_value",
                 "operation": "add",
                 "value": 2
+              },
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
               }
             ]
           }
         ]
       }
     },
-
     {
       "id": "encounter_sets",
       "title": "Setup",
@@ -435,7 +436,7 @@
     {
       "id": "chamber_core_story",
       "type": "story",
-      "text": ""
+      "text": "The core of the vault houses an elaborate control station. With the surrounding chambers activated, the control station hums with a sickly green energy. Ancient stylized glyphs portray a warped, shifting facsimile of the city. After some scrutiny, you surmise that the station powers each sector of the city, most notably, there is one familiar area that catches your attention: a pair of massive gates in the base of a towering spire. Their design looks curiously like the obsidian gates where you made landfall.\nA small red node blinks underneath it, as if begging you to press it."
     },
     {
       "id": "chamber_core_choice",
@@ -520,7 +521,7 @@
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_good_money",
+        "id": "picked_good_money",
         "options": [
           {
             "boolCondition": true,
@@ -533,7 +534,7 @@
       "id": "good_money_story",
       "type": "story",
       "title": "Good Money",
-      "text": ""
+      "text": "You lie awake in the dark for several hours, mulling over your last conversation in Arkham. Carl Sanford, head of the Silver Twilight Lodge, told you he had a deal for you. A better deal than anything Tillinghast would ever give you. All you have to do is present your findings to hum instead of Randall. If you skim a few extra relics on the side, maybe swipe some notes and photos of the ancient aty, he promised double what Tillinghast would pay, maybe even more You didn't want to get involved in whatever petty feud is unfolding between the two old men. There is certainly risk in playing both sides.\nThat said, you didn't get the impression Sanford thought he was giving you a choice. If you play your cards right, you could collect from both Sanford and Tillinghast and walk away with triple the reward. Whatever you do, you'll need to be resolved to see it through."
     },
     {
       "id": "good_money_choice",
@@ -544,28 +545,27 @@
         "choices": [
           {
             "id": "safe",
-            "text": "Play it safe.",
-            "description": "Erase the progress of \"A good money\" in the campaign log. During the next scenario, you start the game with 3 additional resources.",
+            "text": "<i>Play it safe.</i>",
+            "description": "Erase 1 progress under \"Good Money\" in your Campaign Log. During the next scenario, you begin the game with 3 additional resources.",
             "steps": ["good_money_safe"]
           },
           {
             "id": "squeeze",
-            "text": "Squeeze both sides.",
-            "description": "Mark 2 progresses in \"A good money\" in the campaign log. During the next scenario, you cannot gain resources during the Upkeep phase.",
+            "text": "<i>Play both sides for all they're worth.</i>",
+            "description": "Mark 2 progress under \"Good Money\" in your Campaign Log. During the next scenario, you cannot gain resources during the upkeep phase.",
             "steps": ["good_money_squeeze"]
           }
         ]
       }
     },
-
     {
       "id": "good_money_safe",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_good_money",
+        "id": "good_money",
         "options": [
           {
             "boolCondition": true,
@@ -578,21 +578,29 @@
                 "operation": "add",
                 "value": -1,
                 "min": 0
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "tdc_good_money_extra_resources",
+                "cards": "$input_value",
+                "masculine_text": "#name# starts with 3 additional resources.",
+                "feminine_text": "#name# starts with 3 additional resources.",
+                "nonbinary_text": "#name# starts with 3 additional resources."
               }
             ]
           }
         ]
       }
     },
-
     {
       "id": "good_money_squeeze",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_good_money",
+        "id": "good_money",
         "options": [
           {
             "boolCondition": true,
@@ -604,6 +612,15 @@
                 "investigator": "$input_value",
                 "operation": "add",
                 "value": 2
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "tdc_good_money_no_upkeep",
+                "cards": "$input_value",
+                "masculine_text": "#name# cannot gain resources during the upkeep phase.",
+                "feminine_text": "#name# cannot gain resources during the upkeep phase.",
+                "nonbinary_text": "#name# cannot gain resources during the upkeep phase."
               }
             ]
           }
@@ -696,7 +713,7 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "You are rescued from the churning water battered and bruised, but thankfully still alive. After returning to the towering precipice where you began, you are pleasantly surprised to find Ruby and Andy chatting over a meal of dry rations. Rather than cut the reunion short, you resolve to make camp. Together,you pass the evening cracking jokes and sharing stories. Before parting ways, Ruby and Andy share their findings and compile a crude map of the ancient city.",
       "steps": [
         "cross_out_grand_vault",
         "ask_tidal_tablet",
@@ -709,7 +726,7 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "The expedition members pass the evening sharing stories and cracking jokes. Even in spite of the city’s dour atmosphere, spirits seem to be high. You share your findings with Ruby and her companions while Andy attempts to make stew. She describes their difficult route to the vault, and advises you take the path up through the ancient court above, instead of the route she took through the silent factories.\n\"I’m pretty sure the factory collapsed behind us, anyway,\" Ruby says. \"If you take the path through the court, I'd recommend you steer clear of those 'pilgrims.' The whole city's crawling with 'em. I saw a whole mob shambling toward the colossal temple overhead. They told me they escaped an underground nest of some kind. Some of 'em seem to have come down with a pretty nasty fever, so I recommend you keep your distance.\"",
       "steps": [
         "cross_out_grand_vault",
         "ask_tidal_tablet",
@@ -722,7 +739,7 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "The expedition members pass the evening sharing stories and cracking jokes. Even in spite of the city's dour atmosphere, spirits seem to be high. While Ruby plays poker with the more impulsive expedition members, you share your findings with Andy. He, in turn, recounts their trek down the sunken western wall and through the ancient foundations of the city.\n\"A rockslide stranded us in some kind of ancient crypt. There were mummified remains of some ghastly creatures—nothing like anything I've ever seen before. Otherwise, it's been pretty uneventful,\" Andy says, handing you a bowl of bland stew. \"Ah, but actually, a few days back, we ran into someone who was deathly sick. They refused to come with us. Said they were some kind of 'pilgrim' and that they came here to worship the god of this ancient city. Something named Cthulhu.\"\nThe name \"Cthulhu\" rings in your ears.You have heard it time and again in your dreams. After the meal, you find yourself speaking it, under your breath, as you fall asleep.",
       "steps": [
         "cross_out_grand_vault",
         "ask_tidal_tablet",

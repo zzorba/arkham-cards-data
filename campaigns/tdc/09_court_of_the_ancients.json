@@ -6,7 +6,8 @@
   "setup": [
     "check_direction",
     "check_west",
-    "check_plumbing_the_depths",
+    "check_plumb_the_depths",
+    "$check_good_money_setup",
     "encounter_sets",
     "setup_locations",
     "choose_location_layout",
@@ -29,6 +30,7 @@
       "id": "check_west",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -53,6 +55,7 @@
       "id": "check_east",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -71,12 +74,12 @@
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "Time seems to slip away as you follow the dark tunnels out of the heart of the city. Eventually the constant churn and thrum of machinery melts away, replaced by an ominous silence. Andy has only just proposed that you turn around to find another route when the endless stairs come to a stop. An intricately carved door is set in the ceiling above you. Pressing a panel in its center reveals a vast, airy structure that vaguely resembles the nave of some ancient alien cathedral. A towering lift dominates the center, surrounded by spiraling ringed floors. The walls are covered in countless alien glyphs, pulsing with green light. You wonder if the great archive might hold anything valuable."
     },
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "You land on the top floor of the towering nave. Twisting stairs and catwalks circle the sprawling structure, revealing more levels below. The walls around you are covered in glowing alien glyphs: hundreds of thousands of symbols covering every surface. You wonder if the great archive might hold anything valuable.\n“Watch yourself. We’re not the first ones here,” says Ruby. The jewel thief is bent over a prone human body lying in a pool of fresh blood. You’re struck by their colorful patchwork cloak. A deep, rumbling roar reverberates through the chamber. Ruby’s expression turns grave.\n“If we’re going to find anything of value, we’d better act quickly.”"
     },
     {
       "id": "add_cultist",
@@ -99,29 +102,29 @@
       ]
     },
     {
-      "id": "check_plumbing_the_depths",
-      "text": "If an investigator has the Walking in Faith task:",
+      "id": "check_plumb_the_depths",
+      "text": "If an investigator has the \"Plumb the Depths\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_plumbing_the_depths",
+        "id": "picked_plumb_the_depths",
         "options": [
           {
             "boolCondition": true,
-            "steps": ["plumbing_the_depths_story", "plumbing_the_depths_choice"]
+            "steps": ["plumb_the_depths_story", "plumb_the_depths_choice"]
           }
         ]
       }
     },
     {
-      "id": "plumbing_the_depths_story",
-      "title": "Task: Plumbing the Depths",
+      "id": "plumb_the_depths_story",
+      "title": "Task: Plumb the Depths",
       "type": "story",
-      "text": ""
+      "text": "You can’t help but marvel at the austere grandeur of the ancient structure. Was this an ancient palace? A library? A place of worship? The intricate murals on the walls are a blend of pictograph and alien writing, depicting an ancient migration across the stars. The glyphs glow with a flickering green light, chronicling unknowable histories, ancient secrets hidden from humankind.\nOne image-a nightmarescape of oceanic horrors and sunken cities-catches your attention. You press the eye of a particularly disturbing creature and feel a rush of ancient memories. Thoughts and feelings of an alien being, images of the stygian depths of some distant planet, overwhelm your consciousness. The memories give way to clearer, more defined facts, dates, a history recorded by a prehistoric civilization. You begin to feel yourself slip away as though your consciousness were being drawn through a sieve. There is much more you could learn… but should you?"
     },
     {
-      "id": "plumbing_the_depths_choice",
+      "id": "plumb_the_depths_choice",
       "type": "input",
       "text": "You must decide <i>(choose one)</i>:",
       "input": {
@@ -129,29 +132,29 @@
         "choices": [
           {
             "id": "away",
-            "text": "Look away.",
-            "description": "Erase 1 \"Plumb the Depths\" progress from the campaign log. Each investigator begins the next scenario with 1 clue (from the token pool).",
-            "steps": ["plumbing_the_depths_away"]
+            "text": "<i>Look away.</i>",
+            "description": "Erase 1 progress under “Plumb the Depths” in your Campaign Log. Each investigator begins the next scenario with 1 clue <i>(from the token pool)</i>.",
+            "steps": ["plumb_the_depths_away"]
           },
 
           {
             "id": "seek",
-            "text": "Seek the truth.",
-            "description": "Mark 2 \"Plumb the Depths\" progress on the campaign log and suffer 1 mental trauma. Each investigator begins the next scenario with 1 fewer card in their starting hand.",
-            "steps": ["plumbing_the_depths_seek"]
+            "text": "<i>Seek the truth.</i>",
+            "description": "Mark 2 progress under “Plumb the Depths” in your Campaign Log and suffer 1 mental trauma. Each investigator begins the next scenario with 1 fewer card in their opening hand.",
+            "steps": ["plumb_the_depths_seek"]
           }
         ]
       }
     },
 
     {
-      "id": "plumbing_the_depths_away",
+      "id": "plumb_the_depths_away",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_plumb_the_depths",
+        "id": "plumb_the_depths",
         "options": [
           {
             "boolCondition": true,
@@ -172,13 +175,13 @@
     },
 
     {
-      "id": "plumbing_the_depths_seek",
+      "id": "plumb_the_depths_seek",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_plumb_the_depths",
+        "id": "plumb_the_depths",
         "options": [
           {
             "boolCondition": true,
@@ -686,7 +689,7 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "he rest of the expedition tell you they found you standing at the edge of the towering climb as if sleepwalking. You rub your eyes. You have no memory of the alien court. And, given that it has almost entirely collapsed, you never will.",
       "steps": [
         "cross_out_court_of_the_ancients",
         "ask_shard",
@@ -699,7 +702,7 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "Steeling yourself for another climb, you put one hand above the other, moving from handhold to handhold as the tower threatens to collapse under you. Eventually you pull yourself to the lip of the shattered dome and out to safety. Andy clambers out of the ancient court, followed by the rest of the expedition. You all look down at the dazzling skyline of R’lyeh, which seems to shift and sway strangely in the strong sea winds.",
       "steps": [
         "cross_out_court_of_the_ancients",
         "ask_shard",
@@ -711,7 +714,7 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "After prodding and twisting at every ridge of the dais, it finally slides open. Below, a spiral stairway descending into deep darkness below. Another chunk of rock shatters on the floor of the ancient building. “We have to get out of here!” Ruby shouts. Wasting no time, you descend the stairs, leaving the crumbling tower and its ancient secrets behind.",
       "steps": [
         "cross_out_court_of_the_ancients",
         "ask_shard",

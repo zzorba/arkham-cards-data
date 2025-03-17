@@ -35,6 +35,7 @@
       "id": "check_west",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -55,6 +56,7 @@
       "id": "check_east",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -111,7 +113,7 @@
             "id": "trust",
             "text": "<i>\"Mr. Tillinghast has treated me well. I trust him.\"</i>",
             "description": "Heal 1 mental or 1 physical trauma from your investigator. Erase 1 progress under \"No Place Like Home\" in your Campaign Log.",
-            "steps": ["ask_physical_or_mental"]
+            "steps": ["no_place_like_home_trauma"]
           },
           {
             "id": "fear",
@@ -123,27 +125,7 @@
       }
     },
     {
-      "id": "ask_physical_or_mental",
-      "text": "Would you like to heal physical or mental trauma?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "physical",
-            "text": "Physical",
-            "steps": ["no_place_like_home_physical"]
-          },
-          {
-            "id": "mental",
-            "text": "Mental",
-            "steps": ["no_place_like_home_mental"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "no_place_like_home_physical",
+      "id": "no_place_like_home_trauma",
       "type": "branch",
       "hidden": true,
       "condition": {
@@ -157,7 +139,7 @@
               {
                 "type": "trauma",
                 "investigator": "$input_value",
-                "physical": -1,
+                "mental_or_physical": -1,
                 "hidden": true
               },
               {
@@ -174,39 +156,6 @@
         ]
       }
     },
-    {
-      "id": "no_place_like_home_mental",
-      "type": "branch",
-      "hidden": true,
-      "condition": {
-        "type": "campaign_log_task",
-        "section": "hidden",
-        "id": "no_place_like_home",
-        "options": [
-          {
-            "boolCondition": true,
-            "effects": [
-              {
-                "type": "trauma",
-                "investigator": "$input_value",
-                "mental": -1,
-                "hidden": true
-              },
-              {
-                "type": "campaign_log_investigator_count",
-                "section": "task_progress",
-                "id": "$count",
-                "investigator": "$input_value",
-                "operation": "add",
-                "value": -1,
-                "min": 0
-              }
-            ]
-          }
-        ]
-      }
-    },
-
     {
       "id": "no_place_like_home_alone",
       "type": "branch",

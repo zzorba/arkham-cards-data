@@ -16,9 +16,100 @@
     "$choose_support",
     "$choose_artifacts_or_support",
     "$check_killed_creature",
-    "$remove_the_inescapable_encounter_set"
+    "$remove_the_inescapable_encounter_set",
+    "$check_good_money_setup",
+    "$check_good_money_extra_resources",
+    "$check_good_money_no_upkeep"
   ],
   "steps": [
+    {
+      "id": "$check_good_money_setup",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "tdc_good_money_extra_resources",
+            "options": [{ "boolCondition": true }]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "tdc_good_money_no_upkeep",
+            "options": [{ "boolCondition": true }]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "$investigator_setup_reminder",
+              "$check_good_money_extra_resources",
+              "$check_good_money_no_upkeep"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$investigator_setup_reminder",
+      "title": "Investigator Setup",
+      "text": "As a reminder from the previous scenario:"
+    },
+    {
+      "id": "$check_good_money_extra_resources",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "tdc_good_money_extra_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# starts with 3 additional resources.",
+                "feminine_text": "#name# starts with 3 additional resources.",
+                "nonbinary_text": "#name# starts with 3 additional resources.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$check_good_money_no_upkeep",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log_cards",
+        "section": "hidden",
+        "id": "tdc_good_money_extra_resources",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "check_campaign_log_cards",
+                "card_type": "player",
+                "masculine_text": "#name# cannot gain resources during the upkeep phase.",
+                "feminine_text": "#name# cannot gain resources during the upkeep phase.",
+                "nonbinary_text": "#name# cannot gain resources during the upkeep phase.",
+                "bullet_type": "small"
+              }
+            ]
+          }
+        ]
+      }
+    },
     {
       "id": "$check_killed_creature",
       "type": "branch",
