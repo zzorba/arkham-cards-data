@@ -20,14 +20,99 @@
     "$check_good_money_setup",
     "$check_good_money_extra_resources",
     "$check_good_money_no_upkeep",
-    "$save_decks"
+    "$save_decks",
+    "$ask_completed_task",
+    "$upgrade_decks",
+    "$upgrade_decks_with_progress",
+    "$upgrade_decks_no_progress"
   ],
   "steps": [
+    {
+      "id": "$upgrade_decks",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "tasks_active",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "hidden",
+            "id": "tasks_done",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$upgrade_decks_with_progress"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["$upgrade_decks_no_progress"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$upgrade_decks_with_progress",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks",
+        "counter": "task_progress"
+      }
+    },
+    {
+      "id": "$upgrade_decks_no_progress",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks"
+      }
+    },
     {
       "id": "$save_decks",
       "type": "input",
       "input": {
         "type": "save_decks"
+      }
+    },
+    {
+      "id": "$ask_completed_task",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "task",
+            "text": "Mark task progress?",
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 1
+              }
+            ]
+          }
+        ]
       }
     },
     {
