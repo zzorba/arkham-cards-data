@@ -9,6 +9,10 @@
     "$play_scenario"
   ],
   "rules": [
+    {
+      "title": "Location Adjacency in The Western Wall",
+      "steps": ["locations_rule"]
+    }
   ],
   "steps": [
     {
@@ -76,6 +80,27 @@
           {
             "boolCondition": false,
             "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "locations_rule",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["locations_rule_v1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["locations_rule_v2"]
           }
         ]
       }
