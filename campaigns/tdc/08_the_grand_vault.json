@@ -476,6 +476,31 @@
             "text": "Translate a Glyph",
             "icon": "tablet",
             "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "options": [{ "boolCondition": true }],
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "glyphs",
+                    "id": "$num_entries"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 26
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ]
+            },
             "steps": ["$ask_glyphs"]
           }
         ]
