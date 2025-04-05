@@ -156,6 +156,43 @@
       "text": "Shuffle the remaining encounter cards to build the encounter deck."
     },
     {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "discovered_an_alien_language",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "discovered_an_alien_language",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The investigators discovered an alien language.",
+            "steps": [
+              "discovered_an_alien_language"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "discovered_an_alien_language",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "discovered_an_alien_language",
+          "text": "the investigators discovered an alien language."
+        }
+      ]
+    },
+    {
       "id": "ruby_won_the_bet",
       "effects": [
         {
@@ -193,6 +230,47 @@
       }
     },
     {
+      "id": "branch_discovered_an_alien_language",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type":"campaign_log",
+        "section": "campaign_notes",
+        "id": "discovered_an_alien_language",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "check_discovered_an_alien_language"
+            ]
+          },
+          {
+            "boolcondition": false,
+            "steps": [
+              "ask_discovered_an_alien_language"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_discovered_an_alien_language",
+      "type": "branch",
+      "condition": {
+        "type":"campaign_log",
+        "section": "campaign_notes",
+        "id": "discovered_an_alien_language",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "discover_hash_symbol"
+            ]
+          }
+        ]
+      }
+    },
+    {
       "id": "ask_discovered_an_alien_language",
       "type": "input",
       "input": {
@@ -201,7 +279,9 @@
           {
             "id": "yes",
             "text": "Did the investigators discover an alien language?",
-            "steps": ["discover_hash_symbol"]
+            "steps": [
+              "discovered_an_alien_language",
+              "discover_hash_symbol"]
           }
         ]
       }
@@ -242,7 +322,7 @@
       "steps": [
         "ruby_won_the_bet",
         "earn_xp",
-        "ask_discovered_an_alien_language",
+        "branch_discovered_an_alien_language",
         "$upgrade_decks"
       ]
     },
@@ -253,7 +333,7 @@
       "steps": [
         "ruby_lost_the_bet",
         "earn_xp",
-        "ask_discovered_an_alien_language",
+        "branch_discovered_an_alien_language",
         "$upgrade_decks"
       ]
     }
