@@ -1,12 +1,21 @@
 {
   "id": "the_apiary",
   "scenario_name": "The Apiary",
-  "full_name": "Scenario: The Apiary",
+  "full_name": "The Apiary",
   "header": "Scenario",
+  "chaos_bag_card": "11553",
+  "chaos_bag_card_text": "[skull]: -X. X is half the amount of doom on enemies and assets in play, rounded down (to a max of 4).\n[cultist]: -1. If there is a [[Cultist]] enemy at your location, reveal another token.\n[tablet]: -3. If you fail, place 1 doom on an enemy at your location with no doom on it.\n[elder_thing]: -4. If you fail, take 1 damage or 1 horror.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the amount of doom on enemies and assets in play (to a max of 8).\n[cultist]: -3. If there is a [[Cultist]] enemy at your location, reveal another token.\n[tablet]: -5. If you fail, place 1 doom on an enemy at your location (with no doom on it, if able).\n[elder_thing]: -6. If you fail, take 1 damage or 1 horror.",
   "setup": [
     "check_direction",
     "check_west",
     "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "Location Adjacency in The Drowned Quarter",
+      "steps": ["locations_rule"]
+    }
   ],
   "steps": [
     {
@@ -17,6 +26,7 @@
       "id": "check_west",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -26,7 +36,8 @@
             "boolCondition": true,
             "steps": [
               "west_story", "check_ursula", "west_story_cont",
-              "add_cultist", "check_walking_in_faith",
+              "add_cultist", "check_walk_in_faith",
+              "$check_good_money_setup",
               "setup_v1", "setup_location", "act_deck_v1", "remove_mother_enemy",
               "set_aside_v1",
               "$choose_artifacts_or_support",
@@ -45,6 +56,7 @@
       "id": "check_east",
       "bullet_type": "small",
       "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
@@ -54,7 +66,8 @@
             "boolCondition": true,
             "steps": [
               "east_story",
-              "add_tablet", "check_walking_in_faith",
+              "add_tablet", "check_walk_in_faith",
+              "$check_good_money_setup",
               "setup_v2", "setup_location", "act_deck_v2",
               "remove_maria", "set_aside_v2",
               "$choose_artifacts_or_support",
@@ -67,7 +80,7 @@
     },
     {
       "id": "remove_maria",
-      "text": "Remove Story Support Maria Rivera from the game."
+      "text": "Remove the Maria Rivera story asset from the game."
     },
 
     {
@@ -98,22 +111,22 @@
       "id": "ursula_story",
       "type": "story",
       "border_only": true,
-      "text": ""
+      "text": "You and your assistant Jake each chime in with a few details of your own as Andy recounts the story that brought you together. You suppress a shudder as you recall the horrors you witnessed in the Amazon, and the incident that took Jake’s leg."
     },
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "The dank tunnels beneath R’lyeh branch and thread endlessly like the capillaries of some giant beast. Shining nodules are stationed at intervals in the walls, pulsing with soft light. After making camp on the third evening, you sit across the tunnel from Andy as he scribbles furiously in his notebook. The conversation soon turns to the events that led you both into Tillinghast’s employ."
     },
     {
       "id": "west_story_cont",
       "type": "story",
-      "text": ""
+      "text": "“The long and short of it is… Mr. Tillinghast said he had another big story for me. A chance for me to make my big break. And, well, maybe enough money to pay off my tab at Hibb’s.” He looks bashful. “I had to let off some steam after my last gig! A lot of steam.”\nA tremor rocks the tunnels. Andy’s face grows ashen as he leans in. “I have a theory. This city? It’s rising. I mean, <i>still</i> rising. The shakes, the crumbling foundation, the fact that it was underwater before and now it isn’t. You saw the ship graveyard in the city spires, right? Ships’ve been going missing in this stretch of ocean for centuries. I don’t know what’s causing it, but I keep having these dreams…”\nThe next day, you discover a vast cavern. The walls and ceiling are honeycombed with small round holes that branch off haphazardly into a labyrinthe warren. Andy rushes to the entrance of one particularly foul-smelling tunnel and picks up a bloody scrap of cloth. “I don’t know what lives here, but I think they like eating people.”\nFurther in, fleshy, bilious growths line the tunnel, oozing a thick, phlegmy ichor. Could anyone actually be left alive down here?"
     },
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "The tunnels beyond the heart of the city slope ever-downward through a series of complexes: ancient alien factories frozen in time. “I wonder what they made here,” Ruby says. Clawed metal appendages hang over mile-long tracks while gargantuan statues stare down from high alcoves. Rather than walk in the eerie silence, you ask your companions what brought them into Tillinghast’s employ.\n“Truth is, Tillinghast caught me trying to sneak off with some of his, er, stock,” Ruby says. “Not my best work. But that man knows how to spin any deal in his favor. He offered me a job, instead. The money was good⸺better than the stuff I’d nabbed⸺so I said yes. I’ve been saving up for retirement for a while now.”\nThe factories give way to a labyrinthine tunnel system. After days of exploration, you discover a vast cavern. The walls and ceiling are honeycombed with small round holes that branch off haphazardly into a labyrinthine warren. The gory remains of a young man in a patchwork cloak lies prone in front of one tunnel. The stench is unbearable.\n“This is the same kind of cloak the other fella was wearing,” Ruby holds a handkerchief to her mouth as she pulls a small scrap of paper out of the man’s pocket. Scrawled in blood are two words: SEND HELP. You look down the tunnel. Fleshy, bilious growths line the sides, giving it the look of a giant esophagus. A far worse stench emanates from within.\n“Something tells me there’s nobody left to help. Still, there could be something worthwhile down there,” Ruby says, the usual panache noticeably absent from her voice."
     },
     {
       "id": "add_cultist",
@@ -136,13 +149,13 @@
       ]
     },
     {
-      "id": "check_walking_in_faith",
-      "text": "If an investigator has the Walking in Faith task:",
+      "id": "check_walk_in_faith",
+      "text": "If an investigator has the \"Walk in Faith\" task:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "picked_walk_in_faith",
         "options": [
           {
             "boolCondition": true,
@@ -155,7 +168,7 @@
       "id": "walking_in_faith_story",
       "title": "Task: Walking in Faith",
       "type": "story",
-      "text": ""
+      "text": "An overwhelming sense of dread and awe fills your chest as you stare at the honeycomb of spongy, fleshy tunnels and the littered debris on the ground. There are several torn cloaks and a broken lantern. A massive chalk arcle composed of Latinate words and eldritch symbols has been drawn in the center of the room. A ritual of protection, perhaps? More disturbigly, a sacred symbol of your own faith is inscribed in its center. Were the ones who drew it fellow adherents of your faith? They could be heretics, but as you think about it, you wonder if they were drawn, much like you, to this ancient city by fate. As you descend into the belly of the beast, your stomach aches. Has your faith led you astray?"
     },
     {
       "id": "walking_in_faith_choice",
@@ -166,29 +179,28 @@
         "choices": [
           {
             "id": "doubt",
-            "text": "<i>I have doubts.</i>",
-            "description": "Erase 1 \"Walk with Faith\" progress from the campaign log. The first time each investigator would draw from the encounter deck in the next scenario, they may draw 1 card from their deck instead.",
-            "steps": ["walking_in_faith_doubt"]
+            "text": "<i>\"I have such doubts.\"</i>",
+            "description": "Erase 1 progress under \"Walk in Faith\" in your Campaign Log. The first time each investigator would draw from the encounter deck in the next scenario, they may draw 1 card from their deck instead.",
+            "steps": ["walk_in_faith_doubt"]
           },
 
           {
             "id": "firm",
-            "text": "<i>My resolve is firm.</i>",
-            "description": "Mark 2 \"Walk with Faith\" progress on the campaign log and suffer 1 mental trauma. The first time each investigator draws an encounter card in the next scenario, that encounter card gains Surge.",
-            "steps": ["walking_in_faith_firm"]
+            "text": "<i>\"I am firm in my resolve.\"</i>",
+            "description": "Mark 2 progress under \"Walk in Faith\" in your Campaign Log and suffer 1 mental trauma. The first time each investigator draws an encounter card in the next scenario, that encounter card gains surge.",
+            "steps": ["walk_in_faith_firm"]
           }
         ]
       }
     },
-
     {
-      "id": "walking_in_faith_doubt",
+      "id": "walk_in_faith_doubt",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "walk_in_faith",
         "options": [
           {
             "boolCondition": true,
@@ -209,21 +221,22 @@
     },
 
     {
-      "id": "walking_in_faith_firm",
+      "id": "walk_in_faith_firm",
       "type": "branch",
       "hidden": true,
       "condition": {
-        "type": "campaign_log_cards",
+
+        "type": "campaign_log_task",
         "section": "hidden",
-        "id": "task_walking_in_faith",
+        "id": "walk_in_faith",
         "options": [
           {
             "boolCondition": true,
             "effects": [
               {
                 "type": "trauma",
-                "investigator": "$input_value",
                 "mental": 1,
+                "investigator": "$input_value",
                 "hidden": true
               },
               {
@@ -245,59 +258,59 @@
       "id": "setup_v1",
       "title": "Setup (v.I) - Western Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_apiary", "cosmic_legacy", "primordial_fog", "the_inevitable", "pilgrims", "pentagram", "striking_fear"]
+      "encounter_sets": ["the_apiary", "cosmic_legacy", "elder_mist", "the_inescapable", "pilgrims", "pentagram", "striking_fear"]
     },
     {
       "id": "setup_v2",
       "title": "Setup (v.II) - Eastern Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_apiary", "cosmic_legacy", "primordial_fog", "the_inevitable", "star_spawn", "stowaways","striking_fear"],
-      "subtext": "When collecting the <i>Star Spawn</i> encounter set, only pick up the Infected Star Spawn Enemy. Remove all other Star Spawn Enemies from the game."
+      "encounter_sets": ["the_apiary", "cosmic_legacy", "elder_mist", "the_inescapable", "star_spawn", "stowaways", "striking_fear"],
+      "subtext": "When gathering the <i>Star Spawn</i> encounter set, only gather the Infected Star Spawn enemy, Remove each other card in that set from the game."
     },
     {
       "id": "setup_location",
-      "text": "Put the Apiary Entrance into play, <i>(Attractive Light)</i> side face up.",
+      "text": "Put Apiary Entrance into play, <i>(Beckoning Light)</i> side faceup.",
       "bullets": [
         {
-          "text": "Each investigator starts the game at the Apiary Entrance."
+          "text": "Each investigator begins play at Apiary Entrance."
         }
       ]
     },
     {
       "id": "act_deck_v1",
-      "text": "Create the Act deck using Act 1 - \"Haunting Signs\" and Act 2a - \"Lost Pilgrims.\" Remove the other Act from the game."
+      "text": "Build the act deck using act 1a-\"Unsettling Signs\" and act 2a-\"Lost Pilgrims.\" Remove the other act from the game."
     },
     {
       "id": "act_deck_v2",
-      "text": "Create the Act deck using Act 1 - \"Disturbing Signs\" and Act 2a - \"The Hive Mind\". Remove the other Act from the game."
+      "text": "Build the act deck using act 1a—\"Unsettling Signs\" and act 2a—\"The Hive Mind.\" Remove the other act from the game."
     },
     {
       "id": "remove_mother_enemy",
-      "text": "Remove the Mother Enemy from the game."
+      "text": "Remove the Mother enemy from the game."
     },
     {
       "id": "set_aside_v1",
-      "text": "Set aside, out of play, each of the following cards: all Apiary Locations, the Double-Faced Grotesque Amalgam and Scaly Parasite O Enemies, the Maria Rivera, Ancient Relics, and Ghoulish \"Mask\" Story Props, the Pilgrims and The Includible encounter sets, and all copies of the Parasitic Transformation Weakness."
+      "text": "Set each of the following aside, out of play: each [[Apiary]] location, the Grotesque Amalgam and the double-sided Squamous Parasite [tdc_rune_t] enemies, the Maria Rivera, Ancient Relic [tdc_rune_s], and Grisly \"Mask\" story assets, the <i>Pilgrims</i> and <i>The Inescapable</i> encounter sets, and each copy of the Parasitic Transformation weakness."
     },
     {
       "id": "set_aside_v2",
-      "text": "Set aside, out of play, each of the following cards: all Apiary Locations, the Grotesque Amalgam, Mother, and Scaly or Double-Faced Parasite Enemies, the Ancient Relic only and Ghoulish \"Mask\" Story Props, and all copies of the Parasitic Transformation Weakness."
+      "text": "Set each of the following aside, out of play: each [[Apiary]] location, the Grotesque Amalgam, Mother, and double-sided Squamous Parasite [tdc_rune_t] enemies, the Grisly \"Mask\" and Ancient Relic [tdc_rune_s] story assets, and each copy of the Parasitic Transformation weakness."
     },
     {
       "id": "encounter_deck_v1",
-      "text": "Shuffle all remaining encounter cards to create the encounter deck, along with the following set aside <b>Apiary</b> Locations: Crop Fields and both copies of Fleshy Paths.",
+      "text": "Shuffle each remaining encounter card to build the encounter deck along with the following set-aside [[Apiary]] locations: Growing Fields and both copies of Fleshy Paths.",
       "bullets": [
         {
-          "text": "After doing so, take the last 10 cards from the encounter deck, add the set aside Luminous Tunnels Location to them, shuffle them, and return them to the bottom of the encounter deck."
+          "text": "After doing so, shuffle the set-aside Luminous Tunnels location into the bottom 10 cards of the encounter deck."
         }
       ]
     },
     {
       "id": "encounter_deck_v2",
-      "text": "Shuffle all remaining encounter cards to create the encounter deck, along with the following set aside <b>Apiary</b> Locations: Crop Fields and both copies of Fleshy Paths.",
+      "text": "Shuffle each remaining encounter card to build the encounter deck along with the following set-aside [[Apiary]] locations: Growing Fields and both copies of Fleshy Paths.",
       "bullets": [
         {
-          "text": "After doing so, take the last 10 cards from the encounter deck, add the set aside Grasping Corridor Location to them, shuffle them, and return them to the bottom of the encounter deck."
+          "text": "After doing so, shuffle the set-aside Grasping Corridor location into the bottom 10 cards of the encounter deck."
         }
       ]
     },
@@ -306,6 +319,30 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "the_creature_was_defeated",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "the_creature_was_defeated",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The creature was defeated.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "the_creature_was_defeated",
+                "text": "the creature was defeated."
+              }
+            ]
+          }
+        ],
         "branches": [
           {
             "id": "lost_pilgrims",
@@ -417,34 +454,67 @@
                 "text": "dummy"
               }
             ]
+          },
+          {
+            "id": "glyphs",
+            "text": "Translate a Glyph",
+            "icon": "tablet",
+            "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "options": [{ "boolCondition": true }],
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "glyphs",
+                    "id": "$num_entries"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 26
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            "steps": ["$ask_glyphs"]
           }
         ]
       }
     },
     {
       "id": "lost_pilgrims_story",
+      "title": "Scenario Interlude: Lost Pilgrims",
       "type": "story",
-      "text": ""
+      "text": "Coughing weakly, the woman introduces herself as Maria Rivera. She and the others are a collective of pilgrims from all walks of life, led to this place by their dreams. “This is the domain of the drowned god, the dead monarch Cthulhu. We have been instructed by our leader, Lady Dao, to await his return in this ancient city.” The name “Cthulhu” rings in your ears. You have heard it time and again in your dreams.\nMaria continues. “However, there is something malevolent living in these tunnels. Something I fear we awakened by our presence. We sent one of our own to find help, but they haven’t returned.”\nYour discussion is cut short by a dreadful roar. Maria lowers her gaze. “Since we arrived, we’ve been pursued by something… something awful. It hunted us through the streets, the ancient archive, and even through the city’s heart. I hoped it would not follow us to this corrupt and horrible place.” She coughs weakly. “I do not have the strength to lead them out of these tunnels. Please, I beg you, lead us to safety.”\nAnother roar echoes through the tunnels, closer this time, accompanied by the trilling of parasites. Andy looks to you, then to Maria and says, “Gather your people. Nobody deserves to die down here.”"
     },
     {
       "id": "flip_apiary_entrance",
-      "text": "Flip the Apiary Entrance over to show its dangerous side."
+      "text": "Flip Apiary Entrance to its <i>(Dangerous Exit)</i> side."
     },
     {
       "id": "find_cultists",
-      "text": "Search for all non-Weakness Cultist Enemies in the encounter discard pile and in all in-play areas of the game. Shuffle them together and place them in a mound below the Lost Camp."
+      "text": "Search the encounter deck, discard pile, and all in- and out of play areas for each non-weakness [[Cultist]] enemy. Shuffle them together and place them in a facedown stack beneath Lost Campsite."
     },
     {
       "id": "take_maria",
-      "text": "Choose an investigator to take control of the Saveable Cultist Support Maria Rivera Set Aside (remember, Maria is also a saveable Cultist!)"
+      "text": "Choose an investigator to take control of the set aside Maria Rivera story asset. <i>(Remember that Maria is also a [[Cultist]] who can be saved!)</i>"
     },
     {
       "id": "reveal_inescapable",
-      "text": "Reveal the Inescapable Enemy Set Aside away from all investigators and exhausted. Add Encounter cards and the rest of the huge encounter deck and shuffle it."
+      "text": "Spawn the set-aside The Inescapable enemy, exhausted, at the location farthest from all investigators. Shuffle the rest of <i>The Inescapable</i> encounter set into the encounter deck, along with the encounter discard pile."
     },
     {
       "id": "replinish_clues",
-      "text": "Place clues at each revealed Location that does not have its clue value."
+      "text": "Place clues on each revealed location without <b>victory X</b> up to its clue value."
     },
     {
       "id": "continue_playing",
@@ -453,44 +523,127 @@
 
     {
       "id": "hive_mind_story",
+      "title": "Scenario Interlude: Hive Mind",
       "type": "story",
-      "text": ""
+      "text": "You feel the rush of an alien consciousness as a thousand thoughts and memories encroach upon yours. She is your Mother. You feel it deep within. You see a legion of winged, tentacled monstrosities entering an otherworldly vessel. You see Mother, small as a worm, crawl out of her host. You see her enter another host, and then another, laying eggs within their gullets. You feel her need to grow, to spread, to proliferate. Then the taste of alien flesh, of human flesh, of your own flesh as Mother tastes you even now.\nYou awaken to see Ruby standing over you, knife in hand. You are in a pulsing, fetid chamber, the cord that linked you to the Mother flails like a lizard’s tail on the ground before you. Embedded in the walls of the chamber is a massive corpse of an alien creature held up like a grisly puppet. Mother herself. You feel her desire to absorb you, to become you, to devour you.\n“We have to kill it,” Ruby growls."
     },
     {
       "id": "hive_mind_locations",
-      "text": "eposition the Apiary Entrance, Grasping Corridor, Starving Corridor, and Acid Coelom in a circle, as shown in the Location placement diagram. Place all other Locations with Victory X and no clues in the victory zone, discarding all tokens and cards on them."
+      "text": "Rearrange the Apiary Entrance, Grasping Corridor, Starving Corridor, and Acidic Coelom in a circle as shown in the location placement diagram to the right. Place each other location with <b>victory X</b> and no clues on it in the victory display, discarding all tokens and cards at those locations."
     },
     {
       "id": "hive_mind_location_layout",
       "type": "location_setup",
       "text": "Location Placement",
       "description": "Act 2a - The Hive Mind",
-      "horizontal": "normal",
-      "vertical": "normal",
+      "horizontal": "half",
+      "vertical": "half",
       "locations": [
+        ["blank",             "blank", "blank", "grasping_corridor", "blank", "blank", "blank",           "blank"],
+        ["blank",             "blank", "blank", "blank",             "blank", "blank", "blank",           "blank"],
+        ["blank",             "blank", "blank", "blank",             "blank", "blank", "blank",           "blank"],
+        ["starving_corridor", "blank", "blank", "blank",             "blank", "blank", "apiary_entrance", "blank"],
+        ["blank",             "blank", "blank", "blank",             "blank", "blank", "blank",           "blank"],
+        ["blank",             "blank", "blank", "blank",             "blank", "blank", "blank",           "blank"],
+        ["blank",             "blank", "blank", "acidic_coelom",     "blank", "blank", "blank",           "blank"],
+        ["blank",             "blank", "blank", "blank",             "blank", "blank", "blank",           "blank"]
+      ],
+      "arrows": [
+        {
+          "type": "swoop_right",
+          "x": 2.2,
+          "y": 1.5,
+          "color": "red",
+          "size": 0.2,
+          "width": 0.75,
+          "opacity": 0.8,
+          "rotation": "45deg"
+        },
+        {
+          "type": "swoop",
+          "x": 1,
+          "y": 1.5,
+          "color": "red",
+          "size": 0.2,
+          "width": 0.75,
+          "opacity": 0.8,
+          "rotation": "315deg"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "The Central Chamber may rotate clockwise or counter-clockwise during the scenario.",
+          "x": 4,
+          "y": 0,
+          "width": 1.5,
+          "position": "right",
+          "style": "description"
+        },
+        {
+          "text": "Central Chamber is currently connected to Acidic Coelom.",
+          "x": 4,
+          "y": 5,
+          "width": 1.5,
+          "position": "right",
+          "style": "description"
+        }
+      ],
+      "cards": [
+        {
+          "code": "central_chamber",
+          "rotate": "right",
+          "x": 3.3,
+          "y": 4.6
+        },
+        {
+          "code": "central_chamber",
+          "x": 3,
+          "y": 3
+        }
+      ],
+      "location_names": [
+        {
+          "code": "grasping_corridor",
+          "name": "Grasping Corridor"
+        },
+        {
+          "code": "starving_corridor",
+          "name": "Starving Corridor"
+        },
+        {
+          "code": "central_chamber",
+          "name": "Central Chamber"
+        },
+        {
+          "code": "acidic_coelom",
+          "name": "Acidic Coelom"
+        },
+        {
+          "code": "apiary_entrance",
+          "name": "Apiary Entrance"
+        }
       ]
     },
     {
       "id": "hive_mind_remove_locations",
-      "text": "Search the Encounter deck, discard pile, and play area for all remaining Locations and remove them from the game."
+      "text": "Search the encounter deck, encounter discard pile, and play area for each remaining location and remove them from the game."
     },
     {
       "id": "setup_center_location",
-      "text": "Find the Set-Aside Center Room Location and place it in the center slot, with its bottom edge facing the Acid Coelom, as shown in the Location placement diagram on the right."
+      "text": "Find the set-aside Central Chamber location and place it in the central gap, with the bottom edge facing Acidic Coelom as shown in the location placement diagram."
     },
     {
       "id": "spawn_mother",
-      "text": "Spawn the Set-Aside Mother Enemy in the Center Room."
+      "text": "Spawn the set-aside Mother enemy at Central Chamber."
     },
     {
       "id": "maybe_spawn_inescapable",
-      "text": "If the Inescapable Encounter Set is set aside:",
+      "text": "If <i>The Inescapable</i> encounter set is set aside:",
       "type": "branch",
       "condition": {
-
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "the_creature_has_been_defeated",
+        "id": "the_creature_was_defeated",
         "options": [
           {
             "boolCondition": false,
@@ -504,26 +657,25 @@
     {
       "id": "spawn_inescapable",
       "bullet_type": "small",
-      "text": "Spawn the Inescapable Enemy in the Location furthest from all investigators. Add the Encounter discard pile and the rest of the Inescapable encounter set to the Encounter deck and shuffle it."
+      "text": "Spawn The Inescapable enemy at the location farthest from all investigators. Shuffle the rest of <i>The Inescapable</i> encounter set into the encounter deck, along with the encounter discard pile."
     },
     {
       "id": "rotating_locations_rule",
       "type": "rule_reminder",
       "title": "Rotating Locations",
-      "text": "During this scenario, the Center Room Location comes into play in the center of a circle of four Locations.",
+      "text": "During this scenario, the Central Chamber location enters play in the center of a ring of four locations.",
       "bullets": [
         {
-          "text": "The Location that is \"under\" the Center Room is the Location that is directly adjacent to the bottom edge of the Center Room card."
+          "text": "The location \"beneath\" Central Chamber is the location directly bordering the bottom edge of the Central Chamber card."
         },
         {
-          "text": "Although the other Locations are connected by their Location connections, the Center Room is only connected to the Location under it and vice versa."
+          "text": "Although other locations are connected via their location connection icons, Central Chamber is <b>only</b> connected to the location beneath it, and vice versa."
         },
         {
-          "text": "If you are instructed to rotate the Center Room once clockwise or counterclockwise, rotate it in the indicated direction so that the Center Room \"faces\" the next Location in the indicated direction relative to the one currently under it."
+          "text": "If instructed to rotate Central Chamber once clockwise or counter clockwise, rotate it in the indicated direction so that Central Chamber is facing the location clockwise or counterclockwise to the location currently beneath it"
         }
       ]
     },
-
     {
       "id": "defeated_killed",
       "text": "Each defeated investigator is <b>killed</b>. If there are no surviving investigators to continue the campaign, the investigators lose the campaign.",
@@ -537,7 +689,7 @@
     },
     {
       "id": "transfer_story_assets",
-      "text": "If Any Van Nortwick or Ruby Standish were in the deck of an investigator who died:",
+      "text": "If the Andy Van Nortwick or Ruby Standish story asset was in the deck of any investigator who was <b>killed</b>:",
       "type": "branch",
       "condition": {
         "type": "multi",
@@ -545,13 +697,13 @@
         "conditions": [
           {
             "type": "has_card",
-            "card": "TDC_ANDY",
+            "card": "11766",
             "investigator": "defeated",
             "options": [{ "boolCondition": true }]
           },
           {
             "type": "has_card",
-            "card": "TDC_RUBY",
+            "card": "11765",
             "investigator": "defeated",
             "options": [{ "boolCondition": true }]
           }
@@ -573,7 +725,7 @@
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "card": "TDC_ANDY",
+        "card": "11766",
         "investigator": "defeated",
         "options": [
           {
@@ -586,15 +738,15 @@
     {
       "id": "transfer_andy",
       "bullet_type": "small",
-      "text": "Choose a surviving investigator to take control of Andy Van Nortwick and add them to their deck for the remainder of the campaign.",
+      "text": "Choose a surviving investigator to add Andy Van Nortwick to their deck for the remainder of the campaign. This card does not count toward that investigator's deck size",
       "effects": [
         {
           "type": "remove_card",
-          "card": "TDC_ANDY"
+          "card": "11766"
         },
         {
           "type": "add_card",
-          "card": "TDC_ANDY",
+          "card": "11766",
           "investigator": "choice"
         }
       ]
@@ -607,7 +759,7 @@
       "type": "branch",
       "condition": {
         "type": "has_card",
-        "card": "TDC_RUBY",
+        "card": "11765",
         "investigator": "defeated",
         "options": [
           {
@@ -620,15 +772,15 @@
     {
       "id": "transfer_ruby",
       "bullet_type": "small",
-      "text": "Choose a surviving investigator to take control of Ruby Standish and add them to their deck for the remainder of the campaign.",
+      "text": "Choose a surviving investigator to add Ruby Standish to their deck for the remainder of the campaign. This card does not count toward that investigator's deck size",
       "effects": [
         {
           "type": "remove_card",
-          "card": "TDC_RUBY"
+          "card": "11765"
         },
         {
           "type": "add_card",
-          "card": "TDC_RUBY",
+          "card": "11765",
           "investigator": "choice"
         }
       ]
@@ -670,49 +822,52 @@
     },
     {
       "id": "earn_parasitic_transformation",
-      "text": "Each investigator must search the encounter set <i>The Apiary</i> for a copy of Parasitic Transformation and add it to his or her deck. This card does not count toward your deck size.",
+      "text": "Each investigator must search <i>The Apiary</i> encounter set for a copy of Parasitic Transformation and add it to their deck. This card does not count toward their deck size.",
       "effects": [
         {
           "type": "add_card",
-          "card": "TDC_PARASITIC_TRANSFORMATION",
+          "card": "11583",
           "investigator": "all"
         }
       ]
     },
     {
       "id": "cross_out_apiary",
-      "text": "Cross out the Apiary location on the R'lyeh map in the Campaign Log."
+      "text": "Cross out \"The Apiary\" on the R'lyeh map.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_apiary",
+          "text": "The Apiary",
+          "cross_out": true
+        }
+      ]
     },
     {
-      "id": "ask_ghoulish_mask",
+      "id": "ask_grisly_mask",
       "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "yes",
-            "text": "Was the Ghoulish Mask under the control of an investigator when the scenario ended?",
-            "steps": ["earn_ghoulish_mask"]
+            "text": "Was the Grisly \"Mask\" under the control of an investigator when the scenario ended?",
+            "steps": ["earn_grisly_mask"]
           }
         ]
       }
     },
     {
-      "id": "earn_ghoulish_mask",
-      "text": "Check the \"Ghoulish Mask\" box in the \"Artifacts Obtained\" section of the campaign log.",
+      "id": "earn_grisly_mask",
+      "bullet_type": "small",
+      "text": "Check the box next to Grisly \"Mask\" under \"Artifacts Earned.\"",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
-          "id": "ghoulish_mask",
-          "text": "Ghoulish Mask"
-        },
-        {
-          "type": "campaign_log",
-          "section": "possible_artifacts",
-          "id": "ghoulish_mask",
-          "text": "Ghoulish Mask",
-          "remove": true
+          "section": "artifacts_earned",
+          "id": "grisly_mask",
+          "text": "Grisly Mask"
         }
       ]
     },
@@ -732,13 +887,13 @@
       }
     },
     {
-      "id": "next_great_chamber",
+      "id": "next_grand_vault",
       "hidden": true,
       "effects": [
         {
           "type": "campaign_data",
           "setting": "next_scenario",
-          "scenario": "the_great_chamber"
+          "scenario": "the_grand_vault"
         }
       ]
     },
@@ -753,7 +908,7 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["next_great_chamber"]
+            "steps": ["next_grand_vault"]
 
           },
           {
@@ -785,13 +940,13 @@
       "resolution": "R4"
     },
     {
-      "id": "saved_the_pilgrims",
+      "id": "pilgrims_were_saved",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "saved_the_pilgrims",
-          "text": "the investigators saved the pilgrims."
+          "id": "pilgrims_were_saved",
+          "text": "the pilgrims were saved."
         }
       ]
     },
@@ -807,13 +962,13 @@
       ]
     },
     {
-      "id": "exterminated_the_alien_pests",
+      "id": "exterminated_the_alien_parasites",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "exterminated_the_alien_pests",
-          "text": "the investigators exterminated the alien pests."
+          "id": "exterminated_the_alien_parasites",
+          "text": "the investigators exterminated the alien parasites."
         }
       ]
     },
@@ -823,7 +978,7 @@
       "type": "input",
       "input": {
         "type": "counter",
-        "confirm_text": "Each investigator earns 2 bonus experience for saving the pilgrims from almost certain death!",
+        "confirm_text": "Each investigator earns 2 bonus experience for saving the pilgrims from near-certain death!",
 
         "text": "Victory display:",
         "effects": [
@@ -843,20 +998,20 @@
         "choices": [
           {
             "id": "submerged_quarter",
-            "text": "<i>We've come this far and we're not leaving a single corner unexplored.</i>",
-            "description": "To discover the secrets of the deep, go to <b>The Submerged Quarter</b>.",
+            "text": "<i>\"We came this far. We're not leaving any stone unturned.\"</i>",
+            "description": "To explore the seafloor dome, proceed to <b>The Drowned Quarter.</b>",
             "effects": [
               {
                 "type": "campaign_data",
                 "setting": "next_scenario",
-                "scenario": "the_sunken_quarter"
+                "scenario": "the_drowned_quarter"
               }
             ]
           },
           {
             "id": "western_wall",
-            "text": "<i>Are you crazy? We have to get out of here!</i>",
-            "description": "To scale the wall and return to camp, go to: <b>Western Wall</b>.",
+            "text": "<i>\"Are you crazy? We need to get out of here!\"</i>",
+            "description": "To scale the wall and return to camp, proceed to <b>The Western Wall.</b>",
             "effects": [
               {
                 "type": "campaign_data",
@@ -874,7 +1029,7 @@
     {
       "id": "investigator_defeat",
       "title": "Investigator Defeat",
-      "text": "Your experience beyond the gate is simultaneously terrifying and impossible to recall with clarity. A hypnotic spectacle of lights, otherworldly sensations, and altered geometry dances at the tattered edges of your mind. An unearthly voice from beyond rings in your ears, its significance an enigma. When you awaken, you find yourself in the woods, several miles from the Miskatonic River. Destroyed train cars surround you. They are crumpled as if from a severe impact; they are also decayed as if years of rust and squalor have claimed them. There is no sign of the other passengers.",
+      "text": "You don’t feel any pain. In fact, there is no “you” to feel pain. Instead, “you” have become part of an endless interconnected mind that dwells beneath this city. You have always been here. And you always will be.",
       "steps": [
         "defeated_killed",
         "check_all_defeated",
@@ -891,11 +1046,12 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "You pull a flailing worm from your neck as you escape the putrid tunnels. Hopefully you aren’t infected…",
       "steps": [
+        "$ask_completed_task",
         "earn_parasitic_transformation",
         "cross_out_apiary",
-        "ask_ghoulish_mask",
+        "ask_grisly_mask",
         "earn_xp",
         "$upgrade_decks",
         "check_resolution_west"
@@ -904,39 +1060,72 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "The last of the survivors emerges from the fetid tunnels. After thanking you, the pilgrims show you the tunnel they took from the “heart of the city.” As you leave, Andy wipes ichor off of his camera lens. “There’s another roll of worthless film. One shot could’ve made my career. I might as well have thrown all my film overboard on the way here.”",
       "steps": [
-        "saved_the_pilgrims",
+        "$ask_completed_task",
+        "pilgrims_were_saved",
         "cross_out_apiary",
-        "ask_ghoulish_mask",
+        "ask_grisly_mask",
         "earn_xp_pilgrims",
         "$upgrade_decks",
-        "next_great_chamber"
+        "next_grand_vault"
       ]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "Shell-shocked, you emerge from the tunnels to find the vast antechamber where you began. If any pilgrims survived, they did not linger. After a long silence, the expedition prepares to move on. Andy narrows his eyes at a trail of blood on the floor, noting that if a pilgrim had been dragged away, it would be much messier. Their trail may lead to “the city core” as Maria put it.",
       "steps": [
+        "$ask_completed_task",
         "earn_parasitic_transformation",
         "pilgrims_were_devoured",
         "cross_out_apiary",
-        "ask_ghoulish_mask",
+        "ask_grisly_mask",
         "earn_xp",
         "$upgrade_decks",
-        "next_great_chamber"
+        "next_grand_vault"
       ]
     },
 
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "The expedition treks back to the apiary entrance, covered in gore. You scratch a persistent itch on the back of your neck, hoping you weren’t infected. Splintered memories from your brief moment as part of the hive mind continue to encroach on your thoughts. You doubt you will ever feel quite the same again.",
       "steps": [
-        "exterminated_the_alien_pests",
+        "$ask_completed_task",
+        "exterminated_the_alien_parasites",
         "cross_out_apiary",
-        "ask_ghoulish_mask",
+        "ask_grisly_mask",
         "earn_xp",
         "$upgrade_decks",
         "resolution_4"
@@ -946,7 +1135,7 @@
       "id": "R4",
       "title": "Resolution 4",
       "hidden": true,
-      "text": "",
+      "text": "You eventually find your old route. Several more days’ journey brings you to a large round door the size of a bank vault. After pressing several alien glyphs in turn, the door rolls back to reveal a dry path winding along the seafloor toward a softly glowing dome. A shimmering, gossamer energy field holds back the weight of the ocean. As you marvel at the miraculous path and dome, a chunk of obsidian loosens and falls from above onto the dome. Rather than shatter, the dome ripples, pliant, as the rock falls through with a thunderous crash.\n“This is impossible,” gasps Ruby. “Something in that dome is powering the barrier. Looks like it holds back water, but lets other things pass through. Whatever’s doing it could be a good find for Randall.” She looks up the sheer wall leading to the surface.",
       "steps": [
         "choose_east_path"
       ]

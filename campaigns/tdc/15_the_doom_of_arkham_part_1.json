@@ -1,16 +1,20 @@
 {
   "id": "the_doom_of_arkham_part_1",
   "scenario_name": "The Doom of Arkham: Part I",
-  "full_name": "Grand Finale: The Doom of Arkham, Part I",
+  "full_name": "The Doom of Arkham, Part I",
   "header": "Grand Finale",
+  "chaos_bag_card": "11682",
+  "chaos_bag_card_text": "[skull]: -X. X is half the number of locations with no scenario cards beneath them (rounded up).\n[cultist]: -3. If this test fails, place 1 doom on the nearest enemy with no doom on it.\n[tablet]: -3. If this test fails, place 1 of your clues on your location.\n[elder_thing]: -2. If your location is flooded, reveal another token.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the number of locations with no scenario cards beneath them.\n[cultist]: -5. If this test fails, place 1 doom on the nearest enemy with no doom on it.\n[tablet]: -5. If this test fails, place 1 of your clues on your location.\n[elder_thing]: -4. If your location is flooded, reveal another token.",
   "setup": [
     "intro",
     "encounter_sets",
     "setup_locations",
     "location_layout",
     "setup_shoppe",
-    "randomize_star_spawn",
+    "check_star_spawn_difficulty",
     "gather_artifacts",
+    "set_aside_cards",
     "earn_john",
     "place_doom",
     "flood_tokens",
@@ -22,7 +26,7 @@
     {
       "id": "intro",
       "type": "story",
-      "text": ""
+      "text": "You awaken from yet another nightmare to a furious knocking at your door. You open it to find a bedraggled looking Andy and Ruby, along with a sharply dressed inspector who introduces himself as John Raymond Legrasse. The inspector explains that he has been investigating a spate of dreaming cults across the United States and abroad.\nYou invite them inside as it begins to rain. Once seated, the inspector flashes a photo of a familiar statue. Several months ago, he sent the statue to a colleague in Miskatonic University for analysis. Apparently, Tillinghast's request that you find his \"missing shipment\" was nothing more than petty theft. He tells you he arrived in Arkham about a month ago to interrogate Tillinghast and recover the statue.\n\"Something didn't sit right with me after we handed off the artifacts,\" Andy says darkly. \"So a few days later, I headed to the shop. When we got there the shop'd moved. Or so we thought. Ruby finally found it, and we went in to find the inspector arguing with Tillinghast and—things didn't go so well.\"\n\" That's putting it mildly,\" Legrasse says. \"Randall was giving me the runaround when these two appeared. He threw us out, real quick. When we looked around, we weren't… here.\" You ask him what he means, and he shakes his head. \"I mean we <i>weren't here.</i> In Arkham. His shop door led somewhere else entirely. It took us a whole month to return\"\n\"I think we were somewhere in Tibet, or even farther north. It was… a journey to get back,\" sighs Andy. A few months ago, you might've found their story hard to believe, but not now. Knowing what you do about Tillinghast, it's no surprise that he has something far more sinister planned than simple acquisition. But what?\nTogether with Inspector Legrasse, Ruby, and Andy, you resolve to recover the artifacts and confront Tillinghast, wherever he might be. As you set out,the rain turns to a heavy downpour."
     },
     {
       "id": "encounter_sets",
@@ -37,20 +41,20 @@
         "agents_of_cthulhu",
         "arkham"
       ],
-      "subtext": "When collecting the <i>Midnight Masks</i> encounter set, collect only the Location and Treachery cards. Do not collect the Act or Agenda cards from that set."
+      "subtext": "When gathering <i>The Midnight Masks</i> encounter set, only gather the location and treachery cards. Do not gather the acts or agendas from this set."
     },
     {
       "id": "setup_locations",
-      "text": "Find all of the locations in the Masks of Midnight encounter set and put them into play as follows:",
+      "text": "Find each location in <i>The Midnight Masks</i> encounter set and put them into play as follows:",
       "bullets": [
         {
-          "text": "Put one of the two Center Locations and one of the two South Quarter Locations into play, at random, and remove the other versions of those locations from the game. Put the North Quarter, East Quarter, River Quarter, St. Mary’s Hospital, and Miskatonic University into play, according to the location placement diagram."
+          "text": "Put one of the two Downtown locations and one of the two Southside locations into play at random and remove the other versions of those locations from the game. Put Northside, Easttown, Rivertown, St. Mary's Hospital, and Miskatonic University into play according to the location placement diagram to the right."
         },
         {
-          "text": "Put all other locations aside, out of play."
+          "text": "Set each other location aside, out of play."
         },
         {
-          "text": "Each investigator begins the game in the River Quarter."
+          "text": "Each investigator begins play at Rivertown."
         }
       ]
     },
@@ -80,54 +84,92 @@
     },
     {
       "id": "setup_shoppe",
-      "text": "Shuffle the single-sided Location Esoteric Shop of Tillinghast along with all the Betrayals from the Masks of Midnight encounter set and put one card under each Location except under the Rivertown."
+      "text": "Shuffle the single-sided Tillinghast Esoterica location with each treachery from <i>The Midnight Masks</i> encounter set and place one of them under each location except for Rivertown."
+    },
+    {
+      "id": "check_star_spawn_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["randomize_star_spawn_easy"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["randomize_star_spawn"]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "randomize_star_spawn"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "randomize_star_spawn"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "randomize_star_spawn",
-      "text": "Shuffle all the Enemies from the Starseed encounter set and randomly remove two from the game (or remove three if playing on Easy difficulty)."
+      "text": "Shuffle each enemy from the <i>Star Spawn</i> encounter set and remove two at random from the game. (Remove three instead if playing on easy mode.)"
+    },
+    {
+      "id": "randomize_star_spawn_easy",
+      "text": "Shuffle each enemy from the <i>Star Spawn</i> encounter set and remove three at random from the game."
     },
     {
       "id": "gather_artifacts",
-      "text": "Gather all the artifacts obtained along with the Clay Horror story prop and set them aside, outside of the game."
+      "text": "Gather all earned artifacts along with the Horror in Clay story asset and set them aside, out of play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set Randall Tillinghast aside, out of play."
     },
     {
       "id": "earn_john",
-      "text": "Choose an investigator to add the John Raymond Legrasse story prop to their deck. This card does not count toward their deck size.",
+      "text": "Choose an investigator to add the John Raymond Legrasse story asset to their deck. This card does not count toward their deck size.",
       "bullets": [
         {
-          "text": "Put the John Raymond Legrasse story prop into play under that investigator's control. It does not occupy an ally space during Parts 1 or II of this scenario."
+          "text": "Put the John Raymond Legrasse story asset into play under that investigator's control. He does not take up an ally slot during Part I or Part II of this scenario."
         }
       ],
       "effects": [
         {
           "type": "add_card",
-          "card": "TDC_JOHN_RAYMOND_LEGRASSE",
+          "card": "11687",
           "investigator": "any"
         }
       ]
     },
     {
       "id": "place_doom",
-      "text": "Place a number of doom equal to the number of investigators on the plan."
+      "text": "Place doom on the agenda equal to the number of investigators."
     },
     {
       "id": "flood_tokens",
-      "text": "Add the Flood tokens to the token pool."
+      "text": "Add the flood tokens to the token pool."
     },
     {
       "id": "encounter_deck",
-      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
     },
     {
       "id": "multi_part_rule",
       "type": "rule_reminder",
       "title": "Part I and Part II of The Doom of Arkham",
-      "text": "This scenario is divided into two parts. Players may choose to play these parts one at a time (taking a break between them) or play both parts back-to-back in one longer session. Each part is a game with its own setup and resolution.\n<b>Investigators may upgrade their decks between Part I and Part II.</b>"
+      "text": "This scenario is split into two parts. Players may choose to play these parts one at a time (with a break between each part), or they may play both parts together as a longer session. Each part is its own game with its own setup and resolution.\n<b>Investigators may upgrade their decks between Part I and Part II.</b>"
     },
-
     {
       "id": "earn_random_weakness",
-      "text": "Each investigator searches the collection for a random basic [[Injury]] or [[Madness]] weakness and adds it to their deck for the remainder of the campaign.",
+      "text": "Each investigator searches the collection for a random basic [[Injury]] or [[Madness]] weakness and adds it to their deck. This card does not count toward that investigator's deck size.",
       "effects": [
         {
           "type": "add_weakness",
@@ -167,7 +209,7 @@
             "text": "Barrier Node",
             "condition": {
               "type": "campaign_log",
-              "section": "artifacts_obtained",
+              "section": "artifacts_earned",
               "id": "barrier_node",
               "options": [
                 {
@@ -186,11 +228,11 @@
           },
           {
             "id": "obsidian_jar",
-            "text": "Obsidian Jar",
+            "text": "Obsidian Claw",
             "condition": {
               "type": "campaign_log",
-              "section": "artifacts_obtained",
-              "id": "obsidian_jar",
+              "section": "artifacts_earned",
+              "id": "obsidian_claw",
               "options": [
                 {
                   "boolCondition": true
@@ -201,18 +243,18 @@
               {
                 "type": "campaign_log",
                 "section": "hidden",
-                "id": "kept_obsidian_jar",
+                "id": "kept_obsidian_claw",
                 "text": "dummy"
               }
             ]
           },
           {
             "id": "fragment",
-            "text": "Fragment of Y'chlecht",
+            "text": "Shard ofY'chlecht",
             "condition": {
               "type": "campaign_log",
-              "section": "artifacts_obtained",
-              "id": "fragment",
+              "section": "artifacts_earned",
+              "id": "shard",
               "options": [
                 {
                   "boolCondition": true
@@ -223,7 +265,7 @@
               {
                 "type": "campaign_log",
                 "section": "hidden",
-                "id": "kept_fragment",
+                "id": "kept_shard",
                 "text": "dummy"
               }
             ]
@@ -233,8 +275,8 @@
             "text": "Tidal Tablet",
             "condition": {
               "type": "campaign_log",
-              "section": "artifacts_obtained",
-              "id": "tide_tablet",
+              "section": "artifacts_earned",
+              "id": "tidal_tablet",
               "options": [
                 {
                   "boolCondition": true
@@ -245,18 +287,18 @@
               {
                 "type": "campaign_log",
                 "section": "hidden",
-                "id": "kept_tide_tablet",
+                "id": "kept_tidal_tablet",
                 "text": "dummy"
               }
             ]
           },
           {
             "id": "mask",
-            "text": "Ghoulish Mask",
+            "text": "Grisly Mask",
             "condition": {
               "type": "campaign_log",
-              "section": "artifacts_obtained",
-              "id": "ghoulish_mask",
+              "section": "artifacts_earned",
+              "id": "grisly_mask",
               "options": [
                 {
                   "boolCondition": true
@@ -267,14 +309,14 @@
               {
                 "type": "campaign_log",
                 "section": "hidden",
-                "id": "kept_ghoulish_mask",
+                "id": "kept_grisly_mask",
                 "text": "dummy"
               }
             ]
           },
           {
             "id": "clay",
-            "text": "Clay Horror",
+            "text": "Horror in Clay",
             "steps": ["earn_clay_horror"]
           }
         ]
@@ -282,19 +324,19 @@
     },
     {
       "id": "earn_clay_horror",
-      "text": "Update campaign log. Under Artifacts Obtained, record that Clay Horror.",
+      "text": "Update campaign log. Record \"Horror in Clay\" under \"Artifacts Earned.\"",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
+          "section": "artifacts_earned",
           "id": "clah_horror",
-          "text": "Clay Horror"
+          "text": "Horror in Clay"
         }
       ]
     },
     {
       "id": "cross_out_uncontrolled",
-      "text": "Cross out the name of each Artifact Support that was not under the control of any investigator when the scenario ended."
+      "text": "Cross out the name of each [[Artifact]] asset that was not under any investigator's control when the scenario ended."
     },
     {
       "id": "maybe_cross_out_barrier_node",
@@ -319,7 +361,7 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
+          "section": "artifacts_earned",
           "id": "barrier_node",
           "text": "Barrier Node",
           "cross_out": true
@@ -327,61 +369,61 @@
       ]
     },
     {
-      "id": "maybe_cross_out_obsidian_jar",
+      "id": "maybe_cross_out_obsidian_claw",
       "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "kept_obsidian_jar",
+        "id": "kept_obsidian_claw",
         "options": [
           {
             "boolCondition": false,
-            "steps": ["cross_out_obsidian_jar"]
+            "steps": ["cross_out_obsidian_claw"]
           }
         ]
       }
     },
     {
-      "id": "cross_out_obsidian_jar",
+      "id": "cross_out_obsidian_claw",
       "bullet_type": "small",
-      "text": "Cross out Obsidian Jar.",
+      "text": "Cross out Obsidian Claw.",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
-          "id": "obsidian_jar",
-          "text": "Obsidian jar",
+          "section": "artifacts_earned",
+          "id": "obsidian_claw",
+          "text": "Obsidian Claw",
           "cross_out": true
         }
       ]
     },
     {
-      "id": "maybe_cross_out_fragment",
+      "id": "maybe_cross_out_shard",
       "hidden": true,
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "kept_fragment",
+        "id": "kept_shard",
         "options": [
           {
             "boolCondition": false,
-            "steps": ["cross_out_fragment"]
+            "steps": ["cross_out_shard"]
           }
         ]
       }
     },
     {
-      "id": "cross_out_fragment",
+      "id": "cross_out_shard",
       "bullet_type": "small",
-      "text": "Cross out Fragment.",
+      "text": "Cross out Shard of Y'ch'lecht.",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
-          "id": "fragment",
-          "text": "Fragment",
+          "section": "artifacts_earned",
+          "id": "shard",
+          "text": "Shard of Y'ch'lecht",
           "cross_out": true
         }
       ]
@@ -395,7 +437,7 @@
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "kept_tide_tablet",
+        "id": "kept_tidal_tablet",
         "options": [
           {
             "boolCondition": false,
@@ -411,9 +453,9 @@
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
-          "id": "tide_tablet",
-          "text": "Tide Tablet",
+          "section": "artifacts_earned",
+          "id": "tidal_tablet",
+          "text": "Tidal Tablet",
           "cross_out": true
         }
       ]
@@ -425,7 +467,7 @@
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "kept_ghoulish_mask",
+        "id": "kept_grisly_mask",
         "options": [
           {
             "boolCondition": false,
@@ -437,20 +479,20 @@
     {
       "id": "cross_out_mask",
       "bullet_type": "small",
-      "text": "Cross out Ghoulish Mask.",
+      "text": "Cross out Grisly Mask.",
       "effects": [
         {
           "type": "campaign_log",
-          "section": "artifacts_obtained",
-          "id": "ghoulish_mask",
-          "text": "Ghoulish Mask",
+          "section": "artifacts_earned",
+          "id": "grisly_mask",
+          "text": "Grisly Mask",
           "cross_out": true
         }
       ]
     },
     {
       "id": "explain_flooded_locations",
-      "text": "Write \"Flooded Districts:\" in the campaign log followed by a list of all flooded locations."
+      "text": "In your Campaign Log, record \"Flooded Neighborhoods:\" along with a list of each flooded location"
     },
     {
       "id": "ask_flooded_locations",
@@ -490,14 +532,14 @@
         "choices": [
           {
             "id": "continue",
-            "text": "We are ready to fight.",
-            "description": "You want to continue playing immediately.",
+            "text": "<i>\"We're ready to fight.\"</i>",
+            "description": "You wish to continue playing immediately.",
             "steps": ["resolution_2"]
           },
           {
             "id": "pause",
-            "text": "We need more time.",
-            "description": "You want to take a break and continue in the next game session.",
+            "text": "<i>\"We need more time.\"",
+            "description": "You wish to take a break and proceed the next time you play.",
             "steps": ["resolution_3"]
           }
         ]
@@ -517,6 +559,13 @@
           "scenario": "the_doom_of_arkham_part_2"
         }
       ]
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks"
+      }
     }
   ],
   "resolutions": [
@@ -530,7 +579,7 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "A trio of terrified locals bolts down the street past you, followed by a lumbering spawn of Cthulhu. Your blood runs cold. There is no safe place for you to run. You wander the flooded streets, looking for some sign of Ruby, Andy, or Inspector Legrasse.",
       "steps": [
         "earn_random_weakness",
         "resolution_1"
@@ -539,13 +588,13 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "A disquieting roar shakes the very foundations of Arkham.Standing next to your companions, you look up to see the familiar, hulking form of Cthulhu slouch out of the Miskatonic River. With a single motion, the ancient one tramples an entire borough of Rivertown underfoot. The sound of cracking wood and shattering glass fill the air, followed by a chorus of screams.\nAndy, Ruby,and the Inspector share a grim look as your worst fears are confirmed. \"We have to do something\" Andy shouts over the din.",
       "steps": [
         "ask_controlled_artifacts",
         "cross_out_uncontrolled",
         "maybe_cross_out_barrier_node",
-        "maybe_cross_out_obsidian_jar",
-        "maybe_cross_out_fragment",
+        "maybe_cross_out_obsidian_claw",
+        "maybe_cross_out_shard",
         "maybe_cross_out_tablet",
         "maybe_cross_out_mask",
         "explain_flooded_locations",
@@ -558,7 +607,7 @@
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "Only you can stand against this grave threat. Arkham needs you now.",
       "steps": [
         "put_away_game",
         "next_scenario"
@@ -567,7 +616,7 @@
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "",
+      "text": "You urge your companions to take the time to prepare and collect yourself for your final stand.",
       "steps": [
         "put_away_game",
         "next_scenario"

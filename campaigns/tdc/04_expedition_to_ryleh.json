@@ -4,33 +4,35 @@
   "full_name": "Interlude II: Expedition to R'lyeh",
   "header": "Interlude II",
   "type": "interlude",
-  "icon": "",
+  "icon": "tdc_expedition",
   "setup": [
     "intro",
-    "choose_direction"
+    "choose_direction",
+    "setup_locations",
+    "$save_decks"
   ],
   "steps": [
     {
       "id": "intro",
       "type": "story",
-      "text": ""
+      "text": "It is early evening when you first see the ancient city. You emerge from your cabin to see Andy and Ruby staring out at a jagged, bleak skyline off the starboard bow. The ancient city is a tangle of collapsed towers, labyrinthine boroughs, and jagged paths that loop in on themselves like a rat’s nest. Andy nearly drops his camera as a choppy wave lifts and then drops the nose of the ship with a sharp crash.\n“You’re seeing this. It’s real. Tell me it’s real,” Andy says, furiously loading more film into his scuffed camera. You and the rest of the crew marvel at the mind-bending skyline with a mixture of awe and dread. Seawater pours from the mouths of alien effigies and ancient sepulchres. Strange ephemeral shapes flit in and out of the obsidian canyons of R’lyeh. It is unlike anything built by human hands.\nYou catch yourself saying the city’s name under your breath. Even the unflappable Ruby seems dumbstruck as the ship sails past a ring of rocky shoals into a broad cove. After making landfall, the expedition camps on the black-sanded beach, at the foot of a towering obsidian spire. Menacing, gargantuan doors set in the tower’s base loom like silent sentinels. There is hardly a word between the expedition members on the first night; Andy spends the evening poring over an obsidian stone set with glowing glyphs, while Ruby lovingly reorganizes her tool bag.\nIn the morning, you discuss which route to take. Tillinghast has provided enough diving equipment, climbing gear, and rations to explore inland for at least two weeks before you would need to return to the beach. Andy and Ruby are at odds, however. Andy wants to follow the coastline to the ruined western wall near the mouth of the cove. Ruby, perennially comfortable with heights, wants to take to the skyline to map the city. She points excitedly at a distant, cathedral-like structure further inland."
     },
 
     {
       "id": "choose_direction",
-      "text": "Depending on which character you want to follow, you will explore the ancient city from west to east or from east to west. The investigators, as a group, must decide:",
+      "text": "Depending on which character you want to follow, you will either explore the ancient city from west to east, or east to west. You must decide, as a group:",
       "type": "input",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "west",
-            "text": "West",
+            "text": "Follow Andy along the shoreline to the Western Wall.",
             "steps": ["west_story", "expedition_headed_west", "earn_andy", "west_tokens", "west_scenario"]
           },
           {
             "id": "east",
-            "text": "East",
+            "text": "Accompany Ruby through the Obsidian Canyons toward a massive inland structure.",
             "steps": ["east_story", "expedition_headed_east", "earn_ruby", "east_scenario"]
           }
         ]
@@ -39,7 +41,7 @@
     {
       "id": "west_story",
       "type": "story",
-      "text": ""
+      "text": "Something about the distant, ruined wall and submerged spires calls to you. After agreeing to accompany Andy westward, he sighs with relief. “I can handle myself, of course, but if we have to go diving, I’d…”  he looks blankly into the distance for a moment. “I don’t want to worry you, but I could swear I saw something human-shaped swimming below. I’ll be glad for the company.” You look past the black water to the edge of the cove, suddenly apprehensive. Something crests the waves for a moment, then disappears. You have the feeling of being watched.\n“Two weeks, then,” says Ruby, hefting a coil of rope over one shoulder. “We’ll meet back here in two weeks. Don’t forget the diving suits. And don’t get yourself killed. I would hate to lose my favorite rival.”"
     },
     {
       "id": "expedition_headed_west",
@@ -54,18 +56,17 @@
     },
     {
       "id": "earn_andy",
-      "text": "Choose an investigator to add Andy Van Nortwick to their deck. It does not count toward their deck size.",
+      "text": "Choose an investigator to add the Andy Van Nortwick story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Expedition</i> encounter set.",
       "type": "encounter_sets",
-      "encounter_sets": ["expedition"],
+      "encounter_sets": ["tdc_expedition"],
       "effects": [
         {
           "type": "add_card",
-          "card": "TDC_ANDY",
+          "card": "11766",
           "investigator": "any"
         }
       ]
     },
-
     {
       "id": "west_tokens",
       "text": "Remove 1 [tablet] token from the chaos bag. Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
@@ -94,18 +95,18 @@
     {
       "id": "east_story",
       "type": "story",
-      "text": ""
+      "text": "Since you landed, you haven’t been able to take your eyes off of the phantasmagoric skyline. After agreeing to accompany her eastward, you catch the faintest hint of a smile from Ruby. “Fine, you can come along. As long as you don’t hold me back,” she smirks. A fell wind whistles through the perilous canyons, smelling of ancient decay and another, sweeter smell. Storm clouds churn in the distance threateningly.\n“Let’s return here in two weeks,” Andy says, carefully reloading his camera for the dozenth time since you’ve arrived. Before parting ways, the young reporter passes you the obsidian tablet he found last evening, stammering that he isn’t much of a linguist. “I’m not sure what any of it means, but those glyphs are all over the city. Maybe you’ll have better luck with it.”"
     },
 
     {
       "id": "earn_ruby",
-      "text": "Choose an investigator to add Ruby to their deck. It does not count toward their deck size.",
+      "text": "Choose an investigator to add the Ruby Standish story asset to their deck. It does not count toward their deck size. This card can be found in the <i>Expedition</i> encounter set.",
       "type": "encounter_sets",
-      "encounter_sets": ["expedition"],
+      "encounter_sets": ["tdc_expedition"],
       "effects": [
         {
           "type": "add_card",
-          "card": "TDC_RUBY",
+          "card": "11765",
           "investigator": "any"
         }
       ]
@@ -129,6 +130,61 @@
           "type": "campaign_data",
           "setting": "next_scenario",
           "scenario": "obsidian_canyons"
+        }
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_western_wall",
+          "text": "The Western Wall",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_drowned_quarter",
+          "text": "The Drowned Quarter",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_apiary",
+          "text": "The Apiary",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_grand_vault",
+          "text": "The Grand Vault",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "court_of_the_ancients",
+          "text": "Court of the Ancients",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "obsidian_canyons",
+          "text": "Obsidian Canyons",
+          "hidden": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "sepulchre_of_the_sleeper",
+          "text": "Sepulchre of the Sleeper",
+          "hidden": true
         }
       ]
     }

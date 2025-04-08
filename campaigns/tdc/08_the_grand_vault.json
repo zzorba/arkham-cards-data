@@ -1,0 +1,863 @@
+{
+  "id": "the_grand_vault",
+  "scenario_name": "The Grand Vault",
+  "full_name": "The Grand Vault",
+  "header": "Scenario",
+  "chaos_bag_card": "11587",
+  "chaos_bag_card_text": "[skull]: -X. X is half the number of activated locations (rounded down).\n[cultist]: -3. If you fail, you must either deactivate your location or take 1 damage or 1 horror.\n[tablet]: -2 (-3 instead if your location is partially flooded; -4 instead if your location is fully flooded).\n[elder_thing]: -4. If you fail, search the encounter discard pile for a copy of the Still Behind You treachery and add it to the victory display.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the number of activated locations.\n[cultist]: -4. After this test resolves, you must either deactivate your location or take 1 damage and 1 horror.\n[tablet]: -3 (-4 instead if your location is partially flooded; -5 instead if your location is fully flooded).\n[elder_thing]: -5. If you fail, search the encounter discard pile for a copy of the Still Behind You treachery and draw it.",
+  "setup": [
+    "check_direction",
+    "check_west",
+    "intro_3",
+    "add_elder_thing",
+    "check_toe_the_line",
+    "encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "check_power_diverted",
+    "shuffle_star_spawn",
+    "set_aside_cards",
+    "$choose_artifacts_or_support",
+    "flood_locations",
+    "encounter_deck",
+    "moving_platform_rule",
+    "moving_platform_rule_a",
+    "moving_platform_rule_b",
+    "activating_rule",
+    "activating_rule_a",
+    "activating_rule_b",
+    "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "The Moving Platform and Location Connections",
+      "steps": [
+        "moving_platform_rule",
+        "moving_platform_rule_a",
+        "moving_platform_rule_b"
+      ]
+    },{
+      "title": "Activating and Deactivating Locations",
+      "steps": [
+        "activating_rule",
+        "activating_rule_a",
+        "activating_rule_b"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "east_story"
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": "You hear the echoing churn of great machinery long before you see it. After emerging from the claustrophobic tunnels, you stand on a precipice overlooking a large cavernous expanse. It is so vast that you cannot see the far side. An array of interconnected chambers are laid out like a labyrinth, thrumming with the sound of alien constructs. Amid the clamor is the sound of running water even farther below."
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": "You hear the echoing churn of great machinery long before you see it. You reach the bottom of the spiraling staircase to stand on a precipice overlooking a large cavernous expanse. It is so vast that you cannot see the far side. An array of interconnected chambers are laid out like a labyrinth, thrumming with the sound of alien constructs. Amid the clamor is the sound of running water even farther below."
+    },
+
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "This is the pulsing core of R'Iyeh. Colossal sluices channel floodwater from the city above, filling and draining vaults like the chambers of a heart. This seems to be some source of power, and the reason for the city's steady rise. After discussing with the expedition, you resolve to explore the massive complex before moving on. If ever there was a place to find one of those elusive artifacts, it would be here."
+    },
+
+    {
+      "id": "add_elder_thing",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+
+    {
+      "id": "check_toe_the_line",
+      "text": "If an investigator has the \"Toe the Line\" task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "picked_toe_the_line",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["toe_the_line_story", "toe_the_line_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "toe_the_line_story",
+      "type": "story",
+      "title": "Toe the Line",
+      "text": "The expedition makes camp before descending into the vault below. Over a bland but filling meal, one of your fellow expedition members reveals they have a history with your former employer. \"Wait, you're the one everyone talks about?\" they snort. \"Trust me, from the things I've heard, you don't want your old job back. Your old boss still jokes about you. Even if Tillinghast could get you the job, nobody back there respects you. You're looking at a life of grunt work, pal.\" You finish your meal in silence as you ponder their words. Your old colleagues might not respect you, but with Tillinghast's connections, you could make them fear you. A few bribes, well-timed threats— even a call from the mob — might put them in their place. It's not exactly above-board, but if you play the cards right, you could oust your former employer. You have the rest of the expedition to plan your move once you get back to Arkham."
+    },
+
+    {
+      "id": "toe_the_line_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "beg",
+            "text": "<i>Take your old job back, at any cost.</i>",
+            "description": "Erase I progress under \"Toe the Line\" in your Campaign Log. During the next scenario, you get +1 to each of your skills during the first agenda.",
+            "steps": ["task_beg"]
+          },
+
+          {
+            "id": "firm",
+            "text": "<i>Take the high road. It ain't worth it.</i>",
+            "description": "Mark 2 progress under \"Toe the Line\" in your Campaign Log and suffer 1 mental trauma. During the next scenario, you get -1 to each of your skills during the first agenda.",
+            "steps": ["task_firm"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "task_beg",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "toe_the_line",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "task_firm",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "toe_the_line",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "the_grand_vault", "alien_machinery", "tdc_flood", "the_inescapable",
+        "rlyeh", "star_spawn"]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Great Stair, Moving Platform, Sealed Chamber, and Core of the Vault locations into play, as indicated in the location placement diagram.",
+      "bullets": [
+        {
+          "text": "Remove one copy of Otherworldly Mechanisms from the game at random (Otherworldly Mechanisms are on the revealed side of some Vault Chamber locations)."
+        },
+        {
+          "text": "Shuffle each remaining copy of Vault Chamber together and put them into play according to the location placement diagram."
+        },
+        {
+          "text": "<b>Errata:</b> The unrevealed side of \"Core of the Vault\" should read: \"You cannot enter this location.\"."
+        },
+        {
+          "text": "Each investigator begins at the Great Stair."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "vault_chamber",
+          "vault_chamber",
+          "vault_chamber",
+          "blank"
+        ],
+
+        [
+          "the_great_stair",
+          "moving_platform",
+          "core_of_the_vault",
+          "vault_chamber",
+          "sealed_chamber"
+        ],
+        [
+          "blank",
+          "vault_chamber",
+          "vault_chamber",
+          "vault_chamber",
+          "blank"
+        ]
+      ],
+      "location_names": [
+
+        {
+          "code": "vault_chamber",
+          "name": "Vault Chamber"
+        },
+        {
+          "code": "sealed_chamber",
+          "name": "Sealed Chamber"
+        },
+        {
+          "code": "the_great_stair",
+          "name": "The Great Stair"
+        },
+        {
+          "code": "moving_platform",
+          "name": "Moving Platform"
+        },
+        {
+          "code": "core_of_the_vault",
+          "name": "Core of the Vault"
+        }
+      ]
+    },
+    {
+      "id": "check_power_diverted",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_power_was_diverted",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["activate_lower_left"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["activate_other_locations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "activate_lower_left",
+      "bullet_type": "small",
+      "text": "Place 1 resource on the bottom left Vault Chamber. This location has been \"activated.\""
+    },
+    {
+      "id": "activate_other_locations",
+      "bullet_type": "small",
+      "text": "Place one resource on the bottom left, bottom right, and top right Vault Chamber locations. These locations have been \"activated.\""
+    },
+    {
+      "id": "shuffle_star_spawn",
+      "text": "Shuffle each enemy from the <i>Star Spawn</i> encounter set and remove 2 at random from the game. Set the rest aside, out of play."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Each copy of the double-sided Ancient Vault ([tdc_rune_o], [tdc_rune_n], [tdc_rune_p]) treachery, each copy of the Vault Attendant enemy, the Tidal Tablet story asset, and <i>The Inescapable</i> encounter set."
+    },
+    {
+      "id": "flood_locations",
+      "text": "Add the flood tokens to the token pool.",
+      "bullets": [
+        {
+          "text": "Increase the flood level of the three Vault Chamber locations in the bottom row."
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "moving_platform_rule",
+      "type": "rule_reminder",
+      "title": "The Moving Platform and Location Connections",
+      "text": "During this scenario the investigators will need to use the Moving Platform to navigate the Grand Vault."
+    },
+    {
+      "id": "moving_platform_rule_a",
+      "text": "Locations are not connected to one another except via the Moving Platform or their connection icons.",
+      "bullets": [
+        {
+          "text": "The Moving Platform is connected to each location adjacent to it, and vice versa."
+        },
+        {
+          "text": "Adjacent locations share a side (left, right, above, or below)."
+        },
+        {
+          "text": "Locations that share only a corner are not considered adjacent."
+        }
+      ]
+    },
+    {
+      "id": "moving_platform_rule_b",
+      "text": "When instructed to swap the Moving Platform with an adjacent [[Vault]] location, simultaneously move each of those locations (along with all cards and tokens at them) to the space the other one was occupying."
+    },
+    {
+      "id": "activating_rule",
+      "type": "rule_reminder",
+      "title": "Activating and Deactivating Locations",
+      "text": "During this scenario, locations can be \"activated\" or \"deactivated\" through setup instructions or scenario effects. An activated location has no inherent game effect, however certain scenario effects will reference whether a location is activated or not."
+    },
+    {
+      "id": "activating_rule_a",
+      "text": "When you are instructed to \"activate\" a Location, place 1 resource on that Location, which becomes activated.",
+      "bullets": [
+        {
+          "text": "You cannot activate a Location that is already activated."
+        }
+      ],
+      "steps": ["activating_rule_b", "activating_rule_c"]
+    },
+    {
+      "id": "activating_rule_b",
+      "text": "When instructed to \"activate\" a location, place a resource token on that location. That location has been activated.",
+      "bullets": [
+        {
+          "text": "You cannot activate a location that is currently activated."
+        }
+      ]
+    },
+    {
+      "id": "activating_rule_c",
+      "text": "When instructed to \"deactivate\" a location, remove the resource token on that location. That location has been deactivated.",
+      "bullets": [
+        {
+          "text": "You cannot deactivate a location that is not currently activated."
+        }
+      ]
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+
+        "campaign_log": [
+          {
+            "id": "the_creature_was_defeated",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "the_creature_was_defeated",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The creature was defeated.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "the_creature_was_defeated",
+                "text": "the creature was defeated."
+              }
+            ]
+          }
+        ],
+        "branches": [
+          {
+            "id": "chamber_core",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "tdc_vault_core",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "The Vault Core",
+            "style": "interlude",
+            "steps": [
+              "chamber_core_story",
+              "chamber_core_choice",
+              "continue_playing"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "tdc_vault_core",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "glyphs",
+            "text": "Translate a Glyph",
+            "icon": "tablet",
+            "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "options": [{ "boolCondition": true }],
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "glyphs",
+                    "id": "$num_entries"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 26
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            "steps": ["$ask_glyphs"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "continue_playing",
+      "text": "Continue playing."
+    },
+    {
+      "id": "chamber_core_story",
+      "title": "Scenario Interlude: The Vault Core",
+      "type": "story",
+      "text": "The core of the vault houses an elaborate control station. With the surrounding chambers activated, the control station hums with a sickly green energy. Ancient stylized glyphs portray a warped, shifting facsimile of the city. After some scrutiny, you surmise that the station powers each sector of the city; most notably, there is one familiar area that catches your attention: a pair of massive gates in the base of a towering spire. Their design looks curiously like the obsidian gates where you made landfall.\nA small red node blinks underneath it, as if begging you to press it."
+    },
+    {
+      "id": "chamber_core_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "press",
+            "text": "<i>Push the button.</i>",
+            "description": "In your Campaign Log, record <i>the inner sanctum was unsealed</i>.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "the_inner_sanctum_was_unsealed",
+                "text": "the inner sanctum was unsealed."
+              }
+            ]
+          },
+          {
+            "id": "leave",
+            "text": "<i>Leave it alone.</i>",
+            "description": "Each investigator earns 1 bonus experience.",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "cross_out_grand_vault",
+      "text": "Cross out \"The Grand Vault\" on the R'lyeh map.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "the_grand_vault",
+          "text": "The Grand Vault",
+          "cross_out": true
+        }
+      ]
+    },
+
+    {
+      "id": "ask_tidal_tablet",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Tidal Tablet under the control of an investigator when the scenario ended?",
+            "steps": ["earn_tidal_tablet"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_tidal_tablet",
+      "bullet_type": "small",
+      "text": "Check the box next to \"Tidal Tablet\" under \"Artifacts Earned.\"",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_earned",
+          "id": "tidal_tablet",
+          "text": "Tidal Tablet"
+        }
+      ]
+    },
+
+
+    {
+      "id": "check_good_money_task",
+      "text": "If an investigator has the <i>Good Money</i> task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "picked_good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["good_money_story", "good_money_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "good_money_story",
+      "type": "story",
+      "title": "Good Money",
+      "text": "You lie awake in the dark for several hours, mulling over your last conversation in Arkham. Carl Sanford, head of the Silver Twilight Lodge, told you he had a deal for you. A better deal than anything Tillinghast would ever give you. All you have to do is present your findings to hum instead of Randall. If you skim a few extra relics on the side, maybe swipe some notes and photos of the ancient aty, he promised double what Tillinghast would pay, maybe even more You didn't want to get involved in whatever petty feud is unfolding between the two old men. There is certainly risk in playing both sides.\nThat said, you didn't get the impression Sanford thought he was giving you a choice. If you play your cards right, you could collect from both Sanford and Tillinghast and walk away with triple the reward. Whatever you do, you'll need to be resolved to see it through."
+    },
+    {
+      "id": "good_money_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "safe",
+            "text": "<i>Play it safe.</i>",
+            "description": "Erase 1 progress under \"Good Money\" in your Campaign Log. During the next scenario, you begin the game with 3 additional resources.",
+            "steps": ["good_money_safe"]
+          },
+          {
+            "id": "squeeze",
+            "text": "<i>Play both sides for all they're worth.</i>",
+            "description": "Mark 2 progress under \"Good Money\" in your Campaign Log. During the next scenario, you cannot gain resources during the upkeep phase.",
+            "steps": ["good_money_squeeze"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "good_money_safe",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "tdc_good_money_extra_resources",
+                "cards": "$input_value",
+                "masculine_text": "#name# starts with 3 additional resources.",
+                "feminine_text": "#name# starts with 3 additional resources.",
+                "nonbinary_text": "#name# starts with 3 additional resources."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "good_money_squeeze",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "good_money",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              },
+              {
+                "type": "campaign_log_cards",
+                "section": "hidden",
+                "id": "tdc_good_money_no_upkeep",
+                "cards": "$input_value",
+                "masculine_text": "#name# cannot gain resources during the upkeep phase.",
+                "feminine_text": "#name# cannot gain resources during the upkeep phase.",
+                "nonbinary_text": "#name# cannot gain resources during the upkeep phase."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "next_court_of_the_ancients",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "court_of_the_ancients"
+        }
+      ]
+    },
+    {
+      "id": "next_apiary",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_apiary"
+        }
+      ]
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_court_of_the_ancients"]
+
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_apiary"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned during Act 1 or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "You are rescued from the churning water battered and bruised, but thankfully still alive. After returning to the towering precipice where you began, you are pleasantly surprised to find Ruby and Andy chatting over a meal of dry rations. Rather than cut the reunion short, you resolve to make camp. Together,you pass the evening cracking jokes and sharing stories. Before parting ways, Ruby and Andy share their findings and compile a crude map of the ancient city.",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_grand_vault",
+        "ask_tidal_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "The expedition members pass the evening sharing stories and cracking jokes. Even in spite of the city’s dour atmosphere, spirits seem to be high. You share your findings with Ruby and her companions while Andy attempts to make stew. She describes their difficult route to the vault, and advises you take the path up through the ancient court above, instead of the route she took through the silent factories.\n\"I’m pretty sure the factory collapsed behind us, anyway,\" Ruby says. \"If you take the path through the court, I'd recommend you steer clear of those 'pilgrims.' The whole city's crawling with 'em. I saw a whole mob shambling toward the colossal temple overhead. They told me they escaped an underground nest of some kind. Some of 'em seem to have come down with a pretty nasty fever, so I recommend you keep your distance.\"",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_grand_vault",
+        "ask_tidal_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_court_of_the_ancients"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "The expedition members pass the evening sharing stories and cracking jokes. Even in spite of the city's dour atmosphere, spirits seem to be high. While Ruby plays poker with the more impulsive expedition members, you share your findings with Andy. He, in turn, recounts their trek down the sunken western wall and through the ancient foundations of the city.\n\"A rockslide stranded us in some kind of ancient crypt. There were mummified remains of some ghastly creatures—nothing like anything I've ever seen before. Otherwise, it's been pretty uneventful,\" Andy says, handing you a bowl of bland stew. \"Ah, but actually, a few days back, we ran into someone who was deathly sick. They refused to come with us. Said they were some kind of 'pilgrim' and that they came here to worship the god of this ancient city. Something named Cthulhu.\"\nThe name \"Cthulhu\" rings in your ears.You have heard it time and again in your dreams. After the meal, you find yourself speaking it, under your breath, as you fall asleep.",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_grand_vault",
+        "ask_tidal_tablet",
+        "check_good_money_task",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_apiary"
+      ]
+    }
+  ]
+}

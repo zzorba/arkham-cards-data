@@ -2,19 +2,20 @@
   "id": "tdc_epilogue",
   "scenario_name": "Epilogue",
   "full_name": "Epilogue",
+  "icon": "rlyeh",
   "header": "",
   "type": "epilogue",
   "setup": [
-    "check_destroyed_arkham_city"
+    "check_cthulhu_annihilated_the_city_of_arkham"
   ],
   "steps": [
     {
-      "id": "check_destroyed_arkham_city",
+      "id": "check_cthulhu_annihilated_the_city_of_arkham",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "cthulhu_wiped_out_arkham_city",
+        "id": "cthulhu_annihilated_the_city_of_arkham",
         "options": [
           {
             "boolCondition": true,
@@ -22,7 +23,7 @@
           },
           {
             "boolCondition": false,
-            "steps": []
+            "steps": ["check_cthulhu_was_banished_but_arkham_was_destroyed"]
           }
         ]
       }
@@ -30,7 +31,101 @@
     {
       "id": "intro_1",
       "type": "story",
-      "text": ""
+      "text": "<fancy>August 20</fancy>\nIt has been nearly two months since the destruction of Arkham. According to reports, most of the survivors have been committed to a sanatorium upstate. The remainder were bedridden with the infectious coma that has plagued the city for the past month, and have no clue what really happened. The few accounts we do have attribute the destruction to “a massive behemoth” that rampaged the city, destroying everything in its wake. A dozen other cities along the eastern seaboard and the coast of South America have reported similar phenomena. The locals have taken to calling it a silent rampage, though popular opinion holds that it was an exceptionally strong storm.\nThe future is uncertain for Arkham. With few homes and infrastructure to return to, the surviving residents have dispersed to nearby villages in Dunwich, Kingsport, Innsmouth, and Providence. Discussions about whether to salvage what little remains of Miskatonic University are ongoing, but not likely. Arkham is little more than a ghost town.\n<right><fancy>Minnie Klein</fancy></right>"
+    },
+
+
+    {
+      "id": "check_cthulhu_was_banished_but_arkham_was_destroyed",
+      "text": "If <i>Cthulhu was driven away</i> or <i>Cthulhu was banished, but Arkham was destroyed</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cthulhu_was_driven_away",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "cthulhu_was_banished_but_arkham_was_destroyed",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_cthulhu_was_banished"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "<fancy>September 18</fancy>\n<i>To Ruby Standish, ██ Rue ███ no 3, Paris France:</i>\nUnfortunately, I don’t have time to visit at the moment. I still have too much to do in Arkham. The city is limping along as best it can, but it will take time before anything feels “normal” again. If “normal” is even possible after what happened. Nobody seems to remember much about what happened that night. They’re claiming a severe storm system swept through, I guess a few other cities along the coast were hit, too, so everyone latched onto the idea that it was some kind of hurricane.\nThe few of us who do remember it are hesitant to share anything. Arkham Asylum still hasn’t been restored, but there are plenty of sanatoriums nearby. Anyone who mentions what really happened is labeled a victim of the dreaming sickness and committed.\nSomewhere, deep down, I’m sure He will return. The old dreams haven’t stopped. He’s still in there, somewhere deep in my mind, biding his time.\nWhen he does come back, no amount of explosives or firepower will stop him. If he returns, it’ll be for revenge.\nYou were probably wise to leave. I’m sure France is beautiful.\n<right><fancy>Andy Van Nortwick</fancy></right>"
+    },
+
+    {
+      "id": "check_cthulhu_was_banished",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cthulhu_was_banished",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_halted_cthulhus_awakening"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "<fancy>September 18</fancy><i>To Ruby Standish, ██ Rue ███ no 3, Paris France:</i>\nUnfortunately, I don’t have time to visit at the moment. I still have too much to do in Arkham. The city is limping along as best it can, but it will take time before anything feels ‘normal’ again. If ‘normal’ is even possible after what happened. That said, the restoration project has gone surprisingly well. With some backing from New Horizons Industries, shiny new buildings have started to pop up all around town. We’ve even got a new theater! Oh, and you’ll be excited to hear that the Arkham Advertiser has offered me a full time position. I won’t be able to actually work it until the office is rebuilt, but it’s a nice thought, at least.\nBarely anyone seems to remember that night. They claim a “severe storm system” caused the destruction—even after I pointed out the massive footprints in the rubble. I guess a few other cities along the coast were hit, too, so everyone latched onto the idea that it was some kind of hurricane. Any other accounts are dismissed as products of the strange sleeping sickness that swept through town before the attack.\nI wanted to thank you for, well, everything. I’d be dead if it weren’t for you and Randall’s associates. Along with most of Arkham. I’m not sure if He will ever return, but if that ever happens, I know who to call.\n<right><fancy>Andy Van Nortwick</fancy></right>"
+    },
+
+    {
+      "id": "check_halted_cthulhus_awakening",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "halted_cthulhus_awakening",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "<fancy>May 30</fancy>\nIt was a long journey back from R’lyeh. When we returned to Arkham, Tillinghast Esoterica—and presumably Randall himself—had vanished into thin air. Ruby considers all of our debts repaid, although I worry he might be around to collect someday.\nSpring is in full swing in Arkham. The blooming flowers and fresh air are a far cry from the dank halls of the drowned city. No matter how much time passes, I’ll never forget the face of that thing in the depths of the ancient city. Was it the ancient one that caused it to rise? Or the dreams of his thousands of followers? There’s no telling what set those infernal gears into motion, nor when they might rise again.\n<right><fancy>-Your Journal</fancy></right>"
     }
   ]
 }

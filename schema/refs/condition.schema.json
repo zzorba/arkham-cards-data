@@ -1308,6 +1308,38 @@
       ],
       "additionalProperties": false
     },
+
+    "campaignLogTaskCondition": {
+      "title": "CampaignLogTaskCondition",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_task"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "option.schema.json#/definitions/boolOption"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id",
+        "options"
+      ],
+      "additionalProperties": false
+    },
     "campaignLogInvestigatorCountCondition": {
       "title": "CampaignLogInvestigatorCountCondition",
       "type": "object",
@@ -1366,6 +1398,30 @@
       "required": [
         "type",
         "section"
+      ],
+      "additionalProperties": false
+    },
+    "campaignLogTaskOperand": {
+      "title": "CampaignLogTaskOperand",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "campaign_log_task"
+          ]
+        },
+        "section": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "section",
+        "id"
       ],
       "additionalProperties": false
     },
@@ -1451,6 +1507,9 @@
       "oneOf": [
         {
           "$ref": "#/definitions/campaignLogCountOperand"
+        },
+        {
+          "$ref": "#/definitions/campaignLogTaskOperand"
         },
         {
           "$ref": "#/definitions/chaosBagOperand"
@@ -1609,6 +1668,9 @@
         },
         {
           "$ref": "#/definitions/campaignLogInvestigatorCountCondition"
+        },
+        {
+          "$ref": "#/definitions/campaignLogTaskCondition"
         },
         {
           "$ref": "#/definitions/mathCondition"

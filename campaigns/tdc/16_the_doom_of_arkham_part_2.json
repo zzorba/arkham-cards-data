@@ -1,8 +1,11 @@
 {
   "id": "the_doom_of_arkham_part_2",
   "scenario_name": "The Doom of Arkham: Part II",
-  "full_name": "Grand Finale: The Doom of Arkham, Part II",
+  "full_name": "The Doom of Arkham, Part II",
   "header": "Grand Finale",
+  "chaos_bag_card": "11688a",
+  "chaos_bag_card_text": "[skull]: -X. X is Cthulhu's Rage.\n[cultist]: -3. If you fail and your location is flooded, take 1 damage.\n[tablet]: -3. If you fail, place 1 of your clues on your location.\n[elder_thing]: -1. Reveal another token. If you fail, after this test resolves, draw the top card of the Cthulhu deck. (Max one draw per round.)",
+  "chaos_bag_card_back_text": "[skull]: -X. X is 2 more than Cthulhu's Rage.\n[cultist]: -5. If your location is flooded, take 1 damage.\n[tablet]: -5. If you fail, place 1 of your clues on your location.\n[elder_thing]: -3. Reveal another token. If you fail, after this test resolves, draw the top card of the Cthulhu deck. (Max one draw per round.)",
   "setup": [
     "intro",
     "choose_approach",
@@ -19,14 +22,28 @@
     "encounter_deck",
     "cthulhu_board_rule",
     "cthulhu_deck_rule",
-    "fury_of_cthulhu_rule",
+    "cthulhus_rule",
     "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "The Cthulhu Board",
+      "steps": ["cthulhu_board_rule"]
+    },
+    {
+      "title": "The Cthulhu Deck",
+      "steps": ["cthulhu_deck_rule"]
+    },
+    {
+      "title": "Cthulhu's Rage",
+      "steps": ["cthulhus_rule"]
+    }
   ],
   "steps": [
     {
       "id": "intro",
       "type": "story",
-      "text": ""
+      "text": "You and the others watch helplessly as Cthulhu levels the rest of Rivertown. Black water floods the streets and ruins in his wake. \"Randall's behind this. I don't know how or why, but I think he wanted us to wake that thing up!\" says Ruby. Hungry flames begin to lick at the wreckage as ruptured gas lines ignite, illuminating the legions of Cthulhu's spawn as they descend on the city. \"If that's true, then we had better find a way to stop it,\" Andy says. They look to you for direction."
     },
     {
       "id": "choose_approach",
@@ -37,18 +54,18 @@
         "choices": [
           {
             "id": "direct",
-            "text": "We have to stand up to him and take him out with all the firepower we have.",
+            "text": "<i>\"We need to take a last stand and drive him out with sheer firepower.\"</i>",
             "steps": [
               "intro_2",
-              "held_out_together",
+              "stood_together",
               "take_control_friends",
               "add_elder_thing_token"
             ]
           },
           {
             "id": "alternate",
-            "text": "There has to be another way.",
-            "description": "You can only choose this option if there are 5 or more Artifacts marked/annotated and not crossed out under \"Artifacts Obtained\" in the Campaign Log.)",
+            "text": "<i>\"There must be another way.\"</i>",
+            "description": "You may only choose this option if there are 5 or more [[Artifacts]] checked/listed and not crossed off under \"Artifacts Earned\" in your Campaign Log.",
             "condition": {
               "type": "multi",
               "conditions": [
@@ -56,7 +73,7 @@
                   "type": "math",
                   "opA": {
                     "type": "campaign_log_count",
-                    "section": "artifacts_obtained",
+                    "section": "artifacts_earned",
                     "id": "$num_entries"
                   },
                   "opB": {
@@ -94,27 +111,27 @@
     {
       "id": "intro_2",
       "type": "story",
-      "text": ""
+      "text": "\"I like how you think,\" Inspector Legrasse says as he loads his gun with a satisfying click. Together, you form a plan to fend off the ancient menace. Ruby suggests that some of you take to the rooftops, while Legrasse phones in some connections with the Arkham police. If you stand together, you may be able to draw Cthulhu's tre away from Arkham itself. \"This is the worst idea I've ever heard, but I don't think we have any other choice,\" Ruby says. You see a glimmer of something—is it fear?—in her eyesin her eyes. You have no other choice but to fight."
     },
     {
       "id": "intro_3",
       "type": "story",
-      "text": ""
+      "text": "Andy beckons you all into a deserted diner as the waters continue to rise. \"This isn't my field of expertise,\" he says, laying a stack of loose papers on a table. \"But I've been translating the glyphs from R'lyeh, and I think we might be able to stop this with, uhm... well, a ritual.\" Ruby waves Inspector Legrasse's objections aside as Andy outlines a \"ritual of returning\" he discovered in the ancient courts of R'lyeh. By using pieces of the ancient city of R'lyeh, you may be able to seal the ancient one away.\n\"The glyphs I translated seemed to imply that Cthulhu and his, er, children are bound to R'lyeh itself—\" he lays out a map of Arkham. \"If we place these artifacts around the city like so, I can recite the ritual and banish him. However, I'll need you all to draw his attention, keep his eyes on you, while I prepare.\" Andy holds up one of the artifacts you recovered from Randall, turning it over in his hand. It glows with an unnatural light.\n\"I'll head to the Arkham police department,\" says Inspector Legrasse. \"I've got some connections there. We should be able to get some officers out on the streets to help the survivors.\" Ruby, who has been silent since Andy outlined the plan, crosses her arms. \"So you want us to rile up the thing that is literally destroying the city so you can recite some words and hide some relics.\" She takes a puff of her cigarette. \"What could go wrong?\""
     },
     {
-      "id": "held_out_together",
+      "id": "stood_together",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "held_out_together",
-          "text": "the investigators held out together."
+          "id": "stood_together",
+          "text": "the investigators stood together."
         }
       ]
     },
     {
       "id": "take_control_friends",
-      "text": "Search the Expedition and Doom of Arkham encounter sets, all investigator decks, and all in-play and out-of-play zones for the following story props: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Put each of these props into play under the control of any investigator or investigators. None of these props take up a winged space during this scenario."
+      "text": "Search the <i>Expedition</i> and <i>The Doom of Arkham</i> encounter sets, each investigator's deck, and all in- and out-of-play areas for the following story assets: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Put each of these assets into play under the control of any investigator(s). Each of these assets does not take up an ally slot during this scenario."
     },
     {
       "id": "add_elder_thing_token",
@@ -140,35 +157,35 @@
     },
     {
       "id": "gather_friends",
-      "text": "Search the Expedition and Doom of Arkham encounter sets, all investigator decks, and all in-play and out-of-play zones for the following Story Props: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Set them aside, out of play."
+      "text": "Search the <i>Expedition</i> and <i>The Doom of Arkham</i> encounter sets, each investigator's deck, and all in- and out-of-play areas for the following story assets: John Raymond Legrasse, Ruby Standish, and Andy Van Nortwick. Set them aside, out of play."
     },
     {
       "id": "encounter_sets",
       "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
-        "the_doom_of_arkham_part_2", "domination", "primordial_fog", "flood", "star_spawn", "agents_of_cthulhu", "arkham"
+        "the_doom_of_arkham_part_2", "domination", "elder_mist", "tdc_flood", "star_spawn", "agents_of_cthulhu", "arkham"
       ],
-      "subtext": "When collecting the <i>Midnight Masks</i> encounter set, collect only the Location cards. Do not collect any of the other cards from that set."
+      "subtext": "When gathering the <i>Midnight Masks</i> encounter set, only gather the location cards. Do not gather any other cards from this set."
     },
     {
       "id": "setup_locations",
-      "text": "Place all locations into play according to the Locations placement below.",
+      "text": "Put each location into play according to the location placement diagram.",
       "bullets": [
         {
-          "text": "Gather all locations from the Midnight Masks set along with the East Rooftops and West Rooftops. Place one of the two Center Locations and one of the two South Quarter Locations into play, at random, and remove the other versions of those locations from the game. Place the North Quarter, the East Quarter, St. Mary’s Hospital, and Miskatonic University into play."
+          "text": "Gather each location from <i>The Midnight Masks</i> set along with the Eastern Rooftops and Western Rooftops. Put one of the two Downtown locations and one of the two Southside locations into play at random and remove the other versions of those locations from the game. Put Northside, Easttown, St. Mary's Hospital, and Miskatonic University into play."
         },
         {
-          "text": "Place the River Quarter (Ruins) from the Doom of Arkham Part II encounter set. Remove the other version of the River Quarter from the game."
+          "text": "Put Rivertown <i>(Ruined)</i> from <i>The Doom of Arkham Part II</i> encounter set into play. Remove the other version of Rivertown from the game."
         },
         {
-          "text": "Set all other locations aside, out of play."
+          "text": "Set each other location aside, out of play."
         },
         {
-          "text": "Place the single-sided Enemy Cthulhu (Primordial Evil) in the River Quarter."
+          "text": "Place the single-sided Cthulhu <i>(Ancient Evil)</i> enemy at Rivertown."
         },
         {
-          "text": "Each investigator begins the game in the River Quarter."
+          "text": "Each investigator begins play at Rivertown."
         }
       ]
     },
@@ -189,7 +206,7 @@
         [
           "western_rooftops",
           "01129_back",
-          "flooded_district",
+          "rivertown_ruined",
           "eastern_rooftops"
         ],
         [
@@ -205,24 +222,24 @@
           "name": "Western Rooftops"
         },
         {
-          "code": "flooded_district",
-          "name": "Flooded District"
-        },
-        {
           "code": "eastern_rooftops",
           "name": "Eastern Rooftops"
+        },
+        {
+          "code": "rivertown_ruined",
+          "name": "Rivertown (Ruined)"
         }
       ]
     },
     {
       "id": "setup_cthulhu",
-      "text": "Set up the Cthulhu board according to the diagram.",
+      "text": "Assemble the Cthulhu Board according to the diagram.",
       "bullets": [
         {
-          "text": "Take the double-sided die-cut board included in this box and place it on top of the Action and Plan decks, with the Cthulhu side face up."
+          "text": "Find the double-sided punchboard included in this box and place it above the act and agenda decks, Cthulhu side faceup."
         },
         {
-          "text": "Place each copy of the 3 Cthulhu Enemies (Ancient Wings, Fierce Visage, and Grim Claw) on the Cthulhu board, with the non-Enraged side face up, so that they form a complete image of Cthulhu."
+          "text": "Place each copy of the three Cthulhu enemies <i>(Hoary Wings, Fierce Visage, and Wicked Claw)</i> on the Cthulhu Board, non [[Enraged]] side faceup, so that they form a full picture of Cthulhu."
         }
       ]
     },
@@ -262,16 +279,15 @@
     },
     {
       "id": "cthulhu_deck",
-      "text": "Shuffle the 18 Cthulhu cards to form the Cthulhu deck. Place this deck next to the Cthulhu board."
+      "text": "Shuffle the 18 Cthulhu Cards to assemble the Cthulhu deck (See <b>The Cthulhu Deck</b> below). Place this deck next to Cthulhu Board."
     },
     {
       "id": "check_act_deck",
-      "text": "Check the campaign log. If the investigators stood together:",
       "type": "branch",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "held_out_together",
+        "id": "stood_together",
         "options": [
           {
             "boolCondition": true,
@@ -304,69 +320,77 @@
     {
       "id": "act_fight",
       "bullet_type": "small",
-      "text": "create the Plan deck using the plan - \"The Doom of Arkham\" and the Act deck using the act - \"Let's Fight!\". Remove all other acts and plans from the game."
+      "text": "Build the agenda deck using agenda 1a—\"The Doom of Arkham\" and the act deck using act 1a—\"Fight Back!\" Remove each other act and agenda from the game."
     },
     {
       "id": "act_plan",
       "bullet_type": "small",
-      "text": "Create the Plan deck using the plan \"The Doom of Arkham\" and the Act deck using the act - \"Let's Banish Him!\". Set aside, out of the game, the special plan - \"The Last Seal.\" Remove all other acts and plans from the game."
+      "text": "Build the agenda deck using agenda 1a-\"The Doom of Arkham\" and the act deck using act 1a-\"Banish Him!\" Set special agenda — \"The Final Seal\" aside, out of play. Remove each other act and agenda from the game."
     },
     {
       "id": "distribute_artifacts",
       "text": "Check the campaign log.",
       "bullets": [
         {
-          "text": "Gather all the artifacts you have obtained that are not marked off under \"Artifacts Obtained.\" Put each of them into play under the control of an investigator, spread out as evenly as possible."
+          "text": "Gather all earned artifacts that are not crossed out under \"Artifacts Earned.\" Put each of them into play under an investigator's control, divided as evenly as possible."
         },
         {
-          "text": "Add the Flood tokens to the token pool and increase the flood level of each Location listed under \"Flooded Districts.\""
+          "text": "Add the flood tokens to the token pool and increase the flood level of each location listed under \"Flooded Neighborhoods.\""
         }
       ]
     },
     {
       "id": "set_aside_star_spawn",
-      "text": "Set the Starseed encounter set aside, outside of the game."
+      "text": "Set the <i>Star Spawn</i> encounter set aside, out of play."
     },
     {
       "id": "setup_rage",
-      "text": "Place 1 resource on the scenario reference card under \"Rage of Cthulhu\" (see Rage of Cthulhu, right). If there are only 1 or 2 players, place 1 additional resource on the scenario reference card."
+      "text": "Place 1 resource on the scenario reference card, under \"Cthulhu's Rage\" (See <b>Cthulhu's Rage</b> below). If there are only 1 or 2 players, place 1 additional resource on the scenario reference card."
     },
     {
       "id": "encounter_deck",
-      "text": "Shuffle the remainder of the encounter cards (from the previously gathered encounter sets) to form the encounter deck."
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "text": "The fate of Arkham rests in your hands. You are now ready to begin.",
+      "input": {
+        "type": "play_scenario"
+      }
     },
     {
       "id": "cthulhu_board_rule",
       "type": "rule_reminder",
       "title": "The Cthulhu Board",
-      "text": "Cthulhu is represented on the map as a single Enemy, but is composed of multiple Enemy cards on the Cthulhu board. Investigators engaged with Cthulhu (Primordial Evil) are also engaged with each card on the Cthulhu board, as if they were a single Enemy. When interacting with Cthulhu (through combat, avoiding, etc.), choose one of the double-sided Enemy cards on the Cthulhu board to interact with.\nCthulhu attacks each investigator in place during the Enemy Phase using the combined damage and horror values ​​of all Cthulhu Enemies on the Cthulhu board. This attack is made in addition to any other attacks and/or effects triggered by the Cthulhu deck (see below).\nIf a card on the Cthulhu board would attack via a keyword or other effect while combating or avoiding, only that card attacks Card effects that deal damage to multiple enemies at a location can deal damage to each individual enemy on the Cthulhu board."
+      "text": "Cthulhu is represented on the map as a single enemy, but is made up of multiple enemy cards on the Cthulhu Board. Investigators that are engaged with Cthulhu <i>(Ancient Evil)</i> are also engaged with each card on the Cthulhu Board, as a single enemy. When interacting with Cthulhu <i>(via fighting, evading, etc.)</i>, choose one of the double-sided enemy cards on the Cthulhu Board to interact with.\nCthulhu attacks each investigator at his location during the enemy phase using the combined damage and horror values of each [[Cthulhu]] enemy on the Cthulhu Board. This attack is performed in addition to any other attacks and/or effects prompted by the Cthulhu Deck <i>(see below)</i>. If a card on the Cthulhu Board would attack via a keyword or other effect while fighting or evading, only that card attacks.\nCard effects that deal damage to multiple enemies at a location may deal damage to each individual enemy card on the Cthulhu Board."
     },
     {
       "id": "cthulhu_deck_rule",
       "type": "rule_reminder",
       "title": "The Cthulhu Deck",
-      "text": "During setup for this scenario, a second deck with a different card back is created: the Cthulhu deck. This deck is a separate deck made up of only \"Action\" cards. <b>The Cthulhu deck is not an encounter deck, and Action cards are not Betrayals.</b>\nAfter moving and attacking normally during the Enemies phase, Cthulhu takes additional actions using Action cards from the Cthulhu deck. At the end of the Enemies phase, the plan's Forced effect causes investigators to draw the top card from the Cthulhu deck. As you draw cards from the Cthulhu deck, resolve each effect one at a time, top to bottom. After resolving an Action card, it is discarded into the Cthulhu discard pile. If the Cthulhu deck is empty, immediately shuffle the Cthulhu discard pile back into the Cthulhu deck."
+      "text": "During the setup of this scenario, a second deck with a different card back is constructed: the Cthulhu deck. This deck is a separate deck made up ofonly \"action\" cards. <b>The Cthulhu deck is not an encounter deck and action cards are not treacheries.</b>\nAfter moving and attacking as normal during the enemy phase, Cthulhu performs additional actions via action cards from the Cthulhu deck. At the end of the enemy phase, the agenda's forced effect prompts investigators to draw the top card of the Cthulhu deck. When drawing cards from the Cthulhu deck, resolve each effect, one at a time, from top to bottom. After resolving an action card, it is discarded to the Cthulhu discard pile. If the Cthulhu deck is empty, immediately shuffle the Cthulhu discard pile back into the Cthulhu deck."
     },
     {
-      "id": "fury_of_cthulhu_rule",
+      "id": "cthulhus_rule",
       "type": "rule_reminder",
-      "title": "The Fury of Cthulhu",
-      "text": "Throughout this scenario, the amount of resources on the \"Rage of Cthulhu\" scenario reference card indicates Cthulhu's rage against the investigators. The greater Cthulhu's rage, the more dangerous and deadly the awakened sleeper becomes. Cthulhu's rage has no game effect of its own; however, some encounter card effects may change or become stronger based on the current level of Cthulhu's rage."
+      "title": "Cthulhu's Rage",
+      "text": "Throughout this scenario, the number of resources under \"Cthulhu's Rage\" on the scenario reference card indicate Cthulhu's anger toward the investigators. The higher Cthulhu's Rage, the more dangerous and deadly the awakened sleeper becomes. Cthulhu's Rage has no inherent game effect on its own; however, some encounter card effects may change or become stronger depending on the current level of Cthulhu's Rage."
     },
     {
-      "id": "cthulhu_wiped_out_arkham_city",
+      "id": "cthulhu_annihilated_the_city_of_arkham",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "cthulhu_wiped_out_arkham_city",
-          "text": "Cthulhu wiped out Arkham City."
+          "id": "cthulhu_annihilated_the_city_of_arkham",
+          "text": "Cthulhu annihilated the city of Arkham."
         }
       ]
     },
     {
       "id": "all_killed",
-      "text": "The investigators are <b>killed</b> along with all the other inhabitants of Arkham.",
+      "text": "The investigators, along with everyone else in Arkham, are <b>killed.</b>",
       "effects": [
         {
           "type": "trauma",
@@ -389,7 +413,7 @@
     },
     {
       "id": "lose_campaign",
-      "hidden": true,
+      "text": "The investigators lose the campaign.",
       "effects": [
         {
           "type": "campaign_data",
@@ -400,19 +424,19 @@
     },
 
     {
-      "id": "drove_cthulhu_away",
+      "id": "cthulhu_was_driven_away",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "drove_cthulhu_away",
-          "text": "the investigators drove Cthulhu away."
+          "id": "cthulhu_was_driven_away",
+          "text": "Cthulhu was driven away."
         }
       ]
     },
     {
       "id": "trauma_3",
-      "text": "Each investigator suffers 3 physical traumas and 3 mental traumas from their fight with Cthulhu.",
+      "text": "Each investigator suffers 3 physical trauma and 3 mental trauma from their battle with Cthulhu.",
       "effects": [
         {
           "type": "trauma",
@@ -445,7 +469,7 @@
       "input": {
         "type": "counter",
         "text": "Victory display:",
-        "confirm_text": "Each investigator gains 5 additional experience points for dispelling an ancient evil.",
+        "confirm_text": "Each investigator earns 5 bonus experience for dispelling an ancient evil.",
         "effects": [
           {
             "type": "earn_xp",
@@ -457,7 +481,7 @@
     },
     {
       "id": "win_campaign_maybe",
-      "text": "The investigators win the campaign! But how long will it be until Cthulhu's inevitable return?",
+      "text": "The investigators win the campaign! But how long will it be before Cthulhu’s eventual return?",
       "effects": [
         {
           "type": "campaign_data",
@@ -479,19 +503,30 @@
       ]
     },
     {
-      "id": "banished_cthulhu",
+      "id": "win_campaign_in_ruins",
+      "text": "The investigators win the campaign, although Arkham is completely in ruins.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "cthulhu_was_banished",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "banished_cthulhu",
-          "text": "the investigators banished Cthulhu."
+          "id": "cthulhu_was_banished",
+          "text": "Cthulhu was banished."
         }
       ]
     },
     {
       "id": "trauma_1",
-      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma from their fight with Cthulhu.",
+      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma from their battle with Cthulhu.",
       "effects": [
         {
           "type": "trauma",
@@ -504,24 +539,22 @@
     },
     {
       "id": "remove_weakness",
-      "text": "Each investigator may remove 1 random Basic Weakness from their deck (ignoring deck-building requirements) for saving Arkham from an ancient evil."
+      "text": "Each investigator may remove 1 random basic weakness from their deck (ignoring deckbuilding requirements) for saving Arkham from an ancient evil."
     },
     {
-      "id": "found_cthulhu_but_failed",
-
+      "id": "cthulhu_was_banished_but_arkham_was_destroyed",
       "effects": [
         {
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "found_cthulhu_but_failed",
-          "text": "the investigators found Cthulhu, but Arkham was destroyed."
+          "id": "cthulhu_was_banished_but_arkham_was_destroyed",
+          "text": "Cthulhu was banished, but Arkham was destroyed."
         }
       ]
     },
-
     {
       "id": "trauma_2",
-      "text": "Each investigator suffers 2 physical trauma and 2 mental trauma from their fight with Cthulhu.",
+      "text": "Each investigator suffers 2 physical trauma and 2 mental trauma from their battle with Cthulhu.",
       "effects": [
         {
           "type": "trauma",
@@ -531,6 +564,13 @@
           "hidden": true
         }
       ]
+    },
+    {
+      "id": "$upgrade_decks",
+      "type": "input",
+      "input": {
+        "type": "upgrade_decks"
+      }
     }
   ],
   "resolutions": [
@@ -544,9 +584,9 @@
         "physical",
         "mental"
       ],
-      "text": "",
+      "text": "You struggle to rise as the ground rocks with another tremor. Mighty Cthulhu looks down on you with five dispassionate red eyes. You’ve dreamed this moment before. His hulking form blots out the stars above, shimmering with an otherworldly radiance. His rotten breath washes over you, stirring the water. For a moment, the clamor fades away as you meet the ancient one’s gaze. You feel him in your mind. There is no anger or rage, only cold indifference.\nThis is no reckoning, no judgment, no destruction. You and your kind are nothing more than an annoyance. The thick, squamous tentacles sprouting from Cthulhu’s face snake across the water, searching for you, for the things you and your kind took from him. You are powerless to resist. Why should you? Your fate and the fate of all your pathetic kind was written in the stars. Doom has come to Arkham.",
       "steps": [
-        "cthulhu_wiped_out_arkham_city",
+        "cthulhu_annihilated_the_city_of_arkham",
         "all_killed",
         "setup_epilogue",
         "lose_campaign"
@@ -555,23 +595,22 @@
     {
       "id": "R1",
       "title": "Resolution 1",
-      "text": "",
+      "text": "After hours of struggle, you stand before mighty Cthulhu, who looks down on you with five dispassionate red eyes. You’ve dreamed this moment before. His hulking form blots out the stars above, shimmering with an otherworldly radiance. His rotten breath washes over you, stirring the water. For a moment, the clamor fades away as you meet the ancient one’s gaze. You feel him in your mind. There is no anger or rage, only cold indifference.\nA shot rings out, followed by a dozen more. Behind you, from the nearby rooftops, and elsewhere in the vicinity, a volley of firearms and explosives pelt the ancient one’s sagging, fetid flesh. Inspector Legrasse shouts to his fellow officers, goading them to not let up. Great Cthulhu moans in pain as the sheer firepower chews through his armored flesh, flooding the streets with oily black blood. At long last, the tide seems to have turned in your favor. Cowed by the relentless assault, the ancient one turns back to the Miskatonic and lurches into the water, followed by a cadre of monstrous creatures.\nYou can feel the others hold their breath, waiting for some reprisal, but nothing comes. Then, a cheer breaks the silence, followed by dozens more. Arkham is safe… for now.",
       "steps": [
-        "drove_cthulhu_away",
+        "cthulhu_was_driven_away",
         "trauma_3",
         "earn_xp",
         "$upgrade_decks",
         "setup_epilogue",
         "win_campaign_maybe"
-
       ]
     },
     {
       "id": "R2",
       "title": "Resolution 2",
-      "text": "",
+      "text": "Just as Cthulhu prepares to strike, the sigils on his body grow blindingly bright, and his limbs suddenly stiffen. Andy steps boldly out onto the street, stumbling through two more guttural stanzas. You and Ruby join him in reciting the chants as the ritual takes form. The ancient one roars again and falls prone, as if bound by invisible cords. A corona of eerie green and golden light cuts through the clouds, then peels back to reveal the night sky above. Nestled in the heart of an emerald and gold nebula is a bright, shining star.\nThe starlight intensifies. Before your eyes, the ancient one’s body twists and bends like a broken reflection. For just a moment, you see the spires of R’lyeh shimmering within the broken skyline of Arkham, looking both alien and familiar at once. With a final roar, Cthulhu disappears into the aether.\nThe corona of distant stars shrinks, then collapses with a thunderclap. In its wake is a dreadful silence.\nYou, Ruby, and Andy climb up to the roof of a nearby building and sit on the edge looking out at the ruined city. Rivertown and much of the Merchant District are entirely underwater, but most of Arkham remains intact. The three of you stare at the apocalyptics landscape as the storm clouds dissipate, bathing the city in pale moonlight. A lone siren blares across the swollen banks of the Miskatonic River. Andy stands up and extends a hand to you.\n“There’s no time to rest. The people of Arkham still need us, more than ever.”",
       "steps": [
-        "banished_cthulhu",
+        "cthulhu_was_banished",
         "trauma_1",
         "earn_xp",
         "remove_weakness",
@@ -583,14 +622,14 @@
     {
       "id": "R3",
       "title": "Resolution 3",
-      "text": "",
+      "text": "Just as Cthulhu prepares to strike, the sigils on his body grow blindingly bright, and his limbs suddenly stiffen. Andy steps boldly out onto the street, stumbling through two more guttural stanzas. You and Ruby join him in reciting the chants as the ritual takes form. The ancient one roars again and falls prone, as if bound by invisible cords. A corona of eerie green and golden light cuts through the clouds, then peels back to reveal the night sky above. Nestled in the heart of an emerald and gold nebula is a bright shining star.\nThe starlight intensifies. Before your eyes, the ancient one’s body twists and bends like a broken reflection. For just a moment, you see the spires of R’lyeh shimmering within the broken skyline of Arkham, looking both alien and familiar at once. With a final roar, Cthulhu disappears into the aether.\nThe corona of distant stars shrinks, then collapses with a thunderclap. In its wake is a dreadful silence.\nYou, Ruby, and Andy climb up to the roof of a nearby building and sit on the edge looking out at the ruined city. The city of Arkham is a portrait of ruin. Rivertown is entirely underwater. Independence Square and the town hall are little more than rubble, and little remains of the city’s other neighbourhoods. You can only imagine the death toll. The three of you stare in stricken silence as the storm clouds dissipate, bathing the city in pale moonlight. You look to Ruby and see her in tears.\n“I didn’t think I have a damn for this city, but here I am, crying like a baby,” she sobs. “What else could we have done?”",
       "steps": [
-        "found_cthulhu_but_failed",
+        "cthulhu_was_banished_but_arkham_was_destroyed",
         "trauma_2",
         "earn_xp_plus_5",
         "$upgrade_decks",
         "setup_epilogue",
-        "win_campaign"
+        "win_campaign_in_ruins"
       ]
     }
   ]
