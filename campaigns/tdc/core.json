@@ -25,7 +25,11 @@
     "$upgrade_decks",
     "$upgrade_decks_with_progress",
     "$upgrade_decks_no_progress",
-    "$ask_glyphs"
+    "$ask_glyphs",
+    "$western_wall_locations_rule",
+    "$ww_locations_rule_v1",
+    "$ww_locations_rule_v2",
+    "$no_inescapable_encounter_set"
   ],
   "steps": [
     {
@@ -1155,6 +1159,62 @@
     {
       "id": "$tasks_rule_5",
       "text": "Completing Task objectives will earn experience and /or rewards later in the campaign. The more times an investigator completes their Task, the better. For a more positive outcome, do not ignore your Task!"
+    },
+    {
+      "id": "$western_wall_locations_rule",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$ww_locations_rule_v1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["$ww_locations_rule_v2"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "$ww_locations_rule_v1",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Western Wall",
+      "text": "During this scenario, locations are arranged in a set pattern of 5 levels.",
+      "bullets": [
+        {
+          "text": "The position of each location has its own level from 1-5, beginning at Western Wall at level 1 and descending to the bottommost locations at level 5."
+        },
+        {
+          "text": "Any card effects that refer to a location's level refer to its numbered row, as shown in the location placement diagram."
+        },
+        {
+          "text": "<b>During this scenario, each location is connected to each location in the row above it and the row below it. Locations in the same row are not connected to one another.</b>"
+        }
+      ]
+    },
+    {
+      "id": "$ww_locations_rule_v2",
+      "type": "rule_reminder",
+      "title": "Location Adjacency in The Western Wall",
+      "text": "During this scenario, locations are arranged in a set pattern of 5 levels.",
+      "bullets": [
+        {
+          "text": "The position of each location has its own level from 1-5, beginning at Obsidian Foundations at level 1 and ascending to the topmost locations at level 5."
+        },
+        {
+          "text": "Any card effects that refer to a location's level refer to its numbered row, as shown in the location placement diagram."
+        },
+        {
+          "text": "<b>During this scenario, each location is connected to each location in the row above it and the row below it. Locations in the same row are not connected to one another.</b>"
+        }
+      ]
     }
   ]
 }
