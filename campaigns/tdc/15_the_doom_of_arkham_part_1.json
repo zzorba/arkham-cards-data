@@ -504,31 +504,139 @@
         "choices": [
           {
             "id": "downtown",
-            "text": "Downtown"
+            "text": "Downtown",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "downtown",
+                "text": "Downtown"
+              }
+            ]
           },
           {
             "id": "easttown",
-            "text": "Easttown"
+            "text": "Easttown",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "easttown",
+                "text": "Easttown"
+              }
+            ]
           },
           {
             "id": "university",
-            "text": "Miskatonic University"
+            "text": "Miskatonic University",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "miskatonic_university",
+                "text": "Miskatonic University"
+              }
+            ]
           },
           {
             "id": "northside",
-            "text": "Northside"
+            "text": "Northside",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "northside",
+                "text": "Northside"
+              }
+            ]
           },
           {
             "id": "rivertown",
-            "text": "Rivertown"
+            "text": "Rivertown",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "rivertown",
+                "text": "Rivertown"
+              }
+            ]
           },
           {
             "id": "southside",
-            "text": "Southside"
+            "text": "Southside",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "southside",
+                "text": "Southside"
+              }
+            ]
           },
           {
             "id": "st_mary",
-            "text": "St. Mary's Hospital"
+            "text": "St. Mary's Hospital",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "flooded_neighborhoods",
+                "id": "st_marys_hospital",
+                "text": "St. Mary's Hospital"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_version",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "version",
+        "min_version": 2,
+        "options": [
+          { 
+            "boolCondition": false,
+            "steps": ["earn_xp"]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["earn_xp_branch"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "campaign_log_count",
+          "section": "artifacts_earned",
+          "id": "$num_entries"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 5
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": -1,
+            "steps": ["earn_xp_bonus"]
+          },
+          {
+            "numCondition": 0,
+            "steps": ["earn_xp"]
+          },
+          {
+            "numCondition": 1,
+            "steps": ["earn_xp"]
           }
         ]
       }
@@ -549,6 +657,22 @@
       }
     },
     {
+      "id": "earn_xp_bonus",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. (The bonus experience granted by the act will be included automatically.)",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 1
+          }
+        ]
+      }
+    },
+    {
       "id": "ask_continue",
       "type": "input",
       "input": {
@@ -562,7 +686,7 @@
           },
           {
             "id": "pause",
-            "text": "<i>\"We need more time.\"",
+            "text": "<i>\"We need more time.\"</i>",
             "description": "You wish to take a break and proceed the next time you play.",
             "steps": ["resolution_3"]
           }
@@ -623,7 +747,7 @@
         "maybe_cross_out_mask",
         "explain_flooded_locations",
         "ask_flooded_locations",
-        "earn_xp",
+        "earn_xp_version",
         "$upgrade_decks",
         "ask_continue"
       ]
