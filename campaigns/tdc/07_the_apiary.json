@@ -68,10 +68,11 @@
               "east_story",
               "add_tablet", "check_walk_in_faith",
               "$check_good_money_setup",
-              "setup_v2", "setup_location", "act_deck_v2",
+              "setup_v2", 
+              "maybe_gather_inescapable",
+              "setup_location", "act_deck_v2",
               "remove_maria", "set_aside_v2",
               "$choose_artifacts_or_support",
-              "$check_killed_creature",
               "encounter_deck_v2"
             ]
           }
@@ -295,6 +296,35 @@
     {
       "id": "set_aside_v2",
       "text": "Set each of the following aside, out of play: each [[Apiary]] location, the Grotesque Amalgam, Mother, and double-sided Squamous Parasite [tdc_rune_t] enemies, the Grisly \"Mask\" and Ancient Relic [tdc_rune_s] story assets, and each copy of the Parasitic Transformation weakness."
+    },
+    {
+      "id": "maybe_gather_inescapable",
+      "text": "Check the campaign log. If <i>the creature was defeated:</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_was_defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$no_inescapable_encounter_set"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gather_inescapable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_inescapable",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [ "the_inescapable"],
+      "text": "Also gather <i>The Inescapable</i> encounter set, and set it aside, out of play."
     },
     {
       "id": "encounter_deck_v1",
