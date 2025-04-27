@@ -9,6 +9,7 @@
   "setup": [
     "check_direction",
     "check_west",
+    "check_no_place_like_home_errata",
     "$play_scenario"
   ],
   "rules": [
@@ -18,6 +19,29 @@
     }
   ],
   "steps": [
+    {
+      "id": "check_no_place_like_home_errata",
+      "hidden": true,
+      "type": "branch",
+
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "picked_no_place_like_home",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "no_place_like_home_errata"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_place_like_home_errata",
+      "text": "Errata: During this scenario, putting locations into play counts as meeting the 'reveal' reaction condition on the No Place Like Home task card."
+    },
     {
       "id": "check_direction",
       "text": "Check campaign log."
