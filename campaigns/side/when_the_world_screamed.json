@@ -1,15 +1,35 @@
 {
   "id": "when_the_world_screamed",
-  "scenario_name": "The Midwinter Gala",
-  "full_name": "The Midwinter Gala",
+  "scenario_name": "When the World Screamed",
+  "full_name": "When the World Screamed",
   "header": "",
   "xp_cost": 2,
   "chaos_bag_card": "TBD",
   "side_scenario_type": "side_story",
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2021/10/01/the-fall-of-the-house-of-usher/"
+    }
+  },
   "standalone_setup": [
     "choose_difficulty",
     "ask_epic_multiplayer",
-
+    "intro_1",
+    "check_reporters",
+    "intro_2",
+    "gather_encounter_sets",
+    "check_epic_multiplayer",
+    "create_complication_deck",
+    "setup_complications_arise",
+    "setup_control_platform",
+    "setup_mechanism_locations",
+    "check_epic_strata",
+    "setup_dyer",
+    "set_aside_cards",
+    "starting_depth",
+    "encounter_deck",
+    "$play_scenario"
   ],
   "setup": [
     "xp_cost",
@@ -22,7 +42,7 @@
     "setup_complications_arise",
     "setup_control_platform",
     "setup_mechanism_locations",
-    "setup_strata_deck",
+    "check_epic_strata",
     "setup_dyer",
     "set_aside_cards",
     "starting_depth",
@@ -146,6 +166,28 @@
       }
     },
     {
+      "id": "ask_epic_multiplayer",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are you playing in Epic Multiplayer?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wtws_epic_multiplayer",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+
+    },
+    {
       "id": "xp_cost",
       "effects": [
         {
@@ -157,472 +199,231 @@
       ]
     },
     {
-      "id": "prelude",
-      "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.prelude",
-        "name": "Prelude",
-        "lang": ["es"]
-      },
-      "text": "\"It was the Yuletide, that men call Christmas though they know in their hearts it is older than Bethlehem and Babylon, older than Memphis and mankind. It was the Yuletide, and I had come at last to the ancient sea town where my people had dwelt and kept festival in the elder time when festival was forbidden; where also they had commanded their sons to keep festival once every century, that the memory of primal secrets might not be forgotten.\"\n - H.P. Lovecraft, <i>\"The Festival\"</i>"
-    },
-    {
       "id": "intro_1",
       "type": "story",
-      "text": ""
+      "text": "You were told to be punctual, no matter the cost. And so there you stand outside the London house of Professor George Challenger at ten o'clock sharp. The man had an enormous reputation in all things, from his intellect and physical stature to his ego and temper. Anything you could do to get on his good side and stay there was paramount.\nThese urgings came to you from William Dyer, the head of Miskatonic University's geology department. Many — including Dyer himself — were surprised when Challenger sent him an offer to be involved in a project of the utmost secrecy. The surprises continued when, several months later, Dyer contacted you with an urgent call for assistance.\nThe door opens punctually and a stone-faced butler ushers you inside to Challenger's study. The room is littered with trophies and milestones of the professor's scientific triumphs, but none of them are as imposing as the man himself. Even seated behind his desk, his size and gravitas are plain to see without a word on his part. Despite his luxuries, the man resembles a caveman, broad with a bushy black beard. Challenger writes forcefully and deliberately without a change of pace as you enter.\n\"Speak or depart. My time is valuable,\" he growls without sparing you a glance. You give a brief explanation, and only when Dyer is mentioned does Challenger finally pause. \"At last then, progress can be made.\" He stands suddenly and strides around, like a bear suddenly roused to action. \n\"You are completely unaware of the nature of this venture, I trust. If you are otherwise, then Dyer will have violated the explicit instructions given to him.\" You confirm that you were told nothing, and only the newspapers gave you any hint of the project's nature and scope. The very mention of the press triggers a wrinkling of Challenger's brow. \"The hyenas of the press have been eagerly following the lion since my experiment began.\""
     },
     {
       "id": "check_reporters",
-
-    },
-    {
-      "id": "tread_lightly",
-
-    },
-    {
-      "id": "intro_2",
-      "type": "story",
-      "text": ""
-    },
-
-    {
-      "id": "explain_faction",
-      "bullet_type": "none",
-      "text": "Who is your mysterious contact?<i>(Hint: The faction you choose will determine your objectives in this scenario.)</i>"
-    },
-    {
-      "id": "choose_faction",
-      "text": "The investigators must choose which faction requested their assistance.",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "foundation",
-            "text": "The Foundation ([guardian])",
-            "description": "A severe woman in a well-tailored suit leans against the wall with her arms crossed. She looks like she'd rather be in a shootout than at this elaborate party.",
-            "steps": ["foundation_story"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_chosen_faction",
-                "operation": "set",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "id": "university",
-            "text": "Miskatonic University ([seeker])",
-            "description": "An astute professorial type strokes his goatee as he studies a painting. You recognize him as Caldwell Phillips, the dean of Miskatonic University.",
-            "steps": ["university_story"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_chosen_faction",
-                "operation": "set",
-                "value": 1
-              }
-            ]
-          },
-          {
-            "id": "syndicate",
-            "text": "The Syndicate ([rogue])",
-            "description": "A slick-looking man with dark hair taps ash from his cigar into a hapless guest's champagne flute. His darting eyes suggest he's casing the joint.",
-            "steps": ["syndicate_story"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_chosen_faction",
-                "operation": "set",
-                "value": 2
-              }
-            ]
-          },
-          {
-            "id": "lodge",
-            "text": "The Silver Twilight Lodge ([mystic])",
-            "description": "You catch the gleam of a signet ring in the corner of your eye. Turning, you see the prestigious leader of the Silver Twilight Lodge, Carl Sanford, conversing with a pair of masked guests.",
-            "steps": ["lodge_story"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_chosen_faction",
-                "operation": "set",
-                "value": 3
-              }
-            ]
-          },
-          {
-            "id": "locals",
-            "text": "Locals of Kingsport ([survivor])",
-            "description": "A tall, stout man with a long black beard and a weatherbeaten coat looks clearly out of place at this extravagant gala. You recognize him from The Rope and Anchor tavern in Kingsport.",
-            "steps": ["locals_story"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_chosen_faction",
-                "operation": "set",
-                "value": 4
-              }
-            ]
+      "type": "branch",
+      "text": "If an investigator has the [[Reporter]] trait:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          { 
+            "condition": "Reporter",
+            "steps": ["tread_carefully"]
           }
         ]
       }
     },
     {
-      "id": "foundation_story",
+      "id": "tread_carefully",
       "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.faction_intro.foundation",
-        "name": "The Foundation",
-        "lang": ["es"]
-      },
-      "text": "\"Ah, you came,\" the woman says in a light Russian accent. \"I am agent Valeriya Antonova. I am here on behalf of the authorities.\" When you ask which authorities, she simply nods. \"Yes. The authorities.\" She explains that she and her \"authorities\" are investigating strange disappearances in the area and abroad, and they suspect the Lantern Club and Declan Pearce are to be blamed. The agent seems to loosen up as she knocks back a flute of champagne. \"We also believe this Jewel may be the source of some highly unusual paracausal phenomena. Be prepared for anything.\""
+      "text": "Challenger's eyes narrow and you expect a sneer behind his thick beard. \"While it is not impossible for a journalist to have some scruples, it is also against the scavenging nature of your profession. Once this experiment is concluded, you will adhere to the absolute truth and scientific fact of this venture without sensationalism, or you will find me to be the most dangerous element of this experiment.\"\nYou agree for both honesty and self-preservation."
     },
     {
-      "id": "university_story",
+      "id": "intro_2",
       "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.faction_intro.miskatonic",
-        "name": "Miskatonic University",
-        "lang": ["es"]
-      },
-      "text": "You approach Dean Phillips and introduce yourself. The painting he was examining is erily lifelike, depicting a humanoid creature covered in fur, with multiple arms, each with a clawed talon. \"Quite imaginative, these Lantern Club folks,\" he laughs. \"I see you received my missive. Thank you for coming, I must admit, the university is more than a little curious to study this ancient gem. The Jewel was rumored to have been housed in a Tibetan monastery until it vanished in the twelfth century. I simply couldn't pass up the opportunity!\" he exclaims. \"Of course, if there were some way to examine the Jewel more thoroughly...\""
-    },
-    {
-      "id": "syndicate_story",
-      "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.faction_intro.syndicate",
-        "name": "The Syndicate",
-        "lang": ["es"]
-      },
-      "text": "The man raises his glass in a mock toast as you approach. \"Johnny Valone. Glad you could make it to this mutually beneficial business arrangement.\" The man finishes his drink and casually hands the empty glass to a nearby socialite, who looks equal parts confused and offended. Valone is seemingly deaf to their protest as he leads you to a deserted study. \"Your reputation precedes you. Or rather, it doesn't precede you. Nobody'll suspect your involvement, which is why I've asked for your help in procuring this Jewel of Something-Or-Another. Its a big score. I can promise you we'll make it worth your while.\""
-    },
-    {
-      "id": "lodge_story",
-      "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.faction_intro.lodge",
-        "name": "The Silver Twilight Lodge",
-        "lang": ["es"]
-      },
-      "text": "Carl Sanford makes no introduction as you approach. \"Very good,\" he says matter-of-factly, then waves his masked guests away. \"As I am sure you are aware, rumors of the Jewel of Sarnath are quite prevalent amongst the occult circles of Arkham. Given the Jewel's... colorful history, it would make quite the addition to the Lodge's collection.\" The patriarch stares down his nose at you \"Although I suspect that there is far more at play here than meets the eye. That is why I have asked you here. Acquire the Jewel for the Lodge, and you shall be rewarded with knowledge and riches beyond your wildest dreams.\" You ask him why the Lodge deserves the Jewel more than any other, and he smirks. \"We will keep it safe. Far safer than it would be in the hands of others. You cannot even begin to comprehend its power.\""
-    },
-    {
-      "id": "locals_story",
-      "type": "story",
-      "narration": {
-        "id": "the_midwinter_gala.faction_intro.locals",
-        "name": "The Locals",
-        "lang": ["es"]
-      },
-      "text": "\"The name's Bain. William Bain,\" the stalwart man shakes your hand with a firm grip. \"I'm glad you came to this fancy little party. Truth be told, I'm not really a local; I just happen to have a soft spot for this old port.\" The man deftly avoids your questions about his origins before pointing at the silent masked figure in the corner of the room. \"He is the reason I invited you here. They call him 'The Bloodless Man. Whatever the Lantern Club has planned for this evening is certainly his design.\" The captain sighs. \"No good can come of that strange Jewel. Only ruin. At least, so long as the Lantern Club has it.\" After further discussion, you agree to help Bain recover the Jewel."
+      "text": "Challenger's shoulders relax slightly and he circles back around his desk. \"Dyer has vouched for your integrity, and he has proven to be adequate for a specialist, so I will not belabor the point. Once you have sworn to complete secrecy, we may proceed to the business at hand.\" The scientist stands behind his desk staring intently until you do swear it.\n\"The experiment, simply put, is to penetrate the Earth's crust to prove or disprove a simple hypothesis: that the planet is itself one enormous living organism.\" You nearly question the man's sanity aloud, but manage to ask him for an explanation instead. Challenger opens a desk drawer and produces a sea urchin. \"Regard this species of echinoderm. From the outside, it appears inorganic. Microscopic life forms collect and thrive on its exterior. Transpose that fact onto the Earth itself.\"\nThere are thousands of questions you could ask, but given the scope of your discoveries in Arkham, a living planet is strangely within the bounds of reason. Instead, you ask what part you are meant to play in the experiment. \"The digging operations have proceeded as planned, and we have nearly reached the limit of the Earth's crust, eight miles down. It is at this point where the drill operators have lost their senses.\"\nChallenger bristles in indignation as he continues. \"The very premise of the experiment suggests the discovery of something living! Why should they be so appalled to find life exactly where it was proposed to find it?!\" You ask which life Challenger means if the experiment is not yet complete. \"The Earth has yet to be breached. There are other things in the depths — the life collected on the exterior, you will recall — that interfere with the drilling. I will not abandon this experiment in the eleventh hour, and so you will resume operation of the drill. Dyer assures me that there will be some part of it or another suited to your skill set. Let us depart for Sussex immediately.\"\nChallenger arranges for your swift transportation to the site in one of the many vans ferrying equipment. You are escorted through checkpoints and barbed wire fences, passing many prying journalists who shout conjecture as you go by. Your escort finally rolls to a stop, and you step down only to come face to face with Professor Dyer.\nThe man has seen better days, but that was his default state more often than not. Dyer looks utterly exhausted, and it's hard to say if it's from the stress of managing a project of this scale, the unnatural finds deep in the dig, or from just trying to mollify Challenger constantly.\n\"It's good to see you,\" he croaks with a weary sigh. \"The project is nearly finished, and I'll be happy to put this business behind me forever.\"\nYou enter a caged elevator alongside Dyer and begin the long descent into the vast delving. Dyer uses the time to instruct you on operation of the drill, and just as importantly, on the dangers that drove away your predecessors. \"The further we descend, the more otherworldly it becomes — ironically, since we approach the mantle of the world. Steel yourself. I won't dare to hazard a guess at what actually lies below.\""
     },
     {
       "id": "gather_encounter_sets",
       "title": "Setup",
       "type": "encounter_sets",
       "encounter_sets": [
-        "the_midwinter_gala"
+        "when_the_world_screamed"
       ]
     },
     {
-      "id": "setup_locations",
-      "text": "Set aside the 3 Second-Floor Room locations, out of play. Put the Lobby and Lantern Chamber into play. Put the 3 Ground-Floor Room locations into play in a row to the right of the Lobby, at random.",
-      "bullets": [
-        {
-          "text": "Each investigator begins play at the Lobby."
-        }
-      ]
-    },
-    {
-      "id": "location_layout",
-      "type": "location_setup",
-      "text": "Location Placement",
-      "horizontal": "normal",
-      "vertical": "normal",
-      "locations": [
-        [
-          "71007_back",
-          "71009_back",
-          "71009_back",
-          "71009_back"
-        ],
-        [
-          "71008_back",
-          "blank",
-          "blank",
-          "blank"
-        ]
-      ],
-      "location_names": [
-        {
-          "code": "71007_back",
-          "name": "Lobby"
-        },
-        {
-          "code": "71009_back",
-          "name": "Ground-Floor Room"
-        },
-        {
-          "code": "71008_back",
-          "name": "Lantern Chambers"
-        }
-      ]
-    },
-    {
-      "id": "setup_faction",
+      "id": "check_epic_multiplayer",
       "hidden": true,
       "type": "branch",
-      "condition": {
-        "type": "campaign_log_count",
+      "condition":{
+        "type": "campaign_log",
         "section": "hidden",
-        "id": "tmg_chosen_faction",
+        "id": "wtws_epic_multiplayer",
         "options": [
           {
-            "numCondition": 0,
-            "steps": ["setup_faction_foundation"]
+            "boolCondition": true,
+            "steps":[
+              "setup_epic_multiplayer",
+              "threshold_epic_multiplayer"
+            ]
           },
           {
-            "numCondition": 1,
-            "steps": ["setup_faction_university"]
-          },
-          {
-            "numCondition": 2,
-            "steps": ["setup_faction_syndicate"]
-          },
-          {
-            "numCondition": 3,
-            "steps": ["setup_faction_lodge"]
-          },
-          {
-            "numCondition": 4,
-            "steps": ["setup_faction_locals"]
+            "boolCondition": false,
+            "steps":["setup_single_group"]
           }
         ]
       }
     },
     {
-      "id": "setup_faction_foundation",
-      "text": "<b>The Foundation</b> is your \"allied\" faction. Set aside that faction's story card, then put that faction's [[Leader]] card, story asset side faceup, into play under the control of any investigator. Put one of that faction's 3 remaining [[Guest]] assets into play faceup at each Ground-Floor Room location at random. Remove its [[Rival]] card from the game."
+      "id": "setup_single_group",
+      "type": "encounter_sets",
+      "text": "Build the act deck using act 1a — \"Downward Spiral (v. I)\" from the Single Group encounter set. Remove each other copy of act 1a from the game.",
+      "encounter_sets":[
+        "single_group"
+      ]
     },
     {
-      "id": "setup_faction_university",
-      "text": "<b>Miskatonic University</b> is your \"allied\" faction. Set aside that faction's story card, then put that faction's [[Leader]] card, story asset side faceup, into play under the control of any investigator. Put one of that faction's 3 remaining [[Guest]] assets into play faceup at each Ground-Floor Room location at random. Remove its [[Rival]] card from the game."
+      "id": "setup_epic_multiplayer",
+      "type": "encounter_sets",
+      "text": "Build the act deck using act 1a — \"Downward Spiral (v. II)\" from the Epic Multiplayer encounter set. Remove each other copy of act 1a from the game.",
+      "encounter_sets":[
+        "epic_multiplayer"
+      ]
     },
     {
-      "id": "setup_faction_syndicate",
-      "text": "<b>The Syndicate</b> is your \"allied\" faction. Set aside that faction's story card, then put that faction's [[Leader]] card, story asset side faceup, into play under the control of any investigator. Put one of that faction's 3 remaining [[Guest]] assets into play faceup at each Ground-Floor Room location at random. Remove its [[Rival]] card from the game."
+      "id": "threshold_epic_multiplayer",
+      "text": "The event organizer will calculate and announce the global clue threshold for Act 1."
     },
     {
-      "id": "setup_faction_lodge",
-      "text": "<b>The Silver Twilight Lodge</b> is your \"allied\" faction. Set aside that faction's story card, then put that faction's [[Leader]] card, story asset side faceup, into play under the control of any investigator. Put one of that faction's 3 remaining [[Guest]] assets into play faceup at each Ground-Floor Room location at random. Remove its [[Rival]] card from the game."
+      "id": "create_complication_deck",
+      "text": "Create the Complication deck by taking each of the [[Complication]] cards and shuffling them together. Place the Complication deck next to the scenario reference card."
     },
     {
-      "id": "setup_faction_locals",
-      "text": "<b>Locals of Kingsport</b> is your \"allied\" faction. Set aside that faction's story card, then put that faction's [[Leader]] card, story asset side faceup, into play under the control of any investigator. Put one of that faction's 3 remaining [[Guest]] assets into play faceup at each Ground-Floor Room location at random. Remove its [[Rival]] card from the game."
+      "id": "setup_complications_arise",
+      "text": "Put the Complications Arise story card into play next to the Complication deck."
     },
     {
-      "id": "setup_rival",
-      "text": "Set aside one of the other 4 faction story cards at random, out of play, along with that faction's [[Leader]] card and its [[Rival]] card. This faction is your \"rival\" for the game. Remove your rival's 3 remaining [[Guest]] assets from the game."
+      "id": "setup_control_platform",
+      "text": "Put the single-sided Control Platform location into play."
     },
     {
-      "id": "setup_other_factions",
-      "text": "For each of the remaining 3 factions, remove its faction story card, its [[Leader]] card, and its [[Rival]] card from the game."
+      "id": "setup_mechanism_locations",
+      "text": "In player order, each player chooses one of the single-sided [[Mechanism]] locations, puts it into play, and begins play at that location. Remove each other [[Mechanism]] location from the game."
     },
     {
-      "id": "shuffle_guests",
-      "text": "Shuffle the remaining 9 [[Guest]] assets facedown to form the Guest deck and place it next to the act deck."
+      "id": "check_epic_strata",
+      "hidden": true,
+      "type": "branch",
+      "condition":{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "wtws_epic_multiplayer",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps":["setup_strata_deck_epic"]
+          },
+          {
+            "boolCondition": false,
+            "steps":["setup_strata_deck"]
+          }
+        ]
+      }
     },
     {
-      "id": "setup_three_guests",
-      "text": "Put the top 3 cards of the Guest deck into play faceup, placing one of them at each Ground-Floor Room location."
+      "id": "setup_strata_deck",
+      "text": "Create the Strata deck. This is done by performing the following steps, in order.",
+      "bullets": [
+        {
+          "text": "Gather each of the [[Strata]] locations."
+        },
+        {
+          "text": "Set Ground Zero aside, out of play."
+        },
+        {
+          "text": "Place Mantle Border on the bottom of the Strata deck, face up."
+        },
+        {
+          "text": "Randomly choose two [[Strata]] cards to place on top of Mantle Border."
+        },
+        {
+          "text": "Place the set-aside Ground Zero on top of the Strata deck. <b>For the remainder of the scenario, the top card of the Strata deck is considered to be in play.</b>"
+        },
+        {
+          "text": "Remove each unused [[Strata]] location from the game."
+        }
+      ]
     },
     {
-      "id": "setup_bloodless_man",
-      "text": "Put The Bloodless Man <i>(Silent Lurker)</i> enemy into play exhausted at the Lantern Chamber, and attach The Pale Lantern story asset to him, <i>(Hypnotic Glow)</i> side faceup."
+      "id": "setup_strata_deck_epic",
+      "text": "Create the Strata deck. This is done by performing the following steps, in order.",
+      "bullets": [
+        {
+          "text": "Gather each of the [[Strata]] locations."
+        },
+        {
+          "text": "Set Ground Zero aside, out of play."
+        },
+        {
+          "text": "Place Mantle Border on the bottom of the Strata deck, face up."
+        },
+        {
+          "text": "The event organizer will choose two [[Strata]] cards to place on top of Mantle Border."
+        },
+        {
+          "text": "Place the set-aside Ground Zero on top of the Strata deck. <b>For the remainder of the scenario, the top card of the Strata deck is considered to be in play.</b>"
+        },
+        {
+          "text": "Remove each unused [[Strata]] location from the game."
+        }
+      ]
+    },
+    {
+      "id": "setup_dyer",
+      "text": "Put Professor William Dyer into play at Control Platform."
     },
     {
       "id": "set_aside_cards",
-      "text": "Set each of the following cards aside, out of play: all [[Monster]] enemies, both copies of Vicious Ambush, the Declan Pearce enemy, and the Jewel of Sarnath story asset."
+      "text": "Set the following cards aside, out of play: Professor George Challenger, Planetary Tissue Sample, each [[Chthonian]] enemy, and The Final Layer."
+    },
+    {
+      "id": "starting_depth",
+      "text": "Place 1 resource on the scenario reference card to denote that the starting Depth Level is 1."
     },
     {
       "id": "encounter_deck",
-      "text": "Shuffle the remaining 23 encounter cards to form the encounter deck."
-    },
-
-    {
-      "id": "$play_scenario",
-      "type": "input",
-      "input": {
-        "type": "play_scenario",
-        "branches": [
-          {
-            "id": "the_fabled_jewel",
-            "condition": {
-              "type": "campaign_log",
-              "section": "hidden",
-              "id": "tmg_fabeled_jewel",
-              "options": [
-                {
-                  "boolCondition": false
-                }
-              ]
-            },
-            "text": "Scenario Interlude",
-            "description": "The Fabled Jewel",
-            "style": "interlude",
-            "steps": [
-              "fabled_jewel_story",
-              "faction_story_explain",
-              "check_faction_story",
-              "advance_to_act_2a"
-            ],
-
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "hidden",
-                "id": "tmg_fabeled_jewel",
-                "text": "dummy"
-              }
-            ]
-          }
-        ]
-      }
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
     },
     {
-      "id": "advance_to_act_2a",
-      "text": "Advance to act 2a."
-    },
-    {
-      "id": "fabled_jewel_story",
-      "type": "story",
-      "title": "Scenario Interlude: The Fabled Jewel",
-      "narration": {
-        "id": "the_midwinter_gala.interlude.the_fabled_jewel",
-        "name": "Scenario Interlude: The Fabled Jewel",
-        "lang": ["es"]
-      },
-      "text": "Your contact has further instructions for how to acquire the Jewel."
-    },
-    {
-      "id": "faction_story_explain",
-      "bullet_type": "none",
-      "text": "Put the set-aside faction story card you allied with into play next to the act deck, [[Allied]] side faceup. Because you allied with..."
-    },
-    {
-      "id": "check_faction_story",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log_count",
-        "section": "hidden",
-        "id": "tmg_chosen_faction",
-        "options": [
-          {
-            "numCondition": 0,
-            "steps": ["faction_story_foundation"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["faction_story_university"]
-          },
-          {
-            "numCondition": 2,
-            "steps": ["faction_story_syndicate"]
-          },
-          {
-            "numCondition": 3,
-            "steps": ["faction_story_lodge"]
-          },
-          {
-            "numCondition": 4,
-            "steps": ["faction_story_locals"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "faction_story_foundation",
-      "text": "<b>The Foundation ([guardian])</b>, put the set-aside Declan Pearce enemy into play at the Lantern Chamber, exhausted. Attach the set-aside Jewel of Sarnath asset to The Bloodless Man (ignoring its <b>Revelation</b> effect). If The Bloodless Man is not in play, attach the Jewel of Sarnath to the Lantern Chamber."
-    },
-    {
-      "id": "faction_story_university",
-      "text": "<b>Miskatonic University ([seeker])</b>, put the set-aside Declan Pearce enemy into play at the rightmost [[Second Floor]] location and attach the set-aside Jewel of Sarnath asset to him (ignoring its <b>Revelation</b> effect)."
-    },
-    {
-      "id": "faction_story_syndicate",
-      "text": "<b>The Syndicate ([rogue)</b>, shuffle the top card of the encounter deck, the set-aside Jewel of Sarnath asset, and the Declan Pearce enemy together, then randomly place 1 facedown beneath each [[Second Floor]] location, as \"mysteries.\""
-    },
-    {
-      "id": "faction_story_lodge",
-      "text": "<b>The Silver Twilight Lodge ([mystic)</b>, shuffle the encounter discard pile into the encounter deck. Take the top 7 cards of the encounter deck and shuffle the set-aside Jewel of Sarnath asset and Declan Pearce enemy into them, then place those 9 cards on the bottom of the encounter deck. If there are exactly 2 undefeated investigators, discard the top 6 cards of the encounter deck. Ifthere is exactly 1 undefeated investigator, discard the top 12 cards of the encounter deck."
-    },
-    {
-      "id": "faction_story_locals",
-      "text": "<b>Locals of Kingsport ([survivor)</b>, put the set-aside Declan Pearce enemy into play at the Lantern Chamber and attach the set-aside Jewel of Sarnath asset to him (ignoring its <b>Revelation</b> effect). Place 1 [per_investigator] damage and 1 doom on that asset. Reveal the top card of the Guest deck and put it into play at the Lobby."
-    },
-
-    {
-      "id": "score_rule",
-      "type": "rule_reminder",
-      "title": "Score",
-      "text": "In <i>The Midwinter Gala</i>, the investigators can accomplish multiple tasks to score points. At the end of the game, they will tally their score to earn bonus experience and measure how successful they were in thwarting the Lantern Club's true intentions. While playing this scenario, reference page 24 of this booklet to see what tasks you may work toward. Each time you play, try to top your previous score!"
-    },
-    {
-      "id": "story_cards",
-      "type": "rule_reminder",
-      "title": "Story Cards",
-      "text": "Story cards are a cardtype used in this scenario. These cards provide additional narrative and game text. Abilities on story cards in play can be triggered by any investigator."
-    },
-    {
-      "id": "guest_story_assets",
-      "type": "rule_reminder",
-      "title": "Guest Story Assets",
-      "text": "[[Guest]] assets are a type of story asset featured in this scenario. Investigators may parley with [[Guest]] assets to take control of them. Investigators cannot trigger abilities on [[Guest]] assets that they do not control."
-    },
-    {
-      "id": "spellbound",
-      "type": "rule_reminder",
-      "title": "Spellbound",
-      "text": "Spellbound is a condition that can affect [[Guest]] assets. When a [[Guest]] asset becomes spellbound (via card or game text), investigators lose control of that asset, flip it facedown, and remove all damage and horror from it (leaving all other tokens on it).",
-      "bullets": [
+      "id": "drill_broke_down",
+      "effects":[
         {
-          "text": "When a [[Leader]] asset would become spellbound, remove it from the game instead."
-        },
-        {
-          "text": "When a spellbound card is flipped faceup, ready it (leaving all tokens on it). It is no longer spellbound."
-        },
-        {
-          "text": "A spellbound card cannot be interacted with unless a game effect explicity states otherwise."
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "drill_broke_down",
+          "text": "the drill broke down."
         }
       ]
     },
     {
-      "id": "alert",
-      "type": "rule_reminder",
-      "title": "Alert",
-      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the alert keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+      "id": "world_screamed",
+      "effects":[
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "world_screamed",
+          "text": "the World screamed."
+        }
+      ]
     },
     {
-      "id": "patrol",
-      "type": "rule_reminder",
-      "title": "Patrol",
-      "text": "Some enemies have the patrol keyword. During the enemy phase (in framework step 3.2), each ready, unengaged enemy with the patrol keyword moves to a connecting location along the shortest path toward the designated location (as described in parentheses next to the word patrol).",
-      "bullets": [
+      "id": "ask_act_1",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was Act 1 completed?",
+            "steps": ["add_bonus"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_bonus",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
         {
-          "text": "If there are multiple locations that qualify as the designated location, the lead investigator may choose which location the enemy moves toward."
-        },
-        {
-          "text": "If an enemy with patrol would be compelled to move to a location that is blocked by a card ability, the enemy does not move."
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
         }
       ]
     },
@@ -642,1005 +443,41 @@
       }
     },
     {
-      "id": "choose_one_guest",
-      "text": "Each investigator may choose one single-sided [[Guest]] asset under any investigator's control to add to their deck ignoring deckbuilding restrictions). It does not count toward that investigator's deck size.",
-      "type": "input",
-      "input": {
-        "type": "investigator_choice",
-        "source": "scenario",
-        "investigator": "all",
-        "choices": [
-          {
-            "id": "71017",
-            "text": "Archibald Hudson",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71017"
-              }
-            ]
-          },
-          {
-            "id": "71018",
-            "text": "Special Agent Callahan",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71018"
-              }
-            ]
-          },
-          {
-            "id": "71019",
-            "text": "Horacio Martinez",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71019"
-              }
-            ]
-          },
-          {
-            "id": "71023",
-            "text": "Dr. Mya Badry",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71023"
-              }
-            ]
-          },
-          {
-            "id": "71024",
-            "text": "Lucas Tetlow",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71024"
-              }
-            ]
-          },
-          {
-            "id": "71025",
-            "text": "Elizabeth Conrad",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71025"
-              }
-            ]
-          },
-          {
-            "id": "71029",
-            "text": "Miranda Keeper",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71029"
-              }
-            ]
-          },
-          {
-            "id": "71030",
-            "text": "Arsène Renard",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71030"
-              }
-            ]
-          },
-          {
-            "id": "71031",
-            "text": "Nova Malone",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71031"
-              }
-            ]
-          },
-          {
-            "id": "71035",
-            "text": "Prudence Douglas",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71035"
-              }
-            ]
-          },
-          {
-            "id": "71036",
-            "text": "Sarah Van Shaw",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71036"
-              }
-            ]
-          },
-          {
-            "id": "71037",
-            "text": "Raymond Loggins",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71037"
-              }
-            ]
-          },
-          {
-            "id": "71041",
-            "text": "Delores Gadling",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71041"
-              }
-            ]
-          },
-          {
-            "id": "71042",
-            "text": "Thomas Olney",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71042"
-              }
-            ]
-          },
-          {
-            "id": "71043",
-            "text": "Claire Wilson",
-            "effects": [
-              {
-                "type": "add_card",
-                "investigator": "$input_value",
-                "card": "71043"
-              }
-            ]
-          },
-          {
-            "id": "none",
-            "text": "None"
-          }
-        ]
-      }
-    },
-    {
-      "id": "tally_score",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Would you like to use the app to tally your score?",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "hidden",
-                "id": "tmg_calculate_score",
-                "text": "dummy"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_tmg_score_tally",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "tmg_calculate_score",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": [
-              "ask_manor_locations_without_clues",
-              "ask_guest_assets_controlled",
-              "ask_any_spellbound_cards",
-              "check_spellbound",
-              "ask_agenda_number",
-              "ask_bloodless_man_in_victory",
-              "ask_pale_lantern_in_victory",
-              "ask_declan_pearce_in_victory",
-              "ask_rival_in_victory",
-              "check_any_defeated",
-              "check_difficulty",
-              "ask_points_on_faction_card",
-              "repeat_total"
-            ]
-          },
-          {
-            "boolCondition": false,
-            "steps": [
-              "ask_final_score"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_final_score",
+      "id": "earn_xp_bonus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience from their new knowledge of what the world truly is.",
       "type": "input",
       "input": {
         "type": "counter",
-        "text": "Score:",
+        "text": "Victory display:",
         "effects": [
           {
-            "type": "campaign_log_count",
-            "section": "hidden",
-            "id": "tmg_score_tally",
-            "operation": "set_input",
-            "text": "#X#"
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
           }
         ]
       }
     },
     {
-      "id": "ask_manor_locations_without_clues",
-      "text": "<b>1</b> point for each revealed [[Manor]] location with no clues.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Revealed Manor locations without clues:",
-        "effects": [
-          {
-            "type": "campaign_log_count",
-            "section": "hidden",
-            "id": "tmg_score_tally",
-            "operation": "add_input",
-            "text": "#X#"
-          }
-        ]
-      }
-    },
-
-    {
-      "id": "ask_guest_assets_controlled",
-      "text": "<b>1</b> point for each [[Guest]] asset controlled by the investigators.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Controlled Guest assets:",
-        "effects": [
-          {
-            "type": "campaign_log_count",
-            "section": "hidden",
-            "id": "tmg_score_tally",
-            "operation": "add_input",
-            "text": "#X#"
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_spellbound",
-      "type": "branch",
-      "hidden": true,
-      "condition": {
-
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "tmg_score_tally_spellbound",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": [
-              "earn_4_points"
-            ],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 4,
-                "text": "#X#"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "earn_4_points",
-      "bullet_type": "small",
-      "text": "<b>4</b> points."
-    },
-    {
-      "id": "earn_3_points",
-      "bullet_type": "small",
-      "text": "<b>3</b> points."
-    },
-    {
-      "id": "ask_any_spellbound_cards",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Are there any spellbound cards in play?",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "hidden",
-                "id": "tmg_score_tally_spellbound",
-                "text": "dummy"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_agenda_number",
-      "text": "What agenda is in play?",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "1a",
-            "text": "Agenda 1a",
-            "steps": ["5_points_agenda"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 5,
-                "text": "#X#"
-              }
-            ]
-          },
-
-          {
-            "id": "2a",
-            "text": "Agenda 2a",
-            "steps": ["5_points_agenda"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 5,
-                "text": "#X#"
-              }
-            ]
-          },
-          {
-            "id": "3",
-            "text": "Agenda 3"
-          }
-        ]
-      }
-    },
-    {
-      "id": "5_points_agenda",
-      "bullet_type": "small",
-      "text": "<b>5</b> points if agenda la or agenda 2a is in play."
-    },
-
-    {
-      "id": "ask_bloodless_man_in_victory",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is The Bloodless Man in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 4,
-                "text": "#X#"
-              }
-            ],
-            "steps": [
-              "earn_4_points"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_pale_lantern_in_victory",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is The Pale Lantern in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 3,
-                "text": "#X#"
-              }
-            ],
-            "steps": [
-              "earn_3_points"
-            ]
-          }
-        ]
-      }
-    },
-
-    {
-      "id": "ask_declan_pearce_in_victory",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is Declan Pearce in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 3,
-                "text": "#X#"
-              }
-            ],
-            "steps": [
-              "earn_3_points"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_rival_in_victory",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is a Rival story card in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 4,
-                "text": "#X#"
-              }
-            ],
-            "steps": [
-              "earn_4_points"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_any_defeated",
-      "text": "If no investigators were defeated...",
-      "type": "branch",
-      "condition": {
-        "type": "scenario_data",
-        "scenario_data": "investigator_status",
-        "investigator": "defeated",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": [
-              "ask_damage",
-              "ask_horror"
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_damage",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is there 2[per_investigator] or less damage on the investigators, as a group?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 3,
-                "text": "#X#"
-              }
-            ],
-            "steps": ["earn_3_points"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "ask_horror",
-      "type": "input",
-      "input": {
-        "type": "choose_one",
-        "choices": [
-          {
-            "id": "yes",
-            "text": "Is there 2[per_investigator] or less horror on the investigators, as a group?",
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 3,
-                "text": "#X#"
-              }
-            ],
-            "steps": ["earn_3_points"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_difficulty",
-      "text": "Because you are playing on...",
-      "type": "branch",
-      "condition": {
-        "type": "campaign_data",
-        "campaign_data": "difficulty",
-        "options": [
-          {
-            "condition": "easy",
-            "steps": ["easy_no_effect"]
-          },
-          {
-            "condition": "standard",
-            "steps": ["standard_no_effect"]
-          },
-          {
-            "condition": "hard",
-            "steps": ["hard_3_points"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 3,
-                "text": "#X#"
-              }
-            ]
-          },
-
-          {
-            "condition": "expert",
-            "steps": ["expert_6_points"],
-            "effects": [
-              {
-                "type": "campaign_log_count",
-                "section": "hidden",
-                "id": "tmg_score_tally",
-                "operation": "add",
-                "value": 6,
-                "text": "#X#"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "easy_no_effect",
-      "bullet_type": "small",
-      "text": "... there is no effect."
-    },
-    {
-      "id": "standard_no_effect",
-      "bullet_type": "small",
-      "text": "... there is no effect."
-    },
-    {
-      "id": "hard_3_points",
-      "bullet_type": "small",
-      "text": "... you earn <b>3</b> points."
-    },
-    {
-      "id": "expert_6_points",
-      "bullet_type": "small",
-      "text": "... you earn <b>6</b> points."
-    },
-    {
-      "id": "ask_points_on_faction_card",
-      "text": "The end of game points on your faction's story card.",
-      "type": "input",
-      "input": {
-        "type": "counter",
-        "text": "Points on faction card:",
-        "effects": [
-          {
-            "type": "campaign_log_count",
-            "section": "hidden",
-            "id": "tmg_score_tally",
-            "operation": "add_input",
-            "text": "#X#"
-          }
-        ]
-      }
-    },
-    {
-      "id": "repeat_total",
-      "type": "branch",
-      "hidden": true,
-      "condition": {
-        "type": "campaign_log_count",
-        "section": "hidden",
-        "id": "tmg_score_tally",
-        "options": [],
-        "default_option": {
-          "effects": [
-            {
-              "type": "check_campaign_log_count",
-              "text": "Your total score is #X#."
-            }
-          ]
-        }
-      }
-    },
-    {
-      "id": "resolution_2",
-      "type": "resolution",
-      "resolution": "R2"
-    },
-    {
-      "id": "resolution_3",
-      "type": "resolution",
-      "resolution": "R3"
-    },
-    {
-      "id": "resolution_4",
-      "type": "resolution",
-      "resolution": "R4"
-    },
-    {
-      "id": "resolution_5",
-      "type": "resolution",
-      "resolution": "R5"
-    },
-    {
-      "id": "resolution_6",
-      "type": "resolution",
-      "resolution": "R6"
-    },
-    {
-      "id": "resolution_7",
-      "type": "resolution",
-      "resolution": "R7"
-    },
-    {
-      "id": "check_side_story",
-      "text": "If this scenario is a side-story:",
-      "type": "branch",
-      "condition": {
-
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "tmg_side_story_mode",
-        "options": [
-          {
-            "boolCondition": false,
-            "steps": ["future_shuffle_jewel"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "future_shuffle_jewel",
-      "bullet_type": "small",
-      "text": "During the setup of each subsequent scenario in this campaign, you may shuffle the Jewel of Sarnath story asset into the encounter deck."
-    },
-    {
-      "id": "good_faction_resolution",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log_count",
-        "section": "hidden",
-        "id": "tmg_chosen_faction",
-        "options": [
-          {
-            "numCondition": 0,
-            "steps": ["resolution_2"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["resolution_3"]
-          },
-          {
-            "numCondition": 2,
-            "steps": ["resolution_4"]
-          },
-          {
-            "numCondition": 3,
-            "steps": ["resolution_5"]
-          },
-          {
-            "numCondition": 4,
-            "steps": ["resolution_6"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "earn_extra_tmg_tally_xp",
-      "text": "Because your score is...",
-      "steps": ["check_less_than_10"]
-    },
-    {
-      "id": "check_less_than_10",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "tmg_score_tally"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 10
-        },
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["score_less_than_10"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["check_10_to_19"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["check_10_to_19"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "score_less_than_10",
-      "bullet_type": "small",
-      "text": "...less than 10, no effect."
-    },
-    {
-      "id": "check_10_to_19",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "tmg_score_tally"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 20
-        },
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["score_10_to_19"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["check_20_to_29"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["check_20_to_29"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "score_10_to_19",
-      "bullet_type": "small",
-      "text": "...10-19, each investigator earns 1 bonus experience.",
+      "id": "earn_rewards",
+      "text": "Any one investigator may add Professor George Challenger to their deck. Any one investigator may add Planetary Tissue Sample to their deck. These cards do not count toward those investigators' deck sizes.",
       "effects": [
         {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 1
-        }
-      ]
-    },
-
-
-    {
-      "id": "check_20_to_29",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "tmg_score_tally"
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "01093"
         },
-        "opB": {
-          "type": "constant",
-          "value": 30
-        },
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["score_20_to_29"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["check_30_to_39"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["check_30_to_39"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "score_20_to_29",
-      "bullet_type": "small",
-      "text": "...20-29, each investigator earns 2 bonus experience.",
-      "effects": [
         {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 2
-        }
-      ]
-    },
-
-
-    {
-      "id": "check_30_to_39",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "tmg_score_tally"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 40
-        },
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["score_30_to_39"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["check_40_to_49"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["check_40_to_49"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "score_30_to_39",
-      "bullet_type": "small",
-      "text": "...30-39, each investigator earns 3 bonus experience.",
-      "effects": [
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 3
-        }
-      ]
-    },
-
-
-    {
-      "id": "check_40_to_49",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "math",
-        "operation": "compare",
-        "opA": {
-          "type": "campaign_log_count",
-          "section": "hidden",
-          "id": "tmg_score_tally"
-        },
-        "opB": {
-          "type": "constant",
-          "value": 50
-        },
-        "options": [
-          {
-            "numCondition": -1,
-            "steps": ["score_40_to_49"]
-          },
-          {
-            "numCondition": 0,
-            "steps": ["score_50_plus"]
-          },
-          {
-            "numCondition": 1,
-            "steps": ["score_50_plus"]
-          }
-        ]
-      }
-    },
-    {
-      "id": "score_40_to_49",
-      "bullet_type": "small",
-      "text": "...40-49, each investigator earns 4 bonus experience.",
-      "effects": [
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 4
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "01093"
         }
       ]
     },
     {
-      "id": "score_50_plus",
-      "bullet_type": "small",
-      "text": "...50 or more, each investigator earns 5 bonus experience.",
-      "effects": [
-        {
-          "type": "earn_xp",
-          "investigator": "all",
-          "bonus": 5
-        }
-      ]
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
     }
   ],
   "resolutions": [
@@ -1653,116 +490,28 @@
         "physical",
         "mental"
       ],
-      "narration": {
-        "id": "the_midwinter_gala.no_resolution",
-        "name": "No resolution was reached",
-        "lang": ["es"]
-      },
-      "text": "You wake up, freezing cold, facedown in the snow outside the Lantern Club's stately manor. The house is deserted, the cheery windows dark and foreboding, like the empty eye sockets of a grinning skull. You can't remember how you escaped the mayhem, but you will never forget what happened at Kingsport's first — and hopefully last — Midwinter Gala.",
       "steps": [
-        "resolution_7"
+        "resolution_1"
       ]
     },
     {
       "id": "R1",
       "title": "Resolution 1",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_1",
-        "name": "Resolution 1",
-        "lang": ["es"]
-      },
-      "text": "You look up from the Jewel to see your contact standing in front of the manor, silhouetted in the moonlight.",
+      "text": "You and Dyer barely drag yourselves to the elevator cage at the top of the drill's final descent. The entire tunnel echoes with the sounds of metal shearing off against rock. The dim lights in and around the elevator flicker and pop, and you grip the support bars tensely. The whole structure is in danger of falling apart and sending you back into the abyss, but it somehow manages to deliver you and Dyer to the surface. Barely a minute after reaching the top, the entire tunnel compresses inward, sealing the Earth back together.\nChallenger hurls his hat to the ground in fury and begins an angry tirade over the failed experiment. Dyer lets out a long sigh as he runs a hand through his hair. \"I'll... try to smooth things over with him. And I'll let him know the things we ran into down there. Not that it will make up for the loss of the tunnel and equipment, but maybe it will put him on a different tack. Just... get some rest.\"",
       "steps": [
-        "choose_one_guest",
-        "check_side_story",
-        "good_faction_resolution"
+        "drill_broke_down",
+        "ask_act_1",
+        "earn_xp"
       ]
     },
     {
       "id": "R2",
-      "hidden": true,
       "title": "Resolution 2",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_2",
-        "name": "Resolution 2",
-        "lang": ["es"]
-      },
-      "text": "Agent Antonova turns and strides toward you, her left cheek spattered with viscous ichor. \"I did not like this party at first, but it became much more interesting once they locked the doors,\" she grins, then lays a hand on your shoulder. \"I have reported the strange effects of this Jewel' to my superiors. They want it brought to our offices for safekeeping, but I have several other obligations to attend to before I can deliver it. I suppose there is little harm in letting you hold onto it for now. Know that I will be back later to collect it.\" After seeing the chaos the Jewel brought to the Gala, you wonder if you are being used more as a \"case study\" than a recipient of its power.",
+      "text": "Your ears ring as you retreat back up the tunnel, starting the ascent as soon as Dyer has entered the elevator. The whole tunnel rocks around you, contracting like muscles — which, given the discovery, could be the case. The whole structure is in danger of falling apart and sending you back into the abyss, but it somehow manages to deliver you and Dyer to the surface.\nYou've scarcely exited the elevator and run for cover when a gout of viscous fluid erupts from the tunnel, squeezed out as the entire delving compresses back together like a closing wound. Onlookers from the press gasp and scream as many are coated in the foul substance, but Challenger's booming laughter can be  heard above the din.\n\"A successful experiment and the mortification of the ever-present vultures? Truly a red letter day! I daresay that the Earth's scream was heard across the channel, if not further still!\" He strides towards you to clap you on the shoulder and shake your hand. \"I must give proper credit to both you and Dyer, of course. I had my doubts, it must be said, but you held until the experiment concluded. But science forges ever onward, and so without pause, it is already time to consider new hypotheses to test. Should you have any mysteries, do refer them to me for my expert consideration.\"",
       "steps": [
-        "resolution_7"
-      ]
-    },
-    {
-      "id": "R3",
-      "hidden": true,
-      "title": "Resolution 3",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_3",
-        "name": "Resolution 3",
-        "lang": ["es"]
-      },
-      "text": "After calming down a very flustered Dean Caldwell, the academic grabs the Jewel from your hand and holds it up to the light. \"Truly remarkable. The legends hardly do it justice. Miraculous! Breathtaking!\" The astute gentleman eventually runs out of descriptors, then thanks you for your assistance. \"Given what happened here tonight, I would prefer we not house the Jewel on campus grounds. We only just rebuilt the student dormitories. But if you could bring it by my office next week, I would relish the chance to study it further.\"",
-      "steps": [
-        "resolution_7"
-      ]
-    },
-    {
-      "id": "R4",
-      "hidden": true,
-      "title": "Resolution 4",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_4",
-        "name": "Resolution 4",
-        "lang": ["es"]
-      },
-      "text": "\"Not too shabby,\" says Johnny Valone, lit cigar in his mouth. \"You have light hands. Could always use another pair for a job or two.\" He winks as he blows smoke out the side of his mouth. \"I figured we could pawn the thing on the black market for a fair price, but after seeing what happened in there-\" his tough exterior softens. \"I wouldn't wish that on anyone. What were those things anyway? Elephants? Sick gorillas?\" He takes one last puff of his cigar. \"I guess I'll never know. All I knows is, there's no way I'm hauling that rock back to Arkham. Consider the Jewel a party favor: And this is for savin' my ass.\" He hands out a wad of bills to you and melts into the shadows with a Cheshire grin.",
-      "steps": [
-        "resolution_7"
-      ]
-    },
-    {
-      "id": "R5",
-      "hidden": true,
-      "title": "Resolution 5",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_5",
-        "name": "Resolution 5",
-        "lang": ["es"]
-      },
-      "text": "\"I don't care what it takes: I want that Jewel and I want it now!\" Carl Sanford seethes at his lackeys. As you listen to the patriarch excoriate his associates, you think back to the events of the evening. Although you had resolved to help the Lodge, is the world truly safer with the Jewel in their possession? Rather than return it to Sanford, you pocket the Jewel and slip away into the evening. You are the only one who can temper its power. What you are doing truly is for the greater good. Hopefully Sanford will never find out.",
-      "steps": [
-        "resolution_7"
-      ]
-    },
-    {
-      "id": "R6",
-      "hidden": true,
-      "title": "Resolution 6",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_6",
-        "name": "Resolution 6",
-        "lang": ["es"]
-      },
-      "text": "\"You've done a great thing this evening,\" Captain Bain claps you on the back. \"Given tales of the Jewel, this evening could have gone far worse. It is said that the Jewel brings the greatest dreams and worst nightmares of its bearer to life. Perhaps it is fitting, what happened to the Lantern Club..\" Bain looks up at the darkened windows and snow stained with blood, then presses the Jewel back in your hand. \"Something tells me, however, that with you as its bearer, the Jewel may do some good.\"\nYou lose yourself looking into the cloudy, smoky heart of the gem. When you look up, the Captain has vanished.",
-      "steps": [
-        "resolution_7"
-      ]
-    },
-    {
-      "id": "R7",
-      "title": "Resolution 7",
-      "narration": {
-        "id": "the_midwinter_gala.resolution_7",
-        "name": "Resolution 7",
-        "lang": ["es"]
-      },
-      "text": "Your skin prickles as you sit in the back seat of your cab, and you have the feeling of being watched. You turn to look back at the manor's facade to see the nightmarish face of the Bloodless Man staring down at you from the window. As the manor disappears from view, you think back to Kingsport, a city shrouded in mystery and folklore. The city beckons with its name alone, conjuring up images of misty sea cliffs, shadowy coves, and ancient, brooding mansions. For generations, stories of inexplicable phenomena, strange dreams, and haunting legends have plagued Kingsport. After tonight's events, you finally understand why.",
-      "steps": [
-        "earn_xp",
-        "tally_score",
-        "check_tmg_score_tally",
-        "earn_extra_tmg_tally_xp",
-        "$upgrade_decks"
+        "world_screamed",
+        "earn_rewards",
+        "earn_xp_bonus_2"
       ]
     }
   ]
