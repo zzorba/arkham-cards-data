@@ -82,7 +82,7 @@ async function writeJSON(object, filePath) {
   }
 }
 
-const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'selected_nonbinary_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'text', 'hidden_description', 'confirmation_text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt', 'file_name', 'customization_change', 'customization_text', 'replacement_text', 'replacement_back_text', 'chaos_bag_card_text', 'chaos_bag_card_back_text']);
+const TRANSLATEABLE_KEYS = new Set(['example', 'selected_text', 'selected_feminine_text', 'selected_nonbinary_text', 'masculine_text', 'feminine_text', 'nonbinary_text', 'plural_text', 'text', 'hidden_description', 'confirmation_text', 'note', 'title', 'subtext', 'prompt', 'manual_prompt', 'header', 'name', 'description', 'confirm_text', 'scenario_name', 'full_name', 'linked_prompt', 'file_name', 'customization_change', 'customization_text', 'replacement_text', 'replacement_back_text', 'chaos_bag_card_text', 'chaos_bag_card_back_text']);
 
 function translateField(object, prop, poFile, allPoEntries, corePoEntries, gender, starter) {
   const normalized = unorm.nfc(object[prop]);
@@ -100,10 +100,14 @@ function translateField(object, prop, poFile, allPoEntries, corePoEntries, gende
     context = 'feminine';
   } else if (prop === 'nonbinary_text' || prop === 'selected_nonbinary_text') {
     context = 'nonbinary';
+  } else if (prop === 'plural_text' || prop === 'selected_plural_text') {
+    context = 'plural';
   }
-  let foundPoEntry = allPoEntries[messageId(normalized, context)];
+  // First, check the current poFile for a translation
+  let foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
+  // Fallback to allPoEntries if not found
   if (!foundPoEntry) {
-    foundPoEntry = poFile.items.find(e => unorm.nfc(e.msgid) === normalized && (!context || e.msgctxt === context));
+    foundPoEntry = allPoEntries[messageId(normalized, context)];
   }
   if (foundPoEntry !== undefined && foundPoEntry.msgstr && foundPoEntry.msgstr.length && foundPoEntry.msgstr[0]) {
     object[prop] = foundPoEntry.msgstr[0];
