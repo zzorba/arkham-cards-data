@@ -409,7 +409,8 @@
             "style": "interlude",
             "steps": [
               "ask_props_in_victory_display",
-              "check_props_in_victory_display"
+              "ask_which_props",
+              "check_telescope"
             ],
             "effects": [
               {
@@ -427,52 +428,14 @@
       "id": "ask_props_in_victory_display",
       "title": "Scenario Interlude: Take Two",
       "type": "input",
-      "input": { 
+      "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "yes",
             "text": "Are there three [[Prop]] assets in the victory display?",
-            "effects": [
-              {
-                "type": "campaign_log",
-                "section": "hidden",
-                "id": "film_fatale_take_two_3_assets",
-                "text": "dummy"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "id": "check_props_in_victory_display",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-        "type": "campaign_log",
-        "section": "hidden",
-        "id": "film_fatale_take_two_3_assets",
-        "options": [
-          {
-            "boolCondition": true,
             "steps": [
-              "add_zero_token",
-              "ask_which_props",
-              "check_telescope"
-            ],
-            "effects": [
-              {
-                "type": "add_chaos_token",
-                "tokens": ["0"]
-              }
-            ]
-          },
-          {
-            "boolCondition": false,
-            "steps": [
-              "ask_which_props",
-              "check_telescope"
+              "add_zero_token"
             ]
           }
         ]
@@ -480,7 +443,14 @@
     },
     {
       "id": "add_zero_token",
-      "text": "Add a “0” token to the chaos bag and choose one [[Prop]] to set aside, out of play."
+      "bullet_type": "small",
+      "text": "Add a “0” token to the chaos bag and choose one [[Prop]] to set aside, out of play.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["0"]
+        }
+      ]
     },
     {
       "id": "ask_which_props",
@@ -489,6 +459,7 @@
       "input": {
         "type": "checklist",
         "text": "In victory display",
+        "max": 2,
         "choices": [
           {
             "id": "telescope",
@@ -556,7 +527,7 @@
       "condition": {
         "type": "campaign_log",
         "section": "hidden",
-        "id": "film_fatale_telescope",
+        "id": "film_fatale_staff",
         "options": [
           {
             "boolCondition": false,
@@ -696,8 +667,8 @@
       "cards": [
         {
           "code": "72036",
-          "x": 1.25,
-          "y": 3.8
+          "x": 2.75,
+          "y": -0.25
         }
       ]
     },
@@ -934,9 +905,9 @@
       "cards": [
         {
           "code": "72006",
-          "x": 1.25,
-          "y": 3.8,
-          "layer": "below"
+          "x": 3.7,
+          "y": 2.6,
+          "layer": "bottom"
         }
       ]
     },
@@ -997,7 +968,7 @@
       "id": "story_contessa",
       "type": "story",
       "title": "The Abominable Contessa",
-      "text": ": “Rumor has it that some of the actors on this production have gotten a little too into their performances. But there’s more. Just last week, an assistant was nearly strangled by the contessa’s Accursed Cape—although they weren’t even wearing it.” André says, leading you onto the set for <i>The Abominable Contessa</i>. A pale moon shines in a matte sky, casting long shadows on a field of graves. The backdrop depicts a moody gothic castle with towering spires, sneering gargoyles, and stained-glass windows. Your vision begins to swim as the scenery warps before your eyes. The castle and surroundings come into focus. You look up to see the set roof has disappeared, replaced by a starlit sky, and the walls have been replaced with a sprawling forest. Looming over all of it is the dark castle, suddenly real.\n“This is impossible,” André looks at the bleak landscape. Before you can reply, a howl breaks the stillness. Several nightmarish forms emerge from the nearby trees. Together, you dash up the hill to take refuge in the ominous castle. As the massive doors slam behind you, the sound of maniacal laughter echoes through the vast foyer. A gorgeous woman with pale skin and blood-red lips steps out from the shadows. She holds a large goblet in one hand. “Welcome to my humble home. I am Contessa Demetriou. I assume you are here for the banquet? Unfortunately, it is you who are on the menu!” Cackling, she vanishes in a cloud of bats.\nAs the sound of gnashing and clawing intensifies outside, André turns to you. “There’ve been some strange rumors on set about that cape, and now the Contessa is wearing it. Perhaps if we take it from her, we may be able to end…all of this,” he gestures at your surroundings."
+      "text": "“Rumor has it that some of the actors on this production have gotten a little too into their performances. But there’s more. Just last week, an assistant was nearly strangled by the contessa’s Accursed Cape—although they weren’t even wearing it.” André says, leading you onto the set for <i>The Abominable Contessa</i>. A pale moon shines in a matte sky, casting long shadows on a field of graves. The backdrop depicts a moody gothic castle with towering spires, sneering gargoyles, and stained-glass windows. Your vision begins to swim as the scenery warps before your eyes. The castle and surroundings come into focus. You look up to see the set roof has disappeared, replaced by a starlit sky, and the walls have been replaced with a sprawling forest. Looming over all of it is the dark castle, suddenly real.\n“This is impossible,” André looks at the bleak landscape. Before you can reply, a howl breaks the stillness. Several nightmarish forms emerge from the nearby trees. Together, you dash up the hill to take refuge in the ominous castle. As the massive doors slam behind you, the sound of maniacal laughter echoes through the vast foyer. A gorgeous woman with pale skin and blood-red lips steps out from the shadows. She holds a large goblet in one hand. “Welcome to my humble home. I am Contessa Demetriou. I assume you are here for the banquet? Unfortunately, it is you who are on the menu!” Cackling, she vanishes in a cloud of bats.\nAs the sound of gnashing and clawing intensifies outside, André turns to you. “There’ve been some strange rumors on set about that cape, and now the Contessa is wearing it. Perhaps if we take it from her, we may be able to end…all of this,” he gestures at your surroundings."
     },
     {
       "id": "gather_contessa",
@@ -1034,6 +1005,13 @@
           "blank"
         ],
         [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
           "72053_back",
           "blank",
           "blank",
@@ -1043,7 +1021,21 @@
         [
           "blank",
           "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
           "72011_back",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
           "blank",
           "blank"
         ],
