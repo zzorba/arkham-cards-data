@@ -1,0 +1,632 @@
+{
+  "id": "sepulchre_of_the_sleeper",
+  "scenario_name": "Sepulchre of the Sleeper",
+  "full_name": "Sepulchre of the Sleeper",
+  "header": "Scenario",
+  "chaos_bag_card": "11673",
+  "chaos_bag_card_text": "[skull]: -X. X is the current Disturbance (to a maximum of 6).\n[cultist]: -4. If you fail, draw the top card of the encounter deck. If you fail by 3 or more, that card gains peril and surge.\n[tablet]: -4. For each point you fail by, you must either take 1 horror or discard 1 card from your hand.\n[elder_thing]: -3. Reveal another token.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is the current Disturbance.\n[cultist]: -6. If you fail, draw the top card of the encounter deck. If you fail by 3 or more, that card gains peril and surge.\n[tablet]: -6. For each point you fail by, you must either take 1 horror or discard 1 card from your hand.\n[elder_thing]: -4. Reveal another token.",
+  "setup": [
+    "intro",
+    "check_campaign_log",
+    "check_at_least_one_artifact",
+    "check_at_least_10_symbols",
+    "actually_check_artifacts_1"
+  ],
+  "rules": [
+    {
+      "title": "Disturbance",
+      "steps": ["disturbance_rule"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "The expedition's reunion on the beach is decidedly dour, underscored by the rolling fog. One of the crew members you left behind to tend the boat is dead, according to the others, she was murdered when the remaining rations were stolen by starving pilgrims. Thankfully, the <i>Cassandra</i> is intact. You have barely enough food remaining to make it to the mainland. Andy and Ruby discuss their findings as the rest of the expedition bandage wounds and begin loading the <i>Cassandra</i> for the voyage home. Once the ship is loaded, you join Andy and Ruby on the shore."
+    },
+    {
+      "id": "check_campaign_log",
+      "text": "Check the campaign log."
+    },
+    {
+      "id": "check_at_least_one_artifact",
+      "bullet_type": "small",
+      "text": "If at least 1 artifact is checked under \"Artifacts Earned\"",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "artifacts_earned",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 1
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_at_least_10_symbols",
+      "text": "...and at least 10 glyphs are translated in the glyph record:",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "glyphs",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 10
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_check_artifacts_1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "artifacts_earned",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 1
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "glyphs",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 10
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "intro_2",
+              "check_campaign_log",
+              "check_all_artifacts",
+              "check_all_symbols",
+              "check_the_inner_sanctum_was_unsealed",
+              "actually_check_artifacts_2"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_awakening"
+              }
+            ],
+            "steps": [
+              "$proceed"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "\"Just how much of that ugly chicken scratch did you decode?\" Ruby asks. Andy is hunched over the obsidian slate, making notes in a leatherbound notebook. In the evening half-light, the glyphs on the slate glow like pale fire. Andy leafs through several waterlogged pages and places a bloody slip of paper on the stone. \"Enough to decode this. I found it on the body of one of the pilgrims. It roughly translates to this,\" he hastily scribbles the translation on a fresh page and holds it out to you. It reads:\n<center><fancy>\"That is not dead which can eternal lie</fancy></center>\n<center><fancy>and with strange aeons even death may die.\"</fancy></center>"
+    },
+
+    {
+      "id": "check_all_artifacts",
+      "bullet_type": "small",
+      "text": "If all 5 artifacts are checked in \"Artifacts Earned,\"",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "artifacts_earned",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 5
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_all_symbols",
+      "text": "...all 26 glyphs are translated in the glyph record,",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "glyphs",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 26
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_the_inner_sanctum_was_unsealed",
+      "text": "...and <i>the inner sanctum was unsealed:</i>",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_inner_sanctum_was_unsealed",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "actually_check_artifacts_2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 3,
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "artifacts_earned",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 5
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "math",
+            "opA": {
+              "type": "campaign_log_count",
+              "section": "glyphs",
+              "id": "$num_entries"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 26
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "the_inner_sanctum_was_unsealed",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "intro_3",
+              "choose_to_play_or_skip"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_awakening"
+              }
+            ],
+            "steps": [
+              "add_zero_token",
+              "$proceed"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_zero_token",
+      "bullet_type": "small",
+      "text": "Add a 0 token to the chaos bag for the remainder of the campaign",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["0"]
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "With your own account, Ruby and Andy help you slowly piece together a narrative across the various friezes and artifacts found in the ancient city. A common theme emerges: an alien civilization from far beyond the stars, an ancient war before history itself, the sinking of R'lyeh, the \"death\" and prophesied return of an ancient god named <b><i>Cthulhu</i></b>.\nAndy points to the central spire. The obsidian gates in the base are swung wide open. A faint but sharp smell of decay wafts out of them. \"The crew members who stayed behind say those doors opened a week ago. Someone went inside, but they never returned,\" Andy says. He shares a few translations he made of rubbings from the gate. \"This one describes a glorious rebirth, a risen sleeper, and the return of the great old ones. It claims he will take back what is his: every part of R'lyeh that was stolen, every corner of his domain.\"\n\"This thing—Cthulhu—is dead. Or asleep. I'm not sure; the details are hazy at best. But with the city and everything else in it awakening, I imagine it's only a matter of time until he awakens as well. He's called followers here from their dreams. And judging by the smell, he's in <i>there</i>,\" the reporter points to the obsidian gates.\nAfter a long pause, Ruby stands up.\n\"It wouldn't be much of a heist if we left the doors open,\" she winks. I say we lock this thing up before we sail off into the sunset. Who's with me?\""
+    },
+    {
+      "id": "choose_to_play_or_skip",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "skip",
+            "text": "<i>\"We should know better than to disturb whatever is inside.\"</i>",
+            "description": "Each investigator marks 1 progress under their Task in your Campaign Log. In your Campaign Log, record <i>the investigators did not confront the nightmare</i>. Proceed to <b>Interlude III: The Awakening</b>.",
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "all",
+                "operation": "add",
+                "value": 1
+              },
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "did_not_confront_the_nightmare",
+                "text": "the investigators did not confront the nightmare."
+              },
+              {
+                "type": "campaign_data",
+                "setting": "next_scenario",
+                "scenario": "the_awakening"
+              }
+            ],
+            "steps": ["$proceed"]
+          },
+          {
+            "id": "play",
+            "text": "<i>\"We should lay it to rest... permanently\"</i>",
+            "description": "Proceed to <b>Setup</b>",
+            "steps": [
+              "encounter_sets",
+              "setup_locations",
+              "choose_support",
+              "take_all_artifacts",
+              "setup_act",
+              "encounter_deck",
+              "disturbance_rule",
+              "$play_scenario"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "sepulchre_of_the_sleeper",
+        "domination",
+        "dreams",
+        "rlyeh",
+        "star_spawn",
+        "ancient_evils",
+        "striking_fear"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Dreamer's Rest and each copy of Sigil-Carved Alcove into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Dreamer's Rest."
+        }
+      ]
+    },
+    {
+      "id": "choose_support",
+      "type": "encounter_sets",
+      "encounter_sets": ["tdc_expedition"],
+      "text": "In player order, each player may choose 1 [[Item]] asset from the <i>Expedition</i> encounter set to begin in play under their control. This set is indicated by the following icon:"
+    },
+    {
+      "id": "take_all_artifacts",
+      "text": "Gather all earned [[Artifact]] assets and put each of them into play under an investigator's control, divided as evenly as possible."
+    },
+    {
+      "id": "setup_act",
+      "text": "Build a special agenda deck using Beneath the City as the first agenda and Cthulhu Awakened as the second agenda. These replace the act and agenda decks."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "disturbance_rule",
+      "type": "rule_reminder",
+      "title": "Disturbance",
+      "text": "Throughout this scenario, the number of resources under \"Disturbance\" on the scenario reference card indicate Cthulhu's awareness of the investigators. The higher the Disturbance, the closer the Sleeper is to awakening. Disturbance has no inherent game effect on its own; however, some encounter card effects may change or become stronger depending on the current level of Disturbance."
+    },
+    {
+      "id": "defeated_insane",
+      "text": "Each investigator who was defeated is driven <b>insane</b>. If there are no surviving investigators, the investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "trauma",
+          "insane": true,
+          "investigator": "defeated"
+        }
+      ]
+    },
+    {
+      "id": "check_all_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "trauma",
+        "trauma": "insane",
+        "investigator": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "lose_campaign"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_campaign",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "skip_scenario",
+          "scenario": "tdc_epilogue"
+        },
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "halted_cthulhus_awakening",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "halted_cthulhus_awakening",
+          "text": "the investigators halted Cthulhu's awakening."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_10",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 10 bonus experience, as they prevented an ancient evil from rising to terrorize all of the earth once again.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "two_mental_trauma",
+      "text": "Each investigator suffers 2 mental trauma.",
+      "effects": [
+        {
+          "type": "trauma",
+          "mental": 2,
+          "investigator": "all",
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "setup_epilogue",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "tdc_epilogue"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "Broken in both mind and body, you collapse before the great form of Cthulhu. All around you the city quakes, filling your ears with a deafening drone. Cthulhu stares down at you with indifference. You are nothing more to him than a nuisance, an insignificant pest. Your consciousness soon folds in on itself as the frail structure of your mind gives way to the unbound freedom of utter insanity.",
+      "steps": [
+        "defeated_insane",
+        "check_all_defeated"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "",
+      "steps": [
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "The gargantuan form of Cthulhu falls backwards into the central pool His flabby clawed hands grasp at the edges of the pool, failing to find purchase, as his form sinks below the black water. The five glowing red eyes, distorted by the water's surface, slowly fade from view. And, just as suddenly as it started, all is quiet and still.\nYou emerge from the obsidian gates and walk to the edge of the shoreline. At long last, you're ready to leave this city behind, bring these artifacts back to Arkham, and move on with your life. As you climb aboard the <i>Cassandra</i>, you look back at the blasphemous skyline, outlined against the setting sun like the spine of an ancient beast. The turbid waters churn as the ancient city begins to descend, almost imperceptibly, to be reclaimed by the ocean. Both the dreamer and his house in R'lyeh have been laid to rest.\n\"I wonder what Mr Tillinghast planned to do with those artifacts,\" Andy muses. \"Probably sell 'em\" Ruby says, a cigarette clenched between her teeth. Closing your eyes, you turn back to the cabin. Perhaps tonight, for the first time in months, you'll enjoy a deep, dreamless sleep.",
+      "steps": [
+        "halted_cthulhus_awakening",
+        "earn_xp_10",
+        "two_mental_trauma",
+        "setup_epilogue",
+        "$upgrade_decks",
+        "win_campaign"
+      ]
+    }
+  ]
+}

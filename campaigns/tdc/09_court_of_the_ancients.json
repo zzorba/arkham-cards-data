@@ -1,0 +1,846 @@
+{
+  "id": "court_of_the_ancients",
+  "scenario_name": "Court of the Ancients",
+  "full_name": "Court of the Ancients",
+  "header": "Scenario",
+  "chaos_bag_card": "11612",
+  "chaos_bag_card_text": "[skull]: -X. X is the number of [[Glyph]] cards in the victory display.\n[cultist]: -2 (-4 instead if there is a [[Stowaway]] enemy at your location).\n[tablet]: -2. If your location is flooded, reveal another token.\n[elder_thing]: -4. If this token is revealed during an attack or evasion attempt, take 1 damage or 1 horror.",
+  "chaos_bag_card_back_text": "[skull]: -X. X is 1 more than the number of [[Glyph]] cards in the victory display.\n[cultist]: -3 (-5 instead if there is a [[Stowaway]] enemy at your location).\n[tablet]: -3. If your location is flooded, reveal another token.\n[elder_thing]: -5. If this token is revealed during an attack or evasion attempt, take 1 damage and 1 horror.",
+  "setup": [
+    "check_direction",
+    "check_west",
+    "check_plumb_the_depths",
+    "$check_good_money_setup",
+    "encounter_sets",
+    "setup_locations",
+    "choose_location_layout",
+    "setup_check_west",
+    "set_aside_cards",
+    "$check_killed_creature",
+    "$choose_artifacts_or_support",
+    "encounter_deck",
+    "sliding_locations_rule",
+    "sliding_locations_rule_a",
+    "sliding_locations_rule_b",
+    "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "The Great Lift and Sliding Locations",
+      "steps": [
+        "sliding_locations_rule",
+        "sliding_locations_rule_a",
+        "sliding_locations_rule_b"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "campaign_log": [
+          {
+            "id": "the_creature_was_defeated",
+            "condition": {
+              "type": "campaign_log",
+              "section": "campaign_notes",
+              "id": "the_creature_was_defeated",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The creature was defeated.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "the_creature_was_defeated",
+                "text": "the creature was defeated."
+              }
+            ]
+          }
+        ],
+        "branches": [
+          {
+            "id": "glyphs",
+            "text": "Translate a Glyph",
+            "icon": "tablet",
+            "repeatable": true,
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "options": [{ "boolCondition": true }],
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "campaign_log_count",
+                    "section": "glyphs",
+                    "id": "$num_entries"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 26
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ]
+            },
+            "steps": ["$ask_glyphs"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_direction",
+      "text": "Check campaign log."
+    },
+    {
+      "id": "check_west",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>If the expedition headed west:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "west_story",
+              "add_cultist"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_east"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "check_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "text": "<i>If the expedition headed east:</i>",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "east_story",
+              "add_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "west_story",
+      "type": "story",
+      "text": "Time seems to slip away as you follow the dark tunnels out of the heart of the city. Eventually the constant churn and thrum of machinery melts away, replaced by an ominous silence. Andy has only just proposed that you turn around to find another route when the endless stairs come to a stop. An intricately carved door is set in the ceiling above you. Pressing a panel in its center reveals a vast, airy structure that vaguely resembles the nave of some ancient alien cathedral. A towering lift dominates the center, surrounded by spiraling ringed floors. The walls are covered in countless alien glyphs, pulsing with green light. You wonder if the great archive might hold anything valuable."
+    },
+    {
+      "id": "east_story",
+      "type": "story",
+      "text": "You land on the top floor of the towering nave. Twisting stairs and catwalks circle the sprawling structure, revealing more levels below. The walls around you are covered in glowing alien glyphs: hundreds of thousands of symbols covering every surface. You wonder if the great archive might hold anything valuable.\n“Watch yourself. We’re not the first ones here,” says Ruby. The jewel thief is bent over a prone human body lying in a pool of fresh blood. You’re struck by their colorful patchwork cloak. A deep, rumbling roar reverberates through the chamber. Ruby’s expression turns grave.\n“If we’re going to find anything of value, we’d better act quickly.”"
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet"]
+        }
+      ]
+    },
+    {
+      "id": "check_plumb_the_depths",
+      "text": "If an investigator has the \"Plumb the Depths\" task:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "picked_plumb_the_depths",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["plumb_the_depths_story", "plumb_the_depths_choice"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "plumb_the_depths_story",
+      "title": "Task: Plumb the Depths",
+      "type": "story",
+      "text": "You can’t help but marvel at the austere grandeur of the ancient structure. Was this an ancient palace? A library? A place of worship? The intricate murals on the walls are a blend of pictograph and alien writing, depicting an ancient migration across the stars. The glyphs glow with a flickering green light, chronicling unknowable histories, ancient secrets hidden from humankind.\nOne image—a nightmarescape of oceanic horrors and sunken cities—catches your attention. You press the eye of a particularly disturbing creature and feel a rush of ancient memories. Thoughts and feelings of an alien being, images of the stygian depths of some distant planet, overwhelm your consciousness. The memories give way to clearer, more defined facts, dates, a history recorded by a prehistoric civilization. You begin to feel yourself slip away as though your consciousness were being drawn through a sieve. There is much more you could learn… but should you?"
+    },
+    {
+      "id": "plumb_the_depths_choice",
+      "type": "input",
+      "text": "You must decide <i>(choose one)</i>:",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "away",
+            "text": "<i>Look away.</i>",
+            "description": "Erase 1 progress under “Plumb the Depths” in your Campaign Log. Each investigator begins the next scenario with 1 clue <i>(from the token pool)</i>.",
+            "steps": ["plumb_the_depths_away"]
+          },
+
+          {
+            "id": "seek",
+            "text": "<i>Seek the truth.</i>",
+            "description": "Mark 2 progress under “Plumb the Depths” in your Campaign Log and suffer 1 mental trauma. Each investigator begins the next scenario with 1 fewer card in their opening hand.",
+            "steps": ["plumb_the_depths_seek"]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "plumb_the_depths_away",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "plumb_the_depths",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": -1,
+                "min": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "plumb_the_depths_seek",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_task",
+        "section": "hidden",
+        "id": "plumb_the_depths",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              },
+              {
+                "type": "campaign_log_investigator_count",
+                "section": "task_progress",
+                "id": "$count",
+                "investigator": "$input_value",
+                "operation": "add",
+                "value": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": ["court_of_the_ancients", "domination", "dreams", "elder_mist", "the_inescapable", "rlyeh", "star_spawn"]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Twisting Catwalks, West Antechamber, East Antechamber, and Ancient Altar locations into play according to the location placement diagram.",
+      "bullets": [
+        {
+          "text": "Shuffle each copy of Crumbling Archives and remove one of them from the game at random. Put each remaining copy of Crumbling Archives into play as shown in the location placement diagram."
+        }
+      ]
+    },
+    {
+      "id": "choose_location_layout",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["location_layout_west"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["location_layout_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "location_layout_west",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "twisting_catwalks",
+          "blank",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "archives",
+          "blank",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "archives",
+          "blank",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "west_antechamber",
+          "great_lift",
+          "east_antechamber",
+          "altar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "twisting_catwalks",
+          "name": "Twisting Catwalks"
+        },
+        {
+          "code": "archives",
+          "name": "Crumbling Archives"
+        },
+        {
+          "code": "west_antechamber",
+          "name": "West Antechamber"
+        },
+        {
+          "code": "east_antechamber",
+          "name": "East Antechamber"
+        },
+        {
+          "code": "great_lift",
+          "name": "Great Lift"
+        },
+        {
+          "code": "altar",
+          "name": "Ancient Altar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "4th Floor",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "3rd Floor",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "2nd Floor",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "1st Floor",
+          "x": 1,
+          "y": 4,
+          "position": "left"
+        }
+      ]
+    },
+
+    {
+      "id": "location_layout_east",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "twisting_catwalks",
+          "great_lift",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "archives",
+          "blank",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "archives",
+          "blank",
+          "archives",
+          "blank"
+        ],
+        [
+          "blank",
+          "west_antechamber",
+          "blank",
+          "east_antechamber",
+          "altar"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "twisting_catwalks",
+          "name": "Twisting Catwalks"
+        },
+        {
+          "code": "archives",
+          "name": "Crumbling Archives"
+        },
+        {
+          "code": "west_antechamber",
+          "name": "West Antechamber"
+        },
+        {
+          "code": "east_antechamber",
+          "name": "East Antechamber"
+        },
+        {
+          "code": "great_lift",
+          "name": "Great Lift"
+        },
+        {
+          "code": "altar",
+          "name": "Ancient Altar"
+        }
+      ],
+      "annotations": [
+        {
+          "text": "Floor Level",
+          "x": 1,
+          "y": 0,
+          "width": 2,
+          "position": "left"
+        },
+        {
+          "text": "4th Floor",
+          "x": 1,
+          "y": 1,
+          "position": "left"
+        },
+        {
+          "text": "3rd Floor",
+          "x": 1,
+          "y": 2,
+          "position": "left"
+        },
+        {
+          "text": "2nd Floor",
+          "x": 1,
+          "y": 3,
+          "position": "left"
+        },
+        {
+          "text": "1st Floor",
+          "x": 1,
+          "y": 4,
+          "position": "left"
+        }
+      ]
+    },
+    {
+      "id": "setup_check_west",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_great_lift_level_1",
+              "gather_stowaways",
+              "act_deck_v1",
+              "setup_star_spawn_observer_and_two",
+              "starting_location_v1"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["setup_check_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_great_lift_level_1",
+      "bullet_type": "small",
+      "text": "Put the Great Lift location into play on level 1, <i>(Inactive)</i> side faceup. (See <b>The Great Lift and Sliding Locations</b> below)."
+    },
+    {
+      "id": "gather_stowaways",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": ["stowaways"]
+    },
+    {
+      "id": "act_deck_v1",
+      "bullet_type": "small",
+      "text": "Build the act and agenda deck using agenda 1a-\"Ruined Archives,\" agenda 2a-\"Unstable Foundations,\" act 1a-\"Steps of Giants,\" and act 2a—\"Escape the Tower (v. 1).\" Remove each other act and agenda from the game."
+    },
+    {
+      "id": "setup_star_spawn_observer_and_two",
+      "bullet_type": "small",
+      "text": "Search the <i>Star Spawn</i> encounter set for the Star Spawn Observer enemy and set it aside, out of play. Remove two other cards in the <i>Star Spawn</i> encounter set from the game at random."
+    },
+    {
+      "id": "starting_location_v1",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at East Antechamber."
+    },
+    {
+      "id": "setup_check_east",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_great_lift_level_4",
+              "gather_pilgrims",
+              "act_deck_v2",
+              "add_flood_tokens",
+              "setup_star_spawn_observer_only",
+              "starting_location_v2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+
+      "id": "setup_great_lift_level_4",
+      "bullet_type": "small",
+      "text": "Put the Great Lift location into play on level 4, <i>(Inactive)</i> side faceup. (See <b>The Great Lift and Sliding Locations</b> below)."
+    },
+    {
+      "id": "gather_pilgrims",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": ["pilgrims"]
+    },
+    {
+      "id": "act_deck_v2",
+      "bullet_type": "small",
+      "text": "Build the act and agenda deck using agenda 1a-\"Flooded Archives,\" agenda 2a-\"Unstable Foundations,\" act 1a—\"Steps of Giants,\" and act 2a—\"Escape the Tower (v. II).\" Remove each other act and agenda from the game."
+    },
+    {
+      "id": "setup_star_spawn_observer_only",
+      "bullet_type": "small",
+      "text": "Search the <i>Star Spawn</i> encounter set for the Star Spawn Observer enemy and set it aside, out of play. Remove each other card in the <i>Star Spawn</i> encounter set from the game."
+    },
+    {
+      "id": "starting_location_v2",
+      "bullet_type": "small",
+      "text": "Each investigator begins the game on the Twisting Catwalks."
+    },
+    {
+      "id": "add_flood_tokens",
+      "bullet_type": "small",
+      "text": "Add the flood tokens to the token pool.",
+      "bullets": [
+        {
+          "text": "Increase the flood level of each location on levels 1 and 2."
+        },
+        {
+          "text": "Increase the flood level of each location on level 1 so that they are fully flooded."
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the Shard of Y'ch'lecht story asset and the Colossal Tyrant enemy aside, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to build the encounter deck."
+    },
+    {
+      "id": "sliding_locations_rule",
+      "type": "rule_reminder",
+      "title": "The Great Lift and Sliding Locations",
+      "text": "During this scenario, the investigators will need to use the Great Lift to explore other levels of the tower.",
+      "bullets": [
+        {
+          "text": "Locations are not connected to one another except via the Great Lift, their connection icons, or certain card effects."
+        },
+        {
+          "text": "The Great Lift is only connected to the locations to the left and right of it, and vice versa."
+        }
+      ]
+    },
+    {
+      "id": "sliding_locations_rule_a",
+      "text": "When instructed to slide the Great Lift up or down, move the Great Lift to the level above or below its current level.",
+      "bullets": [
+        {
+          "text": "The Great Lift cannot move above level 4 or below level 1."
+        }
+      ]
+    },
+    {
+      "id": "sliding_locations_rule_b",
+      "text": "When the Great Lift moves, each card and token at that location moves with it."
+    },
+    {
+      "id": "cross_out_court_of_the_ancients",
+      "text": "Cross out \"Court of the Ancients\" on the R'lyeh map.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "locations",
+          "id": "court_of_the_ancients",
+          "text": "Court of the Ancients",
+          "cross_out": true
+        }
+      ]
+    },
+
+    {
+      "id": "ask_shard",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the Shard of Y'ch'lecht under the control of an investigator when the scenario ended?",
+            "steps": ["earn_shard"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_shard",
+      "bullet_type": "small",
+      "text": "Check the box next to \"Shard of Y'ch'lecht\" under \"Artifacts Earned.\"",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "artifacts_earned",
+          "id": "shard",
+          "text": "Shard of Y'ch'lecht"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_west",
+      "text": "Check the campaign log. If <i>the expedition headed west</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_obsidian_canyons"]
+
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_resolution_east"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_resolution_east",
+      "bullet_type": "small",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["next_grand_vault"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "next_obsidian_canyons",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "obsidian_canyons"
+        }
+      ]
+    },
+    {
+      "id": "next_grand_vault",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "next_scenario",
+          "scenario": "the_grand_vault"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "he rest of the expedition tell you they found you standing at the edge of the towering climb as if sleepwalking. You rub your eyes. You have no memory of the alien court. And, given that it has almost entirely collapsed, you never will.",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_court_of_the_ancients",
+        "ask_shard",
+        "earn_xp",
+        "$upgrade_decks",
+        "check_resolution_west"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_west",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "Steeling yourself for another climb, you put one hand above the other, moving from handhold to handhold as the tower threatens to collapse under you. Eventually you pull yourself to the lip of the shattered dome and out to safety. Andy clambers out of the ancient court, followed by the rest of the expedition. You all look down at the dazzling skyline of R’lyeh, which seems to shift and sway strangely in the strong sea winds.",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_court_of_the_ancients",
+        "ask_shard",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_obsidian_canyons"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "expedition_headed_east",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      },
+      "text": "After prodding and twisting at every ridge of the dais, it finally slides open. Below, a spiral stairway descending into deep darkness below. Another chunk of rock shatters on the floor of the ancient building. “We have to get out of here!” Ruby shouts. Wasting no time, you descend the stairs, leaving the crumbling tower and its ancient secrets behind.",
+      "steps": [
+        "$ask_completed_task",
+        "cross_out_court_of_the_ancients",
+        "ask_shard",
+        "earn_xp",
+        "$upgrade_decks",
+        "next_grand_vault"
+      ]
+    }
+  ]
+}
