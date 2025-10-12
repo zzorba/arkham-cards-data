@@ -1,0 +1,530 @@
+{
+  "id": "when_the_world_screamed",
+  "scenario_name": "When the World Screamed",
+  "full_name": "When the World Screamed",
+  "header": "",
+  "xp_cost": 2,
+  "chaos_bag_card": "TBD",
+  "side_scenario_type": "side_story",
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://arkhamcon.org"
+    }
+  },
+  "standalone_setup": [
+    "choose_difficulty",
+    "ask_epic_multiplayer",
+    "intro_1",
+    "check_reporters",
+    "intro_2",
+    "gather_encounter_sets",
+    "check_epic_multiplayer",
+    "create_complication_deck",
+    "setup_complications_arise",
+    "setup_control_platform",
+    "setup_mechanism_locations",
+    "check_epic_strata",
+    "setup_dyer",
+    "set_aside_cards",
+    "starting_depth",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+    "intro_1",
+    "check_reporters",
+    "intro_2",
+    "gather_encounter_sets",
+    "check_epic_multiplayer",
+    "create_complication_deck",
+    "setup_complications_arise",
+    "setup_control_platform",
+    "setup_mechanism_locations",
+    "check_epic_strata",
+    "setup_dyer",
+    "set_aside_cards",
+    "starting_depth",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-6",
+              "skull",
+              "skull",
+              "cultist",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "cultist",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_epic_multiplayer",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are you playing in Epic Multiplayer?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "wtws_epic_multiplayer",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+
+    },
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -2,
+          "side_scenario_cost": true
+        }
+      ]
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "You were told to be punctual, no matter the cost. And so there you stand outside the London house of Professor George Challenger at ten o'clock sharp. The man had an enormous reputation in all things, from his intellect and physical stature to his ego and temper. Anything you could do to get on his good side and stay there was paramount.\nThese urgings came to you from William Dyer, the head of Miskatonic University's geology department. Many — including Dyer himself — were surprised when Challenger sent him an offer to be involved in a project of the utmost secrecy. The surprises continued when, several months later, Dyer contacted you with an urgent call for assistance.\nThe door opens punctually and a stone-faced butler ushers you inside to Challenger's study. The room is littered with trophies and milestones of the professor's scientific triumphs, but none of them are as imposing as the man himself. Even seated behind his desk, his size and gravitas are plain to see without a word on his part. Despite his luxuries, the man resembles a caveman, broad with a bushy black beard. Challenger writes forcefully and deliberately without a change of pace as you enter.\n\"Speak or depart. My time is valuable,\" he growls without sparing you a glance. You give a brief explanation, and only when Dyer is mentioned does Challenger finally pause. \"At last then, progress can be made.\" He stands suddenly and strides around, like a bear suddenly roused to action. \n\"You are completely unaware of the nature of this venture, I trust. If you are otherwise, then Dyer will have violated the explicit instructions given to him.\" You confirm that you were told nothing, and only the newspapers gave you any hint of the project's nature and scope. The very mention of the press triggers a wrinkling of Challenger's brow. \"The hyenas of the press have been eagerly following the lion since my experiment began.\""
+    },
+    {
+      "id": "check_reporters",
+      "type": "branch",
+      "text": "If an investigator has the [[Reporter]] trait:",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          { 
+            "condition": "Reporter",
+            "steps": ["tread_carefully"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tread_carefully",
+      "type": "story",
+      "text": "Challenger's eyes narrow and you expect a sneer behind his thick beard. \"While it is not impossible for a journalist to have some scruples, it is also against the scavenging nature of your profession. Once this experiment is concluded, you will adhere to the absolute truth and scientific fact of this venture without sensationalism, or you will find me to be the most dangerous element of this experiment.\"\nYou agree for both honesty and self-preservation."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Challenger's shoulders relax slightly and he circles back around his desk. \"Dyer has vouched for your integrity, and he has proven to be adequate for a specialist, so I will not belabor the point. Once you have sworn to complete secrecy, we may proceed to the business at hand.\" The scientist stands behind his desk staring intently until you do swear it.\n\"The experiment, simply put, is to penetrate the Earth's crust to prove or disprove a simple hypothesis: that the planet is itself one enormous living organism.\" You nearly question the man's sanity aloud, but manage to ask him for an explanation instead. Challenger opens a desk drawer and produces a sea urchin. \"Regard this species of echinoderm. From the outside, it appears inorganic. Microscopic life forms collect and thrive on its exterior. Transpose that fact onto the Earth itself.\"\nThere are thousands of questions you could ask, but given the scope of your discoveries in Arkham, a living planet is strangely within the bounds of reason. Instead, you ask what part you are meant to play in the experiment. \"The digging operations have proceeded as planned, and we have nearly reached the limit of the Earth's crust, eight miles down. It is at this point where the drill operators have lost their senses.\"\nChallenger bristles in indignation as he continues. \"The very premise of the experiment suggests the discovery of something living! Why should they be so appalled to find life exactly where it was proposed to find it?!\" You ask which life Challenger means if the experiment is not yet complete. \"The Earth has yet to be breached. There are other things in the depths — the life collected on the exterior, you will recall — that interfere with the drilling. I will not abandon this experiment in the eleventh hour, and so you will resume operation of the drill. Dyer assures me that there will be some part of it or another suited to your skill set. Let us depart for Sussex immediately.\"\nChallenger arranges for your swift transportation to the site in one of the many vans ferrying equipment. You are escorted through checkpoints and barbed wire fences, passing many prying journalists who shout conjecture as you go by. Your escort finally rolls to a stop, and you step down only to come face to face with Professor Dyer.\nThe man has seen better days, but that was his default state more often than not. Dyer looks utterly exhausted, and it's hard to say if it's from the stress of managing a project of this scale, the unnatural finds deep in the dig, or from just trying to mollify Challenger constantly.\n\"It's good to see you,\" he croaks with a weary sigh. \"The project is nearly finished, and I'll be happy to put this business behind me forever.\"\nYou enter a caged elevator alongside Dyer and begin the long descent into the vast delving. Dyer uses the time to instruct you on operation of the drill, and just as importantly, on the dangers that drove away your predecessors. \"The further we descend, the more otherworldly it becomes — ironically, since we approach the mantle of the world. Steel yourself. I won't dare to hazard a guess at what actually lies below.\""
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "when_the_world_screamed"
+      ]
+    },
+    {
+      "id": "check_epic_multiplayer",
+      "hidden": true,
+      "type": "branch",
+      "condition":{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "wtws_epic_multiplayer",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps":[
+              "setup_epic_multiplayer",
+              "threshold_epic_multiplayer"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps":["setup_single_group"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_single_group",
+      "type": "encounter_sets",
+      "text": "Build the act deck using act 1a — \"Downward Spiral (v. I)\" from the Single Group encounter set. Remove each other copy of act 1a from the game.",
+      "encounter_sets":[
+        "single_group"
+      ]
+    },
+    {
+      "id": "setup_epic_multiplayer",
+      "type": "encounter_sets",
+      "text": "Build the act deck using act 1a — \"Downward Spiral (v. II)\" from the Epic Multiplayer encounter set. Remove each other copy of act 1a from the game.",
+      "encounter_sets":[
+        "epic_multiplayer"
+      ]
+    },
+    {
+      "id": "threshold_epic_multiplayer",
+      "text": "The event organizer will calculate and announce the global clue threshold for Act 1."
+    },
+    {
+      "id": "create_complication_deck",
+      "text": "Create the Complication deck by taking each of the [[Complication]] cards and shuffling them together. Place the Complication deck next to the scenario reference card."
+    },
+    {
+      "id": "setup_complications_arise",
+      "text": "Put the Complications Arise story card into play next to the Complication deck."
+    },
+    {
+      "id": "setup_control_platform",
+      "text": "Put the single-sided Control Platform location into play."
+    },
+    {
+      "id": "setup_mechanism_locations",
+      "text": "In player order, each player chooses one of the single-sided [[Mechanism]] locations, puts it into play, and begins play at that location. Remove each other [[Mechanism]] location from the game."
+    },
+    {
+      "id": "check_epic_strata",
+      "hidden": true,
+      "type": "branch",
+      "condition":{
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "wtws_epic_multiplayer",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps":["setup_strata_deck_epic"]
+          },
+          {
+            "boolCondition": false,
+            "steps":["setup_strata_deck"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_strata_deck",
+      "text": "Create the Strata deck. This is done by performing the following steps, in order.",
+      "bullets": [
+        {
+          "text": "Gather each of the [[Strata]] locations."
+        },
+        {
+          "text": "Set Ground Zero aside, out of play."
+        },
+        {
+          "text": "Place Mantle Border on the bottom of the Strata deck, face up."
+        },
+        {
+          "text": "Randomly choose two [[Strata]] cards to place on top of Mantle Border."
+        },
+        {
+          "text": "Place the set-aside Ground Zero on top of the Strata deck. <b>For the remainder of the scenario, the top card of the Strata deck is considered to be in play.</b>"
+        },
+        {
+          "text": "Remove each unused [[Strata]] location from the game."
+        }
+      ]
+    },
+    {
+      "id": "setup_strata_deck_epic",
+      "text": "Create the Strata deck. This is done by performing the following steps, in order.",
+      "bullets": [
+        {
+          "text": "Gather each of the [[Strata]] locations."
+        },
+        {
+          "text": "Set Ground Zero aside, out of play."
+        },
+        {
+          "text": "Place Mantle Border on the bottom of the Strata deck, face up."
+        },
+        {
+          "text": "The event organizer will choose two [[Strata]] cards to place on top of Mantle Border."
+        },
+        {
+          "text": "Place the set-aside Ground Zero on top of the Strata deck. <b>For the remainder of the scenario, the top card of the Strata deck is considered to be in play.</b>"
+        },
+        {
+          "text": "Remove each unused [[Strata]] location from the game."
+        }
+      ]
+    },
+    {
+      "id": "setup_dyer",
+      "text": "Put Professor William Dyer into play at Control Platform."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Professor George Challenger, Planetary Tissue Sample, each [[Chthonian]] enemy, and The Final Layer."
+    },
+    {
+      "id": "starting_depth",
+      "text": "Place 1 resource on the scenario reference card to denote that the starting Depth Level is 1."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "drill_broke_down",
+      "effects":[
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "drill_broke_down",
+          "text": "the drill broke down."
+        }
+      ]
+    },
+    {
+      "id": "world_screamed",
+      "effects":[
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "world_screamed",
+          "text": "the World screamed."
+        }
+      ]
+    },
+    {
+      "id": "ask_act_1",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was Act 1 completed?",
+            "steps": ["add_bonus"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_bonus",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_bonus_2",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display. Each investigator earns 2 bonus experience from their new knowledge of what the world truly is.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_rewards",
+      "text": "Any one investigator may add Professor George Challenger to their deck. Any one investigator may add Planetary Tissue Sample to their deck. These cards do not count toward those investigators' deck sizes.",
+      "steps": [
+        "add_challenger",
+        "add_tissue"
+      ]
+    },
+    {
+      "id": "add_challenger",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zwtws_00026"
+        }
+      ]
+    },
+    {
+      "id": "add_tissue",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "zwtws_00027"
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You and Dyer barely drag yourselves to the elevator cage at the top of the drill's final descent. The entire tunnel echoes with the sounds of metal shearing off against rock. The dim lights in and around the elevator flicker and pop, and you grip the support bars tensely. The whole structure is in danger of falling apart and sending you back into the abyss, but it somehow manages to deliver you and Dyer to the surface. Barely a minute after reaching the top, the entire tunnel compresses inward, sealing the Earth back together.\nChallenger hurls his hat to the ground in fury and begins an angry tirade over the failed experiment. Dyer lets out a long sigh as he runs a hand through his hair. \"I'll... try to smooth things over with him. And I'll let him know the things we ran into down there. Not that it will make up for the loss of the tunnel and equipment, but maybe it will put him on a different tack. Just... get some rest.\"",
+      "steps": [
+        "drill_broke_down",
+        "ask_act_1",
+        "earn_xp"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Your ears ring as you retreat back up the tunnel, starting the ascent as soon as Dyer has entered the elevator. The whole tunnel rocks around you, contracting like muscles — which, given the discovery, could be the case. The whole structure is in danger of falling apart and sending you back into the abyss, but it somehow manages to deliver you and Dyer to the surface.\nYou've scarcely exited the elevator and run for cover when a gout of viscous fluid erupts from the tunnel, squeezed out as the entire delving compresses back together like a closing wound. Onlookers from the press gasp and scream as many are coated in the foul substance, but Challenger's booming laughter can be  heard above the din.\n\"A successful experiment and the mortification of the ever-present vultures? Truly a red letter day! I daresay that the Earth's scream was heard across the channel, if not further still!\" He strides towards you to clap you on the shoulder and shake your hand. \"I must give proper credit to both you and Dyer, of course. I had my doubts, it must be said, but you held until the experiment concluded. But science forges ever onward, and so without pause, it is already time to consider new hypotheses to test. Should you have any mysteries, do refer them to me for my expert consideration.\"",
+      "steps": [
+        "world_screamed",
+        "earn_rewards",
+        "earn_xp_bonus_2"
+      ]
+    }
+  ]
+}

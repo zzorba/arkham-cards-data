@@ -9,6 +9,7 @@
   "setup": [
     "check_direction",
     "check_west",
+    "check_no_place_like_home_errata",
     "$play_scenario"
   ],
   "rules": [
@@ -18,6 +19,29 @@
     }
   ],
   "steps": [
+    {
+      "id": "check_no_place_like_home_errata",
+      "hidden": true,
+      "type": "branch",
+
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "picked_no_place_like_home",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "no_place_like_home_errata"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_place_like_home_errata",
+      "text": "Errata: During this scenario, putting locations into play counts as meeting the 'reveal' reaction condition on the No Place Like Home task card."
+    },
     {
       "id": "check_direction",
       "text": "Check campaign log."
@@ -68,10 +92,11 @@
               "east_story",
               "add_tablet", "check_walk_in_faith",
               "$check_good_money_setup",
-              "setup_v2", "setup_location", "act_deck_v2",
+              "setup_v2",
+              "maybe_gather_inescapable",
+              "setup_location", "act_deck_v2",
               "remove_maria", "set_aside_v2",
               "$choose_artifacts_or_support",
-              "$check_killed_creature",
               "encounter_deck_v2"
             ]
           }
@@ -264,7 +289,7 @@
       "id": "setup_v2",
       "title": "Setup (v.II) - Eastern Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_apiary", "cosmic_legacy", "elder_mist", "the_inescapable", "star_spawn", "stowaways", "striking_fear"],
+      "encounter_sets": ["the_apiary", "cosmic_legacy", "elder_mist", "star_spawn", "stowaways", "striking_fear"],
       "subtext": "When gathering the <i>Star Spawn</i> encounter set, only gather the Infected Star Spawn enemy, Remove each other card in that set from the game."
     },
     {
@@ -295,6 +320,35 @@
     {
       "id": "set_aside_v2",
       "text": "Set each of the following aside, out of play: each [[Apiary]] location, the Grotesque Amalgam, Mother, and double-sided Squamous Parasite [tdc_rune_t] enemies, the Grisly \"Mask\" and Ancient Relic [tdc_rune_s] story assets, and each copy of the Parasitic Transformation weakness."
+    },
+    {
+      "id": "maybe_gather_inescapable",
+      "text": "Check the campaign log. If <i>the creature was defeated:</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_was_defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$no_inescapable_encounter_set"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gather_inescapable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_inescapable",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [ "the_inescapable"],
+      "text": "Also gather <i>The Inescapable</i> encounter set, and set it aside, out of play."
     },
     {
       "id": "encounter_deck_v1",
@@ -1022,10 +1076,73 @@
           }
         ]
       }
+    },
+    {
+      "id": "maybe_ask_ancient_relic",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "glyphs",
+            "id": "tdc_rune_s",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_data",
+            "campaign_data": "version",
+            "min_version": 2,
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "count": 2,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["ask_ancient_relic"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_ancient_relic",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did an investigator end the game with Ancient Relic under their control?",
+            "steps": ["record_tdc_rune_s"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_tdc_rune_s",
+      "bullet_type": "small",
+      "text": "In your Campaign Log, record \"Machine\" under [tdc_rune_s] on the glyph record.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "glyphs",
+          "id": "tdc_rune_s",
+          "text": "Machine"
+        }
+      ]
     }
   ],
   "resolutions": [
-
     {
       "id": "investigator_defeat",
       "title": "Investigator Defeat",
@@ -1048,6 +1165,7 @@
       ],
       "text": "You pull a flailing worm from your neck as you escape the putrid tunnels. Hopefully you aren’t infected…",
       "steps": [
+        "maybe_ask_ancient_relic",
         "$ask_completed_task",
         "earn_parasitic_transformation",
         "cross_out_apiary",
@@ -1072,6 +1190,7 @@
       },
       "text": "The last of the survivors emerges from the fetid tunnels. After thanking you, the pilgrims show you the tunnel they took from the “heart of the city.” As you leave, Andy wipes ichor off of his camera lens. “There’s another roll of worthless film. One shot could’ve made my career. I might as well have thrown all my film overboard on the way here.”",
       "steps": [
+        "maybe_ask_ancient_relic",
         "$ask_completed_task",
         "pilgrims_were_saved",
         "cross_out_apiary",
@@ -1096,6 +1215,7 @@
       },
       "text": "Shell-shocked, you emerge from the tunnels to find the vast antechamber where you began. If any pilgrims survived, they did not linger. After a long silence, the expedition prepares to move on. Andy narrows his eyes at a trail of blood on the floor, noting that if a pilgrim had been dragged away, it would be much messier. Their trail may lead to “the city core” as Maria put it.",
       "steps": [
+        "maybe_ask_ancient_relic",
         "$ask_completed_task",
         "earn_parasitic_transformation",
         "pilgrims_were_devoured",
@@ -1122,6 +1242,7 @@
       },
       "text": "The expedition treks back to the apiary entrance, covered in gore. You scratch a persistent itch on the back of your neck, hoping you weren’t infected. Splintered memories from your brief moment as part of the hive mind continue to encroach on your thoughts. You doubt you will ever feel quite the same again.",
       "steps": [
+        "maybe_ask_ancient_relic",
         "$ask_completed_task",
         "exterminated_the_alien_parasites",
         "cross_out_apiary",

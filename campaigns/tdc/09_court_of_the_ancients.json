@@ -12,11 +12,11 @@
     "check_plumb_the_depths",
     "$check_good_money_setup",
     "encounter_sets",
+    "maybe_gather_inescapable",
     "setup_locations",
     "choose_location_layout",
     "setup_check_west",
     "set_aside_cards",
-    "$check_killed_creature",
     "$choose_artifacts_or_support",
     "encounter_deck",
     "sliding_locations_rule",
@@ -287,7 +287,7 @@
       "id": "encounter_sets",
       "title": "Setup",
       "type": "encounter_sets",
-      "encounter_sets": ["court_of_the_ancients", "domination", "dreams", "elder_mist", "the_inescapable", "rlyeh", "star_spawn"]
+      "encounter_sets": ["court_of_the_ancients", "domination", "dreams", "elder_mist", "rlyeh", "star_spawn"]
     },
     {
       "id": "setup_locations",
@@ -325,6 +325,13 @@
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
         [
           "blank",
           "twisting_catwalks",
@@ -422,6 +429,13 @@
       "horizontal": "normal",
       "vertical": "normal",
       "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
         [
           "blank",
           "twisting_catwalks",
@@ -627,6 +641,35 @@
     {
       "id": "set_aside_cards",
       "text": "Set the Shard of Y'ch'lecht story asset and the Colossal Tyrant enemy aside, out of play."
+    },
+    {
+      "id": "maybe_gather_inescapable",
+      "text": "Check the campaign log. If <i>the creature was defeated:</i>",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "the_creature_was_defeated",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["$no_inescapable_encounter_set"]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "gather_inescapable"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_inescapable",
+      "bullet_type": "small",
+      "type": "encounter_sets",
+      "encounter_sets": [ "the_inescapable"],
+      "text": "Also gather <i>The Inescapable</i> encounter set. Set The Inescapable enemy aside, out of play."
     },
     {
       "id": "encounter_deck",

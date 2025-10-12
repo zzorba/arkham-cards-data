@@ -1,0 +1,1372 @@
+{
+  "id": "film_fatale",
+  "scenario_name": "Film Fatale",
+  "full_name": "Film Fatale",
+  "header": "",
+  "chaos_bag_card": "72001",
+  "xp_cost": 3,
+  "side_scenario_type": "side_story",
+  "standalone_setup": [
+    "dummy_entry",
+    "choose_difficulty",
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "setup_props",
+    "set_aside_cards",
+    "set_aside_encounters",
+    "encounter_deck",
+    "alert_rule",
+    "combination_tests",
+    "elusive_rule",
+    "patrol_rule",
+    "props_rule",
+    "$play_scenario"
+  ],
+  "setup": [
+    "dummy_entry",
+    "xp_cost",
+    "intro",
+    "gather_encounter_sets",
+    "setup_locations",
+    "setup_props",
+    "set_aside_cards",
+    "set_aside_encounters",
+    "swap_chaos_bag",
+    "chaos_bag_rule",
+    "setup_chaos_bag",
+    "encounter_deck",
+    "alert_rule",
+    "combination_tests",
+    "elusive_rule",
+    "patrol_rule",
+    "props_rule",
+    "$play_scenario"
+  ],
+  "rules": [
+    {
+      "title": "Alert",
+      "steps": ["alert_rule"]
+    },
+    {
+      "title": "Combination Tests",
+      "steps": ["combination_tests"]
+    },
+    {
+      "title": "Elusive",
+      "steps": ["elusive_rule"]
+    },
+    {
+      "title": "Patrol",
+      "steps": ["patrol_rule"]
+    }
+  ],
+  "steps": [
+    {
+      "id": "dummy_entry",
+      "hidden": true,
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "always_true",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "alert_rule",
+      "type": "rule_reminder",
+      "title": "Alert",
+      "text": "Each time an investigator fails a skill test while attempting to evade an enemy with the alert keyword, after applying all results for that skill test, that enemy performs an attack against the evading investigator. An enemy does not exhaust after performing an alert attack. This attack occurs whether the enemy is engaged with the evading investigator or not."
+    },
+    {
+      "id": "combination_tests",
+      "type": "rule_reminder",
+      "title": "Combination Tests",
+      "text": "Some skill tests in <i>Film Fatale</i>, known as combination tests, require an investigator to test combined skills at once (such as “Test [intellect]+[agility]”). A combination test is considered to be a test of both skill types. Cards with either skill icon may be committed to the test, and both icons are considered matching skill icons."
+    },
+    {
+      "id": "elusive_rule",
+      "type": "rule_reminder",
+      "title": "Elusive",
+      "text": "If a ready enemy with the elusive keyword attacks or is attacked, after that attack resolves, that enemy immediately disengages from all investigators, moves to a connecting location (with no investigators, if able), and exhausts. This effect occurs whether the enemy was engaged with the attacking investigator or not."
+    },
+    {
+      "id": "patrol_rule",
+      "title": "Patrol",
+      "type": "rule_reminder",
+      "text": "Some enemies have the patrol keyword. During the enemy phase (in framework step 3.2), each ready, unengaged enemy with the patrol keyword moves to a connecting location along the shortest path toward the designated location (as described in parentheses next to the word patrol).",
+      "bullets": [
+        {
+          "text": "If there are multiple locations that qualify as the designated location, the lead investigator may choose which location the enemy moves toward."
+        },
+        {
+          "text": "If an enemy with patrol would be compelled to move to a location which is blocked by a card ability, the enemy does not move."
+        },
+        {
+          "text": "During this scenario, locations are arranged into two main \"hubs\" consisting of either [[Public]] or [[Restricted]] locations. If an enemy's patrol location is \"clockwise\" or \"counterclockwise\" that means they will move to the connecting location in the clockwise or counterclockwise direction for the hub they are in."
+        }
+      ]
+    },
+    {
+      "id": "props_rule",
+      "title": "Props",
+      "type": "rule_reminder",
+      "text": "Investigators may take control of unique [[Prop]] story assets during this scenario.",
+      "bullets": [
+        {
+          "text": "If a [[Prop]] asset is defeated, place it in the victory display instead of discarding it."
+        },
+        {
+          "text": "If an investigator who controls a [[Prop]] asset is defeated, give control of that asset to the nearest investigator."
+        },
+        {
+          "text": "As a [fast] ability, an investigator may give control of a [[Prop]] asset to another investigator at their location. Each investigator may perform this ability only once each round."
+        }
+      ]
+    },
+    {
+      "id": "swap_chaos_bag",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "swap_chaos_bag",
+          "initialize": true
+        },
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "film_fatale_swap_chaos_bag",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "chaos_bag_rule",
+      "text": "This scenario is played with a custom chaos bag. The campaign chaos bag has been saved and will be restored when the scenario is completed."
+    },
+    {
+      "id": "setup_chaos_bag",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": [
+              "add_standard_bag"
+            ]
+          },
+          {
+            "condition": "standard",
+            "steps": [
+              "add_standard_bag"
+            ]
+          },
+          {
+            "condition": "hard",
+            "steps": [
+              "add_hard_bag"
+            ]
+          },
+          {
+            "condition": "expert",
+            "steps": [
+              "add_hard_bag"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_standard_bag",
+      "bullet_type": "small",
+      "text": "Use following tokens for your chaos bag: +1, 0, 0, -1, -1, -1, -2, -2, -3, -4, -4, [skull], [skull], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "+1",
+            "0",
+            "0",
+            "-1",
+            "-1",
+            "-1",
+            "-2",
+            "-2",
+            "-3",
+            "-4",
+            "skull",
+            "skull",
+            "auto_fail",
+            "elder_sign"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_hard_bag",
+      "bullet_type": "small",
+      "text": "Use the following tokens for your chaos bag: 0, 0, -1, -1, -1, -2, -3, -4, -4, -6, [skull], [skull], [auto_fail], [elder_sign]",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "0",
+            "0",
+            "-1",
+            "-1",
+            "-1",
+            "-2",
+            "-3",
+            "-4",
+            "-6",
+            "skull",
+            "skull",
+            "auto_fail",
+            "elder_sign"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choose_difficulty",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "standard",
+            "text": "Standard",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-3",
+              "-4",
+              "-6",
+              "skull",
+              "skull",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-6",
+                  "skull",
+                  "skull",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "xp_cost",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": -3,
+          "side_scenario_cost": true
+        }
+      ]
+    },
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You have arrived in Hollywood at the request of your contact, the silent film actor André Patel. According to André, something strange is happening on Lot C. Cameras and props have gone missing, and a series of accidents nearly halted production. Rumors have spread between the cast members that the films are “cursed.” None of it was taken seriously until one of the cast members was found dead.\nThe late afternoon sun beats down on the hot pavement as you scan the crowd for signs of André. Half a dozen extras in alien masks whisk past you, followed by a stagehand dragging a large dinosaur foot by wagon. Across the lot, you finally spot him standing with a trio of werewolves. His eyes light up, and he strides briskly through the busy lot once he sees you.\n“Finally!” he takes a bow. “I thought you’d never arrive. And just in time, too! Please, follow me.” As the silent film star leads you across the lot, you catch glimpses of the various sets. <i>A Cosmic Journey</i> features a cheap-looking rocket, a robed wizard, and alien “Saturnites.” Meanwhile, <i>The Forgotten Island</i> is filled with crudely painted pyramids and gargantuan paper mache dinosaurs. A bloodcurdling scream echoes out of the gothic horror set for <i>The Abominable Contessa</i> as you walk past.\n“I don’t think the mishaps lately are just bad luck,” André says gravely. “Unfortunately, my reputation has made it difficult to get a straight answer out of the cast and crew. Nobody wants to tell their star actor that something’s going wrong on set. Which is why I need you to ask around the film sets. See what they think is really going on.”\nAndré’s demeanor brightens. “This could be quite fun, actually. I hope you’re up to the task.”"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "film_fatale"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Central Lot into play, <i>(Quiet On Set)</i> side faceup. Put Space Set, Jungle Set, and Gothic Set into play.",
+      "bullets": [
+        {
+          "text": "Each investigator begins play at Central Lot."
+        }
+      ]
+    },
+    {
+      "id": "setup_props",
+      "text": "Gather all three [[Prop]] assets, shuffle them together, and place them in a stack, facedown, beneath Central Lot."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the André Patel story asset aside, out of play."
+    },
+    {
+      "id": "set_aside_encounters",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "cosmic_journey",
+        "forgotten_island",
+        "abominable_contessa"
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to form the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "take_two",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "film_fatale_take_two",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Scenario Interlude",
+            "description": "Take Two",
+            "style": "interlude",
+            "steps": [
+              "ask_props_in_victory_display",
+              "ask_which_props",
+              "check_telescope"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_take_two",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_props_in_victory_display",
+      "title": "Scenario Interlude: Take Two",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Are there three [[Prop]] assets in the victory display?",
+            "steps": [
+              "add_zero_token"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_zero_token",
+      "bullet_type": "small",
+      "text": "Add a “0” token to the chaos bag and choose one [[Prop]] to set aside, out of play.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["0"]
+        }
+      ]
+    },
+    {
+      "id": "ask_which_props",
+      "type": "input",
+      "text": "Which [[Prop]] assets are in the victory display?",
+      "input": {
+        "type": "checklist",
+        "text": "In victory display",
+        "max": 2,
+        "choices": [
+          {
+            "id": "telescope",
+            "text": "Helios Telescope",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_telescope",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "staff",
+            "text": "Staff of the Serpent",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_staff",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "cape",
+            "text": "Accursed Cape",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_cape",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_telescope",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_telescope",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["explain_cosmic_journey"],
+            "effects": [
+              {
+
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_act_2_telescope",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["check_staff"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_staff",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_staff",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["explain_forgotten_island"],
+            "effects": [
+              {
+
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_act_2_staff",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "boolCondition": true,
+            "steps": ["explain_abominable_contessa"],
+            "effects": [
+              {
+
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "film_fatale_act_2_cape",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "explain_cosmic_journey",
+      "text": "If the Helios Telescope is not in the victory display:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "always_true",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "story_cosmic",
+              "gather_cosmic",
+              "discard_enemy_cosmic",
+              "setup_location_cosmic",
+              "location_layout_cosmic",
+              "clues_cosmic",
+              "enemy_cosmic",
+              "act_deck_cosmic",
+              "story_asset_cosmic",
+              "encounter_deck_cosmic",
+              "reel_deck_cosmic",
+              "chaos_tokens_cosmic",
+              "continue_playing",
+              "vehicles_rule",
+              "vehicles_rule_1",
+              "vehicles_rule_2",
+              "vehicles_rule_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "story_cosmic",
+      "type": "story",
+      "title": "A Cosmic Journey",
+      "text": "“It always does seem as though we are missing an extra around here,” André notes. All is quiet on set as you search for the centerpiece prop for <i>A Cosmic Journey</i>. According to some accounts, several fires have mysteriously broken out, each of them near the Helios Telescope. After several minutes of searching, a low metallic growl cuts through the silence, coming from the rocket ship. André puts one hand to the wooden hull. “It’s warm,” he says quietly. The vessel rattles as the film star opens the hatch.\nFollowing André inside, you feel your footsteps echo on solid metal. What you discover within defies explanation. The ship is far larger and more elaborate inside than out; its paneled walls are covered in metal tubes and glowing consoles. You follow André to a shattered lens cap lying on the floor. “This was part of the telescope, but where is the rest?” he asks. As if in answer, the rocket ship judders to life.\nYou rush to a glass porthole and look outside to see the emptiness of deep space, dotted with stars. André looks outside, disbelieving. “I don’t think we’re in Hollywood anymore.”"
+    },
+    {
+      "id": "gather_cosmic",
+      "type": "encounter_sets",
+      "encounter_sets": ["cosmic_journey"]
+    },
+    {
+      "id": "discard_enemy_cosmic",
+      "text": "Discard each enemy from play. Move each investigator to Space Set and set each other [[Set]] location aside, out of play, discarding all tokens and cards at those locations."
+    },
+
+    {
+      "id": "setup_location_cosmic",
+      "text": "Put each location from the <i>Cosmic Journey</i> encounter set into play.",
+      "bullets": [
+        {
+          "text": "Put the Rocket Ship story asset into play at Space Set. Each investigator enters Rocket Ship."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_cosmic",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2: A Cosmic Journey",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "72009_back",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "72028_back",
+          "blank",
+          "72027_back",
+          "blank",
+          "72030_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "72029_back",
+          "blank",
+          "blank",
+          "blank",
+          "72031_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "cards": [
+        {
+          "code": "72036",
+          "x": 2.75,
+          "y": -0.25
+        }
+      ]
+    },
+    {
+      "id": "clues_cosmic",
+      "text": "Place clues on Space Set up to its clue value."
+    },
+    {
+      "id": "enemy_cosmic",
+      "text": "Put the Saturnite Monarch enemy into play at High Ruler’s Bastion, <i>(Gracious Host)</i> side faceup."
+    },
+    {
+      "id": "act_deck_cosmic",
+      "text": "Add act 2a—A Cosmic Journey and act 3a—From Whence They Came to the current act deck."
+    },
+    {
+      "id": "story_asset_cosmic",
+      "text": "Put the set-aside Helios Telescope story asset into play next to the act deck."
+    },
+    {
+      "id": "encounter_deck_cosmic",
+      "text": "Shuffle each remaining card in the <i>Cosmic Journey</i> encounter set into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "reel_deck_cosmic",
+      "text": "Gather each single-sided encounter card from the set-aside <i>Forgotten Island</i> and <i>Abominable Contessa</i> encounter sets. Shuffle them together to make the “Reel deck.” Place the Reel deck next to the scenario reference card."
+    },
+    {
+      "id": "chaos_tokens_cosmic",
+      "text": "Add 2 [tablet] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["tablet", "tablet"]
+        }
+      ]
+    },
+    {
+      "id": "continue_playing",
+      "text": "Continue playing."
+    },
+    {
+      "id": "vehicles_rule",
+      "type": "rule_reminder",
+      "title": "Vehicles",
+      "text": "An asset with the vehicle keyword represents a vehicle that the investigators may enter or leave. An asset with this keyword is called a vehicle, and follows these rules:"
+    },
+    {
+      "id": "vehicles_rule_1",
+      "text": "While an investigator's mini-card is placed overlapping a vehicle, that investigator is in that vehicle. While an investigator's mini-card is placed overlapping the location, that investigator is instead not in a vehicle <i>(even if they are at the same location as a vehicle)</i>.",
+      "bullets": [
+        {
+          "text": "As a [fast] ability, an investigator may enter or leave a vehicle at their location. Move that investigator's mini-card onto the vehicle or off of the vehicle and onto their location to indicate their new position. Each investigator may perform this ability only once each round."
+        },
+        {
+          "text": "An investigator who is in a vehicle is also at that vehicle's location."
+        },
+        {
+          "text": "While an investigator is in a vehicle, that investigator cannot move independently of the vehicle."
+        }
+      ]
+    },
+    {
+      "id": "vehicles_rule_2",
+      "text": "Vehicles generally have one or more abilities that allow them to move to a connecting location. As a vehicle moves from one location to another, all investigators in the vehicle also move with the vehicle."
+    },
+    {
+      "id": "vehicles_rule_3",
+      "text": "Vehicles do not alter enemy movement or enemy engagement in any way unless otherwise noted."
+    },
+    {
+      "id": "explain_forgotten_island",
+      "text": "If the Staff of the Serpent is not in the victory display:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "always_true",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "story_forgotten",
+              "gather_forgotten",
+              "discard_enemy_forgotten",
+              "setup_location_forgotten",
+              "location_layout_forgotten",
+              "act_deck_forgotten",
+              "encounter_deck_forgotten",
+              "reel_deck_forgotten",
+              "chaos_tokens_forgotten",
+              "continue_playing"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "story_forgotten",
+      "type": "story",
+      "title": "The Forgotten Island",
+      "text": "André follows you through the set dressing of <i>The Forgotten Island</i>: plastic foliage, cheap green turf, the hiss of a fog machine. According to André, one member of the production was found babbling on set with the film’s signature prop, the Staff of the Serpent, in hand. As you search for the prop, the ground begins to feel softer underfoot. Looking down, you see your shoe sinking in wet, loamy soil. The air has grown oppressively humid and is filled with the buzzing of cicadas and the cries of distant birds. You look up to see thick green leaves partially obscuring a bright blue sky. You are no longer in the jungle set but in the jungle itself.\n“What is this madness?” André wipes his brow, then jumps as a long snake slithers across his shoes and into the underbrush. Recoiling from the serpent, you look beyond to a serpentine path that leads deeper into the jungle. Someone—or something—retreated away from Lot C and ventured into this other world. Based on what you heard, the missing film prop seems to be at the heart of this strange phenomenon."
+    },
+    {
+      "id": "gather_forgotten",
+      "type": "encounter_sets",
+      "encounter_sets": ["forgotten_island"]
+    },
+    {
+      "id": "discard_enemy_forgotten",
+      "text": "Discard each enemy from play. Move each investigator to Jungle Set and set each other [[Set]] location aside, out of play, discarding all tokens and cards at those locations."
+    },
+
+    {
+      "id": "setup_location_forgotten",
+      "text": "Put each location from the <i>Forgotten Island</i> encounter set into play.",
+      "bullets": [
+        {
+          "text": "Place 4 resources on Ruins of the Serpent King, as seals. Put the set-aside Staff of the Serpent story asset into play at Ruins of the Serpent King."
+        },
+        {
+          "text": "Spawn the double-sided Allosaurus enemy at Jungle River, <i>(Indomitable Predator)</i> side faceup."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_forgotten",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2: The Forgotten Island",
+      "horizontal": "half",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "72040_back",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "72010_back",
+          "blank",
+          "blank",
+          "72039_back",
+          "blank",
+          "blank",
+          "72043_back",
+          "blank",
+          "blank",
+          "72041_back",
+          "blank",
+          "blank"
+        ],
+
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "72042_back",
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ],
+      "cards": [
+        {
+          "code": "72006",
+          "x": 3.7,
+          "y": 2.6,
+          "layer": "bottom"
+        }
+      ]
+    },
+    {
+      "id": "act_deck_forgotten",
+      "text": "Add act 2a—The Forgotten Island and act 3a—Destroy the Source to the current act deck."
+    },
+    {
+      "id": "encounter_deck_forgotten",
+      "text": "Shuffle each remaining card in the <i>Forgotten Island</i> encounter set into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "reel_deck_forgotten",
+      "text": "Gather each single-sided encounter card from the set-aside <i>Cosmic Journey</i> and <i>Abominable Contessa</i> encounter sets. Shuffle them together to make the “Reel deck.” Place the Reel deck next to the scenario reference card."
+    },
+    {
+      "id": "chaos_tokens_forgotten",
+      "text": "Add 2 [elder_thing] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing", "elder_thing"]
+        }
+      ]
+    },
+
+
+    {
+      "id": "explain_abominable_contessa",
+      "text": "If the Accursed Cape is not in the victory display:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "always_true",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "story_contessa",
+              "gather_contessa",
+              "discard_enemy_contessa",
+              "setup_location_contessa",
+              "location_layout_contessa",
+              "clues_contessa",
+              "act_deck_contessa",
+              "encounter_deck_contessa",
+              "reel_deck_contessa",
+              "chaos_tokens_contessa",
+              "continue_playing",
+              "haunted_rule"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "story_contessa",
+      "type": "story",
+      "title": "The Abominable Contessa",
+      "text": "“Rumor has it that some of the actors on this production have gotten a little too into their performances. But there’s more. Just last week, an assistant was nearly strangled by the contessa’s Accursed Cape—although they weren’t even wearing it.” André says, leading you onto the set for <i>The Abominable Contessa</i>. A pale moon shines in a matte sky, casting long shadows on a field of graves. The backdrop depicts a moody gothic castle with towering spires, sneering gargoyles, and stained-glass windows. Your vision begins to swim as the scenery warps before your eyes. The castle and surroundings come into focus. You look up to see the set roof has disappeared, replaced by a starlit sky, and the walls have been replaced with a sprawling forest. Looming over all of it is the dark castle, suddenly real.\n“This is impossible,” André looks at the bleak landscape. Before you can reply, a howl breaks the stillness. Several nightmarish forms emerge from the nearby trees. Together, you dash up the hill to take refuge in the ominous castle. As the massive doors slam behind you, the sound of maniacal laughter echoes through the vast foyer. A gorgeous woman with pale skin and blood-red lips steps out from the shadows. She holds a large goblet in one hand. “Welcome to my humble home. I am Contessa Demetriou. I assume you are here for the banquet? Unfortunately, it is you who are on the menu!” Cackling, she vanishes in a cloud of bats.\nAs the sound of gnashing and clawing intensifies outside, André turns to you. “There’ve been some strange rumors on set about that cape, and now the Contessa is wearing it. Perhaps if we take it from her, we may be able to end…all of this,” he gestures at your surroundings."
+    },
+    {
+      "id": "gather_contessa",
+      "type": "encounter_sets",
+      "encounter_sets": ["abominable_contessa"]
+    },
+    {
+      "id": "discard_enemy_contessa",
+      "text": "Discard each enemy from play. Move each investigator to Gothis Set and set each other [[Set]] location aside, out of play, discarding all tokens and cards at those locations."
+    },
+
+    {
+      "id": "setup_location_contessa",
+      "text": "Put each location from the <i>Abominable Contessa</i> encounter set into play.",
+      "bullets": [
+        {
+          "text": "Spawn The Contessa at Throne of Blood, <i>(Needlessly Smug)</i> side faceup."
+        }
+      ]
+    },
+    {
+      "id": "location_layout_contessa",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "description": "Act 2: The Abominable Contessa",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "72054_back",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "72053_back",
+          "blank",
+          "blank",
+          "blank",
+          "72052_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "72011_back",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "72050_back",
+          "blank",
+          "blank",
+          "blank",
+          "72051_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ]
+      ]
+    },
+    {
+      "id": "clues_contessa",
+      "text": "Place clues on Gothic Set up to its clue value."
+    },
+    {
+      "id": "act_deck_contessa",
+      "text": "Add act 2a—The Abominable Contessa and act 3a—Bloodbath to the act deck."
+    },
+    {
+      "id": "encounter_deck_contessa",
+      "text": "Shuffle each remaining card in the <i>Abominable Contessa</i> encounter set into the encounter deck, along with the encounter discard pile."
+    },
+    {
+      "id": "reel_deck_contessa",
+      "text": "Gather each single-sided encounter card from the set-aside <i>Cosmic Journey</i> and <i>Forgotten Island</i> encounter sets. Shuffle them together to make the “Reel deck.” Place the Reel deck next to the scenario reference card."
+    },
+    {
+      "id": "chaos_tokens_contessa",
+      "text": "Add 2 [cultist] tokens to the chaos bag.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist", "cultist"]
+        }
+      ]
+    },
+    {
+      "id": "haunted_rule",
+      "type": "rule_reminder",
+      "title": "Haunted",
+      "text": "Haunted is an ability that appears on some locations. Each time an investigator fails a skill test while investigating a location, after applying all results for that skill test, that investigator must resolve all “<b>Haunted</b> –” abilities on that location.\nA location is “haunted” for the purposes of other card effects if it has at least one “<b>Haunted</b> –” ability (printed or otherwise)."
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_madness_flaw_weakness",
+      "text": "Each investigator must search the collection for a random basic [[Madness]] or [[Flaw]] weakness and permanently add it to their deck. This card does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_weakness",
+          "investigator": "all",
+          "weakness_traits": [
+            "Madness",
+            "Flaw"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restore_chaos_bag",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_swap_chaos_bag",
+        "options": [
+          {
+            "boolCondition": true,
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "swap_chaos_bag"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_andre_patel_story_asset",
+      "text": "Remove the André Patel story asset from the game.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "hidden",
+          "id": "film_fatale_no_andre",
+          "text": "dummy"
+        }
+      ]
+    },
+    {
+      "id": "fin",
+      "hidden": true,
+      "steps": [
+        "fin_story",
+        "ask_made_their_call_time",
+        "earn_xp",
+        "maybe_ask_andre_patel",
+        "$upgrade_decks"
+      ]
+    },
+    {
+      "id": "ask_made_their_call_time",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "cheat",
+            "text": "Did \"the investigators make their call time\"?",
+            "steps": [
+              "earn_bonus_xp"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_bonus_xp",
+      "bullet_type": "small",
+      "text": "Each investigator earns 1 bonus experience.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "fin_story",
+      "type": "story",
+      "title": "Fin",
+      "text": "Somewhere off in the distance, a twisted laugh pierces the air. After a few moments, it pauses and yells “… and cut! That’s a wrap.”"
+    },
+    {
+      "id": "maybe_ask_andre_patel",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_no_andre",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ask_andre_patel"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_andre_patel",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Was the André Patel story asset under control of an investigator when the scenario ended?",
+            "steps": ["earn_andre_patel"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_andre_patel",
+      "bullet_type": "small",
+      "text": "Any investigator may add André Patel to their deck for the remainder of their campaign. This asset does not count toward that investigator’s deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "72024"
+        }
+      ]
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Whatever madness has gripped Lot C, it has taken you as well. You find difficulty in remembering who you were before today’s events. Are you yourself? Are you just playing a part? As you try to find the truth, the end credits begin to roll.",
+      "steps": [
+        "restore_chaos_bag",
+        "earn_madness_flaw_weakness",
+        "fin"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Furious, the Monarch fires the Helios Telescope wildly at set pieces and extras alike. As you flee the scene, you look behind you to see André disappear in the path of a kaleidoscopic beam. Once outside, all you can hear is an insidious clicking from Lot C. It almost sounds like laughter.",
+      "steps": [
+        "remove_andre_patel_story_asset",
+        "fin"
+      ],
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_act_2_telescope",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "André pats you on the back, then rubs his eyes with a sigh. “Bien joué, mon ami. I could not have survived this without you.” You hold the telescope, now inert, in your hands as your mind wanders to the amazing things you’ve just seen. Saturn, the alien creatures, and the vastness of space. You won’t need to see <i>A Cosmic Journey</i> when it releases; you’ve already lived it.",
+      "steps": [
+        "resolution_5"
+      ],
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_act_2_telescope",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "“Those giant creatures!” André exclaims. “I never thought it would be possible to witness such things. And you, you were absolutely brilliant. I cannot thank you enough, dear friend.” The film star does not seem rattled in the least at the strange and wondrous horrors you encountered. The remains of the staff’s gem lie shattered at your feet. Maybe you’re not cut out for Hollywood, you think to yourself.",
+      "steps": [
+        "resolution_5"
+      ],
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_act_2_staff",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "André brushes a heavy dusting of grave dirt off his vest and begins fidgeting with his cane. “I’m not certain, but <i>The Abominable Contessa</i> may have just lost its leading lady. I’m still not sure quite what happened, or why, but I’m glad you were here to help.”",
+      "steps": [
+        "resolution_5"
+      ],
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "film_fatale_act_2_cape",
+        "options": [
+          {
+            "boolCondition": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "hidden": true,
+      "text": "Some hours later, you find André standing over Erika Strand, the producer. She sits against the wall, head held between her hands. “Rough day, my friend?” André leans down and puts a steaming cup of tea next to her. After a tentative sip, Erika looks to André. “What happened? And why do I feel like I just lost a wrestling match with a train?” she asks.\nAndré looks over her as his apprehension gives way to curiosity. “I’m not certain, but you definitely weren’t yourself. I suppose we have much to discuss.” Erika nods along as the film star relays the strange and fantastical events of the day. After finishing the tale, André snatches his hat and cane from a nearby table. “I must go. It appears the mystery is not yet fully unraveled, but I bid you all adieu.” The actor turns just as he walks out the door and smiles mischievously. “Nous nous reverrons, mon ami.”",
+      "steps": [
+        "fin"
+      ]
+    }
+  ]
+}

@@ -14,7 +14,7 @@
   "rules": [
     {
       "title": "Location Adjacency in The Western Wall",
-      "steps": ["locations_rule"]
+      "steps": ["$western_wall_locations_rule"]
     }
   ],
   "steps": [
@@ -103,7 +103,7 @@
               "west_story", "check_do_no_harm",
               "setup_v1", "setup_locations_v1", "location_layout_v1", "set_aside_cards_v1",
               "set_aside_star_spawn", "setup_act_v1", "$choose_support",
-              "setup_flood_v1", "encounter_deck", "locations_rule_v1"]
+              "setup_flood_v1", "encounter_deck", "$ww_locations_rule_v1"]
           },
           {
             "boolCondition": false,
@@ -112,28 +112,6 @@
         ]
       }
     },
-    {
-      "id": "locations_rule",
-      "hidden": true,
-      "type": "branch",
-      "condition": {
-
-        "type": "campaign_log",
-        "section": "campaign_notes",
-        "id": "expedition_headed_west",
-        "options": [
-          {
-            "boolCondition": true,
-            "steps": ["locations_rule_v1"]
-          },
-          {
-            "boolCondition": false,
-            "steps": ["locations_rule_v2"]
-          }
-        ]
-      }
-    },
-
     {
       "id": "check_east",
       "bullet_type": "small",
@@ -147,14 +125,14 @@
           {
             "boolCondition": true,
             "steps": ["east_story", "check_do_no_harm",
-
-              "setup_v2", "setup_locations_v2", "location_layout_v2",
-              "setup_act_v2",
+              "setup_v2", 
               "$check_killed_creature",
+              "setup_locations_v2", "location_layout_v2",
+              "setup_act_v2",
               "set_aside_cards_v2",
               "set_aside_star_spawn",
               "$choose_artifacts_or_support",
-              "setup_flood_v2", "encounter_deck", "locations_rule_v2"
+              "setup_flood_v2", "encounter_deck", "$ww_locations_rule_v2"
             ]
           }
         ]
@@ -240,7 +218,7 @@
       "id": "setup_v2",
       "title": "Setup (v.II) - Eastern Expedition",
       "type": "encounter_sets",
-      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "tdc_flood", "rlyeh", "star_spawn", "the_inescapable", "undersea_creatures", "agents_of_cthulhu"]
+      "encounter_sets": ["the_western_wall", "cosmic_legacy", "deep_ones", "tdc_flood", "rlyeh", "star_spawn", "undersea_creatures", "agents_of_cthulhu"]
     },
     {
       "id": "setup_locations_v1",
@@ -301,6 +279,7 @@
         [
           "blank",
           "blank",
+          "blank",
           "western_wall",
           "blank",
           "blank",
@@ -309,8 +288,18 @@
         [
           "blank",
           "blank",
+          "blank",
           "walkway",
           "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
           "blank",
           "blank"
         ],
@@ -320,17 +309,11 @@
           "blank",
           "walkway",
           "blank",
-          "blank"
-        ],
-        [
-          "walkway",
-          "blank",
-          "walkway",
-          "blank",
           "walkway",
           "blank"
         ],
         [
+          "blank",
           "walkway",
           "blank",
           "walkway",
@@ -353,31 +336,31 @@
         {
           "text": "Level 1",
           "x": 1,
-          "y": 1,
+          "y": 0,
           "position": "left"
         },
         {
           "text": "Level 2",
           "x": 1,
-          "y": 2,
+          "y": 1,
           "position": "left"
         },
         {
           "text": "Level 3",
           "x": 1,
-          "y": 3,
+          "y": 2,
           "position": "left"
         },
         {
           "text": "Level 4",
           "x": 1,
-          "y": 4,
+          "y": 3,
           "position": "left"
         },
         {
           "text": "Level 5",
           "x": 1,
-          "y": 5,
+          "y": 4,
           "position": "left"
         }
       ]
@@ -390,14 +373,7 @@
       "vertical": "normal",
       "locations": [
         [
-          "walkway",
           "blank",
-          "walkway",
-          "blank",
-          "walkway",
-          "blank"
-        ],
-        [
           "walkway",
           "blank",
           "walkway",
@@ -411,9 +387,20 @@
           "blank",
           "walkway",
           "blank",
+          "walkway",
           "blank"
         ],
         [
+          "blank",
+          "blank",
+          "walkway",
+          "blank",
+          "walkway",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
           "blank",
           "blank",
           "walkway",
@@ -422,6 +409,7 @@
           "blank"
         ],
         [
+          "blank",
           "blank",
           "blank",
           "obsidian_foundations",
@@ -444,31 +432,31 @@
         {
           "text": "Level 5",
           "x": 1,
-          "y": 1,
+          "y": 0,
           "position": "left"
         },
         {
           "text": "Level 4",
           "x": 1,
-          "y": 2,
+          "y": 1,
           "position": "left"
         },
         {
           "text": "Level 3",
           "x": 1,
-          "y": 3,
+          "y": 2,
           "position": "left"
         },
         {
           "text": "Level 2",
           "x": 1,
-          "y": 4,
+          "y": 3,
           "position": "left"
         },
         {
           "text": "Level 1",
           "x": 1,
-          "y": 5,
+          "y": 4,
           "position": "left"
         }
       ]
@@ -521,40 +509,6 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remaining encounter cards to build the encounter deck."
-    },
-    {
-      "id": "locations_rule_v1",
-      "type": "rule_reminder",
-      "title": "Location Adjacency in The Western Wall",
-      "text": "During this scenario, locations are arranged in a set pattern of 5 levels.",
-      "bullets": [
-        {
-          "text": "The position of each location has its own level from 1-5, beginning at Western Wall at level 1 and descending to the bottommost locations at level 5."
-        },
-        {
-          "text": "Any card effects that refer to a location's level refer to its numbered row, as shown in the location placement diagram."
-        },
-        {
-          "text": "<b>During this scenario, each location is connected to each location in the row above it and the row below it. Locations in the same row are not connected to one another.</b>"
-        }
-      ]
-    },
-    {
-      "id": "locations_rule_v2",
-      "type": "rule_reminder",
-      "title": "Location Adjacency in The Western Wall",
-      "text": "During this scenario, locations are arranged in a set pattern of 5 levels.",
-      "bullets": [
-        {
-          "text": "The position of each location has its own level from 1-5, beginning at Obsidian Foundations at level 1 and ascending to the topmost locations at level 5."
-        },
-        {
-          "text": "Any card effects that refer to a location's level refer to its numbered row, as shown in the location placement diagram."
-        },
-        {
-          "text": "<b>During this scenario, each location is connected to each location in the row above it and the row below it. Locations in the same row are not connected to one another.</b>"
-        }
-      ]
     },
     {
       "id": "cross_out_western_wall",
