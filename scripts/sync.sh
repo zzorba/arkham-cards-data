@@ -26,17 +26,21 @@ if [ -d "$ARKHAM_CARDS" ]; then
   # I18N files
   LANGS=(es ko it fr ru de zh pt pl vi cs zh-cn)
   for lang in ${LANGS[@]}; do
-    cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/all_campaigns_$lang.txt"
-    cp ./build/scenarioNames_$lang.json "$ARKHAM_CARDS/assets/generated/scenario_names_$lang.txt"
-    cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/generated/campaign_logs_$lang.txt"
-    cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/generated/encounter_sets_$lang.txt"
-    cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/generated/campaign_errata_$lang.txt"
-    cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/generated/chaos_odds_$lang.txt"
-    cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/generated/taboos_$lang.txt"
+    # Replace dashes with underscores in destination filenames
+    lang_underscore="${lang//-/_}"
+    cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/all_campaigns_${lang_underscore}.txt"
+    cp ./build/scenarioNames_$lang.json "$ARKHAM_CARDS/assets/generated/scenario_names_${lang_underscore}.txt"
+    cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/generated/campaign_logs_${lang_underscore}.txt"
+    cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/generated/encounter_sets_${lang_underscore}.txt"
+    cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/generated/campaign_errata_${lang_underscore}.txt"
+    cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/generated/chaos_odds_${lang_underscore}.txt"
+    cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/generated/taboos_${lang_underscore}.txt"
   done
   LANGS=(es ko it fr ru de zh pl it zh-cn)
   for lang in ${LANGS[@]}; do
-    cp ./rules/$lang/rules.json "$ARKHAM_CARDS/assets/generated/rules_$lang.txt"
+    # Replace dashes with underscores in destination filenames
+    lang_underscore="${lang//-/_}"
+    cp ./rules/$lang/rules.json "$ARKHAM_CARDS/assets/generated/rules_${lang_underscore}.txt"
   done
 else
   echo "Folder $ARKHAM_CARDS does not exist."
