@@ -13,32 +13,30 @@ fi
 
 if [ -d "$ARKHAM_CARDS" ]; then
   cp ./build/index.d.ts "$ARKHAM_CARDS/src/data/scenario/types.d.ts"
-  cp ./build/standalone.json "$ARKHAM_CARDS/assets/generated/standaloneScenarios.json"
-  #node ./scripts/compressAndCopy.js -i ./build/allCampaigns.json -o "$ARKHAM_CARDS/assets/generated/allCampaigns.json"
-  cp ./build/allCampaigns.json "$ARKHAM_CARDS/assets/generated/allCampaigns.json"
-  cp ./build/scenarioNames.json "$ARKHAM_CARDS/assets/generated/scenarioNames.json"
-  cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/generated/campaignLogs.json"
-  cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/generated/encounterSets.json"
-  cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/generated/campaignErrata.json"
-  cp ./taboos.json "$ARKHAM_CARDS/assets/generated/taboos.json"
-  cp ./chaos_tokens.json "$ARKHAM_CARDS/assets/generated/chaosOdds.json"
-  cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/generated/rules.json"
+  cp ./build/standalone.json "$ARKHAM_CARDS/assets/generated/standalone_scenarios.txt"
+  cp ./build/allCampaigns.json "$ARKHAM_CARDS/assets/generated/all_campaigns.txt"
+  cp ./build/scenarioNames.json "$ARKHAM_CARDS/assets/generated/scenario_names.txt"
+  cp ./build/campaignLogs.json "$ARKHAM_CARDS/assets/generated/campaign_logs.txt"
+  cp ./build/encounterSets.json "$ARKHAM_CARDS/assets/generated/encounter_sets.txt"
+  cp ./errata/en/errata.json "$ARKHAM_CARDS/assets/generated/campaign_errata.txt"
+  cp ./taboos.json "$ARKHAM_CARDS/assets/generated/taboos.txt"
+  cp ./chaos_tokens.json "$ARKHAM_CARDS/assets/generated/chaos_odds.txt"
+  cp ./rules/en/rules.json "$ARKHAM_CARDS/assets/generated/rules.txt"
 
   # I18N files
   LANGS=(es ko it fr ru de zh pt pl vi cs zh-cn)
   for lang in ${LANGS[@]}; do
-    # node ./scripts/compressAndCopy.js -i ./build/allCampaigns_$lang.json -o "$ARKHAM_CARDS/assets/generated/allCampaigns_$lang.json"
-    cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/allCampaigns_$lang.json"
-    cp ./build/scenarioNames_$lang.json "$ARKHAM_CARDS/assets/generated/scenarioNames_$lang.json"
-    cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/generated/campaignLogs_$lang.json"
-    cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/generated/encounterSets_$lang.json"
-    cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/generated/campaignErrata_$lang.json"
-    cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/generated/chaosOdds_$lang.json"
-    cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/generated/taboos_$lang.json"
+    cp ./build/allCampaigns_$lang.json "$ARKHAM_CARDS/assets/generated/all_campaigns_$lang.txt"
+    cp ./build/scenarioNames_$lang.json "$ARKHAM_CARDS/assets/generated/scenario_names_$lang.txt"
+    cp ./build/campaignLogs_$lang.json "$ARKHAM_CARDS/assets/generated/campaign_logs_$lang.txt"
+    cp ./build/encounterSets_$lang.json "$ARKHAM_CARDS/assets/generated/encounter_sets_$lang.txt"
+    cp ./errata/$lang/errata.json "$ARKHAM_CARDS/assets/generated/campaign_errata_$lang.txt"
+    cp ./build/chaos_tokens_$lang.json "$ARKHAM_CARDS/assets/generated/chaos_odds_$lang.txt"
+    cp ./build/i18n/$lang/taboos.json "$ARKHAM_CARDS/assets/generated/taboos_$lang.txt"
   done
-  LANGS=(es fr ko ru zh zh-cn pl it)
+  LANGS=(es ko it fr ru de zh pl it zh-cn)
   for lang in ${LANGS[@]}; do
-    cp ./rules/$lang/rules.json "$ARKHAM_CARDS/assets/generated/rules_$lang.json"
+    cp ./rules/$lang/rules.json "$ARKHAM_CARDS/assets/generated/rules_$lang.txt"
   done
 else
   echo "Folder $ARKHAM_CARDS does not exist."
