@@ -7,6 +7,7 @@
   "xp_cost": 2,
   "side_scenario_type": "challenge",
   "challenge": {
+    "xp_cost": 0,
     "requirements": [
       {
         "text": "At least 1 investigator with <b>parallel</b> content must be chosen when playing this scenario. These include, but are not limited to: Agnes Baker, “Ashcan” Pete, Daisy Walker, Father Mateo, Jenny Barnes, Jim Culver, Lola Hayes, Monterey Jack, Rex Murphy, Roland Banks, “Skids” O’Toole, Wendy Adams, and Zoey Samaras."
@@ -349,7 +350,7 @@
       "text": "Build the Props deck. This is done by searching your collection for 3 level 0 non-[[Ally]] assets from each class ([guardian],[seeker],[rogue],[mystic] and [survivor]), for a total of 15 cards (no duplicates, if possible). Shuffle these cards together to form the Props deck. Place this deck near the scenario reference card.",
       "bullets": [
         {
-          "text": "As a suggestion, if none of the following cards are used in investigator decks, you can use this list to create your Props deck: Physical Training ([elder_sign]#17), First Aid ([elder_sign]#19), Machete ([elder_sign]#20), Old Book of Lore ([elder_sign]#31), Hyperawareness (([elder_sign]#34), Medical Texts ([elder_sign]#35), Burglary ([elder_sign]#45), Pickpocketing ([elder_sign]#46), Hard Knocks ([elder_sign]#49), Holy Rosary ([elder_sign]#59), Scrying ([elder_sign]#61), Arcane Studies ([elder_sign]#62), Baseball Bat ([elder_sign]#74), Rabbit's Foot ([elder_sign]#75), Dig Deep ([elder_sign]#77)."
+          "text": "As a suggestion, if none of the following cards are used in investigator decks, you can use this list to create your Props deck:\nPhysical Training ([elder_sign]#17)\nFirst Aid ([elder_sign]#19)\nMachete ([elder_sign]#20)\nOld Book of Lore ([elder_sign]#31)\nHyperawareness (([elder_sign]#34)\nMedical Texts ([elder_sign]#35)\nBurglary ([elder_sign]#45)\nPickpocketing ([elder_sign]#46)\nHard Knocks ([elder_sign]#49)\nHoly Rosary ([elder_sign]#59)\nScrying ([elder_sign]#61)\nArcane Studies ([elder_sign]#62)\nBaseball Bat ([elder_sign]#74)\nRabbit's Foot ([elder_sign]#75)\nDig Deep ([elder_sign]#77)."
         }
       ]
     },
@@ -448,21 +449,82 @@
     },
     {
       "id": "may_upgrade_signatures",
-      "text": "Each investigator may either upgrade their signature card to its advanced version, or downgrade the advanced version of their weakness to its original version (if able).",
+      "text": "Each investigator may either upgrade their signature card to its advanced version, or downgrade the advanced version of their signature weakness to its original version (if able).",
       "bullets": [
         {
-          "text": "Each investigator unable to upgrade their advanced signature card or downgrade their advanced weakness earns 2 bonus experience, instead."
+          "text": "Each investigator unable to upgrade their advanced signature card or downgrade their advanced signature weakness earns 2 bonus experience, instead."
         }
       ]
     },
     {
+      "id": "choose_reward",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+         "choices": [
+          {
+            "id": "xp",
+            "text": "2 bonus XP",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 2
+              }
+            ]
+          },
+          {
+            "id": "weakness",
+            "text": "Downgrade advanced weakness"
+          },
+          {
+            "id": "card",
+            "text": "Upgrade signature card"
+          }
+        ]
+      }
+    },
+    {
       "id": "must_upgrade_signatures",
-      "text": "Each investigator must either upgrade their signature card to its advanced version, or downgrade the advanced version of their weakness to its original version (if able).",
+      "text": "Each investigator must either upgrade their signature weakness to its advanced version, or downgrade the advanced version of their signature card to its original version (if able).",
       "bullets": [
         {
-          "text": "Each investigator unable to upgrade their advanced signature card or downgrade their advanced weakness suffers 1 mental trauma, instead."
+          "text": "Each investigator unable to upgrade their advanced signature weakness or downgrade their advanced signature card suffers 1 mental trauma, instead."
         }
       ]
+    },
+    {
+      "id": "choose_punishment",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+         "choices": [
+          {
+            "id": "trauma",
+            "text": "Mental trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 1,
+                "hidden": true
+              }
+            ]
+          },
+          {
+            "id": "weakness",
+            "text": "Downgrade advanced signature"
+          },
+          {
+            "id": "card",
+            "text": "Upgrade siganture weakness"
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -486,6 +548,7 @@
       "steps": [
         "earn_xp",
         "may_upgrade_signatures",
+        "choose_reward",
         "$upgrade_decks"
       ]
     },
@@ -496,6 +559,7 @@
       "steps": [
         "earn_xp",
         "must_upgrade_signatures",
+        "choose_punishment",
         "$upgrade_decks"
       ]
     }
