@@ -1,0 +1,866 @@
+{
+  "id": "queen_of_ash",
+  "scenario_name": "Queen of Ash",
+  "header": "Scenario III",
+  "full_name": "Scenario III: Queen of Ash",
+  "setup": [
+    "prologue",
+    "$check_tarot_reading",
+    "check_difficulty_level",
+    "check_discovered_the_cults_whereabouts",
+    "gather_encounter_sets",
+    "setup_locations",
+    "setup_sewers",
+    "location_layout",
+    "check_scoured_arkham_for_answers",
+    "check_stirred_up_trouble",
+    "check_killed_the_servant_of_flames",
+    "check_3_or_4_players",
+    "set_aside_cards",
+    "encounter_deck",
+    "connection_note",
+    "$play_scenario"
+  ],
+  "rules": [],
+  "steps": [
+    {
+      "id": "prologue",
+      "type": "story",
+      "text": "Dr. Armitage thanks the waitress at Velma’s Diner as she sets two pieces of warm apple pie between you. The head librarian pushes one toward you with a strained smile. “Arkham is changing. The world is changing—for the worse, I fear—but at least we have pie.”\nTogether, you and Dr. Armitage piece together a disturbing picture of the situation at hand. “The Brethren of Ash are not conspirators,” Armitage says. “They are thralls, all of them. Thralls of an ancient goddess, one they call ‘Elokoss’.” Dr. Armitage shows you a grotesque woodcut of a gnarled tree with burning branches before continuing.\n“After attending one of the cult’s secret gatherings, some prospective followers develop a strange bruise that marks them as one of Elokoss’s own. These followers are from all walks of life: rich and poor, weak and strong. Most importantly, these thralls have no idea that they are under her sway. Your mysterious pursuer is one such thrall. According to prophecy, the ‘Servant of Flame’ who attacked us at the university is the harbinger of the queen’s return. The servant gathers sacrifices to make way for their queen’s glorious rebirth. A rebirth they predict will happen this very evening.”"
+    },
+    {
+      "id": "check_difficulty_level",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_chaos_tokens"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_chaos_tokens"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_chaos_tokens"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["expert_chaos_tokens"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_chaos_tokens",
+      "text": "Because you are playing on Easy difficulty, add an [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing"]
+        }
+      ]
+    },
+    {
+      "id": "standard_chaos_tokens",
+      "text": "Because you are playing on Standard difficulty, add an [elder_thing] and a [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing", "tablet"]
+        }
+      ]
+    },
+    {
+      "id": "hard_chaos_tokens",
+      "text": "Because you are playing on Hard difficulty, add an [elder_thing], [tablet], and a [skull] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing", "tablet", "skull"]
+        }
+      ]
+    },
+    {
+      "id": "expert_chaos_tokens",
+      "text": "Because you are playing on Expert difficulty, add an [elder_thing], [tablet], [cultist], and a [skull] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["elder_thing", "tablet", "cultist", "skull"]
+        }
+      ]
+    },
+    {
+      "id": "check_discovered_the_cults_whereabouts",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "discovered_the_cults_whereabouts",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["intro_3", "place_doom_on_agenda"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "The thought of your friend being sacrificed chills you to your core. Rather than piece together circumstantial evidence, you suggest that you search the Servant of Flame’s residence for some clue. Your search turns up several leads. An invitation to a secret meeting. A pair of scuffed muddy boots. A record of bootlegging operations in the Waterfront District. A photo of three faces lit by candlelight in the dark. Everything points to the Arkham sewers.\n“A bit foolish, wouldn’t you think, for a cult that worships fire to conduct their business in the sewers?” Armitage chuckles. “But I believe you are correct.”\nTogether, you resolve to scour the sewers for any trace of your friend."
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The thought of your friend being sacrificed chills you to your core. Together, you and Dr. Armitage pore over the precious few clues you have gathered. After several hours of mind-numbing analysis, Armitage theorizes that the Brethren of Ash are conducting their ritual in the Arkham sewers.\n“A bit foolish, wouldn’t you think, for a cult that worships fire to conduct their business in the sewers?” Armitage chuckles. “But it’s the only lead we’ve got.”\nTogether, you resolve to scour the sewers for any trace of your friend."
+    },
+    {
+      "id": "place_doom_on_agenda",
+      "text": "During setup, place 1 doom on the agenda."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "queen_of_ash",
+        "ashen_pilgrims",
+        "cosmic_evils",
+        "cultists_ch2",
+        "fire_ch2",
+        "hallucinations",
+        "reeking_decay",
+        "sewers",
+        "torment"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put Underground Cistern into play. <i>(See the diagram below for suggested location placement.)</i>"
+    },
+    {
+      "id": "setup_sewers",
+      "text": "Shuffle each location in the <b>Sewers</b> encounter set so you do not know which is which and put each of them into play, unrevealed.",
+      "bullets": [
+        {
+          "text": "Set Sluice Control aside, out of play."
+        },
+        {
+          "text": "Each investigator begins play at Sewer Culvert."
+        }
+      ]
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "note": "<i>Note: During this scenario, remember that some locations have different location connection icons on their revealed sides!</i>",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "cistern",
+          "blank",
+          "blank"
+        ],
+        [
+          "sewer",
+          "sewer",
+          "sewer",
+          "sewer",
+          "sewer"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "culvert",
+          "blank",
+          "blank"
+        ]
+      ],
+      "arrows": [
+        {
+          "type": "short",
+          "x": 2,
+          "y": 2,
+          "color": "red",
+          "size": 1
+        },
+        {
+          "type": "short",
+          "x": 2.65,
+          "y": 2,
+          "color": "red",
+          "size": 1,
+          "rotation": "22deg"
+        },
+        {
+          "type": "short",
+          "x": 1.35,
+          "y": 2,
+          "color": "red",
+          "size": 1,
+          "rotation": "-22deg"
+        },
+        {
+          "type": "long",
+          "x": 3.25,
+          "y": 2,
+          "color": "red",
+          "size": 1
+        },
+        {
+          "type": "long",
+          "x": 0.75,
+          "y": 2,
+          "color": "red",
+          "size": 1,
+          "rotation": "90deg"
+        }
+      ],
+      "location_names": [
+        {
+          "code": "cistern",
+          "name": "Underground Cistern"
+        },
+        {
+          "code": "sewer",
+          "name": "Sewer Tunnels"
+        },
+        {
+          "code": "culvert",
+          "name": "Sewer Culvert"
+        }
+      ]
+    },
+    {
+      "id": "check_scoured_arkham_for_answers",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "scoured_arkham_for_answers",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_scoured_arkham"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_scoured_arkham",
+      "bullet_type": "small",
+      "text": "You have a general sense of where the ritual is to take place. Each investigator begins the game with 1 clue <i>(from the token pool)</i>."
+    },
+    {
+      "id": "check_stirred_up_trouble",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "stirred_up_trouble",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_stirred_up_trouble"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_stirred_up_trouble",
+      "bullet_type": "small",
+      "text": "The Brethren of Ash have gotten wind of your violent tactics. Find each [[Cultist]] enemy in the <b>Ashen Pilgrims</b> and <b>Cultists</b> encounter sets, shuffle them together and put 1 [per_investigator] enemies from that set into play, each at a different Sewer Tunnels location."
+    },
+    {
+      "id": "check_killed_the_servant_of_flames",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "killed_the_servant_of_flame",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["setup_killed_servant"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["setup_servant_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_killed_servant",
+      "bullet_type": "small",
+      "text": "Remove the Servant of Flame enemy from the game."
+    },
+    {
+      "id": "setup_servant_alive",
+      "bullet_type": "small",
+      "text": "Set the Servant of Flame enemy aside, out of play."
+    },
+    {
+      "id": "check_3_or_4_players",
+      "type": "branch",
+      "text": "If there are 3 or 4 players in the game:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "scenario_data",
+            "scenario_data": "player_count",
+            "options": [
+              {
+                "numCondition": 3
+              },
+              {
+                "numCondition": 4
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["add_1_doom"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_1_doom",
+      "bullet_type": "small",
+      "text": "Place 1 doom on the agenda."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Gather the <b>Fire!</b> encounter set and set each copy of Fire! aside, out of play, along with both copies of the Collector reward asset and the Elokoss, Queen’s Knight, and Herald of Flame enemies."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to create the encounter deck."
+    },
+    {
+      "id": "connection_note",
+      "text": "<i>Note: During this scenario, remember that some locations have different location connection icons on their revealed sides!</i>"
+    },
+
+
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "codex",
+            "text": "Codex",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": [
+              "codex"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex",
+      "type": "input",
+      "text": "Which [codex] should be read?",
+      "input": {
+        "type": "choose_one",
+        "style": "compact",
+        "icon": "codex",
+        "choices": [
+          {
+            "id": "codex_phi",
+            "text": "Φ",
+            "description": "Codex Φ: Servant of Flame",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "queen_of_ash_phi",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "phi_story",
+              "check_david_harbinger"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "queen_of_ash_phi",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "phi_story",
+      "type": "story",
+      "text": "By defeating the Servant of Flame, you have brought them to their senses. As you take off their mask, they look up at you, confused."
+    },
+    {
+      "id": "check_david_harbinger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "david_harbinger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["david_harbinger", "david_story", "david_effect"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_cornelia_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "david_harbinger",
+      "text": "Check your campaign log. Because David Renfield is the harbinger of Elokoss:"
+    },
+    {
+      "id": "david_story",
+      "type": "story",
+      "text": "David snarls as you try to help him stand. “Leave me. I am a willing servant. I welcomed her into me. And now she will purge all in her cleansing flame,” he laughs weakly before drawing his last breath."
+    },
+    {
+      "id": "david_effect",
+      "text": "Each investigator may search their deck for a [[Tome]] or [[Spell]] card and play it, ignoring all costs."
+    },
+    {
+      "id": "check_cornelia_harbinger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cornelia_harbinger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["cornelia_harbinger", "cornelia_story", "cornelia_effect"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_naomi_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cornelia_harbinger",
+      "text": "Check your campaign log. Because Cornelia Akely is the harbinger of Elokoss:"
+    },
+    {
+      "id": "cornelia_story",
+      "type": "story",
+      "text": "Cornelia stares, bewildered, at her bloody hands. “I thought it was all a nightmare,” she says as you help her to her feet. She looks you over and her face furrows. “You’re hurt. I can help.”"
+    },
+    {
+      "id": "cornelia_effect",
+      "text": "Each investigator heals 3 damage."
+    },
+    {
+      "id": "check_naomi_harbinger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "naomi_harbinger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["naomi_harbinger", "naomi_story", "naomi_effect"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_earl_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "naomi_harbinger",
+      "text": "Check your campaign log. Because Naomi O’Bannion is the harbinger of Elokoss:"
+    },
+    {
+      "id": "naomi_story",
+      "type": "story",
+      "text": "“What kind of party is this?” Naomi bellows, then gives you a murderous look. “And who the hell are you?” You do your best to explain the situation as you help her to her feet."
+    },
+    {
+      "id": "naomi_effect",
+      "text": "Each investigator gains 5 resources."
+    },
+    {
+      "id": "check_earl_harbinger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "earl_harbinger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["earl_harbinger", "earl_story", "earl_effect"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_abigail_harbinger"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earl_harbinger",
+      "text": "Check your campaign log. Because Sgt. Earl Munroe is the harbinger of Elokoss:"
+    },
+    {
+      "id": "earl_story",
+      "type": "story",
+      "text": "The officer’s face is frozen in a look of terror as you take off the mask. “Where am I?” he asks, almost childlike. “And what did I do?” he looks at his blood-spattered clothing in horror."
+    },
+    {
+      "id": "earl_effect",
+      "text": "Each investigator may search their deck for a [[Weapon]] asset and play it, ignoring all costs."
+    },
+    {
+      "id": "check_abigail_harbinger",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "abigail_harbinger",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["abigail_harbinger", "abigail_story", "abigail_effect"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["margaret_harbinger", "margaret_story", "margaret_effect"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "abigail_harbinger",
+      "text": "Check your campaign log. Because Abigail Foreman is the harbinger of Elokoss:"
+    },
+    {
+      "id": "abigail_story",
+      "type": "story",
+      "text": "Abigail clasps your hands tightly as you pull off her mask. “Finish her. Elokoss must not awaken,” she coughs. The librarian hands you a crumpled note before passing out."
+    },
+    {
+      "id": "abigail_effect",
+      "text": "Each investigator may draw up to 3 cards."
+    },
+    {
+      "id": "margaret_harbinger",
+      "text": "Check your campaign log. Because Margaret Liu is the harbinger of Elokoss:"
+    },
+    {
+      "id": "margaret_story",
+      "type": "story",
+      "text": "“This is just like that debacle at the Tick Tock Club,” Ms. Liu seethes as you help her to her feet. The singer is remarkably unfazed by the surrounding chaos. Rather than ask about the debacle, you point her in the direction of the exit."
+    },
+    {
+      "id": "margaret_effect",
+      "text": "Each investigator heals 3 horror."
+    },
+    {
+      "id": "earn_xp_plus_defeat",
+      "text": "Each investigator earns experience equal to the <b>victory X</v> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience for defeating Elokoss and for saving their friend.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_stop",
+      "text": "Each investigator earns experience equal to the <b>victory X</v> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 5 bonus experience for stopping a blasphemous ritual.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 5
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_deluge",
+      "text": "Each investigator who did resign earns experience equal to the <b>victory X</v> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 3 bonus experience for escaping the deluge.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "take_horrific_trauma",
+      "text": "Each investigator suffers 2 mental trauma and 2 physical trauma from their horrific experiences.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 2,
+          "mental": 2,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "take_nightly_trauma",
+      "text": "Each investigator suffers 2 mental trauma and 2 physical trauma from the events of the evening.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "physical": 2,
+          "mental": 2,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "take_flood_trauma",
+      "text": "Each surviving investigator suffers 3 mental trauma, as they are wracked with guilt for leaving their friends behind.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 3,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "elokoss_was_reborn",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "elokoss_was_reborn",
+          "text": "Elokoss was reborn."
+        }
+      ]
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true,
+          "hidden": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "defeated_elokoss_and_the_brethren_of_ash",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "defeated_elokoss_and_the_brethren_of_ash",
+          "text": "the investigators defeated Elokoss and the Brethren of Ash."
+        }
+      ]
+    },
+    {
+      "id": "stopped_elokoss_glorious_rebirth",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "stopped_elokoss_glorious_rebirth",
+          "text": "the investigators stopped Elokoss’s glorious rebirth."
+        }
+      ]
+    },
+    {
+      "id": "flooded_the_ritual",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "flooded_the_ritual",
+          "text": "the investigators flooded the Brethren of Ash’s summoning ritual."
+        }
+      ]
+    },
+    {
+      "id": "collector_reward",
+      "text": "The investigators have earned the Collector campaign reward card. Add both copies of this card to the player card pool. <i>(see “Reward Cards” on page 23 of the rulebook)</i>."
+    },
+
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "win_maybe",
+      "text": "The investigators win the campaign, but it is only a matter of time until the followers of Elokoss rise again...",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "not_resigned_killed",
+      "text": "Each investigator who did not resign is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "hidden": true,
+          "killed": true,
+          "investigator": "not_resigned"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator resigned or was defeated",
+      "investigator_status": [
+        "resigned",
+        "physical",
+        "mental"
+      ],
+      "text": "Dr. Armitage barely escapes the sewers alive, wracked with guilt at leaving his companions behind. By dawn, an unquenchable fire has spread through all of Easttown, claiming countless lives. Although the Arkham Fire Department tries its best, the flames rage for three days before finally dying out. Those who fled whisper of unspeakable visions – a terrifying, ghoulish faces staring out of the flames – that still haunt them. Doctors and nurses are still unable to identify the source of the victims’ strange bruises, which will not heal. Any trace of Armitage’s companions, as well as the Brethren of Ash, has been eradicated in the inferno.",
+      "steps": [
+        "elokoss_was_reborn",
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Against all odds, the vessel of the ancient evil Elokoss has been destroyed, and the cult’s plans to bring her to this plane foiled. Dr. Armitage tends to the cultists as they reawaken. You find your friend among them, frightened and confused, but otherwise unharmed. As you explain the awful events of the evening, they listen intently. While escorting them and the rest of the innocents out of the sewers, you notice a strange, familiar mark on their neck. The bruise has lightened, and is only faintly visible, but it is still there.\nIt may only be a matter of time until the mark reawakens, and more followers of the Queen of Ash rise again to resurrect their goddess. You vow you will be ready, should that day come again.",
+      "steps": [
+        "defeated_elokoss_and_the_brethren_of_ash",
+        "earn_xp_plus_defeat",
+        "collector_reward",
+        "take_horrific_trauma",
+        "$upgrade_decks",
+        "win_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "A howling wind pelts you with cinders. Dr. Armitage pulls a battered tome out of the hands of a fallen cultist and chants a guttural, inhuman language. A loud crack, as of splitting timber, resounds through the cistern, and the flaming tree turns to powdery ash before your very eyes. All around you, the cultists drop their weapons and stop in their tracks, looking suddenly lost. They are no longer under Elokoss’s sway.\nYou find your friend among them, frightened and confused, but otherwise unharmed. All trace of the mark on their neck has vanished, and the rest of the cult seem to have returned to normal, with no memory of the events of the evening. Still, your experience tonight leaves you fearful. In the months ahead, the slightest hint of smoke sets your pulse racing. The flames have subsided, but you can’t shake the nagging feeling that somewhere deep below the city, the embers of Elokoss’s rage continue to smolder.",
+      "steps": [
+        "stopped_elokoss_glorious_rebirth",
+        "earn_xp_plus_stop",
+        "collector_reward",
+        "take_nightly_trauma",
+        "$upgrade_decks",
+        "win_campaign"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The old sluice gate screeches open, loosing a deluge of fetid sewage. Down the corridors, you hear the torrent of water accompanied by the screams of countless cultists. Rather than try to run, you accept your fate. It is clear that there is no escape. You did what had to be done. As the muck rises rapidly to your ankles, then your knees, then your neck, you think of your friend and Dr. Armitage, and the countless others who have likely drowned. You sacrificed yourself and them to stop the return of an ancient evil. You only hope your sacrifice was not in vain.",
+      "steps": [
+        "flooded_the_ritual",
+        "not_resigned_killed",
+        "earn_xp_plus_deluge",
+        "collector_reward",
+        "take_flood_trauma",
+        "$upgrade_decks",
+        "win_maybe"
+      ]
+    }
+  ]
+}
