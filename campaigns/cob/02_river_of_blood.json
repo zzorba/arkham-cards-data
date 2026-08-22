@@ -1,0 +1,884 @@
+{
+  "id": "river_of_blood",
+  "scenario_name": "River of Blood",
+  "full_name": "Scenario I: River of Blood",
+  "icon": "river_of_blood",
+  "header": "Scenario I",
+  "chaos_bag_card": "13001",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "check_hard_or_expert_encounter",
+    "check_3_or_4_encounters",
+    "check_difficulty_locations",
+    "starting_location",
+    "location_layout",
+    "check_3_or_4_enemies",
+    "check_difficulty_julia",
+    "check_difficulty_set_aside_cards",
+    "encounter_deck",
+    "shuffle_julia",
+    "$play_scenario"
+  ],
+  "rules": [],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "narration": {
+        "id": "cob.river_of_blood.intro",
+        "name": "Intro",
+        "lang": [
+        ]
+      },
+      "text": "\"Whatever you have to do to stop her, to stop that thing,\" Christopher says to you as you prepare to set out in search of Julia. \"Just do it.\"\nYou spend the night searching frantically through the Waterfront District, but are unable to locate anything conclusive. You retire for a restless night, and hope to have better luck in the morning."
+    },
+    {
+      "id": "check_hard_or_expert_encounter",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "hard_or_expert",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "gather_hard_encounter_sets"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["gather_encounter_sets"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "river_of_blood",
+        "blood_blight",
+        "blood_moon",
+        "children_of_blood",
+        "hunted",
+        "infected",
+        "misinformation",
+        "preyed_upon",
+        "vermin",
+        "dead_ends",
+        "flying_terrors"
+      ]
+    },
+    {
+      "id": "gather_hard_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "river_of_blood",
+        "blood_blight",
+        "blood_moon",
+        "children_of_blood",
+        "hunted",
+        "infected",
+        "misinformation",
+        "agents_of_zburamoarte",
+        "mongrels",
+        "dead_ends",
+        "flying_terrors"
+      ]
+    },
+    {
+      "id": "check_3_or_4_encounters",
+      "text": "If you are playing with 3 or 4 investigators:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "scenario_data",
+              "scenario_data": "player_count"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_afflicted"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_afflicted",
+      "type": "encounter_sets",
+      "bullet_type": "small",
+      "encounter_sets": [
+        "afflicted"
+      ]
+    },
+    {
+      "id": "check_difficulty_locations",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["standard_locations"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_locations"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_locations"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_locations"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_locations",
+      "text": "Because you are playing on Easy or Standard difficulty, put each [[Dawn]] location into play. Remove each [[Dusk]] location from the game."
+    },
+    {
+      "id": "hard_locations",
+      "text": "Because you are playing on Hard or Expert difficulty, put each [[Dusk]] location into play. Remove each [[Dawn]] location from the game."
+    },
+    {
+      "id": "starting_location",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at Water Street."
+    },
+    {
+      "id": "check_3_or_4_enemies",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "scenario_data",
+              "scenario_data": "player_count"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["spawn_3_or_4"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["spawn_standard"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_standard",
+      "text": "Spawn 1 Waterfront Civilian enemy at Main Street."
+    },
+    {
+      "id": "spawn_3_or_4",
+      "text": "Spawn 1 Waterfront Civilian enemy at Main Street and Garrison Street."
+    },
+    {
+      "id": "check_difficulty_julia",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_julia"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_julia"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_julia"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_julia"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_julia",
+      "text": "Because you are playing on Easy difficulty, set Julia Stern <i>(On the Run)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+    {
+      "id": "standard_julia",
+      "text": "Because you are playing on Standard difficulty, set Julia Stern <i>(Stalking the Streets)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+    {
+      "id": "hard_julia",
+      "text": "Because you are playing on Hard or Expert difficulty, set Julia Stern <i>(Preying Upon Arkham)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+
+    {
+      "id": "check_difficulty_set_aside_cards",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["standard_set_aside"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_set_aside"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_set_aside"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_set_aside"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_set_aside",
+      "text": "Set the following cards aside, out of play: each remaining Waterfront Civilian enemy, each Night Feeder enemy, each card in the <b>Infected</b> encounter set, the Detective Reynolds story asset, and the Fang of Zburamoarte story asset."
+    },
+    {
+      "id": "hard_set_aside",
+      "text": "Set the following cards aside, out of play: each remaining Waterfront Civilian enemy, each Spawn of Zburamoarte enemy, each card in the <b>Infected</b> encounter set, the Detective Reynolds story asset, and the Fang of Zburamoarte story asset."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "warehouse",
+          "blank"
+        ],
+        [
+          "garrison",
+          "blank",
+          "water"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "unvisited_isle",
+          "erwin",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "docks",
+          "blank",
+          "main"
+        ],
+        [
+          "blank",
+          "alley",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "warehouse",
+          "name": "Waterfront Warehouse"
+        },
+        {
+          "code": "garrison",
+          "name": "Garrison Street"
+        },
+        {
+          "code": "water",
+          "name": "Water Street"
+        },
+        {
+          "code": "unvisited_isle",
+          "name": "Unvisited Isle"
+        },
+        {
+          "code": "erwin",
+          "name": "Erwin Bridge"
+        },
+        {
+          "code": "docks",
+          "name": "River Docks"
+        },
+        {
+          "code": "main",
+          "name": "Main Street"
+        },
+        {
+          "code": "alley",
+          "name": "Back Alley"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to create the encounter deck."
+    },
+    {
+      "id": "shuffle_julia",
+      "text": "Shuffle the top 2 cards of the encounter deck together with the set-aside Julia Stern enemy. Place 1 of these cards facedown, at random, beneath each [[Lair]] location."
+    },
+    {
+      "id": "failed_to_stop_julia_stern",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "failed_to_stop_julia_stern",
+          "text": "the investigators failed to stop Julia Stern."
+        }
+      ]
+    },
+    {
+      "id": "add_1_blood_token",
+      "text": "Add 1 [blood] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["blood"]
+        }
+      ]
+    },
+    {
+      "id": "earn_blood_blight",
+      "text": "Each investigator becomes the bearer of a set-aside The Blood Blight weakness.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "all",
+          "card": "13118"
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_failure",
+      "text": "Each investigator earns experience equal to the <b>victory X</b> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator also earns 3 bonus experience as they learn from their mistakes.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 3
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_4",
+      "type": "resolution",
+      "resolution": "R4"
+    },
+    {
+      "id": "spared_julia_stern",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "spared_julia_stern",
+          "text": "the investigators spared Julia Stern."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+       "text": "Each investigator earns experience equal to the <b>victory X</b> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_spend_xp_remove_blood",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "The investigators may decide to spend 2 [per_investigator] total experience, as a group, to remove 1 [blood] token from the chaos bag. Would you like to do this?",
+            "steps": [
+              "lose_xp_branch"
+            ],
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_xp_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -2
+              }
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["remove_4_xp"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["remove_6_xp"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["remove_8_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_4_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 4,
+        "min": 4,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_6_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 6,
+        "min": 6,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_8_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 8,
+        "min": 8,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "killed_julia_stern",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "killed_julia_stern",
+          "text": "the investigators killed Julia Stern."
+        }
+      ]
+    },
+    {
+      "id": "remove_blood_token",
+      "text": "Remove 1 [blood] token from the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["blood"]
+        }
+      ]
+    },
+    {
+      "id": "earn_xp_plus_2",
+      "text": "Each investigator earns experience equal to the <b>victory X</b> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": "Each investigator earns 2 bonus experience as they are better prepared for what is to come.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all",
+            "bonus": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_detective_reynolds",
+      "text": "Detective Reynolds joins the investigation! Choose an investigator to become the bearer of the set-aside Detective Reynolds story asset.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "13029"
+        }
+      ]
+    },
+    {
+      "id": "ask_found_sacrificial_dagger",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators find a sacrifical dagger?",
+            "steps": ["earn_dagger"]
+
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_dagger",
+      "bullet_type": "small",
+      "text": "Choose an investigator to become the bearer of the set-aside Fang of Zburamoarte story asset.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "13030"
+        }
+      ]
+    },
+    {
+      "id": "release_blood_tokens",
+      "text": "Release each sealed [blood] token and return them to the chaos bag."
+    },
+    {
+      "id": "ask_3_blood_tokens",
+      "text": "Each investigator who ended the scenario with 3 [blood] tokens sealed on their investigator becomes the bearer of a set-aside The Blood Blight weakness if they are not already a bearer of it.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "blood",
+            "text": "3 sealed [blood] tokens?",
+            "condition": {
+              "type": "has_card",
+              "card": "13118",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "13118"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_blood"]
+      }
+    },
+    {
+      "id": "adjust_blood",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_blood",
+            "text": "Add 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 12
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          },
+          {
+            "id": "remove_blood",
+            "text": "Remove 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "It doesn’t take long before it becomes clear that there are more creatures stalking the night than simply the monster that was Julia Stern. Their unending hunt proved too much for you. The last thing you remember is the creatures looming over you before you mercifully lost consciousness.\nYou awaken to the burning yellow light of dawn. Collecting yourself, you meet up with Detective Reynolds once more.",
+      "narration": {
+        "id": "cob.river_of_blood.no_resolution",
+        "name": "No Resolution",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "failed_to_stop_julia_stern",
+        "add_1_blood_token",
+        "earn_blood_blight",
+        "earn_xp_failure",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "After a grueling conflict, you finally subdue your quarry. Rather than take her life, you knock Julia unconscious and prepare to regroup with Detective Reynolds, holding out hope that there may be some way to save her. When you return to collect her, however, you discover that she has disappeared into the shadows once more. You hope you made the right choice. For now, however, the only path forward for you is to reconnect with Detective Reynolds and get to the bottom of what caused all of this bloodshed in the first place.",
+      "narration": {
+        "id": "cob.river_of_blood.r1",
+        "name": "Resolution 1",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "spared_julia_stern",
+        "earn_xp",
+        "choose_spend_xp_remove_blood",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "At long last, your hunt comes to an end. Ending Julia’s life, and the lives of her victims, is a regrettable course of action, but it had to be done to make the Waterfront District safe again. After three bloody nights on the banks of the Miskatonic River, you’re hoping that you can reconnect with Detective Reynolds and get to the bottom of what caused all of this in the first place.",
+      "narration": {
+        "id": "cob.river_of_blood.r2",
+        "name": "Resolution 2",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "killed_julia_stern",
+        "remove_blood_token",
+        "earn_xp",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "The hunt through the night is long and arduous, but Julia proves too crafty and too swift for your efforts. By the morning of the third day of your search, you worry that you’ll have to wait until she strikes again. For now, however, the only path forward for you is to reconnect with Detective Reynolds and get to the bottom of what caused all of this bloodshed in the first place.",
+      "narration": {
+        "id": "cob.river_of_blood.r3",
+        "name": "Resolution 3",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "failed_to_stop_julia_stern",
+        "earn_xp_plus_2",
+        "resolution_4"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "hidden": true,
+      "text": "Back at Detective Reynolds’ office, you explain what you’ve learned. He tells you that his leads also pointed towards the New Horizons meat packing facility, and a suspicious group that had been seen around the building, dressed in robes instead of the more standard aprons and coveralls of the workers. “The same place where Julia worked,” Reynolds says. “Seems like that place is worth a visit.”",
+      "narration": {
+        "id": "cob.river_of_blood.r4",
+        "name": "Resolution 4",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "earn_detective_reynolds",
+        "ask_found_sacrificial_dagger",
+        "ask_3_blood_tokens",
+        "release_blood_tokens",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}

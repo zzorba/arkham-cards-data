@@ -1,0 +1,1187 @@
+{
+  "id": "blood_money",
+  "scenario_name": "Blood Money",
+  "full_name": "Scenario III: Blood Money",
+  "header": "Scenario III",
+  "icon": "blood_money",
+  "chaos_bag_card": "13068",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "gather_encounter_sets",
+    "check_3_or_4_encounters",
+    "setup_locations",
+    "check_easy_location",
+    "starting_location",
+    "location_layout",
+    "spawn_priscilla",
+    "spawn_suspicious_guests",
+    "check_setup_agenda",
+    "set_aside_cards",
+    "check_boss_difficulty",
+    "check_killed_julia_stern",
+    "add_cultist",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Howard Wilkes’s party is at his fancy new penthouse at the top of one of the rebuilt buildings in Northside, overlooking the dark and industrious district of Arkham. You ride the elevator up to the fourth floor, and follow the short, clean hallway to the door of the penthouse. Rapping on the door, you’re greeted by a tall man in a tuxedo who checks your name and allows you entrance. It would seem Charlie is as good as his word.\nDetective Reynolds, also dressed in formalwear, makes his way over to you as soon as you step into the foyer. “Good, you’re here,” he says. “Problem is that Wilkes isn’t around, and nobody has seen him. I suggest we deal with Miss Thomas. Get her to rethink her business decision. Then we can chat up the rest of the party and see what else we can learn.” He glances around nervously at the other guests nearby, all of whom are looking at him and at you with suspicion. “And let’s be quick about it.”",
+      "narration": {
+        "id": "cob.blood_money.intro",
+        "name": "Intro",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "blood_money",
+        "agents_of_zburamoarte",
+        "blood_blight",
+        "bloodthirst",
+        "children_of_blood",
+        "hunted",
+        "sanguine_secrets",
+        "arcane_lock"
+      ],
+      "subtext": "When gathering cards from the <b>Sanguine Secrets</b> encounter set, only gather the three copies of Sanguine Cultist and the Blood-Crazed Zealot enemies. Do not gather the Morbid Rituals treacheries."
+    },
+    {
+      "id": "check_3_or_4_encounters",
+      "text": "If you are playing with 3 or 4 investigators:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "conditions": [
+          {
+            "type": "math",
+            "opA": {
+              "type": "scenario_data",
+              "scenario_data": "player_count"
+            },
+            "opB": {
+              "type": "constant",
+              "value": 3
+            },
+            "operation": "compare",
+            "options": [
+              {
+                "numCondition": 0
+              },
+              {
+                "numCondition": 1
+              }
+            ]
+          }
+        ],
+        "count": 1,
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["gather_afflicted"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_afflicted",
+      "type": "encounter_sets",
+      "bullet_type": "small",
+      "encounter_sets": [
+        "afflicted"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Office, Study, Dining Hall, and Kitchen locations into play.",
+      "bullets": [
+        {
+          "text": "Put Foyer into play, (Boring Party) side faceup."
+        },
+        {
+          "text": "Set Master Bedroom aside, out of play."
+        }
+      ]
+    },
+    {
+      "id": "starting_location",
+      "bullet_type": "small",
+      "text": "Each investigator begins play at Foyer."
+    },
+    {
+      "id": "check_easy_location",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["standard_balcony"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_balcony"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["remove_balcony"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["remove_balcony"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_balcony",
+      "bullet_type": "small",
+      "text": "Because you are playing on Easy or Standard difficulty, set the Balcony aside, out of play."
+    },
+    {
+      "id": "remove_balcony",
+      "bullet_type": "small",
+      "text": "Because you are playing on Hard or Expert difficulty, remove Balcony from the game."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "office",
+          "study",
+          "blank",
+          "dining_hall",
+          "kitchen"
+        ],
+        [
+          "blank",
+          "blank",
+          "foyer",
+          "blank",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "office",
+          "name": "Office"
+        },
+        {
+          "code": "study",
+          "name": "Study"
+        },
+        {
+          "code": "dining_hall",
+          "name": "Dining Hall"
+        },
+        {
+          "code": "kitchen",
+          "name": "Kitchen"
+        },
+        {
+          "code": "foyer",
+          "name": "Foyer"
+        }
+      ]
+    },
+    {
+      "id": "spawn_priscilla",
+      "text": "Spawn the Priscilla Thomas enemy at Dining Hall."
+    },
+    {
+      "id": "spawn_suspicious_guests",
+      "text": "Gather each Suspicious Guest enemy. Because the number of investigators in the game is…",
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": ["spawn_one_guest"]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["spawn_two_guests"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["spawn_three_guests"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["spawn_three_guests"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "spawn_one_guest",
+      "bullet_type": "small",
+      "text": "…exactly 1, spawn 1 Suspicious Guest at the Study. Remove 2 copies of that enemy from the game."
+    },
+    {
+      "id": "spawn_two_guests",
+      "bullet_type": "small",
+      "text": "…exactly 2, spawn 1 Suspicious Guest at the Study and 1 at the Office. Remove 1 copy of that enemy from the game."
+    },
+    {
+      "id": "spawn_three_guests",
+      "bullet_type": "small",
+      "text": "…exactly 3 or 4, spawn 1 Suspicious Guest at the Study, 1 at the Office, and 1 at the Dining Hall."
+    },
+    {
+      "id": "check_setup_agenda",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "defeated_zburamoarte",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["agenda_defeated"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["agenda_alive"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "agenda_defeated",
+      "bullet_type": "small",
+      "text": "Construct the agenda deck using agenda 2a—“Feeding Frenzy (v. II).” Remove the other copy of agenda 2a from the game."
+    },
+
+    {
+      "id": "agenda_alive",
+      "bullet_type": "small",
+      "text": "Construct the agenda deck using agenda 2a—“Feeding Frenzy (v. I).” Remove the other copy of agenda 2a from the game."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set aside each copy of the Child of Blood enemy, the Spawn of Zburamoarte enemy, and the Sanguine Rebirth treachery, the Chosen of Zburamoarte double-sided story asset, as well as each enemy from the <b>Sanguine Secrets</b> encounter set."
+    },
+    {
+      "id": "check_boss_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_boss"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_boss"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_boss"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_boss"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_boss",
+      "text": "Because you are playing on Easy difficulty, set Howard Wilkes <i>(First Child of Zburamoarte)</i> aside, out of play. Remove each other copy of Howard Wilkes from the game."
+    },
+    {
+      "id": "standard_boss",
+      "text": "Because you are playing on Standard difficulty, set Howard Wilkes <i>(Too Far Gone)</i> aside, out of play. Remove each other copy of Howard Wilkes from the game."
+    },
+    {
+      "id": "hard_boss",
+      "text": "Because you are playing on Hard or Expert difficulty, set Howard Wilkes <i>(Ultimate Predator)</i> aside, out of play. Remove each other copy of Howard Wilkes from the game."
+    },
+    {
+      "id": "check_killed_julia_stern",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "killed_julia_stern",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["remove_julia"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_julia_difficulty"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_julia",
+      "bullet_type": "small",
+      "text": "Remove each copy of the Julia Stern enemy from the game."
+    },
+    {
+      "id": "check_julia_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_julia"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_julia"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_julia"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_julia"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_julia",
+      "text": "Because you are playing on Easy difficulty, set Julia Stern <i>(First Victim of New Horizons)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+    {
+      "id": "standard_julia",
+      "text": "Because you are playing on Standard difficulty, set Julia Stern <i>(Out for Blood)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+    {
+      "id": "hard_julia",
+      "text": "Because you are playing on Hard or Expert difficulty, set Julia Stern <i>(Child of Vengeance)</i> aside, out of play. Remove each other copy of Julia Stern from the game."
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to create the encounter deck."
+    },
+    {
+      "id": "adjust_blood",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_blood",
+            "text": "Add 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 12
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          },
+          {
+            "id": "remove_blood",
+            "text": "Remove 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_blood"],
+        "branches": [
+          {
+            "id": "codex_a",
+            "text": "Codex A",
+            "icon": "codex",
+            "repeatable": true,
+            "steps": [
+              "codex_a_story",
+              "codex_a_choice",
+              "codex_a_repeat"
+            ]
+          },
+          {
+            "id": "codex_b_first",
+            "text": "Codex B",
+            "icon": "codex",
+            "condition": {
+              "type": "campaign_log",
+              "section": "hidden",
+              "id": "codex_b_started",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "steps": [
+              "codex_b_1",
+              "codex_b_2_continued",
+              "release_priscilla_tokens",
+              "test_priscilla_horror",
+              "ask_4_or_more_horror",
+              "maybe_repeat_codex_b"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "codex_b_started",
+                "text": "dummy"
+              }
+            ]
+          },
+          {
+            "id": "codex_b",
+            "text": "Codex B",
+            "icon": "codex",
+            "condition": {
+              "type": "multi",
+              "count": 2,
+              "conditions": [
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "codex_b_started",
+                  "options": [
+                    {
+                      "boolCondition": true
+                    }
+                  ]
+                },
+                {
+                  "type": "campaign_log",
+                  "section": "hidden",
+                  "id": "priscilla_done",
+                  "options": [
+                    {
+                      "boolCondition": false
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "repeatable": true,
+            "steps": [
+              "codex_b_2",
+              "release_priscilla_tokens",
+              "test_priscilla_horror",
+              "ask_4_or_more_horror",
+              "maybe_repeat_codex_b"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_b_1",
+      "title": "[codex] Codex B: Priscilla Thomas",
+      "type": "story",
+      "text": "Priscilla Thomas stands near the door to the dining hall, watching the other guests with a look of bored frustration. “A host who arrives late to his own party is never a good sign,” she says. She turns to regard you as you approach, and her eyebrow goes up in suspicion. “I don’t suppose you know anything about that, do you?”",
+      "narration": {
+        "id": "cob.blood_money.codex_b",
+        "name": "Codex B: Priscilla Thomas",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_b_2",
+      "title": "[codex] Codex B: Priscilla Thomas",
+      "type": "story",
+      "text": "You try talking to Miss Thomas about her reason for being at the party, attempting to sow the seeds of doubt in her mind regarding Howard Wilkes and his business.",
+      "narration": {
+        "id": "cob.blood_money.codex_b_2",
+        "name": "Priscilla Thomas 2",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_b_2_continued",
+      "type": "story",
+      "text": "You try talking to Miss Thomas about her reason for being at the party, attempting to sow the seeds of doubt in her mind regarding Howard Wilkes and his business.",
+      "narration": {
+        "id": "cob.blood_money.codex_b_2",
+        "name": "Priscilla Thomas 2",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "release_priscilla_tokens",
+      "text": "Release each chaos token sealed on Priscilla Thomas. Place 1 horror <i>(from the token pool)</i> on Priscilla Thomas for each chaos token released this way."
+    },
+    {
+      "id": "test_priscilla_horror",
+      "text": "Choose an investigator at your location to test [willpower] or [intellect] (3). If that investigator succeeds, place 1 horror on Priscilla Thomas."
+    },
+    {
+      "id": "ask_4_or_more_horror",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Is there 4 or more horror on Priscilla Thomas?",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "priscilla_done",
+                "text": "dummy"
+              }
+            ],
+            "steps": [
+              "codex_b_3",
+              "codex_b_3_effect",
+              "codex_b_3_effect_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_b_3",
+      "type": "story",
+      "text": "Miss Thomas listens to your story, her face stoic but her eyes attentive. Eventually she nods, setting her drink down on a nearby end table. “Say no more,” she said. “I was already feeling like this was a bad deal. You’re only confirming my concerns. Thanks.” She turns to leave, and pauses in the doorway. “If ever you find yourself in Boston and need work, I could make use of your investigative skills. And you’d be paid well.” With that, she leaves, heading for the foyer.",
+      "narration": {
+        "id": "cob.blood_money.codex_b_3",
+        "name": "Priscilla Thomas 3",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_b_3_effect",
+      "text": "Remove Priscilla Thomas from the game."
+    },
+    {
+      "id": "codex_b_3_effect_2",
+      "text": "Each investigator may heal 2 horror or gain 3 resources."
+    },
+    {
+      "id": "maybe_repeat_codex_b",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "priscilla_done",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["repeat_codex_b"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "repeat_codex_b",
+      "text": "Any investigator may trigger this codex entry again."
+    },
+    {
+      "id": "codex_a_story",
+      "title": "[codex] Codex A: Party Guest",
+      "type": "story",
+      "text": "You chat up the party guest, trying to learn what you can while making sure they don’t interfere in your investigation.",
+      "narration": {
+        "id": "cob.blood_money.codex_a",
+        "name": "Codex A: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_a_choice",
+      "text": "Reveal random tokens from the chaos bag until you reveal a token with a symbol that isn’t sealed on an enemy. If the token is…",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "skull",
+            "text": "[skull]",
+            "description": "The guest regards you with suspicion.",
+            "steps": [
+              "codex_skull_story",
+              "codex_skull_effect"
+            ]
+          },
+          {
+            "id": "cultist",
+            "text": "[cultist]",
+            "description": "The guest is trying not to be noticed.",
+            "steps": [
+              "codex_cultist_story",
+              "codex_cultist_effect"
+            ]
+          },
+          {
+            "id": "tablet",
+            "text": "[tablet]",
+            "description": "Seated comfortably, this guest smiles at you.",
+            "steps": [
+              "codex_tablet_story",
+              "codex_tablet_effect",
+              "codex_tablet_effect_2"
+            ]
+          },
+          {
+            "id": "elder_thing",
+            "text": "[elder_thing]",
+            "description": "This guest can’t eat their food fast enough.",
+            "steps": [
+              "codex_elder_thing_story",
+              "codex_elder_thing_effect",
+              "codex_elder_thing_effect_2"
+            ]
+          },
+          {
+            "id": "blood",
+            "text": "[blood]",
+            "description": "This guest is dressed for business, not a party.",
+            "steps": [
+              "codex_blood_story",
+              "codex_blood_effect"
+            ]
+          },
+          {
+            "id": "auto_fail",
+            "text": "[auto_fail]",
+            "description": "This guest is struggling to stand upright.",
+            "steps": [
+              "codex_auto_fail_story",
+              "codex_auto_fail_effect"
+            ]
+          },
+          {
+            "id": "elder_sign",
+            "text": "[elder_sign]",
+            "description": "This guest joins a small group to gossip.",
+            "steps": [
+              "codex_elder_sign_story",
+              "codex_elder_sign_effect",
+              "codex_elder_sign_effect_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "codex_a_repeat",
+      "text": "Any investigator may trigger Codex A again."
+    },
+    {
+      "id": "codex_skull_story",
+      "title": "[codex] Codex [skull]: Party Guest",
+      "type": "story",
+      "text": "The guest begins a long, boring, and painfully oblivious story about how they were shocked to see Howard Wilkes choose Northside—the “working district, of all places”—as the location for not only this party, but also his penthouse. You pretend to be interested as they ramble on, but find a quiet moment to steal away instead.",
+      "narration": {
+        "id": "cob.blood_money.codex_skull",
+        "name": "Codex [skull]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_skull_effect",
+      "text": "Automatically evade this enemy and seal this token on it (if Priscilla Thomas is in play, seal this token on her instead)."
+    },
+    {
+      "id": "codex_cultist_story",
+      "title": "[codex] Codex [cultist]: Party Guest",
+      "type": "story",
+      "text": "As you approach the guest, they stare you down with a deathly glare. Before you can even ask them what’s wrong, a dagger, fashioned from an over-sized fang, flashes in their hands as it’s drawn from their jacket pocket. “I know what you’re trying to do!” they shout. “We won’t let you stop what has already been started!”",
+      "narration": {
+        "id": "cob.blood_money.codex_cultist",
+        "name": "Codex [cultist]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_cultist_effect",
+      "text": "Discard this enemy and spawn 1 random set-aside [[Cultist]] enemy engaged with you. Seal this token on that enemy (if Priscilla Thomas is in play, seal this token on her instead)."
+    },
+    {
+      "id": "codex_tablet_story",
+      "title": "[codex] Codex [tablet]: Party Guest",
+      "type": "story",
+      "text": "Your conversation with this guest, while enlightening about some strange happenings in French Hill, is otherwise unhelpful.",
+      "narration": {
+        "id": "cob.blood_money.codex_tablet",
+        "name": "Codex [tablet]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_tablet_effect",
+      "text": "Automatically evade this enemy and seal this token on it."
+    },
+    {
+      "id": "codex_tablet_effect_2",
+      "text": "Draw 1 card."
+    },
+    {
+      "id": "codex_elder_thing_story",
+      "title": "[codex] Codex [elder_thing]: Party Guest",
+      "type": "story",
+      "text": "“Darling, you simply must try the hors d’oeuvres!” This guest approaches you, holding a cracker topped with some sort of blood-red meat-spread, ready to force it into your mouth. You grit your teeth, make a comment about needing to use the washroom, and make a swift exit.",
+      "narration": {
+        "id": "cob.blood_money.codex_elder_thing",
+        "name": "Codex [elder_thing]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_elder_thing_effect",
+      "text": "Automatically evade this enemy and seal this token on it."
+    },
+    {
+      "id": "codex_elder_thing_effect_2",
+      "text": "You may move to a connecting location."
+    },
+    {
+      "id": "codex_blood_story",
+      "title": "[codex] Codex [blood]: Party Guest",
+      "type": "story",
+      "text": "This guest remarks about how Howard Wilkes has met resistance when trying to distribute his product throughout Arkham, making a name for himself among local businesses as a ruthless megalomaniac. He’s brought Priscilla Thomas here this evening in hopes to find success outside of the city before his entire operation runs out of funding.",
+      "narration": {
+        "id": "cob.blood_money.codex_blood",
+        "name": "Codex [blood]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_blood_effect",
+      "text": "Automatically evade this enemy and seal this token on it (if Priscilla Thomas is in play, seal this token on her instead)."
+    },
+    {
+      "id": "codex_auto_fail_story",
+      "title": "[codex] Codex [auto_fail]: Party Guest",
+      "type": "story",
+      "text": "This guest stumbles a bit, leaning heavily against a marble statue. You approach cautiously, reaching out and asking whether they need help. No sooner does your hand touch their shoulder than they wheel about, a crazed look in their eyes and a snarl on their lips.",
+      "narration": {
+        "id": "cob.blood_money.codex_auto_fail",
+        "name": "Codex [auto_fail]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_auto_fail_effect",
+      "text": "This enemy attacks you. After this attack, that enemy disengages from each investigator and moves to a connecting location (with no investigators, if able)."
+    },
+    {
+      "id": "codex_elder_sign_story",
+      "title": "[codex] Codex [elder_sign]: Party Guest",
+      "type": "story",
+      "text": "You find a small group of guests talking amongst themselves in hushed tones. You are able to loiter just outside of their huddle, and learn that each has their own suspicions about what is really going on at tonight’s party.",
+      "narration": {
+        "id": "cob.blood_money.codex_elder_sign",
+        "name": "Codex [elder_sign]: Party Guest",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "codex_elder_sign_effect",
+      "text": "Automatically evade this enemy."
+    },
+    {
+      "id": "codex_elder_sign_effect_2",
+      "text": "Gain 1 clue <i>(from the token pool)</i>. Then, if Detective Reynolds is in play under an investigator’s control, that investigator gains 1 clue <i>(from the token pool)</i>."
+    },
+    {
+      "id": "earn_xp",
+       "text": "Each investigator earns experience equal to the <b>victory X</b> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "ask_2_blood_tokens",
+      "text": "Each investigator who ended the scenario with 2 [blood] tokens sealed on their investigator becomes the bearer of a set-aside The Blood Blight weakness if they are not already a bearer of it.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "blood",
+            "text": "2 sealed [blood] tokens?",
+            "condition": {
+              "type": "has_card",
+              "card": "13118",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "13118"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "failed_to_stop_the_children_of_blood",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "failed_to_stop_the_children_of_blood",
+          "text": "the investigators failed to stop the children of blood."
+        }
+      ]
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    },
+    {
+      "id": "stopped_the_children_of_blood",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "stopped_the_children_of_blood",
+          "text": "the investigators stopped the children of blood."
+        }
+      ]
+    },
+    {
+      "id": "check_all_defeated",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "trauma",
+        "trauma": "killed",
+        "investigator": "all",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "failed_to_stop_the_children_of_blood",
+              "lose_campaign"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "physical_and_mental_trauma_witness",
+      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma, as they never fully recover from what they witnessed in their investigation.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 1,
+          "physical": 1
+        }
+      ]
+    },
+    {
+      "id": "physical_and_mental_trauma_cult",
+      "text": "Each investigator suffers 1 physical trauma and 1 mental trauma, as they never fully recover from the horrors of the Cult of the Sanguine Order.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "mental": 1,
+          "physical": 1
+        }
+      ]
+    },
+    {
+      "id": "ask_civilians_beneath_scenario",
+      "type": "input",
+      "text": "How many [[Civilian]] enemies were beneath the scenario reference card when the scenario ended?",
+      "input": {
+        "type": "counter",
+        "text": "Civilian enemies:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp_plus_civilians",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "confirm_text": " Each investigator earns 1 bonus experience for each [[Civilian]] enemy beneath the scenario reference card when the scenario ended.",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_chosen_of_zburamoarte",
+      "text": "If at least 1 investigator has The Blood Blight weakness in their deck:",
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "13118",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["unlock_chosen_of_zburamoarte"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "unlock_chosen_of_zburamoarte",
+      "bullet_type": "small",
+      "text": "The investigators have earned the Chosen of Zburamoarte campaign reward card. Add this card to the player card pool."
+    },
+    {
+      "id": "defeated_killed",
+      "text": "Each defeated investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "killed": true,
+          "investigator": "defeated"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "investigator_defeat",
+      "title": "Investigator Defeat",
+      "text": "You struggle against the monsters, but their numbers and ferocity overwhelm you, feeding on your flesh as you’re forced to the floor. Your entire world is a blood-soaked tempest of blinding pain before you finally give in to the darkness of death.",
+      "narration": {
+        "id": "cob.blood_money.investigator_defeat",
+        "name": "Investigator Defeat",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "defeated_killed",
+        "check_all_defeated"
+      ]
+    },
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each surviving investigator resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "Unable to bear the chaos of the party, you flee into the streets. You only hope that the problems of the New Horizons meat and the blighted blood will solve themselves.",
+      "narration": {
+        "id": "cob.blood_money.no_resolution",
+        "name": "No Resolution",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "failed_to_stop_the_children_of_blood",
+        "physical_and_mental_trauma_witness",
+        "earn_xp",
+        "ask_2_blood_tokens",
+        "$upgrade_decks",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "You walk out of the penthouse, leaving the defeated Howard Wilkes and the shattered remains of his cult behind. Arkham’s finest arrive as you head out into the street, and you let Detective Reynolds handle their questions. You head back out into Arkham as the first rays of the morning sun peek out over the Miskatonic River.",
+      "narration": {
+        "id": "cob.blood_money.r1",
+        "name": "Resolution 1",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "stopped_the_children_of_blood",
+        "ask_civilians_beneath_scenario",
+        "earn_xp_plus_civilians",
+        "ask_2_blood_tokens",
+        "check_chosen_of_zburamoarte",
+        "$upgrade_decks",
+        "win_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You and the few guests you saved flee the penthouse as the Arkham police arrive. You watch as they rush into the penthouse, but you don’t stick around, heading out into Arkham just as the first rays of the morning sun peek out over the Miskatonic River.",
+      "narration": {
+        "id": "cob.blood_money.r2",
+        "name": "Resolution 2",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "failed_to_stop_the_children_of_blood",
+        "physical_and_mental_trauma_cult",
+        "ask_civilians_beneath_scenario",
+        "earn_xp_plus_civilians",
+        "ask_2_blood_tokens",
+        "check_chosen_of_zburamoarte",
+        "$upgrade_decks",
+        "win_campaign"
+      ]
+    }
+  ]
+}

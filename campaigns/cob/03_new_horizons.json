@@ -1,0 +1,872 @@
+{
+  "id": "new_horizons",
+  "scenario_name": "New Horizons",
+  "full_name": "Scenario II: New Horizons",
+  "header": "Scenario II",
+  "chaos_bag_card": "13031",
+  "icon": "new_horizons",
+  "setup": [
+    "intro",
+    "$check_tarot_reading",
+    "add_cultist",
+    "choose_setup",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "rules": [],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "With Detective Reynolds at your side, you head to the New Horizons facility in the Waterfront District. “Well, the way I see it we’ve got two options,” Reynolds says. “We can go in now and conduct our search. I’ve got the warrant, and it’ll be more official, but there’s also people who are working. People complicate things. Or…” He produces a set of lockpicks. “We wait until after dark.”",
+      "narration": {
+        "id": "cob.new_horizons.intro",
+        "name": "Intro",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["cultist"]
+        }
+      ]
+    },
+    {
+      "id": "choose_setup",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "day",
+            "text": "Search during the day",
+            "description": "<i>(Hint: Prepare to talk your way in).</i>",
+            "steps": [
+              "gather_encounter_sets_v1",
+              "location_setup_v1",
+              "location_layout",
+              "setup_agenda_v1",
+              "spawn_factory_workers",
+              "check_boss_difficulty",
+              "set_aside_v1",
+              "remove_night_watchman"
+            ]
+          },
+          {
+            "id": "night",
+            "text": "Search after dark",
+            "description": "<i>(Hint: Prepare to fight your way in).</i>",
+            "steps": [
+              "gather_encounter_sets_v2",
+              "location_setup_v2",
+              "location_layout",
+              "setup_agenda_v2",
+              "check_boss_difficulty",
+              "set_aside_v2",
+              "remove_javier"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets_v1",
+      "title": "Setup (v. I)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "new_horizons",
+        "afflicted",
+        "blood_blight",
+        "bloodthirst",
+        "hunted",
+        "sanguine_secrets",
+        "vermin",
+        "flying_terrors"
+      ]
+    },
+    {
+      "id": "location_setup_v1",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["standard_setup_v1"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_setup_v1"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_setup_v1"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_setup_v1"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_setup_v1",
+      "text": "Gather each location in the <b>New Horizons</b> encounter set.",
+      "bullets": [
+        {
+          "text": "Put each [[Day]] location into play. Remove each [[Night]] location from the game. Each investigator begins play at a Factory Floor location of their choice."
+        },
+        {
+          "text": "Because you are playing on Easy or Standard difficulty, set Cavern Entrance <i>(Shallow Tunnels)</i>, Descending Tunnel, and all 3 copies of Side Chamber <i>(Shallow Tunnels)</i> aside, out of play. Remove each remaining location from the game."
+        }
+      ]
+    },
+    {
+      "id": "hard_setup_v1",
+      "text": "Gather each location in the <b>New Horizons</b> encounter set.",
+      "bullets": [
+        {
+          "text": "Put each [[Day]] location into play. Remove each [[Night]] location from the game. Each investigator begins play at a Factory Floor location of their choice."
+        },
+        {
+          "text": "Because you are playing on Hard or Expert difficulty, set Cavern Entrance <i>(Darkest Depths)</i>, Descending Tunnel, and all 3 copies of Side Chamber <i>(Darkest Depths)</i> aside, out of play. Remove each remaining location from the game."
+        }
+      ]
+    },
+    {
+      "id": "setup_agenda_v1",
+      "text": "Construct the agenda deck using agenda 1a—“Busy Day” and agenda 2a—“Digging Deeper (v. I).” Remove each other agenda from the game."
+    },
+    {
+      "id": "spawn_factory_workers",
+      "text": "Spawn 1 Factory Worker enemy at each Factory Floor location."
+    },
+    {
+      "id": "check_boss_difficulty",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["easy_boss"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_boss"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_boss"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_boss"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "easy_boss",
+      "text": "Because you are playing on Easy difficulty, set Zburamoarte <i>(Lethargic Beast)</i> aside, out of play. Remove each other copy of Zburamoarte from the game."
+    },
+    {
+      "id": "standard_boss",
+      "text": "Because you are playing on Standard difficulty, set Zburamoarte <i>(Source of the Blight)</i> aside, out of play. Remove each other copy of Zburamoarte from the game."
+    },
+    {
+      "id": "hard_boss",
+      "text": "Because you are playing on Hard or Expert difficulty, set Zburamoarte <i>(Progenitor of Monsters)</i> aside, out of play. Remove each other copy of Zburamoarte from the game."
+    },
+    {
+      "id": "set_aside_v1",
+      "text": "Set the following cards aside, out of play: the Javier Rivera enemy, each copy of the Blighted Worker enemy, each copy of the Echoing in Darkness treachery, the <b>Infected</b> and <b>Flying Terrors</b> encounter sets, and the Forged Permit and Sanguine Song story assets."
+    },
+    {
+      "id": "remove_night_watchman",
+      "text": "Remove the Night Watchman enemy from the game."
+    },
+    {
+      "id": "gather_encounter_sets_v2",
+      "title": "Setup (v. II)",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "new_horizons",
+        "afflicted",
+        "children_of_blood",
+        "infected",
+        "preyed_upon",
+        "sanguine_secrets",
+        "stalked",
+        "flying_terrors",
+        "reeking_decay"
+      ]
+    },
+
+
+    {
+      "id": "location_setup_v2",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "difficulty",
+        "options": [
+          {
+            "condition": "easy",
+            "steps": ["standard_setup_v2"]
+          },
+          {
+            "condition": "standard",
+            "steps": ["standard_setup_v2"]
+          },
+          {
+            "condition": "hard",
+            "steps": ["hard_setup_v2"]
+          },
+          {
+            "condition": "expert",
+            "steps": ["hard_setup_v2"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "standard_setup_v2",
+      "text": "Gather each location in the <b>New Horizons</b> encounter set.",
+      "bullets": [
+        {
+          "text": "Put each [[Night]] location into play. Remove each [[Day]] location from the game. Each investigator begins play at a Factory Floor location of their choice."
+        },
+        {
+          "text": "Because you are playing on Easy or Standard difficulty, set Cavern Entrance <i>(Shallow Tunnels)</i>, Descending Tunnel, and all 3 copies of Side Chamber <i>(Shallow Tunnels)</i> aside, out of play. Remove each remaining location from the game."
+        }
+      ]
+    },
+    {
+      "id": "hard_setup_v2",
+      "text": "Gather each location in the <b>New Horizons</b> encounter set.",
+      "bullets": [
+        {
+          "text": "Put each [[Night]] location into play. Remove each [[Day]] location from the game. Each investigator begins play at a Factory Floor location of their choice."
+        },
+        {
+          "text": "Because you are playing on Hard or Expert difficulty, set Cavern Entrance <i>(Darkest Depths)</i>, Descending Tunnel, and all 3 copies of Side Chamber <i>(Darkest Depths)</i> aside, out of play. Remove each remaining location from the game."
+        }
+      ]
+    },
+    {
+      "id": "setup_agenda_v2",
+      "text": "Construct the agenda deck using agenda 1a—“Quiet Night” and agenda 2a—“Digging Deeper (v. II).” Remove each other agenda from the game."
+    },
+    {
+      "id": "set_aside_v2",
+      "text": "Set the following cards aside, out of play: the Night Watchman enemy, each copy of the Blighted Worker enemy, each copy of the Echoing in Darkness treachery, the <b>Infected</b> and <b>Flying Terrors</b> encounter sets, and the Forged Permit and Sanguine Song story assets."
+    },
+    {
+      "id": "remove_javier",
+      "text": "Remove the Javier Rivera enemy and each copy of Factory Worker from the game."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "factory_floor_west",
+          "blank",
+          "factory_floor_east",
+          "blank"
+        ],
+        [
+          "managers_office",
+          "blank",
+          "loading_dock",
+          "blank",
+          "storage"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "factory_floor_west",
+          "name": "Factory Floor (West)"
+        },
+        {
+          "code": "factory_floor_east",
+          "name": "Factory Floor (East)"
+        },
+        {
+          "code": "managers_office",
+          "name": "Manager's Office"
+        },
+        {
+          "code": "loading_dock",
+          "name": "Loading Dock"
+        },
+        {
+          "code": "storage",
+          "name": "Storage"
+        }
+      ]
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remaining encounter cards to create the encounter deck."
+    },
+    {
+      "id": "add_1_blood_token",
+      "text": "Add 1 [blood] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["blood"]
+        }
+      ]
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "left_zburamoarte_alive",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "left_zburamoarte_alive",
+          "text": "the investigators left Zburamoarte alive."
+        }
+      ]
+    },
+    {
+      "id": "defeated_zburamoarte",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "defeated_zburamoarte",
+          "text": "the investigators defeated Zburamoarte."
+        }
+      ]
+    },
+    {
+      "id": "left_to_the_cults_mercy",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "left_to_the_cults_mercy",
+          "text": "the investigators were left to the cult's mercy."
+        }
+      ]
+    },
+    {
+      "id": "did_not_complete_their_search",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "did_not_complete_their_search",
+          "text": "the investigators did not complete their search."
+        }
+      ]
+    },
+    {
+      "id": "completed_their_search",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "completed_their_search",
+          "text": "the investigators completed their search."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+       "text": "Each investigator earns experience equal to the <b>victory X</b> value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "choose_spend_xp_remove_blood",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "The investigators may decide to spend 2 [per_investigator] total experience, as a group, to remove 1 [blood] token from the chaos bag. Would you like to do this?",
+            "steps": [
+              "lose_xp_branch"
+            ],
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "lose_xp_branch",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "scenario_data",
+        "scenario_data": "player_count",
+        "options": [
+          {
+            "numCondition": 1,
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "all",
+                "bonus": -2
+              }
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": ["remove_4_xp"]
+          },
+          {
+            "numCondition": 3,
+            "steps": ["remove_6_xp"]
+          },
+          {
+            "numCondition": 4,
+            "steps": ["remove_8_xp"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_4_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 4,
+        "min": 4,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_6_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 6,
+        "min": 6,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_8_xp",
+      "text": "Who should spend XP?",
+      "type": "input",
+      "input": {
+        "type": "investigator_counter",
+        "text": "Spend experience",
+        "max": 8,
+        "min": 8,
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "$input_value",
+            "input_scale": -1
+          }
+        ]
+      }
+    },
+    {
+      "id": "remove_blood_token",
+      "text": "Remove 1 [blood] token from the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": ["blood"]
+        }
+      ]
+    },
+    {
+      "id": "add_2_blood_tokens",
+      "text": "Add 2 [blood] tokens to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": ["blood", "blood"]
+        }
+      ]
+    },
+    {
+      "id": "all_earn_blood_blight",
+      "text": "Each investigator who does not have The Blood Blight weakness becomes the bearer of a set-aside The Blood Blight weakness."
+    },
+    {
+      "id": "actually_all_earn_blood_blight",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "13118",
+        "options": [
+          {
+            "boolCondition": false,
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "13118"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ask_found_sheet_of_arcane_symbols",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators find a sheet of arcane symbols?",
+            "steps": ["earn_sheet"]
+
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_sheet",
+      "bullet_type": "small",
+      "text": "Choose an investigator to become the bearer of the set-aside Sanguine Song story asset.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "13066"
+        }
+      ]
+    },
+    {
+      "id": "ask_found_forged_permits",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "yes",
+            "text": "Did the investigators find forged permits?",
+            "steps": ["earn_forged"]
+
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_forged",
+      "bullet_type": "small",
+      "text": "Choose an investigator to become the bearer of the set-aside Forged Permit story asset.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "13067"
+        }
+      ]
+    },
+    {
+      "id": "release_blood_tokens",
+      "text": "Release each sealed [blood] token and return them to the chaos bag."
+    },
+    {
+      "id": "ask_2_blood_tokens",
+      "text": "Each investigator who ended the scenario with 2 [blood] tokens sealed on their investigator becomes the bearer of a set-aside The Blood Blight weakness if they are not already a bearer of it.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "investigator": "all",
+        "source": "scenario",
+        "choices": [
+          {
+            "id": "blood",
+            "text": "2 sealed [blood] tokens?",
+            "condition": {
+              "type": "has_card",
+              "card": "13118",
+              "investigator": "each",
+              "options": [
+                {
+                  "boolCondition": false,
+                  "effects": []
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_card",
+                "investigator": "$input_value",
+                "card": "13118"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "chaos_bag_branches": ["adjust_blood"]
+      }
+    },
+    {
+      "id": "adjust_blood",
+      "type": "input",
+      "text": "What change should be made?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "add_blood",
+            "text": "Add 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 12
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": -1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "add_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          },
+          {
+            "id": "remove_blood",
+            "text": "Remove 1 [blood] token.",
+            "condition": {
+              "type": "multi",
+              "count": 1,
+              "conditions": [
+                {
+                  "type": "math",
+                  "opA": {
+                    "type": "chaos_bag",
+                    "token": "blood"
+                  },
+                  "opB": {
+                    "type": "constant",
+                    "value": 0
+                  },
+                  "operation": "compare",
+                  "options": [
+                    {
+                      "numCondition": 1
+                    }
+                  ]
+                }
+              ],
+              "options": [
+                {
+                  "boolCondition": true
+                }
+              ]
+            },
+            "effects": [
+              {
+                "type": "remove_chaos_token",
+                "tokens": ["blood"]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "text": "“Things got pretty rough in there.”\n You awaken to the voice of Detective Reynolds. Blinking in the light of the morning, you sit up, waves of pain shooting through your stiff joints. Reynolds puts a hand on your shoulder. “Let’s not push it,” he says. “Besides, I’ve been watching the back of the factory, to see whether anyone—or anything—is going to follow us out.”",
+      "narration": {
+        "id": "cob.new_horizons.no_resolution",
+        "name": "No Resolution",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "add_1_blood_token",
+        "earn_xp",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "At long last you emerge from the meat packing facility, feeling no better than the cattle flanks that hung from hooks within. You hope that what you were able to accomplish will prove to be useful enough, even if you didn’t get to the bottom of what the cult was doing in the warehouse. At the very least, you have a name to go off of—Howard Wilkes, the owner of New Horizons, and the leader of the cult that was dwelling in its depths.",
+      "narration": {
+        "id": "cob.new_horizons.r1",
+        "name": "Resolution 1",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "did_not_complete_their_search",
+        "left_zburamoarte_alive",
+        "earn_xp",
+        "choose_spend_xp_remove_blood",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You have gotten to the bottom of the cult’s activities in the warehouse, and while you chose to leave whatever monsters lurked in the depths of the tunnels alive, you can only hope that your efforts will prove enough to put all of this to rest. At the very least, you have a name to go off of—Howard Wilkes, the owner of New Horizons, and the leader of the cult that was dwelling in its depths.",
+      "narration": {
+        "id": "cob.new_horizons.r2",
+        "name": "Resolution 2",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "completed_their_search",
+        "left_zburamoarte_alive",
+        "remove_blood_token",
+        "earn_xp",
+        "choose_spend_xp_remove_blood",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "After a grueling fight against the truly massive foe, you finally put the abomination down. This beast, this Zburamoarte, was the source of the infected blood used in the cult’s rituals, spreading the blood blight throughout all of Arkham via the tainted meat. With the source of the blood blight defeated, you hope that no others can fall to the same fate as Julia Stern and others within the New Horizons factory. The case isn’t over, however, as you learned that a man named Howard Wilkes, the owner of New Horizons, was also leading of the cult of Zburamoarte. It’s time to make him answer for his crimes.",
+      "narration": {
+        "id": "cob.new_horizons.r3",
+        "name": "Resolution 3",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "completed_their_search",
+        "defeated_zburamoarte",
+        "remove_blood_token",
+        "earn_xp",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "You are quickly overwhelmed by the cult, dragging you down into the caves while repeating the name “Zburamoarte, Zburamoarte, Zburamoarte…” Mercifully, you black out during the course of the cult’s rituals, and when you come to again, you are alone on the floor of the factory, the first light of morning peeking through the windows. You pick yourself up, stretch your aching joints, and make a swift exit.",
+      "narration": {
+        "id": "cob.new_horizons.r4",
+        "name": "Resolution 4",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "left_to_the_cults_mercy",
+        "add_2_blood_tokens",
+        "all_earn_blood_blight",
+        "actually_all_earn_blood_blight",
+        "defeated_zburamoarte",
+        "earn_xp",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Resolution 5",
+      "hidden": true,
+      "text": "You regroup with Detective Reynolds, ready to investigate this Howard Wilkes, and make him answer for what’s been happening at his facility.",
+      "narration": {
+        "id": "cob.new_horizons.r5",
+        "name": "Resolution 5",
+        "lang": [
+        ]
+      },
+      "steps": [
+        "ask_found_sheet_of_arcane_symbols",
+        "ask_found_forged_permits",
+        "ask_2_blood_tokens",
+        "release_blood_tokens"
+      ]
+    }
+  ]
+}

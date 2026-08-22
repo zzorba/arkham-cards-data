@@ -1,0 +1,147 @@
+{
+  "id": "cob_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "header": "",
+  "icon": "misinformation",
+  "type": "epilogue",
+  "setup": [
+    "check_failed_to_stop_the_children_of_blood"
+  ],
+  "steps": [
+    {
+      "id": "check_failed_to_stop_the_children_of_blood",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "failed_to_stop_the_children_of_blood",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_1"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_stopped_children_and_defeated_zburamoarte"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "With no other choice, you put the penthouse of Arkham’s Northside district behind you. No matter how far you go, you worry there won’t be enough distance between you and the monsters that ravaged the party and turned it into a bloodbath. It doesn’t take long for word of those events to spread throughout Arkham, and for more disappearances to take place as the creatures continue to hunt and feed in the dead of night. Eventually you decide to leave the city, relocating to Boston and thinking that at long last you can try and forget about the calamity on the Miskatonic.\nBut no matter how far you go, no matter how close you are to forgetting everything, in a matter of months you hear reports similar to those that led up to the chaos that plagued Arkham. The tainted blood of Zburamoarte and the machinations of the Cult of the Sanguine Order are spreading across New England. How long will it be before you have nowhere else to run?",
+      "narration": {
+        "id": "cob.blood_money.epilogue_1",
+        "name": "Epilogue 1",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "check_stopped_children_and_defeated_zburamoarte",
+      "text": "Check Campaign Log. If both <i>the investigators stopped the children of blood</i> and <i>the investigators defeated Zburamoarte</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "stopped_the_children_of_blood",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "defeated_zburamoarte",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_2", "check_spared_julia_stern"]
+          },
+          {
+            "boolCondition": false,
+            "steps": ["check_stopped_the_children_of_blood"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_stopped_the_children_of_blood",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "stopped_the_children_of_blood",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_3"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "The events of the penthouse in Northside finally behind you, it seems that at long last the city of Arkham can breathe a sigh of relief. As the days begin to pass, the people who were subjected to the tainted blood of Zburamoarte at the hands of the cult begin to recover. They are weak, disoriented, and lacking any memory of their transformations. Against all odds, it seems that the diabolical machinations of Howard Wilkes and the Cult of the Sanguine Order are finally put to rest.",
+      "narration": {
+        "id": "cob.blood_money.epilogue_2",
+        "name": "Epilogue 2",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "check_spared_julia_stern",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "spared_julia_stern",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": ["intro_4"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "The events of the penthouse in Northside finally behind you, it seems that at long last the city of Arkham can breathe a sigh of relief. As the days begin to pass, however, rumors and whispers of monsters in the night seem to return. In a matter of weeks, it seems Arkham is right back to where it started on that fateful night in the Waterfront District. More disappearances are reported throughout the city, and you fear the creatures have returned to hunt and feed in the dead of night. Eventually you decide to leave Arkham, relocating to Boston and thinking that at long last you can try and forget about the calamity on the Miskatonic.\nBut no matter how far you go, no matter how close you are to forgetting everything, in a matter of months you hear reports similar to those that led up to the chaos that plagued Arkham. The tainted blood of Zburamoarte, and the machinations of the Cult of the Sanguine Order, have returned, and are spreading across New England. How long will it be before you have nowhere else to run?",
+      "narration": {
+        "id": "cob.blood_money.epilogue_3",
+        "name": "Epilogue 3",
+        "lang": [
+        ]
+      }
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "Weeks later, you find yourself walking down the sidewalk of Water Street once again. That bloody and desperate night seems like a distant memory fading into shadows as the sun rises from the Eastern horizon. As you continue on your way, you catch a glimpse of a familiar face—a middle-aged woman, with long dark hair pulled back into a tight bun, dressed in the blue coveralls of a factory worker. She looks up as she crosses the street, and your eyes meet for a brief moment. She doesn’t recognize you, but you know immediately that it’s Julia. She offers a polite smile before she continues on, eventually disappearing into the growing crowds.",
+      "narration": {
+        "id": "cob.blood_money.epilogue_4",
+        "name": "Epilogue 4",
+        "lang": [
+        ]
+      }
+    }
+  ]
+}

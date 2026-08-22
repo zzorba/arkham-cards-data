@@ -1,0 +1,475 @@
+{
+  "id": "cob",
+  "name": "Children of Blood",
+  "position": 1,
+  "version": 0,
+  "tarot": [
+    "river_of_blood",
+    "new_horizons",
+    "blood_money"
+  ],
+  "campaign_type": "campaign",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "hidden",
+      "hidden": true,
+      "title": "Hidden"
+    }
+  ],
+  "scenarios": [
+    "cob_prologue",
+    "river_of_blood",
+    "new_horizons",
+    "friends_in_low_places",
+    "blood_money",
+    "cob_epilogue"
+  ],
+  "setup": [
+    "prologue",
+    "choose_investigators",
+    "difficulty_choice",
+    "draw_weakness",
+    "$blood_tokens_rule",
+    "$predator_rule"
+  ],
+  "steps": [
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "trauma": true
+      }
+    },
+    {
+      "id": "prologue",
+      "title": "A Powerful Hunger",
+      "type": "story",
+      "text": "\"To say that we actually believed in vampires or werewolves would be a carelessly inclusive statement. Rather must it be said that we were not prepared to deny the possibility of certain unfamiliar and unclassified modifications of vital force and attenuated matter; existing very infrequently in three-dimensional space because of its more intimate connexion with other spatial units, yet close enough to the boundary of our own to furnish us occasional manifestations which we, for lack of a proper vantage-point, may never hope to understand.\"\n- H.P. Lovecraft, \"The Shunned House\"",
+      "narration": {
+        "id": "children_of_blood.prologue.a_powerful_hunger",
+        "name": "A Powerful Hunger",
+        "lang": []
+      }
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "<i>I want to experience the story</i>",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "<i>I want a challenge</i>",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "<i>I want a true nightmare</i>",
+            "tokens": [
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign",
+              "blood"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hard_or_expert",
+                "text": "dummy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign",
+                  "blood"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "<i>I want Arkham Horror</i>",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-3",
+              "-4",
+              "-4",
+              "-5",
+              "-6",
+              "-8",
+              "skull",
+              "skull",
+              "tablet",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign",
+              "blood",
+              "blood"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hard_or_expert",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-3",
+                  "-4",
+                  "-4",
+                  "-5",
+                  "-6",
+                  "-8",
+                  "skull",
+                  "skull",
+                  "tablet",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign",
+                  "blood",
+                  "blood"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "achievements": [
+    {
+      "id": "hide_and_seek",
+      "title": "Hide and Seek",
+      "text": "Defeat Julia Stern before agenda 2a advances in <i>River of Blood</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "friendly_neighborhood_investigator",
+      "title": "Friendly Neighborhood Investigator",
+      "text": "Do not let a single [[Civilian]] enemy get defeated during <i>River of Blood</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "trophy_collector",
+      "title": "Trophy Collector",
+      "text": "Add Fang of Zburamoarte to any investigator’s deck.",
+      "type": "binary"
+    },
+    {
+      "id": "no_meat_slab_unhooked",
+      "title": "No Meat-Slab Unhooked",
+      "text": "Finish <i>New Horizons</i> with every location revealed, and with no clues remaining on locations.",
+      "type": "binary"
+    },
+    {
+      "id": "filing_paperwork",
+      "title": "Filing Paperwork",
+      "text": "Add either Forged Permit or Sanguine Song to any investigator’s deck.",
+      "type": "binary"
+    },
+    {
+      "id": "thatll_learn_him",
+      "title": "That'll Learn Him",
+      "text": "Use the ability on Zburamoarte’s Lair to deal the killing blow to Zburamoarte in <i>New Horizons</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "safety_inspector",
+      "title": "Safety Inspector",
+      "text": "Do not let a single [[Civilian]] enemy get defeated during <i>New Horizons</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "thanks_for_your_vote",
+      "title": "Thanks for Your Vote",
+      "text": "Add Charlie Kane to any investigator’s deck.",
+      "type": "binary"
+    },
+    {
+      "id": "hell_hath_no_fury",
+      "title": "Hell Hath No Fury",
+      "text": "Have Julia Stern deal the killing blow to Howard Wilkes in <i>Blood Money</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "look_out_below",
+      "title": "Look Out Below",
+      "text": "Use the Balcony location’s ability to defeat Howard Wilkes in <i>Blood Money</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "a_party_everyone_can_enjoy",
+      "title": "A Party Everyone Can Enjoy",
+      "text": "Do not let a single [[Civilian]] enemy get defeated during <i>Blood Money</i>.",
+      "type": "binary"
+    },
+    {
+      "id": "if_you_cant_beat_them",
+      "title": "If You Can't Beat Them...",
+      "text": "Complete the <i>Blood Money</i> scenario with each available copy of Suspicious Guest in the victory display.",
+      "type": "binary"
+    },
+    {
+      "id": "you_got_red_on_you",
+      "title": "You Got Red on You",
+      "text": "Seal 3 [blood] tokens on your investigator in a single round.",
+      "type": "binary"
+    },
+    {
+      "id": "dont_forget_your_ppe",
+      "title": "Don't Forget Your PPE",
+      "text": "Finish <i>Children of Blood</i> with 0 [blood] tokens in the chaos bag.",
+      "type": "binary"
+    },
+    {
+      "id": "bathed_in_blood",
+      "title": "Bathed in Blood",
+      "text": "Finish <i>Children of Blood</i> with 12 [blood] tokens in the chaos bag.",
+      "type": "binary"
+    },
+    {
+      "id": "and_all_i_got",
+      "title": "And All I Got Were These Bloody Fangs",
+      "text": " Unlock the Chosen of Zburamoarte campaign reward card.",
+      "type": "binary"
+    },
+    {
+      "id": "its_part_of_my_backstory",
+      "title": "It's Part of My Backstory",
+      "text": "Complete <i>Children of Blood</i> with the following investigators:",
+      "type": "list",
+      "items": [
+        {
+          "id": "daniela",
+          "text": "Daniela Reyes"
+        },
+        {
+          "id": "Miguel",
+          "text": "Migeul de la Cruz"
+        }
+      ]
+    },
+    {
+      "id": "waterfront_wet_work",
+      "title": "Waterfront Wet Work",
+      "text": "Complete <i>Children of Blood</i> campaign on the following difficulties:",
+      "type": "list",
+      "items": [
+        {
+          "id": "easy",
+          "text": "Easy"
+        },
+        {
+          "id": "standard",
+          "text": "Standard"
+        },
+        {
+          "id": "hard",
+          "text": "Hard"
+        },
+        {
+          "id": "expert",
+          "text": "Expert"
+        }
+      ]
+    }
+  ]
+}
