@@ -11,8 +11,6 @@
     "check_hard_or_expert_encounter",
     "check_3_or_4_encounters",
     "check_difficulty_locations",
-    "starting_location",
-    "location_layout",
     "check_3_or_4_enemies",
     "check_difficulty_julia",
     "check_difficulty_set_aside_cards",
@@ -29,6 +27,7 @@
         "id": "cob.river_of_blood.intro",
         "name": "Intro",
         "lang": [
+          "dv"
         ]
       },
       "text": "\"Whatever you have to do to stop her, to stop that thing,\" Christopher says to you as you prepare to set out in search of Julia. \"Just do it.\"\nYou spend the night searching frantically through the Waterfront District, but are unable to locate anything conclusive. You retire for a restless night, and hope to have better luck in the morning."
@@ -147,19 +146,35 @@
         "options": [
           {
             "condition": "easy",
-            "steps": ["standard_locations"]
+            "steps": [
+              "standard_locations",
+              "starting_location",
+              "location_layout_dawn"
+            ]
           },
           {
             "condition": "standard",
-            "steps": ["standard_locations"]
+            "steps": [
+              "standard_locations",
+              "starting_location",
+              "location_layout_dawn"
+            ]
           },
           {
             "condition": "hard",
-            "steps": ["hard_locations"]
+            "steps": [
+              "hard_locations",
+              "starting_location",
+              "location_layout_dusk"
+            ]
           },
           {
             "condition": "expert",
-            "steps": ["hard_locations"]
+            "steps": [
+              "hard_locations",
+              "starting_location",
+              "location_layout_dusk"
+            ]
           }
         ]
       }
@@ -303,7 +318,7 @@
       "text": "Set the following cards aside, out of play: each remaining Waterfront Civilian enemy, each Spawn of Zburamoarte enemy, each card in the <b>Infected</b> encounter set, the Detective Reynolds story asset, and the Fang of Zburamoarte story asset."
     },
     {
-      "id": "location_layout",
+      "id": "location_layout_dawn",
       "type": "location_setup",
       "text": "Location Placement",
       "horizontal": "normal",
@@ -311,13 +326,13 @@
       "locations": [
         [
           "blank",
-          "warehouse",
+          "13020_back",
           "blank"
         ],
         [
           "garrison",
           "blank",
-          "water"
+          "13008_back"
         ],
         [
           "blank",
@@ -325,8 +340,8 @@
           "blank"
         ],
         [
-          "unvisited_isle",
-          "erwin",
+          "13018_back",
+          "13016_back",
           "blank"
         ],
         [
@@ -336,48 +351,58 @@
         ],
         [
           "docks",
-          "blank",
-          "main"
+          "13012_back",
+          "13014_back"
         ],
         [
           "blank",
-          "alley",
+          "13022_back",
           "blank"
         ]
-      ],
-      "location_names": [
-        {
-          "code": "warehouse",
-          "name": "Waterfront Warehouse"
-        },
-        {
-          "code": "garrison",
-          "name": "Garrison Street"
-        },
-        {
-          "code": "water",
-          "name": "Water Street"
-        },
-        {
-          "code": "unvisited_isle",
-          "name": "Unvisited Isle"
-        },
-        {
-          "code": "erwin",
-          "name": "Erwin Bridge"
-        },
-        {
-          "code": "docks",
-          "name": "River Docks"
-        },
-        {
-          "code": "main",
-          "name": "Main Street"
-        },
-        {
-          "code": "alley",
-          "name": "Back Alley"
-        }
+      ]
+    },
+    {
+      "id": "location_layout_dusk",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "half",
+      "locations": [
+        [
+          "blank",
+          "13021_back",
+          "blank"
+        ],
+        [
+          "garrison",
+          "blank",
+          "13009_back"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "13019_back",
+          "13017_back",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "docks",
+          "13013_back",
+          "13015_back"
+        ],
+        [
+          "blank",
+          "13023_back",
+          "blank"
+        ]
       ]
     },
     {
@@ -696,7 +721,15 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
-        "chaos_bag_branches": ["adjust_blood"]
+        "chaos_bag_branches": ["adjust_blood"],
+        "branches": [
+          {
+            "id": "adjust_blood",
+            "text": "Adjust blood tokens",
+            "repeatable": true,
+            "steps": ["adjust_blood"]
+          }
+        ]
       }
     },
     {
@@ -801,6 +834,7 @@
         "id": "cob.river_of_blood.no_resolution",
         "name": "No Resolution",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -819,6 +853,7 @@
         "id": "cob.river_of_blood.r1",
         "name": "Resolution 1",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -836,6 +871,7 @@
         "id": "cob.river_of_blood.r2",
         "name": "Resolution 2",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -853,6 +889,7 @@
         "id": "cob.river_of_blood.r3",
         "name": "Resolution 3",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -870,6 +907,7 @@
         "id": "cob.river_of_blood.r4",
         "name": "Resolution 4",
         "lang": [
+          "dv"
         ]
       },
       "steps": [

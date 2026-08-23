@@ -23,6 +23,7 @@
         "id": "cob.new_horizons.intro",
         "name": "Intro",
         "lang": [
+          "dv"
         ]
       }
     },
@@ -45,11 +46,11 @@
           {
             "id": "day",
             "text": "Search during the day",
-            "description": "<i>(Hint: Prepare to talk your way in).</i>",
+            "description": "<i>Hint: Prepare to talk your way in.</i>",
             "steps": [
               "gather_encounter_sets_v1",
               "location_setup_v1",
-              "location_layout",
+              "location_layout_v1",
               "setup_agenda_v1",
               "spawn_factory_workers",
               "check_boss_difficulty",
@@ -60,11 +61,11 @@
           {
             "id": "night",
             "text": "Search after dark",
-            "description": "<i>(Hint: Prepare to fight your way in).</i>",
+            "description": "<i>Hint: Prepare to fight your way in.</i>",
             "steps": [
               "gather_encounter_sets_v2",
               "location_setup_v2",
-              "location_layout",
+              "location_layout_v2",
               "setup_agenda_v2",
               "check_boss_difficulty",
               "set_aside_v2",
@@ -277,7 +278,7 @@
       "text": "Remove the Javier Rivera enemy and each copy of Factory Worker from the game."
     },
     {
-      "id": "location_layout",
+      "id": "location_layout_v1",
       "type": "location_setup",
       "text": "Location Placement",
       "horizontal": "normal",
@@ -285,40 +286,41 @@
       "locations": [
         [
           "blank",
-          "factory_floor_west",
+          "13039_back",
           "blank",
-          "factory_floor_east",
+          "13040_back",
           "blank"
         ],
         [
-          "managers_office",
+          "13041_back",
           "blank",
-          "loading_dock",
+          "13042_back",
           "blank",
-          "storage"
+          "13043_back"
         ]
-      ],
-      "location_names": [
-        {
-          "code": "factory_floor_west",
-          "name": "Factory Floor (West)"
-        },
-        {
-          "code": "factory_floor_east",
-          "name": "Factory Floor (East)"
-        },
-        {
-          "code": "managers_office",
-          "name": "Manager's Office"
-        },
-        {
-          "code": "loading_dock",
-          "name": "Loading Dock"
-        },
-        {
-          "code": "storage",
-          "name": "Storage"
-        }
+      ]
+    },
+    {
+      "id": "location_layout_v2",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "13044_back",
+          "blank",
+          "13045_back",
+          "blank"
+        ],
+        [
+          "13046_back",
+          "blank",
+          "13047_back",
+          "blank",
+          "13048_back"
+        ]
       ]
     },
     {
@@ -624,6 +626,22 @@
       "text": "Release each sealed [blood] token and return them to the chaos bag."
     },
     {
+      "id": "maybe_ask_2_blood_tokens",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "has_card",
+        "investigator": "each",
+        "card": "13118",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": ["ask_2_blood_tokens"]
+          }
+        ]
+      }
+    },
+    {
       "id": "ask_2_blood_tokens",
       "text": "Each investigator who ended the scenario with 2 [blood] tokens sealed on their investigator becomes the bearer of a set-aside The Blood Blight weakness if they are not already a bearer of it.",
       "type": "input",
@@ -662,7 +680,15 @@
       "type": "input",
       "input": {
         "type": "play_scenario",
-        "chaos_bag_branches": ["adjust_blood"]
+        "chaos_bag_branches": ["adjust_blood"],
+        "branches": [
+          {
+            "id": "adjust_blood",
+            "text": "Adjust blood tokens",
+            "repeatable": true,
+            "steps": ["adjust_blood"]
+          }
+        ]
       }
     },
     {
@@ -767,6 +793,7 @@
         "id": "cob.new_horizons.no_resolution",
         "name": "No Resolution",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -783,6 +810,7 @@
         "id": "cob.new_horizons.r1",
         "name": "Resolution 1",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -801,6 +829,7 @@
         "id": "cob.new_horizons.r2",
         "name": "Resolution 2",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -820,6 +849,7 @@
         "id": "cob.new_horizons.r3",
         "name": "Resolution 3",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -838,6 +868,7 @@
         "id": "cob.new_horizons.r4",
         "name": "Resolution 4",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
@@ -859,12 +890,13 @@
         "id": "cob.new_horizons.r5",
         "name": "Resolution 5",
         "lang": [
+          "dv"
         ]
       },
       "steps": [
         "ask_found_sheet_of_arcane_symbols",
         "ask_found_forged_permits",
-        "ask_2_blood_tokens",
+        "maybe_ask_2_blood_tokens",
         "release_blood_tokens"
       ]
     }
