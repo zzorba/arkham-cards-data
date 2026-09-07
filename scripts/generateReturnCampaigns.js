@@ -31,7 +31,9 @@ const getFilePaths = (folderPath) => {
   return [...filePaths, ...dirFiles];
 };
 
-const output_dir = argv.output || `.${path.sep}build`;
+// path.normalize() ensures the separator matches the OS-specific separator used by getFilePaths()/path.join(),
+// otherwise the replace() calls below silently fail to match on Windows when the arg uses '/'.
+const output_dir = path.normalize(argv.output || `.${path.sep}build`);
 
 if (!fs.existsSync(output_dir)) {
   fs.mkdirSync(output_dir, { recursive: true })
@@ -39,7 +41,7 @@ if (!fs.existsSync(output_dir)) {
 if (!fs.existsSync(`${output_dir}${path.sep}return_campaigns`)) {
   fs.mkdirSync(`${output_dir}${path.sep}return_campaigns`, { recursive: true })
 }
-const input_dir = argv.input || '.';
+const input_dir = path.normalize(argv.input || '.');
 const input_replace_dir = input_dir === '.' ? '' : `${input_dir}${path.sep}`;
 
 console.log(`Generating Return Campaigns: (${input_dir}) -> (${output_dir})`);
