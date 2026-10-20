@@ -366,11 +366,20 @@ async function validateScenarios() {
             }
             try {
               const json = jsonlint.parse(data);
-              const magicSteps = {
+              let magicSteps = {
                 ...FIXED_MAGIC_STEPS,
               };
               if (!file.endsWith(`${path.sep}core.json`)) {
                 loadCoreSteps(file, magicSteps);
+              }
+              if (file.indexOf(`${path.sep}side${path.sep}`) !== -1) {
+                // Side scenarios may reference $-prefixed steps from the main campaign
+                magicSteps = new Proxy(magicSteps, {
+                  get(target, prop) {
+                    if (typeof prop === 'string' && prop.startsWith('$')) return true;
+                    return target[prop];
+                  }
+                });
               }
               validate(validator, file, json, "schema/scenario.schema.json#/definitions/scenario", magicSteps);
             } catch (e) {

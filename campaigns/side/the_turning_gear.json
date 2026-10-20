@@ -15,6 +15,16 @@
   "standalone_setup": [
     "choose_difficulty",
     "ask_epic_multiplayer",
+    "intro_2",
+    "intro_emp_switch",
+    "gather_encounter_sets",
+    "gather_more_encounter_sets",
+    "setup_locations",
+    "setup_tracker",
+    "gather_decoys",
+    "encounter_deck",
+    "reminder_clockwise",
+
     "anomalies_rule",
     "left_right_rule",
     "clockwise_rule",
@@ -30,8 +40,13 @@
     "concealed_mini_cards_4",
     "elusive_rule",
 
-    "intro_2",
-    "intro_emp_switch",
+    "$play_scenario"
+  ],
+  "setup": [
+    "xp_cost",
+
+    "check_tsk_campaign",
+    "intro_3",
     "gather_encounter_sets",
     "gather_more_encounter_sets",
     "setup_locations",
@@ -39,10 +54,6 @@
     "gather_decoys",
     "encounter_deck",
     "reminder_clockwise",
-    "$play_scenario"
-  ],
-  "setup": [
-    "xp_cost",
     "anomalies_rule",
     "left_right_rule",
     "clockwise_rule",
@@ -57,16 +68,6 @@
     "concealed_mini_cards_3",
     "concealed_mini_cards_4",
     "elusive_rule",
-    
-    "check_tsk_campaign",
-    "intro_3",
-    "gather_encounter_sets",
-    "gather_more_encounter_sets",
-    "setup_locations",
-    "setup_tracker",
-    "gather_decoys",
-    "encounter_deck",
-    "reminder_clockwise",
     "$play_scenario"
   ],
   "rules": [
@@ -280,7 +281,7 @@
       "type": "rule_reminder",
       "title": "Clockwise and Anticlockwise",
       "text": "In this scenario, locations are placed in a circle. Some effects will instruct you to move clockwise or anticlockwise, which simply means to move to the location immediately in the clockwise (or anticlockwise) direction from your current location. Note that these effects do not require location connections—an effect can still make you move clockwise even if a card effect has stopped your destination from being connected to your location."
-    },   
+    },
     {
       "id": "gear_rule",
       "type": "rule_reminder",
@@ -382,7 +383,16 @@
         "options": [
           {
             "boolCondition": true,
-            "steps": ["intro_1"]
+            "steps": ["intro_1"],
+            "effects": [
+              {
+                "type": "add_scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "name": "The Turning Gear"
+              }
+
+            ]
           },
           {
             "boolCondition": false,
@@ -633,11 +643,31 @@
           "id": "cell_slowed_gear",
           "text": "the cell slowed the Turning Gear"
         }
-      ] 
+      ]
     },
     {
       "id": "bear_turning_gear",
-      "text": "Choose an investigator to become the bearer of The Turning Gear (Universal Mecahnism)."
+      "text": "Choose an investigator to become the bearer of The Turning Gear (Universal Mecahnism)  and update the Campaign Log accordingly.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "any",
+        "choices": [
+          {
+            "id": "the_turning_gear",
+            "text": "Bearer of The Turning Gear",
+            "effects": [
+              {
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "investigator"
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "confirm_not_tsk",
@@ -685,7 +715,7 @@
           "id": "investigators_slowed_gear",
           "text": "the investigators slowed the Turning Gear"
         }
-      ] 
+      ]
     },
     {
       "id": "earn_turning_gear",
@@ -707,7 +737,7 @@
           "id": "other_turning_gear",
           "text": "another cell posesses the Turning Gear"
         }
-      ] 
+      ]
     },
     {
       "id": "coterie_turning_gear",
@@ -718,7 +748,7 @@
           "id": "coterie_turning_gear",
           "text": "the Coterie took posession of the Turning Gear"
         }
-      ] 
+      ]
     },
     {
       "id": "failure_check_tsk",
@@ -752,7 +782,6 @@
     },
     {
       "id": "steal_turning_gear",
-      "border_only": true,
       "text": "Gather each of the enemies in the Red Coterie encounter set whose name matches those who you “haven't seen the last of” in your Campaign Log and choose one at random. They become the bearer of The Turning Gear.",
       "type": "input",
       "input": {
@@ -767,10 +796,11 @@
             "text": "The Red-Gloved Man",
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_rgm",
-                "text": "The Red-Gloved Man is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_rgm"
               }
             ]
           },
@@ -785,10 +815,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_rgm",
-                "text": "The Red-Gloved Man is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_amaranth"
               }
             ]
           },
@@ -803,10 +834,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_chica",
-                "text": "La Chica Roja is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_chica"
               }
             ]
           },
@@ -821,10 +853,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_watcher",
-                "text": "The Sanguine Watcher is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_watcher"
               }
             ]
           },
@@ -839,10 +872,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_thorne",
-                "text": "Thorne is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_thorne"
               }
             ]
           },
@@ -857,10 +891,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_knight",
-                "text": "The Claret Knight is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_knight"
               }
             ]
           },
@@ -875,10 +910,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_beast",
-                "text": "The Beast is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_beast"
               }
             ]
           },
@@ -893,10 +929,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_niang",
-                "text": "Tzu San Niang is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_niang"
               }
             ]
           },
@@ -911,10 +948,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_aliki",
-                "text": "Aliki Zoni Uperetria is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_aliki"
               }
             ]
           },
@@ -929,10 +967,11 @@
             },
             "effects": [
               {
-                "type": "campaign_log",
-                "section": "campaign_notes",
-                "id": "gear_bearer_desi",
-                "text": "Desiderio Delgado Álvarez is the bearer of the Turning Gear"
+                "type": "scarlet_key",
+                "section": "keys",
+                "scarlet_key": "the_turning_gear",
+                "bearer_type": "enemy",
+                "enemy_code": "ztsk_desi"
               }
             ]
           }
@@ -941,16 +980,16 @@
     },
     {
       "id": "degrade_chaos_bag",
-      "text": " Draw tokens from the chaos bag at random until you have 2 non-symbol tokens. Replace these tokens with a chaos token of a value 1 lower for the remainder of the campaign. (If you cannot replace a token, repeat this process until a total of 2 chaos tokens have been replaced.)",
+      "text": "Draw tokens from the chaos bag at random until you have 2 non-symbol tokens. Replace these tokens with a chaos token of a value 1 lower for the remainder of the campaign. (If you cannot replace a token, repeat this process until a total of 2 chaos tokens have been replaced.)",
       "bullets": [
         {
           "text": "Note: the app will ask you for the tokens sequentially, and only show those that are eligible to be swapped."
         }
       ],
-      "steps": ["$fatigue_tokens_1", "$fatigue_tokens_2"]
+      "steps": ["fatigue_tokens_1", "fatigue_tokens_2"]
     },
     {
-      "id": "$fatigue_tokens_1",
+      "id": "fatigue_tokens_1",
       "type": "input",
       "text": "First token:",
       "input": {
@@ -1492,7 +1531,7 @@
       }
     },
     {
-      "id": "$fatigue_tokens_2",
+      "id": "fatigue_tokens_2",
       "type": "input",
       "text": "Second token:",
       "input": {
@@ -2034,16 +2073,19 @@
       }
     },
     {
-      "id": "mark_1_time",
-      "text": "Mark 1 <b>time</b> in your Campaign Log.",
-      "effects": [
-        {
-          "type": "campaign_log_count",
-          "section": "time",
-          "operation": "add",
-          "value": 1
-        }
-      ]
+      "id": "maybe_mark_1_time",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "cycle",
+        "options": [
+          {
+            "condition": "tskc",
+            "steps": ["$mark_1_time"]
+          }
+        ]
+      }
     }
   ],
   "resolutions": [
@@ -2070,7 +2112,7 @@
         "bear_turning_gear",
         "earn_xp",
         "$upgrade_decks",
-        "mark_1_time",
+        "maybe_mark_1_time",
         "$embark"
       ]
     },

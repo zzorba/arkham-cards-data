@@ -235,6 +235,33 @@ async function readEncounterSets(localeCode) {
   return encounter_sets;
 }
 
+/**
+ * Custom sort comparator that places 'side' campaigns just before 'z*' campaigns.
+ */
+function campaignSortComparator(a, b) {
+  const parts = p => p.split(path.sep);
+  const getCampaignFolder = p => {
+    const segs = parts(p);
+    // paths like "campaigns/side/foo.json" or "./campaigns/side/foo.json"
+    const idx = segs.indexOf('campaigns');
+    return idx >= 0 && idx + 1 < segs.length ? segs[idx + 1] : segs[0];
+  };
+  const folderA = getCampaignFolder(a);
+  const folderB = getCampaignFolder(b);
+
+  function sortCategory(folder) {
+    if (folder === 'side') return 1;
+    if (folder && folder.startsWith('z')) return 2;
+    return 0;
+  }
+  const catA = sortCategory(folderA);
+  const catB = sortCategory(folderB);
+  if (catA !== catB) return catA - catB;
+  if (a < b) return -1;
+  if (a > b) return 1;
+  return 0;
+}
+
 function itemMessageId(item) {
   if (item.msgctxt) {
     return `${item.msgctxt}_${unorm.nfc(item.msgid)}`;
@@ -318,7 +345,7 @@ async function generateLocale(localeCode) {
   }
 
   // First we gather all the known PO entries.
-  for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
+  for (const scenario of [...allScenarios, ...allReturnScenarios].sort(campaignSortComparator)) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
     }
@@ -400,7 +427,7 @@ async function generateLocale(localeCode) {
   taboosPoFile.save(taboosPoFileName, printErr);
 
   // Translate all the scenarios.
-  for (const scenario of [...allScenarios, ...allReturnScenarios].sort()) {
+  for (const scenario of [...allScenarios, ...allReturnScenarios].sort(campaignSortComparator)) {
     if (scenario.indexOf(".DS_Store") !== -1) {
       continue;
     }

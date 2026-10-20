@@ -67,9 +67,20 @@ cp $INPUT_DIR/../encounter_sets.json $OUTPUT_DIR/encounterSets.json
 
 rm -rf $OUTPUT_DIR/campaigns
 mkdir $OUTPUT_DIR/campaigns
-CAMPAIGNS=$INPUT_DIR/*
-for f in $CAMPAIGNS; do
-  buildCampaign $f;
+# Process campaigns: regular first, then 'side', then 'z*' custom content
+for f in $INPUT_DIR/*; do
+  base=$(basename $f)
+  if [[ $base != "side" && $base != z* ]]; then
+    buildCampaign $f;
+  fi
+done
+if [ -d "$INPUT_DIR/side" ]; then
+  buildCampaign "$INPUT_DIR/side";
+fi
+for f in $INPUT_DIR/z*; do
+  if [ -d "$f" ]; then
+    buildCampaign $f;
+  fi
 done
 
 RETURN_CAMPAIGNS=$RETURN_INPUT_DIR/*
@@ -81,13 +92,32 @@ echo "Building allCampaigns.json"
 cd $OUTPUT_DIR
 count=0
 echo '[' > ./allCampaigns.json
+# Process in order: regular campaigns, then side, then z* custom content
 for f in campaigns/*; do
-    if [ $count -ne 0 ]
-    then
+    base=$(basename $f .json)
+    if [[ $base != "side" && $base != z* ]]; then
+        if [ $count -ne 0 ]; then
+            echo ',' >> ./allCampaigns.json
+        fi
+        cat $f >> ./allCampaigns.json
+        count=1
+    fi
+done
+if [ -f campaigns/side.json ]; then
+    if [ $count -ne 0 ]; then
         echo ',' >> ./allCampaigns.json
     fi
-    cat $f >> ./allCampaigns.json
+    cat campaigns/side.json >> ./allCampaigns.json
     count=1
+fi
+for f in campaigns/z*.json; do
+    if [ -f "$f" ]; then
+        if [ $count -ne 0 ]; then
+            echo ',' >> ./allCampaigns.json
+        fi
+        cat $f >> ./allCampaigns.json
+        count=1
+    fi
 done
 echo ']' >> ./allCampaigns.json
 

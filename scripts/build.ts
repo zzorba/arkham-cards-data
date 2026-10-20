@@ -109,9 +109,24 @@ async function main(): Promise<void> {
   buildDir(returnInputDir, outputDir);
 
   console.log('Building allCampaigns.json');
+  function campaignFileSort(a: string, b: string): number {
+    const nameA = a.replace(/\.json$/, '');
+    const nameB = b.replace(/\.json$/, '');
+    function sortCategory(name: string): number {
+      if (name === 'side') return 1;
+      if (name.startsWith('z')) return 2;
+      return 0;
+    }
+    const catA = sortCategory(nameA);
+    const catB = sortCategory(nameB);
+    if (catA !== catB) return catA - catB;
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  }
   const allCampaigns: Campaign[] = fs
     .readdirSync(campaignsDir)
-    .sort()
+    .sort(campaignFileSort)
     .map(f => JSON.parse(fs.readFileSync(path.join(campaignsDir, f), 'utf8')));
   fs.writeFileSync(path.join(outputDir, 'allCampaigns.json'), JSON.stringify(allCampaigns, null, 2));
 
