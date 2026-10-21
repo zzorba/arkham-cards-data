@@ -1,0 +1,395 @@
+{
+  "id": "zcem",
+  "name": "Circus Ex Mortis",
+  "position": 26,
+  "version": 0,
+  "tarot": [
+  ],
+  "custom": {
+    "creator": "The Beard",
+    "download_link": {
+      "en": "https://mysteriouschanting.wordpress.com/2023/08/21/circus-ex-mortis-campaign-and-player-expansion/"
+    }
+  },
+  "campaign_type": "campaign",
+  "campaign_log": [
+    {
+      "id": "campaign_notes",
+      "title": "Campaign Notes"
+    },
+    {
+      "id": "hidden",
+      "hidden": true,
+      "title": "Hidden"
+    }
+  ],
+  "scenarios": [
+    "zcem_prologue"
+  ],
+  "setup": [
+    "prologue",
+    "intro",
+    "choose_investigators",
+    "difficulty_choice",
+    "draw_weakness",
+    "$moon_token_rules",
+    "$tarot_rules"
+  ],
+  "steps": [
+    {
+      "id": "draw_weakness",
+      "type": "input",
+      "bullet_type": "none",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "choices": [
+          {
+            "id": "rbw",
+            "text": "Draw Random Basic Weakness",
+            "effects": [
+              {
+                "type": "add_weakness",
+                "investigator": "$input_value",
+                "weakness_traits": [],
+                "select_traits": false
+              },
+              {
+                "type": "remove_card",
+                "investigator": "$input_value",
+                "card": "01000",
+                "non_story": true
+              }
+            ],
+            "steps": ["save_decks"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "trauma": true
+      }
+    },
+    {
+      "id": "prologue",
+      "title": "In the Shadow of the New Moon",
+      "type": "story",
+      "text": "\".. so from the wells of night to the gulfs of space, and from the gulfs of space to the wells of night... Ever Their praises, and abundance to the Black Goat of the Woods. Iä! Shub-Niggurath! The Goat with a Thousand Young\"\n- H.P. Lovecraft, \"The Whisperer in Darkness\""
+    },
+    {
+      "id": "intro",
+      "text": "<i>Circus Ex Mortis</i> is an eight-part campaign for <i>Arkham Horror: The Card Game</i> for 1-4 players. This campaign is based on various works by H. P. Lovecraft and draws from real-life events, historical and mythological figures, secret societies, and of course the circus.\nAs a general notice to people who have a fear or aversion to clowns, clowns do appear in this campaign, but the art chosen for these cards avoids the typical killer clown image."
+    },
+    {
+      "id": "choose_investigators",
+      "type": "input",
+      "input": {
+        "type": "scenario_investigators"
+      }
+    },
+    {
+      "id": "difficulty_choice",
+      "text": "Choose difficulty level:",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "default_choice": "standard",
+        "choices": [
+          {
+            "id": "easy",
+            "text": "Easy",
+            "description": "<i>I want to spend a day at the circus</i>",
+            "tokens": [
+              "+1",
+              "+1",
+              "0",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "skull",
+              "skull",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "easy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "+1",
+                  "0",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "skull",
+                  "skull",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "standard",
+            "text": "Standard",
+            "description": "<i>I want to entertain the audience</i>",
+            "tokens": [
+              "+1",
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "skull",
+              "skull",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "standard"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "+1",
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "skull",
+                  "skull",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "hard",
+            "text": "Hard",
+            "description": "<i>I want to perform death-defying feats</i>",
+            "tokens": [
+              "0",
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "skull",
+              "skull",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "hard"
+              },
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hard_or_expert",
+                "text": "dummy"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "skull",
+                  "skull",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          },
+          {
+            "id": "expert",
+            "text": "Expert",
+            "description": "<i>I want to run a three-ring circus</i>",
+            "tokens": [
+              "0",
+              "-1",
+              "-1",
+              "-1",
+              "-2",
+              "-2",
+              "-3",
+              "-4",
+              "-5",
+              "-7",
+              "skull",
+              "skull",
+              "elder_thing",
+              "auto_fail",
+              "elder_sign"
+            ],
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "hidden",
+                "id": "hard_or_expert",
+                "text": "dummy"
+              },
+              {
+                "type": "campaign_data",
+                "setting": "difficulty",
+                "value": "expert"
+              },
+              {
+                "type": "add_chaos_token",
+                "tokens": [
+                  "0",
+                  "-1",
+                  "-1",
+                  "-1",
+                  "-2",
+                  "-2",
+                  "-3",
+                  "-4",
+                  "-5",
+                  "-7",
+                  "skull",
+                  "skull",
+                  "elder_thing",
+                  "auto_fail",
+                  "elder_sign"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "achievements": [
+    {
+      "id": "scapegoat",
+      "title": "Scapegoat",
+      "text": "Play the <i>Circus Ex Mortis</i> campaign as Jenny Barnes and defeat Sacrificial Beast at a location with a copy of Terrified Captives attached.",
+      "type": "binary"
+    },
+    {
+      "id": "moonlight_sonata",
+      "title": "Moonlight Sonata",
+      "text": "Play the <i>Circus Ex Mortis</i> campaign as Jim Culver and reveal three or more [blood] tokens while resolving Final Rhapsody.",
+      "type": "binary"
+    },
+    {
+      "id": "graveside_chat",
+      "title": "Graveside Chat",
+      "text": "Play the <i>Circus Ex Mortis</i> campaign as Marie Lambeau and have Baron Samedi and Lady Esprit in play at the same time.",
+      "type": "binary"
+    },
+    {
+      "id": "wolf_of_wall_street",
+      "title": "Wolf of Wall Stree",
+      "text": "Play the <i>Circus Ex Mortis</i> campaign and have Monstrous Transformation and Lone Wolf in play at the same time while you control 20 or more resources.",
+      "type": "binary"
+    },
+    {
+      "id": "destined_karma",
+      "title": "Destined Karma",
+      "text": "Get +3 skill value from the ability on Amalthea Weaver during a skill test that defeats The Black Goat.",
+      "type": "binary"
+    },
+    {
+      "id": "time_out",
+      "title": "Time Out!",
+      "text": "Activate the [action] ability on De Cultus Bestiae while you are engaged with 3 or more enemies.",
+      "type": "binary"
+    },
+    {
+      "id": "wax_and_wane",
+      "title": "Wax and Wane",
+      "text": "Cancel 1 [moon] token and release 2 [moon] tokens during a single skill test using Invocation of Diana.",
+      "type": "binary"
+    },
+    {
+      "id": "shoot_the_moon",
+      "title": "Shoot the Moon",
+      "text": "Reveal four or more [moon] tokens during a single skill test.",
+      "type": "binary"
+    },
+    {
+      "id": "utter_lunatic",
+      "title": "Utter Lunatic",
+      "text": "Release all six [moon] tokens from your investigator card at the end of a single round.",
+      "type": "binary"
+    },
+    {
+      "id": "many_futures",
+      "title": "Many Futures",
+      "text": "Obtain each final version of Amalthea Weaver.",
+      "type": "list",
+      "items": [
+        {
+          "id": "purity",
+          "text": "Oracle of Purity"
+        },
+        {
+          "id": "resolve",
+          "text": "Oracle of Resolve"
+        },
+        {
+          "id": "enlightenment",
+          "text": "Oracle of Enlightenment"
+        },
+        {
+          "id": "mystery",
+          "text": "Oracle of Mystery"
+        }
+      ]
+    }
+  ]
+}
