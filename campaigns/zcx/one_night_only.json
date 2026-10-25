@@ -11,6 +11,7 @@
     "intro_2",
     "gather_encounter_sets",
     "setup_locations",
+    "location_layout",
     "setup_disguised_monstrosity",
     "setup_act_deck",
     "set_aside_cards",
@@ -165,6 +166,72 @@
       "text": "Put the three The Big Top locations into play along with\nCarousel, Games Gallery, Animal Cages, and Performer Trailers."
     },
     {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "carousel",
+          "blank",
+          "games_gallery",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "big_top_first_ring",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "animal_cages",
+          "blank",
+          "big_top_second_ring",
+          "blank",
+          "big_top_third_ring",
+          "blank",
+          "performer_trailers"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "carousel",
+          "name": "Carousel"
+        },
+        {
+          "code": "games_gallery",
+          "name": "Games Gallery"
+        },
+        {
+          "code": "big_top_first_ring",
+          "name": "The Big Top (First Ring)"
+        },
+        {
+          "code": "animal_cages",
+          "name": "Animal Cages"
+        },
+        {
+          "code": "big_top_second_ring",
+          "name": "The Big Top (Second Ring)"
+        },
+        {
+          "code": "big_top_third_ring",
+          "name": "The Big Top (Third Ring)"
+        },
+        {
+          "code": "performer_trailers",
+          "name": "Performer Trailers"
+        }
+      ]
+    },
+    {
       "id": "setup_disguised_monstrosity",
       "text": "Put 1 copy of Disguised Monstrosity into play at The Big Top <i>(First Ring)</i> exhausted. Set the other copy aside, out of play."
     },
@@ -181,25 +248,92 @@
       "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
     },
     {
-      "id": "ringmaster_does_not_suspect",
-      "text": "In your Campaign Log, record that <i>the ringmaster does not suspect you.</i>.",
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "add_chaos_token",
+            "condition": {
+              "id": "ono_add_chaos_token",
+              "type": "campaign_log",
+              "section": "hidden",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "Adjust chaos bag",
+            "steps": [
+              "add_chaos_token"
+            ],
+            "effects": [
+              {
+                "id": "ono_add_chaos_token",
+                "type": "campaign_log",
+                "section": "hidden",
+                "text": "dummy"
+              }
+            ]
+          }
+        ],
+        "chaos_bag_branches": [
+          "add_chaos_token"
+        ]
+      }
+    },
+    {
+      "id": "add_chaos_token",
+      "text": "Which version of Act 1b was advanced?",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "act_1_lions_den",
+            "text": "Act 1b: <i>In the Lion's Den</i>",
+            "steps": ["add_tablet_token"]
+          },
+          {
+            "id": "act_1_horses_eye",
+            "text": "Act 1b: <i>In the Horse's Eye</i>",
+            "steps": ["add_tablet_token"]
+          },
+          {
+            "id": "act_1_prize_display",
+            "text": "Act 1b: <i>In the Prize Display</i>",
+            "steps": ["add_cultist_token"]
+          },
+          {
+            "id": "act_1_makeup_case",
+            "text": "Act 1b: <i>In the Makeup Case</i>",
+            "steps": ["add_cultist_token"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ringmaster_does_not_suspect_you",
+      "text": "In your Campaign Log, record that <i>the ringmaster does not suspect you</i>.",
       "effects": [
         {
+          "id": "ringmaster_does_not_suspect_you",
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "ringmaster_does_not_suspect",
           "text": "The ringmaster does not suspect you."
         }
       ]
     },
     {
       "id": "ringmaster_has_eyes_on_you",
-      "text": "In your Campaign Log, record that <i>the ringmaster has his eyes on you.</i>.",
+      "text": "In your Campaign Log, record that <i>the ringmaster has his eyes on you</i>.",
       "effects": [
         {
+          "id": "ringmaster_has_eyes_on_you",
           "type": "campaign_log",
           "section": "campaign_notes",
-          "id": "ringmaster_has_eyes_on_you",
           "text": "The ringmaster has his eyes on you."
         }
       ]
@@ -243,8 +377,7 @@
           },
           {
             "id": "not_act_1",
-            "text": "It was not act 1 when the game ended",
-            "steps": []
+            "text": "It was not act 1 when the game ended"
           }
         ]
       }
@@ -305,7 +438,7 @@
       "title": "Resolution 1",
       "text": "The rough scraping of the ground beneath your body and the sounds of woodland nightlife rouse you slowly but surely back to consciousness. You open one eye groggily to find one of the circus performers dragging you through the woods further south of Arkham. Though it came at the price of a welt on the back of your head, you're outside that accursed circus and free from the illusory influence.\nYou summon your strength and send a wild strike into one of your captor's kidneys, causing him to drop you with an outcry of pain. You push yourself quickly upright, ready to fight for your freedom if need be. The carnie sizes you up, ready for another fight, but looks up at the full moon above you both. With a grimace, he turns and runs deeper into the woods behind him at a breakneck pace, far more nimbly than you would have suspected at a glance. You doubt you could catch up to him in the treacherous Arkham woods, but you at least know that he has other priorities now.",
       "steps": [
-        "ringmaster_does_not_suspect",
+        "ringmaster_does_not_suspect_you",
         "check_act_1_token",
         "resolution_3"
       ]
