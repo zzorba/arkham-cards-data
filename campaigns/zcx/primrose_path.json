@@ -5,13 +5,321 @@
   "header": "Scenario II",
   "icon": "zcx_primrose_path",
   "setup": [
-    "intro"
+    "intro",
+    "approach_prompt",
+    "gather_encounter_sets",
+    "choose_moonlit_forests",
+    "setup_locations",
+    "location_layout",
+    "set_aside_cards",
+    "add_start_doom",
+    "encounter_deck",
+    "$play_scenario"
   ],
   "steps": [
     {
       "id": "intro",
       "type": "story",
       "text": "Stories have long been told and retold in Arkham about the strange and mystical things lurking in it. Witches, demons, humanoid beasts, the list goes on. Any one of those would be reason to not venture into the woods at night, but since you're already chancing things with the circus and its monsters, there's not much left to hold you back.\nThe full moon lends an eerie brightness to the woods, in spite of the light it casts for your task ahead. The same atmosphere of illusory magic that you saw on the circus grounds lingers between the trees. No doubt the circus has taken precautions to veil themselves from prying outsiders, and you wonder how they and the moon align. You intend to discover the answers tonight, but until then, you must decide how you will proceed into this mystical forest."
+    },
+    {
+      "id": "approach_prompt",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "moonlight",
+            "text": "We'll use the moonlight to our advantage.",
+            "steps": [
+              "swap_cultist_for_tablet"
+            ]
+          },
+          {
+            "id": "shadows",
+            "text": "We'll stick to the shadows as much as possible.",
+            "steps": [
+              "swap_tablet_for_cultist"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_cultist_for_tablet",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "cultist",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "no_cultist_to_swap"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "cultist_to_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cultist_to_tablet",
+      "text": "Remove 1 [cultist] token from the chaos bag and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_cultist_to_swap",
+      "text": "There is no [cultist] token in the chaos bag. No effect."
+    },
+    {
+      "id": "swap_tablet_for_cultist",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "no_tablet_to_swap"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "tablet_to_cultist"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tablet_to_cultist",
+      "text": "Remove 1 [tablet] token from the chaos bag and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_tablet_to_swap",
+      "text": "There is no [tablet] token in the chaos bag. No effect."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zcx_primrose_path",
+        "zcx_children_of_the_goat",
+        "zcx_illusory_tricks",
+        "zcx_lunatic_night",
+        "zcx_savage_woods"
+      ]
+    },
+    {
+      "id": "choose_moonlit_forests",
+      "text": "Randomly choose two of the four copies of Moonlit Forest with the red cross symbol and remove them from the game. Shuffle the remaining two copies together with each other copy of Moonlit Forest and put them into play."
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Forest Passage, Remote Cabin, Woodland Overlook, and Circus Encampment locations into play. Each investigator begins play at Forest Passage."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "circus_encampment",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "moonlit_forest",
+          "moonlit_forest",
+          "moonlit_forest",
+          "blank"
+        ],
+        [
+          "woodland_overlook",
+          "moonlit_forest",
+          "forest_passage",
+          "moonlit_forest",
+          "remote_cabin"
+        ],
+        [
+          "blank",
+          "moonlit_forest",
+          "moonlit_forest",
+          "moonlit_forest",
+          "blank"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "circus_encampment",
+          "name": "Circus Encampment"
+        },
+        {
+          "code": "moonlit_forest",
+          "name": "Moonlit Forest"
+        },
+        {
+          "code": "woodland_overlook",
+          "name": "Woodland Overlook"
+        },
+        {
+          "code": "forest_passage",
+          "name": "Forest Passage"
+        },
+        {
+          "code": "remote_cabin",
+          "name": "Remote Cabin"
+        }
+      ]
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the New Moon Illusionist enemy aside, out of play."
+    },
+    {
+      "id": "add_start_doom",
+      "text": "Add 1 [investigator] doom to agenda 1."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "lost_in_the_woods",
+      "text": "In your Campaign Log, record that <i>the investigators were lost in the Arkham woods</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "lost_in_the_woods",
+          "text": "The investigators were lost in the Arkham woods."
+        }
+      ]
+    },
+    {
+      "id": "bypassed_illusions",
+      "text": "In your Campaign Log, record that <i>the investigators bypassed the illusions</i>.",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "bypassed_illusions",
+          "text": "The investigators bypassed the illusions."
+        }
+      ]
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "hidden": true,
+      "title": "Resolution 1",
+      "text": "Battered and dazed, you stumble through the ensorcelled woods, instinctive motivation for survival alone pushing you forward. Minutes pass - or are they hours? — until a much softer crunch rouses your sense. One of the circus carnies wanders by you, seemingly on patrol. You hold your breath as he passes, escape in mind at first, but the opportunity occurs to you. The carnie must be on his way back to the camp, and if he can bypass the illusory defenses, then perhaps you can as well. You follow the man at a distance, praying that his senses aren't as acute as the forest beasts, and gradually, you tail him to the outskirts of the circus encampment.",
+      "steps": [
+        "lost_in_the_woods",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Despite the fearsome challenges in the forest, you find the camp to be surprisingly placid. The performers sleep in tents or in hammocks out in the open, with only a small night guard on duty patrolling. For all the magic and monstrosity at their command, the circus is still crewed by mortal humans with common needs.\nThe performers active at this time of night appear to be the more cerebral ones, perhaps the ones more skilled in maintaining the illusory protection shielding their campsite. You hope that this means a rescue will face less physical opposition, but the creatures under their command are fearsome. Some that you faced in the woods did not even look disguised as circus animals. They were almost formless amalgamations of mouths, tentacles, hooves and horns, scattered over a fleshy trunk like the patches on an old coat. You shudder to imagine what worse things could be at the circus' beck and call, but you knew the risks before you began this rescue mission.",
+      "steps": [
+        "bypassed_illusions",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "With cautious steps, you traverse the outskirts of the circus encampment, looking for any sign of the kidnapped citizens. There's no apparent order to the layout of the many tents and lean-tos, until you reach a towering oak at the far side, ancient, twisted, and all but barren. An ornate painted trailer stands against it, larger than any of the other nearby carts by far.\nYou don't have to guess who the owner of this trailer is, but your assumption is confirmed as the towering figure of the ringmaster emerges and descends the short steps. Circus performers nearby sit up and stand at attention as their master strides past. \"Get your sleep,\" he utter's in a low and darkly mellow tone, \"the perimeter guard will let us know when they arrive, for they must. Were they not foreseen?\" The performers settle back down as the ringmaster continues his walk, through the camp and out into the forest.\nSylvester Blake's dark form melts into the shadowy treeline, but you wait for nearly a minute with baited breath to be sure. If he finds any evidence of your intrusion quickly, then your chance to act will disappear. Moreover, with the ringmaster out in the woods, you have a rare chance to delve into the heart of the matter. Steeling your nerve, you creep up the steps to his trailer.",
+      "steps": [
+        "earn_xp",
+        "$upgrade_decks"
+      ]
     }
   ]
 }
