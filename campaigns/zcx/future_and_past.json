@@ -1,0 +1,244 @@
+{
+  "id": "zcx_future_and_past",
+  "scenario_name": "The Future and the Past",
+  "full_name": "Interlude: The Future and the Past",
+  "header": "Interlude",
+  "icon": "zcx_primrose_path",
+  "type": "interlude",
+  "setup": [
+    "intro_1",
+    "check_clairvoyant",
+    "$save_decks",
+    "intro_2",
+    "earn_amalthea_weaver",
+    "intro_3",
+    "check_miskatonic_scholar_believer",
+    "intro_4",
+    "earn_de_cultus_bestiae",
+    "intro_5",
+    "check_norman_withers",
+    "intro_6",
+    "add_moon_token",
+    "$save_decks"
+  ],
+  "steps": [
+    {
+      "id": "intro_1",
+      "type": "story",
+      "text": "The door to the ringmaster's trailer thankfully opens and closes with barely any sound. Its interior is lavishly furnished, every piece of furniture and decor made from material of the finest quality. One shelf is stocked with books of the occult, the very writing on their spines already sparking a feeling of dread in you. Your browsing has only begun when a quiet sound snaps your attention to a dark curtain separating the trailer into halves. Cautiously, you ready yourself for trouble and throw back the curtain.\nThe second half is no less richly decorated, but hardly worthy of your attention. A dark-skinned woman in the garb of a fortune teller sits bound to a chair and gagged, softly stirring in an exhausted state. Her eyes drift up to you, weary at first, but widen in shock in an instant. The woman leans forward, her breathing accelerating as you reach back to untie the knotted cloth. \"It's you!\" she gasps quietly, her voice dry but still smooth with a southern drawl, \"from my visions! It's... it's really happening!\""
+    },
+    {
+      "id": "check_clairvoyant",
+      "type": "branch",
+      "text": "If 1 or more [[Clairvoyant]] investigators were chosen for this campaign:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "investigator",
+            "investigator_data": "trait",
+            "options": [
+              {
+                "condition": "Clairvoyant"
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "clairvoyant_story",
+                  "clairvoyant_xp"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "clairvoyant_story",
+      "type": "story",
+      "text": "<b>Far-Seeing:</b> You're no stranger to glimpses of the future, but you're more accustomed to seeing rather than being seen. Knowing that you play some part in this woman's visions lends a new perspective to your own."
+    },
+    {
+      "id": "clairvoyant_xp",
+      "type": "branch",
+      "text": "Each [[Clairvoyant]] investigator earns 1 bonus experience, which can only be used to purchase [[Augury]] cards.",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "trait",
+        "options": [
+          {
+            "condition": "Clairvoyant",
+            "effects": [
+              {
+                "type": "earn_xp",
+                "investigator": "$input_value",
+                "bonus": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You encourage the woman to enlighten you as you set about untying her. \"It's just... sorry, y'all probably don't even know what I'm talking about. There's so much to explain, but I'll start with my name. Amalthea Weaver, but Thea's fine. I've been prisoner in this circus for... months now. The ringleader is... I can't even call him a man. Blake is evil beyond humanity. You help Thea to her feet, and she steadies herself against you. \"I can't thank y'all enough.\"\nYou ask Thea why the ringmaster held her captive in the first place, and she looks over your face with a strange familiarity. \"My visions. I'd been a fortune teller for the Four Leaf Circus for most of my life. Blake bought it out and started replacing everyone - even the animals. Except for me. My visions always had some truth to them, but the day he took over, I started having terrible visions that included him... and you, standing against him. I don't know how Blake found out, but he kept me close. And once I tried to quit, he took me prisoner.\"\nThea shudders as she thinks back. \"He forced me to tell him of my visions. Not physically, but my mind... he used his magic to squeeze it like an orange, make me talk about things I didn't even know that I knew... It took all my strength just to hold back the details of who could stop him.... only that you were here, in Arkham. But that was my only hope... and y'all are a wonderful sight for sore eyes.\"\nIt's a lot to take in at once. Whether or not you believe Thea's story, Blake still brought the circus north to Arkham pursuing those who she saw against him. He'll be after your blood, especially with your actions trying to stop his slaughter at the very least. You ask Thea if she knows just what Blake wants to stop your involvement in, and she gives a dazed nod. \"I don't fully know, but let me show you something. I'm sure I can help you figure it out.\""
+    },
+    {
+      "id": "earn_amalthea_weaver",
+      "text": "One investigator must add Amalthea Weaver (Circus Fortune Teller) to their deck. This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "zcxc_00228"
+        }
+      ]
+    },
+    {
+      "id": "intro_3",
+      "type": "story",
+      "text": "Recovering her strength by degrees, Thea directs you back to the first half of the trailer, to the shelf of occult books. \"That one, with the light brown leather, she indicates. You pull the weathered tome from its place and inspect the cover. Eldritch symbols adorn the cover, but nothing distinguishes it from the other works near it. You unlatch the clasp and inspect the aged parchment inside."
+    },
+    {
+      "id": "check_miskatonic_scholar_believer",
+      "type": "branch",
+      "text": "If 1 or more [[Miskatonic]], [[Scholar]] or [[Believer]] investigator were chosen:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "investigator",
+            "investigator_data": "trait",
+            "options": [
+              {
+                "condition": "Miskatonic"
+              },
+              {
+                "condition": "Scholar"
+              },
+              {
+                "condition": "Believer"
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": [
+              "miskatonic_scholar_believer_story",
+              "miskatonic_scholar_believer_effect"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "miskatonic_scholar_believer_story",
+      "type": "story",
+      "text": "<b>Lingua Franca:</b> Despite its age, the penmanship is clear and the words recognizable. You have a familiarity with Latin, due to your own upbringing, and can understand it easily. If this tome is important, your task is just a little simpler now."
+    },
+    {
+      "id": "miskatonic_scholar_believer_effect",
+      "text": "You begin the next scenario with 1 additional card in your opening hand."
+    },
+    {
+      "id": "intro_4",
+      "type": "story",
+      "text": "Thea stands beside you as you study the first page of the old tome. \\\"So this is it. Blake would often have this book in hand when he questioned me.\" Her finger traces a word at the top of the page. \"Apuleius,\" she mutters. You ask Thea how much she can read of the tome. \"Most of it. One of the magicians at the old circus taught me to read and write Latin. They said that knowing it would add some flair to my fortune telling. Seems so long ago now...\" You close the book and add it to your belongings. There will be time to study its secrets later, but you have to get it out of Blake's hands."
+    },
+    {
+      "id": "earn_de_cultus_bestiae",
+      "text": "One investigator must add De Cultus Bestiae (Forgotten Work of Apuleius) to their deck. This card does not count toward that investigator's deck size.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "any",
+          "card": "zcxc_00235"
+        }
+      ]
+    },
+    {
+      "id": "intro_5",
+      "type": "story",
+      "text": "You wonder aloud what the ancient text and Thea's visions have in common, and Thea wrings her hands together. \"There's one other thing from my visions. In the furthest ones I can see there's.... an eclipse. A full one.\""
+    },
+    {
+      "id": "check_norman_withers",
+      "text": "If Norman Withers was chosen:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "investigator",
+        "investigator_data": "code",
+        "options": [
+          {
+            "condition": "08004",
+            "steps": [
+              "norman_withers_story",
+              "norman_withers_earn_card"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "norman_withers_story",
+      "type": "story",
+      "text": "<b>Like Clockwork:</b> The astronomical community has long held predictive models for the motions of the sun and moon. Though stars are more your specialty, the topic has jogged some academic memories that you had shelved until now."
+    },
+    {
+      "id": "norman_withers_earn_card",
+      "text": "Your deckbuilding options gain \"Up to 2 additional seeker ([seeker]) cards level 1-2.\"",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "$fixed_investigator",
+          "fixed_investigator": "08004",
+          "card": "zcxc_norman"
+        }
+      ]
+    },
+    {
+      "id": "intro_6",
+      "type": "story",
+      "text": "A total eclipse. The celestial event is certainly mystic in itself, but its exact importance to Sylvester Blake and his circus isn't clear. The answers must be somewhere in the leatherbound tome, but you can't devote time to study it here and now. You ask Thea to think on her visions once you're safely away from the encampment with as many captive civilians as you can find. She agrees and readies herself for a cautious bid for freedom. It's now that you wish the full moon would vanish for a while to help cover the escape."
+    },
+    {
+      "id": "add_moon_token",
+      "text": "Add 1 [moon] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "moon"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "$save_decks",
+      "type": "input",
+      "input": {
+        "type": "save_decks",
+        "adjust_xp": true
+      }
+    }
+
+  ]
+}
