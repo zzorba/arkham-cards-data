@@ -1,0 +1,343 @@
+{
+  "id": "zcx_harms_way",
+  "scenario_name": "Harm's Way",
+  "full_name": "Scenario III: Harm's Way",
+  "header": "Scenario III",
+  "icon": "zcx_harms_way",
+  "setup": [
+    "intro",
+    "choose_approach",
+    "gather_encounter_sets",
+    "setup_locations",
+    "setup_dark_young",
+    "location_layout",
+    "setup_fury_bag",
+    "setup_dark_young_stir",
+    "setup_kidnapped_citizens",
+    "check_illusory_wards",
+    "check_ringmaster_suspicion",
+    "set_aside_camp_outskirts",
+    "investigator_hand_bonus",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "When you slip back out of the ringmaster's trailer, ghastly growls and other less identifiable sounds rumble through the camp. You nearly flinch as a shadow sweeps across the moon, which leads your view to a worse spectacle. Four massive figures tower above the camp, large enough to be oak trees - and indeed resembling them in silhouette - but far more horrible. Like the smaller abominations you encountered in the woods, these things are a horrid jumble of tentacles, mouths, hooves, and horns. They writhe and roar dully with sluggish movements. Perhaps these monsters are rousing from sleep, which lends a little more urgency to the mission. Thea holds a hand over her mouth in shock, but soon lowers it with a shudder. Whether or not she's seen them in her visions before, this appears to be the first time in person. It goes without saying that you must plan how to proceed in finding and rescuing the captives."
+    },
+    {
+      "id": "choose_approach",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fast",
+            "text": "The faster we get them out of here, the better.",
+            "steps": [
+              "add_cultist"
+            ]
+          },
+          {
+            "id": "caution",
+            "text": "Caution first. Saving them won't help otherwise.",
+            "steps": [
+              "add_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "add_cultist",
+      "text": "Add a [cultist] tokens to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "add_tablet",
+      "text": "Add a [tablet] tokens to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zcx_harms_way",
+        "zcx_cult_of_shub_niggurath",
+        "zcx_lunatic_night",
+        "zcx_new_moon_entertainers",
+        "zcx_panicked_masses"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Randomly choose two of the four copies of Crowded Row and Secluded Tent and remove them from the game. Put remaining copies into play along with the Ringmaster's Trailer location. Each investigator begins play at Ringmaster's Trailer."
+    },
+    {
+      "id": "setup_dark_young",
+      "text": "Randomly choose one of the five copies of Towering Dark Young and remove it from the game. Put the remaining four copies into play at each corner of the map, not at any location."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "normal",
+      "vertical": "normal",
+      "locations": [
+        [
+          "towering_dark_young",
+          "crowded_row",
+          "towering_dark_young"
+        ],
+        [
+          "secluded_tent",
+          "ringmasters_trailer",
+          "secluded_tent"
+        ],
+        [
+          "towering_dark_young",
+          "crowded_row",
+          "towering_dark_young"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "towering_dark_young",
+          "name": "Towering Dark Young"
+        },
+        {
+          "code": "crowded_row",
+          "name": "Crowded Row"
+        },
+        {
+          "code": "secluded_tent",
+          "name": "Secluded Tent"
+        },
+        {
+          "code": "ringmasters_trailer",
+          "name": "Ringmaster's Trailer"
+        }
+      ]
+    },
+    {
+      "id": "setup_fury_bag",
+      "text": "Create a separate bag consisting of a [skull], [cultist], [tablet] and [elder_thing] token. This is the fury bag, and these are fury tokens. They are not chaos tokens. This bag will be used during the scenario by other cards."
+    },
+    {
+      "id": "setup_dark_young_stir",
+      "text": "Put the Dark Young Stir... story card into play next to the fury bag."
+    },
+    {
+      "id": "setup_kidnapped_citizens",
+      "text": "Randomly choose two of the six copies of Kidnapped Citizen and remove them from the game. Put the remaining four copies into play at different copies of Crowded Row and Secluded Tent."
+    },
+    {
+      "id": "check_illusory_wards",
+      "text": "Check the campaign log. If <i>the investigators bypassed the illusions</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "bypassed_illusions",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "ringmaster_notices_earlier"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "illusory_wards_in_place"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "ringmaster_notices_earlier",
+      "bullet_type": "small",
+      "text": "The ringmaster will notice your earlier meddling and be back sooner. Place 2 doom on agenda 1a. This doom ignores the forced effect."
+    },
+    {
+      "id": "illusory_wards_in_place",
+      "bullet_type": "small",
+      "text": "The illusory wards are still in place. No changes are made."
+    },
+    {
+      "id": "check_ringmaster_suspicion",
+      "text": "Check the campaign log. If <i>the ringmaster has his eyes on you</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "ringmaster_has_eyes_on_you",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "setup_act1_v1"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "setup_act1_v2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "setup_act1_v1",
+      "bullet_type": "small",
+      "text": "Use \"Act 1 - Escape Act (v.I).\" Remove the other copy of act 1 from the game."
+    },
+    {
+      "id": "setup_act1_v2",
+      "bullet_type": "small",
+      "text": "Use \"Act 1 - Escape Act (v.II).\" Remove the other copy of act 1 from the game."
+    },
+    {
+      "id": "set_aside_camp_outskirts",
+      "text": "Set each copy of Camp Outskirts aside, out of play."
+    },
+    {
+      "id": "investigator_hand_bonus",
+      "text": "The investigators with Amalthea Weaver and De Cultus Bestiae in their decks may begin the game with those cards in their opening hands as additional cards."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "record_saved_citizens_minus_2",
+      "text": "Remove 2 copies of Kidnapped Citizen from the victory display, if possible. In your Campaign Log, record that X <i>groups of citizens were saved from the circus</i>, where X is the number of Kidnapped Citizens in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Number of Kidnapped Citizens in the Victory Display:",
+        "effects": [
+          {
+            "id": "amount_kidnapped_citizens",
+            "type": "campaign_log_count",
+            "section": "campaign_notes",
+            "operation": "set_input",
+            "text": "#X# groups of citizens were saved from the circus."
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_saved_citizens",
+      "text": "In your Campaign Log, record that X <i>groups of citizens were saved from the circus</i>, where X is the number of Kidnapped Citizens in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Number of Kidnapped Citizens in the Victory Display:",
+        "effects": [
+          {
+            "id": "amount_kidnapped_citizens",
+            "type": "campaign_log_count",
+            "section": "campaign_notes",
+            "operation": "set_input",
+            "text": "#X# groups of citizens were saved from the circus."
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "outro",
+      "type": "story",
+      "text": "<center><b>WITH SPECIAL MATINÉES AT<br/>CHICAGO - Aug. 29 | ST. LOUIS - Sept. 2<br/>DENVER - Sept. 5 | LOS ANGELES - Sept. 9<br/>DON'T MISS YOUR CHANCE!</b></center>\n\nYou couldn't have found a better roadmap if you planned it. There's no way to confirm if this schedule still holds true after the events last night, but from what little you know of Sylvester Blake, he's not the type to do anything halfway, nor keep an audience waiting.\nPlans form and crumble in your head as you return to your home, but nothing has cemented by the time you arrive. You enter to find Thea at your kitchen table, studying Blake's tome carefully. She nearly jumps with surprise, but gives a relieved smile at the sight of you. Mercy... I keep expecting something horrible after all those months Thea gestures to a telegram on the table that arrived while you were out -from Minnie Klein, your newspaper contact.\nYou've barely picked up the message when a knock sounds firmly at the door; startling both you and Thea. You open it cautiously, but find a broad man in dark blue work clothes with his cap in hand, with a young lady in similar clothes beside him. \"I um.... hope this is a good time,\" he says with clear lack of practice with polite conversation. \"You don't know me, but my boy told me that you saved his life after he snuck off to the circus last night. I'm Ralph Dykstra, engineer with the Old Colony Railroad. This is my daughter, Carrie.\"\nThe young woman crosses her arms with a wry expression. \"I'm your brakewoman, dad.\" The engineer returns her look, but continues. \"I'm a man who pays his debts, and if you need anything, I'll arrange it. Even after insisting on the danger at your heels, Ralph and Carrie remain firm in helping you. Perhaps Thea is onto something with her talk of fate and prophecy. You take the folded circus poster from your pocket and glance between it and Minnie's telegram, deciding which course of action to take."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "title": "Resolution 1",
+      "text": "Overwhelmed by the threats lurking in the circus camp, you retreat into the woods, hoping that the illusions to keep intruders out of the camp will at least speed you away from the horrid site. By the time you gather your wits and shake off the injuries you've sustained, the moon is setting, and the first glow of dawn begins to saturate the woods. You trudge wearily back toward Arkham with the few captives you managed to keep close to you in your flight.",
+      "hidden": true,
+      "steps": [
+        "record_saved_citizens_minus_2",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Your escape from the circus camp is a slow and quiet affair, and you do not breathe easily until the woods begin to thin and the outermost buildings of Arkham are visible in the pre-dawn light. The grateful citizens shed tears of relief, thanking you up and down for your heroic efforts in saving them. Your appreciation is muddled by the civilians all agreeing that beyond the circus performers and their animals, it was only the night playing tricks on them. Many of them have repressed the horrors, and are eager to leave them behind without another thought.\nWhile you suppose the safety of the citizens was priority, it will be on your shoulders once again to discover just what deeper mysteries the circus is hiding. There is more at work than wanton murder, that much is certain.",
+      "steps": [
+        "record_saved_citizens",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "text": "After sending off the rescued victims and urging them to inform the police of last night's events, you are left with only Thea. There is still much to discuss of her visions and the stolen tome, and you invite her to enlighten you after you've both had some sorely-needed rest.\nYou sleep deeply through the morning, assured at least a little that the circus won't attack you in broad daylight in the heart of Arkham with their horrors in tow. Restful as it is, your dreams flash with the vivid imagery of the previous night. The circus. The grinning ringmaster. The moon. Those creatures. The forest. Voices. Chanting. Terror. You awaken with a sudden surge of adrenaline, but find nothing but the stillness of your own bedroom.\nThea is still fitfully asleep as you step out to visit the police. In the hours since your return, the public outcry forced a full investigation of the circus. Frustratingly - and predictably, perhaps - the police found nothing but trampled mud at the circus grounds, and even the few willing officers they sent into the woods reported only an abandoned campsite. Naturally they promised to keep on the case, but without anything immediate to chase, you expect that the New Moon Circus will be filed away in their cold case cabinets.\nOnce again the burden falls to you, but where to start? The only trace of the circus left in town are the posters that drew the public in to begin with. You find the nearest one that hasn't been torn down by traumatized citizens and inspect it. While you expected another dead-end, you make a startling discovery at the bottom of the poster.",
+      "hidden": true,
+      "steps": [
+        "outro",
+        "earn_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
