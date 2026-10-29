@@ -8,7 +8,6 @@
   "setup": [
     "intro_1",
     "check_clairvoyant",
-    "$save_decks",
     "intro_2",
     "earn_amalthea_weaver",
     "intro_3",
@@ -54,10 +53,13 @@
               {
                 "type": "story_step",
                 "steps": [
-                  "clairvoyant_story",
-                  "clairvoyant_xp"
+                  "clairvoyant_story"
                 ]
               }
+            ],
+            "steps": [
+              "clairvoyant_xp_text",
+              "clairvoyant_xp"
             ]
           }
         ]
@@ -69,9 +71,12 @@
       "text": "<b>Far-Seeing:</b> You're no stranger to glimpses of the future, but you're more accustomed to seeing rather than being seen. Knowing that you play some part in this woman's visions lends a new perspective to your own."
     },
     {
+      "id": "clairvoyant_xp_text",
+      "text": "Each [[Clairvoyant]] investigator earns 1 bonus experience, which can only be used to purchase [[Augury]] cards."
+    },
+    {
       "id": "clairvoyant_xp",
       "type": "branch",
-      "text": "Each [[Clairvoyant]] investigator earns 1 bonus experience, which can only be used to purchase [[Augury]] cards.",
       "condition": {
         "type": "campaign_data",
         "campaign_data": "investigator",
@@ -140,8 +145,15 @@
           {
             "boolCondition": true,
             "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "miskatonic_scholar_believer_story"
+                ]
+              }
+            ],
             "steps": [
-              "miskatonic_scholar_believer_story",
               "miskatonic_scholar_believer_effect"
             ]
           }
@@ -189,8 +201,16 @@
         "options": [
           {
             "condition": "08004",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "norman_withers_story"
+                ]
+              }
+            ],
             "steps": [
-              "norman_withers_story",
               "norman_withers_earn_card"
             ]
           }
@@ -239,6 +259,5 @@
         "adjust_xp": true
       }
     }
-
   ]
 }
