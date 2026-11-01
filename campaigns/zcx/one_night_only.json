@@ -257,7 +257,7 @@
           {
             "id": "add_chaos_token",
             "condition": {
-              "id": "zcx_ono_add_chaos_token",
+              "id": "ono_add_chaos_token",
               "type": "campaign_log",
               "section": "hidden",
               "options": [
@@ -268,11 +268,11 @@
             },
             "text": "Adjust chaos bag",
             "steps": [
-              "add_chaos_token"
+              "add_act_1_token"
             ],
             "effects": [
               {
-                "id": "zcx_ono_add_chaos_token",
+                "id": "ono_add_chaos_token",
                 "type": "campaign_log",
                 "section": "hidden",
                 "text": "dummy"
@@ -286,8 +286,12 @@
       }
     },
     {
-      "id": "add_chaos_token",
-      "text": "Which version of Act 1b was advanced?",
+      "id": "act_1_token_forgotten",
+      "text": "Act 1 instructed to add a chaos token to the chaos bag that is not tracked in the app."
+    },
+    {
+      "id": "add_act_1_token",
+      "text": "Which version of Act 1b was chosen?",
       "type": "input",
       "input": {
         "type": "choose_one",
@@ -295,22 +299,30 @@
           {
             "id": "act_1_lions_den",
             "text": "Act 1b: <i>In the Lion's Den</i>",
-            "steps": ["add_tablet_token"]
+            "steps": [
+              "add_tablet_token"
+            ]
           },
           {
             "id": "act_1_horses_eye",
             "text": "Act 1b: <i>In the Horse's Eye</i>",
-            "steps": ["add_tablet_token"]
+            "steps": [
+              "add_tablet_token"
+            ]
           },
           {
             "id": "act_1_prize_display",
             "text": "Act 1b: <i>In the Prize Display</i>",
-            "steps": ["add_cultist_token"]
+            "steps": [
+              "add_cultist_token"
+            ]
           },
           {
             "id": "act_1_makeup_case",
             "text": "Act 1b: <i>In the Makeup Case</i>",
-            "steps": ["add_cultist_token"]
+            "steps": [
+              "add_cultist_token"
+            ]
           }
         ]
       }
@@ -350,35 +362,36 @@
       "resolution": "R3"
     },
     {
-      "id": "check_act_1_token",
+      "id": "maybe_ask_act_1_token",
+      "hidden": true,
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "hidden",
+        "id": "ono_add_chaos_token",
+        "options": [
+          {
+            "boolCondition": false,
+            "steps": [
+              "act_1_token_forgotten",
+              "add_act_1_token"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_add_active_act_1_token",
       "type": "input",
-      "text": "If it was act 1 when the game ended, look at the back of the act 1 chosen for the scenario and add the listed token to the chaos bag for the remainder of the campaign.",
       "input": {
         "type": "choose_one",
         "choices": [
           {
-            "id": "act_1_lions_den",
-            "text": "Act 1b: <i>In the Lion's Den</i>",
-            "steps": ["add_tablet_token"]
-          },
-          {
-            "id": "act_1_horses_eye",
-            "text": "Act 1b: <i>In the Horse's Eye</i>",
-            "steps": ["add_tablet_token"]
-          },
-          {
-            "id": "act_1_prize_display",
-            "text": "Act 1b: <i>In the Prize Display</i>",
-            "steps": ["add_cultist_token"]
-          },
-          {
-            "id": "act_1_makeup_case",
-            "text": "Act 1b: <i>In the Makeup Case</i>",
-            "steps": ["add_cultist_token"]
-          },
-          {
-            "id": "not_act_1",
-            "text": "It was not act 1 when the game ended"
+            "id": "yes",
+            "text": "Was it act 1 when the game ended?",
+            "steps": [
+              "add_act_1_token"
+            ]
           }
         ]
       }
@@ -389,7 +402,9 @@
       "effects": [
         {
           "type": "add_chaos_token",
-          "tokens": ["tablet"]
+          "tokens": [
+            "tablet"
+          ]
         }
       ]
     },
@@ -399,7 +414,9 @@
       "effects": [
         {
           "type": "add_chaos_token",
-          "tokens": ["cultist"]
+          "tokens": [
+            "cultist"
+          ]
         }
       ]
     },
@@ -440,7 +457,7 @@
       "text": "The rough scraping of the ground beneath your body and the sounds of woodland nightlife rouse you slowly but surely back to consciousness. You open one eye groggily to find one of the circus performers dragging you through the woods further south of Arkham. Though it came at the price of a welt on the back of your head, you're outside that accursed circus and free from the illusory influence.\nYou summon your strength and send a wild strike into one of your captor's kidneys, causing him to drop you with an outcry of pain. You push yourself quickly upright, ready to fight for your freedom if need be. The carnie sizes you up, ready for another fight, but looks up at the full moon above you both. With a grimace, he turns and runs deeper into the woods behind him at a breakneck pace, far more nimbly than you would have suspected at a glance. You doubt you could catch up to him in the treacherous Arkham woods, but you at least know that he has other priorities now.",
       "steps": [
         "ringmaster_does_not_suspect_you",
-        "check_act_1_token",
+        "maybe_add_active_act_1_token",
         "resolution_3"
       ]
     },
@@ -450,6 +467,7 @@
       "text": "You tread swiftly out onto the dry dirt path leading up to the circus, with dozens of frightened survivors close behind you. Well clear of the carnage and kidnapping for the moment, you advise the crowd to return to Arkham as fast as they can and inform the police. The Arkham brass aren't the most reliable, but even the magic tricks of the circus won't be able to cover this one up.\nAs the victims return to safety, your thoughts turn back to the circus still looming behind you. What was it all for? People capable of controlling those horrid beasts and wielding that hypnotic magic wouldn't organize all this just out of pure malice. Considering Minnie's report of their sudden trek north to Arkham as well, there has to be some deliberate purpose behind the chaos tonight, but what?\nThe ringmaster - Sylvester Blake - is sure to have the answers to everything. A man of his stark and menacing appearance shouldn't be hard to lose track of, but he disappeared shortly after the chaos began. Likely more of the circus illusions at work. Does he not want to do his own dirty work, or does he have other reasons for staying aloof? Time will tell, as you intend to confront the man yet.",
       "steps": [
         "ringmaster_has_eyes_on_you",
+        "maybe_ask_act_1_token",
         "resolution_3"
       ]
     },
