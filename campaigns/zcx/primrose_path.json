@@ -18,6 +18,10 @@
   ],
   "steps": [
     {
+      "id": "no_effect",
+      "text": "No effect."
+    },
+    {
       "id": "intro",
       "type": "story",
       "text": "Stories have long been told and retold in Arkham about the strange and mystical things lurking in it. Witches, demons, humanoid beasts, the list goes on. Any one of those would be reason to not venture into the woods at night, but since you're already chancing things with the circus and its monsters, there's not much left to hold you back.\nThe full moon lends an eerie brightness to the woods, in spite of the light it casts for your task ahead. The same atmosphere of illusory magic that you saw on the circus grounds lingers between the trees. No doubt the circus has taken precautions to veil themselves from prying outsiders, and you wonder how they and the moon align. You intend to discover the answers tonight, but until then, you must decide how you will proceed into this mystical forest."
@@ -31,22 +35,24 @@
           {
             "id": "moonlight",
             "text": "We'll use the moonlight to our advantage.",
+            "description": "If there is a [tablet] token in the chaos bag, remove it and add a [cultist] token to the chaos bag for the remainder of the campaign.",
             "steps": [
-              "swap_cultist_for_tablet"
+              "maybe_swap_tablet_for_cultist"
             ]
           },
           {
             "id": "shadows",
             "text": "We'll stick to the shadows as much as possible.",
+            "description": "If there is a [cultist] token in the chaos bag, remove it and add a [tablet] token to the chaos bag for the remainder of the campaign.",
             "steps": [
-              "swap_tablet_for_cultist"
+              "maybe_swap_cultist_for_tablet"
             ]
           }
         ]
       }
     },
     {
-      "id": "swap_cultist_for_tablet",
+      "id": "maybe_swap_cultist_for_tablet",
       "type": "branch",
       "hidden": true,
       "condition": {
@@ -57,7 +63,7 @@
           {
             "numCondition": 0,
             "steps": [
-              "no_cultist_to_swap"
+              "no_effect"
             ]
           },
           {
@@ -71,7 +77,6 @@
     },
     {
       "id": "cultist_to_tablet",
-      "text": "Remove 1 [cultist] token from the chaos bag and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "remove_chaos_token",
@@ -88,11 +93,7 @@
       ]
     },
     {
-      "id": "no_cultist_to_swap",
-      "text": "There is no [cultist] token in the chaos bag. No effect."
-    },
-    {
-      "id": "swap_tablet_for_cultist",
+      "id": "maybe_swap_tablet_for_cultist",
       "type": "branch",
       "hidden": true,
       "condition": {
@@ -103,7 +104,7 @@
           {
             "numCondition": 0,
             "steps": [
-              "no_tablet_to_swap"
+              "no_effect"
             ]
           },
           {
@@ -117,7 +118,6 @@
     },
     {
       "id": "tablet_to_cultist",
-      "text": "Remove 1 [tablet] token from the chaos bag and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "remove_chaos_token",
@@ -132,10 +132,6 @@
           ]
         }
       ]
-    },
-    {
-      "id": "no_tablet_to_swap",
-      "text": "There is no [tablet] token in the chaos bag. No effect."
     },
     {
       "id": "gather_encounter_sets",

@@ -1,0 +1,173 @@
+{
+  "id": "zcx_piper_at_the_gates_of_dawn",
+  "scenario_name": "Piper at the Gates of Dawn",
+  "full_name": "Scenario V: Piper at the Gates of Dawn",
+  "header": "Scenario V",
+  "icon": "zcx_piper_at_the_gates_of_dawn",
+  "setup": [
+    "intro",
+    "choose_approach",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You depart the hotel in the afternoon sun. The streets are as busy as you'd expect for a metropolis on a Sunday, but you have other things on your mind. Given your treatment on the railways west, Blake is not content to let you live, but at the same time, has been reluctant to act within large cities. You've essentially reached a stalemate, and not one that Blake can afford to wait out. Still, with the final circus show tonight and the eclipse tomorrow, you'd be a fool not to keep a close eye on him.\nThe circus grounds lie a short distance outside the city limits, but as you approach the road leading to it, you find a total lack of activity. Surely some early spectators or curious onlookers would be gathered outside, but there is nothing at all. A pit grows in your stomach as you approach the circus grounds and find them silent. From the open gates, you survey an empty site, like the one the police found in Arkham after their departure.\nOne circus poster remains hanging beside the abandoned grounds, with the word CANCELED painted in red diagonally across it. Panic begins to flood your system. You had counted on Blake's ego to see the spectacle to the end, but has he really given you the slip? Without any leads, you'd have to comb all of southern California - an option you can't afford to pursue with only one day remaining. You earnestly hope that some clue was left in their hurry to leave, and you step forward to investigate.\nThe instant you cross the threshold, light and sound flood your senses. Your eyes open blearily to see the entire circus before you - and impenetrable iron bars behind you. Memories of the illusions from the circus' night in Arkham return, and the truth dawns on you. The New Moon Circus was here and fully prepared, masking their appearance to the Los Angeles public with those same illusions. Only you would have entered the abandoned grounds so soon before a canceled show, and now you're in Blake's domain once more. What's the plan now?"
+    },
+    {
+      "id": "choose_approach",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fast",
+            "text": "No time to be cautious now. We hit him hard and fast.",
+            "description": "If there is 1 or more [tablet] tokens in the chaos bag, remove 1 of them and add a [cultist] token to the chaos bag for the remainder of the campaign.",
+            "steps": [
+              "maybe_swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "id": "slow",
+            "text": "Recklessness is what he wants from us. Slow and steady",
+            "description": "If there is 1 or more [cultist] tokens in the chaos bag, remove 1 of them and add a [tablet] token to the chaos bag for the remainder of the campaign.",
+            "steps": [
+              "maybe_swap_cultist_with_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_swap_tablet_with_cultist",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "tablet"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "numCondition": 0,
+            "steps": [
+              "swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "numCondition": -1,
+            "steps": [
+              "no_effect"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_swap_cultist_with_tablet",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "cultist"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "swap_cultist_with_tablet"
+            ]
+          },
+          {
+            "numCondition": 0,
+            "steps": [
+              "swap_cultist_with_tablet"
+            ]
+          },
+          {
+            "numCondition": -1,
+            "steps": [
+              "no_effect"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_tablet_with_cultist",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swap_cultist_with_tablet",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_effect",
+      "text": "No effect."
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+      ]
+    }
+  ]
+}
+
