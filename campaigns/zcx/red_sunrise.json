@@ -10,6 +10,7 @@
     "gather_encounter_sets",
     "setup_locations",
     "location_layout",
+    "rule_rows",
     "setup_path_forward",
     "check_discovered_ritual_location",
     "check_must_follow_the_cult",
@@ -36,7 +37,7 @@
           {
             "id": "essence",
             "text": "Time is of the essence. The eclipse isn't waiting for us.",
-            "description": "Add a [cultist] token to the chaos bag for the remainder of the campaign.",
+            "description": "Add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
             "effects": [
               {
                 "type": "add_chaos_token",
@@ -49,7 +50,7 @@
           {
             "id": "easy",
             "text": "These woods are filled with danger. Easy does it.",
-            "description": "Add a [tablet] token to the chaos bag for the remainder of the campaign.",
+            "description": "Add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
             "effects": [
               {
                 "type": "add_chaos_token",
@@ -78,6 +79,12 @@
     {
       "id": "setup_locations",
       "text": "For each set of locations with matching names, choose one copy at random and remove it from the game. Put the remaining locations into play, along with the Forgotten Trail and Ritual Clearing locations. Each investigator begins play at Forgotten Trail."
+    },
+    {
+      "id": "rule_rows",
+      "title": "Rows",
+      "type": "rule_reminder",
+      "text": "In this scenario, certain cards refer to rows of locations. These are locations with the same name placed next to each other horizontally. A single card without adjacent cards is still considered to be in a row. Some card effects may refer to a row being above or below another row. In this case, above is nearer to Ritual Clearing, and below is nearer to Forgotten Trail."
     },
     {
       "id": "location_layout",
@@ -290,11 +297,11 @@
     {
       "id": "check_citizens_saved",
       "type": "branch",
-      "text": "Check the Campaign Log. Place 4 doom on agenda 1a. Reduce this amount by X, where X <i>groups of citizens were saved from the circus</i>.",
+      "text": "Check the Campaign Log. Place 4 doom on agenda 1a. Reduce this amount by X, where X is <i>groups of citizens saved from the circus</i>.",
       "condition": {
         "type": "campaign_log_count",
         "section": "campaign_notes",
-        "id": "amount_kidnapped_citizens",
+        "id": "amount_saved_citizens",
         "max": 4,
         "options": [
           {
@@ -431,18 +438,13 @@
     {
       "id": "check_cult_en_masse",
       "type": "input",
-      "text": "If The Cult En Masse enemy is not in the victory display, record that <i>the cult rallies</i> in your Campaign Log.",
+      "text": "Is The Cult En Masse enemy not in the victory display?",
       "input": {
         "type": "choose_one",
         "choices": [
           {
-            "id": "cult_in_victory_display",
-            "text": "The Cult En Masse is in the victory display",
-            "steps": []
-          },
-          {
-            "id": "cult_not_in_victory_display",
-            "text": "The Cult En Masse is not in the victory display",
+            "id": "yes",
+            "text": "Yes",
             "steps": [
               "record_cult_rallies"
             ]
@@ -464,7 +466,7 @@
     },
     {
       "id": "add_elder_thing_token",
-      "text": "Add an [elder_thing] token to the chaos bag for the remainder of the campaign.",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign.",
       "effects": [
         {
           "type": "add_chaos_token",
