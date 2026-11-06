@@ -8,7 +8,12 @@ const I18N_LANGS = ['es', 'ko', 'it', 'fr', 'ru', 'de', 'zh', 'pt', 'pl', 'vi', 
 const RULES_LANGS = ['es', 'ko', 'it', 'fr', 'ru', 'de', 'zh', 'pl', 'it', 'zh-cn'];
 
 function copy(src: string, dest: string): void {
-  fs.copyFileSync(path.join(ROOT_DIR, src), path.join(dest));
+  const from = path.join(ROOT_DIR, src);
+  if (src.endsWith('.json')) {
+    fs.writeFileSync(dest, JSON.stringify(JSON.parse(fs.readFileSync(from, 'utf8'))));
+  } else {
+    fs.copyFileSync(from, dest);  // index.d.ts
+  }
 }
 
 function main(): void {
