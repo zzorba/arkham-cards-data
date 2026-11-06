@@ -38,11 +38,15 @@
         "options": [
           {
             "boolCondition": true,
-            "prompt": "Pure Lunacy",
             "border": true,
-            "steps": [
-              "pure_lunacy_story",
-              "monstrous_transformation_hand"
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "pure_lunacy_story",
+                  "monstrous_transformation_hand"
+                ]
+              }
             ]
           }
         ]
@@ -361,10 +365,27 @@
         "branches": [
           {
             "id": "prophecy",
-            "icon": "zcx",
+            "condition": {
+              "id": "tto_prophecy",
+              "type": "campaign_log",
+              "section": "hidden",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
             "text": "The prophecy was ...",
             "steps": [
               "record_prophecy"
+            ],
+            "effects": [
+              {
+                "id": "tto_prophecy",
+                "type": "campaign_log",
+                "section": "hidden",
+                "text": "dummy"
+              }
             ]
           }
         ]
@@ -407,7 +428,7 @@
     {
       "id": "check_prophecy_recorded",
       "type": "branch",
-      "hidden":  true,
+      "hidden": true,
       "condition": {
         "type": "multi",
         "count": 2,
@@ -417,7 +438,9 @@
             "section": "campaign_notes",
             "id": "prophecy_fulfilled",
             "options": [
-              { "boolCondition": false }
+              {
+                "boolCondition": false
+              }
             ]
           },
           {
@@ -425,7 +448,9 @@
             "section": "campaign_notes",
             "id": "prophecy_unfulfilled",
             "options": [
-              { "boolCondition": false }
+              {
+                "boolCondition": false
+              }
             ]
           }
         ],
