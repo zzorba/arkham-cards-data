@@ -362,7 +362,7 @@
           {
             "id": "prophecy",
             "icon": "zcx",
-            "text": "Record Prophecy as ...",
+            "text": "The prophecy was ...",
             "steps": [
               "record_prophecy"
             ]
@@ -372,14 +372,14 @@
     },
     {
       "id": "record_prophecy",
-      "type": "branch",
+      "type": "input",
       "text": "The prophecy was ...",
       "input": {
         "type": "choose_one",
         "choices": [
           {
             "id": "fulfilled",
-            "text": "fulfilled",
+            "text": "fulfilled.",
             "effects": [
               {
                 "type": "campaign_log",
@@ -391,7 +391,7 @@
           },
           {
             "id": "unfulfilled",
-            "text": "unfulfilled",
+            "text": "unfulfilled.",
             "effects": [
               {
                 "type": "campaign_log",
@@ -403,6 +403,47 @@
           }
         ]
       }
+    },
+    {
+      "id": "check_prophecy_recorded",
+      "type": "branch",
+      "hidden":  true,
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "prophecy_fulfilled",
+            "options": [
+              { "boolCondition": false }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "prophecy_unfulfilled",
+            "options": [
+              { "boolCondition": false }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": [
+              "forgotten_record_prophecy",
+              "record_prophecy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "forgotten_record_prophecy",
+      "text": "When advancing act 1 or agenda 1, was the prophecy fulfilled or unfulfilled?"
     },
     {
       "id": "resolution_1",
@@ -612,7 +653,8 @@
         "earn_xp",
         "earn_5_bonus_xp",
         "suffer_trauma",
-        "win_campaign"
+        "win_campaign",
+        "check_prophecy_recorded"
       ]
     }
   ]
