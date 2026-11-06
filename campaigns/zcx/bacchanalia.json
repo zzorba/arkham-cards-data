@@ -100,7 +100,7 @@
             "effects": [
               {
                 "type": "campaign_log_cards",
-                "section": "campaign_notes",
+                "section": "vices",
                 "id": "vice_revelry",
                 "cards": "$input_value",
                 "bullet_type": "small",
@@ -116,7 +116,7 @@
             "effects": [
               {
                 "type": "campaign_log_cards",
-                "section": "campaign_notes",
+                "section": "vices",
                 "id": "vice_intimacy",
                 "cards": "$input_value",
                 "bullet_type": "small",
@@ -132,7 +132,7 @@
             "effects": [
               {
                 "type": "campaign_log_cards",
-                "section": "campaign_notes",
+                "section": "vices",
                 "id": "vice_opulence",
                 "cards": "$input_value",
                 "bullet_type": "small",
@@ -148,7 +148,7 @@
             "effects": [
               {
                 "type": "campaign_log_cards",
-                "section": "campaign_notes",
+                "section": "vices",
                 "id": "vice_violence",
                 "cards": "$input_value",
                 "bullet_type": "small",
@@ -248,7 +248,7 @@
     {
       "id": "check_end_before_act_3",
       "type": "input",
-      "text": "Did each investigator resign or get defeated before act 3?",
+      "text": "Were the investigators defeated or resigned before act 3?",
       "input": {
         "type": "choose_one",
         "choices": [
@@ -326,16 +326,79 @@
     {
       "id": "earn_vice_xp",
       "text": "Each investigator earns 1 bonus experience for each vice they picked at the start of the scenario.",
-      "type": "input",
-      "input": {
-        "type": "investigator_counter",
-        "text": "Vices picked",
-        "effects": [
-          {
-            "type": "earn_xp",
-            "investigator": "$input_value"
-          }
-        ]
+      "steps": [
+        "vice_xp_revelry",
+        "vice_xp_intimacy",
+        "vice_xp_opulence",
+        "vice_xp_violence"
+      ]
+    },
+    {
+      "id": "vice_xp_revelry",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_revelry",
+        "prompt": "Revelry",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            { "type": "earn_xp", "investigator": "$input_value", "bonus": 1 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_intimacy",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_intimacy",
+        "prompt": "Intimacy",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            { "type": "earn_xp", "investigator": "$input_value", "bonus": 1 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_opulence",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_opulence",
+        "prompt": "Opulence",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            { "type": "earn_xp", "investigator": "$input_value", "bonus": 1 }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_violence",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_violence",
+        "prompt": "Violence",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            { "type": "earn_xp", "investigator": "$input_value", "bonus": 1 }
+          ]
+        }
       }
     }
   ],
@@ -366,7 +429,6 @@
     },
     {
       "id": "R2",
-      "hidden": true,
       "title": "Resolution 2",
       "text": "You retire from the party at an almost leisurely pace that feels quite out of place with the last two weeks of frantic peril.  The society – and the cult – must feel secure in the upcoming ritual to behave so frivolously.  Regardless of how they feel, you depart with the knowledge of their site, and a welcome feeling of accomplishment.  From here, it's back for as much sleep as you can gather.  It will be a busy morning tomorrow.",
       "steps": [
