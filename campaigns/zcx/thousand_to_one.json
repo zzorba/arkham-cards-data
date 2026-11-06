@@ -30,12 +30,11 @@
     {
       "id": "check_monstrous_transformation",
       "type": "branch",
-      "hidden": true,
-      "text": "If an investigator has Monstrous Transformation in their deck, that investigator reads <b>Pure Lunacy</b>.",
+      "text": "If an investigator has Monstrous Transformation in their deck:",
       "condition": {
         "type": "has_card",
         "investigator": "any",
-        "card": "TODO_monstrous_transformation",
+        "card": "81030",
         "options": [
           {
             "boolCondition": true,
@@ -61,8 +60,7 @@
     {
       "id": "check_lady_esprit",
       "type": "branch",
-      "hidden": true,
-      "text": "If an investigator has Lady Esprit in their deck, that investigator reads <b>At the Crossroads</b>.",
+      "text": "If an investigator has Lady Esprit in their deck:",
       "condition": {
         "type": "multi",
         "count": 1,
@@ -91,11 +89,15 @@
         "options": [
           {
             "boolCondition": true,
-            "prompt": "At the Crossroads",
             "border": true,
-            "steps": [
-              "at_the_crossroads_story",
-              "lady_esprit_hand"
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "at_the_crossroads_story",
+                  "lady_esprit_hand"
+                ]
+              }
             ]
           }
         ]
@@ -124,7 +126,7 @@
           {
             "id": "defenses",
             "text": "We have to focus our defenses, no matter the stress.",
-            "description": "If there is a [tablet] token in the chaos bag, remove it and add a [cultist] token to the chaos bag for the remainder of the campaign.",
+            "description": "If there is a [tablet] token in the chaos bag, remove it and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
             "steps": [
               "maybe_swap_tablet_for_cultist"
             ]
@@ -132,7 +134,7 @@
           {
             "id": "equipment",
             "text": "We have to stretch our equipment as thin as possible.",
-            "description": "If there is a [cultist] token in the chaos bag, remove it and add a [tablet] token to the chaos bag for the remainder of the campaign.",
+            "description": "If there is a [cultist] token in the chaos bag, remove it and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
             "steps": [
               "maybe_swap_cultist_for_tablet"
             ]
@@ -257,38 +259,28 @@
       "locations": [
         [
           "blank",
-          "blank",
           "primal_forest",
-          "blank",
           "blank"
         ],
         [
-          "blank",
           "blank",
           "high_thicket",
-          "blank",
           "blank"
         ],
         [
-          "blank",
           "blank",
           "sparse_woodland",
-          "blank",
           "blank"
         ],
         [
-          "blank",
           "blank",
           "silent_clearing",
-          "blank",
           "blank"
         ],
         [
-          "blank",
           "mossy_glen",
           "blank",
-          "fallen_copse",
-          "blank"
+          "fallen_copse"
         ]
       ],
       "location_names": [
@@ -328,16 +320,16 @@
     },
     {
       "id": "setup_destinies",
-      "text": "Check your Campaign Log. For each word recorded under \"Destinies,\" find the story card with the corresponding word and resolve its story text. Remove each other story card from the game."
+      "text": "Check your Campaign Log. For each destiny recorded under \"Destinies,\" find the story card with the corresponding word and resolve its story text. Remove each other story card from the game."
     },
     {
       "id": "check_cult_rallies",
       "type": "branch",
-      "text": "If <i>the cult rallies</i>, place 2 doom on agenda 1a.",
+      "text": "If <i>the cult rallies</i>:",
       "condition": {
         "type": "campaign_log",
         "section": "campaign_notes",
-        "id": "the_cult_rallies",
+        "id": "cult_rallies",
         "options": [
           {
             "boolCondition": true,
@@ -360,6 +352,57 @@
     {
       "id": "encounter_deck",
       "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "prophecy",
+            "icon": "zcx",
+            "text": "Record Prophecy as ...",
+            "steps": [
+              "record_prophecy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_prophecy",
+      "type": "branch",
+      "text": "The prophecy was ...",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fulfilled",
+            "text": "fulfilled",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "prophecy_fulfilled",
+                "text": "The prophecy was fulfilled."
+              }
+            ]
+          },
+          {
+            "id": "unfulfilled",
+            "text": "unfulfilled",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "prophecy_unfulfilled",
+                "text": "The prophecy was unfulfilled."
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "resolution_1",
