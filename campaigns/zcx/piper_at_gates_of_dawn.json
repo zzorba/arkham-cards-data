@@ -30,7 +30,6 @@
           {
             "id": "fast",
             "text": "No time to be cautious now. We hit him hard and fast.",
-            "description": "If there is 1 or more [tablet] tokens in the chaos bag, remove 1 of them and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
             "steps": [
               "maybe_swap_tablet_with_cultist"
             ]
@@ -38,7 +37,6 @@
           {
             "id": "slow",
             "text": "Recklessness is what he wants from us. Slow and steady",
-            "description": "If there is 1 or more [cultist] tokens in the chaos bag, remove 1 of them and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
             "steps": [
               "maybe_swap_cultist_with_tablet"
             ]
@@ -162,7 +160,8 @@
     },
     {
       "id": "no_effect",
-      "text": "No effect."
+      "text": "No effect.",
+      "bullet_type": "small"
     },
     {
       "id": "gather_encounter_sets",
@@ -517,21 +516,26 @@
           {
             "id": "big_tops_revealed",
             "text": "Was each The Big Top location revealed?",
-            "effects": [
-              {
-                "type": "earn_xp",
-                "investigator": "all",
-                "bonus": 1
-              }
-            ]
+            "steps": ["earn_1_bonus_experience"]
           }
         ]
       }
     },
     {
+      "id": "earn_1_bonus_experience",
+      "text": "Each investigator earns 1 bonus experience.",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
       "id": "add_elder_thing_token",
       "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign",
-      "bullet_type": "default",
       "effects": [
         {
           "type": "add_chaos_token",
