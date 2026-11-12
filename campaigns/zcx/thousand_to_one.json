@@ -1,0 +1,683 @@
+{
+  "id": "zcx_thousand_to_one",
+  "scenario_name": "Thousand to One",
+  "full_name": "Scenario VIII: Thousand to One",
+  "header": "Scenario VIII",
+  "icon": "zcx_thousand_to_one",
+  "setup": [
+    "intro",
+    "check_monstrous_transformation",
+    "check_lady_esprit",
+    "intro_2",
+    "choose_approach",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_shub_niggurath",
+    "setup_ravenous_brood",
+    "setup_destinies",
+    "check_cult_rallies",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "Among the towering redwoods, Shub-Niggurath has been called by the faithful cult, and while the ritual has been disrupted, they are not yet thwarted. For six short minutes, you must prevent the cult and the thousand young from retaking the ritual clearing and completing their dark deed. That alone will save the world."
+    },
+    {
+      "id": "check_monstrous_transformation",
+      "type": "branch",
+      "text": "If an investigator has Monstrous Transformation in their deck:",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "81030",
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "pure_lunacy_story",
+                  "monstrous_transformation_hand"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "pure_lunacy_story",
+      "type": "story",
+      "text": "The sight of the blank moon shrouding the sun sends a feral chill racing down your spine. Instinct tells you that now is not the time for caution or control. Only wild survival."
+    },
+    {
+      "id": "monstrous_transformation_hand",
+      "text": "You may begin the game with Monstrous Transformation in your hand as an additional card."
+    },
+    {
+      "id": "check_lady_esprit",
+      "type": "branch",
+      "text": "If an investigator has Lady Esprit in their deck:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "has_card",
+            "investigator": "any",
+            "card": "zcxc_00263",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "any",
+            "card": "81019",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "at_the_crossroads_story",
+                  "lady_esprit_hand"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "at_the_crossroads_story",
+      "type": "story",
+      "text": "Lady Esprit's head is raised toward the eclipse, though her eyes are closed in concentration. \"Halfway between worlds. We must petition Papa Legba and Erzulie.\""
+    },
+    {
+      "id": "lady_esprit_hand",
+      "text": "You may begin the game with Lady Esprit in your hand as an additional card."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "Thea clenches her fists tensely, watching the dark redwood forest dim before her eyes. \"This is it... this is what the priestess got a glimpse of all those years ago. And she must have seen y'all doing... something, but whatever it was, it must have helped. Otherwise she would have told Apuleius a story of doom and gloom.\" It's still difficult to believe that anything in the last two weeks was truly foretold in antiquity, but if the priestess saw you doing something and then surviving an encounter with Shub-Niggurath, then you have little reason to avoid it. Fate or chance make little difference to you in this dire situation. What does matter is how you approach this siege."
+    },
+    {
+      "id": "choose_approach",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "defenses",
+            "text": "We have to focus our defenses, no matter the stress.",
+            "steps": [
+              "maybe_swap_tablet_for_cultist"
+            ]
+          },
+          {
+            "id": "equipment",
+            "text": "We have to stretch our equipment as thin as possible.",
+            "steps": [
+              "maybe_swap_cultist_for_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_swap_tablet_for_cultist",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "tablet",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "no_effect"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "tablet_to_cultist"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "tablet_to_cultist",
+      "bullet_type": "small",
+      "text": "Remove 1 [tablet] token from the chaos bag and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maybe_swap_cultist_for_tablet",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_data",
+        "campaign_data": "chaos_bag",
+        "token": "cultist",
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "no_effect"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "cultist_to_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cultist_to_tablet",
+      "bullet_type": "small",
+      "text": "Remove 1 [cultist] token from the chaos bag and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_effect",
+      "bullet_type": "small",
+      "text": "No effect."
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zcx_thousand_to_one",
+        "zcx_children_of_the_goat",
+        "zcx_cult_of_shub_niggurath",
+        "zcx_lunatic_night",
+        "zcx_savage_woods"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Primal Forest, High Thicket, Sparse Woodland, Silent Clearing, Mossy Glen, and Fallen Copse locations into play. Each investigator begins play at Silent Clearing."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "primal_forest",
+          "blank"
+        ],
+        [
+          "blank",
+          "high_thicket",
+          "blank"
+        ],
+        [
+          "blank",
+          "sparse_woodland",
+          "blank"
+        ],
+        [
+          "blank",
+          "silent_clearing",
+          "blank"
+        ],
+        [
+          "mossy_glen",
+          "blank",
+          "fallen_copse"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "primal_forest",
+          "name": "Primal Forest"
+        },
+        {
+          "code": "high_thicket",
+          "name": "High Thicket"
+        },
+        {
+          "code": "sparse_woodland",
+          "name": "Sparse Woodland"
+        },
+        {
+          "code": "silent_clearing",
+          "name": "Silent Clearing"
+        },
+        {
+          "code": "mossy_glen",
+          "name": "Mossy Glen"
+        },
+        {
+          "code": "fallen_copse",
+          "name": "Fallen Copse"
+        }
+      ]
+    },
+    {
+      "id": "setup_shub_niggurath",
+      "text": "Put Shub-Niggurath into play at Primal Forest."
+    },
+    {
+      "id": "setup_ravenous_brood",
+      "text": "Put one copy of Ravenous Brood into play at High Thicket, either side face up."
+    },
+    {
+      "id": "setup_destinies",
+      "text": "Check the Campaign Log. For each destiny recorded under \"Destinies\", find the story card with the corresponding word and resolve its story text. Remove each other story card from the game."
+    },
+    {
+      "id": "check_cult_rallies",
+      "type": "branch",
+      "text": "If <i>the cult rallies</i>:",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cult_rallies",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "cult_rallies_doom"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "cult_rallies_doom",
+      "bullet_type": "small",
+      "text": "Place 2 doom on agenda 1a."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Each other copy of Ravenous Brood, The Prophecy Fulfilled, and The Prophecy Unfulfilled."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "$play_scenario",
+      "type": "input",
+      "input": {
+        "type": "play_scenario",
+        "branches": [
+          {
+            "id": "prophecy",
+            "condition": {
+              "id": "tto_prophecy",
+              "type": "campaign_log",
+              "section": "hidden",
+              "options": [
+                {
+                  "boolCondition": false
+                }
+              ]
+            },
+            "text": "The prophecy was ...",
+            "steps": [
+              "record_prophecy"
+            ],
+            "effects": [
+              {
+                "id": "tto_prophecy",
+                "type": "campaign_log",
+                "section": "hidden",
+                "text": "dummy"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "record_prophecy",
+      "type": "input",
+      "text": "The prophecy was ...",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fulfilled",
+            "text": "fulfilled.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "prophecy_fulfilled",
+                "text": "The prophecy was fulfilled."
+              }
+            ]
+          },
+          {
+            "id": "unfulfilled",
+            "text": "unfulfilled.",
+            "effects": [
+              {
+                "type": "campaign_log",
+                "section": "campaign_notes",
+                "id": "prophecy_unfulfilled",
+                "text": "The prophecy was unfulfilled."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_prophecy_recorded",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "multi",
+        "count": 2,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "prophecy_fulfilled",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "prophecy_unfulfilled",
+            "options": [
+              {
+                "boolCondition": false
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "border": true,
+            "steps": [
+              "forgotten_record_prophecy",
+              "record_prophecy"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "forgotten_record_prophecy",
+      "text": "When advancing act 1 or agenda 1, was the prophecy fulfilled or unfulfilled?"
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "devoured_by_the_thousand_young",
+      "text": "In your Campaign Log, record that <i>the investigators were devoured by the thousand young.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "devoured_by_the_thousand_young",
+          "text": "The investigators were devoured by the thousand young."
+        }
+      ]
+    },
+    {
+      "id": "shub_niggurath_reigns",
+      "text": "In your Campaign Log, record that <i>Shub-Niggurath reigns over an eclipsed world.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "shub_niggurath_reigns",
+          "text": "Shub-Niggurath reigns over an eclipsed world."
+        }
+      ]
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "ended_the_ritual",
+      "text": "In your Campaign Log, record that <i>the investigators ended the ritual.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "ended_the_ritual",
+          "text": "The investigators ended the ritual."
+        }
+      ]
+    },
+    {
+      "id": "shub_niggurath_vanished",
+      "text": "In your Campaign Log, record that <i>Shub-Niggurath vanished with the eclipse.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "shub_niggurath_vanished",
+          "text": "Shub-Niggurath vanished with the eclipse."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_5_bonus_xp",
+      "text": "Each investigator earns 5 bonus experience as they have saved the world from Sylvester Blake's plot to unleash Shub-Niggurath.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 5
+        }
+      ]
+    },
+    {
+      "id": "suffer_trauma",
+      "text": "Each investigator suffers any combination of 3 physical and/or mental trauma from the intense strain of surviving the assault of Shub-Niggurath and its brood.",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "detailed",
+        "choices": [
+          {
+            "id": "trauma_3_physical",
+            "text": "3 physical trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": 3
+              }
+            ]
+          },
+          {
+            "id": "trauma_2_physical_1_mental",
+            "text": "2 physical and 1 mental trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": 2,
+                "mental": 1
+              }
+            ]
+          },
+          {
+            "id": "trauma_1_physical_2_mental",
+            "text": "1 physical and 2 mental trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "physical": 1,
+                "mental": 2
+              }
+            ]
+          },
+          {
+            "id": "trauma_3_mental",
+            "text": "3 mental trauma",
+            "effects": [
+              {
+                "type": "trauma",
+                "investigator": "$input_value",
+                "mental": 3
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "win_campaign",
+      "text": "The investigators win the campaign!",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "win"
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "resolution_1"
+      ]
+    },
+    {
+      "id": "R1",
+      "hidden": true,
+      "title": "Resolution 1",
+      "text": "Exhausted and overwhelmed, you collapse to the ground of the redwood forest, clinging to the last vestige of life. The terror and pain are fleeting, as you get your last glimpse of the permanent eclipse before Shub-Niggurath and the thousand young descend upon you. You are at least spared the death and madness that sweep the world under its permanent shroud. The age-old plot culminated by Sylvester Blake and the New Moon Circus has come to pass, and no prophecies can deny the horrid reality that is Shub-Niggurath, the mother of a thousand young.",
+      "steps": [
+        "devoured_by_the_thousand_young",
+        "shub_niggurath_reigns",
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "Grueling seconds pass as you repel the dark young and the cultists of Shub-Niggurath from retaking the ritual circle. The short minutes in full view of the vile entity fill you with a primal terror that has no recourse but to fight for your life. And then, as quietly and subtly as it started, the eclipse has ended. The maddened braying of Shub-Niggurath is suddenly absent, and the dark young with it. Only the bodies of cultists and their ruined ritual remain to tell the tale of what transpired in these brief minutes.\nThea collapses to the forest floor from exhaustion and relief building on each other, with tears in the corners of her eyes. \"It's over... I hope to God it's over, at least. I don't know if I could stand another minute near that... that terrible thing.\" You ease yourself down next to Thea, even more tired and shaken, but no less relieved. You didn't have a Roman legion at your command, but you hope that your scattering of the cult and destruction of the ritual was every bit as effective as Apuleius' attempt two thousand years ago. With any luck, it will be another two thousand years until the cult of Shub-Niggurath can attempt anything this vile again.\nSlow minutes pass in the early afternoon sun, and the redwood forest takes on a different character entirely. If you told anyone of your harrowing battle in this isolated and now-peaceful place, anyone would reasonably think you a liar at best. You and Thea don't have to exchange any words to understand that the events of the eclipse must remain secret. At least to those who aren't prepared for the disturbing truth. Perhaps you could write a book.",
+      "steps": [
+        "ended_the_ritual",
+        "shub_niggurath_vanished",
+        "earn_xp",
+        "earn_5_bonus_xp",
+        "suffer_trauma",
+        "win_campaign",
+        "check_prophecy_recorded"
+      ]
+    }
+  ]
+}
