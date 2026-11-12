@@ -1,0 +1,300 @@
+{
+  "id": "zcx_epilogue",
+  "scenario_name": "Epilogue",
+  "full_name": "Epilogue",
+  "header": "",
+  "type": "epilogue",
+  "icon": "zcx_circus_ex_mortis",
+  "setup": [
+    "intro",
+    "check_monstrous_transformation",
+    "check_lady_esprit",
+    "thea_story",
+    "check_prophecy_fulfilled",
+    "looking_ahead_story",
+    "check_blake_known",
+    "$upgrade_decks",
+    "credits",
+    "design_notes"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "With the possibility of the Liber Pater Society waiting for you back in Los Angeles with plans of vengeance, you instead depart the redwood forest northward toward San Francisco. Your harrowing experience has left you wary of the forests in general, and you welcome the train ride back east across open country."
+    },
+    {
+      "id": "check_monstrous_transformation",
+      "type": "branch",
+      "hidden": true,
+      "text": "If an investigator has Monstrous Transformation in their deck, that investigator reads <b>Under Wraps</b>.",
+      "condition": {
+        "type": "has_card",
+        "investigator": "any",
+        "card": "TODO_monstrous_transformation",
+        "options": [
+          {
+            "boolCondition": true,
+            "prompt": "Under Wraps",
+            "border": true,
+            "steps": [
+              "under_wraps_story"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "under_wraps_story",
+      "type": "story",
+      "text": "The savage urges have been largely subdued since the battle under the eclipse, but you know that this is something you will have to contend with constantly, perhaps for the rest of your life. Until you discover a cure for the curse of the Rougarou, there will have to be blood, one way or another."
+    },
+    {
+      "id": "check_lady_esprit",
+      "type": "branch",
+      "hidden": true,
+      "text": "If an investigator has Lady Esprit in their deck, that investigator reads <b>Diverging Paths</b>.",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "has_card",
+            "investigator": "any",
+            "card": "zcxc_00263",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "has_card",
+            "investigator": "any",
+            "card": "81019",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "prompt": "Diverging Paths",
+            "border": true,
+            "steps": [
+              "diverging_paths_story"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "diverging_paths_story",
+      "type": "story",
+      "text": "Lady Esprit has kept a more aloof mood than usual since the ordeal in the redwood forest. By the time your journey reaches St. Louis once again, the bokor remains on the platform as you board the train to Chicago. \"Papa Legba stands at the crossroads and points the way to where I'm needed most. But don't you worry none. If you need me, then the roads will lead me to you once again.\""
+    },
+    {
+      "id": "thea_story",
+      "type": "story",
+      "text": "Thea has remained a constant - if quiet - companion for the journey back to Arkham. Since Blake's acquisition of the Four Leaf Circus, Thea's life had been funneled toward the eclipse ritual. Everything had built to that moment, and now she is adrift. Even Thea's visions don't suggest any distinct events to come. Her future is an open book, so to speak, though she still keeps a close hand on De Cultus Bestiae."
+    },
+    {
+      "id": "check_prophecy_fulfilled",
+      "text": "Check the Campaign Log. If <i>the prophecy was fulfilled</i>:",
+      "type": "branch",
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "prophecy_fulfilled",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "kernel_of_truth_story",
+              "earn_2_bonus_xp"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "grain_of_salt_story"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "kernel_of_truth_story",
+      "type": "story",
+      "text": "Thea rubs a hand smoothly on the weathered cover of the tome. \"It's strange to think of all those ancient folks putting such trust in us. Neither the priestess nor Apuleius really knew what the cult was doing or how it could be stopped, but they just... hoped. I suppose I do know that hope, at least. Y'all really came through.\""
+    },
+    {
+      "id": "earn_2_bonus_xp",
+      "text": "Each investigator earns 2 bonus experience for realizing their part in events beyond true understanding.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "id": "grain_of_salt_story",
+      "type": "story",
+      "text": "Thea holds the tome with both hands, contemplating it like a headstone. \"I don't know what the priestess really did and didn't see, but I think it served its purpose. Even if all those flowery words did was getting you to that forest, then it doesn't really matter what was truth and what was just hope. I can't blame the priestess for wanting a future beyond the cult's ambitions.\""
+    },
+    {
+      "id": "looking_ahead_story",
+      "type": "story",
+      "text": "While the both of you close this somewhat literal chapter of your lives, the question of the future still remains. You ask Thea what she intends to do if she accompanies you all the way to Arkham. \"I'm still trying to figure that part out. I don't think I can just go back to the circus life after everything that's happened. If I still get visions that are even half as important as the ones with you and Blake, then they'll be worth more than circus admission price. Though I suppose I've still got to eat in the meantime.\"\nYou suggest introducing Thea to some of your allies in Arkham, such as Dr. Henry Armitage. With her proficiency in Latin - and more experience in occult matters than anyone could reasonably hope - Thea would be a boon to the Miskatonic Library. The fortune teller's eyes drift to the train windows, gazing over the rushing landscape with a wistful expression. \"Never know until I try, right?\"\nYour return to Arkham is met with very little fanfare at all. The circus is all but forgotten - intentionally, in many cases - as the citizens seek any normalcy they can find in this town. Ralph and Carrie Dykstra catch sight of you at the Northside platform and eagerly reunite with offers of congratulations. Minnie Klein is soon to follow, eager to harvest the fruit of the journalistic seeds she planted. She knows full well that her editor Doyle Jeffries won't print a word of it, but her own curiosity is satisfied if nothing else. The two brief meetings are more meaningful than anyone around you can guess, but without your experiences, hardly enough to draw a glance.\nThea departs for Southside with plenty of thankful goodbyes, seeking a temporary room at Ma's boarding house until she can settle on a new situation, and leaving you alone for the first time in nearly a month."
+    },
+    {
+      "id": "check_blake_known",
+      "type": "branch",
+      "hidden": true,
+      "text": "Check the Campaign Log. If <i>the investigators clashed with Blake</i> or <i>the investigators unmasked Blake</i>, and <i>the cult rallies</i>, skip to <b>Encore</b>. Otherwise, read <b>Rest Assured</b>.",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "clashed_with_blake",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          },
+          {
+            "type": "campaign_log",
+            "section": "campaign_notes",
+            "id": "unmasked_blake",
+            "options": [
+              {
+                "boolCondition": true
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "check_cult_rallies"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "rest_assured_story",
+              "never_seen_again"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_cult_rallies",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log",
+        "section": "campaign_notes",
+        "id": "cult_rallies",
+        "options": [
+          {
+            "boolCondition": true,
+            "steps": [
+              "encore_story",
+              "may_someday_return",
+              "add_the_tower",
+              "add_the_devil"
+            ]
+          },
+          {
+            "boolCondition": false,
+            "steps": [
+              "rest_assured_story",
+              "never_seen_again"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "rest_assured_story",
+      "type": "story",
+      "text": "You walk the familiar roads to your home in Rivertown, enjoying the brief respite in the cool September air. Arkham is gloomy even in the best of weather, making it the perfect climate for the many subtle and insidious evils that lurk throughout. You're almost glad for evils that instead present themselves like the circus, boldly and colorfully as a poisonous reptile. Had a plot like this developed in total secrecy, there would have been little hope of uncovering the truth. It's a reminder to be vigilant, and to never take events at face value. There's a sucker born every minute, the circus saying goes."
+    },
+    {
+      "id": "never_seen_again",
+      "text": "In your Campaign Log, record that <i>the New Moon Circus was never seen again.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "never_seen_again",
+          "text": "The New Moon Circus was never seen again."
+        }
+      ]
+    },
+    {
+      "id": "encore_story",
+      "type": "story",
+      "text": "You walk the familiar roads to your home in Rivertown, enjoying the brief respite in the cool September air. It gives you time to think on the past events, particularly those surrounding Sylvester Blake himself. Despite your victory in the forest, Blake disappeared without a trace, and you're certain you haven't seen the last of him. The ringmaster is as vindictive as he is cunning, and you had better watch your back as long as there's any chance of his reappearance. It may or may not be in the guise of the New Moon Circus, but evil wears many faces."
+    },
+    {
+      "id": "may_someday_return",
+      "text": "In your Campaign Log, record that <i>the New Moon Circus may someday return.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "may_someday_return",
+          "text": "The New Moon Circus may someday return."
+        }
+      ]
+    },
+    {
+      "id": "add_the_tower",
+      "text": "The investigator with Amalthea Weaver in their deck must add a copy of The Tower • XVI to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "TODO_the_tower"
+        }
+      ]
+    },
+    {
+      "id": "add_the_devil",
+      "text": "The investigator with De Cultus Bestiae in their deck must add a copy of The Devil • XV to their deck.",
+      "effects": [
+        {
+          "type": "add_card",
+          "investigator": "choice",
+          "card": "TODO_the_devil"
+        }
+      ]
+    },
+    {
+      "id": "credits",
+      "title": "Credits",
+      "type": "story",
+      "text": "<b><i>Arkham Horror: The Card Game</i> Design:</b> Nate French and MJ Newman.\n<b>Campaign Design:</b> Tyler Gotch\n<b>Moon Token Design:</b> Hauke\n<b>Playtesters:</b> Tofu Mushroom, Pugtato, Flanfy, Aughhhh, Gold, TerranChef, Deutereum, Antimarkovnikov, Erik T, Zyloemm, BardofSnow, Jefferson, DanDanRevolution, MickeytheQ, Drust, SimonD, thenumber1nick, Buteremelse, Karrius, Jared Boyce, Marcus Lemmon, Harrison F, Chad Reverman"
+    },
+    {
+      "id": "design_notes",
+      "title": "Design Notes",
+      "type": "story",
+      "text": "Thanks for playing! <i>Circus Ex Mortis</i> is another idea I've had in mind for a while, as both a chance to add the flair and mystique of the circus to the mythos, and an interesting connection to Shub-Niggurath, an ancient one that has a relatively limited scope for having such a large stake in the mythos.\nOn the subject of Shub-Niggurath, there is some gray area concerning the Black Goat that I decided to include in the campaign. Some text refers to the Black Goat as another aspect of the all-mother, while others refer to it as a separate and distinctly male entity acting as a sort of figurehead for the cult. This led to the idea of disguising the Black Goat as Sylvester Blake to lead the circus in its mission.\nSeveral elements of the plot developed more or less simultaneously to support each other, such as the ancient Roman history and the modern Liber Pater Society (which itself is a pastiche of the Hellfire Club with a thematic link to the cult). I have a particular fascination with fitting things both to Arkham canon and to real life events, so many elements like Apuleius and the eclipse in southern California at that exact date are historical fact, only adjusted to the mythos.\nThat same sort of simultaneous design also came together for both Amalthea Weaver and De Cultus Bestiae. Their inclusion was as much to make the story more personal to the investigators as they were a desire to have story assets that developed alongside the plot. I wanted players to feel that despite all the talk of destiny and prophecy, they had control over the future.\nUnlike some other campaigns which take place almost entirely in secret or in remote places, the nature of the circus being a very public event and Blake's scheme to raise the dark young on spectators of the traveling circus led to involving bystanders more than usual. It was more of a challenge than I expected though to make the involvement of bystanders constant without making each mission a tedious escort.\nOnce again, thank you for playing and for feedback if you have it. See you in the next campaign!"
+    }
+  ],
+  "resolutions": []
+}

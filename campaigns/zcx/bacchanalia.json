@@ -1,0 +1,470 @@
+{
+  "id": "zcx_bacchanalia",
+  "scenario_name": "Bacchanalia",
+  "full_name": "Scenario VI: Bacchanalia",
+  "header": "Scenario VI",
+  "icon": "zcx_bacchanalia",
+  "setup": [
+    "intro",
+    "check_socialite_silver_twilight",
+    "intro_2",
+    "choose_vices_prompt",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "setup_socialites",
+    "set_aside_cards",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "There's not a moment to lose now.  You make a tour of the city's newspaper stands and delve into the society pages.  If there's any big organization dedicated to Shub-Niggurath, it has to be exclusive, perhaps even secretive to avoid any ignorant socialite joining by mistake, and likely has some obvious connection only noticeable to those looking for it.  One name among the newspapers catches your eye more than the others – the Liber Pater Society.\nFrom what you can gather, the society is long-established with a reputation for hosting lavish affairs for the elite.  Many a celebrity and millionaire have been denied membership, the papers eagerly tell, and committees for public morals have often denounced their libertine activities, but never to any real effect.  The few pictures available of their weekly galas depict scenes of Roman decadence, connecting the old cult alibi with modern entertainment of Blake's caliber.  You're in luck that the society meets on Sunday nights."
+    },
+    {
+      "id": "check_socialite_silver_twilight",
+      "type": "branch",
+      "text": "If 1 or more [[Socialite]] or [[Silver Twilight]] investigators were chosen for this campaign:",
+      "condition": {
+        "type": "multi",
+        "count": 1,
+        "conditions": [
+          {
+            "type": "campaign_data",
+            "campaign_data": "investigator",
+            "investigator_data": "trait",
+            "options": [
+              {
+                "condition": "Socialite"
+              },
+              {
+                "condition": "Silver Twilight"
+              }
+            ]
+          }
+        ],
+        "options": [
+          {
+            "boolCondition": true,
+            "prompt": "Upper Echelons",
+            "border": true,
+            "effects": [
+              {
+                "type": "story_step",
+                "steps": [
+                  "upper_echelons_story",
+                  "upper_echelons_resources"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "upper_echelons_story",
+      "type": "story",
+      "text": "It's hardly your kind of crowd, but you're accustomed to social hobnobbing and prying into hidden affairs.  It's almost a relief from the circus and wilderness."
+    },
+    {
+      "id": "upper_echelons_resources",
+      "text": "You begin this scenario with 2 additional resources."
+    },
+    {
+      "id": "intro_2",
+      "type": "story",
+      "text": "You return to the hotel at once and prepare your best available clothes for the society affair.  Though not exactly formal, Thea's fortune teller robes do fit the old Roman theme of their parties.  She looks in the mirror self-consciously as you converse.  \"I've never been to something so... extravagant.  Or maybe corrupt is more like it.  The Four Leaf Circus wasn't exactly high class, but they had standards.  What about you?  Y'all don't have any... vices, do you?\""
+    },
+    {
+      "id": "choose_vices_prompt",
+      "text": "Each investigator may choose <b>any amount</b> of the following.\nIf the Curse of the Rougarou is in an investigator's deck, that investigator must choose \"I'll be fine.\".",
+      "steps": [
+        "choose_vices"
+      ]
+    },
+    {
+      "id": "choose_vices",
+      "type": "input",
+      "input": {
+        "type": "investigator_choice",
+        "source": "scenario",
+        "investigator": "all",
+        "special_mode": "sequential",
+        "min": {
+          "type": "constant",
+          "value": 0
+        },
+        "choices": [
+          {
+            "id": "revelry",
+            "text": "Of course not.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vices",
+                "id": "vice_revelry",
+                "cards": "$input_value",
+                "bullet_type": "small",
+                "masculine_text": "#name# has a vice for revelry.",
+                "feminine_text": "#name# has a vice for revelry.",
+                "nonbinary_text": "#name# has a vice for revelry."
+              }
+            ]
+          },
+          {
+            "id": "intimacy",
+            "text": "Not a bit.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vices",
+                "id": "vice_intimacy",
+                "cards": "$input_value",
+                "bullet_type": "small",
+                "masculine_text": "#name# has a vice for intimacy.",
+                "feminine_text": "#name# has a vice for intimacy.",
+                "nonbinary_text": "#name# has a vice for intimacy."
+              }
+            ]
+          },
+          {
+            "id": "opulence",
+            "text": "Don't worry.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vices",
+                "id": "vice_opulence",
+                "cards": "$input_value",
+                "bullet_type": "small",
+                "masculine_text": "#name# has a vice for opulence.",
+                "feminine_text": "#name# has a vice for opulence.",
+                "nonbinary_text": "#name# has a vice for opulence."
+              }
+            ]
+          },
+          {
+            "id": "violence",
+            "text": "I'll be fine.",
+            "effects": [
+              {
+                "type": "campaign_log_cards",
+                "section": "vices",
+                "id": "vice_violence",
+                "cards": "$input_value",
+                "bullet_type": "small",
+                "masculine_text": "#name# has a vice for violence.",
+                "feminine_text": "#name# has a vice for violence.",
+                "nonbinary_text": "#name# has a vice for violence."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zcx_bacchanalia",
+        "zcx_cult_of_shub_niggurath",
+        "zcx_new_moon_entertainers",
+        "zcx_panicked_masses",
+        "zcx_primordial_evils"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the Vestibule, Banquet Hall, Statuary Gardens, Private Parlor, Collection Hall, and Upper Balcony locations into play. Each investigator begins play at Vestibule."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "upper_balcony",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "private_parlor",
+          "blank",
+          "collection_hall",
+          "blank"
+        ],
+        [
+          "banquet_hall",
+          "blank",
+          "vestibule",
+          "blank",
+          "statuary_gardens"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "upper_balcony",
+          "name": "Upper Balcony"
+        },
+        {
+          "code": "private_parlor",
+          "name": "Private Parlor"
+        },
+        {
+          "code": "collection_hall",
+          "name": "Collection Hall"
+        },
+        {
+          "code": "banquet_hall",
+          "name": "Banquet Hall"
+        },
+        {
+          "code": "vestibule",
+          "name": "Vestibule"
+        },
+        {
+          "code": "statuary_gardens",
+          "name": "Statuary Gardens"
+        }
+      ]
+    },
+    {
+      "id": "setup_socialites",
+      "text": "Shuffle the five [[Socialite]] story assets and put each one into play at a different location other than Vestibule. Place 1 [per_investigator] clues on each of these assets."
+    },
+    {
+      "id": "set_aside_cards",
+      "text": "Set the following cards aside, out of play: Each copy of Terrified Captives and Wild Hysteria, each <b>Restricted</b> location, Goatspawn Corruptor."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "check_end_before_act_3",
+      "type": "input",
+      "text": "Were the investigators defeated or resigned before act 3?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "defeated_before_act_3",
+            "text": "Yes",
+            "steps": [
+              "resolution_1"
+            ]
+          },
+          {
+            "id": "not_defeated_before_act_3",
+            "text": "No",
+            "steps": [
+              "resolution_2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "must_follow_the_cult",
+      "text": "In your Campaign Log, record that <i>the investigators must follow the cult.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "must_follow_the_cult",
+          "text": "The investigators must follow the cult."
+        }
+      ]
+    },
+    {
+      "id": "discovered_rituals_location",
+      "text": "In your Campaign Log, record that <i>the investigators discovered the ritual's location.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "discovered_rituals_location",
+          "text": "The investigators discovered the ritual's location."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_vice_xp",
+      "text": "Each investigator earns 1 bonus experience for each vice they picked at the start of the scenario.",
+      "steps": [
+        "vice_xp_revelry",
+        "vice_xp_intimacy",
+        "vice_xp_opulence",
+        "vice_xp_violence"
+      ]
+    },
+    {
+      "id": "vice_xp_revelry",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_revelry",
+        "prompt": "Revelry",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "$input_value",
+              "bonus": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_intimacy",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_intimacy",
+        "prompt": "Intimacy",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "$input_value",
+              "bonus": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_opulence",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_opulence",
+        "prompt": "Opulence",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "$input_value",
+              "bonus": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "vice_xp_violence",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "investigator_campaign_log_cards",
+        "section": "vices",
+        "id": "vice_violence",
+        "prompt": "Violence",
+        "option": {
+          "boolCondition": true,
+          "effects": [
+            {
+              "type": "earn_xp",
+              "investigator": "$input_value",
+              "bonus": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated or resigned",
+      "investigator_status": [
+        "resigned",
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "check_end_before_act_3"
+      ]
+    },
+    {
+      "id": "R1",
+      "hidden": true,
+      "title": "Resolution 1",
+      "text": "You stumble out the front door of the manor, struggling to find your wits and scrambling to defend yourself, but you find that nothing pursues you.  The party-goers are so devoted to their wild activity that none of them can find the time or inclination to chase you.  You seize the strange chance and retreat to safety.\nThis unfortunately puts you back to where you were hours ago, having learned nothing substantial from the party.  However, knowing that the Liber Pater Society is in fact a branch of the Cult of Shub-Niggurath, they won't fail to attend the ritual to their foul deity.  You take up a quiet vigil through the night as you lick your wounds, waiting for the members to depart to the ritual site en masse.  This will spread you thin, to be sure, but the alternative is to abandon your quest in the final stretch.",
+      "steps": [
+        "must_follow_the_cult",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Resolution 2",
+      "text": "You retire from the party at an almost leisurely pace that feels quite out of place with the last two weeks of frantic peril.  The society – and the cult – must feel secure in the upcoming ritual to behave so frivolously.  Regardless of how they feel, you depart with the knowledge of their site, and a welcome feeling of accomplishment.  From here, it's back for as much sleep as you can gather.  It will be a busy morning tomorrow.",
+      "steps": [
+        "discovered_rituals_location",
+        "resolution_3"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Resolution 3",
+      "hidden": true,
+      "text": "Thoughts of destiny and prophecy occupy your mind late into the night.  For all your wits, is everything arranged to lead you to this confrontation?  Or has it all depended on someone acting of their own accord, simply hoping for the best?  You're not certain which you like better.",
+      "steps": [
+        "earn_xp",
+        "earn_vice_xp",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
