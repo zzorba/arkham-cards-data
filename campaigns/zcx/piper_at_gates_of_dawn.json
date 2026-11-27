@@ -1,0 +1,617 @@
+{
+  "id": "zcx_piper_at_the_gates_of_dawn",
+  "scenario_name": "Piper at the Gates of Dawn",
+  "full_name": "Scenario V: Piper at the Gates of Dawn",
+  "header": "Scenario V",
+  "icon": "zcx_piper_at_the_gates_of_dawn",
+  "setup": [
+    "intro",
+    "choose_approach",
+    "gather_encounter_sets",
+    "setup_locations",
+    "location_layout",
+    "check_days_to_prepare",
+    "set_aside_sylvester_blake",
+    "encounter_deck",
+    "$play_scenario"
+  ],
+  "steps": [
+    {
+      "id": "intro",
+      "type": "story",
+      "text": "You depart the hotel in the afternoon sun. The streets are as busy as you'd expect for a metropolis on a Sunday, but you have other things on your mind. Given your treatment on the railways west, Blake is not content to let you live, but at the same time, has been reluctant to act within large cities. You've essentially reached a stalemate, and not one that Blake can afford to wait out. Still, with the final circus show tonight and the eclipse tomorrow, you'd be a fool not to keep a close eye on him.\nThe circus grounds lie a short distance outside the city limits, but as you approach the road leading to it, you find a total lack of activity. Surely some early spectators or curious onlookers would be gathered outside, but there is nothing at all. A pit grows in your stomach as you approach the circus grounds and find them silent. From the open gates, you survey an empty site, like the one the police found in Arkham after their departure.\nOne circus poster remains hanging beside the abandoned grounds, with the word CANCELED painted in red diagonally across it. Panic begins to flood your system. You had counted on Blake's ego to see the spectacle to the end, but has he really given you the slip? Without any leads, you'd have to comb all of southern California - an option you can't afford to pursue with only one day remaining. You earnestly hope that some clue was left in their hurry to leave, and you step forward to investigate.\nThe instant you cross the threshold, light and sound flood your senses. Your eyes open blearily to see the entire circus before you - and impenetrable iron bars behind you. Memories of the illusions from the circus' night in Arkham return, and the truth dawns on you. The New Moon Circus was here and fully prepared, masking their appearance to the Los Angeles public with those same illusions. Only you would have entered the abandoned grounds so soon before a canceled show, and now you're in Blake's domain once more. What's the plan now?"
+    },
+    {
+      "id": "choose_approach",
+      "type": "input",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "fast",
+            "text": "No time to be cautious now. We hit him hard and fast.",
+            "steps": [
+              "maybe_swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "id": "slow",
+            "text": "Recklessness is what he wants from us. Slow and steady",
+            "steps": [
+              "maybe_swap_cultist_with_tablet"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_swap_tablet_with_cultist",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "tablet"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "numCondition": 0,
+            "steps": [
+              "swap_tablet_with_cultist"
+            ]
+          },
+          {
+            "numCondition": -1,
+            "steps": [
+              "no_effect"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "maybe_swap_cultist_with_tablet",
+      "type": "branch",
+      "hidden": true,
+      "border_only": true,
+      "condition": {
+        "type": "math",
+        "opA": {
+          "type": "chaos_bag",
+          "token": "cultist"
+        },
+        "opB": {
+          "type": "constant",
+          "value": 1
+        },
+        "operation": "compare",
+        "options": [
+          {
+            "numCondition": 1,
+            "steps": [
+              "swap_cultist_with_tablet"
+            ]
+          },
+          {
+            "numCondition": 0,
+            "steps": [
+              "swap_cultist_with_tablet"
+            ]
+          },
+          {
+            "numCondition": -1,
+            "steps": [
+              "no_effect"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "swap_tablet_with_cultist",
+      "text": "Remove 1 [tablet] token and add 1 [cultist] token to the chaos bag for the remainder of the campaign.",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swap_cultist_with_tablet",
+      "text": "Remove 1 [cultist] token and add 1 [tablet] token to the chaos bag for the remainder of the campaign.",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "remove_chaos_token",
+          "tokens": [
+            "cultist"
+          ]
+        },
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "tablet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no_effect",
+      "text": "No effect.",
+      "bullet_type": "small"
+    },
+    {
+      "id": "gather_encounter_sets",
+      "title": "Setup",
+      "type": "encounter_sets",
+      "encounter_sets": [
+        "zcx_piper_at_the_gates_of_dawn",
+        "zcx_circus_grounds",
+        "zcx_children_of_the_goat",
+        "zcx_illusory_tricks",
+        "zcx_lunatic_night",
+        "zcx_new_moon_daredevils",
+        "zcx_new_moon_entertainers"
+      ]
+    },
+    {
+      "id": "setup_locations",
+      "text": "Put the three The Big Top locations into play along with Carousel, Games Gallery, Animal Cages, Performer Trailers, and Circus Gates <i>(Doorway to Doom)</i>. Each investigator begins play at Circus Gates."
+    },
+    {
+      "id": "location_layout",
+      "type": "location_setup",
+      "text": "Location Placement",
+      "horizontal": "half",
+      "vertical": "normal",
+      "locations": [
+        [
+          "blank",
+          "blank",
+          "blank",
+          "circus_gates",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "blank",
+          "carousel",
+          "blank",
+          "blank",
+          "blank",
+          "games_gallery",
+          "blank"
+        ],
+        [
+          "blank",
+          "blank",
+          "blank",
+          "big_top_first_ring",
+          "blank",
+          "blank",
+          "blank"
+        ],
+        [
+          "animal_cages",
+          "blank",
+          "big_top_second_ring",
+          "blank",
+          "big_top_third_ring",
+          "blank",
+          "performer_trailers"
+        ]
+      ],
+      "location_names": [
+        {
+          "code": "circus_gates",
+          "name": "Circus Gates"
+        },
+        {
+          "code": "carousel",
+          "name": "Carousel"
+        },
+        {
+          "code": "games_gallery",
+          "name": "Games Gallery"
+        },
+        {
+          "code": "big_top_first_ring",
+          "name": "The Big Top (First Ring)"
+        },
+        {
+          "code": "animal_cages",
+          "name": "Animal Cages"
+        },
+        {
+          "code": "big_top_second_ring",
+          "name": "The Big Top (Second Ring)"
+        },
+        {
+          "code": "big_top_third_ring",
+          "name": "The Big Top (Third Ring)"
+        },
+        {
+          "code": "performer_trailers",
+          "name": "Performer Trailers"
+        }
+      ]
+    },
+    {
+      "id": "check_days_to_prepare",
+      "type": "branch",
+      "hidden": true,
+      "condition": {
+        "type": "campaign_log_count",
+        "section": "campaign_notes",
+        "id": "days_ringmaster_had_to_prepare",
+        "max": 5,
+        "options": [
+          {
+            "numCondition": 0,
+            "steps": [
+              "reasoning_ringmaster_had_0_days",
+              "act2_v1"
+            ]
+          },
+          {
+            "numCondition": 1,
+            "steps": [
+              "reasoning_ringmaster_had_1_to_4_days",
+              "place_days_resources",
+              "act2_v2"
+            ]
+          },
+          {
+            "numCondition": 2,
+            "steps": [
+              "reasoning_ringmaster_had_1_to_4_days",
+              "place_days_resources",
+              "act2_v2"
+            ]
+          },
+          {
+            "numCondition": 3,
+            "steps": [
+              "reasoning_ringmaster_had_1_to_4_days",
+              "place_days_resources",
+              "act2_v2"
+            ]
+          },
+          {
+            "numCondition": 4,
+            "steps": [
+              "reasoning_ringmaster_had_1_to_4_days",
+              "place_days_resources",
+              "act2_v2"
+            ]
+          }
+        ],
+        "default_option": {
+          "steps": [
+            "reasoning_ringmaster_had_5_or_more_days",
+            "place_days_resources",
+            "act2_v3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "reasoning_ringmaster_had_0_days",
+      "text": "Because <i>the ringmaster had 0 days to prepare</i>:"
+    },
+    {
+      "id": "act2_v1",
+      "bullet_type": "small",
+      "text": "Use \"Act 2 - Audience Participation (v.I)\" for this scenario. Remove each other copy of act 2 from the game."
+    },
+    {
+      "id": "reasoning_ringmaster_had_1_to_4_days",
+      "text": "Because <i>the ringmaster had 1 to 4 days to prepare</i>:"
+    },
+    {
+      "id": "place_days_resources",
+      "bullet_type": "small",
+      "text": "Place as many resources on the scenario reference card equal to the number of days the ringmaster had to prepare."
+    },
+    {
+      "id": "act2_v2",
+      "bullet_type": "small",
+      "text": "Use \"Act 2 - Audience Participation (v.II)\" for this scenario. Remove each other copy of act 2 from the game."
+    },
+    {
+      "id": "reasoning_ringmaster_had_5_or_more_days",
+      "text": "Because <i>the ringmaster had 5 or more days to prepare</i>:"
+    },
+    {
+      "id": "act2_v3",
+      "bullet_type": "small",
+      "text": "Use \"Act 2 - Audience Participation (v.III)\" for this scenario. Remove each other copy of act 2 from the game."
+    },
+    {
+      "id": "set_aside_sylvester_blake",
+      "text": "Set the Sylvester Blake enemy aside, out of play."
+    },
+    {
+      "id": "encounter_deck",
+      "text": "Shuffle the remainder of the encounter cards to build the encounter deck."
+    },
+    {
+      "id": "check_defeated_in_act",
+      "type": "input",
+      "text": "During which act were the investigators defeated?",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "defeated_act_1",
+            "text": "Act 1",
+            "steps": [
+              "resolution_1"
+            ]
+          },
+          {
+            "id": "defeated_act_2",
+            "text": "Act 2",
+            "steps": [
+              "resolution_2"
+            ]
+          },
+          {
+            "id": "defeated_act_3",
+            "text": "Act 3",
+            "steps": [
+              "resolution_3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "resolution_1",
+      "type": "resolution",
+      "resolution": "R1"
+    },
+    {
+      "id": "resolution_2",
+      "type": "resolution",
+      "resolution": "R2"
+    },
+    {
+      "id": "resolution_3",
+      "type": "resolution",
+      "resolution": "R3"
+    },
+    {
+      "id": "resolution_5",
+      "type": "resolution",
+      "resolution": "R5"
+    },
+    {
+      "id": "could_not_escape_the_circus",
+      "text": "In your Campaign Log, record that <i>the investigators could not escape the circus.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "could_not_escape_the_circus",
+          "text": "The investigators could not escape the circus."
+        }
+      ]
+    },
+    {
+      "id": "all_killed",
+      "text": "Each investigator is <b>killed</b>.",
+      "effects": [
+        {
+          "type": "trauma",
+          "investigator": "all",
+          "killed": true
+        }
+      ]
+    },
+    {
+      "id": "lose_campaign",
+      "text": "The investigators lose the campaign.",
+      "effects": [
+        {
+          "type": "campaign_data",
+          "setting": "result",
+          "value": "lose"
+        }
+      ]
+    },
+    {
+      "id": "clashed_with_blake",
+      "text": "In your Campaign Log, record that <i>the investigators clashed with Blake.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "clashed_with_blake",
+          "text": "The investigators clashed with Blake."
+        }
+      ]
+    },
+    {
+      "id": "unmasked_blake",
+      "text": "In your Campaign Log, record that <i>the investigators unmasked Blake.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "unmasked_blake",
+          "text": "The investigators unmasked Blake."
+        }
+      ]
+    },
+    {
+      "id": "earn_1_bonus_xp_truth_about_ringmaster",
+      "text": "Each investigator earns 1 bonus experience as they have learned the truth about the ringmaster.",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "struck_down_blake",
+      "text": "In your Campaign Log, record that <i>the investigators struck down Blake.</i>",
+      "effects": [
+        {
+          "type": "campaign_log",
+          "section": "campaign_notes",
+          "id": "struck_down_blake",
+          "text": "The investigators struck down Blake."
+        }
+      ]
+    },
+    {
+      "id": "earn_xp",
+      "text": "Each investigator earns experience equal to the Victory X value of each card in the victory display.",
+      "type": "input",
+      "input": {
+        "type": "counter",
+        "text": "Victory display:",
+        "effects": [
+          {
+            "type": "earn_xp",
+            "investigator": "all"
+          }
+        ]
+      }
+    },
+    {
+      "id": "check_big_tops_revealed",
+      "type": "input",
+      "text": "Each investigator earns 1 bonus experience if each The Big Top location was revealed during the scenario.",
+      "input": {
+        "type": "choose_one",
+        "choices": [
+          {
+            "id": "big_tops_revealed",
+            "text": "Was each The Big Top location revealed?",
+            "steps": ["earn_1_bonus_experience"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "earn_1_bonus_experience",
+      "text": "Each investigator earns 1 bonus experience.",
+      "bullet_type": "small",
+      "effects": [
+        {
+          "type": "earn_xp",
+          "investigator": "all",
+          "bonus": 1
+        }
+      ]
+    },
+    {
+      "id": "add_elder_thing_token",
+      "text": "Add 1 [elder_thing] token to the chaos bag for the remainder of the campaign",
+      "effects": [
+        {
+          "type": "add_chaos_token",
+          "tokens": [
+            "elder_thing"
+          ]
+        }
+      ]
+    }
+  ],
+  "resolutions": [
+    {
+      "id": "no_resolution",
+      "title": "No resolution was reached",
+      "description": "Each investigator was defeated",
+      "investigator_status": [
+        "eliminated",
+        "physical",
+        "mental"
+      ],
+      "steps": [
+        "check_defeated_in_act"
+      ]
+    },
+    {
+      "id": "R1",
+      "hidden": true,
+      "title": "Resolution 1",
+      "text": "You are trapped. Everywhere you turn, a new illusion waits. Around every corner, a member of the circus waiting to dispatch you. Blindly you stumble through a fog of light and sound, whirling ever faster.\n\"Destiny, was it?\" You turn to see Blake striding toward you, his form little but a growing shadow in the spectacle. \"Like the priestess of Diana and the fortune teller foresaw, we met, and indeed we clashed. But neither said anything about you leaving alive.\"",
+      "steps": [
+        "could_not_escape_the_circus",
+        "all_killed",
+        "lose_campaign"
+      ]
+    },
+    {
+      "id": "R2",
+      "hidden": true,
+      "title": "Resolution 2",
+      "text": "This was a trap to begin with, and there is no shame in escaping it alive. You leap through the circus gates, returning once again to the lazy Sunday afternoon in Los Angeles. Only a stray dog and a half-awake vagrant bear witness to your escape from that illusory hell, and perhaps it's better that way. Inciting a panic would only grant the circus a better smokescreen to escape. You're already hard pressed to determine where their ritual will take place, and you can't waste any time in finding it.",
+      "steps": [
+        "clashed_with_blake",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R3",
+      "hidden": true,
+      "title": "Resolution 3",
+      "text": "You flee the circus for your life, making for the revealed exit ahead of the monster that Blake has become. You may have imagined something horrible at work from a worshipper of Shub-Niggurath, but for Blake himself to be an incarnation of the Black Goat is deeply disturbing. The revelation also lends some clarity to Blake's fervent belief in the prophecies of old. In one form or another, he – or it, rather – may have been present for those events.\nThe instant you pass through the revealed entrance, the spectacle ceases and the calm ambiance of the Los Angeles afternoon greets you. You wait tensely, still ready to fight or flee, but the circus grounds lie silent. Even in this form, Blake may not want to risk revealing anything that would betray the coming ritual – the very thing that you must discover before tomorrow.",
+      "steps": [
+        "unmasked_blake",
+        "earn_1_bonus_xp_truth_about_ringmaster",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Resolution 4",
+      "text": "The Black Goat screams and writhes, its form disrupted and shifting in a slurry of animal features. As the thing roils, the illusions surrounding the circus blur and dissolve, like smoke in a strong wind. The face of the goat shifts briefly to a crude visage of Blake once more before one final screech bellows out, and its form is suddenly gone.\nStripped away from the circus grounds, the vanishing illusions reveal ripped tents, cracked lights, and an air of decay lingering in the aftermath. No trace of the other performers or savage monsters remain, leaving you alone to ponder the end of the ringmaster.\nThe revelation that Sylvester Blake was an incarnation of the Black Goat is unsettling to say the least, but explains just why he – or it, rather – believed so fervently in prophecies and visions. As an extension of Shub-Niggurath, it has existed for millennia, likely even guided the ancient cult that Apuleius helped to destroy. The cosmic events surrounding this ritual factored into everything that Blake did with the circus. And even without Blake, the ritual will continue... but where?",
+      "steps": [
+        "struck_down_blake",
+        "resolution_5"
+      ]
+    },
+    {
+      "id": "R5",
+      "hidden": true,
+      "title": "Resolution 5",
+      "text": "Exhausted from escaping the circus trap, you trudge back to the hotel, weighed down as much mentally as physically. You have less than a day before the eclipse, and no leads to where it could take place. There is one hope, however. With Blake running the circus across the country and fattening the monsters as he traveled, he couldn't be organizing the ritual here in California directly. There simply wouldn't be time enough for everything. A branch of the cult of Shub-Niggurath must have been long established here in Los Angeles, preparing for the eclipse.\nYou settle into your room to ponder the problem, weighing time and risk in frustrating repetition. Not long into your meditations, Thea sits up with a quizzical expression and carries the book over to you. \"Remember how the cult in ancient Rome disguised itself as one of Bacchus? What if they're using the same tactic now, hiding in plain sight as another organization like it?\"",
+      "steps": [
+        "earn_xp",
+        "check_big_tops_revealed",
+        "add_elder_thing_token",
+        "$upgrade_decks"
+      ]
+    }
+  ]
+}
